@@ -18,3 +18,5 @@ parameters:
     ignoreErrors:
         - '#Method .*::validate\(\) has parameter \$value with no typehint specified.#'
         - '#Construct empty\(\) is not allowed. Use more strict comparison.#'
+        - '#Call to an undefined method SyliusMolliePlugin\\Entity\\MollieGatewayConfig::initializeTranslationsCollection\(\).#'
+        - '#Call to an undefined method SyliusMolliePlugin\\Entity\\MollieGatewayConfig::doGetTranslation\(\).#'
