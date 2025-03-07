@@ -35,7 +35,7 @@ final class PaymentLinkEmailSender implements PaymentLinkEmailSenderInterface
         /** @var PaymentInterface|null $payment */
         $payment = $order->getPayments()->last();
 
-        if (false === $payment || 0 === count($payment->getDetails())) {
+        if (null === $payment || 0 === count($payment->getDetails())) {
             return;
         }
 

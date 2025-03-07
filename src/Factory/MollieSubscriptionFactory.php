@@ -58,8 +58,9 @@ final class MollieSubscriptionFactory implements MollieSubscriptionFactoryInterf
         array $paymentConfiguration = [],
         string $mandateId = null
     ): MollieSubscriptionInterface {
+        /** @var ProductVariantInterface|null $variant */
         $variant = $orderItem->getVariant();
-        if (!$variant) {
+        if (null === $variant) {
             throw new \InvalidArgumentException(
                 sprintf('Variant should be instance of "%s::class".', ProductVariantInterface::class)
             );

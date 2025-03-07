@@ -134,7 +134,7 @@ final class ConvertOrder implements ConvertOrderInterface
             'email' => $customer->getEmail()
         ];
 
-        if ($methodId === PaymentMethod::BANCOMATPAY && $billingAddress->getPhoneNumber()) {
+        if ($methodId === PaymentMethod::BANCOMATPAY && null !== $billingAddress->getPhoneNumber()) {
             $address['phone'] = $billingAddress->getPhoneNumber();
         }
 

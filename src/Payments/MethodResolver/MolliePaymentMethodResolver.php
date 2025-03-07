@@ -106,10 +106,10 @@ final class MolliePaymentMethodResolver implements PaymentMethodsResolverInterfa
                 ->andWhere('channel_id = :channelId')
                 ->setParameter('methodId', $methodId)
                 ->setParameter('channelId', $channelId)
-                ->execute()
+                ->executeQuery()
                 ->fetchOne();
 
-            if ($isAssociated) {
+            if (null !== $isAssociated) {
                 $filteredMethods[] = $method;
             }
         }

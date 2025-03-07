@@ -10,11 +10,8 @@ use Mollie\Api\MollieApiClient as BaseMollieApiClient;
 
 class MollieApiClient extends BaseMollieApiClient
 {
-    /** @var array */
-    protected $config = [];
-
-    /** @var bool */
-    protected $isRecurringSubscription = false;
+    protected array $config = [];
+    protected bool $isRecurringSubscription = false;
 
     public function getVersion(): string
     {
@@ -46,7 +43,7 @@ class MollieApiClient extends BaseMollieApiClient
         return $this->isRecurringSubscription;
     }
 
-    public function getApiKey()
+    public function getApiKey(): string
     {
         return $this->apiKey;
     }

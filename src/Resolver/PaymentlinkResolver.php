@@ -22,33 +22,13 @@ use Webmozart\Assert\Assert;
 
 final class PaymentlinkResolver implements PaymentlinkResolverInterface
 {
-    /** @var MollieApiClient */
-    private $mollieApiClient;
-
-    /** @var IntToStringConverterInterface */
-    private $intToStringConverter;
-
-    /** @var RepositoryInterface */
-    private $orderRepository;
-
-    /** @var PaymentLinkEmailPreparerInterface */
-    private $emailPreparer;
-
-    /** @var PaymentTokenProviderInterface */
-    private $paymentTokenProvider;
-
     public function __construct(
-        MollieApiClient $mollieApiClient,
-        IntToStringConverterInterface $intToStringConverter,
-        RepositoryInterface $orderRepository,
-        PaymentLinkEmailPreparerInterface $emailPreparer,
-        PaymentTokenProviderInterface $paymentTokenProvider
+        private MollieApiClient $mollieApiClient,
+        private IntToStringConverterInterface $intToStringConverter,
+        private RepositoryInterface $orderRepository,
+        private PaymentLinkEmailPreparerInterface $emailPreparer,
+        private PaymentTokenProviderInterface $paymentTokenProvider
     ) {
-        $this->mollieApiClient = $mollieApiClient;
-        $this->intToStringConverter = $intToStringConverter;
-        $this->orderRepository = $orderRepository;
-        $this->emailPreparer = $emailPreparer;
-        $this->paymentTokenProvider = $paymentTokenProvider;
     }
 
     public function resolve(
