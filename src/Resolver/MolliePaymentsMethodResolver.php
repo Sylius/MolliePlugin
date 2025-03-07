@@ -26,53 +26,17 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
     private const MAXIMUM_FIELD = 'maximumAmount';
     private const FIELD_VALUE = 'value';
 
-    /** @var MollieGatewayConfigRepositoryInterface */
-    private $mollieGatewayRepository;
-
-    /** @var MollieCountriesRestrictionResolverInterface */
-    private $countriesRestrictionResolver;
-
-    /** @var ProductVoucherTypeCheckerInterface */
-    private $productVoucherTypeChecker;
-
-    /** @var PaymentCheckoutOrderResolverInterface */
-    private $paymentCheckoutOrderResolver;
-
-    /** @var PaymentMethodRepositoryInterface */
-    private $paymentMethodRepository;
-
-    /** @var MollieAllowedMethodsResolverInterface */
-    private $allowedMethodsResolver;
-
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    /** @var MollieFactoryNameResolverInterface */
-    private $mollieFactoryNameResolver;
-
-    /** @var DivisorProviderInterface */
-    private $divisorProvider;
-
     public function __construct(
-        MollieGatewayConfigRepository $mollieGatewayRepository,
-        MollieCountriesRestrictionResolverInterface $countriesRestrictionResolver,
-        ProductVoucherTypeCheckerInterface $productVoucherTypeChecker,
-        PaymentCheckoutOrderResolverInterface $paymentCheckoutOrderResolver,
-        PaymentMethodRepositoryInterface $paymentMethodRepository,
-        MollieAllowedMethodsResolverInterface $allowedMethodsResolver,
-        MollieLoggerActionInterface $loggerAction,
-        MollieFactoryNameResolverInterface $mollieFactoryNameResolver,
-        DivisorProviderInterface $divisorProvider
+        private MollieGatewayConfigRepository $mollieGatewayRepository,
+        private MollieCountriesRestrictionResolverInterface $countriesRestrictionResolver,
+        private ProductVoucherTypeCheckerInterface $productVoucherTypeChecker,
+        private PaymentCheckoutOrderResolverInterface $paymentCheckoutOrderResolver,
+        private PaymentMethodRepositoryInterface $paymentMethodRepository,
+        private MollieAllowedMethodsResolverInterface $allowedMethodsResolver,
+        private MollieLoggerActionInterface $loggerAction,
+        private MollieFactoryNameResolverInterface $mollieFactoryNameResolver,
+        private DivisorProviderInterface $divisorProvider
     ) {
-        $this->mollieGatewayRepository = $mollieGatewayRepository;
-        $this->countriesRestrictionResolver = $countriesRestrictionResolver;
-        $this->productVoucherTypeChecker = $productVoucherTypeChecker;
-        $this->paymentCheckoutOrderResolver = $paymentCheckoutOrderResolver;
-        $this->paymentMethodRepository = $paymentMethodRepository;
-        $this->allowedMethodsResolver = $allowedMethodsResolver;
-        $this->loggerAction = $loggerAction;
-        $this->mollieFactoryNameResolver = $mollieFactoryNameResolver;
-        $this->divisorProvider = $divisorProvider;
     }
 
     public function resolve(): array
@@ -161,7 +125,7 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
             if (!empty($allowedMethod[0]) && in_array($allowedMethod[0]->getMethodId(), $allowedMethodsIds, true)) {
 
                 $minAmountLimit = $allowedMethod[self::MINIMUM_FIELD];
-                if ($minAmountLimit === null && $allowedMethod !== null && $allowedMethod[0]->getMinimumAmount()) {
+                if ($minAmountLimit === null && $allowedMethod[0]->getMinimumAmount()) {
                     $minAmountLimit = $allowedMethod[0]->getMinimumAmount()[self::FIELD_VALUE];
                 }
 
@@ -170,7 +134,7 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
                 }
 
                 $maxAmountLimit = $allowedMethod[self::MAXIMUM_FIELD];
-                if ($maxAmountLimit === null && $allowedMethod !== null && $allowedMethod[0]->getMaximumAmount()) {
+                if ($maxAmountLimit === null && $allowedMethod[0]->getMaximumAmount()) {
                     $maxAmountLimit = $allowedMethod[0]->getMaximumAmount()[self::FIELD_VALUE];
                 }
 

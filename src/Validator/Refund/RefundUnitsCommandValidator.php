@@ -45,8 +45,8 @@ final class RefundUnitsCommandValidator implements RefundUnitsCommandValidatorIn
             throw new OrderNotAvailableForRefunding(sprintf('There are no units to refund in order %s', $command->orderNumber()));
         }
 
-        $this->refundAmountValidator->validateUnits($command->units(), RefundType::orderItemUnit());
-        $this->refundAmountValidator->validateUnits($command->shipments(), RefundType::shipment());
+        $this->refundAmountValidator->validateUnits($command->units());
+        $this->refundAmountValidator->validateUnits($command->shipments());
 
         if (true === $this->duplicateRefundTheSameAmountChecker->check($command)) {
             throw new InvalidRefundAmount('A duplicate refund has been detected');

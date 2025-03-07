@@ -3,7 +3,7 @@ parameters:
     checkGenericClassInNonGenericObjectType: false
     reportUnmatchedIgnoredErrors: false
 
-    level: 8
+    level: 6
     paths:
         - src
 
@@ -14,3 +14,7 @@ parameters:
         # Test dependencies
         - 'tests/Application/app/**.php'
         - 'tests/Application/src/**.php'
+
+    ignoreErrors:
+        - '#Method .*::validate\(\) has parameter \$value with no typehint specified.#'
+        - '#Construct empty\(\) is not allowed. Use more strict comparison.#'

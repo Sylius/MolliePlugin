@@ -9,6 +9,7 @@ use SyliusMolliePlugin\Client\MollieApiClient;
 use SyliusMolliePlugin\DTO\MolliePayment\Amount;
 use SyliusMolliePlugin\DTO\MolliePayment\Metadata;
 use SyliusMolliePlugin\DTO\MolliePayment\MolliePayment;
+use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
 use SyliusMolliePlugin\Entity\OrderInterface;
 use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
 use SyliusMolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
@@ -78,6 +79,7 @@ final class QrCodeAction
      */
     public function createPayment(Request $request): Response
     {
+        /** @var MollieGatewayConfigInterface $method */
         $method = $this->methodRepository->findOneBy(['methodId' => $request->get('paymentMethod')]);
         $qrCodeEnabled = $method->isQrCodeEnabled();
 
@@ -117,11 +119,12 @@ final class QrCodeAction
         $qrCode = null;
         $orderId = $request->get('orderId');
 
-        if ($orderId) {
+        if (null !== $orderId) {
+            /** @var OrderInterface|null $order */
             $order = $this->orderRepository->findOneBy(['id' => $orderId]);
         }
 
-        if ($order) {
+        if (null !== $order) {
             $qrCode = $order->getQrCode();
         }
 
@@ -140,7 +143,8 @@ final class QrCodeAction
         /** @var OrderInterface $order */
         $order = $this->cartContext->getCart();
         $orderToken = $request->get('orderToken');
-        if ($orderToken) {
+        if (null !== $orderToken) {
+            /** @var OrderInterface|null $order */
             $order = $this->orderRepository->findOneByTokenValue($orderToken);
         }
         $this->setQrCodeOnOrder($order, null, $shouldDeletePaymentId);
@@ -164,7 +168,7 @@ final class QrCodeAction
             }
             $this->orderRepository->add($order);
         } catch (\Exception $exception) {
-            $this->loggerAction->addNegativeLog(sprintf('Could not update qr code url on order: %s', $e->getMessage()));
+            $this->loggerAction->addNegativeLog(sprintf('Could not update qr code url on order: %s', $exception->getMessage()));
         }
     }
 
@@ -180,7 +184,7 @@ final class QrCodeAction
             $order->setMolliePaymentId($molliePaymentId);
             $this->orderRepository->add($order);
         } catch (\Exception $exception) {
-            $this->loggerAction->addNegativeLog(sprintf('Could not update mollie payment id on order: %s', $e->getMessage()));
+            $this->loggerAction->addNegativeLog(sprintf('Could not update mollie payment id on order: %s', $exception->getMessage()));
         }
     }
 
