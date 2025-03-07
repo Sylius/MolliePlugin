@@ -1,6 +1,7 @@
-#name: Build and publish
-#
-#on:
+name: Build and publish
+
+on:
+    workflow_dispatch: ~
 #    push:
 #        branches:
 #            - '**'
@@ -14,16 +15,13 @@
 #    schedule:
 #        -   cron: "0 1 * * 6" # Run at 1am every Saturday
 #
-#jobs:
-#    build_and_publish:
-#        # The type of runner that the job will run on
-#        runs-on: ubuntu-latest
-#
-#        # Steps represent a sequence of tasks that will be executed as part of the job
-#        steps:
-#            # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-#            -   uses: actions/checkout@v2
-#
+jobs:
+    build_and_publish:
+        runs-on: ubuntu-latest
+
+        steps:
+            -   uses: actions/checkout@v4
+
 #            -   name: Declare GIT variables
 #                id: vars
 #                shell: bash
