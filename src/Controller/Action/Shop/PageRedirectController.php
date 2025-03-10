@@ -5,7 +5,6 @@ namespace SyliusMolliePlugin\Controller\Action\Shop;
 use Sylius\Component\Core\Model\OrderInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Sylius\Component\Order\Repository\OrderRepositoryInterface;

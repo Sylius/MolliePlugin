@@ -13,7 +13,6 @@ use SyliusMolliePlugin\Entity\OrderInterface as MollieOrderInterface;
 use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
 use SyliusMolliePlugin\Repository\MollieGatewayConfigRepository;
 use SyliusMolliePlugin\Provider\Divisor\DivisorProviderInterface;
-use SyliusMolliePlugin\Repository\MollieGatewayConfigRepositoryInterface;
 use SyliusMolliePlugin\Repository\PaymentMethodRepositoryInterface;
 use SyliusMolliePlugin\Resolver\Order\PaymentCheckoutOrderResolverInterface;
 use Mollie\Api\Exceptions\ApiException;
