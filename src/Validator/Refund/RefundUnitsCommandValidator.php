@@ -45,8 +45,19 @@ final class RefundUnitsCommandValidator implements RefundUnitsCommandValidatorIn
             throw new OrderNotAvailableForRefunding(sprintf('There are no units to refund in order %s', $command->orderNumber()));
         }
 
-        $this->refundAmountValidator->validateUnits($command->units());
-        $this->refundAmountValidator->validateUnits($command->shipments());
+        $reflection = new \ReflectionMethod($this->refundAmountValidator, 'validateUnits');
+        $paramCount = $reflection->getNumberOfParameters();
+
+        if ($paramCount === 2) {
+            $this->refundAmountValidator->validateUnits($command->units(), RefundType::orderItemUnit());
+            $this->refundAmountValidator->validateUnits($command->shipments(), RefundType::shipment());
+        } else {
+            $this->refundAmountValidator->validateUnits($command->units());
+            $this->refundAmountValidator->validateUnits($command->shipments());
+        }
+
+
+
 
         if (true === $this->duplicateRefundTheSameAmountChecker->check($command)) {
             throw new InvalidRefundAmount('A duplicate refund has been detected');
