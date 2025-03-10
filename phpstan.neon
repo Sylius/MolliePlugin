@@ -3,6 +3,10 @@ parameters:
     checkGenericClassInNonGenericObjectType: false
     reportUnmatchedIgnoredErrors: false
 
+    level: 6
+    paths:
+        - src
+
     excludes_analyse:
         # Makes PHPStan crash
         - 'src/DependencyInjection/Configuration.php'
@@ -10,3 +14,11 @@ parameters:
         # Test dependencies
         - 'tests/Application/app/**.php'
         - 'tests/Application/src/**.php'
+
+    ignoreErrors:
+        - '#Method .*::validate\(\) has parameter \$value with no typehint specified.#'
+        - '#Construct empty\(\) is not allowed. Use more strict comparison.#'
+        - '#Call to an undefined method SyliusMolliePlugin\\Entity\\MollieGatewayConfig::initializeTranslationsCollection\(\).#'
+        - '#Call to an undefined method SyliusMolliePlugin\\Entity\\MollieGatewayConfig::doGetTranslation\(\).#'
+        - '#Call to function method_exists\(\) with Doctrine\\DBAL\\Query\\QueryBuilder and .+ will always evaluate to true.#'
+        - '#Method Sylius\\RefundPlugin\\Validator\\RefundAmountValidatorInterface::validateUnits\(\) invoked with \d+ parameter[s]?, \d+ required.#'

@@ -9,12 +9,8 @@ use SyliusMolliePlugin\Provider\Divisor\DivisorProviderInterface;
 
 final class IntToStringConverter implements IntToStringConverterInterface
 {
-    /** @var DivisorProviderInterface */
-    private $divisorProvider;
-
-    public function __construct(DivisorProviderInterface $divisorProvider)
+    public function __construct(private DivisorProviderInterface $divisorProvider)
     {
-        $this->divisorProvider = $divisorProvider;
     }
 
     public function convertIntToString(int $value, ?int $divisor = null): string

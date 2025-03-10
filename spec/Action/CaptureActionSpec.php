@@ -11,7 +11,6 @@ use SyliusMolliePlugin\Payments\PaymentTerms\Options;
 use SyliusMolliePlugin\Request\Api\CreateCustomer;
 use SyliusMolliePlugin\Request\Api\CreateInternalRecurring;
 use SyliusMolliePlugin\Request\Api\CreateOnDemandSubscription;
-use SyliusMolliePlugin\Request\Api\CreateOnDemandSubscriptionPayment;
 use SyliusMolliePlugin\Request\Api\CreateOrder;
 use SyliusMolliePlugin\Request\Api\CreatePayment;
 use SyliusMolliePlugin\Request\Api\CreateSubscriptionPayment;

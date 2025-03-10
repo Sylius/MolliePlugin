@@ -3,7 +3,6 @@
 namespace SyliusMolliePlugin\Validator\Constraints;
 
 use Doctrine\ORM\PersistentCollection;
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Webmozart\Assert\Assert;
@@ -17,13 +16,14 @@ final class MollieGatewayConfigValidator extends ConstraintValidator
 
     public function validate($value, Constraint $constraint): void
     {
+        Assert::isInstanceOf($constraint, MollieGatewayConfigValidatorType::class);
+
         if ($value instanceof PersistentCollection) {
             $this->validateAmounts($value, $constraint);
         }
-
-        Assert::isInstanceOf($constraint, MollieGatewayConfigValidatorType::class);
     }
 
+    /** @param MollieGatewayConfigValidatorType $constraint */
     private function validateAmounts(PersistentCollection $collection, Constraint $constraint): void
     {
         $mollieGatewayConfigs = $collection->getSnapshot();

@@ -15,3 +15,7 @@
 /tests/Application/yarn.lock
 
 /public
+/.phpunit.result.cache
+/behat.yml
+/phpspec.yml
+/phpunit.xml

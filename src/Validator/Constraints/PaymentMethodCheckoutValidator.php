@@ -12,6 +12,8 @@ use Payum\Core\Model\GatewayConfigInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -43,7 +45,7 @@ final class PaymentMethodCheckoutValidator extends ConstraintValidator
         /** @var PaymentInterface|null $payment */
         $payment = $order->getPayments()->last();
 
-        if (null === $payment || false === $payment) {
+        if (null === $payment) {
             return;
         }
 
@@ -65,8 +67,10 @@ final class PaymentMethodCheckoutValidator extends ConstraintValidator
         }
 
         $customer = $order->getCustomer();
-        $email = ($customer && $customer->getEmail()) ? $customer->getEmail() :
-            (($order->getUser() && $order->getUser()->getEmail()) ? $order->getUser()->getEmail() : null);
+        $customerEmail = $customer?->getEmail();
+        $orderEmail = $order->getUser() !== null ? $order->getUser()->getEmail() : null;
+
+        $email = $customerEmail ?? $orderEmail;
 
         if (($value === PaymentMethod::TRUSTLY || $value === PaymentMethod::ALMA) &&
             (
@@ -86,7 +90,9 @@ final class PaymentMethodCheckoutValidator extends ConstraintValidator
      */
     private function flashMessage(Constraint $constraint, string $type, string $messageKey)
     {
-        $this->requestStack->getSession()->getFlashBag()->add($type, $messageKey);
+        /** @var Session $session */
+        $session = $this->requestStack->getSession();
+        $session->getFlashBag()->add($type, $messageKey);
         if (!property_exists($constraint, 'message')) {
             throw new \InvalidArgumentException();
         }
