@@ -33,7 +33,6 @@ use Sylius\Component\Core\Model\PaymentInterface;
 
 final class CaptureActionSpec extends ObjectBehavior
 {
-
     function it_is_initializable(): void
     {
         $this->shouldHaveType(CaptureAction::class);
