@@ -48,10 +48,10 @@ final class OrderPaymentRefund implements OrderPaymentRefundInterface
         /** @var OrderInterface $order */
         $order = $this->orderRepository->findOneBy(['number' => $units->orderNumber()]);
 
-        /** @var PaymentInterface|null $payment */
+        /** @var PaymentInterface|null|false $payment */
         $payment = $order->getPayments()->last();
-        if (null === $payment) {
-            $this->loggerAction->addNegativeLog(sprintf('Not fount payment in refund'));
+        if (!$payment instanceof PaymentInterface) {
+            $this->loggerAction->addNegativeLog(sprintf('No payment in refund'));
 
             throw new NotFoundHttpException();
         }

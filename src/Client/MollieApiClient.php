@@ -11,6 +11,7 @@ use Mollie\Api\MollieApiClient as BaseMollieApiClient;
 class MollieApiClient extends BaseMollieApiClient
 {
     protected array $config = [];
+
     protected bool $isRecurringSubscription = false;
 
     public function getVersion(): string
