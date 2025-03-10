@@ -121,7 +121,7 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
 
         /** @var MollieGatewayConfig $allowedMethod */
         foreach ($paymentConfigs as $allowedMethod) {
-            if (!empty($allowedMethod[0]) && in_array($allowedMethod[0]->getMethodId(), $allowedMethodsIds, true)) {
+            if (isset($allowedMethod[0]) && !empty($allowedMethod[0]) && in_array($allowedMethod[0]->getMethodId(), $allowedMethodsIds, true)) {
 
                 $minAmountLimit = $allowedMethod[self::MINIMUM_FIELD];
                 if ($minAmountLimit === null && $allowedMethod[0]->getMinimumAmount()) {

@@ -2,7 +2,6 @@
 
 namespace SyliusMolliePlugin\Twig\Extension;
 
-
 use Sylius\Component\Customer\Context\CustomerContextInterface;
 use Sylius\Component\Customer\Model\CustomerInterface;
 use SyliusMolliePlugin\Client\MollieApiClient;
@@ -41,6 +40,6 @@ class CustomerCreditCards extends AbstractExtension
 
     public function getCustomerFromContext(): ?CustomerInterface
     {
-        return  $this->customerContext->getCustomer();
+        return $this->customerContext->getCustomer();
     }
 }

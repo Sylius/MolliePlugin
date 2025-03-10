@@ -24,7 +24,7 @@ final class MollieGatewayConfigValidator extends ConstraintValidator
     }
 
     /** @param MollieGatewayConfigValidatorType $constraint */
-    private function validateAmounts(PersistentCollection $collection, Constraint $constraint): void
+    private function validateAmounts(PersistentCollection $collection, MollieGatewayConfigValidatorType $constraint): void
     {
         $mollieGatewayConfigs = $collection->getSnapshot();
         foreach ($mollieGatewayConfigs as $key => $mollieGatewayConfig) {

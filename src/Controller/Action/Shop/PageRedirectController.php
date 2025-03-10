@@ -31,7 +31,7 @@ class PageRedirectController
         $payment = $order->getLastPayment();
         $orderToken = $order->getTokenValue();
 
-        if (null !== $payment && $payment->getState() === self::ORDER_COMPLETED_STATE) {
+        if ($payment?->getState() === self::ORDER_COMPLETED_STATE) {
             return new RedirectResponse($thankYouPageUrl);
         }
         $cartSummaryUrl = $this->router->generate('sylius_shop_order_show', ['tokenValue' => $orderToken]);
