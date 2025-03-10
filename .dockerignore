@@ -1,0 +1,30 @@
+# Ignore unnecessary system files
+*.DS_Store
+*.log
+*.swp
+*.swo
+*.lock
+
+# Ignore dependency directories (installed inside the container)
+node_modules
+vendor
+tests/Application/vendor
+tests/Application/node_modules
+
+# Ignore local IDE and editor files
+.idea
+.vscode
+*.iml
+
+# Ignore local runtime and cache files
+tests/Application/var/*
+
+# Ignore build artifacts
+.github
+etc/
+doc/
+phpunit.xml
+phpunit.xml.dist
+
+# 🚀 Ignore `composer.lock` to allow fresh dependency installs in Docker
+composer.lock
