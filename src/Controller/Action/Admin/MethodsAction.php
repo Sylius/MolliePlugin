@@ -50,8 +50,8 @@ final class MethodsAction
 
     public function __invoke(int $id, Request $request): Response
     {
-            /** @var Session $session */
-            $session = $this->requestStack->getSession();
+        /** @var Session $session */
+        $session = $this->requestStack->getSession();
 
         try {
             /** @var GatewayConfigInterface $gateway */

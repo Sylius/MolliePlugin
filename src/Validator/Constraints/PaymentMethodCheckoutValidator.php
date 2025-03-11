@@ -13,7 +13,6 @@ use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -42,10 +41,10 @@ final class PaymentMethodCheckoutValidator extends ConstraintValidator
     {
         $order = $this->paymentCheckoutOrderResolver->resolve();
 
-        /** @var PaymentInterface|null $payment */
+        /** @var PaymentInterface|null|false $payment */
         $payment = $order->getPayments()->last();
 
-        if (null === $payment) {
+        if (!$payment instanceof PaymentInterface) {
             return;
         }
 

@@ -2,7 +2,6 @@
 
 namespace SyliusMolliePlugin\Payments\Methods;
 
-use Mollie\Api\Types\PaymentMethod;
 
 class Trustly extends AbstractMethod
 {

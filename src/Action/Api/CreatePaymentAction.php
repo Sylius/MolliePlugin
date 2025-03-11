@@ -9,7 +9,6 @@ use Mollie\Api\Types\PaymentMethod;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
 use SyliusMolliePlugin\Parser\Response\GuzzleNegativeResponseParserInterface;
-use SyliusMolliePlugin\Repository\CustomerRepository;
 use SyliusMolliePlugin\Request\Api\CreatePayment;
 use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Resources\Payment;

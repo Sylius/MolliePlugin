@@ -13,7 +13,6 @@ use SyliusMolliePlugin\Entity\OrderInterface as MollieOrderInterface;
 use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
 use SyliusMolliePlugin\Repository\MollieGatewayConfigRepository;
 use SyliusMolliePlugin\Provider\Divisor\DivisorProviderInterface;
-use SyliusMolliePlugin\Repository\MollieGatewayConfigRepositoryInterface;
 use SyliusMolliePlugin\Repository\PaymentMethodRepositoryInterface;
 use SyliusMolliePlugin\Resolver\Order\PaymentCheckoutOrderResolverInterface;
 use Mollie\Api\Exceptions\ApiException;
@@ -122,7 +121,7 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
 
         /** @var MollieGatewayConfig $allowedMethod */
         foreach ($paymentConfigs as $allowedMethod) {
-            if (!empty($allowedMethod[0]) && in_array($allowedMethod[0]->getMethodId(), $allowedMethodsIds, true)) {
+            if (isset($allowedMethod[0]) && !empty($allowedMethod[0]) && in_array($allowedMethod[0]->getMethodId(), $allowedMethodsIds, true)) {
 
                 $minAmountLimit = $allowedMethod[self::MINIMUM_FIELD];
                 if ($minAmountLimit === null && $allowedMethod[0]->getMinimumAmount()) {

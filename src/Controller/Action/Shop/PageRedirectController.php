@@ -5,7 +5,6 @@ namespace SyliusMolliePlugin\Controller\Action\Shop;
 use Sylius\Component\Core\Model\OrderInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Sylius\Component\Order\Repository\OrderRepositoryInterface;
@@ -32,7 +31,7 @@ class PageRedirectController
         $payment = $order->getLastPayment();
         $orderToken = $order->getTokenValue();
 
-        if (null !== $payment && $payment->getState() === self::ORDER_COMPLETED_STATE) {
+        if ($payment?->getState() === self::ORDER_COMPLETED_STATE) {
             return new RedirectResponse($thankYouPageUrl);
         }
         $cartSummaryUrl = $this->router->generate('sylius_shop_order_show', ['tokenValue' => $orderToken]);

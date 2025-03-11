@@ -12,7 +12,6 @@ use SyliusMolliePlugin\Payments\Methods\MealVoucher;
 use SyliusMolliePlugin\Repository\MollieGatewayConfigRepository;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Webmozart\Assert\Assert;
 
 final class ProductVoucherTypeChecker implements ProductVoucherTypeCheckerInterface

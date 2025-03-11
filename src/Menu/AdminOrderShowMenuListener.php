@@ -25,10 +25,10 @@ final class AdminOrderShowMenuListener
         $menu = $event->getMenu();
         $order = $event->getOrder();
 
-        /** @var ?PaymentInterface $payment */
+        /** @var PaymentInterface|null|false $payment */
         $payment = $order->getPayments()->last();
 
-        if (null === $payment) {
+        if (!$payment instanceof PaymentInterface) {
             return;
         }
 
