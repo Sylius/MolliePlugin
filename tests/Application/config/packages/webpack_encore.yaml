@@ -1,5 +1,7 @@
 webpack_encore:
     output_path: '%kernel.project_dir%/public/build/default'
     builds:
-        mollie-admin: '%kernel.project_dir%/public/build/mollie-admin'
-        mollie-shop: '%kernel.project_dir%/public/build/mollie-shop'
+        shop: '%kernel.project_dir%/public/build/shop'
+        admin: '%kernel.project_dir%/public/build/admin'
+        mollie_shop: '%kernel.project_dir%/public/build/mollie/shop'
+        mollie_admin: '%kernel.project_dir%/public/build/mollie/admin'
