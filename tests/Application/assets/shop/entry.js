@@ -1,1 +1,1 @@
-import 'sylius/bundle/ShopBundle/Resources/private/entry.js';
+import '../../../../src/Resources/assets/shop/entry';
