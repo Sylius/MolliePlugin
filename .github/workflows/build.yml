@@ -106,8 +106,9 @@ jobs:
                     key: ${{ runner.os }}-node-${{ matrix.node }}-yarn-${{ hashFiles('**/package.json **/yarn.lock') }}
                     restore-keys: |
                         ${{ runner.os }}-node-${{ matrix.node }}-yarn-
+
             -   name: Install JS dependencies
-                run: (cd tests/Application && yarn install)
+                run: (cd tests/Application && yarn install && yarn encore dev)
 
             -   name: Prepare test application database
                 run: |
