@@ -18,15 +18,13 @@ jobs:
             matrix:
                 php: [ 8.1 ]
                 symfony: [ ^5.4 ]
-                sylius: [ ~1.10.0, ~1.11.0, ~1.12.0, ~1.13.0 ]
+                sylius: [ ~1.11.0, ~1.12.0, ~1.13.0 ]
                 node: [ 14.x ]
                 mysql: [ 8.4 ]
 
         env:
             APP_ENV: test
             DATABASE_URL: "mysql://root:root@127.0.0.1/sylius?serverVersion=${{ matrix.mysql }}"
-            MOLLIE_TEST_API_KEY: "${{ secrets.MOLLIE_TEST_API_KEY }}"
-            MOLLIE_PROFILE_KEY: "${{ secrets.MOLLIE_PROFILE_KEY }}"
 
         steps:
             -   uses: actions/checkout@v4
@@ -134,26 +132,33 @@ jobs:
 
 #            -   name: Run PHPSpec
 #                run: vendor/bin/phpspec run --ansi -f progress --no-interaction
-#
-#            -   name: Install Mockoon CLI
-#                run: npm install -g @mockoon/cli
-#
-#            -   name: Run Mockoon for Behat
-#                run: mockoon-cli start --data tests/Behat/Mollie_Behat.json
-#
-#            -   name: Run Behat
-#                run: vendor/bin/behat --colors --strict -vvv --no-interaction  -f progress || vendor/bin/behat --colors --strict -vvv --no-interaction --rerun
-#
-#            -   name: Upload Behat logs
-#                uses: actions/upload-artifact@v4
-#                if: failure()
-#                with:
-#                    name: Behat logs
-#                    path: etc/build/
-#                    if-no-files-found: ignore
-#
-#            -   name: Stop Mockoon for Behat
-#                run: mockoon-cli stop mockoon-mollie-behat
+            
+            -   name: Switch to Node 18 for Mockoon
+                uses: actions/setup-node@v4
+                with:
+                    node-version: "18"
+            
+            -   name: Run Mockoon CLI
+                uses: mockoon/cli-action@v2
+                with:
+                    version: "latest"
+                    data-file: "./tests/Behat/Mollie_Behat.json"
+                    port: 8218
+            
+            -   name: Run Behat
+                run: |
+                    vendor/bin/behat --colors --strict -vvv --no-interaction features/admin/create_scheduled_mollie_subscription.feature || vendor/bin/behat --colors --strict -vvv --no-interaction --rerun features/admin/create_scheduled_mollie_subscription.feature
+                    vendor/bin/behat --colors --strict -vvv --no-interaction features/shop/cancelling_mollie_subscription.feature || vendor/bin/behat --colors --strict -vvv --no-interaction --rerun features/shop/cancelling_mollie_subscription.feature
+                    vendor/bin/behat --colors --strict -vvv --no-interaction features/admin/creating_recurring_subscription_through_admin.feature || vendor/bin/behat --colors --strict -vvv --no-interaction --rerun features/admin/creating_recurring_subscription_through_admin.feature
+                    
+            -   name: Upload Behat logs
+                uses: actions/upload-artifact@v4
+                if: failure()
+                with:
+                    name: Behat logs
+                    path: etc/build/
+                    if-no-files-found: ignore
+
 #
 #            -   name: Run Mockoon for PHPUnit
 #                run: mockoon-cli start --data tests/PHPUnit/Functional/Mockoon.json
