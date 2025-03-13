@@ -9,7 +9,7 @@
         "symfony/messenger": "^5.2 || ^6.0",
         "mollie/mollie-api-php": "^v2.73.0",
         "sylius/refund-plugin": "^1.0",
-        "sylius/admin-order-creation-plugin":  "^0.13 || v0.14 || v0.15.0",
+        "sylius/admin-order-creation-plugin":  "v0.14 || v0.15.0",
         "ext-json": "*",
         "willdurand/js-translation-bundle": "^4.0 || ^5.0",
         "league/flysystem-bundle": "^2.4",
