@@ -142,14 +142,22 @@ jobs:
                 uses: mockoon/cli-action@v2
                 with:
                     version: "latest"
-                    data-file: "./tests/Behat/Mollie_Behat.json"
-                    port: 8218
+                    data-file: tests/PHPUnit/Functional/Mockoon.json
+                    port: 8217
+
+            -   name: Run Functional PHPUnit Tests
+                run: vendor/bin/phpunit --colors=always --testsuite=functional
+
+            -   name: Run Mockoon for Behat
+                shell: bash
+                run: |
+                    npx mockoon-cli start --port=8218 --data tests/Behat/Mollie_Behat.json &
 
             -   name: Run Behat
                 run: |
                     vendor/bin/behat --colors --strict -vvv --no-interaction features/admin/create_scheduled_mollie_subscription.feature || vendor/bin/behat --colors --strict -vvv --no-interaction --rerun features/admin/create_scheduled_mollie_subscription.feature
                     vendor/bin/behat --colors --strict -vvv --no-interaction features/admin/creating_recurring_subscription_through_admin.feature || vendor/bin/behat --colors --strict -vvv --no-interaction --rerun features/admin/creating_recurring_subscription_through_admin.feature
-                    vendor/bin/behat --colors --strict -vvv --no-interaction features/shop || vendor/bin/behat --colors --strict -vvv --no-interaction --rerun features/shop            
+                    vendor/bin/behat --colors --strict -vvv --no-interaction features/shop || vendor/bin/behat --colors --strict -vvv --no-interaction --rerun features/shop
 
             -   name: Upload Behat logs
                 uses: actions/upload-artifact@v4
@@ -161,13 +169,3 @@ jobs:
                         var/log
                     if-no-files-found: ignore
                     overwrite: true
-
-#
-#            -   name: Run Mockoon for PHPUnit
-#                run: mockoon-cli start --data tests/PHPUnit/Functional/Mockoon.json
-#
-#            -   name: Run PHPUnit
-#                run: vendor/bin/phpunit --colors=always
-#
-#            -   name: Stop Mockoon for PHPUnit
-#                run: mockoon-cli stop mockoon-mollie-phpunit
