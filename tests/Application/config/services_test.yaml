@@ -1,4 +1,5 @@
 imports:
     - { resource: "../../Behat/Resources/services.yml" }
+    - { resource: "../../Behat/Resources/services.xml" }
     - { resource: "../../../vendor/sylius/sylius/src/Sylius/Behat/Resources/config/services.xml" }
     - { resource: "../../../vendor/sylius/admin-order-creation-plugin/tests/Behat/Resources/services.xml" }
