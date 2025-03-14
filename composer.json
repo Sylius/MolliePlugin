@@ -70,6 +70,7 @@
         "classmap": ["tests/Application/Kernel.php"]
     },
     "config": {
+        "sort-packages": true,
         "allow-plugins": {
             "phpstan/extension-installer": true,
             "composer/package-versions-deprecated": true,
