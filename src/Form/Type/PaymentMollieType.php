@@ -22,14 +22,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 final class PaymentMollieType extends AbstractType
 {
-    /** @var MolliePaymentsMethodResolverInterface */
-    private $methodResolver;
-
-    public function __construct(
-        MolliePaymentsMethodResolverInterface $methodResolver
-    )
+    public function __construct(private readonly MolliePaymentsMethodResolverInterface $methodResolver)
     {
-        $this->methodResolver = $methodResolver;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -49,12 +43,10 @@ final class PaymentMollieType extends AbstractType
                 ],
                 'label' => false,
                 'choices' => $data,
-                'choice_attr' => function ($value) use ($images, $paymentFee): array {
-                    return [
-                        'image' => $images[$value],
-                        'paymentFee' => $paymentFee[$value],
-                    ];
-                },
+                'choice_attr' => fn($value): array => [
+                    'image' => $images[$value],
+                    'paymentFee' => $paymentFee[$value],
+                ],
             ])
             ->add('cartToken', HiddenType::class)
             ->add('saveCardInfo', HiddenType::class)

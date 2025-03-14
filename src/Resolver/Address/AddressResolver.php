@@ -21,28 +21,8 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 
 final class AddressResolver implements AddressResolverInterface
 {
-    /** @var ApplePayAddressValidatorInterface */
-    private $addressValidator;
-
-    /** @var RepositoryInterface */
-    private $customerRepository;
-
-    /** @var FactoryInterface */
-    private $addressFactory;
-
-    /** @var FactoryInterface */
-    private $customerFactory;
-
-    public function __construct(
-        ApplePayAddressValidatorInterface $addressValidator,
-        RepositoryInterface $customerRepository,
-        FactoryInterface $addressFactory,
-        FactoryInterface $customerFactory
-    ) {
-        $this->addressValidator = $addressValidator;
-        $this->customerRepository = $customerRepository;
-        $this->addressFactory = $addressFactory;
-        $this->customerFactory = $customerFactory;
+    public function __construct(private readonly ApplePayAddressValidatorInterface $addressValidator, private readonly RepositoryInterface $customerRepository, private readonly FactoryInterface $addressFactory, private readonly FactoryInterface $customerFactory)
+    {
     }
 
     public function resolve(array $applePayDirectAddress): AddressInterface

@@ -26,28 +26,8 @@ use Webmozart\Assert\Assert;
 
 final class SubscriptionOrderCloner implements SubscriptionOrderClonerInterface
 {
-    private OrderItemClonerInterface $orderItemCloner;
-
-    private FactoryInterface $orderFactory;
-
-    private RandomnessGeneratorInterface $generator;
-
-    private AdjustmentClonerInterface $adjustmentCloner;
-
-    private ShipmentClonerInterface $shipmentCloner;
-
-    public function __construct(
-        OrderItemClonerInterface $orderItemCloner,
-        FactoryInterface $orderFactory,
-        RandomnessGeneratorInterface $generator,
-        AdjustmentClonerInterface $adjustmentCloner,
-        ShipmentClonerInterface $shipmentCloner
-    ) {
-        $this->orderItemCloner = $orderItemCloner;
-        $this->orderFactory = $orderFactory;
-        $this->generator = $generator;
-        $this->adjustmentCloner = $adjustmentCloner;
-        $this->shipmentCloner = $shipmentCloner;
+    public function __construct(private readonly OrderItemClonerInterface $orderItemCloner, private readonly FactoryInterface $orderFactory, private readonly RandomnessGeneratorInterface $generator, private readonly AdjustmentClonerInterface $adjustmentCloner, private readonly ShipmentClonerInterface $shipmentCloner)
+    {
     }
 
     public function clone(

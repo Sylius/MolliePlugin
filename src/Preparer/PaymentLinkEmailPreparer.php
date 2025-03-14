@@ -21,16 +21,8 @@ use Sylius\Component\Core\Model\OrderInterface;
 
 final class PaymentLinkEmailPreparer implements PaymentLinkEmailPreparerInterface
 {
-    /** @var TemplateMollieEmailTranslationRepositoryInterface */
-    private $templateRepository;
-
-    /** @var PaymentLinkEmailSenderInterface */
-    private $emailSender;
-
-    public function __construct(TemplateMollieEmailTranslationRepositoryInterface $templateRepository, PaymentLinkEmailSenderInterface $emailSender)
+    public function __construct(private readonly TemplateMollieEmailTranslationRepositoryInterface $templateRepository, private readonly PaymentLinkEmailSenderInterface $emailSender)
     {
-        $this->templateRepository = $templateRepository;
-        $this->emailSender = $emailSender;
     }
 
     public function prepare(OrderInterface $order, string $templateName): void

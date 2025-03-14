@@ -31,11 +31,11 @@ use Webmozart\Assert\Assert;
 final class PaymentlinkResolver implements PaymentlinkResolverInterface
 {
     public function __construct(
-        private MollieApiClient $mollieApiClient,
-        private IntToStringConverterInterface $intToStringConverter,
-        private RepositoryInterface $orderRepository,
-        private PaymentLinkEmailPreparerInterface $emailPreparer,
-        private PaymentTokenProviderInterface $paymentTokenProvider
+        private readonly MollieApiClient $mollieApiClient,
+        private readonly IntToStringConverterInterface $intToStringConverter,
+        private readonly RepositoryInterface $orderRepository,
+        private readonly PaymentLinkEmailPreparerInterface $emailPreparer,
+        private readonly PaymentTokenProviderInterface $paymentTokenProvider
     ) {
     }
 
@@ -84,7 +84,7 @@ final class PaymentlinkResolver implements PaymentlinkResolverInterface
         try {
             $token = $this->paymentTokenProvider->getPaymentToken($syliusPayment);
             $redirectURL = $token->getTargetUrl();
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             $redirectURL = $details['backurl'];
         }
 

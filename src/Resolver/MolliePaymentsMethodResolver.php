@@ -34,15 +34,15 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
     private const FIELD_VALUE = 'value';
 
     public function __construct(
-        private MollieGatewayConfigRepository $mollieGatewayRepository,
-        private MollieCountriesRestrictionResolverInterface $countriesRestrictionResolver,
-        private ProductVoucherTypeCheckerInterface $productVoucherTypeChecker,
-        private PaymentCheckoutOrderResolverInterface $paymentCheckoutOrderResolver,
-        private PaymentMethodRepositoryInterface $paymentMethodRepository,
-        private MollieAllowedMethodsResolverInterface $allowedMethodsResolver,
-        private MollieLoggerActionInterface $loggerAction,
-        private MollieFactoryNameResolverInterface $mollieFactoryNameResolver,
-        private DivisorProviderInterface $divisorProvider
+        private readonly MollieGatewayConfigRepository $mollieGatewayRepository,
+        private readonly MollieCountriesRestrictionResolverInterface $countriesRestrictionResolver,
+        private readonly ProductVoucherTypeCheckerInterface $productVoucherTypeChecker,
+        private readonly PaymentCheckoutOrderResolverInterface $paymentCheckoutOrderResolver,
+        private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+        private readonly MollieAllowedMethodsResolverInterface $allowedMethodsResolver,
+        private readonly MollieLoggerActionInterface $loggerAction,
+        private readonly MollieFactoryNameResolverInterface $mollieFactoryNameResolver,
+        private readonly DivisorProviderInterface $divisorProvider
     ) {
     }
 

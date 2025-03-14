@@ -21,12 +21,8 @@ use Sylius\Component\Core\Model\PaymentMethodInterface;
 
 final class CancelRecurringSubscriptionProcessor implements CancelRecurringSubscriptionProcessorInterface
 {
-    /** @var Payum */
-    private $payum;
-
-    public function __construct(Payum $payum)
+    public function __construct(private readonly Payum $payum)
     {
-        $this->payum = $payum;
     }
 
     /**

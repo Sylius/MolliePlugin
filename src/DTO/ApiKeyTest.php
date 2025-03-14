@@ -17,33 +17,8 @@ use Mollie\Api\Resources\MethodCollection;
 
 final class ApiKeyTest
 {
-    /** @var string */
-    private $type;
-
-    /** @var bool */
-    private $key;
-
-    /** @var MethodCollection|null */
-    private $methods;
-
-    /** @var string */
-    private $status;
-
-    /** @var string */
-    private $message;
-
-    public function __construct(
-        string $type,
-        bool $key = false,
-        MethodCollection $methods = null,
-        string $status = 'OK',
-        string $message = ''
-    ) {
-        $this->type = $type;
-        $this->key = $key;
-        $this->methods = $methods;
-        $this->status = $status;
-        $this->message = $message;
+    public function __construct(private string $type, private bool $key = false, private ?\Mollie\Api\Resources\MethodCollection $methods = null, private string $status = 'OK', private string $message = '')
+    {
     }
 
     public function getType(): string

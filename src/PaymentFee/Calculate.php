@@ -23,23 +23,8 @@ use Webmozart\Assert\Assert;
 
 final class Calculate
 {
-    /** @var FixedAmount */
-    private $fixedAmount;
-
-    /** @var Percentage */
-    private $percentage;
-
-    /** @var FixedAmountAndPercentage */
-    private $fixedAmountAndPercentage;
-
-    public function __construct(
-        FixedAmount $fixedAmount,
-        Percentage $percentage,
-        FixedAmountAndPercentage $fixedAmountAndPercentage
-    ) {
-        $this->fixedAmount = $fixedAmount;
-        $this->percentage = $percentage;
-        $this->fixedAmountAndPercentage = $fixedAmountAndPercentage;
+    public function __construct(private readonly FixedAmount $fixedAmount, private readonly Percentage $percentage, private readonly FixedAmountAndPercentage $fixedAmountAndPercentage)
+    {
     }
 
     public function calculateFromCart(OrderInterface $order, MollieGatewayConfig $paymentMethod): ?OrderInterface

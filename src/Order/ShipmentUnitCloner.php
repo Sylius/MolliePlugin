@@ -18,11 +18,8 @@ use Sylius\Component\Shipping\Model\ShipmentUnitInterface;
 
 final class ShipmentUnitCloner implements ShipmentUnitClonerInterface
 {
-    private FactoryInterface $unitFactory;
-
-    public function __construct(FactoryInterface $unitFactory)
+    public function __construct(private readonly FactoryInterface $unitFactory)
     {
-        $this->unitFactory = $unitFactory;
     }
 
     public function clone(ShipmentUnitInterface $unit): ShipmentUnitInterface

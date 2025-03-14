@@ -20,12 +20,8 @@ use Webmozart\Assert\Assert;
 
 final class ApplePayEnabledChecker implements ApplePayEnabledCheckerInterface
 {
-    /** @var RepositoryInterface */
-    private $mollieGatewayConfigurationRepository;
-
-    public function __construct(RepositoryInterface $mollieGatewayConfigurationRepository)
+    public function __construct(private readonly RepositoryInterface $mollieGatewayConfigurationRepository)
     {
-        $this->mollieGatewayConfigurationRepository = $mollieGatewayConfigurationRepository;
     }
 
     public function isEnabled(): bool

@@ -20,11 +20,8 @@ use Sylius\Component\Order\Context\CartContextInterface;
 
 final class MollieFactoryNameResolver implements MollieFactoryNameResolverInterface
 {
-    private CartContextInterface $cartContext;
-
-    public function __construct(CartContextInterface $cartContext)
+    public function __construct(private readonly CartContextInterface $cartContext)
     {
-        $this->cartContext = $cartContext;
     }
 
     public function resolve(OrderInterface $order = null): string
@@ -32,7 +29,7 @@ final class MollieFactoryNameResolver implements MollieFactoryNameResolverInterf
         if (null === $order) {
             try {
                 $order = $this->cartContext->getCart();
-            } catch (\Symfony\Component\HttpFoundation\Exception\SessionNotFoundException $e) {
+            } catch (\Symfony\Component\HttpFoundation\Exception\SessionNotFoundException) {
                 $order = null;
             }
         }

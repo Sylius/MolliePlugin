@@ -22,23 +22,8 @@ use Webmozart\Assert\Assert;
 
 final class PaymentCheckoutOrderResolver implements PaymentCheckoutOrderResolverInterface
 {
-    /** @var RequestStack */
-    private $requestStack;
-
-    /** @var CartContextInterface */
-    private $cartContext;
-
-    /** @var RepositoryInterface */
-    private $orderRepository;
-
-    public function __construct(
-        RequestStack $requestStack,
-        CartContextInterface $cartContext,
-        RepositoryInterface $orderRepository
-    ) {
-        $this->requestStack = $requestStack;
-        $this->cartContext = $cartContext;
-        $this->orderRepository = $orderRepository;
+    public function __construct(private readonly RequestStack $requestStack, private readonly CartContextInterface $cartContext, private readonly RepositoryInterface $orderRepository)
+    {
     }
 
     public function resolve(): OrderInterface

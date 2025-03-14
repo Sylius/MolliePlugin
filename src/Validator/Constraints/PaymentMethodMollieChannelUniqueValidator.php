@@ -28,18 +28,8 @@ use Webmozart\Assert\Assert;
 
 final class PaymentMethodMollieChannelUniqueValidator extends ConstraintValidatorAlias
 {
-    /** @var PaymentMethodRepositoryInterface */
-    private $paymentMethodRepository;
-
-    /** @var TranslatorInterface */
-    private $translator;
-
-    public function __construct(
-        PaymentMethodRepositoryInterface $paymentMethodRepository,
-        TranslatorInterface $translator
-    ) {
-        $this->paymentMethodRepository = $paymentMethodRepository;
-        $this->translator = $translator;
+    public function __construct(private readonly PaymentMethodRepositoryInterface $paymentMethodRepository, private readonly TranslatorInterface $translator)
+    {
     }
 
     public function validate($value, Constraint $constraint): void

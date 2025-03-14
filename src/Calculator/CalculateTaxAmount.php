@@ -17,12 +17,8 @@ use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
 
 final class CalculateTaxAmount implements CalculateTaxAmountInterface
 {
-    /** @var IntToStringConverterInterface */
-    private $converter;
-
-    public function __construct(IntToStringConverterInterface $converter)
+    public function __construct(private readonly IntToStringConverterInterface $converter)
     {
-        $this->converter = $converter;
     }
 
     public function calculate(float $taxRateAmount, int $amount): string

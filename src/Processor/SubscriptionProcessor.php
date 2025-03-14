@@ -32,32 +32,8 @@ final class SubscriptionProcessor implements SubscriptionProcessorInterface
 {
     use GatewayAwareTrait;
 
-    private SubscriptionOrderClonerInterface $orderCloner;
-
-    private PaymentFactoryInterface $paymentFactory;
-
-    private OrderRepositoryInterface $orderRepository;
-
-    private PaymentDetailsFactoryInterface $paymentDetailsFactory;
-
-    private MollieSubscriptionRepositoryInterface $subscriptionRepository;
-
-    private Payum $paymentRegistry;
-
-    public function __construct(
-        SubscriptionOrderClonerInterface $orderCloner,
-        PaymentFactoryInterface $paymentFactory,
-        OrderRepositoryInterface $orderRepository,
-        PaymentDetailsFactoryInterface $paymentDetailsFactory,
-        MollieSubscriptionRepositoryInterface $subscriptionRepository,
-        Payum $paymentRegistry
-    ) {
-        $this->orderCloner = $orderCloner;
-        $this->paymentFactory = $paymentFactory;
-        $this->orderRepository = $orderRepository;
-        $this->paymentDetailsFactory = $paymentDetailsFactory;
-        $this->subscriptionRepository = $subscriptionRepository;
-        $this->paymentRegistry = $paymentRegistry;
+    public function __construct(private SubscriptionOrderClonerInterface $orderCloner, private PaymentFactoryInterface $paymentFactory, private OrderRepositoryInterface $orderRepository, private PaymentDetailsFactoryInterface $paymentDetailsFactory, private MollieSubscriptionRepositoryInterface $subscriptionRepository, private Payum $paymentRegistry)
+    {
     }
 
     public function processNextSubscriptionPayment(MollieSubscriptionInterface $subscription): void

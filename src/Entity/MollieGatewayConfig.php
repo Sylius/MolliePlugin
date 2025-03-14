@@ -18,7 +18,7 @@ use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\Resource\Model\TranslatableTrait;
 use Sylius\Component\Resource\Model\TranslationInterface;
 
-class MollieGatewayConfig extends AbstractMethod implements ResourceInterface, MollieGatewayConfigInterface
+class MollieGatewayConfig extends AbstractMethod implements ResourceInterface, MollieGatewayConfigInterface, \Stringable
 {
     use TranslatableTrait {
         __construct as private initializeTranslationsCollection;

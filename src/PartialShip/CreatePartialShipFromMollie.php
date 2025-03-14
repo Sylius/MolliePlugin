@@ -23,23 +23,8 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 
 final class CreatePartialShipFromMollie implements CreatePartialShipFromMollieInterface
 {
-    /** @var ShipmentFactoryInterface */
-    private $shipmentFactory;
-
-    /** @var RepositoryInterface */
-    private $orderRepository;
-
-    /** @var FromMollieToSyliusResolverInterface */
-    private $fromMollieToSyliusResolver;
-
-    public function __construct(
-        ShipmentFactoryInterface $shipmentFactory,
-        RepositoryInterface $orderRepository,
-        FromMollieToSyliusResolverInterface $fromMollieToSyliusResolver
-    ) {
-        $this->shipmentFactory = $shipmentFactory;
-        $this->orderRepository = $orderRepository;
-        $this->fromMollieToSyliusResolver = $fromMollieToSyliusResolver;
+    public function __construct(private readonly ShipmentFactoryInterface $shipmentFactory, private readonly RepositoryInterface $orderRepository, private readonly FromMollieToSyliusResolverInterface $fromMollieToSyliusResolver)
+    {
     }
 
     public function create(OrderInterface $order, Order $mollieOrder): OrderInterface
@@ -52,9 +37,7 @@ final class CreatePartialShipFromMollie implements CreatePartialShipFromMollieIn
 
         /** @var Collection $shipments */
         $shipments = $order->getShipments();
-        $shipmentsToRemove = $shipments->filter(static function (ShipmentInterface $shipment): bool {
-            return ShipmentInterface::STATE_READY === $shipment->getState() && $shipment->getUnits()->isEmpty();
-        });
+        $shipmentsToRemove = $shipments->filter(static fn(ShipmentInterface $shipment): bool => ShipmentInterface::STATE_READY === $shipment->getState() && $shipment->getUnits()->isEmpty());
 
         foreach ($shipmentsToRemove as $shipmentToRemove) {
             $order->removeShipment($shipmentToRemove);

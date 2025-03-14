@@ -23,8 +23,8 @@ class PageRedirectController
     private const ORDER_COMPLETED_STATE = 'completed';
 
     public function __construct(
-        private RouterInterface $router,
-        private OrderRepositoryInterface $orderRepository
+        private readonly RouterInterface $router,
+        private readonly OrderRepositoryInterface $orderRepository
     )
     {
     }

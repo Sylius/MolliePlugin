@@ -23,12 +23,8 @@ use Sylius\RefundPlugin\Model\ShipmentRefund;
 
 final class UnitsShipmentOrderRefund implements UnitsShipmentOrderRefundInterface
 {
-    /** @var RepositoryInterface */
-    private $refundUnitsRepository;
-
-    public function __construct(RepositoryInterface $refundUnitsRepository)
+    public function __construct(private readonly RepositoryInterface $refundUnitsRepository)
     {
-        $this->refundUnitsRepository = $refundUnitsRepository;
     }
 
     public function refund(Order $order, OrderInterface $syliusOrder): array

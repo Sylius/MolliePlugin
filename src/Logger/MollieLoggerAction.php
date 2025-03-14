@@ -22,28 +22,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class MollieLoggerAction implements MollieLoggerActionInterface
 {
-    /** @var MollieLoggerFactoryInterface */
-    private $loggerFactory;
-
-    /** @var RepositoryInterface */
-    private $repository;
-
-    /** @var RepositoryInterface */
-    private $gatewayRepository;
-
-    /** @var MollieFactoryNameResolverInterface */
-    private $mollieFactoryNameResolver;
-
-    public function __construct(
-        MollieLoggerFactoryInterface $loggerFactory,
-        RepositoryInterface $repository,
-        RepositoryInterface $gatewayRepository,
-        MollieFactoryNameResolverInterface $mollieFactoryNameResolver
-    ) {
-        $this->loggerFactory = $loggerFactory;
-        $this->repository = $repository;
-        $this->gatewayRepository = $gatewayRepository;
-        $this->mollieFactoryNameResolver = $mollieFactoryNameResolver;
+    public function __construct(private readonly MollieLoggerFactoryInterface $loggerFactory, private readonly RepositoryInterface $repository, private readonly RepositoryInterface $gatewayRepository, private readonly MollieFactoryNameResolverInterface $mollieFactoryNameResolver)
+    {
     }
 
     public function addLog(
@@ -94,7 +74,7 @@ final class MollieLoggerAction implements MollieLoggerActionInterface
             }
 
             return false;
-        } catch (CartNotFoundException $e) {
+        } catch (CartNotFoundException) {
             // As we cannot determine cart context (CLI context), we agree to store logs
 
             return true;

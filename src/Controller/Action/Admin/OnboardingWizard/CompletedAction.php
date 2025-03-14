@@ -20,12 +20,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class CompletedAction
 {
-    /** @var StatusCreatorInterface */
-    private $onboardingWizardStatusCreator;
-
-    public function __construct(StatusCreatorInterface $onboardingWizardStatusCreator)
+    public function __construct(private readonly StatusCreatorInterface $onboardingWizardStatusCreator)
     {
-        $this->onboardingWizardStatusCreator = $onboardingWizardStatusCreator;
     }
 
     public function __invoke(): Response

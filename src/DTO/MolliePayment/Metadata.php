@@ -14,39 +14,6 @@ namespace Sylius\MolliePlugin\DTO\MolliePayment;
 class Metadata
 {
     /**
-     * @var int|null
-     */
-    private ?int $orderId;
-    /**
-     * @var string|null
-     */
-    private ?string $customerId;
-    /**
-     * @var string|null
-     */
-    private ?string $molliePaymentMethods;
-    /**
-     * @var string|null
-     */
-    private ?string $cartToken;
-    /**
-     * @var bool|null
-     */
-    private ?bool $saveCardInfo;
-    /**
-     * @var bool|null
-     */
-    private ?bool $useSavedCards;
-    /**
-     * @var string|null
-     */
-    private ?string $selectedIssuer;
-    /**
-     * @var string|null
-     */
-    private ?string $methodType;
-
-    /**
      * @param int|null $orderId
      * @param string|null $customerId
      * @param string|null $molliePaymentMethods
@@ -56,25 +23,8 @@ class Metadata
      * @param string|null $selectedIssuer
      * @param string|null $methodType
      */
-    public function __construct(
-        ?int  $orderId,
-        ?string $customerId,
-        ?string $molliePaymentMethods,
-        ?string $cartToken,
-        ?bool $saveCardInfo,
-        ?bool $useSavedCards,
-        ?string $selectedIssuer,
-        ?string $methodType
-    )
+    public function __construct(private ?int  $orderId, private ?string $customerId, private ?string $molliePaymentMethods, private ?string $cartToken, private ?bool $saveCardInfo, private ?bool $useSavedCards, private ?string $selectedIssuer, private ?string $methodType)
     {
-        $this->orderId = $orderId;
-        $this->customerId = $customerId;
-        $this->molliePaymentMethods = $molliePaymentMethods;
-        $this->cartToken = $cartToken;
-        $this->saveCardInfo = $saveCardInfo;
-        $this->useSavedCards = $useSavedCards;
-        $this->selectedIssuer = $selectedIssuer;
-        $this->methodType = $methodType;
     }
 
     /**

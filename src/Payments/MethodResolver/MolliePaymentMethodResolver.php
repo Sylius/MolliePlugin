@@ -25,28 +25,8 @@ use Webmozart\Assert\Assert;
 
 final class MolliePaymentMethodResolver implements PaymentMethodsResolverInterface
 {
-    private PaymentMethodsResolverInterface $decoratedService;
-
-    private PaymentMethodRepositoryInterface $paymentMethodRepository;
-
-    private MollieFactoryNameResolverInterface $factoryNameResolver;
-
-    private MollieMethodFilterInterface $mollieMethodFilter;
-
-    private EntityManagerInterface $entityManager;
-
-    public function __construct(
-        PaymentMethodsResolverInterface $decoratedService,
-        PaymentMethodRepositoryInterface $paymentMethodRepository,
-        MollieFactoryNameResolverInterface $factoryNameResolver,
-        MollieMethodFilterInterface $mollieMethodFilter,
-        EntityManagerInterface $entityManager
-    ) {
-        $this->decoratedService = $decoratedService;
-        $this->paymentMethodRepository = $paymentMethodRepository;
-        $this->factoryNameResolver = $factoryNameResolver;
-        $this->mollieMethodFilter = $mollieMethodFilter;
-        $this->entityManager = $entityManager;
+    public function __construct(private readonly PaymentMethodsResolverInterface $decoratedService, private readonly PaymentMethodRepositoryInterface $paymentMethodRepository, private readonly MollieFactoryNameResolverInterface $factoryNameResolver, private readonly MollieMethodFilterInterface $mollieMethodFilter, private readonly EntityManagerInterface $entityManager)
+    {
     }
 
     public function getSupportedMethods(PaymentInterface $subject): array

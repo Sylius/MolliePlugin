@@ -41,39 +41,8 @@ final class ConvertOrder implements ConvertOrderInterface
     /** @var ZoneInterface */
     private $zone;
 
-    /** @var IntToStringConverterInterface */
-    private $intToStringConverter;
-
-    /** @var CalculateTaxAmountInterface */
-    private $calculateTaxAmount;
-
-    /** @var MealVoucherResolverInterface */
-    private $mealVoucherResolver;
-
-    /** @var TaxRateResolverInterface */
-    private $taxRateResolver;
-
-    /** @var ZoneMatcherInterface */
-    private $zoneMatcher;
-
-    /** @var RequestStack */
-    private $requestStack;
-
-    public function __construct(
-        IntToStringConverterInterface $intToStringConverter,
-        CalculateTaxAmountInterface $calculateTaxAmount,
-        MealVoucherResolverInterface $mealVoucherResolver,
-        TaxRateResolverInterface $taxRateResolver,
-        ZoneMatcherInterface $zoneMatcher,
-        RequestStack $requestStack
-    )
+    public function __construct(private readonly IntToStringConverterInterface $intToStringConverter, private readonly CalculateTaxAmountInterface $calculateTaxAmount, private readonly MealVoucherResolverInterface $mealVoucherResolver, private readonly TaxRateResolverInterface $taxRateResolver, private readonly ZoneMatcherInterface $zoneMatcher, private readonly RequestStack $requestStack)
     {
-        $this->intToStringConverter = $intToStringConverter;
-        $this->calculateTaxAmount = $calculateTaxAmount;
-        $this->mealVoucherResolver = $mealVoucherResolver;
-        $this->taxRateResolver = $taxRateResolver;
-        $this->zoneMatcher = $zoneMatcher;
-        $this->requestStack = $requestStack;
     }
 
     public function convert(

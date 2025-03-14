@@ -20,18 +20,8 @@ use Sylius\RefundPlugin\Command\RefundUnits;
 
 final class DuplicateRefundTheSameAmountChecker implements DuplicateRefundTheSameAmountCheckerInterface
 {
-    /** @var CreditMemoRepositoryInterface */
-    private $creditMemoRepository;
-
-    /** @var OrderRepositoryInterface */
-    private $orderRepository;
-
-    public function __construct(
-        CreditMemoRepositoryInterface $creditMemoRepository,
-        OrderRepositoryInterface $orderRepository
-    ) {
-        $this->creditMemoRepository = $creditMemoRepository;
-        $this->orderRepository = $orderRepository;
+    public function __construct(private readonly CreditMemoRepositoryInterface $creditMemoRepository, private readonly OrderRepositoryInterface $orderRepository)
+    {
     }
 
     public function check(RefundUnits $command): bool

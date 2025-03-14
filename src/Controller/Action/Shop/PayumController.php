@@ -35,13 +35,13 @@ final class PayumController
     private const STATE_MACHINE_COMPLETE_STATE = 'complete';
 
     public function __construct(
-        private Payum $payum,
-        private OrderRepositoryInterface $orderRepository,
-        private MetadataInterface $orderMetadata,
-        private RequestConfigurationFactoryInterface $requestConfigurationFactory,
-        private RouterInterface $router,
-        private FactoryInterface $stateMachineFactory,
-        private EntityManagerInterface $entityManager
+        private readonly Payum $payum,
+        private readonly OrderRepositoryInterface $orderRepository,
+        private readonly MetadataInterface $orderMetadata,
+        private readonly RequestConfigurationFactoryInterface $requestConfigurationFactory,
+        private readonly RouterInterface $router,
+        private readonly FactoryInterface $stateMachineFactory,
+        private readonly EntityManagerInterface $entityManager
     ) {
     }
 

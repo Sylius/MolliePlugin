@@ -34,18 +34,8 @@ final class RefundOrderAction extends BaseApiAwareAction implements ActionInterf
 {
     use GatewayAwareTrait;
 
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    /** @var ConvertRefundDataInterface */
-    private $convertOrderRefundData;
-
-    public function __construct(
-        MollieLoggerActionInterface $loggerAction,
-        ConvertRefundDataInterface $convertOrderRefundData
-    ) {
-        $this->loggerAction = $loggerAction;
-        $this->convertOrderRefundData = $convertOrderRefundData;
+    public function __construct(private MollieLoggerActionInterface $loggerAction, private ConvertRefundDataInterface $convertOrderRefundData)
+    {
     }
 
     public function execute($request): void

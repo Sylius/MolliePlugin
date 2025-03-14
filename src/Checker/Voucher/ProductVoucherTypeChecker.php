@@ -25,7 +25,7 @@ use Webmozart\Assert\Assert;
 final class ProductVoucherTypeChecker implements ProductVoucherTypeCheckerInterface
 {
 
-    public function __construct(private MollieGatewayConfigRepository $paymentMethodRepository)
+    public function __construct(private readonly MollieGatewayConfigRepository $paymentMethodRepository)
     {
     }
 

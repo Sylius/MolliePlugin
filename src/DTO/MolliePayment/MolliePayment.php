@@ -20,7 +20,7 @@ class MolliePayment
     /**
      * @var string|null
      */
-    private ?string $description;
+    private ?string $description = null;
     /**
      * @var Metadata $metadata
      */
@@ -28,27 +28,27 @@ class MolliePayment
     /**
      * @var string|null
      */
-    private ?string $customerId;
+    private ?string $customerId = null;
     /**
      * @var string|null
      */
-    private ?string $locale;
+    private ?string $locale = null;
     /**
      * @var string|null
      */
-    private ?string $method;
+    private ?string $method = null;
     /**
      * @var string|null
      */
-    private ?string $webhookUrl;
+    private ?string $webhookUrl = null;
     /**
      * @var string|null
      */
-    private ?string $redirectUrl;
+    private ?string $redirectUrl = null;
     /**
      * @var string|null
      */
-    private ?string $issuer;
+    private ?string $issuer = null;
 
     /**
      * @return Amount

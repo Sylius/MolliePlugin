@@ -23,16 +23,11 @@ class MolliePayment
 {
     private const MOLLIE_PAYMENT_METHOD_NAME = 'mollie';
 
-    /** @var UrlGeneratorInterface */
-    private $urlGenerator;
-
     /**
      * MolliePayment constructor
      */
-    public function __construct(
-        UrlGeneratorInterface $urlGenerator)
+    public function __construct(private readonly UrlGeneratorInterface $urlGenerator)
     {
-        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -74,15 +69,15 @@ class MolliePayment
 
         return [
             "method" => $methodName,
-            "issuer" => isset($details['selected_issuer'])  ? $details['selected_issuer'] : null,
-            "cardToken" => isset($details['metadata']['cartToken'])  ? $details['metadata']['cartToken'] : null,
-            "amount" => isset($details['amount'])  ? $details['amount'] : null,
-            "customerId" => isset($details['customerId'])  ? $details['customerId'] : null,
-            "description" => isset($details['description'])  ? $details['description'] : null,
+            "issuer" => $details['selected_issuer'] ?? null,
+            "cardToken" => $details['metadata']['cartToken'] ?? null,
+            "amount" => $details['amount'] ?? null,
+            "customerId" => $details['customerId'] ?? null,
+            "description" => $details['description'] ?? null,
             "redirectUrl" => $redirectUrl,
             "webhookUrl" => $webhookUrl,
-            "metadata" => isset($details['metadata'])  ? $details['metadata'] : null,
-            "locale" => isset($details['locale'])  ? $details['locale'] : null
+            "metadata" => $details['metadata'] ?? null,
+            "locale" => $details['locale'] ?? null
         ];
     }
 }

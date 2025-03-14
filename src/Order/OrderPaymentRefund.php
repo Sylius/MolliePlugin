@@ -32,23 +32,8 @@ use Webmozart\Assert\Assert;
 
 final class OrderPaymentRefund implements OrderPaymentRefundInterface
 {
-    /** @var RepositoryInterface */
-    private $orderRepository;
-
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    /** @var Payum */
-    private $payum;
-
-    public function __construct(
-        RepositoryInterface $orderRepository,
-        MollieLoggerActionInterface $loggerAction,
-        Payum $payum
-    ) {
-        $this->orderRepository = $orderRepository;
-        $this->loggerAction = $loggerAction;
-        $this->payum = $payum;
+    public function __construct(private readonly RepositoryInterface $orderRepository, private readonly MollieLoggerActionInterface $loggerAction, private readonly Payum $payum)
+    {
     }
 
     public function refund(UnitsRefunded $units): void

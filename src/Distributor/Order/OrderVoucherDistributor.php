@@ -19,18 +19,8 @@ use Sylius\Component\Core\Model\OrderInterface;
 
 final class OrderVoucherDistributor implements OrderVoucherDistributorInterface
 {
-    /** @var ProportionalIntegerDistributorInterface */
-    private $proportionalIntegerDistributor;
-
-    /** @var UnitsPromotionAdjustmentsApplicatorInterface */
-    private $unitsPromotionAdjustmentsApplicator;
-
-    public function __construct(
-        ProportionalIntegerDistributorInterface $proportionalIntegerDistributor,
-        UnitsPromotionAdjustmentsApplicatorInterface $unitsPromotionAdjustmentsApplicator
-    ) {
-        $this->proportionalIntegerDistributor = $proportionalIntegerDistributor;
-        $this->unitsPromotionAdjustmentsApplicator = $unitsPromotionAdjustmentsApplicator;
+    public function __construct(private readonly ProportionalIntegerDistributorInterface $proportionalIntegerDistributor, private readonly UnitsPromotionAdjustmentsApplicatorInterface $unitsPromotionAdjustmentsApplicator)
+    {
     }
 
     public function distribute(OrderInterface $order, int $amount): void

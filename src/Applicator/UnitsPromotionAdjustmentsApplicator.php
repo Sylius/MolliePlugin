@@ -22,18 +22,8 @@ use Sylius\Component\Order\Model\OrderItemUnitInterface;
 
 final class UnitsPromotionAdjustmentsApplicator implements UnitsPromotionAdjustmentsApplicatorInterface
 {
-    /** @var AdjustmentFactoryInterface */
-    private $adjustmentFactory;
-
-    /** @var IntegerDistributorInterface */
-    private $distributor;
-
-    public function __construct(
-        AdjustmentFactoryInterface $adjustmentFactory,
-        IntegerDistributorInterface $distributor
-    ) {
-        $this->adjustmentFactory = $adjustmentFactory;
-        $this->distributor = $distributor;
+    public function __construct(private readonly AdjustmentFactoryInterface $adjustmentFactory, private readonly IntegerDistributorInterface $distributor)
+    {
     }
 
     public function apply(OrderInterface $order, array $promotionAmount): void

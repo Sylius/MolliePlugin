@@ -25,28 +25,8 @@ use Mollie\Api\Types\PaymentStatus;
 
 final class SubscriptionAndPaymentIdApplicator implements SubscriptionAndPaymentIdApplicatorInterface
 {
-    /** @var MollieApiClient */
-    private $mollieApiClient;
-
-    /** @var StateMachineTransitionInterface */
-    private $stateMachineTransition;
-
-    /** @var PaymentStateMachineTransitionInterface */
-    private $paymentStateMachineTransition;
-
-    /** @var ProcessingStateMachineTransitionInterface */
-    private $processingStateMachineTransition;
-
-    public function __construct(
-        MollieApiClient $mollieApiClient,
-        StateMachineTransitionInterface $stateMachineTransition,
-        PaymentStateMachineTransitionInterface $paymentStateMachineTransition,
-        ProcessingStateMachineTransitionInterface $processingStateMachineTransition
-    ) {
-        $this->mollieApiClient = $mollieApiClient;
-        $this->stateMachineTransition = $stateMachineTransition;
-        $this->paymentStateMachineTransition = $paymentStateMachineTransition;
-        $this->processingStateMachineTransition = $processingStateMachineTransition;
+    public function __construct(private readonly MollieApiClient $mollieApiClient, private readonly StateMachineTransitionInterface $stateMachineTransition, private readonly PaymentStateMachineTransitionInterface $paymentStateMachineTransition, private readonly ProcessingStateMachineTransitionInterface $processingStateMachineTransition)
+    {
     }
 
     public function execute(

@@ -33,52 +33,11 @@ final class QrCodeAction
 {
     private const PAYMENT_API = 'Payments API';
 
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    /** @var CartContextInterface */
-    private $cartContext;
-
-    /** @var MollieApiClient */
-    private $mollieApiClient;
-
-    /** @var MollieApiClientKeyResolverInterface */
-    private $apiClientKeyResolver;
-
-    /** @var \Sylius\Component\Core\Repository\OrderRepositoryInterface */
-    private $orderRepository;
-
-    /** @var UrlGeneratorInterface */
-    private $urlGenerator;
-
-    /** @var RepositoryInterface */
-    private $methodRepository;
-
-    /** @var IntToStringConverterInterface */
-    private $intToStringConverter;
-
     /**
      * QrCodeAction constructor
      */
-    public function __construct(
-        MollieLoggerActionInterface $loggerAction,
-        CartContextInterface $cartContext,
-        MollieApiClient $mollieApiClient,
-        MollieApiClientKeyResolverInterface $apiClientKeyResolver,
-        OrderRepositoryInterface $orderRepository,
-        UrlGeneratorInterface $urlGenerator,
-        RepositoryInterface $methodRepository,
-        IntToStringConverterInterface $intToStringConverter
-    )
+    public function __construct(private readonly MollieLoggerActionInterface $loggerAction, private readonly CartContextInterface $cartContext, private readonly MollieApiClient $mollieApiClient, private readonly MollieApiClientKeyResolverInterface $apiClientKeyResolver, private readonly OrderRepositoryInterface $orderRepository, private readonly UrlGeneratorInterface $urlGenerator, private readonly RepositoryInterface $methodRepository, private readonly IntToStringConverterInterface $intToStringConverter)
     {
-        $this->loggerAction = $loggerAction;
-        $this->cartContext = $cartContext;
-        $this->mollieApiClient = $mollieApiClient;
-        $this->apiClientKeyResolver = $apiClientKeyResolver;
-        $this->orderRepository = $orderRepository;
-        $this->urlGenerator = $urlGenerator;
-        $this->methodRepository = $methodRepository;
-        $this->intToStringConverter = $intToStringConverter;
     }
 
     /**

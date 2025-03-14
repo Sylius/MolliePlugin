@@ -35,15 +35,8 @@ final class MollieGatewayConfigurationType extends AbstractType
 
     public const API_KEY_TEST = 'api_key_test';
 
-    /** @var DocumentationLinksInterface */
-    private $documentationLinks;
-    /** @var MollieApiClient */
-    private $apiClient;
-
-    public function __construct(DocumentationLinksInterface $documentationLinks, MollieApiClient $apiClient)
+    public function __construct(private readonly DocumentationLinksInterface $documentationLinks, private readonly MollieApiClient $apiClient)
     {
-        $this->documentationLinks = $documentationLinks;
-        $this->apiClient = $apiClient;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

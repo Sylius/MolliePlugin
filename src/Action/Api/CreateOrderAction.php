@@ -28,18 +28,8 @@ final class CreateOrderAction extends BaseApiAwareAction implements ActionInterf
 {
     use GatewayAwareTrait;
 
-    /** @var PaymentMethodConfigResolverInterface */
-    private $methodConfigResolver;
-
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    public function __construct(
-        PaymentMethodConfigResolverInterface $methodConfigResolver,
-        MollieLoggerActionInterface $loggerAction
-    ) {
-        $this->methodConfigResolver = $methodConfigResolver;
-        $this->loggerAction = $loggerAction;
+    public function __construct(private PaymentMethodConfigResolverInterface $methodConfigResolver, private MollieLoggerActionInterface $loggerAction)
+    {
     }
 
     public function execute($request): void

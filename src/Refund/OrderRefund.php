@@ -22,23 +22,8 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 final class OrderRefund implements OrderRefundInterface
 {
-    /** @var MessageBusInterface */
-    private $commandBus;
-
-    /** @var OrderRefundCommandCreatorInterface */
-    private $commandCreator;
-
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    public function __construct(
-        MessageBusInterface $commandBus,
-        OrderRefundCommandCreatorInterface $commandCreator,
-        MollieLoggerActionInterface $loggerAction
-    ) {
-        $this->commandBus = $commandBus;
-        $this->commandCreator = $commandCreator;
-        $this->loggerAction = $loggerAction;
+    public function __construct(private readonly MessageBusInterface $commandBus, private readonly OrderRefundCommandCreatorInterface $commandCreator, private readonly MollieLoggerActionInterface $loggerAction)
+    {
     }
 
     public function refund(Order $order): void
@@ -46,9 +31,7 @@ final class OrderRefund implements OrderRefundInterface
         try {
             $refundUnits = $this->commandCreator->fromOrder($order);
             $this->commandBus->dispatch($refundUnits);
-        } catch (InvalidRefundAmountException $e) {
-            $this->loggerAction->addNegativeLog($e->getMessage());
-        } catch (HandlerFailedException $e) {
+        } catch (InvalidRefundAmountException|HandlerFailedException $e) {
             $this->loggerAction->addNegativeLog($e->getMessage());
         }
     }

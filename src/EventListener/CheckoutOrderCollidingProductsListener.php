@@ -23,20 +23,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class CheckoutOrderCollidingProductsListener
 {
-    private RouterInterface $router;
-
-    private TranslatorInterface $translator;
-
-    private RequestStack $requestStack;
-
-    public function __construct(
-        RouterInterface $router,
-        TranslatorInterface $translator,
-        RequestStack $requestStack
-    ) {
-        $this->router = $router;
-        $this->translator = $translator;
-        $this->requestStack = $requestStack;
+    public function __construct(private readonly RouterInterface $router, private readonly TranslatorInterface $translator, private readonly RequestStack $requestStack)
+    {
     }
 
     public function onUpdate(ResourceControllerEvent $event): void

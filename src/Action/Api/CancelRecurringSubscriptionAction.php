@@ -29,12 +29,8 @@ final class CancelRecurringSubscriptionAction extends BaseApiAwareAction impleme
 {
     use GatewayAwareTrait;
 
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    public function __construct(MollieLoggerActionInterface $loggerAction)
+    public function __construct(private MollieLoggerActionInterface $loggerAction)
     {
-        $this->loggerAction = $loggerAction;
     }
 
     /** @param CancelRecurringSubscription|mixed $request */
