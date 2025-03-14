@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Checker\Refund;
+namespace Sylius\MolliePlugin\Checker\Refund;
 
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Repository\CreditMemoRepositoryInterface;
-use SyliusMolliePlugin\Repository\OrderRepositoryInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Repository\CreditMemoRepositoryInterface;
+use Sylius\MolliePlugin\Repository\OrderRepositoryInterface;
 use Sylius\RefundPlugin\Command\RefundUnits;
 
 final class DuplicateRefundTheSameAmountChecker implements DuplicateRefundTheSameAmountCheckerInterface

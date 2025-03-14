@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Checker\Refund;
+namespace Sylius\MolliePlugin\Checker\Refund;
 
 use Sylius\RefundPlugin\Command\RefundUnits;
 

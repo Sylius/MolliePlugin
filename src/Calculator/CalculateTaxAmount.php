@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Calculator;
+namespace Sylius\MolliePlugin\Calculator;
 
-use SyliusMolliePlugin\Helper\IntToStringConverterInterface;
+use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
 
 final class CalculateTaxAmount implements CalculateTaxAmountInterface
 {

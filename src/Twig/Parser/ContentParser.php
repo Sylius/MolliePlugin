@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Twig\Parser;
+namespace Sylius\MolliePlugin\Twig\Parser;
 
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;

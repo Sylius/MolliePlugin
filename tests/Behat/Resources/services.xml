@@ -4,7 +4,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <defaults public="true" />
-        <service id="sylius_mollie_plugin.mollie_api_client" class="Tests\SyliusMolliePlugin\Behat\Client\TestMollieApiClient">
+        <service id="sylius_mollie_plugin.mollie_api_client" class="Tests\Sylius\MolliePlugin\Behat\Client\TestMollieApiClient">
         </service>
 
         <service id="Tests\Sylius\AdminOrderCreationPlugin\Behat\Page\Admin\NewOrderCustomerPage" parent="sylius.behat.symfony_page" public="true">

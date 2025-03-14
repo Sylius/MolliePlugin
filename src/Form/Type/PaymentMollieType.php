@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Form\Type;
+namespace Sylius\MolliePlugin\Form\Type;
 
-use SyliusMolliePlugin\Resolver\MolliePaymentsMethodResolverInterface;
-use SyliusMolliePlugin\Validator\Constraints\PaymentMethodCheckout;
+use Sylius\MolliePlugin\Resolver\MolliePaymentsMethodResolverInterface;
+use Sylius\MolliePlugin\Validator\Constraints\PaymentMethodCheckout;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;

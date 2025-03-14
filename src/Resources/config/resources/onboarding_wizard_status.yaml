@@ -3,5 +3,5 @@ sylius_resource:
     sylius_mollie_plugin.onboarding_wizard_status:
       driver: doctrine/orm
       classes:
-        model: SyliusMolliePlugin\Entity\OnboardingWizardStatus
-        interface: SyliusMolliePlugin\Entity\OnboardingWizardStatusInterface
+        model: Sylius\MolliePlugin\Entity\OnboardingWizardStatus
+        interface: Sylius\MolliePlugin\Entity\OnboardingWizardStatusInterface

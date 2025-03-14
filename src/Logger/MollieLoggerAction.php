@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Logger;
+namespace Sylius\MolliePlugin\Logger;
 
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Factory\MollieLoggerFactoryInterface;
-use SyliusMolliePlugin\Resolver\MollieFactoryNameResolverInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Factory\MollieLoggerFactoryInterface;
+use Sylius\MolliePlugin\Resolver\MollieFactoryNameResolverInterface;
 use Sylius\Component\Order\Context\CartNotFoundException;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;

@@ -9,7 +9,7 @@ mollie_admin_shipment_split:
         arguments: [expr:notFoundOnNull(service('sylius.repository.shipment').find($id))]
       flash: sylius_mollie_plugin.admin.shipment.successfuly_split_and_sent
       form:
-        type: SyliusMolliePlugin\Form\Type\PartialShip\PartialShipType
+        type: Sylius\MolliePlugin\Form\Type\PartialShip\PartialShipType
         options:
           shipment: expr:notFoundOnNull(service('sylius.repository.shipment').find($id))
       permission: true

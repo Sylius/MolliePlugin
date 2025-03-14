@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
-use Tests\SyliusMolliePlugin\Application\Kernel;
+use Tests\Sylius\MolliePlugin\Application\Kernel;
 
 require dirname(__DIR__) . '/config/bootstrap.php';
 

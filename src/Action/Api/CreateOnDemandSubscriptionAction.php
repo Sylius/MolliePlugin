@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action\Api;
+namespace Sylius\MolliePlugin\Action\Api;
 
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Parser\Response\GuzzleNegativeResponseParserInterface;
-use SyliusMolliePlugin\Request\Api\CreateOnDemandSubscription;
-use SyliusMolliePlugin\Request\Api\CreateSepaMandate;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Parser\Response\GuzzleNegativeResponseParserInterface;
+use Sylius\MolliePlugin\Request\Api\CreateOnDemandSubscription;
+use Sylius\MolliePlugin\Request\Api\CreateSepaMandate;
 use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Resources\Payment;
 use Payum\Core\Action\ActionInterface;

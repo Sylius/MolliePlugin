@@ -6,6 +6,6 @@
 >
     <services>
         <defaults public="true" />
-        <service id="sylius_mollie_plugin.guard.subscription" class="SyliusMolliePlugin\Guard\SubscriptionGuard"/>
+        <service id="sylius_mollie_plugin.guard.subscription" class="Sylius\MolliePlugin\Guard\SubscriptionGuard"/>
     </services>
 </container>

@@ -11,13 +11,13 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\PaymentFee;
+namespace Sylius\MolliePlugin\PaymentFee;
 
-use SyliusMolliePlugin\Entity\MollieGatewayConfig;
-use SyliusMolliePlugin\Exceptions\UnknownPaymentSurchargeTye;
-use SyliusMolliePlugin\PaymentFee\Types\FixedAmount;
-use SyliusMolliePlugin\PaymentFee\Types\FixedAmountAndPercentage;
-use SyliusMolliePlugin\PaymentFee\Types\Percentage;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
+use Sylius\MolliePlugin\Exceptions\UnknownPaymentSurchargeTye;
+use Sylius\MolliePlugin\PaymentFee\Types\FixedAmount;
+use Sylius\MolliePlugin\PaymentFee\Types\FixedAmountAndPercentage;
+use Sylius\MolliePlugin\PaymentFee\Types\Percentage;
 use Sylius\Component\Order\Model\OrderInterface;
 use Webmozart\Assert\Assert;
 

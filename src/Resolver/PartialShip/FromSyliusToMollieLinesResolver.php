@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver\PartialShip;
+namespace Sylius\MolliePlugin\Resolver\PartialShip;
 
-use SyliusMolliePlugin\DTO\PartialShipItem;
-use SyliusMolliePlugin\DTO\PartialShipItems;
+use Sylius\MolliePlugin\DTO\PartialShipItem;
+use Sylius\MolliePlugin\DTO\PartialShipItems;
 use Doctrine\Common\Collections\Collection;
 use Mollie\Api\Resources\Order;
 use Sylius\Component\Core\Model\OrderItemUnitInterface;
