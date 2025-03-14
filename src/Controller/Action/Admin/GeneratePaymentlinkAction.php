@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 
@@ -83,10 +84,12 @@ final class GeneratePaymentlinkAction
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Session $session */
+            $session = $this->requestStack->getSession();
             try {
                 $paymentlink = $this->paymentlinkResolver->resolve($order, $form->getData(), TemplateMollieEmailInterface::PAYMENT_LINK);
 
-                $this->requestStack->getSession()->getFlashBag()->add('success', $paymentlink);
+                $session->getFlashBag()->add('success', $paymentlink);
 
                 $this->loggerAction->addLog(sprintf('Created payment link to order with id = %s', $order->getId()));
 
@@ -94,7 +97,7 @@ final class GeneratePaymentlinkAction
             } catch (\Exception $e) {
                 $this->loggerAction->addNegativeLog(sprintf('Error with generate payment link with : %s', $e->getMessage()));
 
-                $this->requestStack->getSession()->getFlashBag()->add('error', $e->getMessage());
+                $session->getFlashBag()->add('error', $e->getMessage());
             }
         }
 

@@ -17,6 +17,7 @@ use SyliusMolliePlugin\Entity\OrderInterface;
 use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -53,7 +54,9 @@ final class CheckoutOrderCollidingProductsListener
                 $message,
                 ResourceControllerEvent::TYPE_WARNING
             );
-            $this->requestStack->getSession()->getFlashBag()->add('error', $message);
+            /** @var Session $session */
+            $session = $this->requestStack->getSession();
+            $session->getFlashBag()->add('error', $message);
         }
     }
 }

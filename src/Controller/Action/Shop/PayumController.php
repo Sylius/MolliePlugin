@@ -11,7 +11,6 @@
 
 namespace SyliusMolliePlugin\Controller\Action\Shop;
 
-use App\Entity\Order\Order;
 use Doctrine\ORM\EntityManagerInterface;
 use Payum\Core\Model\GatewayConfigInterface;
 use Payum\Core\Payum;
@@ -19,11 +18,11 @@ use Payum\Core\Security\GenericTokenFactoryInterface;
 use Payum\Core\Security\TokenInterface;
 use SM\Factory\FactoryInterface;
 use Sylius\Bundle\ResourceBundle\Controller\RequestConfigurationFactoryInterface;
-use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Order\Repository\OrderRepositoryInterface;
 use Sylius\Component\Resource\Metadata\MetadataInterface;
+use SyliusMolliePlugin\Entity\OrderInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -57,8 +56,9 @@ final class PayumController
         $orderId = $request->get('orderId');
         /** @var OrderInterface|null $order */
         $order = $this->orderRepository->findOneBy(['id' => $orderId]);
+
         if (null === $order) {
-            throw new NotFoundHttpException(sprintf('Order with id "%s" does not exist.', $order));
+            throw new NotFoundHttpException(sprintf('Order with id "%s" does not exist.', $orderId));
         }
 
         $this->updateOrder($order);
@@ -74,15 +74,7 @@ final class PayumController
         return new RedirectResponse($token->getTargetUrl());
     }
 
-    /**
-     * Updates DB order
-     *
-     * @param Order $resource
-     *
-     * @return void
-     * @throws \SM\SMException
-     */
-    private function updateOrder(Order $resource): void
+    private function updateOrder(OrderInterface $resource): void
     {
         if ($resource->getCheckoutState() !== self::CHECKOUT_STATE_COMPLETED_STATUS) {
             $this->entityManager->beginTransaction();

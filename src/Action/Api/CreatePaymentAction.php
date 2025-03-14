@@ -17,7 +17,6 @@ use Mollie\Api\Types\PaymentMethod;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
 use SyliusMolliePlugin\Parser\Response\GuzzleNegativeResponseParserInterface;
-use SyliusMolliePlugin\Repository\CustomerRepository;
 use SyliusMolliePlugin\Request\Api\CreatePayment;
 use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Resources\Payment;
@@ -25,36 +24,19 @@ use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayAwareTrait;
 use Payum\Core\Reply\HttpRedirect;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Webmozart\Assert\Assert;
 
 final class CreatePaymentAction extends BaseApiAwareAction
 {
     use GatewayAwareTrait;
 
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    /** @var GuzzleNegativeResponseParserInterface */
-    private $guzzleNegativeResponseParser;
-
-    /** @var RequestStack */
-    private $requestStack;
-
-    /**
-     * @var CustomerRepository
-     */
-    private $customerRepository;
-
     public function __construct(
-        MollieLoggerActionInterface $loggerAction,
-        GuzzleNegativeResponseParserInterface $guzzleNegativeResponseParser,
-        RequestStack $requestStack,
-        EntityRepository $customerRepository
+        private MollieLoggerActionInterface $loggerAction,
+        private GuzzleNegativeResponseParserInterface $guzzleNegativeResponseParser,
+        private RequestStack $requestStack,
+        private EntityRepository $customerRepository
     ) {
-        $this->loggerAction = $loggerAction;
-        $this->guzzleNegativeResponseParser = $guzzleNegativeResponseParser;
-        $this->requestStack = $requestStack;
-        $this->customerRepository = $customerRepository;
     }
 
     public function execute($request): void
@@ -100,7 +82,7 @@ final class CreatePaymentAction extends BaseApiAwareAction
                 $valueToUpdate = $details['metadata']['saveCardInfo'] === '1' ? '1' : null;
                 $existingCustomer = $this->customerRepository->findOneBy(['profileId' => $details['customerId']]);
 
-                if ($existingCustomer) {
+                if (null !== $existingCustomer) {
                     $existingCustomer->setIsCreditCardSaved($valueToUpdate);
                     $this->customerRepository->add($existingCustomer);
                 }
@@ -116,7 +98,9 @@ final class CreatePaymentAction extends BaseApiAwareAction
             $details['statusError'] = $message;
 
             $message = \sprintf('%s%s', 'sylius_mollie_plugin.credit_cart_error.', $details['statusError']);
-            $this->requestStack->getSession()->getFlashBag()->add('info', $message);
+            /** @var Session $session */
+            $session = $this->requestStack->getSession();
+            $session->getFlashBag()->add('info', $message);
 
             return;
         } catch (\Exception $e) {

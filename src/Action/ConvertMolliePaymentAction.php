@@ -154,7 +154,9 @@ final class ConvertMolliePaymentAction extends BaseApiAwareAction implements Act
             $customer = $order->getCustomer();
             $address = [];
 
-            if ($billingAddress) {
+            if (null !== $billingAddress) {
+                $email = $customer?->getEmail() ?? $order->getUser()?->getEmail() ?? null;
+
                 $address = [
                     'streetAndNumber' => $billingAddress->getStreet(),
                     'postalCode' => $billingAddress->getPostcode(),
@@ -163,8 +165,7 @@ final class ConvertMolliePaymentAction extends BaseApiAwareAction implements Act
                     'givenName' => $billingAddress->getFirstName(),
                     'familyName' => $billingAddress->getLastName(),
                     'organizationName' => $billingAddress->getCompany(),
-                    'email' => ($customer && $customer->getEmail()) ? $customer->getEmail() :
-                        (($order->getUser() && $order->getUser()->getEmail()) ? $order->getUser()->getEmail() : null)
+                    'email' => $email
                 ];
             }
 

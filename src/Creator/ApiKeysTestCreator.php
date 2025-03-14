@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace SyliusMolliePlugin\Creator;
 
+use Mollie\Api\Resources\Method;
 use SyliusMolliePlugin\Client\MollieApiClient;
 use SyliusMolliePlugin\DTO\ApiKeyTest;
 use SyliusMolliePlugin\Form\Type\MollieGatewayConfigurationType;
@@ -97,7 +98,7 @@ final class ApiKeysTestCreator implements ApiKeysTestCreatorInterface
         }
     }
 
-    private function filterActiveMethods($method): bool
+    private function filterActiveMethods(Method $method): bool
     {
         return $method->status === 'activated';
     }

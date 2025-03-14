@@ -11,8 +11,8 @@
 
 namespace SyliusMolliePlugin\Controller\Action\Shop;
 
+use Mollie\Api\Resources\Payment;
 use Mollie\Api\Types\PaymentStatus;
-use Sylius\Bundle\PayumBundle\Request\GetStatus;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 use Sylius\Component\Order\Repository\OrderRepositoryInterface;
 use Sylius\Component\Payment\Model\PaymentInterface;
@@ -64,7 +64,7 @@ class PaymentWebhookController
         $this->mollieApiClient->setApiKey($this->apiClientKeyResolver->getClientWithKey()->getApiKey());
         $molliePayment = $this->mollieApiClient->payments->get($request->get('id'));
 
-        /** @var OrderInterface $order */
+        /** @var OrderInterface|null $order */
         $order = $this->orderRepository->findOneBy(['id' => $request->get('orderId')]);
         if ($order === null) {
             return new JsonResponse(Response::HTTP_OK);
@@ -81,12 +81,7 @@ class PaymentWebhookController
         return new JsonResponse(Response::HTTP_OK);
     }
 
-    /**
-     * @param $molliePayment
-     *
-     * @return string
-     */
-    private function getStatus($molliePayment)
+    private function getStatus(Payment $molliePayment): string
     {
         switch ($molliePayment->status) {
             case PaymentStatus::STATUS_PENDING:
@@ -98,9 +93,8 @@ class PaymentWebhookController
                 return PaymentInterface::STATE_COMPLETED;
             case PaymentStatus::STATUS_CANCELED:
                 return PaymentInterface::STATE_CANCELLED;
-            case PaymentStatus::STATUS_FAILED:
-                return PaymentInterface::STATE_FAILED;
             case PaymentStatus::STATUS_EXPIRED:
+            case PaymentStatus::STATUS_FAILED:
                 return PaymentInterface::STATE_FAILED;
             default:
                 return PaymentInterface::STATE_UNKNOWN;

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace SyliusMolliePlugin\Resolver;
 
+use Mollie\Api\Resources\Method;
 use SyliusMolliePlugin\Client\MollieApiClient;
 use SyliusMolliePlugin\Creator\MollieMethodsCreatorInterface;
 use SyliusMolliePlugin\Entity\GatewayConfigInterface;
@@ -100,7 +101,7 @@ final class MollieMethodsResolver implements MollieMethodsResolverInterface
         $this->loggerAction->addLog(sprintf('Downloaded all methods from mollie API'));
     }
 
-    private function filterActiveMethods($method): bool
+    private function filterActiveMethods(Method $method): bool
     {
         return $method->status === 'activated';
     }

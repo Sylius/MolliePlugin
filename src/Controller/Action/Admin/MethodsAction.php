@@ -23,6 +23,7 @@ use Sylius\Component\Resource\Exception\UpdateHandlingException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 final class MethodsAction
 {
@@ -57,6 +58,9 @@ final class MethodsAction
 
     public function __invoke(int $id, Request $request): Response
     {
+        /** @var Session $session */
+        $session = $this->requestStack->getSession();
+
         try {
             /** @var GatewayConfigInterface $gateway */
             $gateway = $this->gatewayConfigRepository->find($id);
@@ -64,14 +68,13 @@ final class MethodsAction
             $this->mollieMethodsResolver->createForGateway($gateway);
 
             $this->methodPurifier->removeAllNoLongerSupportedMethods();
-
-            $this->requestStack->getSession()->getFlashBag()->add('success', 'sylius_mollie_plugin.admin.success_got_methods');
+            $session->getFlashBag()->add('success', 'sylius_mollie_plugin.admin.success_got_methods');
 
             return new Response('OK', Response::HTTP_OK);
         } catch (ApiException $e) {
             $this->loggerAction->addNegativeLog(sprintf('API call failed: %s', $e->getMessage()));
 
-            $this->requestStack->getSession()->getFlashBag()->add('error', $e->getMessage());
+            $session->getFlashBag()->add('error', $e->getMessage());
 
             throw new UpdateHandlingException(sprintf('API call failed: %s', htmlspecialchars($e->getMessage())));
         }

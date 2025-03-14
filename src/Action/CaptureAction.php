@@ -13,8 +13,9 @@ declare(strict_types=1);
 
 namespace SyliusMolliePlugin\Action;
 
-use App\Entity\Payment\Payment;
 use Payum\Core\Reply\HttpRedirect;
+use Sylius\Component\Core\Model\Payment;
+use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use SyliusMolliePlugin\Action\Api\BaseApiAwareAction;
@@ -77,12 +78,7 @@ final class CaptureAction extends BaseApiAwareAction implements CaptureActionInt
         $this->tokenFactory = $genericTokenFactory;
     }
 
-    /**
-     * @param $request
-     *
-     * @return void
-     * @throws \Exception
-     */
+    /** @param mixed $request */
     public function execute($request): void
     {
         RequestNotSupportedException::assertSupports($this, $request);
@@ -108,7 +104,7 @@ final class CaptureAction extends BaseApiAwareAction implements CaptureActionInt
                 $this->mollieApiClient->setApiKey($this->apiClientKeyResolver->getClientWithKey()->getApiKey());
                 $molliePayment = $this->mollieApiClient->payments->get($molliePaymentId);
 
-                if ($checkoutUrl = $molliePayment->getCheckoutUrl()) {
+                if (null !== $checkoutUrl = $molliePayment->getCheckoutUrl()) {
                     throw new HttpRedirect($checkoutUrl);
                 }
             }
@@ -180,11 +176,7 @@ final class CaptureAction extends BaseApiAwareAction implements CaptureActionInt
         }
     }
 
-    /**
-     * @param $request
-     *
-     * @return bool
-     */
+    /** @param mixed $request */
     public function supports($request): bool
     {
         return
@@ -192,13 +184,7 @@ final class CaptureAction extends BaseApiAwareAction implements CaptureActionInt
             $request->getModel() instanceof \ArrayAccess;
     }
 
-    /**
-     * @param Payment $payment
-     *
-     * @return Payment
-     * @throws \Exception
-     */
-    private function createNewPayment(Payment $payment): Payment
+    private function createNewPayment(PaymentInterface $payment): PaymentInterface
     {
         $newPayment = new Payment();
         $newPayment->setMethod($payment->getMethod());

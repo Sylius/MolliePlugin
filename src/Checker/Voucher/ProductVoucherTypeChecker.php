@@ -20,17 +20,13 @@ use SyliusMolliePlugin\Payments\Methods\MealVoucher;
 use SyliusMolliePlugin\Repository\MollieGatewayConfigRepository;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Webmozart\Assert\Assert;
 
 final class ProductVoucherTypeChecker implements ProductVoucherTypeCheckerInterface
 {
-    /** @var RepositoryInterface */
-    private $paymentMethodRepository;
 
-    public function __construct(MollieGatewayConfigRepository $paymentMethodRepository)
+    public function __construct(private MollieGatewayConfigRepository $paymentMethodRepository)
     {
-        $this->paymentMethodRepository = $paymentMethodRepository;
     }
 
     public function checkTheProductTypeOnCart(OrderInterface $order, array $methods): array
@@ -53,7 +49,7 @@ final class ProductVoucherTypeChecker implements ProductVoucherTypeCheckerInterf
             /** @var ProductInterface $product */
             $product = $item->getProduct();
             if (null === $product->getProductType()) {
-                $key = array_search (MealVoucher::MEAL_VOUCHERS, $methods['data']);
+                $key = array_search(MealVoucher::MEAL_VOUCHERS, $methods['data'], true);
                 unset($methods['data'][$key]);
             }
         }
@@ -63,6 +59,6 @@ final class ProductVoucherTypeChecker implements ProductVoucherTypeCheckerInterf
 
     private function checkVoucherEnabled(array $methods): bool
     {
-        return in_array(MealVoucher::MEAL_VOUCHERS, array_values($methods['data']));
+        return in_array(MealVoucher::MEAL_VOUCHERS, array_values($methods['data']), true);
     }
 }

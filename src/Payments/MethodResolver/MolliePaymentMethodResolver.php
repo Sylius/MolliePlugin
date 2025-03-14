@@ -107,17 +107,21 @@ final class MolliePaymentMethodResolver implements PaymentMethodsResolverInterfa
         foreach ($methods as $method) {
             $methodId = $method->getId();
 
-            $isAssociated = $this->entityManager->getConnection()->createQueryBuilder()
+            $queryBuilder = $this->entityManager->getConnection()->createQueryBuilder()
                 ->select('1')
                 ->from('sylius_payment_method_channels')
                 ->where('payment_method_id = :methodId')
                 ->andWhere('channel_id = :channelId')
                 ->setParameter('methodId', $methodId)
-                ->setParameter('channelId', $channelId)
-                ->execute()
-                ->fetchOne();
+                ->setParameter('channelId', $channelId);
 
-            if ($isAssociated) {
+            if (method_exists($queryBuilder, 'executeQuery')) {
+                $isAssociated = $queryBuilder->executeQuery()->fetchOne();
+            } else {
+                $isAssociated = $queryBuilder->execute()->fetchOne();
+            }
+
+            if (null !== $isAssociated) {
                 $filteredMethods[] = $method;
             }
         }
