@@ -41,8 +41,7 @@ final class MolliePaymentMethodResolver implements PaymentMethodsResolverInterfa
         MollieFactoryNameResolverInterface $factoryNameResolver,
         MollieMethodFilterInterface $mollieMethodFilter,
         EntityManagerInterface $entityManager
-    )
-    {
+    ) {
         $this->decoratedService = $decoratedService;
         $this->paymentMethodRepository = $paymentMethodRepository;
         $this->factoryNameResolver = $factoryNameResolver;
@@ -70,14 +69,13 @@ final class MolliePaymentMethodResolver implements PaymentMethodsResolverInterfa
         if (null !== $method && MollieSubscriptionGatewayFactory::FACTORY_NAME === $factoryName) {
             return [$method];
         }
+
         $parentMethods = $this->decoratedService->getSupportedMethods($subject);
         $parentMethods = $this->filterMethodsByChannel($parentMethods, $channel->getId());
 
         if (false === $order->hasRecurringContents()) {
             $parentMethods = $this->mollieMethodFilter->nonRecurringFilter($parentMethods);
-        }
-
-        if (true === $order->hasRecurringContents()) {
+        } else {
             $parentMethods = $this->mollieMethodFilter->recurringFilter($parentMethods);
         }
 
@@ -121,7 +119,7 @@ final class MolliePaymentMethodResolver implements PaymentMethodsResolverInterfa
                 $isAssociated = $queryBuilder->execute()->fetchOne();
             }
 
-            if (null !== $isAssociated) {
+            if ($isAssociated !== false && $isAssociated !== null) {
                 $filteredMethods[] = $method;
             }
         }
@@ -130,7 +128,7 @@ final class MolliePaymentMethodResolver implements PaymentMethodsResolverInterfa
     }
 
     /**
-     * Sorts  payment methods by their position before returning the result
+     * Sorts payment methods by their position before returning the result
      * @param array $methods
      *
      * @return array
