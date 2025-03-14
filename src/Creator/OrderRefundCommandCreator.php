@@ -13,14 +13,14 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Creator;
 
+use Mollie\Api\Resources\Order;
+use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\DTO\PartialRefundItems;
 use Sylius\MolliePlugin\Exceptions\OfflineRefundPaymentMethodNotFound;
 use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
 use Sylius\MolliePlugin\Refund\Units\UnitsItemOrderRefundInterface;
 use Sylius\MolliePlugin\Refund\Units\UnitsShipmentOrderRefundInterface;
-use Mollie\Api\Resources\Order;
-use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\RefundPlugin\Command\RefundUnits;
 use Sylius\RefundPlugin\Provider\RefundPaymentMethodsProviderInterface;
 use Webmozart\Assert\Assert;
@@ -57,7 +57,7 @@ final class OrderRefundCommandCreator implements OrderRefundCommandCreatorInterf
                 $partialRefundItems->addPartialRefundItemByQuantity(
                     $line->metadata->item_id,
                     $line->type,
-                    $line->quantityRefunded - $getRefundedQuantity
+                    $line->quantityRefunded - $getRefundedQuantity,
                 );
             }
         }
@@ -67,7 +67,7 @@ final class OrderRefundCommandCreator implements OrderRefundCommandCreatorInterf
 
         if (0 === count($refundMethods)) {
             throw new OfflineRefundPaymentMethodNotFound(
-                sprintf('Not found offline payment method on this channel with code :%s', $syliusOrder->getChannel()->getCode())
+                sprintf('Not found offline payment method on this channel with code :%s', $syliusOrder->getChannel()->getCode()),
             );
         }
 

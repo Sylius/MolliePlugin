@@ -13,10 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Order;
 
-use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
-use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
-use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Request\Api\RefundOrder;
 use Payum\Core\Payum;
 use Payum\Core\Request\Refund as RefundAction;
 use Payum\Core\Security\TokenInterface;
@@ -25,6 +21,10 @@ use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Resource\Exception\UpdateHandlingException;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Request\Api\RefundOrder;
 use Sylius\RefundPlugin\Event\UnitsRefunded;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -41,7 +41,7 @@ final class OrderPaymentRefund implements OrderPaymentRefundInterface
         /** @var OrderInterface $order */
         $order = $this->orderRepository->findOneBy(['number' => $units->orderNumber()]);
 
-        /** @var PaymentInterface|null|false $payment */
+        /** @var PaymentInterface|false|null $payment */
         $payment = $order->getPayments()->last();
         if (!$payment instanceof PaymentInterface) {
             $this->loggerAction->addNegativeLog(sprintf('No payment in refund'));

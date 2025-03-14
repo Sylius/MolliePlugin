@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Checker\ApplePay;
 
-use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Mollie\Api\Types\PaymentMethod;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Webmozart\Assert\Assert;
 
 final class ApplePayEnabledChecker implements ApplePayEnabledCheckerInterface

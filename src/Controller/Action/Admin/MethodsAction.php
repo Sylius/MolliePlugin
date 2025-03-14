@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Controller\Action\Admin;
 
+use Mollie\Api\Exceptions\ApiException;
+use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
+use Sylius\Component\Resource\Exception\UpdateHandlingException;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Purifier\MolliePaymentMethodPurifierInterface;
 use Sylius\MolliePlugin\Resolver\MollieMethodsResolverInterface;
-use Mollie\Api\Exceptions\ApiException;
-use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
-use Sylius\Component\Resource\Exception\UpdateHandlingException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;

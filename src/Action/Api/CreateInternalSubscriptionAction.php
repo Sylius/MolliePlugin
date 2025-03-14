@@ -13,15 +13,15 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Action\Api;
 
+use Payum\Core\Action\ActionInterface;
+use Payum\Core\ApiAwareInterface;
+use Payum\Core\Bridge\Spl\ArrayObject;
+use Payum\Core\Exception\RequestNotSupportedException;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Factory\MollieSubscriptionFactoryInterface;
 use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
 use Sylius\MolliePlugin\Repository\OrderRepositoryInterface;
 use Sylius\MolliePlugin\Request\Api\CreateInternalRecurring;
-use Payum\Core\Action\ActionInterface;
-use Payum\Core\ApiAwareInterface;
-use Payum\Core\Bridge\Spl\ArrayObject;
-use Payum\Core\Exception\RequestNotSupportedException;
 
 final class CreateInternalSubscriptionAction extends BaseApiAwareAction implements ActionInterface, ApiAwareInterface
 {
@@ -46,7 +46,7 @@ final class CreateInternalSubscriptionAction extends BaseApiAwareAction implemen
                 $rootOrder,
                 $item,
                 $model->getArrayCopy(),
-                $model['mandate_mollie_id'] ?? null
+                $model['mandate_mollie_id'] ?? null,
             );
             $subscription->getSubscriptionConfiguration()->setCustomerId($model['customer_mollie_id']);
             $this->subscriptionRepository->add($subscription);

@@ -13,9 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Action;
 
-use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
-use Sylius\MolliePlugin\Helper\ConvertRefundDataInterface;
-use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Mollie\Api\Exceptions\ApiException;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
@@ -26,6 +23,9 @@ use Payum\Core\GatewayAwareTrait;
 use Payum\Core\Request\Refund;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Resource\Exception\UpdateHandlingException;
+use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
+use Sylius\MolliePlugin\Helper\ConvertRefundDataInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Webmozart\Assert\Assert;
 
 final class RefundAction extends BaseApiAwareAction implements ActionInterface, ApiAwareInterface, GatewayAwareInterface
@@ -88,6 +88,6 @@ final class RefundAction extends BaseApiAwareAction implements ActionInterface, 
         return
             $request instanceof Refund &&
             $request->getModel() instanceof \ArrayAccess
-            ;
+        ;
     }
 }

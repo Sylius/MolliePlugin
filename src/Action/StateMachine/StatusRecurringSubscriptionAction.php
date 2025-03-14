@@ -13,6 +13,10 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Action\StateMachine;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Payum\Core\Action\ActionInterface;
+use Payum\Core\ApiAwareInterface;
+use Payum\Core\Exception\RequestNotSupportedException;
 use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
 use Sylius\MolliePlugin\Action\StateMachine\Applicator\SubscriptionAndPaymentIdApplicatorInterface;
 use Sylius\MolliePlugin\Action\StateMachine\Applicator\SubscriptionAndSyliusPaymentApplicatorInterface;
@@ -20,10 +24,6 @@ use Sylius\MolliePlugin\Action\StateMachine\Transition\StateMachineTransitionInt
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\MolliePlugin\Request\StateMachine\StatusRecurringSubscription;
 use Sylius\MolliePlugin\Transitions\MollieSubscriptionTransitions;
-use Doctrine\ORM\EntityManagerInterface;
-use Payum\Core\Action\ActionInterface;
-use Payum\Core\ApiAwareInterface;
-use Payum\Core\Exception\RequestNotSupportedException;
 
 final class StatusRecurringSubscriptionAction extends BaseApiAwareAction implements ActionInterface, ApiAwareInterface
 {

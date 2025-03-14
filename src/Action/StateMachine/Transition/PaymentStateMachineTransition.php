@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Action\StateMachine\Transition;
 
+use SM\Factory\FactoryInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\MolliePlugin\Transitions\MollieSubscriptionPaymentProcessingTransitions;
-use SM\Factory\FactoryInterface;
 
 final class PaymentStateMachineTransition implements PaymentStateMachineTransitionInterface
 {
@@ -25,11 +25,11 @@ final class PaymentStateMachineTransition implements PaymentStateMachineTransiti
 
     public function apply(
         MollieSubscriptionInterface $subscription,
-        string $transitions
+        string $transitions,
     ): void {
         $stateMachine = $this->subscriptionStateMachineFactory->get(
             $subscription,
-            MollieSubscriptionPaymentProcessingTransitions::GRAPH
+            MollieSubscriptionPaymentProcessingTransitions::GRAPH,
         );
 
         if (!$stateMachine->can($transitions)) {

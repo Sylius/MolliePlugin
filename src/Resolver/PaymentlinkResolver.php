@@ -13,6 +13,12 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Resolver;
 
+use Liip\ImagineBundle\Exception\Config\Filter\NotFoundException;
+use Sylius\AdminOrderCreationPlugin\Provider\PaymentTokenProviderInterface;
+use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Model\PaymentInterface;
+use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
@@ -20,12 +26,6 @@ use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType;
 use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
 use Sylius\MolliePlugin\Preparer\PaymentLinkEmailPreparerInterface;
-use Liip\ImagineBundle\Exception\Config\Filter\NotFoundException;
-use Sylius\AdminOrderCreationPlugin\Provider\PaymentTokenProviderInterface;
-use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Model\PaymentInterface;
-use Sylius\Component\Core\Model\PaymentMethodInterface;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Webmozart\Assert\Assert;
 
 final class PaymentlinkResolver implements PaymentlinkResolverInterface
@@ -35,14 +35,14 @@ final class PaymentlinkResolver implements PaymentlinkResolverInterface
         private readonly IntToStringConverterInterface $intToStringConverter,
         private readonly RepositoryInterface $orderRepository,
         private readonly PaymentLinkEmailPreparerInterface $emailPreparer,
-        private readonly PaymentTokenProviderInterface $paymentTokenProvider
+        private readonly PaymentTokenProviderInterface $paymentTokenProvider,
     ) {
     }
 
     public function resolve(
         OrderInterface $order,
         array $data,
-        string $templateName
+        string $templateName,
     ): string {
         $methodsArray = [];
         $methods = $data['methods'] ?? $data['methods'] = [];
@@ -56,10 +56,10 @@ final class PaymentlinkResolver implements PaymentlinkResolverInterface
 
         Assert::notNull($paymentMethod->getGatewayConfig());
         if (false === in_array(
-                $paymentMethod->getGatewayConfig()->getFactoryName(),
-                [MollieGatewayFactory::FACTORY_NAME, MollieSubscriptionGatewayFactory::FACTORY_NAME],
-                true
-            )) {
+            $paymentMethod->getGatewayConfig()->getFactoryName(),
+            [MollieGatewayFactory::FACTORY_NAME, MollieSubscriptionGatewayFactory::FACTORY_NAME],
+            true,
+        )) {
             throw new NotFoundException('No method mollie found in order');
         }
 

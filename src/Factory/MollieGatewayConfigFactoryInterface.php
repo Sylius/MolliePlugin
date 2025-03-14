@@ -23,6 +23,6 @@ interface MollieGatewayConfigFactoryInterface extends FactoryInterface
     public function create(
         MethodInterface $method,
         GatewayConfigInterface $gateway,
-        int $key
+        int $key,
     ): MollieGatewayConfigInterface;
 }

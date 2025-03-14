@@ -13,6 +13,10 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Resolver\ApplePayDirect;
 
+use Mollie\Api\Exceptions\ApiException;
+use Mollie\Api\Types\OrderStatus;
+use Mollie\Api\Types\PaymentMethod;
+use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
@@ -22,10 +26,6 @@ use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 use Sylius\MolliePlugin\Provider\Order\OrderPaymentApplePayDirectProvider;
 use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
 use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
-use Mollie\Api\Exceptions\ApiException;
-use Mollie\Api\Types\OrderStatus;
-use Mollie\Api\Types\PaymentMethod;
-use Sylius\Component\Core\Model\PaymentInterface;
 
 final class ApplePayDirectApiOrderPaymentResolver implements ApplePayDirectApiOrderPaymentResolverInterface
 {
@@ -36,7 +36,7 @@ final class ApplePayDirectApiOrderPaymentResolver implements ApplePayDirectApiOr
     public function resolve(
         OrderInterface $order,
         MollieGatewayConfigInterface $mollieGatewayConfig,
-        array $details
+        array $details,
     ): void {
         $this->apiClientKeyResolver->getClientWithKey();
         $details = $this->convertOrder->convert($order, $details, $this->divisorProvider->getDivisor(), $mollieGatewayConfig);

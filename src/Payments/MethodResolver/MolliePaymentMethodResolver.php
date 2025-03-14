@@ -14,13 +14,13 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Payments\MethodResolver;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Sylius\Component\Core\Model\PaymentInterface as CorePaymentInterface;
+use Sylius\Component\Payment\Model\PaymentInterface;
+use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
 use Sylius\MolliePlugin\Resolver\MollieFactoryNameResolverInterface;
-use Sylius\Component\Core\Model\PaymentInterface as CorePaymentInterface;
-use Sylius\Component\Payment\Model\PaymentInterface;
-use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
 use Webmozart\Assert\Assert;
 
 final class MolliePaymentMethodResolver implements PaymentMethodsResolverInterface
@@ -43,7 +43,7 @@ final class MolliePaymentMethodResolver implements PaymentMethodsResolverInterfa
         Assert::notNull($channel);
         $method = $this->paymentMethodRepository->findOneByChannelAndGatewayFactoryName(
             $channel,
-            $factoryName
+            $factoryName,
         );
 
         if (null !== $method && MollieSubscriptionGatewayFactory::FACTORY_NAME === $factoryName) {
@@ -74,8 +74,8 @@ final class MolliePaymentMethodResolver implements PaymentMethodsResolverInterfa
 
         Assert::notNull($subject->getOrder());
 
-        return $order->hasRecurringContents() || $order->hasNonRecurringContents()
-            && null !== $subject->getOrder()->getChannel();
+        return $order->hasRecurringContents() || $order->hasNonRecurringContents() &&
+            null !== $subject->getOrder()->getChannel();
     }
 
     private function filterMethodsByChannel(array $methods, int $channelId): array
@@ -108,10 +108,7 @@ final class MolliePaymentMethodResolver implements PaymentMethodsResolverInterfa
     }
 
     /**
-     * Sorts payment methods by their position before returning the result
-     * @param array $methods
-     *
-     * @return array
+     * Sorts  payment methods by their position before returning the result
      */
     private function sortMethodsByPosition(array $methods): array
     {

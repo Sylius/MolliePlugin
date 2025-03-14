@@ -63,5 +63,4 @@ class MollieMinMax implements ResourceInterface, MollieMinMaxInterface
     {
         $this->mollieGatewayConfig = $mollieGatewayConfig;
     }
-
 }

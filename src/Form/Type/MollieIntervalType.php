@@ -46,13 +46,13 @@ final class MollieIntervalType extends AbstractType
         $builder->add('step', ChoiceType::class, [
             'choices' => array_combine(
                 MollieSubscriptionConfigurationInterface::SUPPORTED_INTERVAL_STEPS,
-                MollieSubscriptionConfigurationInterface::SUPPORTED_INTERVAL_STEPS
+                MollieSubscriptionConfigurationInterface::SUPPORTED_INTERVAL_STEPS,
             ),
             'label' => false,
             'error_bubbling' => false,
-            'choice_label' => fn(string $value): string => sprintf(
+            'choice_label' => fn (string $value): string => sprintf(
                 'sylius_mollie_plugin.form.product_variant.interval_configuration.steps.%s',
-                $value
+                $value,
             ),
         ]);
         $builder->addViewTransformer($this->transformer);

@@ -13,9 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Provider\Order;
 
-use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
-use Sylius\MolliePlugin\Entity\OrderInterface;
-use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
 use Payum\Core\Payum;
 use SM\Factory\FactoryInterface as StateMachineFactoryInterface;
 use Sylius\AdminOrderCreationPlugin\Provider\PaymentTokenProviderInterface;
@@ -27,6 +24,9 @@ use Sylius\Component\Payment\Factory\PaymentFactoryInterface;
 use Sylius\Component\Payment\PaymentTransitions;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\Component\Resource\StateMachine\StateMachineInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
 use Webmozart\Assert\Assert;
 
 final class OrderPaymentApplePayDirectProvider implements OrderPaymentApplePayDirectProviderInterface

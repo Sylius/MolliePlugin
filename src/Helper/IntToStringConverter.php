@@ -23,8 +23,7 @@ final class IntToStringConverter implements IntToStringConverterInterface
 
     public function convertIntToString(int $value, ?int $divisor = null): string
     {
-        if(null === $divisor)
-        {
+        if (null === $divisor) {
             $divisor = $this->divisorProvider->getDivisor();
         }
 

@@ -13,14 +13,14 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Controller\Action\Shop;
 
-use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
-use Sylius\MolliePlugin\Helper\ConvertPriceToAmount;
-use Sylius\MolliePlugin\PaymentFee\Calculate;
 use Liip\ImagineBundle\Exception\Config\Filter\NotFoundException;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Order\Aggregator\AdjustmentsAggregatorInterface;
 use Sylius\Component\Order\Context\CartContextInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
+use Sylius\MolliePlugin\Helper\ConvertPriceToAmount;
+use Sylius\MolliePlugin\PaymentFee\Calculate;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,7 +59,7 @@ final class PaymentFeeCalculateAction implements PaymentFeeCalculateActionInterf
                 'SyliusMolliePlugin:Shop/PaymentMollie:_paymentFeeTableTr.html.twig',
                 [
                     'paymentFee' => $this->convertPriceToAmount->convert(reset($paymentFee)),
-                ]
+                ],
             ),
             'orderTotal' => $this->convertPriceToAmount->convert($calculatedOrder->getTotal()),
         ]);

@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Menu;
 
-use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
 use Sylius\Bundle\AdminBundle\Event\OrderShowMenuBuilderEvent;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
 use Webmozart\Assert\Assert;
 
 final class AdminOrderShowMenuListener
@@ -33,7 +33,7 @@ final class AdminOrderShowMenuListener
         $menu = $event->getMenu();
         $order = $event->getOrder();
 
-        /** @var PaymentInterface|null|false $payment */
+        /** @var PaymentInterface|false|null $payment */
         $payment = $order->getPayments()->last();
 
         if (!$payment instanceof PaymentInterface) {

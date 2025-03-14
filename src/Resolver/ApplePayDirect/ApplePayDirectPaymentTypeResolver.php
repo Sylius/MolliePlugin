@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Resolver\ApplePayDirect;
 
+use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
 use Sylius\MolliePlugin\Payments\Methods\AbstractMethod;
-use Sylius\Component\Core\Model\PaymentInterface;
 
 final class ApplePayDirectPaymentTypeResolver implements ApplePayDirectPaymentTypeResolverInterface
 {
@@ -28,7 +28,7 @@ final class ApplePayDirectPaymentTypeResolver implements ApplePayDirectPaymentTy
     public function resolve(
         MollieGatewayConfigInterface $mollieGatewayConfig,
         PaymentInterface $payment,
-        array $applePayDirectToken
+        array $applePayDirectToken,
     ): void {
         $details = [];
         /** @var OrderInterface $order */
@@ -63,7 +63,7 @@ final class ApplePayDirectPaymentTypeResolver implements ApplePayDirectPaymentTy
     private function createPaymentOrder(
         OrderInterface $order,
         MollieGatewayConfigInterface $mollieGatewayConfig,
-        array $details
+        array $details,
     ): void {
         $this->apiOrderPaymentResolver->resolve($order, $mollieGatewayConfig, $details);
     }

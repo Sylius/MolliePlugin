@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\PartialShip;
 
-use Sylius\MolliePlugin\Factory\PartialShip\ShipmentFactoryInterface;
-use Sylius\MolliePlugin\Resolver\PartialShip\FromMollieToSyliusResolverInterface;
 use Doctrine\Common\Collections\Collection;
 use Mollie\Api\Resources\Order;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Factory\PartialShip\ShipmentFactoryInterface;
+use Sylius\MolliePlugin\Resolver\PartialShip\FromMollieToSyliusResolverInterface;
 
 final class CreatePartialShipFromMollie implements CreatePartialShipFromMollieInterface
 {
@@ -37,7 +37,7 @@ final class CreatePartialShipFromMollie implements CreatePartialShipFromMollieIn
 
         /** @var Collection $shipments */
         $shipments = $order->getShipments();
-        $shipmentsToRemove = $shipments->filter(static fn(ShipmentInterface $shipment): bool => ShipmentInterface::STATE_READY === $shipment->getState() && $shipment->getUnits()->isEmpty());
+        $shipmentsToRemove = $shipments->filter(static fn (ShipmentInterface $shipment): bool => ShipmentInterface::STATE_READY === $shipment->getState() && $shipment->getUnits()->isEmpty());
 
         foreach ($shipmentsToRemove as $shipmentToRemove) {
             $order->removeShipment($shipmentToRemove);

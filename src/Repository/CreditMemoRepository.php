@@ -20,7 +20,7 @@ class CreditMemoRepository extends BaseCreditMemoRepository implements CreditMem
     public function findByOrderNumberAndDateTime(
         int $orderId,
         \DateTime $dateTime,
-        int $amount
+        int $amount,
     ): array {
         return $this->createQueryBuilder('o')
             ->andWhere('o.order = :orderId')

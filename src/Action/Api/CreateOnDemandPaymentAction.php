@@ -13,10 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Action\Api;
 
-use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Parser\Response\GuzzleNegativeResponseParserInterface;
-use Sylius\MolliePlugin\Request\Api\CreateOnDemandSubscriptionPayment;
-use Sylius\MolliePlugin\Request\Api\CreateSepaMandate;
 use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Resources\Payment;
 use Payum\Core\Action\ActionInterface;
@@ -24,6 +20,10 @@ use Payum\Core\ApiAwareInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayAwareInterface;
 use Payum\Core\GatewayAwareTrait;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Parser\Response\GuzzleNegativeResponseParserInterface;
+use Sylius\MolliePlugin\Request\Api\CreateOnDemandSubscriptionPayment;
+use Sylius\MolliePlugin\Request\Api\CreateSepaMandate;
 
 final class CreateOnDemandPaymentAction extends BaseApiAwareAction implements ActionInterface, GatewayAwareInterface, ApiAwareInterface
 {
@@ -77,8 +77,8 @@ final class CreateOnDemandPaymentAction extends BaseApiAwareAction implements Ac
     public function supports($request): bool
     {
         if (
-            false === $request instanceof CreateOnDemandSubscriptionPayment
-            || false === $request->getModel() instanceof \ArrayAccess) {
+            false === $request instanceof CreateOnDemandSubscriptionPayment ||
+            false === $request->getModel() instanceof \ArrayAccess) {
             return false;
         }
         $details = ArrayObject::ensureArrayObject($request->getModel());

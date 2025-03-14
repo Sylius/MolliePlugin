@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Refund;
 
+use Mollie\Api\Resources\Order;
 use Sylius\MolliePlugin\Creator\OrderRefundCommandCreatorInterface;
 use Sylius\MolliePlugin\Exceptions\InvalidRefundAmountException;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Mollie\Api\Resources\Order;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -31,7 +31,7 @@ final class OrderRefund implements OrderRefundInterface
         try {
             $refundUnits = $this->commandCreator->fromOrder($order);
             $this->commandBus->dispatch($refundUnits);
-        } catch (InvalidRefundAmountException|HandlerFailedException $e) {
+        } catch (HandlerFailedException|InvalidRefundAmountException $e) {
             $this->loggerAction->addNegativeLog($e->getMessage());
         }
     }

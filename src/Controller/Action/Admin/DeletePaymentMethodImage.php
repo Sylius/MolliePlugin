@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Controller\Action\Admin;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieMethodImageInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Uploader\PaymentMethodLogoUploaderInterface;
-use Doctrine\ORM\EntityManagerInterface;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Webmozart\Assert\Assert;

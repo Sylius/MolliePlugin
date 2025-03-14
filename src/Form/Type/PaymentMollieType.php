@@ -43,7 +43,7 @@ final class PaymentMollieType extends AbstractType
                 ],
                 'label' => false,
                 'choices' => $data,
-                'choice_attr' => fn($value): array => [
+                'choice_attr' => fn ($value): array => [
                     'image' => $images[$value],
                     'paymentFee' => $paymentFee[$value],
                 ],

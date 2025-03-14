@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Refund\Units;
 
+use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\MolliePlugin\Calculator\Refund\PaymentRefundCalculatorInterface;
 use Sylius\MolliePlugin\DTO\PartialRefundItem;
 use Sylius\MolliePlugin\Refund\Generator\PaymentNewUnitRefundGeneratorInterface;
 use Sylius\MolliePlugin\Refund\Generator\PaymentRefundedGeneratorInterface;
-use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\RefundPlugin\Model\OrderItemUnitRefund;
 
 final class PaymentUnitsItemRefund implements PaymentUnitsItemRefundInterface
@@ -38,7 +38,7 @@ final class PaymentUnitsItemRefund implements PaymentUnitsItemRefundInterface
             if (0 < $partialRefundItem->getAmountToRefund()) {
                 $unitsToRefund[] = new OrderItemUnitRefund(
                     $partialRefundItem->getId(),
-                    $partialRefundItem->getAmountToRefund()
+                    $partialRefundItem->getAmountToRefund(),
                 );
             }
         }

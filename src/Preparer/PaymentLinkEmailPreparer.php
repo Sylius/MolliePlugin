@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Preparer;
 
+use Liip\ImagineBundle\Exception\Config\Filter\NotFoundException;
+use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\MolliePlugin\EmailSender\PaymentLinkEmailSenderInterface;
 use Sylius\MolliePlugin\Entity\TemplateMollieEmailTranslationInterface;
 use Sylius\MolliePlugin\Repository\TemplateMollieEmailTranslationRepositoryInterface;
-use Liip\ImagineBundle\Exception\Config\Filter\NotFoundException;
-use Sylius\Component\Core\Model\OrderInterface;
 
 final class PaymentLinkEmailPreparer implements PaymentLinkEmailPreparerInterface
 {
@@ -35,7 +35,7 @@ final class PaymentLinkEmailPreparer implements PaymentLinkEmailPreparerInterfac
         /** @var ?TemplateMollieEmailTranslationInterface $template */
         $template = $this->templateRepository->findOneByLocaleCodeAdnType(
             $locale,
-            $templateName
+            $templateName,
         );
 
         if (null === $template) {

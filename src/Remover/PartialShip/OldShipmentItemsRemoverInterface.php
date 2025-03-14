@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Remover\PartialShip;
 
-use Sylius\MolliePlugin\DTO\PartialShipItems;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\MolliePlugin\DTO\PartialShipItems;
 
 interface OldShipmentItemsRemoverInterface
 {

@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Refund\Generator;
 
+use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\MolliePlugin\DTO\PartialRefundItem;
 use Sylius\MolliePlugin\DTO\PartialRefundItems;
-use Sylius\Component\Core\Model\OrderInterface;
 
 final class PaymentNewUnitRefundGenerator implements PaymentNewUnitRefundGeneratorInterface
 {

@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\PaymentFee\Types;
 
-use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\Component\Order\Model\OrderInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 
 interface SurchargeTypeInterface
 {

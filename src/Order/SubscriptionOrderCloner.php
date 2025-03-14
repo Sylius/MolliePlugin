@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Order;
 
-use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
-use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\OrderCheckoutStates;
 use Sylius\Component\Core\OrderPaymentStates;
@@ -22,6 +20,8 @@ use Sylius\Component\Core\OrderShippingStates;
 use Sylius\Component\Order\Model\OrderInterface as SyliusOrderInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Generator\RandomnessGeneratorInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
 use Webmozart\Assert\Assert;
 
 final class SubscriptionOrderCloner implements SubscriptionOrderClonerInterface
@@ -33,7 +33,7 @@ final class SubscriptionOrderCloner implements SubscriptionOrderClonerInterface
     public function clone(
         MollieSubscriptionInterface $subscription,
         OrderInterface $order,
-        OrderItemInterface $orderItem
+        OrderItemInterface $orderItem,
     ): OrderInterface {
         $rootOrder = $subscription->getFirstOrder();
 
@@ -44,7 +44,7 @@ final class SubscriptionOrderCloner implements SubscriptionOrderClonerInterface
 
         Assert::notNull($rootOrder);
         $clonedOrder->setNumber(
-            sprintf('%s-%d-%d', $rootOrder->getNumber(), $subscription->getId(), $orderNumberSequence)
+            sprintf('%s-%d-%d', $rootOrder->getNumber(), $subscription->getId(), $orderNumberSequence),
         );
         $clonedOrder->setRecurringSequenceIndex($ordersCount);
         $clonedOrder->setState(SyliusOrderInterface::STATE_NEW);

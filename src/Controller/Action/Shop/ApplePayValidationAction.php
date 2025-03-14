@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Controller\Action\Shop;
 
+use Mollie\Api\Exceptions\ApiException;
 use Sylius\MolliePlugin\Checker\ApplePay\ApplePayEnabledCheckerInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
-use Mollie\Api\Exceptions\ApiException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

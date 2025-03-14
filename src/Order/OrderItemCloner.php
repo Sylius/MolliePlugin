@@ -26,7 +26,7 @@ final class OrderItemCloner implements OrderItemClonerInterface
 
     public function clone(
         OrderItemInterface $orderItem,
-        OrderInterface $order
+        OrderInterface $order,
     ): OrderItemInterface {
         /** @var OrderItemInterface $clonedOrderItem */
         $clonedOrderItem = $this->orderItemFactory->createNew();

@@ -97,7 +97,7 @@ final class MollieGatewayConfigurationType extends AbstractType
                 'label' => 'sylius_mollie_plugin.ui.abandoned_hours',
                 'choices' => array_combine(
                     range(1, 200, 1),
-                    range(1, 200, 1)
+                    range(1, 200, 1),
                 ),
             ])
             ->add('loggerLevel', ChoiceType::class, [

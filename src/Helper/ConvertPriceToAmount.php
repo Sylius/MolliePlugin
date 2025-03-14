@@ -28,7 +28,7 @@ final class ConvertPriceToAmount
         return $this->formatMoneyHelper->formatAmount(
             $price,
             $this->currencyContext->getCurrencyCode(),
-            $this->localeContext->getLocaleCode()
+            $this->localeContext->getLocaleCode(),
         );
     }
 }

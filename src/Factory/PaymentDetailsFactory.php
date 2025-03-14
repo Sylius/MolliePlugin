@@ -20,7 +20,7 @@ final class PaymentDetailsFactory implements PaymentDetailsFactoryInterface
 {
     public function createForSubscriptionAndOrder(
         MollieSubscriptionConfigurationInterface $subscriptionConfiguration,
-        OrderInterface $order
+        OrderInterface $order,
     ): array {
         $originalDetails = $subscriptionConfiguration->getPaymentDetailsConfiguration();
 

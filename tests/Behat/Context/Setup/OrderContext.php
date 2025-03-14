@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Tests\Sylius\MolliePlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
-use Sylius\MolliePlugin\Checker\Gateway\MollieGatewayFactoryCheckerInterface;
 use Doctrine\ORM\EntityManager;
 use Payum\Core\Payum;
 use Payum\Core\Registry\RegistryInterface;
@@ -22,6 +21,7 @@ use SM\Factory\FactoryInterface as StateMachineFactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Payment\PaymentTransitions;
+use Sylius\MolliePlugin\Checker\Gateway\MollieGatewayFactoryCheckerInterface;
 use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 use Webmozart\Assert\Assert;
 
@@ -46,7 +46,7 @@ final class OrderContext implements Context
         StateMachineFactoryInterface $stateMachineFactory,
         RegistryInterface $payum,
         MollieGatewayFactoryCheckerInterface $mollieGatewayFactoryChecker,
-        DivisorProviderInterface $divisorProvider
+        DivisorProviderInterface $divisorProvider,
     ) {
         $this->entityManager = $entityManager;
         $this->stateMachineFactory = $stateMachineFactory;

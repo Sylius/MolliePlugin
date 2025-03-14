@@ -13,15 +13,15 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Action\Api;
 
-use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
-use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Request\Api\CreateOrder;
-use Sylius\MolliePlugin\Resolver\PaymentMethodConfigResolverInterface;
 use Mollie\Api\Exceptions\ApiException;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayAwareTrait;
 use Payum\Core\Reply\HttpRedirect;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Request\Api\CreateOrder;
+use Sylius\MolliePlugin\Resolver\PaymentMethodConfigResolverInterface;
 use Webmozart\Assert\Assert;
 
 final class CreateOrderAction extends BaseApiAwareAction implements ActionInterface

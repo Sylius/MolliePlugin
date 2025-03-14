@@ -13,14 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Action;
 
-use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
-use Sylius\MolliePlugin\Entity\OrderInterface;
-use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
-use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
-use Sylius\MolliePlugin\Helper\PaymentDescriptionInterface;
-use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
-use Sylius\MolliePlugin\Request\Api\CreateCustomer;
-use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
 use Payum\Core\Exception\RequestNotSupportedException;
@@ -32,6 +24,14 @@ use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Customer\Context\CustomerContextInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
+use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
+use Sylius\MolliePlugin\Helper\PaymentDescriptionInterface;
+use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Request\Api\CreateCustomer;
+use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
 use Webmozart\Assert\Assert;
 
 final class ConvertMollieSubscriptionPaymentAction extends BaseApiAwareAction implements ActionInterface, GatewayAwareInterface, ApiAwareInterface
@@ -71,7 +71,7 @@ final class ConvertMollieSubscriptionPaymentAction extends BaseApiAwareAction im
         $cartToken = $paymentOptions['cartToken'];
         $sequenceType = array_key_exists(
             'recurring',
-            $paymentOptions
+            $paymentOptions,
         ) && true === $paymentOptions['recurring'] ? 'recurring' : 'first';
 
         if (isset($paymentOptions['metadata'])) {
@@ -114,9 +114,9 @@ final class ConvertMollieSubscriptionPaymentAction extends BaseApiAwareAction im
     public function supports($request): bool
     {
         return
-            $request instanceof Convert
-            && $request->getSource() instanceof PaymentInterface
-            && $request->getSource()->getOrder() instanceof OrderInterface
-            && 'array' === $request->getTo();
+            $request instanceof Convert &&
+            $request->getSource() instanceof PaymentInterface &&
+            $request->getSource()->getOrder() instanceof OrderInterface &&
+            'array' === $request->getTo();
     }
 }

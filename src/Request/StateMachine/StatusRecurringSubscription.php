@@ -21,7 +21,7 @@ class StatusRecurringSubscription extends Generic
     public function __construct(
         $model,
         private readonly ?string $paymentId = null,
-        private readonly ?PaymentInterface $payment = null
+        private readonly ?PaymentInterface $payment = null,
     ) {
         parent::__construct($model);
     }

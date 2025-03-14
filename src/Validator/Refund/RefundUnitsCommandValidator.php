@@ -30,7 +30,7 @@ final class RefundUnitsCommandValidator implements RefundUnitsCommandValidatorIn
     public function __construct(
         OrderRefundingAvailabilityCheckerInterface $orderRefundingAvailabilityChecker,
         private readonly RefundAmountValidatorInterface $refundAmountValidator,
-        private readonly DuplicateRefundTheSameAmountCheckerInterface $duplicateRefundTheSameAmountChecker
+        private readonly DuplicateRefundTheSameAmountCheckerInterface $duplicateRefundTheSameAmountChecker,
     ) {
         $this->orderRefundingAvailabilityChecker = $orderRefundingAvailabilityChecker;
     }
@@ -55,7 +55,7 @@ final class RefundUnitsCommandValidator implements RefundUnitsCommandValidatorIn
             $this->refundAmountValidator->validateUnits($command->units());
             $this->refundAmountValidator->validateUnits($command->shipments());
         }
-        
+
         if (true === $this->duplicateRefundTheSameAmountChecker->check($command)) {
             throw new InvalidRefundAmount('A duplicate refund has been detected');
         }

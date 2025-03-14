@@ -52,7 +52,7 @@ final class MollieAllowedMethodsResolver implements MollieAllowedMethodsResolver
                     ? $order->getBillingAddress()->getCountryCode()
                     : null,
             ],
-            MollieMethodsResolverInterface::PARAMETERS
+            MollieMethodsResolverInterface::PARAMETERS,
         );
 
         if (null !== ($paymentLocale = $this->paymentLocaleResolver->resolveFromOrder($order))) {

@@ -23,7 +23,7 @@ final class CheckoutContext extends RawMinkContext implements Context
     private $summaryPage;
 
     public function __construct(
-        CompletePageInterface $summaryPage
+        CompletePageInterface $summaryPage,
     ) {
         $this->summaryPage = $summaryPage;
     }

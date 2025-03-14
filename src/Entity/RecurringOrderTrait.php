@@ -15,14 +15,8 @@ namespace Sylius\MolliePlugin\Entity;
 
 trait RecurringOrderTrait
 {
-    /**
-     * @var int|null
-     */
     protected ?int $recurringSequenceIndex = null;
 
-    /**
-     * @var MollieSubscriptionInterface|null
-     */
     protected ?MollieSubscriptionInterface $subscription = null;
 
     public function getRecurringSequenceIndex(): ?int

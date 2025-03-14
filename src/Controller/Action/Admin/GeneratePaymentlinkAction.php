@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Controller\Action\Admin;
 
+use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\TemplateMollieEmailInterface;
 use Sylius\MolliePlugin\Form\Type\PaymentlinkType;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Resolver\PaymentlinkResolverInterface;
-use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,6 +46,7 @@ final class GeneratePaymentlinkAction
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var Session $session */
             $session = $this->requestStack->getSession();
+
             try {
                 $paymentlink = $this->paymentlinkResolver->resolve($order, $form->getData(), TemplateMollieEmailInterface::PAYMENT_LINK);
 
@@ -65,7 +66,7 @@ final class GeneratePaymentlinkAction
             $this->twig->render('@SyliusMolliePlugin/Admin/Paymentlink/_form.html.twig', [
                 'order' => $order,
                 'form' => $form->createView(),
-            ])
+            ]),
         );
     }
 }

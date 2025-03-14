@@ -14,6 +14,12 @@ declare(strict_types=1);
 namespace Tests\Sylius\MolliePlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
+use Doctrine\ORM\EntityManager;
+use Sylius\Behat\Service\SharedStorageInterface;
+use Sylius\Bundle\CoreBundle\Fixture\Factory\ExampleFactoryInterface;
+use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
@@ -22,12 +28,6 @@ use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Purifier\MolliePaymentMethodPurifierInterface;
 use Sylius\MolliePlugin\Repository\MollieGatewayConfigRepositoryInterface;
 use Sylius\MolliePlugin\Resolver\MollieMethodsResolverInterface;
-use Doctrine\ORM\EntityManager;
-use Sylius\Behat\Service\SharedStorageInterface;
-use Sylius\Bundle\CoreBundle\Fixture\Factory\ExampleFactoryInterface;
-use Sylius\Component\Core\Model\PaymentMethodInterface;
-use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Webmozart\Assert\Assert;
 
 final class MollieContext implements Context
@@ -66,7 +66,7 @@ final class MollieContext implements Context
         MollieMethodsResolverInterface $mollieMethodsResolver,
         MolliePaymentMethodPurifierInterface $molliePaymentMethodPurifier,
         RepositoryInterface $gatewayConfigRepository,
-        MollieGatewayConfigRepositoryInterface $mollieConfigurationRepository
+        MollieGatewayConfigRepositoryInterface $mollieConfigurationRepository,
     ) {
         $this->sharedStorage = $sharedStorage;
         $this->paymentMethodRepository = $paymentMethodRepository;
@@ -89,7 +89,7 @@ final class MollieContext implements Context
             $paymentMethodName,
             $paymentMethodCode,
             MollieGatewayFactory::FACTORY_NAME,
-            'Mollie'
+            'Mollie',
         );
 
         $gatewayConfig = $paymentMethod->getGatewayConfig();
@@ -132,7 +132,7 @@ final class MollieContext implements Context
             $paymentMethodName,
             $paymentMethodCode,
             MollieSubscriptionGatewayFactory::FACTORY_NAME,
-            'Mollie Subscription'
+            'Mollie Subscription',
         );
 
         $gatewayConfig = $paymentMethod->getGatewayConfig();
@@ -164,7 +164,7 @@ final class MollieContext implements Context
         foreach ($molliePaymentMethods as $molliePaymentMethod) {
             $molliePaymentMethod->enable();
             $molliePaymentMethod->setCountryRestriction(
-                MollieGatewayConfigInterface::ALL_COUNTRIES
+                MollieGatewayConfigInterface::ALL_COUNTRIES,
             );
         }
     }
@@ -175,7 +175,7 @@ final class MollieContext implements Context
         string $factoryName,
         string $description = '',
         bool $addForCurrentChannel = true,
-        int $position = null
+        ?int $position = null,
     ): PaymentMethodInterface {
         /** @var PaymentMethodInterface $paymentMethod */
         $paymentMethod = $this->paymentMethodExampleFactory->create([

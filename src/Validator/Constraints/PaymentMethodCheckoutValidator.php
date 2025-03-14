@@ -14,11 +14,11 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Validator\Constraints;
 
 use Mollie\Api\Types\PaymentMethod;
-use Sylius\MolliePlugin\Checker\Gateway\MollieGatewayFactoryCheckerInterface;
-use Sylius\MolliePlugin\Resolver\Order\PaymentCheckoutOrderResolverInterface;
 use Payum\Core\Model\GatewayConfigInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\MolliePlugin\Checker\Gateway\MollieGatewayFactoryCheckerInterface;
+use Sylius\MolliePlugin\Resolver\Order\PaymentCheckoutOrderResolverInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Validator\Constraint;
@@ -26,7 +26,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 final class PaymentMethodCheckoutValidator extends ConstraintValidator
 {
-    public function __construct(private readonly PaymentCheckoutOrderResolverInterface $paymentCheckoutOrderResolver, private readonly RequestStack                          $requestStack, private readonly MollieGatewayFactoryCheckerInterface  $mollieGatewayFactoryChecker)
+    public function __construct(private readonly PaymentCheckoutOrderResolverInterface $paymentCheckoutOrderResolver, private readonly RequestStack $requestStack, private readonly MollieGatewayFactoryCheckerInterface $mollieGatewayFactoryChecker)
     {
     }
 
@@ -34,7 +34,7 @@ final class PaymentMethodCheckoutValidator extends ConstraintValidator
     {
         $order = $this->paymentCheckoutOrderResolver->resolve();
 
-        /** @var PaymentInterface|null|false $payment */
+        /** @var PaymentInterface|false|null $payment */
         $payment = $order->getPayments()->last();
 
         if (!$payment instanceof PaymentInterface) {
@@ -74,12 +74,6 @@ final class PaymentMethodCheckoutValidator extends ConstraintValidator
         }
     }
 
-    /**
-     * @param Constraint $constraint
-     * @param string $type
-     * @param string $messageKey
-     * @return void
-     */
     private function flashMessage(Constraint $constraint, string $type, string $messageKey)
     {
         /** @var Session $session */
