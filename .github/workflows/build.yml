@@ -133,14 +133,6 @@ jobs:
 #            -   name: Run PHPSpec
 #                run: vendor/bin/phpspec run --ansi -f progress --no-interaction
             
-            -   name: Start MailHog
-                run: |
-                    docker run -d \
-                      --name mailhog \
-                      -p 1025:1025 \
-                      -p 8025:8025 \
-                      mailhog/mailhog
-            
             -   name: Switch to Node 18 for Mockoon
                 uses: actions/setup-node@v4
                 with:
