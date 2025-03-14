@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Preparer;
+namespace Sylius\MolliePlugin\Preparer;
 
-use SyliusMolliePlugin\EmailSender\PaymentLinkEmailSenderInterface;
-use SyliusMolliePlugin\Entity\TemplateMollieEmailTranslationInterface;
-use SyliusMolliePlugin\Repository\TemplateMollieEmailTranslationRepositoryInterface;
+use Sylius\MolliePlugin\EmailSender\PaymentLinkEmailSenderInterface;
+use Sylius\MolliePlugin\Entity\TemplateMollieEmailTranslationInterface;
+use Sylius\MolliePlugin\Repository\TemplateMollieEmailTranslationRepositoryInterface;
 use Liip\ImagineBundle\Exception\Config\Filter\NotFoundException;
 use Sylius\Component\Core\Model\OrderInterface;
 

@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\EventListener;
+namespace spec\Sylius\MolliePlugin\EventListener;
 
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\EventListener\CheckoutOrderCollidingProductsListener;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\EventListener\CheckoutOrderCollidingProductsListener;
 use PhpSpec\ObjectBehavior;
 use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;

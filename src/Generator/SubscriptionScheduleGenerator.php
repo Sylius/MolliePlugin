@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Generator;
+namespace Sylius\MolliePlugin\Generator;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Factory\DatePeriodFactoryInterface;
-use SyliusMolliePlugin\Factory\MollieSubscriptionScheduleFactoryInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Factory\DatePeriodFactoryInterface;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionScheduleFactoryInterface;
 
 final class SubscriptionScheduleGenerator implements SubscriptionScheduleGeneratorInterface
 {

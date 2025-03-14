@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Grid\Filter;
+namespace Sylius\MolliePlugin\Grid\Filter;
 
 use Sylius\Component\Grid\Data\DataSourceInterface;
 use Sylius\Component\Grid\Filtering\FilterInterface;

@@ -11,15 +11,15 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Order;
+namespace spec\Sylius\MolliePlugin\Order;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Order\AdjustmentClonerInterface;
-use SyliusMolliePlugin\Order\OrderItemClonerInterface;
-use SyliusMolliePlugin\Order\ShipmentClonerInterface;
-use SyliusMolliePlugin\Order\SubscriptionOrderCloner;
-use SyliusMolliePlugin\Order\SubscriptionOrderClonerInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Order\AdjustmentClonerInterface;
+use Sylius\MolliePlugin\Order\OrderItemClonerInterface;
+use Sylius\MolliePlugin\Order\ShipmentClonerInterface;
+use Sylius\MolliePlugin\Order\SubscriptionOrderCloner;
+use Sylius\MolliePlugin\Order\SubscriptionOrderClonerInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;

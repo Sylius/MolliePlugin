@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Payments\PaymentTerms;
+namespace Sylius\MolliePlugin\Payments\PaymentTerms;
 
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Payments\Methods\MealVoucher;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Payments\Methods\MealVoucher;
 use Mollie\Api\Types\PaymentMethod;
 
 final class Options

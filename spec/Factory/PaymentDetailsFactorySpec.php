@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Factory;
+namespace spec\Sylius\MolliePlugin\Factory;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Factory\PaymentDetailsFactory;
-use SyliusMolliePlugin\Factory\PaymentDetailsFactoryInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Factory\PaymentDetailsFactory;
+use Sylius\MolliePlugin\Factory\PaymentDetailsFactoryInterface;
 use PhpSpec\ObjectBehavior;
 
 final class PaymentDetailsFactorySpec extends ObjectBehavior

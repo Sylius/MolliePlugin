@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Applicator;
+namespace Sylius\MolliePlugin\Applicator;
 
-use SyliusMolliePlugin\Order\AdjustmentInterface;
+use Sylius\MolliePlugin\Order\AdjustmentInterface;
 use Sylius\Component\Core\Distributor\IntegerDistributorInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;

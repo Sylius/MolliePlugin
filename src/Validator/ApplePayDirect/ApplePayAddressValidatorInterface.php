@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Validator\ApplePayDirect;
+namespace Sylius\MolliePlugin\Validator\ApplePayDirect;
 
 interface ApplePayAddressValidatorInterface
 {

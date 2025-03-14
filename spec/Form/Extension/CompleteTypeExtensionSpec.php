@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Form\Extension;
+namespace spec\Sylius\MolliePlugin\Form\Extension;
 
-use SyliusMolliePlugin\Form\Extension\CompleteTypeExtension;
-use SyliusMolliePlugin\Form\Type\DirectDebitType;
+use Sylius\MolliePlugin\Form\Extension\CompleteTypeExtension;
+use Sylius\MolliePlugin\Form\Type\DirectDebitType;
 use Payum\Core\Model\GatewayConfigInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\OrderInterface;

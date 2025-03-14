@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Refund\Generator;
+namespace Sylius\MolliePlugin\Refund\Generator;
 
-use SyliusMolliePlugin\DTO\PartialRefundItems;
+use Sylius\MolliePlugin\DTO\PartialRefundItems;
 use Sylius\Component\Core\Model\OrderInterface;
 
 interface PaymentRefundedGeneratorInterface

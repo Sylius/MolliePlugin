@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Validator\Constraints;
+namespace Sylius\MolliePlugin\Validator\Constraints;
 
-use SyliusMolliePlugin\Exceptions\MissingFieldException;
+use Sylius\MolliePlugin\Exceptions\MissingFieldException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;

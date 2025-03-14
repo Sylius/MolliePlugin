@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Action\StateMachine\Transition;
+namespace spec\Sylius\MolliePlugin\Action\StateMachine\Transition;
 
-use SyliusMolliePlugin\Action\StateMachine\Transition\ProcessingStateMachineTransition;
-use SyliusMolliePlugin\Action\StateMachine\Transition\ProcessingStateMachineTransitionInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Transitions\MollieSubscriptionProcessingTransitions;
+use Sylius\MolliePlugin\Action\StateMachine\Transition\ProcessingStateMachineTransition;
+use Sylius\MolliePlugin\Action\StateMachine\Transition\ProcessingStateMachineTransitionInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Transitions\MollieSubscriptionProcessingTransitions;
 use PhpSpec\ObjectBehavior;
 use SM\Factory\FactoryInterface;
 use SM\StateMachine\StateMachineInterface;

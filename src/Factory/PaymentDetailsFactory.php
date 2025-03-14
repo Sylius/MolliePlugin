@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Factory;
+namespace Sylius\MolliePlugin\Factory;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
-use SyliusMolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
 
 final class PaymentDetailsFactory implements PaymentDetailsFactoryInterface
 {

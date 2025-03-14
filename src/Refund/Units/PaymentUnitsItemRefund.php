@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Refund\Units;
+namespace Sylius\MolliePlugin\Refund\Units;
 
-use SyliusMolliePlugin\Calculator\Refund\PaymentRefundCalculatorInterface;
-use SyliusMolliePlugin\DTO\PartialRefundItem;
-use SyliusMolliePlugin\Refund\Generator\PaymentNewUnitRefundGeneratorInterface;
-use SyliusMolliePlugin\Refund\Generator\PaymentRefundedGeneratorInterface;
+use Sylius\MolliePlugin\Calculator\Refund\PaymentRefundCalculatorInterface;
+use Sylius\MolliePlugin\DTO\PartialRefundItem;
+use Sylius\MolliePlugin\Refund\Generator\PaymentNewUnitRefundGeneratorInterface;
+use Sylius\MolliePlugin\Refund\Generator\PaymentRefundedGeneratorInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\RefundPlugin\Model\OrderItemUnitRefund;
 

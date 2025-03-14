@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Checker\Refund;
+namespace spec\Sylius\MolliePlugin\Checker\Refund;
 
-use SyliusMolliePlugin\Checker\Refund\MollieOrderRefundChecker;
-use SyliusMolliePlugin\Checker\Refund\MollieOrderRefundCheckerInterface;
+use Sylius\MolliePlugin\Checker\Refund\MollieOrderRefundChecker;
+use Sylius\MolliePlugin\Checker\Refund\MollieOrderRefundCheckerInterface;
 use Mollie\Api\Resources\Order;
 use PhpSpec\ObjectBehavior;
 

@@ -11,17 +11,17 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Processor;
+namespace spec\Sylius\MolliePlugin\Processor;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Factory\PaymentDetailsFactoryInterface;
-use SyliusMolliePlugin\Order\SubscriptionOrderClonerInterface;
-use SyliusMolliePlugin\Processor\SubscriptionProcessor;
-use SyliusMolliePlugin\Processor\SubscriptionProcessorInterface;
-use SyliusMolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
-use SyliusMolliePlugin\Repository\OrderRepositoryInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Factory\PaymentDetailsFactoryInterface;
+use Sylius\MolliePlugin\Order\SubscriptionOrderClonerInterface;
+use Sylius\MolliePlugin\Processor\SubscriptionProcessor;
+use Sylius\MolliePlugin\Processor\SubscriptionProcessorInterface;
+use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
+use Sylius\MolliePlugin\Repository\OrderRepositoryInterface;
 use Payum\Core\GatewayInterface;
 use Payum\Core\Payum;
 use Payum\Core\Request\Capture;

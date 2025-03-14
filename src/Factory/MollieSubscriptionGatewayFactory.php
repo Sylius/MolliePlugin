@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Factory;
+namespace Sylius\MolliePlugin\Factory;
 
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Form\Type\MollieGatewayConfigurationType;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayFactory;
 use Sylius\Bundle\CoreBundle\Application\Kernel;

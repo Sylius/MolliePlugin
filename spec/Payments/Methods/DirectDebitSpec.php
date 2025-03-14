@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Payments\Methods;
+namespace spec\Sylius\MolliePlugin\Payments\Methods;
 
-use SyliusMolliePlugin\Payments\Methods\AbstractMethod;
-use SyliusMolliePlugin\Payments\Methods\DirectDebit;
+use Sylius\MolliePlugin\Payments\Methods\AbstractMethod;
+use Sylius\MolliePlugin\Payments\Methods\DirectDebit;
 use Mollie\Api\Types\PaymentMethod;
 use PhpSpec\ObjectBehavior;
 

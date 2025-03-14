@@ -11,15 +11,15 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Action;
+namespace spec\Sylius\MolliePlugin\Action;
 
-use SyliusMolliePlugin\Action\StatusAction;
-use SyliusMolliePlugin\Checker\Refund\MollieOrderRefundCheckerInterface;
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Refund\OrderRefundInterface;
-use SyliusMolliePlugin\Refund\PaymentRefundInterface;
-use SyliusMolliePlugin\Updater\Order\OrderVoucherAdjustmentUpdaterInterface;
+use Sylius\MolliePlugin\Action\StatusAction;
+use Sylius\MolliePlugin\Checker\Refund\MollieOrderRefundCheckerInterface;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Refund\OrderRefundInterface;
+use Sylius\MolliePlugin\Refund\PaymentRefundInterface;
+use Sylius\MolliePlugin\Updater\Order\OrderVoucherAdjustmentUpdaterInterface;
 use Exception;
 use Mollie\Api\Endpoints\CustomerEndpoint;
 use Mollie\Api\Endpoints\OrderEndpoint;

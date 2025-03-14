@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Action;
+namespace spec\Sylius\MolliePlugin\Action;
 
-use SyliusMolliePlugin\Action\RefundAction;
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Helper\ConvertRefundDataInterface;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Action\RefundAction;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Helper\ConvertRefundDataInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Mollie\Api\Endpoints\PaymentEndpoint;
 use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Resources\Payment;

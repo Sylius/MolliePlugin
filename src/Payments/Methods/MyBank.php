@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Payments\Methods;
+namespace Sylius\MolliePlugin\Payments\Methods;
 
-use SyliusMolliePlugin\Payments\PaymentTerms\Options;
+use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 use Mollie\Api\Types\PaymentMethod;
 
 final class MyBank extends AbstractMethod

@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Order;
+namespace spec\Sylius\MolliePlugin\Order;
 
-use SyliusMolliePlugin\Order\ShipmentUnitCloner;
-use SyliusMolliePlugin\Order\ShipmentUnitClonerInterface;
+use Sylius\MolliePlugin\Order\ShipmentUnitCloner;
+use Sylius\MolliePlugin\Order\ShipmentUnitClonerInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Shipping\Model\ShipmentUnitInterface;

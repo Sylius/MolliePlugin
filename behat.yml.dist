@@ -32,7 +32,7 @@ default:
         FriendsOfBehat\SymfonyExtension:
             bootstrap: tests/Application/config/bootstrap.php
             kernel:
-                class: Tests\SyliusMolliePlugin\Application\Kernel
+                class: Tests\Sylius\MolliePlugin\Application\Kernel
 
         FriendsOfBehat\VariadicExtension: ~
 

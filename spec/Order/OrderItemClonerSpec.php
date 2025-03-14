@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Order;
+namespace spec\Sylius\MolliePlugin\Order;
 
-use SyliusMolliePlugin\Order\OrderItemCloner;
-use SyliusMolliePlugin\Order\OrderItemClonerInterface;
+use Sylius\MolliePlugin\Order\OrderItemCloner;
+use Sylius\MolliePlugin\Order\OrderItemClonerInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;

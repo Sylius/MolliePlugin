@@ -3,4 +3,4 @@ sylius_resource:
     sylius_mollie_plugin.amount_limits:
       driver: doctrine/orm
       classes:
-        model: SyliusMolliePlugin\Entity\MollieMinMax
+        model: Sylius\MolliePlugin\Entity\MollieMinMax

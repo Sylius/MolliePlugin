@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Factory;
+namespace spec\Sylius\MolliePlugin\Factory;
 
-use SyliusMolliePlugin\Factory\MethodsFactory;
-use SyliusMolliePlugin\Factory\MethodsFactoryInterface;
+use Sylius\MolliePlugin\Factory\MethodsFactory;
+use Sylius\MolliePlugin\Factory\MethodsFactoryInterface;
 use PhpSpec\ObjectBehavior;
 
 final class MethodsFactorySpec extends ObjectBehavior

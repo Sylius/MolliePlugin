@@ -11,16 +11,16 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action;
+namespace Sylius\MolliePlugin\Action;
 
-use SyliusMolliePlugin\Action\Api\BaseApiAwareAction;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Helper\ConvertOrderInterface;
-use SyliusMolliePlugin\Helper\IntToStringConverterInterface;
-use SyliusMolliePlugin\Helper\PaymentDescriptionInterface;
-use SyliusMolliePlugin\Provider\Divisor\DivisorProviderInterface;
-use SyliusMolliePlugin\Request\Api\CreateCustomer;
-use SyliusMolliePlugin\Resolver\PaymentLocaleResolverInterface;
+use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
+use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
+use Sylius\MolliePlugin\Helper\PaymentDescriptionInterface;
+use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Request\Api\CreateCustomer;
+use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
 use Payum\Core\Exception\RequestNotSupportedException;

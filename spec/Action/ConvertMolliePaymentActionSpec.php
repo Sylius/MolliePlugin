@@ -11,24 +11,24 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Action;
+namespace spec\Sylius\MolliePlugin\Action;
 
 use ArrayObject;
-use SyliusMolliePlugin\Action\ConvertMolliePaymentAction;
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
-use SyliusMolliePlugin\Factory\ApiCustomerFactoryInterface;
-use SyliusMolliePlugin\Helper\ConvertOrderInterface;
-use SyliusMolliePlugin\Helper\IntToStringConverterInterface;
-use SyliusMolliePlugin\Request\Api\CreateCustomer;
-use SyliusMolliePlugin\Resolver\PaymentLocaleResolverInterface;
+use Sylius\MolliePlugin\Action\ConvertMolliePaymentAction;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Factory\ApiCustomerFactoryInterface;
+use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
+use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
+use Sylius\MolliePlugin\Request\Api\CreateCustomer;
+use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\GatewayInterface;
 use Payum\Core\Request\Convert;
 use Payum\Core\Request\GetCurrency;
 use PhpSpec\ObjectBehavior;
-use SyliusMolliePlugin\Helper\PaymentDescriptionInterface;
+use Sylius\MolliePlugin\Helper\PaymentDescriptionInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;

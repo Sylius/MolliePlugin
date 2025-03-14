@@ -8,7 +8,7 @@
 
     <services>
         <defaults public="true" />
-        <service id="sylius_mollie_plugin.checker.gateway.mollie_gateway_factory_checker" class="SyliusMolliePlugin\Checker\Gateway\MollieGatewayFactoryChecker">
+        <service id="sylius_mollie_plugin.checker.gateway.mollie_gateway_factory_checker" class="Sylius\MolliePlugin\Checker\Gateway\MollieGatewayFactoryChecker">
         </service>
     </services>
 </container>

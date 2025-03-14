@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Preparer;
+namespace Sylius\MolliePlugin\Preparer;
 
 use Sylius\Component\Core\Model\OrderInterface;
 

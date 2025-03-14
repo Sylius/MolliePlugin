@@ -1,6 +1,6 @@
 services:
     sylius_mollie_plugin.behat.context.setup.mollie:
-        class: Tests\SyliusMolliePlugin\Behat\Context\Setup\MollieContext
+        class: Tests\Sylius\MolliePlugin\Behat\Context\Setup\MollieContext
         public: true
         arguments:
             - "@sylius.behat.shared_storage"
@@ -15,7 +15,7 @@ services:
             - "@sylius_mollie_plugin.repository.mollie_gateway_config"
 
     sylius_mollie_plugin.context.setup.order:
-        class: Tests\SyliusMolliePlugin\Behat\Context\Setup\OrderContext
+        class: Tests\Sylius\MolliePlugin\Behat\Context\Setup\OrderContext
         public: true
         arguments:
             - "@doctrine.orm.default_entity_manager"
@@ -25,7 +25,7 @@ services:
             - '@sylius_mollie_plugin.provider.divisor.divisor_provider'
 
     sylius_mollie_plugin.context.setup.subscription:
-        class: Tests\SyliusMolliePlugin\Behat\Context\Setup\SubscriptionContext
+        class: Tests\Sylius\MolliePlugin\Behat\Context\Setup\SubscriptionContext
         public: true
         arguments:
             - "@doctrine.orm.default_entity_manager"
@@ -35,7 +35,7 @@ services:
             - "@sylius_mollie_plugin.mollie_api_client"
 
     sylius_mollie_plugin.behat.context.setup.product:
-        class: Tests\SyliusMolliePlugin\Behat\Context\Setup\ProductContext
+        class: Tests\Sylius\MolliePlugin\Behat\Context\Setup\ProductContext
         public: true
         arguments:
             - "@sylius.behat.shared_storage"

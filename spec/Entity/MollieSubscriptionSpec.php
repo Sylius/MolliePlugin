@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Entity;
+namespace spec\Sylius\MolliePlugin\Entity;
 
-use SyliusMolliePlugin\Entity\MollieSubscription;
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Entity\OrderInterface as MollieOrderInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscription;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface as MollieOrderInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use PhpSpec\ObjectBehavior;

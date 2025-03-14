@@ -11,15 +11,15 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Action\Api;
+namespace spec\Sylius\MolliePlugin\Action\Api;
 
-use SyliusMolliePlugin\Action\Api\BaseApiAwareAction;
-use SyliusMolliePlugin\Action\Api\CreateCustomerAction;
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Entity\MollieCustomer;
-use SyliusMolliePlugin\Entity\MollieCustomerInterface;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Request\Api\CreateCustomer;
+use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
+use Sylius\MolliePlugin\Action\Api\CreateCustomerAction;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Entity\MollieCustomer;
+use Sylius\MolliePlugin\Entity\MollieCustomerInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Request\Api\CreateCustomer;
 use Mollie\Api\Endpoints\CustomerEndpoint;
 use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Resources\Customer;

@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Cli;
+namespace spec\Sylius\MolliePlugin\Cli;
 
-use SyliusMolliePlugin\Cli\SendAbandonedPaymentLink;
-use SyliusMolliePlugin\Creator\AbandonedPaymentLinkCreatorInterface;
+use Sylius\MolliePlugin\Cli\SendAbandonedPaymentLink;
+use Sylius\MolliePlugin\Creator\AbandonedPaymentLinkCreatorInterface;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\Console\Command\Command;
 

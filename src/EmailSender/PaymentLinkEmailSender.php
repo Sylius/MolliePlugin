@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\EmailSender;
+namespace Sylius\MolliePlugin\EmailSender;
 
-use SyliusMolliePlugin\Entity\TemplateMollieEmailTranslationInterface;
-use SyliusMolliePlugin\Mailer\Emails;
-use SyliusMolliePlugin\Twig\Parser\ContentParserInterface;
+use Sylius\MolliePlugin\Entity\TemplateMollieEmailTranslationInterface;
+use Sylius\MolliePlugin\Mailer\Emails;
+use Sylius\MolliePlugin\Twig\Parser\ContentParserInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;

@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Form\Type;
+namespace Sylius\MolliePlugin\Form\Type;
 
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Documentation\DocumentationLinksInterface;
-use SyliusMolliePlugin\Payments\PaymentTerms\Options;
-use SyliusMolliePlugin\Validator\Constraints\LiveApiKeyIsNotBlank;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Documentation\DocumentationLinksInterface;
+use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
+use Sylius\MolliePlugin\Validator\Constraints\LiveApiKeyIsNotBlank;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

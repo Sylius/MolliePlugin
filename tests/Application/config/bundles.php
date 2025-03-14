@@ -73,6 +73,6 @@ return [
     SyliusLabs\Polyfill\Symfony\Security\Bundle\SyliusLabsPolyfillSymfonySecurityBundle::class => ['all' => true],
     Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
     League\FlysystemBundle\FlysystemBundle::class => ['all' => true],
-    SyliusMolliePlugin\SyliusMolliePlugin::class => ['all' => true],
+    Sylius\MolliePlugin\SyliusMolliePlugin::class => ['all' => true],
     Sylius\RefundPlugin\SyliusRefundPlugin::class => ['all' => true],
 ];

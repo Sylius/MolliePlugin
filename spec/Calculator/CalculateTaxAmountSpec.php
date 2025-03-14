@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Calculator;
+namespace spec\Sylius\MolliePlugin\Calculator;
 
-use SyliusMolliePlugin\Calculator\CalculateTaxAmount;
-use SyliusMolliePlugin\Calculator\CalculateTaxAmountInterface;
-use SyliusMolliePlugin\Helper\IntToStringConverterInterface;
+use Sylius\MolliePlugin\Calculator\CalculateTaxAmount;
+use Sylius\MolliePlugin\Calculator\CalculateTaxAmountInterface;
+use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
 use PhpSpec\ObjectBehavior;
 
 final class CalculateTaxAmountSpec extends ObjectBehavior

@@ -6,10 +6,10 @@
                                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
 >
-    <entity name="Tests\SyliusMolliePlugin\Entity\Product" table="sylius_product">
+    <entity name="Tests\Sylius\MolliePlugin\Entity\Product" table="sylius_product">
         <many-to-one
             field="productType"
-            target-entity="SyliusMolliePlugin\Entity\ProductType"
+            target-entity="Sylius\MolliePlugin\Entity\ProductType"
         >
             <join-column
                 name="product_type_id"

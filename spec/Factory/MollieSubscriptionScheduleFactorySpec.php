@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Factory;
+namespace spec\Sylius\MolliePlugin\Factory;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionScheduleInterface;
-use SyliusMolliePlugin\Factory\MollieSubscriptionScheduleFactory;
-use SyliusMolliePlugin\Factory\MollieSubscriptionScheduleFactoryInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionScheduleInterface;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionScheduleFactory;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionScheduleFactoryInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Webmozart\Assert\Assert;

@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Form\Transformer;
+namespace spec\Sylius\MolliePlugin\Form\Transformer;
 
-use SyliusMolliePlugin\Form\Transformer\MollieIntervalTransformer;
+use Sylius\MolliePlugin\Form\Transformer\MollieIntervalTransformer;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\Form\DataTransformerInterface;
 

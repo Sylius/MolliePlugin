@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver;
+namespace Sylius\MolliePlugin\Resolver;
 
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Webmozart\Assert\Assert;
 

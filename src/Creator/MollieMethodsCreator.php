@@ -11,14 +11,14 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Creator;
+namespace Sylius\MolliePlugin\Creator;
 
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Factory\MethodsFactoryInterface;
-use SyliusMolliePlugin\Factory\MollieGatewayConfigFactoryInterface;
-use SyliusMolliePlugin\Factory\MollieSubscriptionGatewayFactory;
-use SyliusMolliePlugin\Payments\Methods\MethodInterface;
-use SyliusMolliePlugin\Resolver\MollieMethodsResolverInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Factory\MethodsFactoryInterface;
+use Sylius\MolliePlugin\Factory\MollieGatewayConfigFactoryInterface;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Payments\Methods\MethodInterface;
+use Sylius\MolliePlugin\Resolver\MollieMethodsResolverInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Mollie\Api\Resources\MethodCollection;
 

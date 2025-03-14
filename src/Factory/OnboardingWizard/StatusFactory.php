@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Factory\OnboardingWizard;
+namespace Sylius\MolliePlugin\Factory\OnboardingWizard;
 
-use SyliusMolliePlugin\Entity\OnboardingWizardStatusInterface;
+use Sylius\MolliePlugin\Entity\OnboardingWizardStatusInterface;
 use Sylius\Component\Core\Model\AdminUserInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 

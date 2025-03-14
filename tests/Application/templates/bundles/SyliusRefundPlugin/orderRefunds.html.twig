@@ -4,7 +4,7 @@
 
 {% set customer = order.customer %}
 {% set disableButton = order.paymentState == constant('Sylius\\Component\\Core\\OrderPaymentStates::STATE_REFUNDED') ? 'disabled' : '' %}
-{% set unitPromotionAdjustmentVoucher = constant('SyliusMolliePlugin\\Payments\\Methods\\MealVoucher::MEAL_VOUCHERS') %}
+{% set unitPromotionAdjustmentVoucher = constant('Sylius\\MolliePlugin\\Payments\\Methods\\MealVoucher::MEAL_VOUCHERS') %}
 {% set unitPromotionTotalVoucher = order.getAdjustmentsTotalRecursively(unitPromotionAdjustmentVoucher) %}
 
 {% block content %}

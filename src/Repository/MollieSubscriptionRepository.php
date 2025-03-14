@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Repository;
+namespace Sylius\MolliePlugin\Repository;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\Component\Core\Model\PaymentInterface;
 

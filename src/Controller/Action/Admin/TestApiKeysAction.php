@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Controller\Action\Admin;
+namespace Sylius\MolliePlugin\Controller\Action\Admin;
 
-use SyliusMolliePlugin\Resolver\ApiKeysTestResolverInterface;
+use Sylius\MolliePlugin\Resolver\ApiKeysTestResolverInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;

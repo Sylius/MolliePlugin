@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Documentation;
+namespace Sylius\MolliePlugin\Documentation;
 
 interface DocumentationLinksInterface
 {

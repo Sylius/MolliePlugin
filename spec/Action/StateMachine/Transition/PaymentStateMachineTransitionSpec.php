@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Action\StateMachine\Transition;
+namespace spec\Sylius\MolliePlugin\Action\StateMachine\Transition;
 
-use SyliusMolliePlugin\Action\StateMachine\Transition\PaymentStateMachineTransition;
-use SyliusMolliePlugin\Action\StateMachine\Transition\PaymentStateMachineTransitionInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Transitions\MollieSubscriptionPaymentProcessingTransitions;
+use Sylius\MolliePlugin\Action\StateMachine\Transition\PaymentStateMachineTransition;
+use Sylius\MolliePlugin\Action\StateMachine\Transition\PaymentStateMachineTransitionInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Transitions\MollieSubscriptionPaymentProcessingTransitions;
 use PhpSpec\ObjectBehavior;
 use SM\Factory\FactoryInterface;
 use SM\StateMachine\StateMachineInterface;
