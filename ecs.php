@@ -17,7 +17,6 @@ use Symplify\EasyCodingStandard\Config\ECSConfig;
 return static function (ECSConfig $config): void {
     $config->parallel();
     $config->paths([
-        'spec',
         'src',
         'tests/Behat',
         'tests/PHPUnit',
