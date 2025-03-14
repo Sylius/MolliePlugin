@@ -7,6 +7,9 @@ namespace Tests\SyliusMolliePlugin\Application;
 use PSS\SymfonyMockerContainer\DependencyInjection\MockerContainer;
 use Sylius\Bundle\CoreBundle\Application\Kernel as SyliusKernel;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
@@ -54,6 +57,14 @@ final class Kernel extends BaseKernel
         return parent::getContainerBaseClass();
     }
 
+    private function loadContainerConfiguration(LoaderInterface $loader, string $confDir): void
+    {
+        $loader->load($confDir . '/{packages}/*' . self::CONFIG_EXTS, 'glob');
+        $loader->load($confDir . '/{packages}/' . $this->environment . '/**/*' . self::CONFIG_EXTS, 'glob');
+        $loader->load($confDir . '/{services}' . self::CONFIG_EXTS, 'glob');
+        $loader->load($confDir . '/{services}_' . $this->environment . self::CONFIG_EXTS, 'glob');
+    }
+
     private function isTestEnvironment(): bool
     {
         return 0 === strpos($this->getEnvironment(), 'test');
@@ -89,9 +100,12 @@ final class Kernel extends BaseKernel
         if (is_dir($syliusConfigDir)) {
             yield $syliusConfigDir;
         }
-        $symfonyConfigDir = $this->getProjectDir() . '/config/symfony/' . BaseKernel::MAJOR_VERSION . '.' . BaseKernel::MINOR_VERSION;
-        if (is_dir($symfonyConfigDir)) {
-            yield $symfonyConfigDir;
+    }
+
+    protected function configureContainer(ContainerConfigurator $container, LoaderInterface $loader, ContainerBuilder $builder): void
+    {
+        foreach ($this->getConfigurationDirectories() as $confDir) {
+            $this->loadContainerConfiguration($loader, $confDir);
         }
     }
 }
