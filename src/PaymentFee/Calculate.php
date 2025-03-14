@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\PaymentFee;
 
+use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Exceptions\UnknownPaymentSurchargeTye;
 use Sylius\MolliePlugin\PaymentFee\Types\FixedAmount;
 use Sylius\MolliePlugin\PaymentFee\Types\FixedAmountAndPercentage;
 use Sylius\MolliePlugin\PaymentFee\Types\Percentage;
-use Sylius\Component\Order\Model\OrderInterface;
 use Webmozart\Assert\Assert;
 
 final class Calculate

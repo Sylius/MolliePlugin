@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Helper;
 
+use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Order\AdjustmentInterface;
-use Sylius\Component\Core\Model\OrderInterface;
 
 interface ConvertOrderInterface
 {
@@ -41,6 +41,6 @@ interface ConvertOrderInterface
         OrderInterface $order,
         array $details,
         int $divisor,
-        MollieGatewayConfigInterface $method
+        MollieGatewayConfigInterface $method,
     ): array;
 }

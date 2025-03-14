@@ -13,15 +13,15 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Resolver;
 
+use Mollie\Api\Exceptions\ApiException;
+use Sylius\Component\Channel\Context\ChannelContextInterface;
+use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Resource\Exception\UpdateHandlingException;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
-use Mollie\Api\Exceptions\ApiException;
-use Sylius\Component\Channel\Context\ChannelContextInterface;
-use Sylius\Component\Core\Model\ChannelInterface;
-use Sylius\Component\Resource\Exception\UpdateHandlingException;
 use Webmozart\Assert\Assert;
 
 final class MollieApiClientKeyResolver implements MollieApiClientKeyResolverInterface
@@ -30,14 +30,14 @@ final class MollieApiClientKeyResolver implements MollieApiClientKeyResolverInte
     {
     }
 
-    public function getClientWithKey(OrderInterface $order = null): MollieApiClient
+    public function getClientWithKey(?OrderInterface $order = null): MollieApiClient
     {
         /** @var ChannelInterface $channel */
         $channel = $this->channelContext->getChannel();
 
         $paymentMethod = $this->paymentMethodRepository->findOneByChannelAndGatewayFactoryName(
             $channel,
-            $this->factoryNameResolver->resolve($order)
+            $this->factoryNameResolver->resolve($order),
         );
 
         if (null === $paymentMethod) {

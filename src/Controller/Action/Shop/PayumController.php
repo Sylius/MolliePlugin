@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Sylius\MolliePlugin\Controller\Action\Shop;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -32,6 +34,7 @@ use Symfony\Component\Routing\RouterInterface;
 final class PayumController
 {
     private const CHECKOUT_STATE_COMPLETED_STATUS = 'completed';
+
     private const STATE_MACHINE_COMPLETE_STATE = 'complete';
 
     public function __construct(
@@ -41,14 +44,11 @@ final class PayumController
         private readonly RequestConfigurationFactoryInterface $requestConfigurationFactory,
         private readonly RouterInterface $router,
         private readonly FactoryInterface $stateMachineFactory,
-        private readonly EntityManagerInterface $entityManager
+        private readonly EntityManagerInterface $entityManager,
     ) {
     }
 
     /**
-     * @param Request $request
-     *
-     * @return Response
      * @throws \SM\SMException
      */
     public function __invoke(Request $request): Response
@@ -66,6 +66,7 @@ final class PayumController
         $payment = $order->getLastPayment();
         if (null === $payment) {
             $url = $this->router->generate('sylius_shop_order_thank_you');
+
             return new RedirectResponse($url);
         }
         $redirectOptions = ['route' => 'sylius_shop_order_after_pay'];
@@ -83,12 +84,6 @@ final class PayumController
         }
     }
 
-    /**
-     * @param PaymentInterface $payment
-     * @param array $redirectOptions
-     *
-     * @return TokenInterface
-     */
     private function provideTokenBasedOnPayment(PaymentInterface $payment, array $redirectOptions): TokenInterface
     {
         /** @var PaymentMethodInterface $paymentMethod */
@@ -120,9 +115,6 @@ final class PayumController
         return $token;
     }
 
-    /**
-     * @return GenericTokenFactoryInterface
-     */
     private function getTokenFactory(): GenericTokenFactoryInterface
     {
         return $this->payum->getTokenFactory();

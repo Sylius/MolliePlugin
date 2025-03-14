@@ -13,10 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Controller\Action\Admin;
 
-use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
-use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
-use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Request\Api\RefundOrder;
 use Doctrine\ORM\EntityManagerInterface;
 use Payum\Core\Model\GatewayConfigInterface;
 use Payum\Core\Payum;
@@ -28,6 +24,10 @@ use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 use Sylius\Component\Payment\PaymentTransitions;
 use Sylius\Component\Resource\Exception\UpdateHandlingException;
+use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Request\Api\RefundOrder;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -44,7 +44,7 @@ final class Refund
         private readonly RequestStack $requestStack,
         private readonly FactoryInterface $stateMachineFactory,
         private readonly EntityManagerInterface $paymentEntityManager,
-        private readonly MollieLoggerActionInterface $loggerAction
+        private readonly MollieLoggerActionInterface $loggerAction,
     ) {
     }
 

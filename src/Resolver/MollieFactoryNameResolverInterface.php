@@ -17,5 +17,5 @@ use Sylius\MolliePlugin\Entity\OrderInterface;
 
 interface MollieFactoryNameResolverInterface
 {
-    public function resolve(OrderInterface $order = null): string;
+    public function resolve(?OrderInterface $order = null): string;
 }

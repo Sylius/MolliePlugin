@@ -13,14 +13,14 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Creator;
 
-use Sylius\MolliePlugin\Exceptions\OfflineRefundPaymentMethodNotFound;
-use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
-use Sylius\MolliePlugin\Refund\Units\PaymentUnitsItemRefundInterface;
-use Sylius\MolliePlugin\Refund\Units\ShipmentUnitRefundInterface;
 use Mollie\Api\Resources\Payment;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Order\Factory\AdjustmentFactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Exceptions\OfflineRefundPaymentMethodNotFound;
+use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Refund\Units\PaymentUnitsItemRefundInterface;
+use Sylius\MolliePlugin\Refund\Units\ShipmentUnitRefundInterface;
 use Sylius\RefundPlugin\Command\RefundUnits;
 use Sylius\RefundPlugin\Provider\RefundPaymentMethodsProviderInterface;
 use Webmozart\Assert\Assert;
@@ -52,7 +52,7 @@ final class PaymentRefundCommandCreator implements PaymentRefundCommandCreatorIn
 
         if (0 === count($refundMethods)) {
             throw new OfflineRefundPaymentMethodNotFound(
-                sprintf('Not found offline payment method on this channel with code :%s', $order->getChannel()->getCode())
+                sprintf('Not found offline payment method on this channel with code :%s', $order->getChannel()->getCode()),
             );
         }
 

@@ -32,7 +32,7 @@ final class TestApiKeysAction
             '@SyliusMolliePlugin/Admin/PaymentMethod/testApiKeys.html.twig',
             [
                 'tests' => $data,
-            ]
+            ],
         ));
     }
 }

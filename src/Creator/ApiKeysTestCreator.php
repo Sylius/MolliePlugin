@@ -14,11 +14,11 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Creator;
 
 use Mollie\Api\Resources\Method;
+use Mollie\Api\Resources\MethodCollection;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\DTO\ApiKeyTest;
 use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType;
 use Sylius\MolliePlugin\Resolver\MollieMethodsResolverInterface;
-use Mollie\Api\Resources\MethodCollection;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class ApiKeysTestCreator implements ApiKeysTestCreatorInterface
@@ -27,11 +27,11 @@ final class ApiKeysTestCreator implements ApiKeysTestCreatorInterface
     {
     }
 
-    public function create(string $keyType, string $key = null): ApiKeyTest
+    public function create(string $keyType, ?string $key = null): ApiKeyTest
     {
         $apiKeyTest = new ApiKeyTest(
             $keyType,
-            null !== $key && '' !== $key
+            null !== $key && '' !== $key,
         );
 
         if (null === $key || '' === (trim($key))) {
@@ -65,7 +65,7 @@ final class ApiKeysTestCreator implements ApiKeysTestCreatorInterface
 
             /** @var MethodCollection $methods */
             $methods = $client->methods->allAvailable(MollieMethodsResolverInterface::PARAMETERS_AVAILABLE);
-            $filteredMethods = array_filter($methods->getArrayCopy(), array($this, 'filterActiveMethods'));
+            $filteredMethods = array_filter($methods->getArrayCopy(), [$this, 'filterActiveMethods']);
             $methods->exchangeArray($filteredMethods);
 
             $apiKeyTest->setMethods($methods);
@@ -76,7 +76,7 @@ final class ApiKeysTestCreator implements ApiKeysTestCreatorInterface
 
             if (0 === $exception->getCode()) {
                 $apiKeyTest->setMessage($this->translator->trans(
-                    \sprintf('sylius_mollie_plugin.ui.api_key_start_with_%s', $apiKeyTest->getType())
+                    \sprintf('sylius_mollie_plugin.ui.api_key_start_with_%s', $apiKeyTest->getType()),
                 ));
 
                 return $apiKeyTest;

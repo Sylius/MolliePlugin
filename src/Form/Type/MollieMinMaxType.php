@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Sylius\MolliePlugin\Form\Type;
 
 use Sylius\MolliePlugin\Entity\MollieMinMax;
@@ -31,7 +33,7 @@ class MollieMinMaxType extends AbstractType
                         'value' => 0,
                         'message' => 'sylius_mollie_plugin.form.error.greater_than',
                         'groups' => ['sylius'],
-                    ])
+                    ]),
                 ],
             ])
             ->add('maximumAmount', NumberType::class, [

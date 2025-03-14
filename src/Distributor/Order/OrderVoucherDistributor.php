@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Distributor\Order;
 
-use Sylius\MolliePlugin\Applicator\UnitsPromotionAdjustmentsApplicatorInterface;
 use Sylius\Component\Core\Distributor\ProportionalIntegerDistributorInterface;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\MolliePlugin\Applicator\UnitsPromotionAdjustmentsApplicatorInterface;
 
 final class OrderVoucherDistributor implements OrderVoucherDistributorInterface
 {
@@ -27,7 +27,7 @@ final class OrderVoucherDistributor implements OrderVoucherDistributorInterface
     {
         $promotionAmount = $this->calculateAdjustmentAmount(
             $order->getPromotionSubjectTotal(),
-            $amount
+            $amount,
         );
 
         if (0 === $promotionAmount) {

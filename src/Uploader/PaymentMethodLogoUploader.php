@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Uploader;
 
-use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Doctrine\Common\Collections\Collection;
 use Gaufrette\Filesystem;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Webmozart\Assert\Assert;
 
@@ -73,7 +73,7 @@ final class PaymentMethodLogoUploader implements PaymentMethodLogoUploaderInterf
 
         $this->filesystem->write(
             $customizeImage->getPath(),
-            $fileContent
+            $fileContent,
         );
     }
 
@@ -93,7 +93,7 @@ final class PaymentMethodLogoUploader implements PaymentMethodLogoUploaderInterf
             '%s/%s/%s',
             substr($path, 0, 2),
             substr($path, 2, 2),
-            substr($path, 4)
+            substr($path, 4),
         );
     }
 }

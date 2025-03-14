@@ -18,5 +18,5 @@ use Sylius\MolliePlugin\Entity\OrderInterface;
 
 interface MollieApiClientKeyResolverInterface
 {
-    public function getClientWithKey(OrderInterface $order = null): MollieApiClient;
+    public function getClientWithKey(?OrderInterface $order = null): MollieApiClient;
 }

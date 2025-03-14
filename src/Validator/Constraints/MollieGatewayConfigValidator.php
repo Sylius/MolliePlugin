@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Sylius\MolliePlugin\Validator\Constraints;
 
 use Doctrine\ORM\PersistentCollection;
@@ -19,8 +21,11 @@ use Webmozart\Assert\Assert;
 final class MollieGatewayConfigValidator extends ConstraintValidator
 {
     private const MINIMUM_FIELD = 'minimumAmount';
+
     private const MAXIMUM_FIELD = 'maximumAmount';
+
     private const AMOUNT_LIMITS_FIELD = 'amountLimits';
+
     private const FIELD_VALUE = 'value';
 
     public function validate($value, Constraint $constraint): void
@@ -32,7 +37,6 @@ final class MollieGatewayConfigValidator extends ConstraintValidator
         }
     }
 
-    /** @param MollieGatewayConfigValidatorType $constraint */
     private function validateAmounts(PersistentCollection $collection, MollieGatewayConfigValidatorType $constraint): void
     {
         $mollieGatewayConfigs = $collection->getSnapshot();
@@ -71,6 +75,5 @@ final class MollieGatewayConfigValidator extends ConstraintValidator
                 }
             }
         }
-
     }
 }

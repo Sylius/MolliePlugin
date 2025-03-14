@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Refund\Units;
 
-use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
 use Mollie\Api\Resources\Order;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Order\Model\Adjustment;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
 use Sylius\RefundPlugin\Model\RefundType;
 use Sylius\RefundPlugin\Model\ShipmentRefund;
 
@@ -47,7 +47,7 @@ final class UnitsShipmentOrderRefund implements UnitsShipmentOrderRefundInterfac
                 return [
                     new ShipmentRefund(
                         $refundedShipment->getId(),
-                        $refundedShipment->getAmount()
+                        $refundedShipment->getAmount(),
                     ),
                 ];
             }

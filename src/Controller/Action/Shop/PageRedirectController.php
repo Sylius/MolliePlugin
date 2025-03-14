@@ -9,14 +9,16 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Sylius\MolliePlugin\Controller\Action\Shop;
 
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Order\Repository\OrderRepositoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Sylius\Component\Order\Repository\OrderRepositoryInterface;
+use Symfony\Component\Routing\RouterInterface;
 
 class PageRedirectController
 {
@@ -24,9 +26,8 @@ class PageRedirectController
 
     public function __construct(
         private readonly RouterInterface $router,
-        private readonly OrderRepositoryInterface $orderRepository
-    )
-    {
+        private readonly OrderRepositoryInterface $orderRepository,
+    ) {
     }
 
     public function thankYouAction(Request $request, SessionInterface $session): RedirectResponse

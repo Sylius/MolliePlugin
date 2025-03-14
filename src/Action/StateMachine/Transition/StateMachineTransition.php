@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Action\StateMachine\Transition;
 
+use SM\Factory\FactoryInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\MolliePlugin\Transitions\MollieSubscriptionTransitions;
-use SM\Factory\FactoryInterface;
 
 final class StateMachineTransition implements StateMachineTransitionInterface
 {

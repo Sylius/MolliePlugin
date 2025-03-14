@@ -20,6 +20,6 @@ interface ShipmentUnitRefundInterface
     public function refund(
         OrderInterface $order,
         array $orderItemUnitRefund,
-        int $totalToRefund
+        int $totalToRefund,
     ): array;
 }

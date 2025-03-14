@@ -13,10 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Action;
 
-use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
-use Sylius\MolliePlugin\Helper\ConvertRefundDataInterface;
-use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Request\Api\RefundOrder;
 use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Resources\Payment;
 use Mollie\Api\Types\PaymentStatus;
@@ -28,6 +24,10 @@ use Payum\Core\GatewayAwareInterface;
 use Payum\Core\GatewayAwareTrait;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Resource\Exception\UpdateHandlingException;
+use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
+use Sylius\MolliePlugin\Helper\ConvertRefundDataInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Request\Api\RefundOrder;
 use Webmozart\Assert\Assert;
 
 final class RefundOrderAction extends BaseApiAwareAction implements ActionInterface, ApiAwareInterface, GatewayAwareInterface
@@ -87,7 +87,7 @@ final class RefundOrderAction extends BaseApiAwareAction implements ActionInterf
                 $molliePayment,
                 [
                     'amount' => $refundData,
-                ]
+                ],
             );
 
             $this->loggerAction->addLog(sprintf('Refund order action with order id: %s', $order->id));

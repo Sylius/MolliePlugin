@@ -47,10 +47,10 @@ final class ApiCustomerFactoryTest extends TestCase
                 'cartToken' => 'carttoken',
                 'selected_issuer' => 'issuer',
                 'methodType' => 'ORDER_API',
-                'customer_mollie_id' => 15
+                'customer_mollie_id' => 15,
             ],
             'full_name' => 'Jan Kowalski',
-            'email' => 'shop@example.com'
+            'email' => 'shop@example.com',
         ];
 
         $this->assertInstanceOf(CreateCustomer::class, $this->apiCustomerFactory->createNew($details));

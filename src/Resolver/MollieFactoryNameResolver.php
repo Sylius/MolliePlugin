@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Resolver;
 
+use Sylius\Component\Order\Context\CartContextInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
 use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
-use Sylius\Component\Order\Context\CartContextInterface;
 
 final class MollieFactoryNameResolver implements MollieFactoryNameResolverInterface
 {
@@ -24,7 +24,7 @@ final class MollieFactoryNameResolver implements MollieFactoryNameResolverInterf
     {
     }
 
-    public function resolve(OrderInterface $order = null): string
+    public function resolve(?OrderInterface $order = null): string
     {
         if (null === $order) {
             try {

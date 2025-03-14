@@ -18,5 +18,6 @@ use Payum\Core\Request\GetCurrency;
 interface DivisorProviderInterface
 {
     public function getDivisor(): int;
+
     public function getDivisorForCurrency(GetCurrency $currency): int;
 }

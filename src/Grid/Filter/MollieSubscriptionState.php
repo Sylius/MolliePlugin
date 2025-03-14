@@ -22,7 +22,7 @@ final class MollieSubscriptionState implements FilterInterface
         DataSourceInterface $dataSource,
         string $name,
         $data,
-        array $options
+        array $options,
     ): void {
         if (false === array_key_exists('state', $data) || [] === $data['state']) {
             return;

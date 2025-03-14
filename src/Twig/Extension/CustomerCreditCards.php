@@ -9,22 +9,24 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Sylius\MolliePlugin\Twig\Extension;
 
+use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\Component\Customer\Context\CustomerContextInterface;
 use Sylius\Component\Customer\Model\CustomerInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\MollieCustomerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
-use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 
 class CustomerCreditCards extends AbstractExtension
 {
     public function __construct(
         private readonly MollieApiClient $apiClient,
         private readonly EntityRepository $customerRepository,
-        private readonly CustomerContextInterface $customerContext
+        private readonly CustomerContextInterface $customerContext,
     ) {
     }
 
@@ -35,7 +37,7 @@ class CustomerCreditCards extends AbstractExtension
     {
         return [
             new TwigFunction('isCardSaved', $this->isCardSaved(...)),
-            new TwigFunction('getCustomerFromContext', $this->getCustomerFromContext(...))
+            new TwigFunction('getCustomerFromContext', $this->getCustomerFromContext(...)),
         ];
     }
 

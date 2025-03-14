@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Action\StateMachine;
 
-use Sylius\MolliePlugin\PartialShip\CreatePartialShipFromMollieInterface;
-use Sylius\MolliePlugin\Transitions\PartialShip\ShipmentTransitions as ShipmentTransitionsPartial;
 use Mollie\Api\Resources\Order;
 use SM\Factory\FactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -22,6 +20,8 @@ use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Order\OrderTransitions;
 use Sylius\Component\Shipping\ShipmentTransitions;
+use Sylius\MolliePlugin\PartialShip\CreatePartialShipFromMollieInterface;
+use Sylius\MolliePlugin\Transitions\PartialShip\ShipmentTransitions as ShipmentTransitionsPartial;
 
 final class SetStatusOrderAction implements SetStatusOrderActionInterface
 {

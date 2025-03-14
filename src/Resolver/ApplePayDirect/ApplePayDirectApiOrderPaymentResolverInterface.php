@@ -21,6 +21,6 @@ interface ApplePayDirectApiOrderPaymentResolverInterface
     public function resolve(
         OrderInterface $order,
         MollieGatewayConfigInterface $mollieGatewayConfig,
-        array $details
+        array $details,
     ): void;
 }

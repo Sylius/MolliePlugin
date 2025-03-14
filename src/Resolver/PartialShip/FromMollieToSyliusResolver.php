@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Resolver\PartialShip;
 
-use Sylius\MolliePlugin\DTO\PartialShipItem;
-use Sylius\MolliePlugin\DTO\PartialShipItems;
-use Sylius\MolliePlugin\Remover\PartialShip\OldShipmentItemsRemoverInterface;
 use Mollie\Api\Resources\Order;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\DTO\PartialShipItem;
+use Sylius\MolliePlugin\DTO\PartialShipItems;
+use Sylius\MolliePlugin\Remover\PartialShip\OldShipmentItemsRemoverInterface;
 
 final class FromMollieToSyliusResolver implements FromMollieToSyliusResolverInterface
 {
@@ -57,7 +57,7 @@ final class FromMollieToSyliusResolver implements FromMollieToSyliusResolverInte
 
     private function getShippedItemQuantity(OrderInterface $order, int $itemId): int
     {
-        $itemCollection = $order->getItems()->filter(fn(OrderItemInterface $item): bool => $item->getId() === $itemId);
+        $itemCollection = $order->getItems()->filter(fn (OrderItemInterface $item): bool => $item->getId() === $itemId);
 
         $refundedUnits = $this->unitsItemRepository->findBy([
             'orderItem' => $itemCollection->first(),

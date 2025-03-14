@@ -26,11 +26,6 @@ final class Version20231225151033 extends AbstractMigration
         return 'Renaming bitbag mollie tables';
     }
 
-    /**
-     * @param Schema $schema
-     *
-     * @return void
-     */
     public function up(Schema $schema): void
     {
         // created in local migration
@@ -54,11 +49,6 @@ final class Version20231225151033 extends AbstractMigration
         $this->renameTableIfExists($schema, 'bitbag_mollie_subscription_schedule', 'mollie_subscription_schedule');
     }
 
-    /**
-     * @param Schema $schema
-     *
-     * @return void
-     */
     public function down(Schema $schema): void
     {
         $this->renameTableIfExists($schema, 'mollie_onboarding_wizard_status', 'bitbag_onboarding_wizard_status');
@@ -78,13 +68,6 @@ final class Version20231225151033 extends AbstractMigration
         $this->renameTableIfExists($schema, 'mollie_subscription_schedule', 'bitbag_mollie_subscription_schedule');
     }
 
-    /**
-     * @param Schema $schema
-     * @param string $oldTableName
-     * @param string $newTableName
-     *
-     * @return void
-     */
     private function renameTableIfExists(Schema $schema, string $oldTableName, string $newTableName): void
     {
         if ($schema->hasTable($newTableName)) {

@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\EventListener;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Uploader\PaymentMethodLogoUploaderInterface;
-use Doctrine\ORM\EntityManagerInterface;
-use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Webmozart\Assert\Assert;
 

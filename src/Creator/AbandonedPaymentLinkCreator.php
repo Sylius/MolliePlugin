@@ -13,6 +13,10 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Creator;
 
+use Sylius\Component\Channel\Context\ChannelContextInterface;
+use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Core\Model\PaymentInterface;
+use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Entity\TemplateMollieEmailInterface;
@@ -21,10 +25,6 @@ use Sylius\MolliePlugin\Preparer\PaymentLinkEmailPreparerInterface;
 use Sylius\MolliePlugin\Repository\OrderRepositoryInterface;
 use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
 use Sylius\MolliePlugin\Resolver\PaymentlinkResolverInterface;
-use Sylius\Component\Channel\Context\ChannelContextInterface;
-use Sylius\Component\Core\Model\ChannelInterface;
-use Sylius\Component\Core\Model\PaymentInterface;
-use Sylius\Component\Core\Model\PaymentMethodInterface;
 
 final class AbandonedPaymentLinkCreator implements AbandonedPaymentLinkCreatorInterface
 {
@@ -38,7 +38,7 @@ final class AbandonedPaymentLinkCreator implements AbandonedPaymentLinkCreatorIn
         $channel = $this->channelContext->getChannel();
         $paymentMethod = $this->paymentMethodRepository->findOneByChannelAndGatewayFactoryName(
             $channel,
-            MollieGatewayFactory::FACTORY_NAME
+            MollieGatewayFactory::FACTORY_NAME,
         );
 
         if (null === $paymentMethod) {

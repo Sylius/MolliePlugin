@@ -39,7 +39,7 @@ final class PartialRefundItems
     public function addPartialRefundItemByQuantity(
         int $id,
         string $type,
-        int $quantity
+        int $quantity,
     ): void {
         for ($oneItem = 0; $oneItem < $quantity; ++$oneItem) {
             $partialRefundItem = new PartialRefundItem();

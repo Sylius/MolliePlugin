@@ -25,7 +25,7 @@ final class MollieCountriesRestrictionResolver implements MollieCountriesRestric
     public function resolve(
         MollieGatewayConfigInterface $paymentMethod,
         array $methods,
-        string $countryCode
+        string $countryCode,
     ): ?array {
         if (MollieGatewayConfigInterface::ALL_COUNTRIES === $paymentMethod->getCountryRestriction()) {
             return $this->excludeCountryLevel($paymentMethod, $methods, $countryCode);
@@ -40,7 +40,7 @@ final class MollieCountriesRestrictionResolver implements MollieCountriesRestric
     private function allowCountryLevel(
         MollieGatewayConfigInterface $paymentMethod,
         array $methods,
-        string $countryCode
+        string $countryCode,
     ): array {
         if (is_array($paymentMethod->getCountryLevelAllowed()) &&
             in_array($countryCode, $paymentMethod->getCountryLevelAllowed(), true)) {
@@ -53,7 +53,7 @@ final class MollieCountriesRestrictionResolver implements MollieCountriesRestric
     private function excludeCountryLevel(
         MollieGatewayConfigInterface $paymentMethod,
         array $methods,
-        string $countryCode
+        string $countryCode,
     ): array {
         if (is_array($paymentMethod->getCountryLevelExcluded()) &&
             in_array($countryCode, $paymentMethod->getCountryLevelExcluded(), true)) {

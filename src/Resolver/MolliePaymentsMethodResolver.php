@@ -13,24 +13,26 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Resolver;
 
+use Mollie\Api\Exceptions\ApiException;
+use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\MolliePlugin\Checker\Voucher\ProductVoucherTypeCheckerInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface as MollieOrderInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Repository\MollieGatewayConfigRepository;
 use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Repository\MollieGatewayConfigRepository;
 use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
 use Sylius\MolliePlugin\Resolver\Order\PaymentCheckoutOrderResolverInterface;
-use Mollie\Api\Exceptions\ApiException;
-use Sylius\Component\Core\Model\OrderInterface;
 use Webmozart\Assert\Assert;
 
 final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolverInterface
 {
     private const MINIMUM_FIELD = 'minimumAmount';
+
     private const MAXIMUM_FIELD = 'maximumAmount';
+
     private const FIELD_VALUE = 'value';
 
     public function __construct(
@@ -42,7 +44,7 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         private readonly MollieAllowedMethodsResolverInterface $allowedMethodsResolver,
         private readonly MollieLoggerActionInterface $loggerAction,
         private readonly MollieFactoryNameResolverInterface $mollieFactoryNameResolver,
-        private readonly DivisorProviderInterface $divisorProvider
+        private readonly DivisorProviderInterface $divisorProvider,
     ) {
     }
 
@@ -77,7 +79,7 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         Assert::notNull($order->getChannel());
         $paymentMethod = $this->paymentMethodRepository->findOneByChannelAndGatewayFactoryName(
             $order->getChannel(),
-            $factoryName
+            $factoryName,
         );
 
         if (null === $paymentMethod) {
@@ -105,7 +107,7 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
             return $this->getDefaultOptions();
         }
 
-        $allowedMethods = $this->filterPaymentMethods($paymentConfigs, $allowedMethodsIds, (float)$order->getTotal()/$this->divisorProvider->getDivisor());
+        $allowedMethods = $this->filterPaymentMethods($paymentConfigs, $allowedMethodsIds, (float) $order->getTotal() / $this->divisorProvider->getDivisor());
 
         if (0 === count($allowedMethods)) {
             return $this->getDefaultOptions();
@@ -123,14 +125,13 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         return $this->productVoucherTypeChecker->checkTheProductTypeOnCart($order, $methods);
     }
 
-    private function filterPaymentMethods(array $paymentConfigs, array $allowedMethodsIds, float $orderTotal) : array
+    private function filterPaymentMethods(array $paymentConfigs, array $allowedMethodsIds, float $orderTotal): array
     {
         $allowedMethods = [];
 
         /** @var MollieGatewayConfig $allowedMethod */
         foreach ($paymentConfigs as $allowedMethod) {
             if (isset($allowedMethod[0]) && !empty($allowedMethod[0]) && in_array($allowedMethod[0]->getMethodId(), $allowedMethodsIds, true)) {
-
                 $minAmountLimit = $allowedMethod[self::MINIMUM_FIELD];
                 if ($minAmountLimit === null && $allowedMethod[0]->getMinimumAmount()) {
                     $minAmountLimit = $allowedMethod[0]->getMinimumAmount()[self::FIELD_VALUE];

@@ -14,10 +14,10 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Action\ApiPlatform;
 
 use Sylius\Bundle\PayumBundle\Model\GatewayConfigInterface;
+use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Sylius\Component\Core\Model\OrderInterface;
 
 class MolliePayment
 {
@@ -30,11 +30,6 @@ class MolliePayment
     {
     }
 
-    /**
-     * @param PaymentMethodInterface $paymentMethod
-     *
-     * @return bool
-     */
     public function supports(PaymentMethodInterface $paymentMethod): bool
     {
         /** @var GatewayConfigInterface $gatewayConfig */
@@ -43,11 +38,6 @@ class MolliePayment
         return $gatewayConfig->getFactoryName() === self::MOLLIE_PAYMENT_METHOD_NAME;
     }
 
-    /**
-     * @param PaymentInterface $payment
-     *
-     * @return array
-     */
     public function provideConfiguration(PaymentInterface $payment): array
     {
         /** @var OrderInterface $order */
@@ -68,16 +58,16 @@ class MolliePayment
         $webhookUrl .= '?orderId=' . $order->getId();
 
         return [
-            "method" => $methodName,
-            "issuer" => $details['selected_issuer'] ?? null,
-            "cardToken" => $details['metadata']['cartToken'] ?? null,
-            "amount" => $details['amount'] ?? null,
-            "customerId" => $details['customerId'] ?? null,
-            "description" => $details['description'] ?? null,
-            "redirectUrl" => $redirectUrl,
-            "webhookUrl" => $webhookUrl,
-            "metadata" => $details['metadata'] ?? null,
-            "locale" => $details['locale'] ?? null
+            'method' => $methodName,
+            'issuer' => $details['selected_issuer'] ?? null,
+            'cardToken' => $details['metadata']['cartToken'] ?? null,
+            'amount' => $details['amount'] ?? null,
+            'customerId' => $details['customerId'] ?? null,
+            'description' => $details['description'] ?? null,
+            'redirectUrl' => $redirectUrl,
+            'webhookUrl' => $webhookUrl,
+            'metadata' => $details['metadata'] ?? null,
+            'locale' => $details['locale'] ?? null,
         ];
     }
 }

@@ -27,7 +27,7 @@ final class OrderShipmentPurifier implements OrderShipmentPurifierInterface
     {
         /** @var Collection $shipments */
         $shipments = $order->getShipments();
-        $shipmentsToRemove = $shipments->filter(static fn(ShipmentInterface $shipment): bool => ShipmentInterface::STATE_READY === $shipment->getState() && $shipment->getUnits()->isEmpty());
+        $shipmentsToRemove = $shipments->filter(static fn (ShipmentInterface $shipment): bool => ShipmentInterface::STATE_READY === $shipment->getState() && $shipment->getUnits()->isEmpty());
 
         if (0 === count($shipmentsToRemove)) {
             return;

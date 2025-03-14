@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\EmailSender;
 
-use Sylius\MolliePlugin\Entity\TemplateMollieEmailTranslationInterface;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\MolliePlugin\Entity\TemplateMollieEmailTranslationInterface;
 
 interface PaymentLinkEmailSenderInterface
 {

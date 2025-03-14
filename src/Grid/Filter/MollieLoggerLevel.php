@@ -22,7 +22,7 @@ final class MollieLoggerLevel implements FilterInterface
         DataSourceInterface $dataSource,
         string $name,
         $data,
-        array $options
+        array $options,
     ): void {
         $dataSource->restrict($dataSource->getExpressionBuilder()->equals('level', $data['loggerLevel']));
     }

@@ -22,7 +22,7 @@ final class DatePeriodFactory implements DatePeriodFactoryInterface
     public function createForSubscriptionConfiguration(
         \DateTime $start,
         int $times,
-        string $interval
+        string $interval,
     ): array {
         Assert::regex($interval, self::READ_PATTERN);
 

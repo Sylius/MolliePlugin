@@ -13,16 +13,16 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Action\Api;
 
+use Mollie\Api\Exceptions\ApiException;
+use Mollie\Api\Resources\Payment;
 use Mollie\Api\Types\PaymentMethod;
+use Payum\Core\Bridge\Spl\ArrayObject;
+use Payum\Core\GatewayAwareTrait;
+use Payum\Core\Reply\HttpRedirect;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Parser\Response\GuzzleNegativeResponseParserInterface;
 use Sylius\MolliePlugin\Request\Api\CreatePayment;
-use Mollie\Api\Exceptions\ApiException;
-use Mollie\Api\Resources\Payment;
-use Payum\Core\Bridge\Spl\ArrayObject;
-use Payum\Core\GatewayAwareTrait;
-use Payum\Core\Reply\HttpRedirect;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Webmozart\Assert\Assert;
@@ -35,7 +35,7 @@ final class CreatePaymentAction extends BaseApiAwareAction
         private MollieLoggerActionInterface $loggerAction,
         private GuzzleNegativeResponseParserInterface $guzzleNegativeResponseParser,
         private RequestStack $requestStack,
-        private EntityRepository $customerRepository
+        private EntityRepository $customerRepository,
     ) {
     }
 
@@ -67,11 +67,11 @@ final class CreatePaymentAction extends BaseApiAwareAction
                 $paymentDetails['locale'] = $details['locale'];
             }
 
-            if (isset($details['metadata']['saveCardInfo']) && $details['metadata']['saveCardInfo'] === "0") {
+            if (isset($details['metadata']['saveCardInfo']) && $details['metadata']['saveCardInfo'] === '0') {
                 unset($paymentDetails['customerId']);
             }
 
-            if (isset($details['metadata']['useSavedCards']) && $details['metadata']['useSavedCards'] === "1") {
+            if (isset($details['metadata']['useSavedCards']) && $details['metadata']['useSavedCards'] === '1') {
                 unset($paymentDetails['cardToken']);
             }
 

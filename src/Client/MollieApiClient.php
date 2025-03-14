@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Client;
 
-use Sylius\MolliePlugin\SyliusMolliePlugin;
 use Mollie\Api\MollieApiClient as BaseMollieApiClient;
+use Sylius\MolliePlugin\SyliusMolliePlugin;
 
 class MollieApiClient extends BaseMollieApiClient
 {

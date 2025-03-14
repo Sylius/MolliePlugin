@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Sylius\MolliePlugin\Controller\Action\Shop;
 
 use Mollie\Api\Resources\Payment;
@@ -33,9 +35,6 @@ class PaymentWebhookController
     }
 
     /**
-     * @param Request $request
-     *
-     * @return Response
      * @throws \Mollie\Api\Exceptions\ApiException
      */
     public function __invoke(Request $request): Response

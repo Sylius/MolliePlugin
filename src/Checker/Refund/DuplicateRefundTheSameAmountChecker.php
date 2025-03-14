@@ -36,7 +36,7 @@ final class DuplicateRefundTheSameAmountChecker implements DuplicateRefundTheSam
         $creditMemos = $this->creditMemoRepository->findByOrderNumberAndDateTime(
             $order->getId(),
             $now,
-            $this->getTotalAmount($command)
+            $this->getTotalAmount($command),
         );
 
         return 0 !== count($creditMemos);

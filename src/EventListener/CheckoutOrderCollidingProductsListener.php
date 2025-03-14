@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\EventListener;
 
-use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
+use Sylius\MolliePlugin\Entity\OrderInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -40,7 +40,7 @@ final class CheckoutOrderCollidingProductsListener
             $message = $this->translator->trans('sylius_mollie_plugin.order_checkout.colliding_products');
             $event->stop(
                 $message,
-                ResourceControllerEvent::TYPE_WARNING
+                ResourceControllerEvent::TYPE_WARNING,
             );
             /** @var Session $session */
             $session = $this->requestStack->getSession();

@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Form\Type;
 
+use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Sylius\MolliePlugin\Entity\ProductType;
 use Sylius\MolliePlugin\MealVouchers\Options;
-use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;

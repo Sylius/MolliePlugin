@@ -32,7 +32,7 @@ trait GatewayConfigTrait
 
     public function getMethodByName(string $methodName): ?MollieGatewayConfigInterface
     {
-        $method = $this->mollieGatewayConfig->filter(fn(MollieGatewayConfigInterface $mollieGatewayConfig) => $mollieGatewayConfig->getMethodId() === $methodName);
+        $method = $this->mollieGatewayConfig->filter(fn (MollieGatewayConfigInterface $mollieGatewayConfig) => $mollieGatewayConfig->getMethodId() === $methodName);
 
         return $method->isEmpty() ? null : $method->first();
     }

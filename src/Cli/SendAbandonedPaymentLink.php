@@ -68,7 +68,7 @@ class SendAbandonedPaymentLink extends Command
             $this->io->comment(\sprintf(
                 'Duration: %.2f ms / Memory: %.2f MB',
                 $event->getDuration(),
-                $event->getMemory() / (1024 ** 2)
+                $event->getMemory() / (1024 ** 2),
             ));
         }
 

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Payments;
 
+use Mollie\Api\Resources\Method;
 use Sylius\MolliePlugin\Payments\Methods\Alma;
 use Sylius\MolliePlugin\Payments\Methods\ApplePay;
 use Sylius\MolliePlugin\Payments\Methods\Bancomatpay;
@@ -40,7 +41,6 @@ use Sylius\MolliePlugin\Payments\Methods\Przelewy24;
 use Sylius\MolliePlugin\Payments\Methods\Riverty;
 use Sylius\MolliePlugin\Payments\Methods\Satispay;
 use Sylius\MolliePlugin\Payments\Methods\SofortBanking;
-use Mollie\Api\Resources\Method;
 use Sylius\MolliePlugin\Payments\Methods\Trustly;
 use Sylius\MolliePlugin\Payments\Methods\Twint;
 
@@ -75,7 +75,7 @@ interface MethodsInterface
         Trustly::class,
         Bancomatpay::class,
         Payconiq::class,
-        Satispay::class
+        Satispay::class,
     ];
 
     public function getAllEnabled(): array;

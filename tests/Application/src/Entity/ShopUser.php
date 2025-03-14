@@ -25,5 +25,4 @@ class ShopUser extends BaseShopUser implements PasswordHasherAwareInterface
     {
         return $this->encoderName;
     }
-
 }

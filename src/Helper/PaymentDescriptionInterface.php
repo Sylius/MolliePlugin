@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Helper;
 
-use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 
 interface PaymentDescriptionInterface
 {
@@ -24,6 +24,6 @@ interface PaymentDescriptionInterface
     public function getPaymentDescription(
         PaymentInterface $payment,
         MollieGatewayConfigInterface $methodConfig,
-        OrderInterface $order
+        OrderInterface $order,
     ): string;
 }

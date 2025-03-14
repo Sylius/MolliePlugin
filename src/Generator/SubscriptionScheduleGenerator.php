@@ -36,7 +36,7 @@ final class SubscriptionScheduleGenerator implements SubscriptionScheduleGenerat
         $datePeriods = $this->datePeriodFactory->createForSubscriptionConfiguration(
             $startedAt,
             $configuration->getNumberOfRepetitions(),
-            $configuration->getInterval()
+            $configuration->getInterval(),
         );
 
         $schedules = [];
@@ -45,7 +45,7 @@ final class SubscriptionScheduleGenerator implements SubscriptionScheduleGenerat
                 $subscription,
                 $date,
                 $index,
-                0 === $index ? $startedAt : null
+                0 === $index ? $startedAt : null,
             );
         }
 
