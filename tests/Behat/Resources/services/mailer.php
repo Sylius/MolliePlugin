@@ -11,10 +11,10 @@ return function(ContainerConfigurator $configurator) {
         return;
     }
 
-    $services = $configurator->services();
-
-    $services
-        ->alias('sylius.behat.context.hook.mailer', 'sylius.behat.context.hook.email_spool')
-        ->public()
-    ;
+//    $services = $configurator->services();
+//
+//    $services
+//        ->alias('sylius.behat.context.hook.mailer', 'sylius.behat.context.hook.email_spool')
+//        ->public()
+//    ;
 };
