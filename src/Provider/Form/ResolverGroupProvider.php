@@ -3,9 +3,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Provider\Form;
+namespace Sylius\MolliePlugin\Provider\Form;
 
-use SyliusMolliePlugin\Entity\ProductVariantInterface;
+use Sylius\MolliePlugin\Entity\ProductVariantInterface;
 use Symfony\Component\Form\FormInterface;
 
 final class ResolverGroupProvider implements ResolverGroupProviderInterface

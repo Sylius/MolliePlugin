@@ -3,9 +3,9 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Grid\Filter;
+namespace spec\Sylius\MolliePlugin\Grid\Filter;
 
-use SyliusMolliePlugin\Grid\Filter\MollieSubscriptionState;
+use Sylius\MolliePlugin\Grid\Filter\MollieSubscriptionState;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Grid\Data\DataSourceInterface;
 use Sylius\Component\Grid\Data\ExpressionBuilderInterface;

@@ -3,9 +3,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Payments;
+namespace Sylius\MolliePlugin\Payments;
 
-use SyliusMolliePlugin\Payments\Methods\MethodInterface;
+use Sylius\MolliePlugin\Payments\Methods\MethodInterface;
 use Mollie\Api\Resources\Method;
 
 final class Methods implements MethodsInterface

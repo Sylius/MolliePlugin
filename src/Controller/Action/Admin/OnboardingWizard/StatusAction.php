@@ -3,10 +3,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Controller\Action\Admin\OnboardingWizard;
+namespace Sylius\MolliePlugin\Controller\Action\Admin\OnboardingWizard;
 
-use SyliusMolliePlugin\Context\Admin\AdminUserContextInterface;
-use SyliusMolliePlugin\Entity\OnboardingWizardStatus;
+use Sylius\MolliePlugin\Context\Admin\AdminUserContextInterface;
+use Sylius\MolliePlugin\Entity\OnboardingWizardStatus;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

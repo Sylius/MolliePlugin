@@ -3,11 +3,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action;
+namespace Sylius\MolliePlugin\Action;
 
-use SyliusMolliePlugin\Action\Api\BaseApiAwareAction;
-use SyliusMolliePlugin\Helper\ConvertRefundDataInterface;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
+use Sylius\MolliePlugin\Helper\ConvertRefundDataInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Mollie\Api\Exceptions\ApiException;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;

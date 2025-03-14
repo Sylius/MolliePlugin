@@ -1,6 +1,6 @@
 <?php
 
-namespace SyliusMolliePlugin\Controller\Action\Shop;
+namespace Sylius\MolliePlugin\Controller\Action\Shop;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;

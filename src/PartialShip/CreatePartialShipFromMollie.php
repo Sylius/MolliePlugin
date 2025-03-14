@@ -3,10 +3,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\PartialShip;
+namespace Sylius\MolliePlugin\PartialShip;
 
-use SyliusMolliePlugin\Factory\PartialShip\ShipmentFactoryInterface;
-use SyliusMolliePlugin\Resolver\PartialShip\FromMollieToSyliusResolverInterface;
+use Sylius\MolliePlugin\Factory\PartialShip\ShipmentFactoryInterface;
+use Sylius\MolliePlugin\Resolver\PartialShip\FromMollieToSyliusResolverInterface;
 use Doctrine\Common\Collections\Collection;
 use Mollie\Api\Resources\Order;
 use Sylius\Component\Core\Model\OrderInterface;

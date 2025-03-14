@@ -1,8 +1,8 @@
 <?php
 
-namespace SyliusMolliePlugin\Twig\Extension;
+namespace Sylius\MolliePlugin\Twig\Extension;
 
-use SyliusMolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

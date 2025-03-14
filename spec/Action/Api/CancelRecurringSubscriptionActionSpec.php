@@ -3,15 +3,15 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Action\Api;
+namespace spec\Sylius\MolliePlugin\Action\Api;
 
-use SyliusMolliePlugin\Action\Api\BaseApiAwareAction;
-use SyliusMolliePlugin\Action\Api\CancelRecurringSubscriptionAction;
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Request\Api\CancelRecurringSubscription;
+use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
+use Sylius\MolliePlugin\Action\Api\CancelRecurringSubscriptionAction;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Request\Api\CancelRecurringSubscription;
 use Mollie\Api\Endpoints\CustomerEndpoint;
 use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Resources\Customer;

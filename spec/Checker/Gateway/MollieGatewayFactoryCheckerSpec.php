@@ -3,13 +3,13 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Checker\Gateway;
+namespace spec\Sylius\MolliePlugin\Checker\Gateway;
 
-use SyliusMolliePlugin\Checker\Gateway\MollieGatewayFactoryChecker;
-use SyliusMolliePlugin\Checker\Gateway\MollieGatewayFactoryCheckerInterface;
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Factory\MollieGatewayFactory;
-use SyliusMolliePlugin\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Checker\Gateway\MollieGatewayFactoryChecker;
+use Sylius\MolliePlugin\Checker\Gateway\MollieGatewayFactoryCheckerInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
 use PhpSpec\ObjectBehavior;
 
 final class MollieGatewayFactoryCheckerSpec extends ObjectBehavior

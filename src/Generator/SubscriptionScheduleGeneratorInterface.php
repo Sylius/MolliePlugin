@@ -3,9 +3,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Generator;
+namespace Sylius\MolliePlugin\Generator;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 
 interface SubscriptionScheduleGeneratorInterface
 {

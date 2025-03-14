@@ -3,16 +3,16 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action\StateMachine\Applicator;
+namespace Sylius\MolliePlugin\Action\StateMachine\Applicator;
 
-use SyliusMolliePlugin\Action\StateMachine\Transition\PaymentStateMachineTransitionInterface;
-use SyliusMolliePlugin\Action\StateMachine\Transition\ProcessingStateMachineTransitionInterface;
-use SyliusMolliePlugin\Action\StateMachine\Transition\StateMachineTransitionInterface;
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Transitions\MollieSubscriptionPaymentProcessingTransitions;
-use SyliusMolliePlugin\Transitions\MollieSubscriptionProcessingTransitions;
-use SyliusMolliePlugin\Transitions\MollieSubscriptionTransitions;
+use Sylius\MolliePlugin\Action\StateMachine\Transition\PaymentStateMachineTransitionInterface;
+use Sylius\MolliePlugin\Action\StateMachine\Transition\ProcessingStateMachineTransitionInterface;
+use Sylius\MolliePlugin\Action\StateMachine\Transition\StateMachineTransitionInterface;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Transitions\MollieSubscriptionPaymentProcessingTransitions;
+use Sylius\MolliePlugin\Transitions\MollieSubscriptionProcessingTransitions;
+use Sylius\MolliePlugin\Transitions\MollieSubscriptionTransitions;
 use Mollie\Api\Types\PaymentStatus;
 
 final class SubscriptionAndPaymentIdApplicator implements SubscriptionAndPaymentIdApplicatorInterface

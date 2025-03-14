@@ -3,9 +3,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver\ApplePayDirect;
+namespace Sylius\MolliePlugin\Resolver\ApplePayDirect;
 
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 
 interface ApplePayDirectPaymentTypeResolverInterface

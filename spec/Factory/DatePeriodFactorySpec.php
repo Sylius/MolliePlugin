@@ -3,10 +3,10 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Factory;
+namespace spec\Sylius\MolliePlugin\Factory;
 
-use SyliusMolliePlugin\Factory\DatePeriodFactory;
-use SyliusMolliePlugin\Factory\DatePeriodFactoryInterface;
+use Sylius\MolliePlugin\Factory\DatePeriodFactory;
+use Sylius\MolliePlugin\Factory\DatePeriodFactoryInterface;
 use PhpSpec\ObjectBehavior;
 
 final class DatePeriodFactorySpec extends ObjectBehavior

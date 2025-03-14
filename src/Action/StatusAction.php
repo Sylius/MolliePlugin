@@ -3,15 +3,15 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action;
+namespace Sylius\MolliePlugin\Action;
 
-use SyliusMolliePlugin\Action\Api\BaseApiAwareAction;
-use SyliusMolliePlugin\Checker\Refund\MollieOrderRefundCheckerInterface;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Payments\Methods\MealVoucher;
-use SyliusMolliePlugin\Refund\OrderRefundInterface;
-use SyliusMolliePlugin\Refund\PaymentRefundInterface;
-use SyliusMolliePlugin\Updater\Order\OrderVoucherAdjustmentUpdaterInterface;
+use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
+use Sylius\MolliePlugin\Checker\Refund\MollieOrderRefundCheckerInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Payments\Methods\MealVoucher;
+use Sylius\MolliePlugin\Refund\OrderRefundInterface;
+use Sylius\MolliePlugin\Refund\PaymentRefundInterface;
+use Sylius\MolliePlugin\Updater\Order\OrderVoucherAdjustmentUpdaterInterface;
 use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Resources\Customer;
 use Mollie\Api\Resources\Payment;

@@ -3,11 +3,11 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Order;
+namespace spec\Sylius\MolliePlugin\Order;
 
-use SyliusMolliePlugin\Order\ShipmentCloner;
-use SyliusMolliePlugin\Order\ShipmentClonerInterface;
-use SyliusMolliePlugin\Order\ShipmentUnitClonerInterface;
+use Sylius\MolliePlugin\Order\ShipmentCloner;
+use Sylius\MolliePlugin\Order\ShipmentClonerInterface;
+use Sylius\MolliePlugin\Order\ShipmentUnitClonerInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Sylius\Component\Core\Model\ShipmentInterface;

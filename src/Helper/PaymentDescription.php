@@ -3,10 +3,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Helper;
+namespace Sylius\MolliePlugin\Helper;
 
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
-use SyliusMolliePlugin\Payments\PaymentTerms\Options;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 use Mollie\Api\Types\PaymentMethod;
 use Sylius\Bundle\PayumBundle\Provider\PaymentDescriptionProviderInterface;
 use Sylius\Component\Core\Model\OrderInterface;

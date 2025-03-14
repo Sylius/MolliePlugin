@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Creator;
+namespace Sylius\MolliePlugin\Creator;
 
 use Mollie\Api\Resources\Order;
 use Sylius\RefundPlugin\Command\RefundUnits;

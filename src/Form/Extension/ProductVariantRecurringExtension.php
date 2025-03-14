@@ -3,10 +3,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Form\Extension;
+namespace Sylius\MolliePlugin\Form\Extension;
 
-use SyliusMolliePlugin\Form\Type\MollieIntervalType;
-use SyliusMolliePlugin\Provider\Form\ResolverGroupProviderInterface;
+use Sylius\MolliePlugin\Form\Type\MollieIntervalType;
+use Sylius\MolliePlugin\Provider\Form\ResolverGroupProviderInterface;
 use Sylius\Bundle\ProductBundle\Form\Type\ProductVariantType as ProductVariantFormType;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;

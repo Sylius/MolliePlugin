@@ -3,12 +3,12 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Guard;
+namespace spec\Sylius\MolliePlugin\Guard;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionScheduleInterface;
-use SyliusMolliePlugin\Guard\SubscriptionGuard;
-use SyliusMolliePlugin\Guard\SubscriptionGuardInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionScheduleInterface;
+use Sylius\MolliePlugin\Guard\SubscriptionGuard;
+use Sylius\MolliePlugin\Guard\SubscriptionGuardInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use PhpSpec\ObjectBehavior;
 

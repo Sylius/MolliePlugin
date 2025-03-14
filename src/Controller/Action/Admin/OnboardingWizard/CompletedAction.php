@@ -3,10 +3,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Controller\Action\Admin\OnboardingWizard;
+namespace Sylius\MolliePlugin\Controller\Action\Admin\OnboardingWizard;
 
-use SyliusMolliePlugin\Creator\OnboardingWizard\StatusCreatorInterface;
-use SyliusMolliePlugin\Exceptions\AdminUserNotFound;
+use Sylius\MolliePlugin\Creator\OnboardingWizard\StatusCreatorInterface;
+use Sylius\MolliePlugin\Exceptions\AdminUserNotFound;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 

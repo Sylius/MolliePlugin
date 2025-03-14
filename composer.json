@@ -64,8 +64,8 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "SyliusMolliePlugin\\": "src/",
-            "Tests\\SyliusMolliePlugin\\": ["tests/", "tests/Application/src"]
+            "Sylius\\MolliePlugin\\": "src/",
+            "Tests\\Sylius\\MolliePlugin\\": ["tests/", "tests/Application/src"]
         }
     },
     "autoload-dev": {

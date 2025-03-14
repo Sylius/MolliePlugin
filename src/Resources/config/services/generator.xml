@@ -6,7 +6,7 @@
 >
 	<services>
 		<defaults public="true" />
-		<service id="sylius_mollie_plugin.generator.subscription_schedule_generator" class="SyliusMolliePlugin\Generator\SubscriptionScheduleGenerator">
+		<service id="sylius_mollie_plugin.generator.subscription_schedule_generator" class="Sylius\MolliePlugin\Generator\SubscriptionScheduleGenerator">
 			<argument type="service" id="sylius_mollie_plugin.factory.date_periods"/>
 			<argument type="service" id="sylius_mollie_plugin.custom_factory.mollie_subscription_schedule"/>
 		</service>

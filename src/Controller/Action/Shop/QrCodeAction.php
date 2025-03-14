@@ -1,19 +1,19 @@
 <?php
 
-namespace SyliusMolliePlugin\Controller\Action\Shop;
+namespace Sylius\MolliePlugin\Controller\Action\Shop;
 
 use Mollie\Api\Resources\Payment;
 use Sylius\Component\Order\Context\CartContextInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\DTO\MolliePayment\Amount;
-use SyliusMolliePlugin\DTO\MolliePayment\Metadata;
-use SyliusMolliePlugin\DTO\MolliePayment\MolliePayment;
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
-use SyliusMolliePlugin\Helper\IntToStringConverterInterface;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\DTO\MolliePayment\Amount;
+use Sylius\MolliePlugin\DTO\MolliePayment\Metadata;
+use Sylius\MolliePlugin\DTO\MolliePayment\MolliePayment;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
+use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

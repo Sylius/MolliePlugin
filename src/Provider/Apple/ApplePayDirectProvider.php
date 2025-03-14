@@ -3,12 +3,12 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Provider\Apple;
+namespace Sylius\MolliePlugin\Provider\Apple;
 
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Provider\Order\OrderPaymentApplePayDirectProviderInterface;
-use SyliusMolliePlugin\Resolver\Address\ApplePayAddressResolverInterface;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Provider\Order\OrderPaymentApplePayDirectProviderInterface;
+use Sylius\MolliePlugin\Resolver\Address\ApplePayAddressResolverInterface;
 use Sylius\AdminOrderCreationPlugin\Provider\CustomerProviderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Symfony\Component\HttpFoundation\Request;

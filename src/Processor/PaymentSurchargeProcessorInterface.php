@@ -3,9 +3,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Processor;
+namespace Sylius\MolliePlugin\Processor;
 
-use SyliusMolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
 
 interface PaymentSurchargeProcessorInterface
 {

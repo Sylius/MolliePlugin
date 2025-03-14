@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\DTO;
+namespace Sylius\MolliePlugin\DTO;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

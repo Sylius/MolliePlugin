@@ -3,11 +3,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Validator\Constraints;
+namespace Sylius\MolliePlugin\Validator\Constraints;
 
 use Mollie\Api\Types\PaymentMethod;
-use SyliusMolliePlugin\Checker\Gateway\MollieGatewayFactoryCheckerInterface;
-use SyliusMolliePlugin\Resolver\Order\PaymentCheckoutOrderResolverInterface;
+use Sylius\MolliePlugin\Checker\Gateway\MollieGatewayFactoryCheckerInterface;
+use Sylius\MolliePlugin\Resolver\Order\PaymentCheckoutOrderResolverInterface;
 use Payum\Core\Model\GatewayConfigInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;

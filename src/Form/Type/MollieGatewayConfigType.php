@@ -3,18 +3,18 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Form\Type;
+namespace Sylius\MolliePlugin\Form\Type;
 
-use SyliusMolliePlugin\Documentation\DocumentationLinksInterface;
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
-use SyliusMolliePlugin\Entity\MollieGatewayConfigTranslationInterface;
-use SyliusMolliePlugin\Entity\ProductType;
-use SyliusMolliePlugin\Factory\MollieSubscriptionGatewayFactory;
-use SyliusMolliePlugin\Form\Type\Translation\MollieGatewayConfigTranslationType;
-use SyliusMolliePlugin\Options\Country\Options as CountryOptions;
-use SyliusMolliePlugin\Payments\Methods\AbstractMethod;
-use SyliusMolliePlugin\Payments\PaymentTerms\Options;
-use SyliusMolliePlugin\Validator\Constraints\PaymentSurchargeType;
+use Sylius\MolliePlugin\Documentation\DocumentationLinksInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigTranslationInterface;
+use Sylius\MolliePlugin\Entity\ProductType;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Form\Type\Translation\MollieGatewayConfigTranslationType;
+use Sylius\MolliePlugin\Options\Country\Options as CountryOptions;
+use Sylius\MolliePlugin\Payments\Methods\AbstractMethod;
+use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
+use Sylius\MolliePlugin\Validator\Constraints\PaymentSurchargeType;
 use Sylius\Bundle\ProductBundle\Form\Type\ProductType as ProductFormType;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Sylius\Bundle\ResourceBundle\Form\Type\ResourceTranslationsType;

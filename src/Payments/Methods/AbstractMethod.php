@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Payments\Methods;
+namespace Sylius\MolliePlugin\Payments\Methods;
 
 abstract class AbstractMethod implements MethodInterface
 {

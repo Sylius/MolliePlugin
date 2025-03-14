@@ -3,13 +3,13 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Creator;
+namespace Sylius\MolliePlugin\Creator;
 
-use SyliusMolliePlugin\DTO\PartialRefundItems;
-use SyliusMolliePlugin\Exceptions\OfflineRefundPaymentMethodNotFound;
-use SyliusMolliePlugin\Helper\ConvertOrderInterface;
-use SyliusMolliePlugin\Refund\Units\UnitsItemOrderRefundInterface;
-use SyliusMolliePlugin\Refund\Units\UnitsShipmentOrderRefundInterface;
+use Sylius\MolliePlugin\DTO\PartialRefundItems;
+use Sylius\MolliePlugin\Exceptions\OfflineRefundPaymentMethodNotFound;
+use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
+use Sylius\MolliePlugin\Refund\Units\UnitsItemOrderRefundInterface;
+use Sylius\MolliePlugin\Refund\Units\UnitsShipmentOrderRefundInterface;
 use Mollie\Api\Resources\Order;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;

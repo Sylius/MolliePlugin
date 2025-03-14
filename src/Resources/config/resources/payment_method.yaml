@@ -2,4 +2,4 @@ sylius_payment:
   resources:
     payment_method:
       classes:
-        repository: SyliusMolliePlugin\Repository\PaymentMethodRepository
+        repository: Sylius\MolliePlugin\Repository\PaymentMethodRepository

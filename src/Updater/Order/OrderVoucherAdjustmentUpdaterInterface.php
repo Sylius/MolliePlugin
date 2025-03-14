@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Updater\Order;
+namespace Sylius\MolliePlugin\Updater\Order;
 
 use Mollie\Api\Resources\Payment;
 

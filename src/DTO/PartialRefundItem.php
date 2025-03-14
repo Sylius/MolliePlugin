@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\DTO;
+namespace Sylius\MolliePlugin\DTO;
 
 final class PartialRefundItem
 {

@@ -3,9 +3,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver\ApplePayDirect;
+namespace Sylius\MolliePlugin\Resolver\ApplePayDirect;
 
-use SyliusMolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
 
 interface ApplePayDirectApiPaymentResolverInterface
 {

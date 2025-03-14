@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\PaymentProcessing;
+namespace Sylius\MolliePlugin\PaymentProcessing;
 
 use Sylius\Component\Core\Model\PaymentInterface;
 

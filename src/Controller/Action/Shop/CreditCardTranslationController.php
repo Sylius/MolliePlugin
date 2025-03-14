@@ -1,6 +1,6 @@
 <?php
 
-namespace SyliusMolliePlugin\Controller\Action\Shop;
+namespace Sylius\MolliePlugin\Controller\Action\Shop;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

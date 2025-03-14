@@ -3,10 +3,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Twig\Extension;
+namespace Sylius\MolliePlugin\Twig\Extension;
 
-use SyliusMolliePlugin\SyliusMolliePlugin;
-use SyliusMolliePlugin\Checker\Version\MolliePluginLatestVersionCheckerInterface;
+use Sylius\MolliePlugin\SyliusMolliePlugin;
+use Sylius\MolliePlugin\Checker\Version\MolliePluginLatestVersionCheckerInterface;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;

@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Documentation;
+namespace Sylius\MolliePlugin\Documentation;
 
 use Symfony\Contracts\Translation\TranslatorInterface;
 

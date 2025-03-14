@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Entity;
+namespace Sylius\MolliePlugin\Entity;
 
 use Sylius\Component\Core\Model\AdminUserInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;

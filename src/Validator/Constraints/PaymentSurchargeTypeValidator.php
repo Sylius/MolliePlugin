@@ -3,10 +3,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Validator\Constraints;
+namespace Sylius\MolliePlugin\Validator\Constraints;
 
-use SyliusMolliePlugin\Entity\PaymentSurchargeFeeInterface;
-use SyliusMolliePlugin\Payments\PaymentTerms\Options;
+use Sylius\MolliePlugin\Entity\PaymentSurchargeFeeInterface;
+use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Webmozart\Assert\Assert;

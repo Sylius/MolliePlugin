@@ -3,15 +3,15 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Action;
+namespace spec\Sylius\MolliePlugin\Action;
 
-use SyliusMolliePlugin\Action\NotifyAction;
-use SyliusMolliePlugin\Action\StateMachine\SetStatusOrderActionInterface;
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
-use SyliusMolliePlugin\Request\StateMachine\StatusRecurringSubscription;
+use Sylius\MolliePlugin\Action\NotifyAction;
+use Sylius\MolliePlugin\Action\StateMachine\SetStatusOrderActionInterface;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
+use Sylius\MolliePlugin\Request\StateMachine\StatusRecurringSubscription;
 use Mollie\Api\Endpoints\OrderEndpoint;
 use Mollie\Api\Endpoints\PaymentEndpoint;
 use Mollie\Api\Exceptions\ApiException;

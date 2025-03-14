@@ -3,13 +3,13 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Payments\MethodResolver;
+namespace Sylius\MolliePlugin\Payments\MethodResolver;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Factory\MollieSubscriptionGatewayFactory;
-use SyliusMolliePlugin\Repository\PaymentMethodRepositoryInterface;
-use SyliusMolliePlugin\Resolver\MollieFactoryNameResolverInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
+use Sylius\MolliePlugin\Resolver\MollieFactoryNameResolverInterface;
 use Sylius\Component\Core\Model\PaymentInterface as CorePaymentInterface;
 use Sylius\Component\Payment\Model\PaymentInterface;
 use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;

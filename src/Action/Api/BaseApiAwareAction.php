@@ -3,9 +3,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action\Api;
+namespace Sylius\MolliePlugin\Action\Api;
 
-use SyliusMolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Client\MollieApiClient;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
 use Payum\Core\Exception\UnsupportedApiException;

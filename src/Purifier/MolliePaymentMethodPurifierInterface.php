@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Purifier;
+namespace Sylius\MolliePlugin\Purifier;
 
 interface MolliePaymentMethodPurifierInterface
 {

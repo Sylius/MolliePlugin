@@ -3,13 +3,13 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action\Api;
+namespace Sylius\MolliePlugin\Action\Api;
 
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Factory\MollieSubscriptionFactoryInterface;
-use SyliusMolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
-use SyliusMolliePlugin\Repository\OrderRepositoryInterface;
-use SyliusMolliePlugin\Request\Api\CreateInternalRecurring;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionFactoryInterface;
+use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
+use Sylius\MolliePlugin\Repository\OrderRepositoryInterface;
+use Sylius\MolliePlugin\Request\Api\CreateInternalRecurring;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;

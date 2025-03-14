@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Refund\Units;
+namespace Sylius\MolliePlugin\Refund\Units;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Order\Model\AdjustmentInterface;

@@ -3,18 +3,18 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Payments\MethodResolver;
+namespace spec\Sylius\MolliePlugin\Payments\MethodResolver;
 
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Payments\MethodResolver\MollieMethodFilterInterface;
-use SyliusMolliePlugin\Payments\MethodResolver\MolliePaymentMethodResolver;
-use SyliusMolliePlugin\Resolver\MollieFactoryNameResolverInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Payments\MethodResolver\MollieMethodFilterInterface;
+use Sylius\MolliePlugin\Payments\MethodResolver\MolliePaymentMethodResolver;
+use Sylius\MolliePlugin\Resolver\MollieFactoryNameResolverInterface;
 use Payum\Core\Model\GatewayConfigInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\PaymentInterface as CorePaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
-use SyliusMolliePlugin\Repository\PaymentMethodRepositoryInterface;
+use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
 use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
 
 final class MolliePaymentMethodResolverSpec extends ObjectBehavior

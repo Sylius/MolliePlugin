@@ -1,6 +1,6 @@
 <?php
 
-namespace SyliusMolliePlugin\Validator\Constraints;
+namespace Sylius\MolliePlugin\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 

@@ -3,12 +3,12 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Creator\OnboardingWizard;
+namespace Sylius\MolliePlugin\Creator\OnboardingWizard;
 
-use SyliusMolliePlugin\Context\Admin\AdminUserContextInterface;
-use SyliusMolliePlugin\Entity\OnboardingWizardStatusInterface;
-use SyliusMolliePlugin\Exceptions\AdminUserNotFound;
-use SyliusMolliePlugin\Resolver\OnboardingWizard\StatusResolverInterface;
+use Sylius\MolliePlugin\Context\Admin\AdminUserContextInterface;
+use Sylius\MolliePlugin\Entity\OnboardingWizardStatusInterface;
+use Sylius\MolliePlugin\Exceptions\AdminUserNotFound;
+use Sylius\MolliePlugin\Resolver\OnboardingWizard\StatusResolverInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 final class StatusCreator implements StatusCreatorInterface

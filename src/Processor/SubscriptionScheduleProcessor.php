@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Processor;
+namespace Sylius\MolliePlugin\Processor;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Generator\SubscriptionScheduleGeneratorInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Generator\SubscriptionScheduleGeneratorInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Webmozart\Assert\Assert;
 

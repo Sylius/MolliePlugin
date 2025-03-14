@@ -3,12 +3,12 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Controller\Action\Admin;
+namespace Sylius\MolliePlugin\Controller\Action\Admin;
 
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Purifier\MolliePaymentMethodPurifierInterface;
-use SyliusMolliePlugin\Resolver\MollieMethodsResolverInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Purifier\MolliePaymentMethodPurifierInterface;
+use Sylius\MolliePlugin\Resolver\MollieMethodsResolverInterface;
 use Mollie\Api\Exceptions\ApiException;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\Component\Resource\Exception\UpdateHandlingException;

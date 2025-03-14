@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Purifier\PartialShip;
+namespace Sylius\MolliePlugin\Purifier\PartialShip;
 
 use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Core\Model\OrderInterface;
