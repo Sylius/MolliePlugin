@@ -11,7 +11,6 @@ Feature: Paying with Mollie during checkout
         And gateway "mollie" has all methods loaded and enabled
         And the store ships everywhere for free
         And I am logged in as "john@mollie.pl"
-        And I am logged in as an administrator
 
     @ui
     Scenario: Successful payment
@@ -22,7 +21,8 @@ Feature: Paying with Mollie during checkout
         Then I press "Next"
         When I confirm my order
         Then I should be notified that my payment has been completed
-        When I browse orders
+        When I am logged in as an administrator
+        And I browse orders
         Then I should see a single order from customer "john@mollie.pl"
         And I view summary of last order
         And it should be paid with "Mollie"
