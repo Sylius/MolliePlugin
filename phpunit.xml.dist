@@ -6,15 +6,15 @@
          colors="true"
          bootstrap="tests/Application/config/bootstrap.php">
     <testsuites>
-        <testsuite name="Mollie Test Suite">
-            <directory>tests/PHPUnit</directory>
+        <testsuite name="functional">
+            <directory>tests/PHPUnit/Functional</directory>
         </testsuite>
     </testsuites>
 
     <php>
         <server name="APP_ENV" value="test" />
-        <server name="KERNEL_CLASS" value="App\Kernel" />
-        <server name="EXPECTED_RESPONSE_DIR" value="tests/Responses/json" />
+        <server name="KERNEL_CLASS" value="Tests\Sylius\MolliePlugin\Application\Kernel" />
+        <server name="EXPECTED_RESPONSE_DIR" value="tests/PHPUnit/Responses/json" />
         <server name="IS_DOCTRINE_ORM_SUPPORTED" value="true" />
     </php>
 </phpunit>

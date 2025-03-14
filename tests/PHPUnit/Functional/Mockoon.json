@@ -1,6 +1,6 @@
 {
   "uuid": "0ddbe0cf-e880-4631-a1d8-245632be2119",
-  "lastMigration": 19,
+  "lastMigration": 27,
   "name": "Mollie PHPUnit",
   "endpointPrefix": "",
   "latency": 0,
@@ -25,7 +25,10 @@
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true,
+          "databucketID": "",
+          "bodyType": "INLINE"
         },
         {
           "uuid": "97dc296e-cc3c-4778-8367-6c68675ba1c4",
@@ -41,17 +44,21 @@
               "target": "query",
               "modifier": "embed",
               "value": "payments",
-              "operator": "equals"
+              "operator": "equals",
+              "invert": false
             }
           ],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": false,
+          "databucketID": "",
+          "bodyType": "INLINE"
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null,
+      "type": "http"
     },
     {
       "uuid": "e40d3572-7974-433f-9254-83a487f9ed1e",
@@ -71,12 +78,15 @@
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
-          "fallbackTo404": false
+          "fallbackTo404": false,
+          "default": true,
+          "databucketID": "",
+          "bodyType": "INLINE"
         }
       ],
       "enabled": true,
-      "randomResponse": false,
-      "sequentialResponse": false
+      "responseMode": null,
+      "type": "http"
     }
   ],
   "proxyMode": false,
@@ -108,6 +118,18 @@
     {
       "key": "",
       "value": ""
+    }
+  ],
+  "data": [],
+  "folders": [],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "163993d2-d80a-42a3-8d46-763ee8b68065"
+    },
+    {
+      "type": "route",
+      "uuid": "e40d3572-7974-433f-9254-83a487f9ed1e"
     }
   ]
 }
