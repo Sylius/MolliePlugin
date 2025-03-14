@@ -147,8 +147,7 @@ jobs:
             
             -   name: Run Behat
                 run: |
-                    vendor/bin/behat --colors --strict -vvv --no-interaction features/admin/create_scheduled_mollie_subscription.feature || vendor/bin/behat --colors --strict -vvv --no-interaction --rerun features/admin/create_scheduled_mollie_subscription.feature
-                    vendor/bin/behat --colors --strict -vvv --no-interaction features/admin/creating_recurring_subscription_through_admin.feature || vendor/bin/behat --colors --strict -vvv --no-interaction --rerun features/admin/creating_recurring_subscription_through_admin.feature
+                    vendor/bin/behat --colors --strict -vvv --no-interaction features/admin || vendor/bin/behat --colors --strict -vvv --no-interaction --rerun features/admin
                     vendor/bin/behat --colors --strict -vvv --no-interaction features/shop || vendor/bin/behat --colors --strict -vvv --no-interaction --rerun features/shop
                     
             -   name: Upload Behat logs
