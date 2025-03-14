@@ -1,5 +1,5 @@
 {
-    "name": "mollie/sylius-plugin",
+    "name": "sylius/mollie-plugin",
     "type": "sylius-plugin",
     "description": "Mollie payment plugin for Sylius applications.",
     "license": "MIT",
