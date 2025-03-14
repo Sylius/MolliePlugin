@@ -3,10 +3,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Factory;
+namespace Sylius\MolliePlugin\Factory;
 
-use SyliusMolliePlugin\Payments\Methods;
-use SyliusMolliePlugin\Payments\MethodsInterface;
+use Sylius\MolliePlugin\Payments\Methods;
+use Sylius\MolliePlugin\Payments\MethodsInterface;
 
 final class MethodsFactory implements MethodsFactoryInterface
 {

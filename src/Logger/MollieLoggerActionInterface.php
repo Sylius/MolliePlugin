@@ -4,7 +4,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Logger;
+namespace Sylius\MolliePlugin\Logger;
 
 use Symfony\Component\HttpFoundation\Response;
 

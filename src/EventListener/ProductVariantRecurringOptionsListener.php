@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\EventListener;
+namespace Sylius\MolliePlugin\EventListener;
 
 use Sylius\Bundle\AdminBundle\Event\ProductVariantMenuBuilderEvent;
 

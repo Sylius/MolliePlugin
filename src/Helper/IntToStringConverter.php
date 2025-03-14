@@ -3,9 +3,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Helper;
+namespace Sylius\MolliePlugin\Helper;
 
-use SyliusMolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 
 final class IntToStringConverter implements IntToStringConverterInterface
 {

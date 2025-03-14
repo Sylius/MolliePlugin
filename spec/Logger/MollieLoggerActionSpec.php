@@ -3,14 +3,14 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Logger;
+namespace spec\Sylius\MolliePlugin\Logger;
 
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Entity\MollieLoggerInterface;
-use SyliusMolliePlugin\Factory\MollieLoggerFactoryInterface;
-use SyliusMolliePlugin\Logger\MollieLoggerAction;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Resolver\MollieFactoryNameResolverInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\MollieLoggerInterface;
+use Sylius\MolliePlugin\Factory\MollieLoggerFactoryInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerAction;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Resolver\MollieFactoryNameResolverInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;

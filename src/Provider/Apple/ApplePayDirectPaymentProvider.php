@@ -3,11 +3,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Provider\Apple;
+namespace Sylius\MolliePlugin\Provider\Apple;
 
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Resolver\ApplePayDirect\ApplePayDirectPaymentTypeResolverInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Resolver\ApplePayDirect\ApplePayDirectPaymentTypeResolverInterface;
 use Doctrine\Common\Collections\Collection;
 use Mollie\Api\Types\PaymentMethod;
 use Sylius\Component\Core\Model\PaymentInterface;

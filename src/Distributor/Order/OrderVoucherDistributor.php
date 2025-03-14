@@ -3,9 +3,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Distributor\Order;
+namespace Sylius\MolliePlugin\Distributor\Order;
 
-use SyliusMolliePlugin\Applicator\UnitsPromotionAdjustmentsApplicatorInterface;
+use Sylius\MolliePlugin\Applicator\UnitsPromotionAdjustmentsApplicatorInterface;
 use Sylius\Component\Core\Distributor\ProportionalIntegerDistributorInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 

@@ -3,9 +3,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver\Order;
+namespace Sylius\MolliePlugin\Resolver\Order;
 
-use SyliusMolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
 
 interface PaymentCheckoutOrderResolverInterface
 {

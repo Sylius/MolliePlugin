@@ -3,9 +3,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Factory;
+namespace Sylius\MolliePlugin\Factory;
 
-use SyliusMolliePlugin\Payments\MethodsInterface;
+use Sylius\MolliePlugin\Payments\MethodsInterface;
 
 interface MethodsFactoryInterface
 {

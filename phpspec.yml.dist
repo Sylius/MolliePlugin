@@ -1,4 +1,5 @@
 suites:
     main:
-        namespace: SyliusMolliePlugin
-        psr4_prefix: SyliusMolliePlugin
+        namespace: Sylius\MolliePlugin
+        psr4_prefix: Sylius\MolliePlugin
+        src_path: src/

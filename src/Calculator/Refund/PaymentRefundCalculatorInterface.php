@@ -3,9 +3,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Calculator\Refund;
+namespace Sylius\MolliePlugin\Calculator\Refund;
 
-use SyliusMolliePlugin\DTO\PartialRefundItems;
+use Sylius\MolliePlugin\DTO\PartialRefundItems;
 
 interface PaymentRefundCalculatorInterface
 {

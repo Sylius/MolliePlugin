@@ -2,7 +2,7 @@
 
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="tests.sylius_mollie_plugin.application.src.event_listener.payment_link_creation_listener" class="Tests\SyliusMolliePlugin\Application\src\EventListener\PaymentLinkCreationListener" decorates="Sylius\AdminOrderCreationPlugin\EventListener\PaymentLinkCreationListener">
+        <service id="tests.sylius_mollie_plugin.application.src.event_listener.payment_link_creation_listener" class="Tests\Sylius\MolliePlugin\Application\src\EventListener\PaymentLinkCreationListener" decorates="Sylius\AdminOrderCreationPlugin\EventListener\PaymentLinkCreationListener">
             <argument type="service" id="Sylius\AdminOrderCreationPlugin\Provider\PaymentTokenProvider" />
             <argument type="service" id="sylius.manager.order" />
             <argument type="service" id="Sylius\AdminOrderCreationPlugin\Sender\OrderPaymentLinkSender" />

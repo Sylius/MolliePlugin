@@ -3,10 +3,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Purifier;
+namespace Sylius\MolliePlugin\Purifier;
 
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
-use SyliusMolliePlugin\Resolver\MollieMethodsResolverInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Resolver\MollieMethodsResolverInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 
 final class MolliePaymentMethodPurifier implements MolliePaymentMethodPurifierInterface

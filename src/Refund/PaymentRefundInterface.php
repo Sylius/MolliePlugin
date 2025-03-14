@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Refund;
+namespace Sylius\MolliePlugin\Refund;
 
 use Mollie\Api\Resources\Payment;
 

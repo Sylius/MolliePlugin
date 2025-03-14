@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Behat\Context\Ui\Shop;
+namespace Tests\Sylius\MolliePlugin\Behat\Context\Ui\Shop;
 
 use Behat\Behat\Context\Context;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;

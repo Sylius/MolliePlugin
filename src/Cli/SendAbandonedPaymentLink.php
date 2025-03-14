@@ -3,9 +3,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Cli;
+namespace Sylius\MolliePlugin\Cli;
 
-use SyliusMolliePlugin\Creator\AbandonedPaymentLinkCreatorInterface;
+use Sylius\MolliePlugin\Creator\AbandonedPaymentLinkCreatorInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

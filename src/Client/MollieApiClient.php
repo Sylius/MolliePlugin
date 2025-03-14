@@ -3,9 +3,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Client;
+namespace Sylius\MolliePlugin\Client;
 
-use SyliusMolliePlugin\SyliusMolliePlugin;
+use Sylius\MolliePlugin\SyliusMolliePlugin;
 use Mollie\Api\MollieApiClient as BaseMollieApiClient;
 
 class MollieApiClient extends BaseMollieApiClient

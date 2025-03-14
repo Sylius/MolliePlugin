@@ -3,11 +3,11 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Provider\Form;
+namespace spec\Sylius\MolliePlugin\Provider\Form;
 
-use SyliusMolliePlugin\Entity\ProductVariantInterface;
-use SyliusMolliePlugin\Provider\Form\ResolverGroupProvider;
-use SyliusMolliePlugin\Provider\Form\ResolverGroupProviderInterface;
+use Sylius\MolliePlugin\Entity\ProductVariantInterface;
+use Sylius\MolliePlugin\Provider\Form\ResolverGroupProvider;
+use Sylius\MolliePlugin\Provider\Form\ResolverGroupProviderInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Symfony\Component\Form\FormInterface;

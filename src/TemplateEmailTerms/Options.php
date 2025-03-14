@@ -3,9 +3,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\TemplateEmailTerms;
+namespace Sylius\MolliePlugin\TemplateEmailTerms;
 
-use SyliusMolliePlugin\Entity\TemplateMollieEmailInterface;
+use Sylius\MolliePlugin\Entity\TemplateMollieEmailInterface;
 
 final class Options
 {

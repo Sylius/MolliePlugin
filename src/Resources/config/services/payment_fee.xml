@@ -4,21 +4,21 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <defaults public="true" />
-        <service id="sylius_mollie_plugin.payment_surcharge.types.fix_amount" class="SyliusMolliePlugin\PaymentFee\Types\FixedAmount">
+        <service id="sylius_mollie_plugin.payment_surcharge.types.fix_amount" class="Sylius\MolliePlugin\PaymentFee\Types\FixedAmount">
             <argument type="service" id="sylius.factory.adjustment"/>
             <argument type="service" id="sylius_mollie_plugin.provider.divisor.divisor_provider"/>
         </service>
-        <service id="sylius_mollie_plugin.payment_surcharge.types.fix_amount_and_percentage" class="SyliusMolliePlugin\PaymentFee\Types\FixedAmountAndPercentage">
+        <service id="sylius_mollie_plugin.payment_surcharge.types.fix_amount_and_percentage" class="Sylius\MolliePlugin\PaymentFee\Types\FixedAmountAndPercentage">
             <argument type="service" id="sylius.factory.adjustment"/>
             <argument type="service" id="sylius_mollie_plugin.payment_surcharge.types.percentage"/>
             <argument type="service" id="sylius_mollie_plugin.payment_surcharge.types.fix_amount"/>
             <argument type="service" id="sylius_mollie_plugin.provider.divisor.divisor_provider"/>
         </service>
-        <service id="sylius_mollie_plugin.payment_surcharge.types.percentage" class="SyliusMolliePlugin\PaymentFee\Types\Percentage">
+        <service id="sylius_mollie_plugin.payment_surcharge.types.percentage" class="Sylius\MolliePlugin\PaymentFee\Types\Percentage">
             <argument type="service" id="sylius.factory.adjustment"/>
             <argument type="service" id="sylius_mollie_plugin.provider.divisor.divisor_provider"/>
         </service>
-        <service id="sylius_mollie_plugin.payment_surcharge.calculate" class="SyliusMolliePlugin\PaymentFee\Calculate">
+        <service id="sylius_mollie_plugin.payment_surcharge.calculate" class="Sylius\MolliePlugin\PaymentFee\Calculate">
             <argument type="service" id="sylius_mollie_plugin.payment_surcharge.types.fix_amount"/>
             <argument type="service" id="sylius_mollie_plugin.payment_surcharge.types.percentage"/>
             <argument type="service" id="sylius_mollie_plugin.payment_surcharge.types.fix_amount_and_percentage"/>

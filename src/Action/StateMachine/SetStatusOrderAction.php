@@ -3,10 +3,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action\StateMachine;
+namespace Sylius\MolliePlugin\Action\StateMachine;
 
-use SyliusMolliePlugin\PartialShip\CreatePartialShipFromMollieInterface;
-use SyliusMolliePlugin\Transitions\PartialShip\ShipmentTransitions as ShipmentTransitionsPartial;
+use Sylius\MolliePlugin\PartialShip\CreatePartialShipFromMollieInterface;
+use Sylius\MolliePlugin\Transitions\PartialShip\ShipmentTransitions as ShipmentTransitionsPartial;
 use Mollie\Api\Resources\Order;
 use SM\Factory\FactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;

@@ -3,13 +3,13 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Order;
+namespace spec\Sylius\MolliePlugin\Order;
 
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Order\OrderPaymentRefund;
-use SyliusMolliePlugin\Order\OrderPaymentRefundInterface;
-use SyliusMolliePlugin\Request\Api\RefundOrder;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Order\OrderPaymentRefund;
+use Sylius\MolliePlugin\Order\OrderPaymentRefundInterface;
+use Sylius\MolliePlugin\Request\Api\RefundOrder;
 use Doctrine\Common\Collections\ArrayCollection;
 use Payum\Core\GatewayInterface;
 use Payum\Core\Model\GatewayConfigInterface;

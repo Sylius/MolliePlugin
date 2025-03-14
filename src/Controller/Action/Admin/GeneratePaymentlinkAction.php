@@ -3,13 +3,13 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Controller\Action\Admin;
+namespace Sylius\MolliePlugin\Controller\Action\Admin;
 
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Entity\TemplateMollieEmailInterface;
-use SyliusMolliePlugin\Form\Type\PaymentlinkType;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Resolver\PaymentlinkResolverInterface;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Entity\TemplateMollieEmailInterface;
+use Sylius\MolliePlugin\Form\Type\PaymentlinkType;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Resolver\PaymentlinkResolverInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Symfony\Component\Form\FormFactoryInterface;

@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Behat\Page\Admin\Order;
+namespace Tests\Sylius\MolliePlugin\Behat\Page\Admin\Order;
 
 use Sylius\Behat\Page\Admin\Order\ShowPageInterface as BaseShowPageInterface;
 

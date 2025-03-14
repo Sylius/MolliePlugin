@@ -3,9 +3,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Creator;
+namespace Sylius\MolliePlugin\Creator;
 
-use SyliusMolliePlugin\DTO\ApiKeyTest;
+use Sylius\MolliePlugin\DTO\ApiKeyTest;
 
 interface ApiKeysTestCreatorInterface
 {

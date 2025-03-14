@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver;
+namespace Sylius\MolliePlugin\Resolver;
 
 use Sylius\Component\Core\Model\OrderInterface;
 

@@ -3,14 +3,14 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Updater\Order;
+namespace Sylius\MolliePlugin\Updater\Order;
 
-use SyliusMolliePlugin\Distributor\Order\OrderVoucherDistributorInterface;
+use Sylius\MolliePlugin\Distributor\Order\OrderVoucherDistributorInterface;
 use Mollie\Api\Resources\Payment;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Order\Factory\AdjustmentFactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use SyliusMolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 
 final class OrderVoucherAdjustmentUpdater implements OrderVoucherAdjustmentUpdaterInterface
 {

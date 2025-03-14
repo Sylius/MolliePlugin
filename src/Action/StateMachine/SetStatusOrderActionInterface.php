@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action\StateMachine;
+namespace Sylius\MolliePlugin\Action\StateMachine;
 
 use Mollie\Api\Resources\Order;
 

@@ -3,11 +3,11 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Entity;
+namespace spec\Sylius\MolliePlugin\Entity;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionSchedule;
-use SyliusMolliePlugin\Entity\MollieSubscriptionScheduleInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionSchedule;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionScheduleInterface;
 use PhpSpec\ObjectBehavior;
 
 final class MollieSubscriptionScheduleSpec extends ObjectBehavior

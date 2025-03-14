@@ -3,9 +3,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Form\Transformer;
+namespace Sylius\MolliePlugin\Form\Transformer;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
 use Symfony\Component\Form\DataTransformerInterface;
 
 final class MollieIntervalTransformer implements DataTransformerInterface

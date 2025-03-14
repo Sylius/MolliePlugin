@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver;
+namespace Sylius\MolliePlugin\Resolver;
 
 use Mollie\Api\Types\PaymentMethod;
 use Sylius\Component\Core\Model\OrderInterface;

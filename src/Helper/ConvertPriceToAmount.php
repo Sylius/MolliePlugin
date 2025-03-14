@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Helper;
+namespace Sylius\MolliePlugin\Helper;
 
 use Sylius\Bundle\MoneyBundle\Templating\Helper\FormatMoneyHelper;
 use Sylius\Component\Currency\Context\CurrencyContextInterface;

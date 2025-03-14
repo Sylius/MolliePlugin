@@ -3,9 +3,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Controller\Action\Shop;
+namespace Sylius\MolliePlugin\Controller\Action\Shop;
 
-use SyliusMolliePlugin\Order\AdjustmentInterface;
+use Sylius\MolliePlugin\Order\AdjustmentInterface;
 
 interface PaymentFeeCalculateActionInterface
 {

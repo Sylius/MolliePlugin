@@ -3,4 +3,4 @@ sylius_resource:
     sylius_mollie_plugin.payment_surcharge_fee:
       driver: doctrine/orm
       classes:
-        model: SyliusMolliePlugin\Entity\PaymentSurchargeFee
+        model: Sylius\MolliePlugin\Entity\PaymentSurchargeFee

@@ -1,6 +1,6 @@
 <?php
 
-namespace SyliusMolliePlugin\DTO\MolliePayment;
+namespace Sylius\MolliePlugin\DTO\MolliePayment;
 
 class Amount
 {

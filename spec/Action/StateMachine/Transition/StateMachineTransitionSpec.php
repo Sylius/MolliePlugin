@@ -3,12 +3,12 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Action\StateMachine\Transition;
+namespace spec\Sylius\MolliePlugin\Action\StateMachine\Transition;
 
-use SyliusMolliePlugin\Action\StateMachine\Transition\StateMachineTransition;
-use SyliusMolliePlugin\Action\StateMachine\Transition\StateMachineTransitionInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Transitions\MollieSubscriptionTransitions;
+use Sylius\MolliePlugin\Action\StateMachine\Transition\StateMachineTransition;
+use Sylius\MolliePlugin\Action\StateMachine\Transition\StateMachineTransitionInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Transitions\MollieSubscriptionTransitions;
 use PhpSpec\ObjectBehavior;
 use SM\Factory\FactoryInterface;
 use SM\StateMachine\StateMachineInterface;

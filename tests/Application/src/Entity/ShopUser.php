@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Entity;
+namespace Tests\Sylius\MolliePlugin\Entity;
 
 use Sylius\Component\Core\Model\ShopUser as BaseShopUser;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherAwareInterface;

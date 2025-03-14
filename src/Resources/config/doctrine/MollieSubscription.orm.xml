@@ -5,7 +5,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
 >
-    <mapped-superclass name="SyliusMolliePlugin\Entity\MollieSubscription" table="mollie_subscription">
+    <mapped-superclass name="Sylius\MolliePlugin\Entity\MollieSubscription" table="mollie_subscription">
         <id name="id" column="id" type="integer">
             <generator strategy="AUTO"/>
         </id>
@@ -28,7 +28,7 @@
             </options>
         </field>
 
-        <one-to-one field="subscriptionConfiguration" inversed-by="subscription" target-entity="SyliusMolliePlugin\Entity\MollieSubscriptionConfiguration">
+        <one-to-one field="subscriptionConfiguration" inversed-by="subscription" target-entity="Sylius\MolliePlugin\Entity\MollieSubscriptionConfiguration">
             <cascade>
                 <cascade-persist/>
             </cascade>
@@ -59,7 +59,7 @@
                 </inverse-join-columns>
             </join-table>
         </many-to-many>
-        <one-to-many field="schedules" target-entity="SyliusMolliePlugin\Entity\MollieSubscriptionScheduleInterface" mapped-by="mollieSubscription">
+        <one-to-many field="schedules" target-entity="Sylius\MolliePlugin\Entity\MollieSubscriptionScheduleInterface" mapped-by="mollieSubscription">
             <cascade>
                 <cascade-persist/>
             </cascade>

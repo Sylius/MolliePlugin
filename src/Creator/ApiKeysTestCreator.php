@@ -3,13 +3,13 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Creator;
+namespace Sylius\MolliePlugin\Creator;
 
 use Mollie\Api\Resources\Method;
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\DTO\ApiKeyTest;
-use SyliusMolliePlugin\Form\Type\MollieGatewayConfigurationType;
-use SyliusMolliePlugin\Resolver\MollieMethodsResolverInterface;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\DTO\ApiKeyTest;
+use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType;
+use Sylius\MolliePlugin\Resolver\MollieMethodsResolverInterface;
 use Mollie\Api\Resources\MethodCollection;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

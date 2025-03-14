@@ -3,10 +3,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Behat\Context\Ui\Admin;
+namespace Tests\Sylius\MolliePlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
-use Tests\SyliusMolliePlugin\Behat\Page\Admin\PaymentMethod\CreatePageInterface;
+use Tests\Sylius\MolliePlugin\Behat\Page\Admin\PaymentMethod\CreatePageInterface;
 use Webmozart\Assert\Assert;
 
 final class ManagingPaymentMethodContext implements Context

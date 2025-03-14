@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Request\Api;
+namespace Sylius\MolliePlugin\Request\Api;
 
 use Payum\Core\Request\Generic;
 

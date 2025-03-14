@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Checker\Gateway;
+namespace Sylius\MolliePlugin\Checker\Gateway;
 
 use Payum\Core\Model\GatewayConfigInterface;
 

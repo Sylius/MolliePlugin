@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Functional\Api;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Functional\Api;
 
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Repository\CreditMemoRepositoryInterface;
-use SyliusMolliePlugin\Repository\OrderRepositoryInterface;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Repository\CreditMemoRepositoryInterface;
+use Sylius\MolliePlugin\Repository\OrderRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Payum\Core\Model\Identity;
 use Sylius\Component\Core\Model\Payment;
@@ -19,7 +19,7 @@ use Sylius\RefundPlugin\Entity\LineItemInterface;
 use Sylius\RefundPlugin\Entity\RefundInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Tests\SyliusMolliePlugin\PHPUnit\Functional\FunctionalTestCase;
+use Tests\Sylius\MolliePlugin\PHPUnit\Functional\FunctionalTestCase;
 
 final class RefundOrderWebhookTest extends FunctionalTestCase
 {

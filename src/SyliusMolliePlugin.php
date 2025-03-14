@@ -3,9 +3,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin;
+namespace Sylius\MolliePlugin;
 
-use SyliusMolliePlugin\DependencyInjection\SyliusMessageBusPolyfillPass;
+use Sylius\MolliePlugin\DependencyInjection\SyliusMessageBusPolyfillPass;
 use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;

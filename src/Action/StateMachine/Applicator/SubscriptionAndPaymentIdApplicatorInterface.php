@@ -3,9 +3,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action\StateMachine\Applicator;
+namespace Sylius\MolliePlugin\Action\StateMachine\Applicator;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 
 interface SubscriptionAndPaymentIdApplicatorInterface
 {

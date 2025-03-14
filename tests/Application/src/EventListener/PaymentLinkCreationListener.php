@@ -3,10 +3,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Application\src\EventListener;
+namespace Tests\Sylius\MolliePlugin\Application\src\EventListener;
 
-use SyliusMolliePlugin\Factory\MollieGatewayFactory;
-use SyliusMolliePlugin\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
 use Doctrine\Persistence\ObjectManager;
 use Payum\Core\Model\GatewayConfigInterface;
 use Payum\Core\Payum;

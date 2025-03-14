@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Applicator;
+namespace Sylius\MolliePlugin\Applicator;
 
 use Sylius\Component\Core\Model\OrderInterface;
 

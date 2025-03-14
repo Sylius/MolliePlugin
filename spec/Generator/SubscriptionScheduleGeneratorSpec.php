@@ -3,15 +3,15 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Generator;
+namespace spec\Sylius\MolliePlugin\Generator;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionScheduleInterface;
-use SyliusMolliePlugin\Factory\DatePeriodFactoryInterface;
-use SyliusMolliePlugin\Factory\MollieSubscriptionScheduleFactoryInterface;
-use SyliusMolliePlugin\Generator\SubscriptionScheduleGenerator;
-use SyliusMolliePlugin\Generator\SubscriptionScheduleGeneratorInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionScheduleInterface;
+use Sylius\MolliePlugin\Factory\DatePeriodFactoryInterface;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionScheduleFactoryInterface;
+use Sylius\MolliePlugin\Generator\SubscriptionScheduleGenerator;
+use Sylius\MolliePlugin\Generator\SubscriptionScheduleGeneratorInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

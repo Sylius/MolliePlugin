@@ -3,10 +3,10 @@
 
 declare(strict_types=1);
 
-namespace spec\SyliusMolliePlugin\Payments\Methods;
+namespace spec\Sylius\MolliePlugin\Payments\Methods;
 
-use SyliusMolliePlugin\Payments\Methods\AbstractMethod;
-use SyliusMolliePlugin\Payments\Methods\KlarnaPayNow;
+use Sylius\MolliePlugin\Payments\Methods\AbstractMethod;
+use Sylius\MolliePlugin\Payments\Methods\KlarnaPayNow;
 use Mollie\Api\Types\PaymentMethod;
 use PhpSpec\ObjectBehavior;
 
