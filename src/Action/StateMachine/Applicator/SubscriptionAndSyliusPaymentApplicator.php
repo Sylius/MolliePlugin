@@ -24,23 +24,8 @@ use Sylius\Component\Core\Model\PaymentInterface;
 
 final class SubscriptionAndSyliusPaymentApplicator implements SubscriptionAndSyliusPaymentApplicatorInterface
 {
-    /** @var StateMachineTransitionInterface */
-    private $stateMachineTransition;
-
-    /** @var PaymentStateMachineTransitionInterface */
-    private $paymentStateMachineTransition;
-
-    /** @var ProcessingStateMachineTransitionInterface */
-    private $processingStateMachineTransition;
-
-    public function __construct(
-        StateMachineTransitionInterface $stateMachineTransition,
-        PaymentStateMachineTransitionInterface $paymentStateMachineTransition,
-        ProcessingStateMachineTransitionInterface $processingStateMachineTransition
-    ) {
-        $this->stateMachineTransition = $stateMachineTransition;
-        $this->paymentStateMachineTransition = $paymentStateMachineTransition;
-        $this->processingStateMachineTransition = $processingStateMachineTransition;
+    public function __construct(private readonly StateMachineTransitionInterface $stateMachineTransition, private readonly PaymentStateMachineTransitionInterface $paymentStateMachineTransition, private readonly ProcessingStateMachineTransitionInterface $processingStateMachineTransition)
+    {
     }
 
     public function execute(

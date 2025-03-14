@@ -48,29 +48,13 @@ final class CaptureAction extends BaseApiAwareAction implements CaptureActionInt
     /** @var GenericTokenFactoryInterface|null */
     private $tokenFactory;
 
-    /** @var OrderRepositoryInterface */
-    private $orderRepository;
-
-    /** @var MollieApiClientKeyResolverInterface */
-    private $apiClientKeyResolver;
-
-    /** @var PaymentRepositoryInterface */
-    private $paymentRepository;
-
     /**
      * @param OrderRepositoryInterface $orderRepository
      * @param MollieApiClientKeyResolverInterface $apiClientKeyResolver
      * @param PaymentRepositoryInterface $paymentRepository
      */
-    public function __construct(
-        OrderRepositoryInterface $orderRepository,
-        MollieApiClientKeyResolverInterface $apiClientKeyResolver,
-        PaymentRepositoryInterface $paymentRepository
-    )
+    public function __construct(private OrderRepositoryInterface $orderRepository, private MollieApiClientKeyResolverInterface $apiClientKeyResolver, private PaymentRepositoryInterface $paymentRepository)
     {
-        $this->orderRepository = $orderRepository;
-        $this->apiClientKeyResolver = $apiClientKeyResolver;
-        $this->paymentRepository = $paymentRepository;
     }
 
     public function setGenericTokenFactory(GenericTokenFactoryInterface $genericTokenFactory = null): void
@@ -211,7 +195,7 @@ final class CaptureAction extends BaseApiAwareAction implements CaptureActionInt
         try {
             $order->setQrCode($qrCode);
             $this->orderRepository->add($order);
-        } catch (\Exception $exception) {
+        } catch (\Exception) {
 
         }
     }

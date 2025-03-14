@@ -21,23 +21,8 @@ use Sylius\Component\Core\Model\PaymentInterface;
 
 final class ApplePayDirectPaymentTypeResolver implements ApplePayDirectPaymentTypeResolverInterface
 {
-    /** @var ApplePayDirectApiPaymentResolverInterface */
-    private $apiPaymentResolver;
-
-    /** @var ApplePayDirectApiOrderPaymentResolverInterface */
-    private $apiOrderPaymentResolver;
-
-    /** @var IntToStringConverterInterface */
-    private $intToStringConverter;
-
-    public function __construct(
-        ApplePayDirectApiPaymentResolverInterface $apiPaymentResolver,
-        ApplePayDirectApiOrderPaymentResolverInterface $apiOrderPaymentResolver,
-        IntToStringConverterInterface $intToStringConverter
-    ) {
-        $this->apiPaymentResolver = $apiPaymentResolver;
-        $this->apiOrderPaymentResolver = $apiOrderPaymentResolver;
-        $this->intToStringConverter = $intToStringConverter;
+    public function __construct(private readonly ApplePayDirectApiPaymentResolverInterface $apiPaymentResolver, private readonly ApplePayDirectApiOrderPaymentResolverInterface $apiOrderPaymentResolver, private readonly IntToStringConverterInterface $intToStringConverter)
+    {
     }
 
     public function resolve(

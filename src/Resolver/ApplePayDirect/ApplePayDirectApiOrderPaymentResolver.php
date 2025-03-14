@@ -29,38 +29,8 @@ use Sylius\Component\Core\Model\PaymentInterface;
 
 final class ApplePayDirectApiOrderPaymentResolver implements ApplePayDirectApiOrderPaymentResolverInterface
 {
-    /** @var MollieApiClient */
-    private $mollieApiClient;
-
-    /** @var MollieApiClientKeyResolverInterface */
-    private $apiClientKeyResolver;
-
-    /** @var ConvertOrderInterface */
-    private $convertOrder;
-
-    /** @var OrderPaymentApplePayDirectProvider */
-    private $paymentApplePayDirectProvider;
-
-    /** @var PaymentLocaleResolverInterface */
-    private $paymentLocaleResolver;
-
-    /** @var DivisorProviderInterface */
-    private $divisorProvider;
-
-    public function __construct(
-        MollieApiClient $mollieApiClient,
-        MollieApiClientKeyResolverInterface $apiClientKeyResolver,
-        ConvertOrderInterface $convertOrder,
-        OrderPaymentApplePayDirectProvider $paymentApplePayDirectProvider,
-        PaymentLocaleResolverInterface $paymentLocaleResolver,
-        DivisorProviderInterface $divisorProvider
-    ) {
-        $this->mollieApiClient = $mollieApiClient;
-        $this->apiClientKeyResolver = $apiClientKeyResolver;
-        $this->convertOrder = $convertOrder;
-        $this->paymentApplePayDirectProvider = $paymentApplePayDirectProvider;
-        $this->paymentLocaleResolver = $paymentLocaleResolver;
-        $this->divisorProvider = $divisorProvider;
+    public function __construct(private readonly MollieApiClient $mollieApiClient, private readonly MollieApiClientKeyResolverInterface $apiClientKeyResolver, private readonly ConvertOrderInterface $convertOrder, private readonly OrderPaymentApplePayDirectProvider $paymentApplePayDirectProvider, private readonly PaymentLocaleResolverInterface $paymentLocaleResolver, private readonly DivisorProviderInterface $divisorProvider)
+    {
     }
 
     public function resolve(

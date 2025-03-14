@@ -19,12 +19,8 @@ use Twig\TwigFunction;
 
 final class ApplePayDirectEnabled extends AbstractExtension
 {
-    /** @var ApplePayEnabledCheckerInterface */
-    private $applePayEnabledChecker;
-
-    public function __construct(ApplePayEnabledCheckerInterface $applePayEnabledChecker)
+    public function __construct(private readonly ApplePayEnabledCheckerInterface $applePayEnabledChecker)
     {
-        $this->applePayEnabledChecker = $applePayEnabledChecker;
     }
 
     public function getFunctions(): array
@@ -32,7 +28,7 @@ final class ApplePayDirectEnabled extends AbstractExtension
         return [
             new TwigFunction(
                 'mollie_render_apple_pay_direct',
-                [$this->applePayEnabledChecker, 'isEnabled'],
+                $this->applePayEnabledChecker->isEnabled(...),
                 ['is_safe' => ['html']]
             ),
         ];

@@ -25,28 +25,8 @@ use Webmozart\Assert\Assert;
 
 final class DeletePaymentMethodImage
 {
-    /** @var PaymentMethodLogoUploaderInterface */
-    private $logoUploader;
-
-    /** @var RepositoryInterface */
-    private $logoRepository;
-
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    public function __construct(
-        PaymentMethodLogoUploaderInterface $logoUploader,
-        RepositoryInterface $logoRepository,
-        EntityManagerInterface $entityManager,
-        MollieLoggerActionInterface $loggerAction
-    ) {
-        $this->logoUploader = $logoUploader;
-        $this->logoRepository = $logoRepository;
-        $this->entityManager = $entityManager;
-        $this->loggerAction = $loggerAction;
+    public function __construct(private readonly PaymentMethodLogoUploaderInterface $logoUploader, private readonly RepositoryInterface $logoRepository, private readonly EntityManagerInterface $entityManager, private readonly MollieLoggerActionInterface $loggerAction)
+    {
     }
 
     public function __invoke(Request $request): Response

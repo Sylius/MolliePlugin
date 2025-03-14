@@ -18,12 +18,8 @@ use Sylius\MolliePlugin\Entity\MollieGatewayConfigTranslationInterface;
 
 final class MollieCountriesRestrictionResolver implements MollieCountriesRestrictionResolverInterface
 {
-    /** @var MolliePaymentMethodImageResolverInterface */
-    private $imageResolver;
-
-    public function __construct(MolliePaymentMethodImageResolverInterface $imageResolver)
+    public function __construct(private readonly MolliePaymentMethodImageResolverInterface $imageResolver)
     {
-        $this->imageResolver = $imageResolver;
     }
 
     public function resolve(
@@ -74,7 +70,7 @@ final class MollieCountriesRestrictionResolver implements MollieCountriesRestric
         $methods['data'][$translation->getName() ?? $paymentMethod->getName()] = $paymentMethod->getMethodId();
         $methods['image'][$paymentMethod->getMethodId()] = $this->imageResolver->resolve($paymentMethod);
         $methods['issuers'][$paymentMethod->getMethodId()] = $paymentMethod->getIssuers();
-        $methods['paymentFee'][$paymentMethod->getMethodId()] = null !== $paymentMethod->getPaymentSurchargeFee() ? $paymentMethod->getPaymentSurchargeFee() : [];
+        $methods['paymentFee'][$paymentMethod->getMethodId()] = $paymentMethod->getPaymentSurchargeFee() ?? [];
 
         return $methods;
     }

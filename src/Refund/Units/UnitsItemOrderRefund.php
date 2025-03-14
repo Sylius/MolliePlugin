@@ -22,12 +22,8 @@ use Sylius\RefundPlugin\Model\RefundType;
 
 final class UnitsItemOrderRefund implements UnitsItemOrderRefundInterface
 {
-    /** @var RepositoryInterface */
-    private $refundUnitsRepository;
-
-    public function __construct(RepositoryInterface $refundUnitsRepository)
+    public function __construct(private readonly RepositoryInterface $refundUnitsRepository)
     {
-        $this->refundUnitsRepository = $refundUnitsRepository;
     }
 
     public function refund(OrderInterface $order, PartialRefundItems $partialRefundItems): array

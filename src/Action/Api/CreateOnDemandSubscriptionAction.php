@@ -30,18 +30,8 @@ final class CreateOnDemandSubscriptionAction extends BaseApiAwareAction implemen
 {
     use GatewayAwareTrait;
 
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    /** @var GuzzleNegativeResponseParserInterface */
-    private $guzzleNegativeResponseParser;
-
-    public function __construct(
-        MollieLoggerActionInterface $loggerAction,
-        GuzzleNegativeResponseParserInterface $guzzleNegativeResponseParser
-    ) {
-        $this->loggerAction = $loggerAction;
-        $this->guzzleNegativeResponseParser = $guzzleNegativeResponseParser;
+    public function __construct(private MollieLoggerActionInterface $loggerAction, private GuzzleNegativeResponseParserInterface $guzzleNegativeResponseParser)
+    {
     }
 
     /** @param CreateSepaMandate|mixed $request */

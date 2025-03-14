@@ -27,33 +27,8 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 final class MethodsAction
 {
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    /** @var RequestStack */
-    private $requestStack;
-
-    /** @var MollieMethodsResolverInterface */
-    private $mollieMethodsResolver;
-
-    /** @var MolliePaymentMethodPurifierInterface */
-    private $methodPurifier;
-
-    /** @var EntityRepository */
-    private $gatewayConfigRepository;
-
-    public function __construct(
-        MollieLoggerActionInterface $loggerAction,
-        RequestStack $requestStack,
-        MollieMethodsResolverInterface $mollieMethodsResolver,
-        MolliePaymentMethodPurifierInterface $methodPurifier,
-        EntityRepository $gatewayConfigRepository
-    ) {
-        $this->loggerAction = $loggerAction;
-        $this->requestStack = $requestStack;
-        $this->mollieMethodsResolver = $mollieMethodsResolver;
-        $this->methodPurifier = $methodPurifier;
-        $this->gatewayConfigRepository = $gatewayConfigRepository;
+    public function __construct(private readonly MollieLoggerActionInterface $loggerAction, private readonly RequestStack $requestStack, private readonly MollieMethodsResolverInterface $mollieMethodsResolver, private readonly MolliePaymentMethodPurifierInterface $methodPurifier, private readonly EntityRepository $gatewayConfigRepository)
+    {
     }
 
     public function __invoke(int $id, Request $request): Response

@@ -22,9 +22,9 @@ use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 class CustomerCreditCards extends AbstractExtension
 {
     public function __construct(
-        private MollieApiClient $apiClient,
-        private EntityRepository $customerRepository,
-        private CustomerContextInterface $customerContext
+        private readonly MollieApiClient $apiClient,
+        private readonly EntityRepository $customerRepository,
+        private readonly CustomerContextInterface $customerContext
     ) {
     }
 
@@ -34,8 +34,8 @@ class CustomerCreditCards extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new TwigFunction('isCardSaved', [$this, 'isCardSaved']),
-            new TwigFunction('getCustomerFromContext', [$this, 'getCustomerFromContext'])
+            new TwigFunction('isCardSaved', $this->isCardSaved(...)),
+            new TwigFunction('getCustomerFromContext', $this->getCustomerFromContext(...))
         ];
     }
 

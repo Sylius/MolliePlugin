@@ -19,16 +19,8 @@ use Sylius\MolliePlugin\Factory\MollieSubscriptionScheduleFactoryInterface;
 
 final class SubscriptionScheduleGenerator implements SubscriptionScheduleGeneratorInterface
 {
-    private DatePeriodFactoryInterface $datePeriodFactory;
-
-    private MollieSubscriptionScheduleFactoryInterface $scheduleFactory;
-
-    public function __construct(
-        DatePeriodFactoryInterface $datePeriodFactory,
-        MollieSubscriptionScheduleFactoryInterface $scheduleFactory
-    ) {
-        $this->datePeriodFactory = $datePeriodFactory;
-        $this->scheduleFactory = $scheduleFactory;
+    public function __construct(private readonly DatePeriodFactoryInterface $datePeriodFactory, private readonly MollieSubscriptionScheduleFactoryInterface $scheduleFactory)
+    {
     }
 
     public function generate(MollieSubscriptionInterface $subscription): array

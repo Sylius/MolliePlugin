@@ -23,12 +23,8 @@ use Webmozart\Assert\Assert;
 
 final class PaymentDescription implements PaymentDescriptionInterface
 {
-    /** @var PaymentDescriptionProviderInterface */
-    private $paymentDescriptionProvider;
-
-    public function __construct(PaymentDescriptionProviderInterface $paymentDescriptionProvider)
+    public function __construct(private readonly PaymentDescriptionProviderInterface $paymentDescriptionProvider)
     {
-        $this->paymentDescriptionProvider = $paymentDescriptionProvider;
     }
 
     public function getPaymentDescription(

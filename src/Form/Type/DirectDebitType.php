@@ -24,13 +24,9 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class DirectDebitType extends AbstractType
 {
-    /** @var RequestStack */
-    private $requestStack;
-
     /** @param RequestStack $requestStack */
-    public function __construct(RequestStack $requestStack)
+    public function __construct(private readonly RequestStack $requestStack)
     {
-        $this->requestStack = $requestStack;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

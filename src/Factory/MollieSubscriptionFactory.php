@@ -24,16 +24,8 @@ use Webmozart\Assert\Assert;
 
 final class MollieSubscriptionFactory implements MollieSubscriptionFactoryInterface
 {
-    private FactoryInterface $decoratedFactory;
-
-    private RouterInterface $router;
-
-    public function __construct(
-        FactoryInterface $decoratedFactory,
-        RouterInterface $router
-    ) {
-        $this->decoratedFactory = $decoratedFactory;
-        $this->router = $router;
+    public function __construct(private readonly FactoryInterface $decoratedFactory, private readonly RouterInterface $router)
+    {
     }
 
     public function createNew(): MollieSubscriptionInterface

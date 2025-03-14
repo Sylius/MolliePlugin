@@ -21,23 +21,8 @@ use Doctrine\ORM\EntityManagerInterface;
 
 final class StatusCreator implements StatusCreatorInterface
 {
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
-    /** @var AdminUserContextInterface */
-    private $adminUserContext;
-
-    /** @var StatusResolverInterface */
-    private $statusResolver;
-
-    public function __construct(
-        EntityManagerInterface $entityManager,
-        AdminUserContextInterface $adminUserContext,
-        StatusResolverInterface $statusResolver
-    ) {
-        $this->entityManager = $entityManager;
-        $this->adminUserContext = $adminUserContext;
-        $this->statusResolver = $statusResolver;
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly AdminUserContextInterface $adminUserContext, private readonly StatusResolverInterface $statusResolver)
+    {
     }
 
     public function create(): OnboardingWizardStatusInterface

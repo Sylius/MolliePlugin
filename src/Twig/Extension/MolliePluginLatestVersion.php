@@ -22,12 +22,8 @@ use Webmozart\Assert\Assert;
 
 final class MolliePluginLatestVersion extends AbstractExtension
 {
-    /** @var MolliePluginLatestVersionCheckerInterface */
-    private $latestVersionChecker;
-
-    public function __construct(MolliePluginLatestVersionCheckerInterface $latestVersionChecker)
+    public function __construct(private readonly MolliePluginLatestVersionCheckerInterface $latestVersionChecker)
     {
-        $this->latestVersionChecker = $latestVersionChecker;
     }
 
     public function getFunctions(): array
@@ -35,7 +31,7 @@ final class MolliePluginLatestVersion extends AbstractExtension
         return [
             new TwigFunction(
                 'mollie_render_version_widget',
-                [$this, 'versionRenderWidget'],
+                $this->versionRenderWidget(...),
                 [
                     'needs_environment' => true,
                     'is_safe' => ['html'],

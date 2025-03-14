@@ -24,23 +24,8 @@ use Mollie\Api\Resources\MethodCollection;
 
 final class MollieMethodsCreator implements MollieMethodsCreatorInterface
 {
-    /** @var MethodsFactoryInterface */
-    private $methodsFactory;
-
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
-    /** @var MollieGatewayConfigFactoryInterface */
-    private $factory;
-
-    public function __construct(
-        MethodsFactoryInterface $methodsFactory,
-        EntityManagerInterface $entityManager,
-        MollieGatewayConfigFactoryInterface $factory
-    ) {
-        $this->methodsFactory = $methodsFactory;
-        $this->entityManager = $entityManager;
-        $this->factory = $factory;
+    public function __construct(private readonly MethodsFactoryInterface $methodsFactory, private readonly EntityManagerInterface $entityManager, private readonly MollieGatewayConfigFactoryInterface $factory)
+    {
     }
 
     public function createMethods(MethodCollection $allMollieMethods, GatewayConfigInterface $gateway): void

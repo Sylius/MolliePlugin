@@ -19,11 +19,8 @@ use Sylius\Component\Resource\Factory\FactoryInterface;
 
 final class MollieSubscriptionScheduleFactory implements MollieSubscriptionScheduleFactoryInterface
 {
-    private FactoryInterface $decoratedFactory;
-
-    public function __construct(FactoryInterface $decoratedFactory)
+    public function __construct(private readonly FactoryInterface $decoratedFactory)
     {
-        $this->decoratedFactory = $decoratedFactory;
     }
 
     public function createNew(): object

@@ -18,12 +18,8 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 final class AdminUserContext implements AdminUserContextInterface
 {
-    /** @var TokenStorageInterface */
-    private $tokenStorage;
-
-    public function __construct(TokenStorageInterface $tokenStorage)
+    public function __construct(private readonly TokenStorageInterface $tokenStorage)
     {
-        $this->tokenStorage = $tokenStorage;
     }
 
     public function getAdminUser(): ?AdminUserInterface

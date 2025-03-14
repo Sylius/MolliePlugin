@@ -26,23 +26,8 @@ use Webmozart\Assert\Assert;
 
 final class OrderMolliePartialShip implements OrderMolliePartialShipInterface
 {
-    /** @var MollieApiClient */
-    private $apiClient;
-
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    /** @var FromSyliusToMollieLinesResolverInterface */
-    private $mollieUnitsResolver;
-
-    public function __construct(
-        MollieApiClient $apiClient,
-        MollieLoggerActionInterface $loggerAction,
-        FromSyliusToMollieLinesResolverInterface $mollieUnitsResolver
-    ) {
-        $this->apiClient = $apiClient;
-        $this->loggerAction = $loggerAction;
-        $this->mollieUnitsResolver = $mollieUnitsResolver;
+    public function __construct(private readonly MollieApiClient $apiClient, private readonly MollieLoggerActionInterface $loggerAction, private readonly FromSyliusToMollieLinesResolverInterface $mollieUnitsResolver)
+    {
     }
 
     public function partialShip(OrderInterface $order): void

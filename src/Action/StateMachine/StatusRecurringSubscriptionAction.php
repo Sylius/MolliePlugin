@@ -27,28 +27,8 @@ use Payum\Core\Exception\RequestNotSupportedException;
 
 final class StatusRecurringSubscriptionAction extends BaseApiAwareAction implements ActionInterface, ApiAwareInterface
 {
-    /** @var EntityManagerInterface */
-    private $subscriptionManager;
-
-    /** @var SubscriptionAndPaymentIdApplicatorInterface */
-    private $subscriptionAndPaymentIdApplicator;
-
-    /** @var SubscriptionAndSyliusPaymentApplicatorInterface */
-    private $subscriptionAndSyliusPaymentApplicator;
-
-    /** @var StateMachineTransitionInterface */
-    private $stateMachineTransition;
-
-    public function __construct(
-        EntityManagerInterface $subscriptionManager,
-        SubscriptionAndPaymentIdApplicatorInterface $subscriptionAndPaymentIdApplicator,
-        SubscriptionAndSyliusPaymentApplicatorInterface $subscriptionAndSyliusPaymentApplicator,
-        StateMachineTransitionInterface $stateMachineTransition
-    ) {
-        $this->subscriptionManager = $subscriptionManager;
-        $this->subscriptionAndPaymentIdApplicator = $subscriptionAndPaymentIdApplicator;
-        $this->subscriptionAndSyliusPaymentApplicator = $subscriptionAndSyliusPaymentApplicator;
-        $this->stateMachineTransition = $stateMachineTransition;
+    public function __construct(private readonly EntityManagerInterface $subscriptionManager, private readonly SubscriptionAndPaymentIdApplicatorInterface $subscriptionAndPaymentIdApplicator, private readonly SubscriptionAndSyliusPaymentApplicatorInterface $subscriptionAndSyliusPaymentApplicator, private readonly StateMachineTransitionInterface $stateMachineTransition)
+    {
     }
 
     /** @param StatusRecurringSubscription|mixed $request */

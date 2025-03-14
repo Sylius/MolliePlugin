@@ -21,16 +21,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class StatusAction
 {
-    /** @var RepositoryInterface */
-    private $statusRepository;
-
-    /** @var AdminUserContextInterface */
-    private $adminUserContext;
-
-    public function __construct(RepositoryInterface $statusRepository, AdminUserContextInterface $adminUserContext)
+    public function __construct(private readonly RepositoryInterface $statusRepository, private readonly AdminUserContextInterface $adminUserContext)
     {
-        $this->statusRepository = $statusRepository;
-        $this->adminUserContext = $adminUserContext;
     }
 
     public function __invoke(): Response

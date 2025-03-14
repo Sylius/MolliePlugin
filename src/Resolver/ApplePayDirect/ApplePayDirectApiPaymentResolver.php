@@ -25,23 +25,8 @@ use Sylius\Component\Core\Model\PaymentInterface;
 
 final class ApplePayDirectApiPaymentResolver implements ApplePayDirectApiPaymentResolverInterface
 {
-    /** @var MollieApiClient */
-    private $mollieApiClient;
-
-    /** @var MollieApiClientKeyResolverInterface */
-    private $apiClientKeyResolver;
-
-    /** @var OrderPaymentApplePayDirectProvider */
-    private $paymentApplePayDirectProvider;
-
-    public function __construct(
-        MollieApiClient $mollieApiClient,
-        MollieApiClientKeyResolverInterface $apiClientKeyResolver,
-        OrderPaymentApplePayDirectProvider $paymentApplePayDirectProvider
-    ) {
-        $this->mollieApiClient = $mollieApiClient;
-        $this->apiClientKeyResolver = $apiClientKeyResolver;
-        $this->paymentApplePayDirectProvider = $paymentApplePayDirectProvider;
+    public function __construct(private readonly MollieApiClient $mollieApiClient, private readonly MollieApiClientKeyResolverInterface $apiClientKeyResolver, private readonly OrderPaymentApplePayDirectProvider $paymentApplePayDirectProvider)
+    {
     }
 
     public function resolve(OrderInterface $order, array $details): void

@@ -19,12 +19,8 @@ use Webmozart\Assert\Assert;
 
 final class PaymentMethodConfigResolver implements PaymentMethodConfigResolverInterface
 {
-    /** @var RepositoryInterface */
-    private $mollieMethodRepository;
-
-    public function __construct(RepositoryInterface $mollieMethodRepository)
+    public function __construct(private readonly RepositoryInterface $mollieMethodRepository)
     {
-        $this->mollieMethodRepository = $mollieMethodRepository;
     }
 
     public function getConfigFromMethodId(string $methodId): MollieGatewayConfigInterface

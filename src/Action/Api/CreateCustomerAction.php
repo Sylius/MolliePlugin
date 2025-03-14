@@ -25,16 +25,8 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 
 final class CreateCustomerAction extends BaseApiAwareAction implements ActionInterface, ApiAwareInterface
 {
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    /** @var RepositoryInterface */
-    private $mollieCustomerRepository;
-
-    public function __construct(MollieLoggerActionInterface $loggerAction, RepositoryInterface $mollieCustomerRepository)
+    public function __construct(private readonly MollieLoggerActionInterface $loggerAction, private readonly RepositoryInterface $mollieCustomerRepository)
     {
-        $this->loggerAction = $loggerAction;
-        $this->mollieCustomerRepository = $mollieCustomerRepository;
     }
 
     /** @param CreateCustomer|mixed $request */

@@ -21,16 +21,8 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 
 final class MollieGatewayConfigFactory implements MollieGatewayConfigFactoryInterface
 {
-    /** @var FactoryInterface */
-    private $mollieGatewayConfigFactory;
-
-    /** @var RepositoryInterface */
-    private $repository;
-
-    public function __construct(FactoryInterface $mollieGatewayConfigFactory, RepositoryInterface $repository)
+    public function __construct(private readonly FactoryInterface $mollieGatewayConfigFactory, private readonly RepositoryInterface $repository)
     {
-        $this->mollieGatewayConfigFactory = $mollieGatewayConfigFactory;
-        $this->repository = $repository;
     }
 
     private function createNewOrUpdate(MethodInterface $method, GatewayConfigInterface $gateway): MollieGatewayConfigInterface
@@ -45,7 +37,7 @@ final class MollieGatewayConfigFactory implements MollieGatewayConfigFactoryInte
         /** @var MollieGatewayConfigInterface $gatewayConfig */
         $gatewayConfig = $this->mollieGatewayConfigFactory->createNew();
 
-        return null !== $methodExist ? $methodExist : $gatewayConfig;
+        return $methodExist ?? $gatewayConfig;
     }
 
     public function create(

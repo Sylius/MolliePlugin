@@ -29,14 +29,9 @@ class SendAbandonedPaymentLink extends Command
     /** @var SymfonyStyle */
     private $io;
 
-    /** @var AbandonedPaymentLinkCreatorInterface */
-    private $abandonedPaymentLinkCreator;
-
-    public function __construct(AbandonedPaymentLinkCreatorInterface $abandonedPaymentLinkCreator)
+    public function __construct(private readonly AbandonedPaymentLinkCreatorInterface $abandonedPaymentLinkCreator)
     {
         parent::__construct(self::COMMAND_NAME);
-
-        $this->abandonedPaymentLinkCreator = $abandonedPaymentLinkCreator;
     }
 
     protected function configure(): void

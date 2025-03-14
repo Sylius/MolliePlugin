@@ -28,33 +28,8 @@ use Sylius\Component\Core\Model\PaymentMethodInterface;
 
 final class AbandonedPaymentLinkCreator implements AbandonedPaymentLinkCreatorInterface
 {
-    /** @var PaymentlinkResolverInterface */
-    private $paymentLinkResolver;
-
-    /** @var OrderRepositoryInterface */
-    private $orderRepository;
-
-    /** @var PaymentLinkEmailPreparerInterface */
-    private $emailPreparer;
-
-    /** @var PaymentMethodRepositoryInterface */
-    private $paymentMethodRepository;
-
-    /** @var ChannelContextInterface */
-    private $channelContext;
-
-    public function __construct(
-        PaymentlinkResolverInterface $paymentLinkResolver,
-        OrderRepositoryInterface $orderRepository,
-        PaymentLinkEmailPreparerInterface $emailPreparer,
-        PaymentMethodRepositoryInterface $paymentMethodRepository,
-        ChannelContextInterface $channelContext
-    ) {
-        $this->paymentLinkResolver = $paymentLinkResolver;
-        $this->orderRepository = $orderRepository;
-        $this->emailPreparer = $emailPreparer;
-        $this->paymentMethodRepository = $paymentMethodRepository;
-        $this->channelContext = $channelContext;
+    public function __construct(private readonly PaymentlinkResolverInterface $paymentLinkResolver, private readonly OrderRepositoryInterface $orderRepository, private readonly PaymentLinkEmailPreparerInterface $emailPreparer, private readonly PaymentMethodRepositoryInterface $paymentMethodRepository, private readonly ChannelContextInterface $channelContext)
+    {
     }
 
     public function create(): void

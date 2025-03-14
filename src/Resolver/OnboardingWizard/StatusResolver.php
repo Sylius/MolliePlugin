@@ -21,16 +21,8 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 
 final class StatusResolver implements StatusResolverInterface
 {
-    /** @var RepositoryInterface */
-    private $statusRepository;
-
-    /** @var StatusFactoryInterface */
-    private $statusFactory;
-
-    public function __construct(RepositoryInterface $statusRepository, StatusFactoryInterface $statusFactory)
+    public function __construct(private readonly RepositoryInterface $statusRepository, private readonly StatusFactoryInterface $statusFactory)
     {
-        $this->statusRepository = $statusRepository;
-        $this->statusFactory = $statusFactory;
     }
 
     public function resolve(AdminUserInterface $adminUser): OnboardingWizardStatusInterface

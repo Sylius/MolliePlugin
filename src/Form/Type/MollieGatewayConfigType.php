@@ -37,21 +37,13 @@ use Symfony\Component\Form\FormEvents;
 
 final class MollieGatewayConfigType extends AbstractResourceType
 {
-    /** @var DocumentationLinksInterface */
-    private $documentationLinks;
-
-    /** @var string */
-    private $defaultLocale;
-
     public function __construct(
         string $dataClass,
-        DocumentationLinksInterface $documentationLinks,
-        string $defaultLocale,
+        private readonly DocumentationLinksInterface $documentationLinks,
+        private readonly string $defaultLocale,
         array $validationGroups = []
     ) {
         parent::__construct($dataClass, $validationGroups);
-        $this->documentationLinks = $documentationLinks;
-        $this->defaultLocale = $defaultLocale;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

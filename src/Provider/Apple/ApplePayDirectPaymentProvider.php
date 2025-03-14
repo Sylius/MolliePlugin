@@ -24,12 +24,8 @@ use Webmozart\Assert\Assert;
 
 final class ApplePayDirectPaymentProvider implements ApplePayDirectPaymentProviderInterface
 {
-    /** @var ApplePayDirectPaymentTypeResolverInterface */
-    private $applePayDirectPaymentTypeResolver;
-
-    public function __construct(ApplePayDirectPaymentTypeResolverInterface $applePayDirectPaymentTypeResolver)
+    public function __construct(private readonly ApplePayDirectPaymentTypeResolverInterface $applePayDirectPaymentTypeResolver)
     {
-        $this->applePayDirectPaymentTypeResolver = $applePayDirectPaymentTypeResolver;
     }
 
     public function provideApplePayPayment(OrderInterface $order, array $applePayPaymentToken): void

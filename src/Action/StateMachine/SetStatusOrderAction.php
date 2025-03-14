@@ -25,23 +25,8 @@ use Sylius\Component\Shipping\ShipmentTransitions;
 
 final class SetStatusOrderAction implements SetStatusOrderActionInterface
 {
-    /** @var FactoryInterface */
-    private $factory;
-
-    /** @var OrderRepositoryInterface */
-    private $orderRepository;
-
-    /** @var CreatePartialShipFromMollieInterface */
-    private $createPartialShipFromMollie;
-
-    public function __construct(
-        FactoryInterface $factory,
-        OrderRepositoryInterface $orderRepository,
-        CreatePartialShipFromMollieInterface $createPartialShipFromMollie
-    ) {
-        $this->factory = $factory;
-        $this->orderRepository = $orderRepository;
-        $this->createPartialShipFromMollie = $createPartialShipFromMollie;
+    public function __construct(private readonly FactoryInterface $factory, private readonly OrderRepositoryInterface $orderRepository, private readonly CreatePartialShipFromMollieInterface $createPartialShipFromMollie)
+    {
     }
 
     public function execute(Order $order): void

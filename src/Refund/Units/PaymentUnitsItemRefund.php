@@ -22,23 +22,8 @@ use Sylius\RefundPlugin\Model\OrderItemUnitRefund;
 
 final class PaymentUnitsItemRefund implements PaymentUnitsItemRefundInterface
 {
-    /** @var PaymentRefundedGeneratorInterface */
-    private $paymentRefundedGenerator;
-
-    /** @var PaymentNewUnitRefundGeneratorInterface */
-    private $paymentNewUnitRefundGenerator;
-
-    /** @var PaymentRefundCalculatorInterface */
-    private $paymentRefundCalculator;
-
-    public function __construct(
-        PaymentRefundedGeneratorInterface $paymentRefundedGenerator,
-        PaymentNewUnitRefundGeneratorInterface $paymentNewUnitRefundGenerator,
-        PaymentRefundCalculatorInterface $paymentRefundCalculator
-    ) {
-        $this->paymentRefundedGenerator = $paymentRefundedGenerator;
-        $this->paymentNewUnitRefundGenerator = $paymentNewUnitRefundGenerator;
-        $this->paymentRefundCalculator = $paymentRefundCalculator;
+    public function __construct(private readonly PaymentRefundedGeneratorInterface $paymentRefundedGenerator, private readonly PaymentNewUnitRefundGeneratorInterface $paymentNewUnitRefundGenerator, private readonly PaymentRefundCalculatorInterface $paymentRefundCalculator)
+    {
     }
 
     public function refund(OrderInterface $order, int $totalToRefund): array

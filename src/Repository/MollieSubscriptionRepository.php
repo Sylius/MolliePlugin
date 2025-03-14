@@ -30,7 +30,7 @@ final class MollieSubscriptionRepository extends EntityRepository implements Mol
 
             return $qb->getQuery()->getOneOrNullResult()
                 ;
-        } catch (\Exception $exception) {
+        } catch (\Exception) {
             return null;
         }
     }

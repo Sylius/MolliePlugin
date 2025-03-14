@@ -28,38 +28,8 @@ use Twig\Environment;
 
 final class PaymentFeeCalculateAction implements PaymentFeeCalculateActionInterface
 {
-    /** @var Calculate */
-    private $calculate;
-
-    /** @var CartContextInterface */
-    private $cartContext;
-
-    /** @var RepositoryInterface */
-    private $methodRepository;
-
-    /** @var AdjustmentsAggregatorInterface */
-    private $adjustmentsAggregator;
-
-    /** @var ConvertPriceToAmount */
-    private $convertPriceToAmount;
-
-    /** @var Environment */
-    private $twig;
-
-    public function __construct(
-        Calculate $calculate,
-        CartContextInterface $cartContext,
-        RepositoryInterface $methodRepository,
-        AdjustmentsAggregatorInterface $adjustmentsAggregator,
-        ConvertPriceToAmount $convertPriceToAmount,
-        Environment $twig
-    ) {
-        $this->calculate = $calculate;
-        $this->cartContext = $cartContext;
-        $this->methodRepository = $methodRepository;
-        $this->adjustmentsAggregator = $adjustmentsAggregator;
-        $this->convertPriceToAmount = $convertPriceToAmount;
-        $this->twig = $twig;
+    public function __construct(private readonly Calculate $calculate, private readonly CartContextInterface $cartContext, private readonly RepositoryInterface $methodRepository, private readonly AdjustmentsAggregatorInterface $adjustmentsAggregator, private readonly ConvertPriceToAmount $convertPriceToAmount, private readonly Environment $twig)
+    {
     }
 
     public function __invoke(Request $request, string $methodId): Response

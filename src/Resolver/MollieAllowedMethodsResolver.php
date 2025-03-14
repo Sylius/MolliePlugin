@@ -19,23 +19,8 @@ use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
 
 final class MollieAllowedMethodsResolver implements MollieAllowedMethodsResolverInterface
 {
-    /** @var MollieApiClientKeyResolverInterface */
-    private $mollieApiClientKeyResolver;
-
-    /** @var PaymentLocaleResolverInterface */
-    private $paymentLocaleResolver;
-
-    /** @var IntToStringConverterInterface */
-    private $intToStringConverter;
-
-    public function __construct(
-        MollieApiClientKeyResolverInterface $mollieApiClientKeyResolver,
-        PaymentLocaleResolverInterface $paymentLocaleResolver,
-        IntToStringConverterInterface $intToStringConverter
-    ) {
-        $this->mollieApiClientKeyResolver = $mollieApiClientKeyResolver;
-        $this->paymentLocaleResolver = $paymentLocaleResolver;
-        $this->intToStringConverter = $intToStringConverter;
+    public function __construct(private readonly MollieApiClientKeyResolverInterface $mollieApiClientKeyResolver, private readonly PaymentLocaleResolverInterface $paymentLocaleResolver, private readonly IntToStringConverterInterface $intToStringConverter)
+    {
     }
 
     public function resolve(OrderInterface $order): array

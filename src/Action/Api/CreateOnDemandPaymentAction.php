@@ -29,16 +29,8 @@ final class CreateOnDemandPaymentAction extends BaseApiAwareAction implements Ac
 {
     use GatewayAwareTrait;
 
-    private MollieLoggerActionInterface $loggerAction;
-
-    private GuzzleNegativeResponseParserInterface $guzzleNegativeResponseParser;
-
-    public function __construct(
-        MollieLoggerActionInterface $loggerAction,
-        GuzzleNegativeResponseParserInterface $guzzleNegativeResponseParser
-    ) {
-        $this->loggerAction = $loggerAction;
-        $this->guzzleNegativeResponseParser = $guzzleNegativeResponseParser;
+    public function __construct(private MollieLoggerActionInterface $loggerAction, private GuzzleNegativeResponseParserInterface $guzzleNegativeResponseParser)
+    {
     }
 
     /** @param CreateSepaMandate|mixed $request */

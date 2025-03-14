@@ -28,16 +28,8 @@ use Webmozart\Assert\Assert;
 
 final class ShipmentShipEventListener
 {
-    /** @var RequestStack */
-    private $requestStack;
-
-    /** @var MollieApiClient */
-    private $apiClient;
-
-    public function __construct(MollieApiClient $apiClient, RequestStack $requestStack)
+    public function __construct(private readonly MollieApiClient $apiClient, private readonly RequestStack $requestStack)
     {
-        $this->apiClient = $apiClient;
-        $this->requestStack = $requestStack;
     }
 
     public function shipAll(GenericEvent $event): void

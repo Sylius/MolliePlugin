@@ -68,7 +68,7 @@ final class OrderController extends BaseOrderController
             }
 
             $this->resourceUpdateHandler->handle($resource, $configuration, $this->manager);
-        } catch (UpdateHandlingException $exception) {
+        } catch (UpdateHandlingException) {
             return new JsonResponse([], Response::HTTP_BAD_REQUEST);
         }
 

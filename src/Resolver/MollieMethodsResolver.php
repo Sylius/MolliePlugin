@@ -26,28 +26,8 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 
 final class MollieMethodsResolver implements MollieMethodsResolverInterface
 {
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    /** @var MollieApiClient */
-    private $mollieApiClient;
-
-    /** @var RepositoryInterface */
-    private $gatewayConfigRepository;
-
-    /** @var MollieMethodsCreatorInterface */
-    private $mollieMethodsCreator;
-
-    public function __construct(
-        MollieLoggerActionInterface $loggerAction,
-        MollieApiClient $mollieApiClient,
-        RepositoryInterface $gatewayConfigRepository,
-        MollieMethodsCreatorInterface $mollieMethodsCreator
-    ) {
-        $this->loggerAction = $loggerAction;
-        $this->mollieApiClient = $mollieApiClient;
-        $this->gatewayConfigRepository = $gatewayConfigRepository;
-        $this->mollieMethodsCreator = $mollieMethodsCreator;
+    public function __construct(private readonly MollieLoggerActionInterface $loggerAction, private readonly MollieApiClient $mollieApiClient, private readonly RepositoryInterface $gatewayConfigRepository, private readonly MollieMethodsCreatorInterface $mollieMethodsCreator)
+    {
     }
 
     public function create(): void

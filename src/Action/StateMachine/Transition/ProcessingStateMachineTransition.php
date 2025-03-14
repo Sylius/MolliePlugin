@@ -19,12 +19,8 @@ use SM\Factory\FactoryInterface;
 
 final class ProcessingStateMachineTransition implements ProcessingStateMachineTransitionInterface
 {
-    /** @var FactoryInterface */
-    private $subscriptionStateMachineFactory;
-
-    public function __construct(FactoryInterface $subscriptionStateMachineFactory)
+    public function __construct(private readonly FactoryInterface $subscriptionStateMachineFactory)
     {
-        $this->subscriptionStateMachineFactory = $subscriptionStateMachineFactory;
     }
 
     public function apply(

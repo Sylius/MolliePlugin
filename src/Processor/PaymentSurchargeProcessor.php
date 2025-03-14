@@ -24,12 +24,8 @@ use Webmozart\Assert\Assert;
 
 final class PaymentSurchargeProcessor implements PaymentSurchargeProcessorInterface
 {
-    /** @var Calculate */
-    private $calculate;
-
-    public function __construct(Calculate $calculate)
+    public function __construct(private readonly Calculate $calculate)
     {
-        $this->calculate = $calculate;
     }
 
     public function process(OrderInterface $order): void

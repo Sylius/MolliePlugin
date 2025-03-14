@@ -18,11 +18,8 @@ use Sylius\Component\Resource\Factory\FactoryInterface;
 
 final class AdjustmentCloner implements AdjustmentClonerInterface
 {
-    private FactoryInterface $adjustmentFactory;
-
-    public function __construct(FactoryInterface $adjustmentFactory)
+    public function __construct(private readonly FactoryInterface $adjustmentFactory)
     {
-        $this->adjustmentFactory = $adjustmentFactory;
     }
 
     public function clone(BaseAdjustmentInterface $adjustment): BaseAdjustmentInterface

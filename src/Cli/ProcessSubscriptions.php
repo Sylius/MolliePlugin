@@ -35,25 +35,13 @@ class ProcessSubscriptions extends Command
     /** @var SymfonyStyle */
     private $io;
 
-    private MollieSubscriptionRepositoryInterface $mollieSubscriptionRepository;
-
-    private Factory $stateMachineFactory;
-
-    private SubscriptionProcessorInterface $subscriptionProcessor;
-
-    private RouterInterface $router;
-
     public function __construct(
-        MollieSubscriptionRepositoryInterface $mollieSubscriptionRepository,
-        Factory $stateMachineFactory,
-        SubscriptionProcessorInterface $subscriptionProcessor,
-        RouterInterface $router
+        private readonly MollieSubscriptionRepositoryInterface $mollieSubscriptionRepository,
+        private readonly Factory $stateMachineFactory,
+        private readonly SubscriptionProcessorInterface $subscriptionProcessor,
+        private readonly RouterInterface $router
     ) {
         parent::__construct(self::COMMAND_NAME);
-        $this->mollieSubscriptionRepository = $mollieSubscriptionRepository;
-        $this->stateMachineFactory = $stateMachineFactory;
-        $this->subscriptionProcessor = $subscriptionProcessor;
-        $this->router = $router;
     }
 
     protected function configure(): void

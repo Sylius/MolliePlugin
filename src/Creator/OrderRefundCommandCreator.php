@@ -27,28 +27,8 @@ use Webmozart\Assert\Assert;
 
 final class OrderRefundCommandCreator implements OrderRefundCommandCreatorInterface
 {
-    /** @var RepositoryInterface */
-    private $orderRepository;
-
-    /** @var UnitsItemOrderRefundInterface */
-    private $unitsItemOrderRefund;
-
-    /** @var UnitsShipmentOrderRefundInterface */
-    private $shipmentOrderRefund;
-
-    /** @var RefundPaymentMethodsProviderInterface */
-    private $refundPaymentMethodProvider;
-
-    public function __construct(
-        RepositoryInterface $orderRepository,
-        UnitsItemOrderRefundInterface $unitsItemOrderRefund,
-        UnitsShipmentOrderRefundInterface $shipmentOrderRefund,
-        RefundPaymentMethodsProviderInterface $refundPaymentMethodProvider
-    ) {
-        $this->orderRepository = $orderRepository;
-        $this->unitsItemOrderRefund = $unitsItemOrderRefund;
-        $this->shipmentOrderRefund = $shipmentOrderRefund;
-        $this->refundPaymentMethodProvider = $refundPaymentMethodProvider;
+    public function __construct(private readonly RepositoryInterface $orderRepository, private readonly UnitsItemOrderRefundInterface $unitsItemOrderRefund, private readonly UnitsShipmentOrderRefundInterface $shipmentOrderRefund, private readonly RefundPaymentMethodsProviderInterface $refundPaymentMethodProvider)
+    {
     }
 
     public function fromOrder(Order $order): RefundUnits

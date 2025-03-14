@@ -39,12 +39,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 final class Refund
 {
     public function __construct(
-        private PaymentRepositoryInterface $paymentRepository,
-        private Payum $payum,
-        private RequestStack $requestStack,
-        private FactoryInterface $stateMachineFactory,
-        private EntityManagerInterface $paymentEntityManager,
-        private MollieLoggerActionInterface $loggerAction
+        private readonly PaymentRepositoryInterface $paymentRepository,
+        private readonly Payum $payum,
+        private readonly RequestStack $requestStack,
+        private readonly FactoryInterface $stateMachineFactory,
+        private readonly EntityManagerInterface $paymentEntityManager,
+        private readonly MollieLoggerActionInterface $loggerAction
     ) {
     }
 

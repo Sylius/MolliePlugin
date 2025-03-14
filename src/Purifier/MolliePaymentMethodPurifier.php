@@ -19,12 +19,8 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 
 final class MolliePaymentMethodPurifier implements MolliePaymentMethodPurifierInterface
 {
-    /** @var RepositoryInterface */
-    private $repository;
-
-    public function __construct(RepositoryInterface $repository)
+    public function __construct(private readonly RepositoryInterface $repository)
     {
-        $this->repository = $repository;
     }
 
     public function removeAllNoLongerSupportedMethods(): void

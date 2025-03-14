@@ -41,48 +41,8 @@ final class ConvertMolliePaymentAction extends BaseApiAwareAction implements Act
 {
     use GatewayAwareTrait;
 
-    /** @var PaymentDescriptionInterface */
-    private $paymentDescription;
-
-    /** @var RepositoryInterface */
-    private $mollieMethodsRepository;
-
-    /** @var ConvertOrderInterface */
-    private $orderConverter;
-
-    /** @var CustomerContextInterface */
-    private $customerContext;
-
-    /** @var PaymentLocaleResolverInterface */
-    private $paymentLocaleResolver;
-
-    /** @var ApiCustomerFactoryInterface */
-    private $apiCustomerFactory;
-
-    /** @var IntToStringConverterInterface */
-    private $intToStringConverter;
-
-    /** @var DivisorProviderInterface */
-    private $divisorProvider;
-
-    public function __construct(
-        PaymentDescriptionInterface $paymentDescription,
-        RepositoryInterface $mollieMethodsRepository,
-        ConvertOrderInterface $orderConverter,
-        CustomerContextInterface $customerContext,
-        PaymentLocaleResolverInterface $paymentLocaleResolver,
-        ApiCustomerFactoryInterface $apiCustomerFactory,
-        IntToStringConverterInterface $intToStringConverter,
-        DivisorProviderInterface $divisorProvider
-    ) {
-        $this->paymentDescription = $paymentDescription;
-        $this->mollieMethodsRepository = $mollieMethodsRepository;
-        $this->orderConverter = $orderConverter;
-        $this->customerContext = $customerContext;
-        $this->paymentLocaleResolver = $paymentLocaleResolver;
-        $this->apiCustomerFactory = $apiCustomerFactory;
-        $this->intToStringConverter = $intToStringConverter;
-        $this->divisorProvider = $divisorProvider;
+    public function __construct(private PaymentDescriptionInterface $paymentDescription, private RepositoryInterface $mollieMethodsRepository, private ConvertOrderInterface $orderConverter, private CustomerContextInterface $customerContext, private PaymentLocaleResolverInterface $paymentLocaleResolver, private ApiCustomerFactoryInterface $apiCustomerFactory, private IntToStringConverterInterface $intToStringConverter, private DivisorProviderInterface $divisorProvider)
+    {
     }
 
     /** @param Convert|mixed $request */

@@ -36,32 +36,8 @@ final class StatusAction extends BaseApiAwareAction implements StatusActionInter
 {
     use GatewayAwareTrait;
 
-    /** @var PaymentRefundInterface */
-    private $paymentRefund;
-
-    /** @var OrderRefundInterface */
-    private $orderRefund;
-
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    /** @var OrderVoucherAdjustmentUpdaterInterface */
-    private $orderVoucherAdjustmentUpdater;
-
-    private MollieOrderRefundCheckerInterface $mollieOrderRefundChecker;
-
-    public function __construct(
-        PaymentRefundInterface $paymentRefund,
-        OrderRefundInterface $orderRefund,
-        MollieLoggerActionInterface $loggerAction,
-        OrderVoucherAdjustmentUpdaterInterface $orderVoucherAdjustmentUpdater,
-        MollieOrderRefundCheckerInterface $mollieOrderRefundChecker
-    ) {
-        $this->paymentRefund = $paymentRefund;
-        $this->orderRefund = $orderRefund;
-        $this->loggerAction = $loggerAction;
-        $this->orderVoucherAdjustmentUpdater = $orderVoucherAdjustmentUpdater;
-        $this->mollieOrderRefundChecker = $mollieOrderRefundChecker;
+    public function __construct(private PaymentRefundInterface $paymentRefund, private OrderRefundInterface $orderRefund, private MollieLoggerActionInterface $loggerAction, private OrderVoucherAdjustmentUpdaterInterface $orderVoucherAdjustmentUpdater, private MollieOrderRefundCheckerInterface $mollieOrderRefundChecker)
+    {
     }
 
     /** @param GetStatusInterface|mixed $request */
@@ -105,23 +81,11 @@ final class StatusAction extends BaseApiAwareAction implements StatusActionInter
             /** @var Subscription $subscription */
             $subscription = $customer->getSubscription($details['subscription_mollie_id']);
 
-            switch ($subscription->status) {
-                case SubscriptionStatus::STATUS_CANCELED:
-                    $request->markCanceled();
-
-                    break;
-                case SubscriptionStatus::STATUS_ACTIVE:
-                case SubscriptionStatus::STATUS_PENDING:
-                case SubscriptionStatus::STATUS_COMPLETED:
-                case SubscriptionStatus::STATUS_SUSPENDED:
-                    $request->markCaptured();
-
-                    break;
-                default:
-                    $request->markUnknown();
-
-                    break;
-            }
+            match ($subscription->status) {
+                SubscriptionStatus::STATUS_CANCELED => $request->markCanceled(),
+                SubscriptionStatus::STATUS_ACTIVE, SubscriptionStatus::STATUS_PENDING, SubscriptionStatus::STATUS_COMPLETED, SubscriptionStatus::STATUS_SUSPENDED => $request->markCaptured(),
+                default => $request->markUnknown(),
+            };
 
             $this->loggerAction->addLog(sprintf('Mark subscription status to: %s', $subscription->status));
 
@@ -132,7 +96,7 @@ final class StatusAction extends BaseApiAwareAction implements StatusActionInter
         if (false === isset($details['subscription_mollie_id']) && isset($details['payment_mollie_id'])) {
             try {
                 $molliePayment = $this->mollieApiClient->payments->get($details['payment_mollie_id']);
-            } catch (\Exception $e) {
+            } catch (\Exception) {
                 $this->loggerAction->addNegativeLog(sprintf('Error with get payment in status action with id %s', $details['payment_mollie_id']));
 
                 throw new ApiException(sprintf('Error with get payment in status action with id %s', $details['payment_mollie_id']));
@@ -155,7 +119,7 @@ final class StatusAction extends BaseApiAwareAction implements StatusActionInter
                 if (MealVoucher::MEAL_VOUCHERS === $payment->method) {
                     $this->orderVoucherAdjustmentUpdater->update($molliePayment, $order->metadata->order_id);
                 }
-            } catch (\Exception $e) {
+            } catch (\Exception) {
                 $this->loggerAction->addNegativeLog(sprintf('Error with get payment page with id %s', $details['payment_mollie_id']));
 
                 throw new ApiException(sprintf('Error with get payment page with id %s', $details['payment_mollie_id']));
@@ -187,37 +151,15 @@ final class StatusAction extends BaseApiAwareAction implements StatusActionInter
             return;
         }
 
-        switch ($molliePayment->status) {
-            case PaymentStatus::STATUS_PENDING:
-            case PaymentStatus::STATUS_OPEN:
-                $request->markPending();
-
-                break;
-            case PaymentStatus::STATUS_AUTHORIZED:
-                $request->markAuthorized();
-
-                break;
-            case PaymentStatus::STATUS_PAID:
-                $request->markCaptured();
-
-                break;
-            case PaymentStatus::STATUS_CANCELED:
-                $request->markCanceled();
-
-                break;
-            case PaymentStatus::STATUS_FAILED:
-                $request->markFailed();
-
-                break;
-            case PaymentStatus::STATUS_EXPIRED:
-                $request->markExpired();
-
-                break;
-            default:
-                $request->markUnknown();
-
-                break;
-        }
+        match ($molliePayment->status) {
+            PaymentStatus::STATUS_PENDING, PaymentStatus::STATUS_OPEN => $request->markPending(),
+            PaymentStatus::STATUS_AUTHORIZED => $request->markAuthorized(),
+            PaymentStatus::STATUS_PAID => $request->markCaptured(),
+            PaymentStatus::STATUS_CANCELED => $request->markCanceled(),
+            PaymentStatus::STATUS_FAILED => $request->markFailed(),
+            PaymentStatus::STATUS_EXPIRED => $request->markExpired(),
+            default => $request->markUnknown(),
+        };
 
         $this->loggerAction->addLog(sprintf('Mark payment status to: %s', $molliePayment->status));
     }

@@ -24,23 +24,8 @@ use Webmozart\Assert\Assert;
 
 final class RefundPaymentGeneratedAutoCompleteListener
 {
-    /** @var EntityRepository */
-    private $refundPaymentRepository;
-
-    /** @var RefundPaymentCompletedStateApplierInterface */
-    private $refundPaymentCompletedStateApplier;
-
-    /** @var PaymentMethodRepositoryInterface */
-    private $paymentMethodRepository;
-
-    public function __construct(
-        EntityRepository $refundPaymentInterface,
-        RefundPaymentCompletedStateApplierInterface $refundPaymentCompletedStateApplier,
-        PaymentMethodRepositoryInterface $paymentMethodRepository
-    ) {
-        $this->refundPaymentRepository = $refundPaymentInterface;
-        $this->refundPaymentCompletedStateApplier = $refundPaymentCompletedStateApplier;
-        $this->paymentMethodRepository = $paymentMethodRepository;
+    public function __construct(private readonly EntityRepository $refundPaymentRepository, private readonly RefundPaymentCompletedStateApplierInterface $refundPaymentCompletedStateApplier, private readonly PaymentMethodRepositoryInterface $paymentMethodRepository)
+    {
     }
 
     public function __invoke(RefundPaymentGenerated $refundPaymentGenerated): void

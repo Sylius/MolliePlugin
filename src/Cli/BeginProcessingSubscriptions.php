@@ -32,17 +32,11 @@ class BeginProcessingSubscriptions extends Command
     /** @var SymfonyStyle */
     private $io;
 
-    private MollieSubscriptionRepositoryInterface $mollieSubscriptionRepository;
-
-    private Factory $stateMachineFactory;
-
     public function __construct(
-        MollieSubscriptionRepositoryInterface $mollieSubscriptionRepository,
-        Factory $stateMachineFactory
+        private readonly MollieSubscriptionRepositoryInterface $mollieSubscriptionRepository,
+        private readonly Factory $stateMachineFactory
     ) {
         parent::__construct(self::COMMAND_NAME);
-        $this->mollieSubscriptionRepository = $mollieSubscriptionRepository;
-        $this->stateMachineFactory = $stateMachineFactory;
     }
 
     protected function configure(): void

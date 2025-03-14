@@ -14,21 +14,10 @@ namespace SyliusMolliePlugin\DTO\MolliePayment;
 class Amount
 {
     /**
-     * @var string|null
-     */
-    private ?string $value;
-    /**
-     * @var string|null
-     */
-    private ?string $currency;
-
-    /**
      * Amount constructor
      */
-    public function __construct(?string $value, ?string $currency)
+    public function __construct(private ?string $value, private ?string $currency)
     {
-        $this->value = $value;
-        $this->currency = $currency;
     }
 
     /**

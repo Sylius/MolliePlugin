@@ -23,18 +23,8 @@ use Webmozart\Assert\Assert;
 
 final class FixedAmount implements SurchargeTypeInterface
 {
-    /** @var AdjustmentFactoryInterface */
-    private $adjustmentFactory;
-
-    /** @var DivisorProviderInterface */
-    private $divisorProvider;
-
-    public function __construct(
-        AdjustmentFactoryInterface $adjustmentFactory,
-        DivisorProviderInterface $divisorProvider
-    ) {
-        $this->adjustmentFactory = $adjustmentFactory;
-        $this->divisorProvider = $divisorProvider;
+    public function __construct(private readonly AdjustmentFactoryInterface $adjustmentFactory, private readonly DivisorProviderInterface $divisorProvider)
+    {
     }
 
     public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): OrderInterface

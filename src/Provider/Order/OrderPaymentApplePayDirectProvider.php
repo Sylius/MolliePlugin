@@ -31,38 +31,8 @@ use Webmozart\Assert\Assert;
 
 final class OrderPaymentApplePayDirectProvider implements OrderPaymentApplePayDirectProviderInterface
 {
-    /** @var PaymentFactoryInterface */
-    private $paymentFactory;
-
-    /** @var StateMachineFactoryInterface */
-    private $stateMachineFactory;
-
-    /** @var RepositoryInterface */
-    private $paymentMethodRepository;
-
-    /** @var RepositoryInterface */
-    private $gatewayConfigRepository;
-
-    /** @var PaymentTokenProviderInterface */
-    private $paymentTokenProvider;
-
-    /** @var Payum */
-    private $payum;
-
-    public function __construct(
-        PaymentFactoryInterface $paymentFactory,
-        StateMachineFactoryInterface $stateMachineFactory,
-        RepositoryInterface $paymentMethodRepository,
-        RepositoryInterface $gatewayConfigRepository,
-        PaymentTokenProviderInterface $paymentTokenProvider,
-        Payum $payum
-    ) {
-        $this->paymentFactory = $paymentFactory;
-        $this->stateMachineFactory = $stateMachineFactory;
-        $this->paymentMethodRepository = $paymentMethodRepository;
-        $this->gatewayConfigRepository = $gatewayConfigRepository;
-        $this->paymentTokenProvider = $paymentTokenProvider;
-        $this->payum = $payum;
+    public function __construct(private readonly PaymentFactoryInterface $paymentFactory, private readonly StateMachineFactoryInterface $stateMachineFactory, private readonly RepositoryInterface $paymentMethodRepository, private readonly RepositoryInterface $gatewayConfigRepository, private readonly PaymentTokenProviderInterface $paymentTokenProvider, private readonly Payum $payum)
+    {
     }
 
     public function provideOrderPayment(OrderInterface $order, string $targetState): ?PaymentInterface
@@ -144,7 +114,7 @@ final class OrderPaymentApplePayDirectProvider implements OrderPaymentApplePayDi
             ]);
 
             return $paymentMethod;
-        } catch (UnresolvedDefaultPaymentMethodException $exception) {
+        } catch (UnresolvedDefaultPaymentMethodException) {
             return null;
         }
     }

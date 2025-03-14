@@ -35,28 +35,8 @@ final class NotifyAction extends BaseApiAwareAction implements ActionInterface, 
 {
     use GatewayAwareTrait;
 
-    /** @var GetHttpRequest */
-    private $getHttpRequest;
-
-    /** @var MollieSubscriptionRepositoryInterface */
-    private $subscriptionRepository;
-
-    /** @var SetStatusOrderActionInterface */
-    private $setStatusOrderAction;
-
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    public function __construct(
-        GetHttpRequest $getHttpRequest,
-        MollieSubscriptionRepositoryInterface $subscriptionRepository,
-        SetStatusOrderActionInterface $setStatusOrderAction,
-        MollieLoggerActionInterface $loggerAction
-    ) {
-        $this->getHttpRequest = $getHttpRequest;
-        $this->subscriptionRepository = $subscriptionRepository;
-        $this->setStatusOrderAction = $setStatusOrderAction;
-        $this->loggerAction = $loggerAction;
+    public function __construct(private GetHttpRequest $getHttpRequest, private MollieSubscriptionRepositoryInterface $subscriptionRepository, private SetStatusOrderActionInterface $setStatusOrderAction, private MollieLoggerActionInterface $loggerAction)
+    {
     }
 
     /** @param Notify|mixed $request */
@@ -94,7 +74,7 @@ final class NotifyAction extends BaseApiAwareAction implements ActionInterface, 
             throw new HttpResponse(Response::$statusTexts[Response::HTTP_OK], Response::HTTP_OK);
         }
 
-        if (true === isset($details['order_mollie_id']) && str_starts_with($this->getHttpRequest->request['id'], 'ord_')) {
+        if (true === isset($details['order_mollie_id']) && str_starts_with((string) $this->getHttpRequest->request['id'], 'ord_')) {
             try {
                 $order = $this->mollieApiClient->orders->get($this->getHttpRequest->request['id']);
             } catch (\Exception $e) {

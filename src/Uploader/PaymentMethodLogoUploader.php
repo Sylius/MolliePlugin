@@ -21,12 +21,8 @@ use Webmozart\Assert\Assert;
 
 final class PaymentMethodLogoUploader implements PaymentMethodLogoUploaderInterface
 {
-    /** @var Filesystem */
-    private $filesystem;
-
-    public function __construct(Filesystem $filesystem)
+    public function __construct(private readonly Filesystem $filesystem)
     {
-        $this->filesystem = $filesystem;
     }
 
     public function upload(Collection $mollieGatewayConfigs): void
@@ -88,7 +84,7 @@ final class PaymentMethodLogoUploader implements PaymentMethodLogoUploaderInterf
 
     private function isAdBlockingProne(string $path): bool
     {
-        return false !== strpos($path, 'ad');
+        return str_contains($path, 'ad');
     }
 
     private function expandPath(string $path): string

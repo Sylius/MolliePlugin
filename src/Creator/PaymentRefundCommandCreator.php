@@ -27,43 +27,8 @@ use Webmozart\Assert\Assert;
 
 final class PaymentRefundCommandCreator implements PaymentRefundCommandCreatorInterface
 {
-    /** @var RepositoryInterface */
-    private $orderRepository;
-
-    /** @var RepositoryInterface */
-    private $refundUnitsRepository;
-
-    /** @var PaymentUnitsItemRefundInterface */
-    private $itemRefund;
-
-    /** @var ShipmentUnitRefundInterface */
-    private $shipmentRefund;
-
-    /** @var AdjustmentFactoryInterface */
-    private $adjustmentFactory;
-
-    /** @var RefundPaymentMethodsProviderInterface */
-    private $refundPaymentMethodProvider;
-
-    /** @var DivisorProviderInterface */
-    private $divisorProvider;
-
-    public function __construct(
-        RepositoryInterface $orderRepository,
-        RepositoryInterface $refundUnitsRepository,
-        PaymentUnitsItemRefundInterface $itemRefund,
-        ShipmentUnitRefundInterface $shipmentRefund,
-        AdjustmentFactoryInterface $adjustmentFactory,
-        RefundPaymentMethodsProviderInterface $refundPaymentMethodProvider,
-        DivisorProviderInterface $divisorProvider
-    ) {
-        $this->orderRepository = $orderRepository;
-        $this->refundUnitsRepository = $refundUnitsRepository;
-        $this->itemRefund = $itemRefund;
-        $this->shipmentRefund = $shipmentRefund;
-        $this->adjustmentFactory = $adjustmentFactory;
-        $this->refundPaymentMethodProvider = $refundPaymentMethodProvider;
-        $this->divisorProvider = $divisorProvider;
+    public function __construct(private readonly RepositoryInterface $orderRepository, private readonly RepositoryInterface $refundUnitsRepository, private readonly PaymentUnitsItemRefundInterface $itemRefund, private readonly ShipmentUnitRefundInterface $shipmentRefund, private readonly AdjustmentFactoryInterface $adjustmentFactory, private readonly RefundPaymentMethodsProviderInterface $refundPaymentMethodProvider, private readonly DivisorProviderInterface $divisorProvider)
+    {
     }
 
     public function fromPayment(Payment $payment): RefundUnits
