@@ -132,25 +132,25 @@ jobs:
 
 #            -   name: Run PHPSpec
 #                run: vendor/bin/phpspec run --ansi -f progress --no-interaction
-            
+
             -   name: Switch to Node 18 for Mockoon
                 uses: actions/setup-node@v4
                 with:
                     node-version: "18"
-            
+
             -   name: Run Mockoon CLI
                 uses: mockoon/cli-action@v2
                 with:
                     version: "latest"
                     data-file: "./tests/Behat/Mollie_Behat.json"
                     port: 8218
-            
+
             -   name: Run Behat
                 run: |
                     vendor/bin/behat --colors --strict -vvv --no-interaction features/admin/create_scheduled_mollie_subscription.feature || vendor/bin/behat --colors --strict -vvv --no-interaction --rerun features/admin/create_scheduled_mollie_subscription.feature
                     vendor/bin/behat --colors --strict -vvv --no-interaction features/admin/creating_recurring_subscription_through_admin.feature || vendor/bin/behat --colors --strict -vvv --no-interaction --rerun features/admin/creating_recurring_subscription_through_admin.feature
-                    vendor/bin/behat --colors --strict -vvv --no-interaction features/shop || vendor/bin/behat --colors --strict -vvv --no-interaction --rerun features/shop
-                    
+                    vendor/bin/behat --colors --strict -vvv --no-interaction features/shop || vendor/bin/behat --colors --strict -vvv --no-interaction --rerun features/shop            
+
             -   name: Upload Behat logs
                 uses: actions/upload-artifact@v4
                 if: failure()
