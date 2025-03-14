@@ -133,15 +133,16 @@ final class MollieGatewayConfigurationType extends AbstractType
             ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
                 $data = $event->getData();
 
-                if (array_key_exists('environment', $data)) {
-                    $apiKey = $this->getMollieApiKey($data);
+                $apiKeyField = isset($data['environment']) ? MollieGatewayConfigurationType::API_KEY_LIVE : MollieGatewayConfigurationType::API_KEY_TEST;                $apiKey = $data[$apiKeyField] ?? '';
 
-                    $this->apiClient->setApiKey($apiKey);
-                    $profile = $this->apiClient->profiles->getCurrent();
-
-                    $data['profile_id'] = $profile->id;
+                if (!preg_match('/^(test|live)_\w{26,}$/', $apiKey)) {
+                    return;
                 }
 
+                $this->apiClient->setApiKey($apiKey);
+                $profile = $this->apiClient->profiles->getCurrent();
+
+                $data['profile_id'] = $profile->id;
                 $event->setData($data);
             });
     }
@@ -161,19 +162,5 @@ final class MollieGatewayConfigurationType extends AbstractType
         $resolver->setDefault('constraints', [
             new LiveApiKeyIsNotBlank($defaults),
         ]);
-    }
-
-    /**
-     * @param array $config
-     *
-     * @return string
-     */
-    private function getMollieApiKey(array $config): string
-    {
-        if ($config['environment']) {
-            return $config[MollieGatewayConfigurationType::API_KEY_LIVE];
-        }
-
-        return $config[MollieGatewayConfigurationType::API_KEY_TEST];
     }
 }

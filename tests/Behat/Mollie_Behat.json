@@ -192,6 +192,30 @@
       "sequentialResponse": false
     },
     {
+      "uuid": "b7b51bc3-5b0e-4ar8-8107-db82f91dd7ab",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "v2/profiles/me",
+      "responses": [
+        {
+          "uuid": "69m97t29-0699-4ty3-a445-dd8d8d7h511b",
+          "body": "{\n  \"resource\": \"profile\",\n  \"id\": \"pfl_profile\",\n  \"mode\": \"test\",\n  \"name\": \"Jonas Test BV\",\n  \"website\": \"https://example.com\",\n  \"email\": \"test@mollie.com\",\n  \"phone\": \"+31612345678\",\n  \"businessCategory\": \"MONEY_SERVICES\",\n  \"status\": \"verified\",\n  \"createdAt\": \"2021-12-08T15:42:58+00:00\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"https://api.mollie.com/v2/profiles/me\",\n      \"type\": \"application/hal+json\"\n    },\n    \"dashboard\": {\n      \"href\": \"https://www.mollie.com/dashboard/org_13514547/settings/profiles/pfl_profile\",\n      \"type\": \"text/html\"\n    },\n    \"chargebacks\": {\n      \"href\": \"https://api.mollie.com/v2/chargebacks\",\n      \"type\": \"application/hal+json\"\n    },\n    \"methods\": {\n      \"href\": \"https://api.mollie.com/v2/methods\",\n      \"type\": \"application/hal+json\"\n    },\n    \"payments\": {\n      \"href\": \"https://api.mollie.com/v2/payments\",\n      \"type\": \"application/hal+json\"\n    },\n    \"refunds\": {\n      \"href\": \"https://api.mollie.com/v2/refunds\",\n      \"type\": \"application/hal+json\"\n    },\n    \"checkoutPreviewUrl\": {\n      \"href\": \"https://www.mollie.com/checkout/preview/pfl_profile\",\n      \"type\": \"text/html\"\n    },\n    \"documentation\": {\n      \"href\": \"https://docs.mollie.com/reference/v2/profiles-api/get-profile\",\n      \"type\": \"text/html\"\n    }\n  }\n}",
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
       "uuid": "48ae485e-21a6-4fe7-84d1-0f313e524fc2",
       "documentation": "",
       "method": "get",
