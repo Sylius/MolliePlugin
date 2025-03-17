@@ -17,5 +17,5 @@ use Sylius\RefundPlugin\Event\UnitsRefunded;
 
 interface OrderPaymentRefundInterface
 {
-    public function refund(UnitsRefunded $orderId): void;
+    public function refund(UnitsRefunded $unitsRefunded): void;
 }
