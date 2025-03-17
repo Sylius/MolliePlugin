@@ -1,30 +1,42 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
     <services>
-        <defaults public="true" />
-        <service id="sylius_mollie_plugin.validator.constraits.payment_surcharge_type_validator"
-                 class="Sylius\MolliePlugin\Validator\Constraints\PaymentSurchargeTypeValidator">
+        <service id="sylius_mollie_plugin.validator.constraints.payment_surcharge_type_validator" class="Sylius\MolliePlugin\Validator\Constraints\PaymentSurchargeTypeValidator">
+
             <tag name="validator.constraint_validator" alias="channels"/>
         </service>
 
-        <service id="sylius_mollie_plugin.validator.apple_pay_direct.apple_pay_address_validator"
-                 class="Sylius\MolliePlugin\Validator\ApplePayDirect\ApplePayAddressValidator" />
+        <service id="sylius_mollie_plugin.validator.apple_pay_direct.apple_pay_address_validator" class="Sylius\MolliePlugin\Validator\ApplePayDirect\ApplePayAddressValidator" />
 
-        <service id="sylius_mollie_plugin.validator.apple_pay_direct.payment_method_checkout_validator"
-                 class="Sylius\MolliePlugin\Validator\Constraints\PaymentMethodCheckoutValidator">
-            <tag name="validator.constraint_validator"/>
+        <service id="sylius_mollie_plugin.validator.apple_pay_direct.payment_method_checkout_validator" class="Sylius\MolliePlugin\Validator\Constraints\PaymentMethodCheckoutValidator">
             <argument type="service" id="sylius_mollie_plugin.resolver.order.payment_checkout_order_resolver"/>
             <argument type="service" id="request_stack"/>
             <argument type="service" id="sylius_mollie_plugin.checker.gateway.mollie_gateway_factory_checker"/>
+
+            <tag name="validator.constraint_validator"/>
         </service>
 
-        <service id="sylius_mollie_plugin.validator.constraints.payment_method_mollie_channel_unique_validator"
-                 class="Sylius\MolliePlugin\Validator\Constraints\PaymentMethodMollieChannelUniqueValidator">
-            <tag name="validator.constraint_validator"/>
+        <service id="sylius_mollie_plugin.validator.constraints.payment_method_mollie_channel_unique_validator" class="Sylius\MolliePlugin\Validator\Constraints\PaymentMethodMollieChannelUniqueValidator">
             <argument type="service" id="sylius.repository.payment_method"/>
             <argument type="service" id="translator"/>
+
+            <tag name="validator.constraint_validator"/>
         </service>
 
         <service id="sylius_mollie_plugin.validator.refund.refund_units_command_validator" class="Sylius\MolliePlugin\Validator\Refund\RefundUnitsCommandValidator" decorates="Sylius\RefundPlugin\Validator\RefundUnitsCommandValidator">
@@ -33,8 +45,6 @@
             <argument type="service" id="sylius_mollie_plugin.checker.refund.duplicate_refund_the_same_amount_checker"/>
         </service>
 
-        <service id="Sylius\RefundPlugin\Validator\RefundUnitsCommandValidatorInterface"
-                 alias="sylius_mollie_plugin.validator.refund.refund_units_command_validator"
-        />
+        <service id="Sylius\RefundPlugin\Validator\RefundUnitsCommandValidatorInterface" alias="sylius_mollie_plugin.validator.refund.refund_units_command_validator" />
     </services>
 </container>
