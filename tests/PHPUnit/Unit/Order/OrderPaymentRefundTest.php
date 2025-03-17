@@ -33,7 +33,7 @@ use SyliusMolliePlugin\Request\Api\RefundOrder;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class OrderPaymentRefundTest extends TestCase
+final class OrderPaymentRefundTest extends TestCase
 {
     private RepositoryInterface $orderRepository;
 
