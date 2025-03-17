@@ -29,7 +29,10 @@ final class AdminOrderCreationCompatibilityPass implements CompilerPassInterface
                 ->findDefinition(self::PAYMENT_TOKEN_PROVIDER_ID)
             ;
 
-            $container->set('sylius_mollie.provider.payment_token', $adminOrderCreationPaymentTokenProviderDefinition);
+            $container->setDefinition(
+                'sylius_mollie.provider.payment_token',
+                $adminOrderCreationPaymentTokenProviderDefinition,
+            );
         }
 
         if ($container->has(self::CUSTOMER_PROVIDER_ID)) {
@@ -37,7 +40,10 @@ final class AdminOrderCreationCompatibilityPass implements CompilerPassInterface
                 ->findDefinition(self::CUSTOMER_PROVIDER_ID)
             ;
 
-            $container->set('sylius_mollie.provider.customer', $adminOrderCreationCustomerProviderDefinition);
+            $container->setDefinition(
+                'sylius_mollie.provider.customer',
+                $adminOrderCreationCustomerProviderDefinition,
+            );
         }
     }
 }

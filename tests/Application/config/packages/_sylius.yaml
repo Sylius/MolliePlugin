@@ -5,7 +5,6 @@ imports:
     - { resource: "@SyliusMolliePlugin/Resources/config/config.yaml" }
     - { resource: "../../src/Resources/config/config.yaml" }
     - { resource: "../../src/Resources/config/services.xml" }
-    - { resource: "@SyliusAdminOrderCreationPlugin/Resources/config/app/config.yml" }
     - { resource: "@SyliusApiBundle/Resources/config/app/config.yaml" }
 
 parameters:

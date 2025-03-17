@@ -10,6 +10,3 @@ mollie_shop:
 
 sylius_refund:
     resource: "@SyliusRefundPlugin/Resources/config/routing.yml"
-
-sylius_admin_order_creation:
-    resource: "@SyliusAdminOrderCreationPlugin/Resources/config/app/routing.yml"

@@ -30,6 +30,7 @@
         "friends-of-behat/symfony-extension": "^2.1",
         "friends-of-behat/variadic-extension": "^1.3",
         "lchrusciel/api-test-case": "^5.2",
+        "matthiasnoback/symfony-dependency-injection-test": "^5.1",
         "phpspec/phpspec": "^7.0",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^1.0",
@@ -47,6 +48,9 @@
         "symfony/intl": "^5.4 || ^6.4",
         "symfony/web-profiler-bundle": "^5.4 || ^6.4",
         "symfony/webpack-encore-bundle": "^1.12"
+    },
+    "suggest": {
+        "sylius/admin-order-creation-plugin": "Allows to create orders in the admin panel."
     },
     "scripts": {
         "analyse": [

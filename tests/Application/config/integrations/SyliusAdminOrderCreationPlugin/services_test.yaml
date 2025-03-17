@@ -1,0 +1,2 @@
+imports:
+    - { resource: "../../../vendor/sylius/admin-order-creation-plugin/tests/Behat/Resources/services.xml" }

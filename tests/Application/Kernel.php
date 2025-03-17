@@ -57,6 +57,13 @@ final class Kernel extends BaseKernel
         }
     }
 
+    private function configureContainer(ContainerConfigurator $container, LoaderInterface $loader, ContainerBuilder $builder): void
+    {
+        foreach ($this->getConfigurationDirectories() as $confDir) {
+            $this->loadContainerConfiguration($loader, $confDir);
+        }
+    }
+
     protected function getContainerBaseClass(): string
     {
         if ($this->isTestEnvironment() && class_exists(MockerContainer::class)) {
@@ -72,11 +79,6 @@ final class Kernel extends BaseKernel
         $loader->load($confDir . '/{packages}/' . $this->environment . '/**/*' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{services}' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{services}_' . $this->environment . self::CONFIG_EXTS, 'glob');
-    }
-
-    private function isTestEnvironment(): bool
-    {
-        return 0 === strpos($this->getEnvironment(), 'test');
     }
 
     private function loadRoutesConfiguration(RoutingConfigurator $routes, string $confDir): void
@@ -111,10 +113,8 @@ final class Kernel extends BaseKernel
         }
     }
 
-    protected function configureContainer(ContainerConfigurator $container, LoaderInterface $loader, ContainerBuilder $builder): void
+    private function isTestEnvironment(): bool
     {
-        foreach ($this->getConfigurationDirectories() as $confDir) {
-            $this->loadContainerConfiguration($loader, $confDir);
-        }
+        return str_starts_with($this->getEnvironment(), 'test');
     }
 }
