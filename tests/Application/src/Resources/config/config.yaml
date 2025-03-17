@@ -12,7 +12,6 @@ sylius_product:
     product_variant:
       classes:
         model: Tests\Sylius\MolliePlugin\Entity\ProductVariant
-        repository: Sylius\MolliePlugin\Repository\ProductVariantRepository
 
 sylius_user:
   resources:
@@ -24,14 +23,9 @@ sylius_user:
       user:
         classes:
           model: Tests\Sylius\MolliePlugin\Entity\ShopUser
+
 sylius_order:
   resources:
     order:
       classes:
         model: Tests\Sylius\MolliePlugin\Entity\Order
-
-sylius_customer:
-    resources:
-        customer:
-            classes:
-                repository: Sylius\MolliePlugin\Repository\CustomerRepository
