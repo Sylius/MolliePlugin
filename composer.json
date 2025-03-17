@@ -46,7 +46,6 @@
         "sylius-labs/coding-standard": "^4.0",
         "lchrusciel/api-test-case": "^5.2",
         "polishsymfonycommunity/symfony-mocker-container": "^1.0",
-        "symfony/flex": "^2.5"
     },
     "conflict": {
         "symplify/package-builder": "8.3.25"
@@ -76,8 +75,7 @@
             "phpstan/extension-installer": true,
             "composer/package-versions-deprecated": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "symfony/thanks": false,
-            "symfony/flex": true
+            "symfony/thanks": false
         }
     }
 }
