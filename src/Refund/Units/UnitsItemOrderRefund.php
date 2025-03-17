@@ -74,7 +74,7 @@ final class UnitsItemOrderRefund implements UnitsItemOrderRefundInterface
             }
         }
 
-        return $refundedUnits ?? [];
+        return $refundedUnits;
     }
 
     private function hasUnitRefunded(OrderInterface $order, int $unitId): bool

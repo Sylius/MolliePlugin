@@ -14,12 +14,13 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Payments;
 
 use Mollie\Api\Resources\Method;
+use Sylius\MolliePlugin\Payments\Methods\AbstractMethod;
 use Sylius\MolliePlugin\Payments\Methods\MethodInterface;
 
 final class Methods implements MethodsInterface
 {
-    /** @var array */
-    private $methods;
+    /** @var AbstractMethod[] $methods */
+    private array $methods;
 
     public function add(Method $mollieMethod): void
     {
@@ -32,7 +33,7 @@ final class Methods implements MethodsInterface
                 $payment->setMaximumAmount((array) $mollieMethod->maximumAmount);
                 $payment->setImage((array) $mollieMethod->image);
 
-                /** @var array|null $issuers */
+                /** @var array<array-key, mixed>|null $issuers */
                 $issuers = $mollieMethod->issuers;
                 $payment->setIssuers((array) $issuers);
 

@@ -18,8 +18,12 @@ use Twig\Environment;
 
 final class ContentParser implements ContentParserInterface
 {
-    public function __construct(private readonly Environment $twigEnvironment, private readonly array $enabledFunctions, private readonly TranslatorInterface $translator)
-    {
+    /** @param array<array-key, string> $enabledFunctions */
+    public function __construct(
+        private readonly Environment $twigEnvironment,
+        private readonly array $enabledFunctions,
+        private readonly TranslatorInterface $translator,
+    ) {
     }
 
     public function parse(string $input, string $argument): string

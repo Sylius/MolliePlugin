@@ -24,6 +24,7 @@ interface PaymentlinkResolverInterface
         PaymentMethod::IN3,
     ];
 
+    /** @param array<string, mixed> $data */
     public function resolve(
         OrderInterface $order,
         array $data,

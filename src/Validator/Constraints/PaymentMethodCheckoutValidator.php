@@ -30,7 +30,7 @@ final class PaymentMethodCheckoutValidator extends ConstraintValidator
     {
     }
 
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         $order = $this->paymentCheckoutOrderResolver->resolve();
 
@@ -74,7 +74,7 @@ final class PaymentMethodCheckoutValidator extends ConstraintValidator
         }
     }
 
-    private function flashMessage(Constraint $constraint, string $type, string $messageKey)
+    private function flashMessage(Constraint $constraint, string $type, string $messageKey): void
     {
         /** @var Session $session */
         $session = $this->requestStack->getSession();

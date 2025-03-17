@@ -181,7 +181,7 @@ final class CaptureAction extends BaseApiAwareAction implements CaptureActionInt
         return $newPayment;
     }
 
-    private function setQrCodeOnOrder(OrderInterface $order, ?string $qrCode = null)
+    private function setQrCodeOnOrder(OrderInterface $order, ?string $qrCode = null): void
     {
         try {
             $order->setQrCode($qrCode);

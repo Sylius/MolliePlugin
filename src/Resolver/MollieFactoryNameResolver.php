@@ -14,9 +14,11 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Resolver;
 
 use Sylius\Component\Order\Context\CartContextInterface;
+use Sylius\Component\Order\Context\CartNotFoundException;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
 use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
+use Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
 
 final class MollieFactoryNameResolver implements MollieFactoryNameResolverInterface
 {
@@ -28,8 +30,9 @@ final class MollieFactoryNameResolver implements MollieFactoryNameResolverInterf
     {
         if (null === $order) {
             try {
+                /** @throws SessionNotFoundException|CartNotFoundException */
                 $order = $this->cartContext->getCart();
-            } catch (\Symfony\Component\HttpFoundation\Exception\SessionNotFoundException) {
+            } catch (SessionNotFoundException|CartNotFoundException) {
                 $order = null;
             }
         }

@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 final class LiveApiKeyIsNotBlankValidator extends ConstraintValidator
 {
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof LiveApiKeyIsNotBlank) {
             throw new UnexpectedTypeException($constraint, LiveApiKeyIsNotBlank::class);

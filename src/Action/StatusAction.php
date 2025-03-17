@@ -70,7 +70,6 @@ final class StatusAction extends BaseApiAwareAction implements StatusActionInter
 
         if (true === isset($details['subscription_mollie_id'])) {
             try {
-                /** @var Customer $customer */
                 $customer = $this->mollieApiClient->customers->get($details['customer_mollie_id']);
             } catch (\Exception $e) {
                 $this->loggerAction->addNegativeLog(sprintf('Error with get customer from mollie with: %s', $e->getMessage()));
@@ -78,7 +77,6 @@ final class StatusAction extends BaseApiAwareAction implements StatusActionInter
                 throw new ApiException(sprintf('Error with get customer from mollie with: %s', $e->getMessage()));
             }
 
-            /** @var Subscription $subscription */
             $subscription = $customer->getSubscription($details['subscription_mollie_id']);
 
             match ($subscription->status) {
@@ -93,7 +91,7 @@ final class StatusAction extends BaseApiAwareAction implements StatusActionInter
         }
 
         $molliePayment = null;
-        if (false === isset($details['subscription_mollie_id']) && isset($details['payment_mollie_id'])) {
+        if (isset($details['payment_mollie_id'])) {
             try {
                 $molliePayment = $this->mollieApiClient->payments->get($details['payment_mollie_id']);
             } catch (\Exception) {
@@ -104,7 +102,7 @@ final class StatusAction extends BaseApiAwareAction implements StatusActionInter
         }
 
         $order = null;
-        if (false === isset($details['subscription_mollie_id']) && isset($details['order_mollie_id'])) {
+        if (isset($details['order_mollie_id'])) {
             try {
                 $order = $this->mollieApiClient->orders->get($details['order_mollie_id'], ['embed' => 'payments']);
                 $payments = $order->_embedded->payments;

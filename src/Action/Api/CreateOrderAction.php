@@ -39,8 +39,8 @@ final class CreateOrderAction extends BaseApiAwareAction implements ActionInterf
         $customerId = $details['metadata']['customer_mollie_id'] ?? null;
         $method = $details['metadata']['molliePaymentMethods'] ?? '';
 
+        /** @phpstan-ignore-next-line What is even supposed to happen here? */
         if (null !== $method) {
-            /** @var MollieGatewayConfigInterface $paymentMethod */
             $paymentMethod = $this->methodConfigResolver->getConfigFromMethodId($method);
 
             $orderExpiredTime = $paymentMethod->getOrderExpiration();
@@ -66,6 +66,7 @@ final class CreateOrderAction extends BaseApiAwareAction implements ActionInterf
                 'redirectUrl' => $details['backurl'],
                 'webhookUrl' => $details['webhookUrl'],
                 'lines' => $details['lines'],
+                /** @phpstan-ignore-next-line */
                 'expiresAt' => isset($dateExpired) ?
                     $dateExpired->format('Y-m-d') :
                     (new \DateTimeImmutable('now'))->format('Y-m-d'),

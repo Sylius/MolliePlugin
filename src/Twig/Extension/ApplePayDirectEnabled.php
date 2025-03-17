@@ -28,7 +28,7 @@ final class ApplePayDirectEnabled extends AbstractExtension
         return [
             new TwigFunction(
                 'mollie_render_apple_pay_direct',
-                $this->applePayEnabledChecker->isEnabled(...),
+                [$this->applePayEnabledChecker, 'isEnabled'],
                 ['is_safe' => ['html']],
             ),
         ];

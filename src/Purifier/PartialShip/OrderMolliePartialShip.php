@@ -32,7 +32,6 @@ final class OrderMolliePartialShip implements OrderMolliePartialShipInterface
 
     public function partialShip(OrderInterface $order): void
     {
-        /** @var Collection $shipments */
         $shipments = $order->getShipments();
         $units = $shipments->last()->getUnits();
 
@@ -46,16 +45,17 @@ final class OrderMolliePartialShip implements OrderMolliePartialShipInterface
         /** @var PaymentMethodInterface $paymentMethod */
         $paymentMethod = $payment->getMethod();
 
-        if (null === $paymentMethod->getGatewayConfig()) {
+        $gatewayConfig = $paymentMethod->getGatewayConfig();
+        if (null === $gatewayConfig) {
             return;
         }
-        $factoryName = $paymentMethod->getGatewayConfig()->getFactoryName() ?? null;
 
+        $factoryName = $gatewayConfig->getFactoryName();
         if (!isset($payment->getDetails()['order_mollie_id']) || MollieGatewayFactory::FACTORY_NAME !== $factoryName) {
             return;
         }
 
-        $modusKey = $this->getModus($paymentMethod->getGatewayConfig()->getConfig());
+        $modusKey = $this->getModus($gatewayConfig->getConfig());
 
         try {
             $this->apiClient->setApiKey($modusKey);
