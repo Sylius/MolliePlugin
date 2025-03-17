@@ -43,7 +43,7 @@ use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 use SyliusMolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
 use Mollie\Api\Resources\Payment;
 
-class CaptureActionTest extends TestCase
+final class CaptureActionTest extends TestCase
 {
     private CaptureAction $captureAction;
 

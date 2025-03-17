@@ -29,11 +29,13 @@ use SyliusMolliePlugin\Entity\MollieCustomerInterface;
 use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
 use SyliusMolliePlugin\Request\Api\CreateCustomer;
 
-class CreateCustomerActionTest extends TestCase
+final class CreateCustomerActionTest extends TestCase
 {
-    private $loggerAction;
-    private $mollieCustomerRepository;
-    private $createCustomerAction;
+    private MollieLoggerActionInterface $loggerAction;
+
+    private RepositoryInterface $mollieCustomerRepository;
+
+    private CreateCustomerAction $createCustomerAction;
 
     protected function setUp(): void
     {

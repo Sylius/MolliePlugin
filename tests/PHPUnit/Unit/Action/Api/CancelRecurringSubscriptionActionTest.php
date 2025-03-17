@@ -27,10 +27,11 @@ use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
 use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
 use SyliusMolliePlugin\Request\Api\CancelRecurringSubscription;
 
-class CancelRecurringSubscriptionActionTest extends TestCase
+final class CancelRecurringSubscriptionActionTest extends TestCase
 {
-    private $loggerAction;
-    private $cancelRecurringSubscriptionAction;
+    private MollieLoggerActionInterface $loggerAction;
+
+    private CancelRecurringSubscriptionAction $cancelRecurringSubscriptionAction;
 
     protected function setUp(): void
     {
