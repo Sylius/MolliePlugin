@@ -45,7 +45,7 @@
         "symfony/webpack-encore-bundle": "^1.12",
         "sylius-labs/coding-standard": "^4.0",
         "lchrusciel/api-test-case": "^5.2",
-        "polishsymfonycommunity/symfony-mocker-container": "^1.0",
+        "polishsymfonycommunity/symfony-mocker-container": "^1.0"
     },
     "conflict": {
         "symplify/package-builder": "8.3.25"
