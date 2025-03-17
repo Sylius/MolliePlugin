@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Payments\MethodResolver;
 
+use Composer\InstalledVersions;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Result;
@@ -141,9 +142,19 @@ final class MolliePaymentMethodResolverTest extends TestCase
             ->willReturnSelf()
         ;
 
-        $queryBuilderMock->method('executeQuery')
-            ->willReturn($resultMock)
-        ;
+        $version = InstalledVersions::getVersion('sylius/sylius');
+
+        if ($version < '1.12.0') {
+            $queryBuilderMock->expects($this->once())
+                ->method('execute')
+                ->willReturn($resultMock)
+            ;
+        } else {
+            $queryBuilderMock->expects($this->once())
+                ->method('executeQuery')
+                ->willReturn($resultMock)
+            ;
+        }
 
         $resultMock->method('fetchOne')
             ->willReturn(true)
@@ -253,10 +264,19 @@ final class MolliePaymentMethodResolverTest extends TestCase
             ->willReturnSelf()
         ;
 
-        $queryBuilderMock
-            ->method('executeQuery')
-            ->willReturn($resultMock)
-        ;
+        $version = InstalledVersions::getVersion('sylius/sylius');
+
+        if ($version < '1.12.0') {
+            $queryBuilderMock->expects($this->once())
+                ->method('execute')
+                ->willReturn($resultMock)
+            ;
+        } else {
+            $queryBuilderMock->expects($this->once())
+                ->method('executeQuery')
+                ->willReturn($resultMock)
+            ;
+        }
 
         $resultMock->method('fetchOne')->willReturn(true);
 
