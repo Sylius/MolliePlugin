@@ -14,7 +14,8 @@
         "willdurand/js-translation-bundle": "^4.0 || ^5.0",
         "league/flysystem-bundle": "^2.4",
         "symfony/mailer": "^5.4 || ^6.4",
-        "php-http/message-factory": "^1.1"
+        "php-http/message-factory": "^1.1",
+        "doctrine/annotations": "^1.14"
     },
     "require-dev": {
         "behat/behat": "^3.7",
