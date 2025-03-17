@@ -6,10 +6,10 @@
 *.lock
 
 # Ignore dependency directories (installed inside the container)
-node_modules
+node_modules/*
 vendor
 tests/Application/vendor
-tests/Application/node_modules
+tests/Application/node_modules/*
 
 # Ignore local IDE and editor files
 .idea

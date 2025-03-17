@@ -19,5 +19,8 @@ bin/console assets:install
 echo "🚀 Installing and building frontend assets..."
 yarn && yarn build
 
+echo "🚀 Set proper permissions..."
+chown -R www-data:www-data /var/www
+
 echo "✅ Initialization complete..."
 tail -f /dev/null
