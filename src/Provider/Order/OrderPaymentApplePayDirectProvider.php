@@ -32,7 +32,7 @@ use Webmozart\Assert\Assert;
 
 final class OrderPaymentApplePayDirectProvider implements OrderPaymentApplePayDirectProviderInterface
 {
-    public function __construct(private readonly PaymentFactoryInterface $paymentFactory, private readonly StateMachineFactoryInterface $stateMachineFactory, private readonly RepositoryInterface $paymentMethodRepository, private readonly RepositoryInterface $gatewayConfigRepository, private readonly PaymentTokenProviderInterface|OrderCreationPaymentTokenProviderInterface $paymentTokenProvider, private readonly Payum $payum)
+    public function __construct(private readonly PaymentFactoryInterface $paymentFactory, private readonly StateMachineFactoryInterface $stateMachineFactory, private readonly RepositoryInterface $paymentMethodRepository, private readonly RepositoryInterface $gatewayConfigRepository, private readonly OrderCreationPaymentTokenProviderInterface|PaymentTokenProviderInterface $paymentTokenProvider, private readonly Payum $payum)
     {
     }
 

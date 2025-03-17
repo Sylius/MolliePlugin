@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Provider\Apple;
 
+use Sylius\AdminOrderCreationPlugin\Provider\CustomerProviderInterface as OrderCreationCustomerProviderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Provider\Customer\CustomerProviderInterface;
 use Sylius\MolliePlugin\Provider\Order\OrderPaymentApplePayDirectProviderInterface;
 use Sylius\MolliePlugin\Resolver\Address\ApplePayAddressResolverInterface;
-use Sylius\AdminOrderCreationPlugin\Provider\CustomerProviderInterface as OrderCreationCustomerProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Webmozart\Assert\Assert;
 

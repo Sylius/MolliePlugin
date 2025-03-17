@@ -36,7 +36,7 @@ final class PaymentlinkResolver implements PaymentlinkResolverInterface
         private readonly IntToStringConverterInterface $intToStringConverter,
         private readonly RepositoryInterface $orderRepository,
         private readonly PaymentLinkEmailPreparerInterface $emailPreparer,
-        private readonly PaymentTokenProviderInterface|OrderCreationPaymentTokenProviderInterface $paymentTokenProvider,
+        private readonly OrderCreationPaymentTokenProviderInterface|PaymentTokenProviderInterface $paymentTokenProvider,
     ) {
     }
 
