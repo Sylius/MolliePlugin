@@ -15,7 +15,7 @@ namespace Sylius\MolliePlugin\Provider\Order;
 
 use Payum\Core\Payum;
 use SM\Factory\FactoryInterface as StateMachineFactoryInterface;
-use Sylius\AdminOrderCreationPlugin\Provider\PaymentTokenProviderInterface;
+use Sylius\AdminOrderCreationPlugin\Provider\PaymentTokenProviderInterface as OrderCreationPaymentTokenProviderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Payment\Exception\NotProvidedOrderPaymentException;
@@ -27,11 +27,12 @@ use Sylius\Component\Resource\StateMachine\StateMachineInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Provider\PaymentToken\PaymentTokenProviderInterface;
 use Webmozart\Assert\Assert;
 
 final class OrderPaymentApplePayDirectProvider implements OrderPaymentApplePayDirectProviderInterface
 {
-    public function __construct(private readonly PaymentFactoryInterface $paymentFactory, private readonly StateMachineFactoryInterface $stateMachineFactory, private readonly RepositoryInterface $paymentMethodRepository, private readonly RepositoryInterface $gatewayConfigRepository, private readonly PaymentTokenProviderInterface $paymentTokenProvider, private readonly Payum $payum)
+    public function __construct(private readonly PaymentFactoryInterface $paymentFactory, private readonly StateMachineFactoryInterface $stateMachineFactory, private readonly RepositoryInterface $paymentMethodRepository, private readonly RepositoryInterface $gatewayConfigRepository, private readonly PaymentTokenProviderInterface|OrderCreationPaymentTokenProviderInterface $paymentTokenProvider, private readonly Payum $payum)
     {
     }
 
