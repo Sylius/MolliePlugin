@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Action\Api;
 
 use Mollie\Api\Exceptions\ApiException;
-use Mollie\Api\Resources\Payment;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;

@@ -19,7 +19,7 @@ use Sylius\MolliePlugin\Payments\Methods\MethodInterface;
 
 final class Methods implements MethodsInterface
 {
-    /** @var AbstractMethod[] $methods */
+    /** @var AbstractMethod[] */
     private array $methods;
 
     public function add(Method $mollieMethod): void

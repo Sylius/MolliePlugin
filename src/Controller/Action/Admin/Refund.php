@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Controller\Action\Admin;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Payum\Core\Model\GatewayConfigInterface;
 use Payum\Core\Payum;
 use Payum\Core\Request\Refund as RefundAction;
 use Payum\Core\Security\TokenInterface;

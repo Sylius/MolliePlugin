@@ -14,9 +14,7 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Action;
 
 use Mollie\Api\Exceptions\ApiException;
-use Mollie\Api\Resources\Customer;
 use Mollie\Api\Resources\Payment;
-use Mollie\Api\Resources\Subscription;
 use Mollie\Api\Types\PaymentStatus;
 use Mollie\Api\Types\SubscriptionStatus;
 use Payum\Core\Exception\RequestNotSupportedException;
