@@ -132,8 +132,8 @@ jobs:
             -   name: Run ECS
                 run: vendor/bin/ecs check src
 
-#            -   name: Run PHPSpec
-#                run: vendor/bin/phpspec run --ansi -f progress --no-interaction
+            -   name: Run unit tests
+                run: vendor/bin/phpunit --colors=always --testsuite=unit
 
             -   name: Switch to Node 18 for Mockoon
                 uses: actions/setup-node@v4
