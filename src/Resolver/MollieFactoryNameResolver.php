@@ -32,7 +32,7 @@ final class MollieFactoryNameResolver implements MollieFactoryNameResolverInterf
             try {
                 /** @throws SessionNotFoundException|CartNotFoundException */
                 $order = $this->cartContext->getCart();
-            } catch (SessionNotFoundException|CartNotFoundException) {
+            } catch (CartNotFoundException|SessionNotFoundException) {
                 $order = null;
             }
         }

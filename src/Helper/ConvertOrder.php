@@ -16,7 +16,6 @@ namespace Sylius\MolliePlugin\Helper;
 use Mollie\Api\Types\PaymentMethod;
 use Sylius\Component\Addressing\Matcher\ZoneMatcherInterface;
 use Sylius\Component\Addressing\Model\ZoneInterface;
-use Sylius\Component\Core\Model\ImageInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItem;
 use Sylius\Component\Core\Model\Scope;
