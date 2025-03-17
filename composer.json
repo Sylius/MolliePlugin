@@ -32,10 +32,10 @@
         "friendsofsymfony/oauth-server-bundle": "^1.6 || >2.0.0-alpha.0 ^2.0@dev",
         "phpspec/phpspec": "^7.0",
         "phpstan/extension-installer": "^1.0",
-        "phpstan/phpstan": "^0.12.85",
-        "phpstan/phpstan-doctrine": "^0.12.33",
-        "phpstan/phpstan-strict-rules": "^0.12.0",
-        "phpstan/phpstan-webmozart-assert": "^0.12.12",
+        "phpstan/phpstan": "^1.0",
+        "phpstan/phpstan-doctrine": "^1.0",
+        "phpstan/phpstan-strict-rules": "^1.0",
+        "phpstan/phpstan-webmozart-assert": "^1.0",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "^5.4 || ^6.4",
         "symfony/debug-bundle": "^5.4 || ^6.4",
@@ -53,7 +53,7 @@
     "scripts": {
         "analyse": [
             "@composer validate --strict",
-            "vendor/bin/phpstan.phar analyse -c phpstan.neon -l max src/",
+            "vendor/bin/phpstan analyse -c phpstan.neon -l max src/",
             "vendor/bin/ecs check src/"
         ],
         "fix": [

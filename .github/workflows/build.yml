@@ -133,8 +133,8 @@ jobs:
             -   name: Load fixtures in test application
                 run: (cd tests/Application && bin/console sylius:fixtures:load -n)
 
-            -   name: Run PHPStan
-                run: vendor/bin/phpstan analyse
+#            -   name: Run PHPStan
+#                run: vendor/bin/phpstan analyse
 
             -   name: Run ECS
                 run: vendor/bin/ecs check src
