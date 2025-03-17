@@ -43,6 +43,6 @@ final class PaymentUnitsItemRefund implements PaymentUnitsItemRefundInterface
             }
         }
 
-        return $unitsToRefund ?? [];
+        return $unitsToRefund;
     }
 }

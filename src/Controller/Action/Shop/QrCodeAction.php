@@ -107,7 +107,7 @@ final class QrCodeAction
         return new JsonResponse(['status' => Response::HTTP_OK]);
     }
 
-    private function setQrCodeOnOrder(OrderInterface $order, ?string $qrCode = null, bool $shouldDeletePaymentId = false)
+    private function setQrCodeOnOrder(OrderInterface $order, ?string $qrCode = null, bool $shouldDeletePaymentId = false): void
     {
         try {
             $order->setQrCode($qrCode);
@@ -120,7 +120,7 @@ final class QrCodeAction
         }
     }
 
-    private function setMolliePaymentIdOnOrder(OrderInterface $order, ?string $molliePaymentId = null)
+    private function setMolliePaymentIdOnOrder(OrderInterface $order, ?string $molliePaymentId = null): void
     {
         try {
             $order->setMolliePaymentId($molliePaymentId);

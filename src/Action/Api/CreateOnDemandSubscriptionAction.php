@@ -51,7 +51,7 @@ final class CreateOnDemandSubscriptionAction extends BaseApiAwareAction implemen
                 'metadata' => $details['metadata'],
                 'sequenceType' => 'first',
             ];
-            /** @var Payment $payment */
+            /** @throws ApiException|\Exception */
             $payment = $this->mollieApiClient->payments->create($paymentSettings);
         } catch (ApiException $e) {
             $message = $this->guzzleNegativeResponseParser->parse($e);

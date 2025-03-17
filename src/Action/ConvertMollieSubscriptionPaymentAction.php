@@ -95,7 +95,7 @@ final class ConvertMollieSubscriptionPaymentAction extends BaseApiAwareAction im
                 'sequenceType' => $sequenceType,
                 'gateway' => $request->getToken()->getGatewayName(),
             ],
-            'full_name' => $customer->getFullName() ?? null,
+            'full_name' => $customer->getFullName(),
             'email' => $customer->getEmail() ?? null,
         ];
         $details['metadata'] = array_merge($details['metadata'], $paymentOptions['metadata'] ?? []);

@@ -49,14 +49,16 @@ final class ShipmentShipEventListener
         /** @var PaymentMethodInterface $paymentMethod */
         $paymentMethod = $payment->getMethod();
 
-        Assert::notNull($paymentMethod->getGatewayConfig());
-        $factoryName = $paymentMethod->getGatewayConfig()->getFactoryName() ?? null;
+        $gatewayConfig = $paymentMethod->getGatewayConfig();
+        Assert::notNull($gatewayConfig);
+
+        $factoryName = $gatewayConfig->getFactoryName();
 
         if (!isset($payment->getDetails()['order_mollie_id']) || MollieGatewayFactory::FACTORY_NAME !== $factoryName) {
             return;
         }
 
-        $modusKey = $this->getModus($paymentMethod->getGatewayConfig()->getConfig());
+        $modusKey = $this->getModus($gatewayConfig->getConfig());
 
         try {
             $this->apiClient->setApiKey($modusKey);

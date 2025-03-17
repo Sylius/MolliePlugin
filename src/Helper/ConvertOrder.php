@@ -175,9 +175,7 @@ final class ConvertOrder implements ConvertOrderInterface
         $imagePaths = [];
 
         foreach ($images as $key => $image) {
-            if ($image instanceof ImageInterface) {
-                $imagePaths[] = $image->getPath();
-            }
+            $imagePaths[] = $image->getPath();
         }
 
         if (!empty($imagePaths) && isset($imagePaths[0])) {

@@ -28,7 +28,7 @@ class DivisorProvider extends AbstractExtension
         return [
             new TwigFunction(
                 'mollie_get_divisor',
-                $this->divisorProvider->getDivisor(...),
+                [$this->divisorProvider, 'getDivisor'],
                 ['is_safe' => ['html']],
             ),
         ];

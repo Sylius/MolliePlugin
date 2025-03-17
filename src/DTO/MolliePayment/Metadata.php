@@ -24,7 +24,7 @@ class Metadata
         return $this->orderId;
     }
 
-    public function setOrderId(?int $orderId)
+    public function setOrderId(?int $orderId): void
     {
         $this->orderId = $orderId;
     }
@@ -34,7 +34,7 @@ class Metadata
         return $this->customerId;
     }
 
-    public function setCustomerId(?string $customerId)
+    public function setCustomerId(?string $customerId): void
     {
         $this->customerId = $customerId;
     }
@@ -44,7 +44,7 @@ class Metadata
         return $this->molliePaymentMethods;
     }
 
-    public function setMolliePaymentMethods(?string $molliePaymentMethods)
+    public function setMolliePaymentMethods(?string $molliePaymentMethods): void
     {
         $this->molliePaymentMethods = $molliePaymentMethods;
     }
@@ -54,7 +54,7 @@ class Metadata
         return $this->cartToken;
     }
 
-    public function setCartToken(?string $cartToken)
+    public function setCartToken(?string $cartToken): void
     {
         $this->cartToken = $cartToken;
     }
@@ -64,7 +64,7 @@ class Metadata
         return $this->saveCardInfo;
     }
 
-    public function setSaveCardInfo(?bool $saveCardInfo)
+    public function setSaveCardInfo(?bool $saveCardInfo): void
     {
         $this->saveCardInfo = $saveCardInfo;
     }
@@ -74,7 +74,7 @@ class Metadata
         return $this->useSavedCards;
     }
 
-    public function setUseSavedCards(?bool $useSavedCards)
+    public function setUseSavedCards(?bool $useSavedCards): void
     {
         $this->useSavedCards = $useSavedCards;
     }
@@ -84,7 +84,7 @@ class Metadata
         return $this->selectedIssuer;
     }
 
-    public function setSelectedIssuer(?string $selectedIssuer)
+    public function setSelectedIssuer(?string $selectedIssuer): void
     {
         $this->selectedIssuer = $selectedIssuer;
     }
@@ -94,7 +94,7 @@ class Metadata
         return $this->methodType;
     }
 
-    public function setMethodType(?string $methodType)
+    public function setMethodType(?string $methodType): void
     {
         $this->methodType = $methodType;
     }

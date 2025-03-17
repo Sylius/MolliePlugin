@@ -41,7 +41,7 @@ final class CreatePaymentAction extends BaseApiAwareAction
 
     public function execute($request): void
     {
-        /** @var array $details */
+        /** @var ArrayObject|array<string, mixed> $details */
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
         try {
@@ -75,7 +75,6 @@ final class CreatePaymentAction extends BaseApiAwareAction
                 unset($paymentDetails['cardToken']);
             }
 
-            /** @var Payment $payment */
             $payment = $this->mollieApiClient->payments->create($paymentDetails);
 
             if (isset($details['metadata']['saveCardInfo'])) {

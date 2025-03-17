@@ -50,7 +50,7 @@ final class CreateOnDemandPaymentAction extends BaseApiAwareAction implements Ac
                 'mandateId' => $details['mandateId'],
                 'sequenceType' => 'recurring',
             ];
-            /** @var Payment $payment */
+            /** @throws ApiException|\Exception */
             $payment = $this->mollieApiClient->payments->create($paymentSettings);
         } catch (ApiException $e) {
             $message = $this->guzzleNegativeResponseParser->parse($e);

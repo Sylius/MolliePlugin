@@ -32,7 +32,7 @@ final class PaymentMethodMollieChannelUniqueValidator extends ConstraintValidato
     {
     }
 
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if ($value instanceof PaymentMethodInterface &&
             null !== $value->getCode() &&
@@ -83,11 +83,11 @@ final class PaymentMethodMollieChannelUniqueValidator extends ConstraintValidato
         }
     }
 
+    /** @param PaymentMethodInterface[] $molliePaymentMethods */
     private function getAlreadyUsedChannels(array $molliePaymentMethods): Collection
     {
         $alreadyUsedChannels = new ArrayCollection();
 
-        /** @var PaymentMethodInterface $molliePaymentMethod */
         foreach ($molliePaymentMethods as $molliePaymentMethod) {
             /** @var ChannelInterface $channel */
             foreach ($molliePaymentMethod->getChannels() as $channel) {

@@ -22,7 +22,6 @@ class MollieGatewayConfig extends AbstractMethod implements ResourceInterface, M
 {
     use TranslatableTrait {
         __construct as private initializeTranslationsCollection;
-
         getTranslation as private doGetTranslation;
     }
 

@@ -31,7 +31,7 @@ final class MolliePluginLatestVersion extends AbstractExtension
         return [
             new TwigFunction(
                 'mollie_render_version_widget',
-                $this->versionRenderWidget(...),
+                [$this, 'versionRenderWidget'],
                 [
                     'needs_environment' => true,
                     'is_safe' => ['html'],

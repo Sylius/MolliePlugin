@@ -98,7 +98,7 @@ final class ConvertMolliePaymentAction extends BaseApiAwareAction implements Act
                 'saveCardInfo' => $saveCardInfo ?? null,
                 'useSavedCards' => $useSavedCards ?? null,
             ],
-            'full_name' => $customer->getFullName() ?? null,
+            'full_name' => $customer->getFullName(),
             'email' => $customer->getEmail() ?? null,
         ];
 

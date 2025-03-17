@@ -33,11 +33,11 @@ class CustomerCreditCards extends AbstractExtension
     /**
      * @return TwigFunction[]
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
-            new TwigFunction('isCardSaved', $this->isCardSaved(...)),
-            new TwigFunction('getCustomerFromContext', $this->getCustomerFromContext(...)),
+            new TwigFunction('isCardSaved', [$this, 'isCardSaved']),
+            new TwigFunction('getCustomerFromContext', [$this, 'getCustomerFromContext']),
         ];
     }
 

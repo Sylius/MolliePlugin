@@ -123,9 +123,10 @@ final class PaymentlinkResolver implements PaymentlinkResolverInterface
         return $payment->_links->checkout->href;
     }
 
+    /** @param array<string, mixed> $config */
     private function getModus(array $config): string
     {
-        if ($config['environment']) {
+        if (true === $config['environment']) {
             return $config[MollieGatewayConfigurationType::API_KEY_LIVE];
         }
 
