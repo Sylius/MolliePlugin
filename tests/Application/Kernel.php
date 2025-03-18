@@ -51,7 +51,16 @@ final class Kernel extends BaseKernel
         }
     }
 
-    protected function configureRoutes(RoutingConfigurator $routes): void
+    protected function getContainerBaseClass(): string
+    {
+        if ($this->isTestEnvironment() && class_exists(MockerContainer::class)) {
+            return MockerContainer::class;
+        }
+
+        return parent::getContainerBaseClass();
+    }
+
+    private function configureRoutes(RoutingConfigurator $routes): void
     {
         foreach ($this->getConfigurationDirectories() as $confDir) {
             $this->loadRoutesConfiguration($routes, $confDir);
@@ -63,15 +72,6 @@ final class Kernel extends BaseKernel
         foreach ($this->getConfigurationDirectories() as $confDir) {
             $this->loadContainerConfiguration($loader, $confDir);
         }
-    }
-
-    protected function getContainerBaseClass(): string
-    {
-        if ($this->isTestEnvironment() && class_exists(MockerContainer::class)) {
-            return MockerContainer::class;
-        }
-
-        return parent::getContainerBaseClass();
     }
 
     private function loadContainerConfiguration(LoaderInterface $loader, string $confDir): void

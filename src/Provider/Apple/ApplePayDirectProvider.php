@@ -25,8 +25,13 @@ use Webmozart\Assert\Assert;
 
 final class ApplePayDirectProvider implements ApplePayDirectProviderInterface
 {
-    public function __construct(private readonly ApplePayAddressResolverInterface $applePayAddressResolver, private readonly MollieApiClient $mollieApiClient, private readonly OrderPaymentApplePayDirectProviderInterface $paymentApplePayDirectProvider, private readonly CustomerProviderInterface|OrderCreationCustomerProviderInterface $customerProvider, private readonly ApplePayDirectPaymentProviderInterface $applePayDirectPaymentProvider)
-    {
+    public function __construct(
+        private readonly ApplePayAddressResolverInterface $applePayAddressResolver,
+        private readonly MollieApiClient $mollieApiClient,
+        private readonly OrderPaymentApplePayDirectProviderInterface $paymentApplePayDirectProvider,
+        private readonly CustomerProviderInterface|OrderCreationCustomerProviderInterface $customerProvider,
+        private readonly ApplePayDirectPaymentProviderInterface $applePayDirectPaymentProvider,
+    ) {
     }
 
     public function provideOrder(OrderInterface $order, Request $request): void

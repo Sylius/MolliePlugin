@@ -1,7 +1,7 @@
 imports:
     - vendor/sylius/sylius/src/Sylius/Behat/Resources/config/suites.yml
     - tests/Behat/Resources/suites.yml
-    - tests/Behat/Resources/integration/SyliusAdminOrderCreationPlugin/suites.yaml
+    - tests/Behat/Resources/integration/sylius_admin_order_creation_plugin/suites.yaml
 
 default:
     formatters:
