@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Resolver\OnboardingWizard;
 
-use Sylius\MolliePlugin\Entity\OnboardingWizardStatusInterface;
 use Sylius\Component\Core\Model\AdminUserInterface;
+use Sylius\MolliePlugin\Entity\OnboardingWizardStatusInterface;
 
 interface StatusResolverInterface
 {

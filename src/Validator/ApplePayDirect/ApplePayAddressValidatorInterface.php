@@ -15,5 +15,6 @@ namespace Sylius\MolliePlugin\Validator\ApplePayDirect;
 
 interface ApplePayAddressValidatorInterface
 {
+    /** @param array<string, mixed> $data */
     public function validate(array $data): void;
 }

@@ -13,23 +13,19 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Processor;
 
+use Doctrine\Common\Collections\Collection;
+use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\Component\Payment\Model\PaymentInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\PaymentFee\Calculate;
-use Doctrine\Common\Collections\Collection;
-use Sylius\Component\Core\Model\PaymentMethodInterface;
-use Sylius\Component\Payment\Model\PaymentInterface;
 use Webmozart\Assert\Assert;
 
 final class PaymentSurchargeProcessor implements PaymentSurchargeProcessorInterface
 {
-    /** @var Calculate */
-    private $calculate;
-
-    public function __construct(Calculate $calculate)
+    public function __construct(private readonly Calculate $calculate)
     {
-        $this->calculate = $calculate;
     }
 
     public function process(OrderInterface $order): void
@@ -62,7 +58,7 @@ final class PaymentSurchargeProcessor implements PaymentSurchargeProcessorInterf
         $this->calculate->calculateFromCart($order, $paymentSurcharge);
     }
 
-    private function getMolliePaymentSurcharge(PaymentMethodInterface $paymentMethod, string $molliePaymentMethod = null): ?MollieGatewayConfig
+    private function getMolliePaymentSurcharge(PaymentMethodInterface $paymentMethod, ?string $molliePaymentMethod = null): ?MollieGatewayConfig
     {
         /** @var GatewayConfigInterface $gatewayConfig */
         $gatewayConfig = $paymentMethod->getGatewayConfig();

@@ -28,7 +28,7 @@ final class AccountContext implements Context
 
     public function __construct(
         IndexPageInterface $orderIndexPage,
-        NotificationCheckerInterface $notificationChecker
+        NotificationCheckerInterface $notificationChecker,
     ) {
         $this->orderIndexPage = $orderIndexPage;
         $this->notificationChecker = $notificationChecker;
@@ -49,7 +49,7 @@ final class AccountContext implements Context
     {
         $this->notificationChecker->checkNotification(
             'Subscription has been cancelled.',
-            NotificationType::success()
+            NotificationType::success(),
         );
     }
 }

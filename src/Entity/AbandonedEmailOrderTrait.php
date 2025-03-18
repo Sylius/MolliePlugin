@@ -15,7 +15,6 @@ namespace Sylius\MolliePlugin\Entity;
 
 trait AbandonedEmailOrderTrait
 {
-    /** @var bool */
     protected bool $abandonedEmail = false;
 
     public function isAbandonedEmail(): bool

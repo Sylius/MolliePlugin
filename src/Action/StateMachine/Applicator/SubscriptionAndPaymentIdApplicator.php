@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Action\StateMachine\Applicator;
 
+use Mollie\Api\Types\PaymentStatus;
 use Sylius\MolliePlugin\Action\StateMachine\Transition\PaymentStateMachineTransitionInterface;
 use Sylius\MolliePlugin\Action\StateMachine\Transition\ProcessingStateMachineTransitionInterface;
 use Sylius\MolliePlugin\Action\StateMachine\Transition\StateMachineTransitionInterface;
@@ -21,37 +22,16 @@ use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\MolliePlugin\Transitions\MollieSubscriptionPaymentProcessingTransitions;
 use Sylius\MolliePlugin\Transitions\MollieSubscriptionProcessingTransitions;
 use Sylius\MolliePlugin\Transitions\MollieSubscriptionTransitions;
-use Mollie\Api\Types\PaymentStatus;
 
 final class SubscriptionAndPaymentIdApplicator implements SubscriptionAndPaymentIdApplicatorInterface
 {
-    /** @var MollieApiClient */
-    private $mollieApiClient;
-
-    /** @var StateMachineTransitionInterface */
-    private $stateMachineTransition;
-
-    /** @var PaymentStateMachineTransitionInterface */
-    private $paymentStateMachineTransition;
-
-    /** @var ProcessingStateMachineTransitionInterface */
-    private $processingStateMachineTransition;
-
-    public function __construct(
-        MollieApiClient $mollieApiClient,
-        StateMachineTransitionInterface $stateMachineTransition,
-        PaymentStateMachineTransitionInterface $paymentStateMachineTransition,
-        ProcessingStateMachineTransitionInterface $processingStateMachineTransition
-    ) {
-        $this->mollieApiClient = $mollieApiClient;
-        $this->stateMachineTransition = $stateMachineTransition;
-        $this->paymentStateMachineTransition = $paymentStateMachineTransition;
-        $this->processingStateMachineTransition = $processingStateMachineTransition;
+    public function __construct(private readonly MollieApiClient $mollieApiClient, private readonly StateMachineTransitionInterface $stateMachineTransition, private readonly PaymentStateMachineTransitionInterface $paymentStateMachineTransition, private readonly ProcessingStateMachineTransitionInterface $processingStateMachineTransition)
+    {
     }
 
     public function execute(
         MollieSubscriptionInterface $subscription,
-        string $paymentId
+        string $paymentId,
     ): void {
         $configuration = $subscription->getSubscriptionConfiguration();
         $payment = $this->mollieApiClient->payments->get($paymentId);
@@ -70,11 +50,11 @@ final class SubscriptionAndPaymentIdApplicator implements SubscriptionAndPayment
             case PaymentStatus::STATUS_AUTHORIZED:
                 $this->paymentStateMachineTransition->apply(
                     $subscription,
-                    MollieSubscriptionPaymentProcessingTransitions::TRANSITION_BEGIN
+                    MollieSubscriptionPaymentProcessingTransitions::TRANSITION_BEGIN,
                 );
                 $this->stateMachineTransition->apply(
                     $subscription,
-                    MollieSubscriptionTransitions::TRANSITION_PROCESS
+                    MollieSubscriptionTransitions::TRANSITION_PROCESS,
                 )
                 ;
 
@@ -84,11 +64,11 @@ final class SubscriptionAndPaymentIdApplicator implements SubscriptionAndPayment
                 $this->stateMachineTransition->apply($subscription, MollieSubscriptionTransitions::TRANSITION_ACTIVATE);
                 $this->paymentStateMachineTransition->apply(
                     $subscription,
-                    MollieSubscriptionPaymentProcessingTransitions::TRANSITION_SUCCESS
+                    MollieSubscriptionPaymentProcessingTransitions::TRANSITION_SUCCESS,
                 );
                 $this->processingStateMachineTransition->apply(
                     $subscription,
-                    MollieSubscriptionProcessingTransitions::TRANSITION_SCHEDULE
+                    MollieSubscriptionProcessingTransitions::TRANSITION_SCHEDULE,
                 );
 
                 break;
@@ -96,7 +76,7 @@ final class SubscriptionAndPaymentIdApplicator implements SubscriptionAndPayment
                 $subscription->incrementFailedPaymentCounter();
                 $this->paymentStateMachineTransition->apply(
                     $subscription,
-                    MollieSubscriptionPaymentProcessingTransitions::TRANSITION_FAILURE
+                    MollieSubscriptionPaymentProcessingTransitions::TRANSITION_FAILURE,
                 );
 
                 break;

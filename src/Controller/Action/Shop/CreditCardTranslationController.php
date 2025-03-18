@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Sylius\MolliePlugin\Controller\Action\Shop;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,21 +20,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class CreditCardTranslationController
 {
-    /** @var TranslatorInterface */
-    private $translator;
-
-    /**
-     * @param TranslatorInterface $translator
-     */
-    public function __construct(TranslatorInterface $translator) {
-        $this->translator = $translator;
+    public function __construct(private readonly TranslatorInterface $translator)
+    {
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return JsonResponse
-     */
     public function fetchTranslations(Request $request): JsonResponse
     {
         $response = [

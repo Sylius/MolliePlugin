@@ -13,41 +13,24 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Purifier\PartialShip;
 
+use Mollie\Api\Exceptions\ApiException;
+use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
 use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Resolver\PartialShip\FromSyliusToMollieLinesResolverInterface;
-use Doctrine\Common\Collections\Collection;
-use Mollie\Api\Exceptions\ApiException;
-use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Webmozart\Assert\Assert;
 
 final class OrderMolliePartialShip implements OrderMolliePartialShipInterface
 {
-    /** @var MollieApiClient */
-    private $apiClient;
-
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    /** @var FromSyliusToMollieLinesResolverInterface */
-    private $mollieUnitsResolver;
-
-    public function __construct(
-        MollieApiClient $apiClient,
-        MollieLoggerActionInterface $loggerAction,
-        FromSyliusToMollieLinesResolverInterface $mollieUnitsResolver
-    ) {
-        $this->apiClient = $apiClient;
-        $this->loggerAction = $loggerAction;
-        $this->mollieUnitsResolver = $mollieUnitsResolver;
+    public function __construct(private readonly MollieApiClient $apiClient, private readonly MollieLoggerActionInterface $loggerAction, private readonly FromSyliusToMollieLinesResolverInterface $mollieUnitsResolver)
+    {
     }
 
     public function partialShip(OrderInterface $order): void
     {
-        /** @var Collection $shipments */
         $shipments = $order->getShipments();
         $units = $shipments->last()->getUnits();
 
@@ -61,16 +44,17 @@ final class OrderMolliePartialShip implements OrderMolliePartialShipInterface
         /** @var PaymentMethodInterface $paymentMethod */
         $paymentMethod = $payment->getMethod();
 
-        if (null === $paymentMethod->getGatewayConfig()) {
+        $gatewayConfig = $paymentMethod->getGatewayConfig();
+        if (null === $gatewayConfig) {
             return;
         }
-        $factoryName = $paymentMethod->getGatewayConfig()->getFactoryName() ?? null;
 
+        $factoryName = $gatewayConfig->getFactoryName();
         if (!isset($payment->getDetails()['order_mollie_id']) || MollieGatewayFactory::FACTORY_NAME !== $factoryName) {
             return;
         }
 
-        $modusKey = $this->getModus($paymentMethod->getGatewayConfig()->getConfig());
+        $modusKey = $this->getModus($gatewayConfig->getConfig());
 
         try {
             $this->apiClient->setApiKey($modusKey);

@@ -21,6 +21,7 @@ final class Options
 
     public const PAYMENT_LINK_ABANDONED = 'sylius_mollie_plugin.ui.paymentlinkAbandoned';
 
+    /** @return array<string, string> */
     public static function getAvailableEmailTemplate(): array
     {
         return [

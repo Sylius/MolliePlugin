@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Refund\Units;
 
-use Sylius\MolliePlugin\DTO\PartialRefundItems;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\MolliePlugin\DTO\PartialRefundItems;
 
 interface UnitsItemOrderRefundInterface
 {

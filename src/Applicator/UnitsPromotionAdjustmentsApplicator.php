@@ -13,27 +13,17 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Applicator;
 
-use Sylius\MolliePlugin\Order\AdjustmentInterface;
 use Sylius\Component\Core\Distributor\IntegerDistributorInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Order\Factory\AdjustmentFactoryInterface;
 use Sylius\Component\Order\Model\OrderItemUnitInterface;
+use Sylius\MolliePlugin\Order\AdjustmentInterface;
 
 final class UnitsPromotionAdjustmentsApplicator implements UnitsPromotionAdjustmentsApplicatorInterface
 {
-    /** @var AdjustmentFactoryInterface */
-    private $adjustmentFactory;
-
-    /** @var IntegerDistributorInterface */
-    private $distributor;
-
-    public function __construct(
-        AdjustmentFactoryInterface $adjustmentFactory,
-        IntegerDistributorInterface $distributor
-    ) {
-        $this->adjustmentFactory = $adjustmentFactory;
-        $this->distributor = $distributor;
+    public function __construct(private readonly AdjustmentFactoryInterface $adjustmentFactory, private readonly IntegerDistributorInterface $distributor)
+    {
     }
 
     public function apply(OrderInterface $order, array $promotionAmount): void
@@ -52,7 +42,7 @@ final class UnitsPromotionAdjustmentsApplicator implements UnitsPromotionAdjustm
 
     private function applyAdjustmentsOnItemUnits(
         OrderItemInterface $item,
-        int $itemPromotionAmount
+        int $itemPromotionAmount,
     ): void {
         $splitPromotionAmount = $this->distributor->distribute($itemPromotionAmount, $item->getQuantity());
 

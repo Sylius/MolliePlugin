@@ -20,6 +20,6 @@ interface CreditMemoRepositoryInterface extends BaseCreditMemoRepositoryInterfac
     public function findByOrderNumberAndDateTime(
         int $orderId,
         \DateTime $dateTime,
-        int $amount
+        int $amount,
     ): array;
 }

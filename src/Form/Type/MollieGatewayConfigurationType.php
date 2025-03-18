@@ -35,15 +35,8 @@ final class MollieGatewayConfigurationType extends AbstractType
 
     public const API_KEY_TEST = 'api_key_test';
 
-    /** @var DocumentationLinksInterface */
-    private $documentationLinks;
-    /** @var MollieApiClient */
-    private $apiClient;
-
-    public function __construct(DocumentationLinksInterface $documentationLinks, MollieApiClient $apiClient)
+    public function __construct(private readonly DocumentationLinksInterface $documentationLinks, private readonly MollieApiClient $apiClient)
     {
-        $this->documentationLinks = $documentationLinks;
-        $this->apiClient = $apiClient;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -104,7 +97,7 @@ final class MollieGatewayConfigurationType extends AbstractType
                 'label' => 'sylius_mollie_plugin.ui.abandoned_hours',
                 'choices' => array_combine(
                     range(1, 200, 1),
-                    range(1, 200, 1)
+                    range(1, 200, 1),
                 ),
             ])
             ->add('loggerLevel', ChoiceType::class, [
@@ -133,7 +126,8 @@ final class MollieGatewayConfigurationType extends AbstractType
             ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
                 $data = $event->getData();
 
-                $apiKeyField = isset($data['environment']) ? MollieGatewayConfigurationType::API_KEY_LIVE : MollieGatewayConfigurationType::API_KEY_TEST;                $apiKey = $data[$apiKeyField] ?? '';
+                $apiKeyField = isset($data['environment']) ? MollieGatewayConfigurationType::API_KEY_LIVE : MollieGatewayConfigurationType::API_KEY_TEST;
+                $apiKey = $data[$apiKeyField] ?? '';
 
                 if (!preg_match('/^(test|live)_\w{26,}$/', $apiKey)) {
                     return;

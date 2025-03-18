@@ -13,12 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Controller\Action\Admin;
 
-use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
-use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
-use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Request\Api\RefundOrder;
 use Doctrine\ORM\EntityManagerInterface;
-use Payum\Core\Model\GatewayConfigInterface;
 use Payum\Core\Payum;
 use Payum\Core\Request\Refund as RefundAction;
 use Payum\Core\Security\TokenInterface;
@@ -28,6 +23,10 @@ use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 use Sylius\Component\Payment\PaymentTransitions;
 use Sylius\Component\Resource\Exception\UpdateHandlingException;
+use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Request\Api\RefundOrder;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -35,16 +34,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Webmozart\Assert\Assert;
 
 final class Refund
 {
     public function __construct(
-        private PaymentRepositoryInterface $paymentRepository,
-        private Payum $payum,
-        private RequestStack $requestStack,
-        private FactoryInterface $stateMachineFactory,
-        private EntityManagerInterface $paymentEntityManager,
-        private MollieLoggerActionInterface $loggerAction
+        private readonly PaymentRepositoryInterface $paymentRepository,
+        private readonly Payum $payum,
+        private readonly RequestStack $requestStack,
+        private readonly FactoryInterface $stateMachineFactory,
+        private readonly EntityManagerInterface $paymentEntityManager,
+        private readonly MollieLoggerActionInterface $loggerAction,
     ) {
     }
 
@@ -62,10 +62,10 @@ final class Refund
         /** @var PaymentMethodInterface $paymentMethod */
         $paymentMethod = $payment->getMethod();
 
-        /** @var GatewayConfigInterface $gatewayConfig */
         $gatewayConfig = $paymentMethod->getGatewayConfig();
-        $factoryName = $gatewayConfig->getFactoryName() ?? null;
+        Assert::notNull($gatewayConfig);
 
+        $factoryName = $gatewayConfig->getFactoryName();
         if (false === in_array($factoryName, [MollieGatewayFactory::FACTORY_NAME, MollieSubscriptionGatewayFactory::FACTORY_NAME], true)) {
             $this->applyStateMachineTransition($payment);
 

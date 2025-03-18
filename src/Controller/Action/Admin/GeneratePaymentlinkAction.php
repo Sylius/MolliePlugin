@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Controller\Action\Admin;
 
+use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\TemplateMollieEmailInterface;
 use Sylius\MolliePlugin\Form\Type\PaymentlinkType;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Resolver\PaymentlinkResolverInterface;
-use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,48 +31,8 @@ use Twig\Environment;
 
 final class GeneratePaymentlinkAction
 {
-    /** @var OrderRepositoryInterface */
-    private $orderRepository;
-
-    /** @var Environment */
-    private $twig;
-
-    /** @var RequestStack */
-    private $requestStack;
-
-    /** @var UrlGeneratorInterface */
-    private $router;
-
-    /** @var FormFactoryInterface */
-    private $formFactory;
-
-    /** @var MollieApiClient */
-    private $mollieApiClient;
-
-    /** @var PaymentlinkResolverInterface */
-    private $paymentlinkResolver;
-
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    public function __construct(
-        OrderRepositoryInterface $orderRepository,
-        Environment $twig,
-        RequestStack $requestStack,
-        UrlGeneratorInterface $router,
-        FormFactoryInterface $formFactory,
-        MollieApiClient $mollieApiClient,
-        PaymentlinkResolverInterface $paymentlinkResolver,
-        MollieLoggerActionInterface $loggerAction
-    ) {
-        $this->twig = $twig;
-        $this->requestStack = $requestStack;
-        $this->orderRepository = $orderRepository;
-        $this->router = $router;
-        $this->formFactory = $formFactory;
-        $this->mollieApiClient = $mollieApiClient;
-        $this->paymentlinkResolver = $paymentlinkResolver;
-        $this->loggerAction = $loggerAction;
+    public function __construct(private readonly OrderRepositoryInterface $orderRepository, private readonly Environment $twig, private readonly RequestStack $requestStack, private readonly UrlGeneratorInterface $router, private readonly FormFactoryInterface $formFactory, private readonly MollieApiClient $mollieApiClient, private readonly PaymentlinkResolverInterface $paymentlinkResolver, private readonly MollieLoggerActionInterface $loggerAction)
+    {
     }
 
     public function __invoke(Request $request): Response
@@ -86,6 +46,7 @@ final class GeneratePaymentlinkAction
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var Session $session */
             $session = $this->requestStack->getSession();
+
             try {
                 $paymentlink = $this->paymentlinkResolver->resolve($order, $form->getData(), TemplateMollieEmailInterface::PAYMENT_LINK);
 
@@ -105,7 +66,7 @@ final class GeneratePaymentlinkAction
             $this->twig->render('@SyliusMolliePlugin/Admin/Paymentlink/_form.html.twig', [
                 'order' => $order,
                 'form' => $form->createView(),
-            ])
+            ]),
         );
     }
 }

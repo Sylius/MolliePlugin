@@ -18,6 +18,6 @@ interface DatePeriodFactoryInterface
     public function createForSubscriptionConfiguration(
         \DateTime $start,
         int $times,
-        string $interval
+        string $interval,
     ): array;
 }

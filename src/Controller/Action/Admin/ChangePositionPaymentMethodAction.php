@@ -19,12 +19,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class ChangePositionPaymentMethodAction
 {
-    /** @var ChangePositionPaymentMethodCreatorInterface */
-    private $changePositionPaymentMethodCreator;
-
-    public function __construct(ChangePositionPaymentMethodCreatorInterface $changePositionPaymentMethodCreator)
+    public function __construct(private readonly ChangePositionPaymentMethodCreatorInterface $changePositionPaymentMethodCreator)
     {
-        $this->changePositionPaymentMethodCreator = $changePositionPaymentMethodCreator;
     }
 
     public function __invoke(Request $request): Response

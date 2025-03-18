@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\EventListener;
 
-use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
-use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
 use Sylius\RefundPlugin\Entity\RefundPaymentInterface;
 use Sylius\RefundPlugin\Event\RefundPaymentGenerated;
 use Sylius\RefundPlugin\StateResolver\RefundPaymentCompletedStateApplierInterface;
@@ -24,23 +24,8 @@ use Webmozart\Assert\Assert;
 
 final class RefundPaymentGeneratedAutoCompleteListener
 {
-    /** @var EntityRepository */
-    private $refundPaymentRepository;
-
-    /** @var RefundPaymentCompletedStateApplierInterface */
-    private $refundPaymentCompletedStateApplier;
-
-    /** @var PaymentMethodRepositoryInterface */
-    private $paymentMethodRepository;
-
-    public function __construct(
-        EntityRepository $refundPaymentInterface,
-        RefundPaymentCompletedStateApplierInterface $refundPaymentCompletedStateApplier,
-        PaymentMethodRepositoryInterface $paymentMethodRepository
-    ) {
-        $this->refundPaymentRepository = $refundPaymentInterface;
-        $this->refundPaymentCompletedStateApplier = $refundPaymentCompletedStateApplier;
-        $this->paymentMethodRepository = $paymentMethodRepository;
+    public function __construct(private readonly EntityRepository $refundPaymentRepository, private readonly RefundPaymentCompletedStateApplierInterface $refundPaymentCompletedStateApplier, private readonly PaymentMethodRepositoryInterface $paymentMethodRepository)
+    {
     }
 
     public function __invoke(RefundPaymentGenerated $refundPaymentGenerated): void

@@ -25,11 +25,8 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class MollieIntervalType extends AbstractType
 {
-    private DataTransformerInterface $transformer;
-
-    public function __construct(DataTransformerInterface $transformer)
+    public function __construct(private readonly DataTransformerInterface $transformer)
     {
-        $this->transformer = $transformer;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -49,16 +46,14 @@ final class MollieIntervalType extends AbstractType
         $builder->add('step', ChoiceType::class, [
             'choices' => array_combine(
                 MollieSubscriptionConfigurationInterface::SUPPORTED_INTERVAL_STEPS,
-                MollieSubscriptionConfigurationInterface::SUPPORTED_INTERVAL_STEPS
+                MollieSubscriptionConfigurationInterface::SUPPORTED_INTERVAL_STEPS,
             ),
             'label' => false,
             'error_bubbling' => false,
-            'choice_label' => function (string $value): string {
-                return sprintf(
-                    'sylius_mollie_plugin.form.product_variant.interval_configuration.steps.%s',
-                    $value
-                );
-            },
+            'choice_label' => fn (string $value): string => sprintf(
+                'sylius_mollie_plugin.form.product_variant.interval_configuration.steps.%s',
+                $value,
+            ),
         ]);
         $builder->addViewTransformer($this->transformer);
     }

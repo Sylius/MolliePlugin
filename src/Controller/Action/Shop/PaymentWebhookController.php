@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Sylius\MolliePlugin\Controller\Action\Shop;
 
 use Mollie\Api\Resources\Payment;
@@ -25,38 +27,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PaymentWebhookController
 {
-    /** @var MollieApiClient */
-    private $mollieApiClient;
-
-    /** @var MollieApiClientKeyResolverInterface */
-    private $apiClientKeyResolver;
-
-    /** @var OrderRepositoryInterface */
-    private $orderRepository;
-
-    /** @var PaymentRepositoryInterface */
-    private $paymentRepository;
-
     /**
      * PaymentWebhookController constructor
      */
-    public function __construct(
-        MollieApiClient $mollieApiClient,
-        MollieApiClientKeyResolverInterface $apiClientKeyResolver,
-        OrderRepositoryInterface $orderRepository,
-        PaymentRepositoryInterface $paymentRepository,
-    )
+    public function __construct(private readonly MollieApiClient $mollieApiClient, private readonly MollieApiClientKeyResolverInterface $apiClientKeyResolver, private readonly OrderRepositoryInterface $orderRepository, private readonly PaymentRepositoryInterface $paymentRepository)
     {
-        $this->mollieApiClient = $mollieApiClient;
-        $this->apiClientKeyResolver = $apiClientKeyResolver;
-        $this->orderRepository = $orderRepository;
-        $this->paymentRepository = $paymentRepository;
     }
 
     /**
-     * @param Request $request
-     *
-     * @return Response
      * @throws \Mollie\Api\Exceptions\ApiException
      */
     public function __invoke(Request $request): Response
@@ -83,21 +61,13 @@ class PaymentWebhookController
 
     private function getStatus(Payment $molliePayment): string
     {
-        switch ($molliePayment->status) {
-            case PaymentStatus::STATUS_PENDING:
-            case PaymentStatus::STATUS_OPEN:
-                return PaymentInterface::STATE_PROCESSING;
-            case PaymentStatus::STATUS_AUTHORIZED:
-                return PaymentInterface::STATE_AUTHORIZED;
-            case PaymentStatus::STATUS_PAID:
-                return PaymentInterface::STATE_COMPLETED;
-            case PaymentStatus::STATUS_CANCELED:
-                return PaymentInterface::STATE_CANCELLED;
-            case PaymentStatus::STATUS_EXPIRED:
-            case PaymentStatus::STATUS_FAILED:
-                return PaymentInterface::STATE_FAILED;
-            default:
-                return PaymentInterface::STATE_UNKNOWN;
-        }
+        return match ($molliePayment->status) {
+            PaymentStatus::STATUS_PENDING, PaymentStatus::STATUS_OPEN => PaymentInterface::STATE_PROCESSING,
+            PaymentStatus::STATUS_AUTHORIZED => PaymentInterface::STATE_AUTHORIZED,
+            PaymentStatus::STATUS_PAID => PaymentInterface::STATE_COMPLETED,
+            PaymentStatus::STATUS_CANCELED => PaymentInterface::STATE_CANCELLED,
+            PaymentStatus::STATUS_EXPIRED, PaymentStatus::STATUS_FAILED => PaymentInterface::STATE_FAILED,
+            default => PaymentInterface::STATE_UNKNOWN,
+        };
     }
 }

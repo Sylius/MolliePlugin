@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Factory;
 
-use Sylius\MolliePlugin\Client\MollieApiClient;
-use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayFactory;
 use Sylius\Bundle\CoreBundle\Application\Kernel;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType;
 
 final class MollieGatewayFactory extends GatewayFactory
 {

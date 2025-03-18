@@ -21,6 +21,7 @@ use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
 final class CalculateTaxAmountTest extends TestCase
 {
     private MockObject $converterMock;
+
     private CalculateTaxAmount $calculateTaxAmount;
 
     protected function setUp(): void

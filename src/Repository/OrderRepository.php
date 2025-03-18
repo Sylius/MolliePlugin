@@ -33,6 +33,6 @@ final class OrderRepository extends BaseOrderRepository implements OrderReposito
             ->setMaxResults(20)
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 }

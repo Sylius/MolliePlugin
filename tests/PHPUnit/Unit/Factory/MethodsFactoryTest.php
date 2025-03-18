@@ -27,12 +27,12 @@ final class MethodsFactoryTest extends TestCase
         $this->methodsFactory = new MethodsFactory();
     }
 
-    function testImplementsMethodsFactoryInterface(): void
+    public function testImplementsMethodsFactoryInterface(): void
     {
         $this->assertInstanceOf(MethodsFactoryInterface::class, $this->methodsFactory);
     }
 
-    function testCreatesNewMethod(): void
+    public function testCreatesNewMethod(): void
     {
         $method = $this->methodsFactory->createNew();
         $this->assertInstanceOf(MethodsInterface::class, $method);

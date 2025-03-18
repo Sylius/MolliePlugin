@@ -13,25 +13,15 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Creator;
 
-use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 final class ChangePositionPaymentMethodCreator implements ChangePositionPaymentMethodCreatorInterface
 {
-    /** @var RepositoryInterface */
-    private $mollieGatewayRepository;
-
-    /** @var EntityManagerInterface */
-    private $mollieGatewayEntityManager;
-
-    public function __construct(
-        RepositoryInterface $mollieGatewayRepository,
-        EntityManagerInterface $mollieGatewayObjectManager
-    ) {
-        $this->mollieGatewayRepository = $mollieGatewayRepository;
-        $this->mollieGatewayEntityManager = $mollieGatewayObjectManager;
+    public function __construct(private readonly RepositoryInterface $mollieGatewayRepository, private readonly EntityManagerInterface $mollieGatewayEntityManager)
+    {
     }
 
     public function createFromRequest(Request $request): void
@@ -55,8 +45,6 @@ final class ChangePositionPaymentMethodCreator implements ChangePositionPaymentM
 
     private function emptyPositionFilter(array $positions): array
     {
-        return array_filter($positions, function (array $position): bool {
-            return isset($position['id']) && '' !== $position['id'];
-        });
+        return array_filter($positions, fn (array $position): bool => isset($position['id']) && '' !== $position['id']);
     }
 }

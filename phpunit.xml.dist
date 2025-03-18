@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/5.6/phpunit.xsd"
-         backupGlobals="false"
-         colors="true"
-         bootstrap="tests/Application/config/bootstrap.php">
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/9.5/phpunit.xsd"
+    backupGlobals="false"
+    colors="true"
+    bootstrap="tests/Application/config/bootstrap.php"
+>
     <testsuites>
         <testsuite name="functional">
             <directory>tests/PHPUnit/Functional</directory>
@@ -15,6 +17,9 @@
     </testsuites>
 
     <php>
+        <env name="APP_ENV" value="test"/>
+        <env name="APP_SECRET" value="3bdace956617bb6576d69894be92d43a"/>
+
         <server name="APP_ENV" value="test" />
         <server name="KERNEL_CLASS" value="Tests\Sylius\MolliePlugin\Application\Kernel" />
         <server name="EXPECTED_RESPONSE_DIR" value="tests/PHPUnit/Responses/json" />

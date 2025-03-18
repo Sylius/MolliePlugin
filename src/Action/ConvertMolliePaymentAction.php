@@ -14,15 +14,6 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Action;
 
 use Mollie\Api\Types\PaymentMethod;
-use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
-use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
-use Sylius\MolliePlugin\Factory\ApiCustomerFactoryInterface;
-use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
-use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
-use Sylius\MolliePlugin\Helper\PaymentDescriptionInterface;
-use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
-use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
-use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
 use Payum\Core\Exception\RequestNotSupportedException;
@@ -35,54 +26,23 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Customer\Context\CustomerContextInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Factory\ApiCustomerFactoryInterface;
+use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
+use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
+use Sylius\MolliePlugin\Helper\PaymentDescriptionInterface;
+use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
+use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
 use Webmozart\Assert\Assert;
 
 final class ConvertMolliePaymentAction extends BaseApiAwareAction implements ActionInterface, GatewayAwareInterface, ApiAwareInterface
 {
     use GatewayAwareTrait;
 
-    /** @var PaymentDescriptionInterface */
-    private $paymentDescription;
-
-    /** @var RepositoryInterface */
-    private $mollieMethodsRepository;
-
-    /** @var ConvertOrderInterface */
-    private $orderConverter;
-
-    /** @var CustomerContextInterface */
-    private $customerContext;
-
-    /** @var PaymentLocaleResolverInterface */
-    private $paymentLocaleResolver;
-
-    /** @var ApiCustomerFactoryInterface */
-    private $apiCustomerFactory;
-
-    /** @var IntToStringConverterInterface */
-    private $intToStringConverter;
-
-    /** @var DivisorProviderInterface */
-    private $divisorProvider;
-
-    public function __construct(
-        PaymentDescriptionInterface $paymentDescription,
-        RepositoryInterface $mollieMethodsRepository,
-        ConvertOrderInterface $orderConverter,
-        CustomerContextInterface $customerContext,
-        PaymentLocaleResolverInterface $paymentLocaleResolver,
-        ApiCustomerFactoryInterface $apiCustomerFactory,
-        IntToStringConverterInterface $intToStringConverter,
-        DivisorProviderInterface $divisorProvider
-    ) {
-        $this->paymentDescription = $paymentDescription;
-        $this->mollieMethodsRepository = $mollieMethodsRepository;
-        $this->orderConverter = $orderConverter;
-        $this->customerContext = $customerContext;
-        $this->paymentLocaleResolver = $paymentLocaleResolver;
-        $this->apiCustomerFactory = $apiCustomerFactory;
-        $this->intToStringConverter = $intToStringConverter;
-        $this->divisorProvider = $divisorProvider;
+    public function __construct(private PaymentDescriptionInterface $paymentDescription, private RepositoryInterface $mollieMethodsRepository, private ConvertOrderInterface $orderConverter, private CustomerContextInterface $customerContext, private PaymentLocaleResolverInterface $paymentLocaleResolver, private ApiCustomerFactoryInterface $apiCustomerFactory, private IntToStringConverterInterface $intToStringConverter, private DivisorProviderInterface $divisorProvider)
+    {
     }
 
     /** @param Convert|mixed $request */
@@ -138,7 +98,7 @@ final class ConvertMolliePaymentAction extends BaseApiAwareAction implements Act
                 'saveCardInfo' => $saveCardInfo ?? null,
                 'useSavedCards' => $useSavedCards ?? null,
             ],
-            'full_name' => $customer->getFullName() ?? null,
+            'full_name' => $customer->getFullName(),
             'email' => $customer->getEmail() ?? null,
         ];
 
@@ -165,7 +125,7 @@ final class ConvertMolliePaymentAction extends BaseApiAwareAction implements Act
                     'givenName' => $billingAddress->getFirstName(),
                     'familyName' => $billingAddress->getLastName(),
                     'organizationName' => $billingAddress->getCompany(),
-                    'email' => $email
+                    'email' => $email,
                 ];
             }
 
@@ -196,6 +156,7 @@ final class ConvertMolliePaymentAction extends BaseApiAwareAction implements Act
         return
             $request instanceof Convert &&
             $request->getSource() instanceof PaymentInterface &&
-            'array' === $request->getTo();
+            'array' === $request->getTo()
+        ;
     }
 }

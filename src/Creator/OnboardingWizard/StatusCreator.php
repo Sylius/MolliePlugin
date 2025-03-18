@@ -13,31 +13,16 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Creator\OnboardingWizard;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Sylius\MolliePlugin\Context\Admin\AdminUserContextInterface;
 use Sylius\MolliePlugin\Entity\OnboardingWizardStatusInterface;
 use Sylius\MolliePlugin\Exceptions\AdminUserNotFound;
 use Sylius\MolliePlugin\Resolver\OnboardingWizard\StatusResolverInterface;
-use Doctrine\ORM\EntityManagerInterface;
 
 final class StatusCreator implements StatusCreatorInterface
 {
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
-    /** @var AdminUserContextInterface */
-    private $adminUserContext;
-
-    /** @var StatusResolverInterface */
-    private $statusResolver;
-
-    public function __construct(
-        EntityManagerInterface $entityManager,
-        AdminUserContextInterface $adminUserContext,
-        StatusResolverInterface $statusResolver
-    ) {
-        $this->entityManager = $entityManager;
-        $this->adminUserContext = $adminUserContext;
-        $this->statusResolver = $statusResolver;
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly AdminUserContextInterface $adminUserContext, private readonly StatusResolverInterface $statusResolver)
+    {
     }
 
     public function create(): OnboardingWizardStatusInterface

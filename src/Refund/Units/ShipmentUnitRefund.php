@@ -23,7 +23,7 @@ final class ShipmentUnitRefund implements ShipmentUnitRefundInterface
     public function refund(
         OrderInterface $order,
         array $orderItemUnitRefund,
-        int $totalToRefund
+        int $totalToRefund,
     ): array {
         /** @var AdjustmentInterface $refundedShipment */
         $refundedShipment = $order->getAdjustments('shipping')->first();
@@ -49,7 +49,7 @@ final class ShipmentUnitRefund implements ShipmentUnitRefundInterface
         return [
             new ShipmentRefund(
                 $refundedShipment->getId(),
-                $totalToRefund
+                $totalToRefund,
             ),
         ];
     }

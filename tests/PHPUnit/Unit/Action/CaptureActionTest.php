@@ -13,17 +13,8 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Action;
 
-use PHPUnit\Framework\TestCase;
-use Sylius\MolliePlugin\Action\CaptureAction;
-use Sylius\MolliePlugin\Client\MollieApiClient;
-use Sylius\MolliePlugin\Entity\OrderInterface;
-use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
-use Sylius\MolliePlugin\Request\Api\CreateCustomer;
-use Sylius\MolliePlugin\Request\Api\CreateInternalRecurring;
-use Sylius\MolliePlugin\Request\Api\CreateOrder;
-use Sylius\MolliePlugin\Request\Api\CreatePayment;
-use Sylius\MolliePlugin\Request\Api\CreateSubscriptionPayment;
 use Mollie\Api\Endpoints\PaymentEndpoint;
+use Mollie\Api\Resources\Payment;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
@@ -36,12 +27,21 @@ use Payum\Core\Security\GenericTokenFactory;
 use Payum\Core\Security\GenericTokenFactoryAwareInterface;
 use Payum\Core\Security\TokenInterface;
 use Payum\Core\Storage\IdentityInterface;
+use PHPUnit\Framework\TestCase;
 use Psr\Log\InvalidArgumentException;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
+use Sylius\MolliePlugin\Action\CaptureAction;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
+use Sylius\MolliePlugin\Request\Api\CreateCustomer;
+use Sylius\MolliePlugin\Request\Api\CreateInternalRecurring;
+use Sylius\MolliePlugin\Request\Api\CreateOrder;
+use Sylius\MolliePlugin\Request\Api\CreatePayment;
+use Sylius\MolliePlugin\Request\Api\CreateSubscriptionPayment;
 use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
-use Mollie\Api\Resources\Payment;
 
 final class CaptureActionTest extends TestCase
 {
@@ -70,7 +70,7 @@ final class CaptureActionTest extends TestCase
         $this->captureAction = new CaptureAction(
             $this->orderRepository,
             $this->apiClientKeyResolver,
-            $this->paymentRepository
+            $this->paymentRepository,
         );
 
         $this->gateway = $this->createMock(GatewayInterface::class);
@@ -178,10 +178,10 @@ final class CaptureActionTest extends TestCase
         $details = new ArrayObject([
             'sequenceType' => 'first',
             'metadata' => ['refund_token' => [
-                'refund_token_hash'
+                'refund_token_hash',
             ],
                 'cancel_token' => [
-                    'cancel_hash'
+                    'cancel_hash',
                 ],
                 'methodType' => Options::ORDER_API,
                 'order_id' => 'test_order_id',

@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Form\Extension;
 
+use Sylius\Bundle\ProductBundle\Form\Type\ProductVariantType as ProductVariantFormType;
 use Sylius\MolliePlugin\Form\Type\MollieIntervalType;
 use Sylius\MolliePlugin\Provider\Form\ResolverGroupProviderInterface;
-use Sylius\Bundle\ProductBundle\Form\Type\ProductVariantType as ProductVariantFormType;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -30,11 +30,8 @@ use Symfony\Component\Validator\Constraints\Valid;
 
 final class ProductVariantRecurringExtension extends AbstractTypeExtension
 {
-    private ResolverGroupProviderInterface $groupProvider;
-
-    public function __construct(ResolverGroupProviderInterface $groupProvider)
+    public function __construct(private readonly ResolverGroupProviderInterface $groupProvider)
     {
-        $this->groupProvider = $groupProvider;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -89,8 +86,6 @@ final class ProductVariantRecurringExtension extends AbstractTypeExtension
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefault('validation_groups', function (FormInterface $form): array {
-            return $this->groupProvider->provide($form);
-        });
+        $resolver->setDefault('validation_groups', fn (FormInterface $form): array => $this->groupProvider->provide($form));
     }
 }

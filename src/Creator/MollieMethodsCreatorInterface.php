@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Creator;
 
-use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Mollie\Api\Resources\MethodCollection;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 
 interface MollieMethodsCreatorInterface
 {

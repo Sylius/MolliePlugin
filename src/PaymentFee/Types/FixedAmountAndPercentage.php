@@ -13,39 +13,19 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\PaymentFee\Types;
 
-use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
-use Sylius\MolliePlugin\Order\AdjustmentInterface;
-use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Order\Factory\AdjustmentFactoryInterface;
 use Sylius\Component\Order\Model\OrderInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
+use Sylius\MolliePlugin\Order\AdjustmentInterface;
+use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 use Webmozart\Assert\Assert;
 
 final class FixedAmountAndPercentage implements SurchargeTypeInterface
 {
-    /** @var AdjustmentFactoryInterface */
-    private $adjustmentFactory;
-
-    /** @var Percentage */
-    private $percentage;
-
-    /** @var FixedAmount */
-    private $fixedAmount;
-
-    /** @var DivisorProviderInterface */
-    private $divisorProvider;
-
-    public function __construct(
-        AdjustmentFactoryInterface $adjustmentFactory,
-        Percentage $percentage,
-        FixedAmount $fixedAmount,
-        DivisorProviderInterface $divisorProvider
-    ) {
-        $this->adjustmentFactory = $adjustmentFactory;
-        $this->percentage = $percentage;
-        $this->fixedAmount = $fixedAmount;
-        $this->divisorProvider = $divisorProvider;
+    public function __construct(private readonly AdjustmentFactoryInterface $adjustmentFactory, private readonly Percentage $percentage, private readonly FixedAmount $fixedAmount, private readonly DivisorProviderInterface $divisorProvider)
+    {
     }
 
     public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): OrderInterface

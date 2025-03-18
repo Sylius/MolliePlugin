@@ -56,7 +56,7 @@ final class NotifyActionTest extends TestCase
             $this->getHttpRequest,
             $this->subscriptionRepository,
             $this->setStatusOrderAction,
-            $this->loggerAction
+            $this->loggerAction,
         );
     }
 
@@ -74,6 +74,7 @@ final class NotifyActionTest extends TestCase
     {
         $this->assertInstanceOf(GatewayAwareInterface::class, $this->notifyAction);
     }
+
     public function testItExecutesWhenSequenceTypeIsSet(): void
     {
         $request = $this->createMock(Notify::class);
@@ -108,7 +109,7 @@ final class NotifyActionTest extends TestCase
                     return $request instanceof StatusRecurringSubscription &&
                         $request->getFirstModel() === $subscription &&
                         $request->getPaymentId() === 'payment_id';
-                })]
+                })],
             )
         ;
 
@@ -121,7 +122,6 @@ final class NotifyActionTest extends TestCase
             $this->notifyAction->execute($request);
             $this->fail('Expected HttpResponse exception was not thrown.');
         } catch (HttpResponse $exception) {
-
             $this->assertSame(Response::HTTP_OK, $exception->getStatusCode());
         }
     }

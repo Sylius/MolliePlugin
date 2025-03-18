@@ -19,23 +19,8 @@ use Sylius\Component\Locale\Context\LocaleContextInterface;
 
 final class ConvertPriceToAmount
 {
-    /** @var CurrencyContextInterface */
-    private $currencyContext;
-
-    /** @var LocaleContextInterface */
-    private $localeContext;
-
-    /** @var FormatMoneyHelper */
-    private $formatMoneyHelper;
-
-    public function __construct(
-        CurrencyContextInterface $currencyContext,
-        LocaleContextInterface $localeContext,
-        FormatMoneyHelper $formatMoneyHelper
-    ) {
-        $this->currencyContext = $currencyContext;
-        $this->localeContext = $localeContext;
-        $this->formatMoneyHelper = $formatMoneyHelper;
+    public function __construct(private readonly CurrencyContextInterface $currencyContext, private readonly LocaleContextInterface $localeContext, private readonly FormatMoneyHelper $formatMoneyHelper)
+    {
     }
 
     public function convert(int $price): string
@@ -43,7 +28,7 @@ final class ConvertPriceToAmount
         return $this->formatMoneyHelper->formatAmount(
             $price,
             $this->currencyContext->getCurrencyCode(),
-            $this->localeContext->getLocaleCode()
+            $this->localeContext->getLocaleCode(),
         );
     }
 }

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Entity;
 
-class ProductType implements ProductTypeInterface
+class ProductType implements ProductTypeInterface, \Stringable
 {
     /** @var int|null */
     protected $id;

@@ -30,10 +30,10 @@ final class MollieIntervalTransformer implements DataTransformerInterface
         preg_match(
             sprintf(
                 '/^(?<amount>\d{1,})\s(?<step>%s)$/',
-                implode('|', MollieSubscriptionConfigurationInterface::SUPPORTED_INTERVAL_STEPS)
+                implode('|', MollieSubscriptionConfigurationInterface::SUPPORTED_INTERVAL_STEPS),
             ),
             $value,
-            $matches
+            $matches,
         );
 
         return $matches;

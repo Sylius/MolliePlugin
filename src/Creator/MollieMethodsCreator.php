@@ -13,34 +13,19 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Creator;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Mollie\Api\Resources\MethodCollection;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Factory\MethodsFactoryInterface;
 use Sylius\MolliePlugin\Factory\MollieGatewayConfigFactoryInterface;
 use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Payments\Methods\MethodInterface;
 use Sylius\MolliePlugin\Resolver\MollieMethodsResolverInterface;
-use Doctrine\ORM\EntityManagerInterface;
-use Mollie\Api\Resources\MethodCollection;
 
 final class MollieMethodsCreator implements MollieMethodsCreatorInterface
 {
-    /** @var MethodsFactoryInterface */
-    private $methodsFactory;
-
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
-    /** @var MollieGatewayConfigFactoryInterface */
-    private $factory;
-
-    public function __construct(
-        MethodsFactoryInterface $methodsFactory,
-        EntityManagerInterface $entityManager,
-        MollieGatewayConfigFactoryInterface $factory
-    ) {
-        $this->methodsFactory = $methodsFactory;
-        $this->entityManager = $entityManager;
-        $this->factory = $factory;
+    public function __construct(private readonly MethodsFactoryInterface $methodsFactory, private readonly EntityManagerInterface $entityManager, private readonly MollieGatewayConfigFactoryInterface $factory)
+    {
     }
 
     public function createMethods(MethodCollection $allMollieMethods, GatewayConfigInterface $gateway): void

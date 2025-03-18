@@ -20,14 +20,14 @@ use Sylius\Component\Core\OrderCheckoutStates;
 use Sylius\Component\Core\OrderPaymentStates;
 use Sylius\Component\Core\OrderShippingStates;
 use Sylius\Component\Order\Model\OrderInterface as SyliusOrderInterface;
-use Sylius\Component\Resource\Generator\RandomnessGeneratorInterface;
-use Sylius\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface as LegacyFactoryInterface;
+use Sylius\Component\Resource\Generator\RandomnessGeneratorInterface;
 use Sylius\MolliePlugin\Order\AdjustmentClonerInterface;
 use Sylius\MolliePlugin\Order\OrderItemClonerInterface;
 use Sylius\MolliePlugin\Order\ShipmentClonerInterface;
 use Sylius\MolliePlugin\Order\SubscriptionOrderCloner;
 use Sylius\MolliePlugin\Order\SubscriptionOrderClonerInterface;
+use Sylius\Resource\Factory\FactoryInterface;
 
 final class SubscriptionOrderClonerTest extends TestCase
 {
@@ -40,7 +40,9 @@ final class SubscriptionOrderClonerTest extends TestCase
     private AdjustmentClonerInterface $adjustmentClonerMock;
 
     private ShipmentClonerInterface $shipmentClonerMock;
+
     private SubscriptionOrderCloner $subscriptionOrderCloner;
+
     protected function setUp(): void
     {
         $version = InstalledVersions::getVersion('sylius/sylius');

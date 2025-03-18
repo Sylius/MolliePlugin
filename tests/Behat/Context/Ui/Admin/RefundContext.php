@@ -23,7 +23,7 @@ final class RefundContext implements Context
     private $managingOrdersContext;
 
     public function __construct(
-        ManagingOrdersContext $managingOrdersContext
+        ManagingOrdersContext $managingOrdersContext,
     ) {
         $this->managingOrdersContext = $managingOrdersContext;
     }

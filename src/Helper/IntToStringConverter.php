@@ -17,14 +17,13 @@ use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 
 final class IntToStringConverter implements IntToStringConverterInterface
 {
-    public function __construct(private DivisorProviderInterface $divisorProvider)
+    public function __construct(private readonly DivisorProviderInterface $divisorProvider)
     {
     }
 
     public function convertIntToString(int $value, ?int $divisor = null): string
     {
-        if(null === $divisor)
-        {
+        if (null === $divisor) {
             $divisor = $this->divisorProvider->getDivisor();
         }
 

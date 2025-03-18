@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Action\Api;
 
-use Sylius\MolliePlugin\Client\MollieApiClient;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
 use Payum\Core\Exception\UnsupportedApiException;
+use Sylius\MolliePlugin\Client\MollieApiClient;
 
 abstract class BaseApiAwareAction implements ActionInterface, ApiAwareInterface
 {
@@ -34,10 +34,6 @@ abstract class BaseApiAwareAction implements ActionInterface, ApiAwareInterface
 
     /**
      * Checks if payment should be refunded. As long as there are order items to be refunded, payment will be refunded.
-     *
-     * @param \ArrayObject $details
-     *
-     * @return bool
      */
     public function shouldBeRefunded(\ArrayObject $details): bool
     {

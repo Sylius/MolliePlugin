@@ -29,5 +29,5 @@ interface ApiKeysTestCreatorInterface
     /** @var string */
     public const LIVE_PREFIX = 'live_';
 
-    public function create(string $keyType, string $key = null): ApiKeyTest;
+    public function create(string $keyType, ?string $key = null): ApiKeyTest;
 }

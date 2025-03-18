@@ -13,19 +13,18 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Checker\Voucher;
 
+use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\ProductInterface;
 use Sylius\MolliePlugin\Entity\ProductType;
 use Sylius\MolliePlugin\Payments\Methods\MealVoucher;
 use Sylius\MolliePlugin\Repository\MollieGatewayConfigRepository;
-use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Model\OrderItemInterface;
 use Webmozart\Assert\Assert;
 
 final class ProductVoucherTypeChecker implements ProductVoucherTypeCheckerInterface
 {
-
-    public function __construct(private MollieGatewayConfigRepository $paymentMethodRepository)
+    public function __construct(private readonly MollieGatewayConfigRepository $paymentMethodRepository)
     {
     }
 

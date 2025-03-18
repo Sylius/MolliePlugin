@@ -13,21 +13,17 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Refund\Units;
 
-use Sylius\MolliePlugin\DTO\PartialRefundItems;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemUnitInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\DTO\PartialRefundItems;
 use Sylius\RefundPlugin\Model\OrderItemUnitRefund;
 use Sylius\RefundPlugin\Model\RefundType;
 
 final class UnitsItemOrderRefund implements UnitsItemOrderRefundInterface
 {
-    /** @var RepositoryInterface */
-    private $refundUnitsRepository;
-
-    public function __construct(RepositoryInterface $refundUnitsRepository)
+    public function __construct(private readonly RepositoryInterface $refundUnitsRepository)
     {
-        $this->refundUnitsRepository = $refundUnitsRepository;
     }
 
     public function refund(OrderInterface $order, PartialRefundItems $partialRefundItems): array
@@ -78,7 +74,7 @@ final class UnitsItemOrderRefund implements UnitsItemOrderRefundInterface
             }
         }
 
-        return $refundedUnits ?? [];
+        return $refundedUnits;
     }
 
     private function hasUnitRefunded(OrderInterface $order, int $unitId): bool

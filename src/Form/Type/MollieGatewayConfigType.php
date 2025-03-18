@@ -13,6 +13,9 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Form\Type;
 
+use Sylius\Bundle\ProductBundle\Form\Type\ProductType as ProductFormType;
+use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
+use Sylius\Bundle\ResourceBundle\Form\Type\ResourceTranslationsType;
 use Sylius\MolliePlugin\Documentation\DocumentationLinksInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigTranslationInterface;
@@ -23,9 +26,6 @@ use Sylius\MolliePlugin\Options\Country\Options as CountryOptions;
 use Sylius\MolliePlugin\Payments\Methods\AbstractMethod;
 use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 use Sylius\MolliePlugin\Validator\Constraints\PaymentSurchargeType;
-use Sylius\Bundle\ProductBundle\Form\Type\ProductType as ProductFormType;
-use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
-use Sylius\Bundle\ResourceBundle\Form\Type\ResourceTranslationsType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -37,21 +37,13 @@ use Symfony\Component\Form\FormEvents;
 
 final class MollieGatewayConfigType extends AbstractResourceType
 {
-    /** @var DocumentationLinksInterface */
-    private $documentationLinks;
-
-    /** @var string */
-    private $defaultLocale;
-
     public function __construct(
         string $dataClass,
-        DocumentationLinksInterface $documentationLinks,
-        string $defaultLocale,
-        array $validationGroups = []
+        private readonly DocumentationLinksInterface $documentationLinks,
+        private readonly string $defaultLocale,
+        array $validationGroups = [],
     ) {
         parent::__construct($dataClass, $validationGroups);
-        $this->documentationLinks = $documentationLinks;
-        $this->defaultLocale = $defaultLocale;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -127,7 +119,7 @@ final class MollieGatewayConfigType extends AbstractResourceType
                 'required' => false,
                 'choices' => array_combine(
                     range(1, 100, 1),
-                    range(1, 100, 1)
+                    range(1, 100, 1),
                 ),
             ])
             ->add('loggerEnabled', CheckboxType::class, [

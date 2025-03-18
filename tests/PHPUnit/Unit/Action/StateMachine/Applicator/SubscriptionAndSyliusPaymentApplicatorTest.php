@@ -43,12 +43,12 @@ final class SubscriptionAndSyliusPaymentApplicatorTest extends TestCase
         $this->subscriptionAndSyliusPaymentApplicator = new SubscriptionAndSyliusPaymentApplicator($this->stateMachineTransitionMock, $this->paymentStateMachineTransitionMock, $this->processingStateMachineTransitionMock);
     }
 
-    function testImplementInterface(): void
+    public function testImplementInterface(): void
     {
         $this->assertInstanceOf(SubscriptionAndSyliusPaymentApplicatorInterface::class, $this->subscriptionAndSyliusPaymentApplicator);
     }
 
-    function testAppliesTransitionWhenStatusIsNew(): void
+    public function testAppliesTransitionWhenStatusIsNew(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $paymentMock = $this->createMock(PaymentInterface::class);
@@ -59,7 +59,7 @@ final class SubscriptionAndSyliusPaymentApplicatorTest extends TestCase
         $this->subscriptionAndSyliusPaymentApplicator->execute($subscriptionMock, $paymentMock);
     }
 
-    function testAppliesTransitionWhenStatusIsProcessing(): void
+    public function testAppliesTransitionWhenStatusIsProcessing(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $paymentMock = $this->createMock(PaymentInterface::class);
@@ -70,7 +70,7 @@ final class SubscriptionAndSyliusPaymentApplicatorTest extends TestCase
         $this->subscriptionAndSyliusPaymentApplicator->execute($subscriptionMock, $paymentMock);
     }
 
-    function testAppliesTransitionWhenStatusIsAuthorized(): void
+    public function testAppliesTransitionWhenStatusIsAuthorized(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $paymentMock = $this->createMock(PaymentInterface::class);
@@ -81,7 +81,7 @@ final class SubscriptionAndSyliusPaymentApplicatorTest extends TestCase
         $this->subscriptionAndSyliusPaymentApplicator->execute($subscriptionMock, $paymentMock);
     }
 
-    function testAppliesTransitionWhenStatusIsCart(): void
+    public function testAppliesTransitionWhenStatusIsCart(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $paymentMock = $this->createMock(PaymentInterface::class);
@@ -92,7 +92,7 @@ final class SubscriptionAndSyliusPaymentApplicatorTest extends TestCase
         $this->subscriptionAndSyliusPaymentApplicator->execute($subscriptionMock, $paymentMock);
     }
 
-    function testAppliesTransitionWhenStatusIsCompleted(): void
+    public function testAppliesTransitionWhenStatusIsCompleted(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $paymentMock = $this->createMock(PaymentInterface::class);
@@ -105,7 +105,7 @@ final class SubscriptionAndSyliusPaymentApplicatorTest extends TestCase
         $this->subscriptionAndSyliusPaymentApplicator->execute($subscriptionMock, $paymentMock);
     }
 
-    function testAppliesTransitionWhenStatusIsPaid(): void
+    public function testAppliesTransitionWhenStatusIsPaid(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $paymentMock = $this->createMock(PaymentInterface::class);

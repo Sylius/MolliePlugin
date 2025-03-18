@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Resolver;
 
 use Mollie\Api\Resources\Method;
+use Mollie\Api\Resources\MethodCollection;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Creator\MollieMethodsCreatorInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
@@ -21,33 +23,11 @@ use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
 use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Mollie\Api\Resources\MethodCollection;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
 
 final class MollieMethodsResolver implements MollieMethodsResolverInterface
 {
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    /** @var MollieApiClient */
-    private $mollieApiClient;
-
-    /** @var RepositoryInterface */
-    private $gatewayConfigRepository;
-
-    /** @var MollieMethodsCreatorInterface */
-    private $mollieMethodsCreator;
-
-    public function __construct(
-        MollieLoggerActionInterface $loggerAction,
-        MollieApiClient $mollieApiClient,
-        RepositoryInterface $gatewayConfigRepository,
-        MollieMethodsCreatorInterface $mollieMethodsCreator
-    ) {
-        $this->loggerAction = $loggerAction;
-        $this->mollieApiClient = $mollieApiClient;
-        $this->gatewayConfigRepository = $gatewayConfigRepository;
-        $this->mollieMethodsCreator = $mollieMethodsCreator;
+    public function __construct(private readonly MollieLoggerActionInterface $loggerAction, private readonly MollieApiClient $mollieApiClient, private readonly RepositoryInterface $gatewayConfigRepository, private readonly MollieMethodsCreatorInterface $mollieMethodsCreator)
+    {
     }
 
     public function create(): void
@@ -88,7 +68,7 @@ final class MollieMethodsResolver implements MollieMethodsResolverInterface
             /** @var MethodCollection $allMollieMethods */
             $allMollieMethods = $client->methods->allAvailable(self::PARAMETERS_AVAILABLE);
 
-            $filteredMethods = array_filter($allMollieMethods->getArrayCopy(), array($this, 'filterActiveMethods'));
+            $filteredMethods = array_filter($allMollieMethods->getArrayCopy(), [$this, 'filterActiveMethods']);
             $allMollieMethods->exchangeArray($filteredMethods);
 
             $this->mollieMethodsCreator->createMethods($allMollieMethods, $gateway);

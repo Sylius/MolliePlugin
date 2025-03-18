@@ -13,35 +13,24 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Action\Api;
 
-use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Parser\Response\GuzzleNegativeResponseParserInterface;
-use Sylius\MolliePlugin\Request\Api\CreateOnDemandSubscription;
-use Sylius\MolliePlugin\Request\Api\CreateSepaMandate;
 use Mollie\Api\Exceptions\ApiException;
-use Mollie\Api\Resources\Payment;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayAwareInterface;
 use Payum\Core\GatewayAwareTrait;
 use Payum\Core\Reply\HttpRedirect;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Parser\Response\GuzzleNegativeResponseParserInterface;
+use Sylius\MolliePlugin\Request\Api\CreateOnDemandSubscription;
+use Sylius\MolliePlugin\Request\Api\CreateSepaMandate;
 
 final class CreateOnDemandSubscriptionAction extends BaseApiAwareAction implements ActionInterface, GatewayAwareInterface, ApiAwareInterface
 {
     use GatewayAwareTrait;
 
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    /** @var GuzzleNegativeResponseParserInterface */
-    private $guzzleNegativeResponseParser;
-
-    public function __construct(
-        MollieLoggerActionInterface $loggerAction,
-        GuzzleNegativeResponseParserInterface $guzzleNegativeResponseParser
-    ) {
-        $this->loggerAction = $loggerAction;
-        $this->guzzleNegativeResponseParser = $guzzleNegativeResponseParser;
+    public function __construct(private MollieLoggerActionInterface $loggerAction, private GuzzleNegativeResponseParserInterface $guzzleNegativeResponseParser)
+    {
     }
 
     /** @param CreateSepaMandate|mixed $request */
@@ -61,7 +50,7 @@ final class CreateOnDemandSubscriptionAction extends BaseApiAwareAction implemen
                 'metadata' => $details['metadata'],
                 'sequenceType' => 'first',
             ];
-            /** @var Payment $payment */
+            /** @throws ApiException|\Exception */
             $payment = $this->mollieApiClient->payments->create($paymentSettings);
         } catch (ApiException $e) {
             $message = $this->guzzleNegativeResponseParser->parse($e);
@@ -96,8 +85,8 @@ final class CreateOnDemandSubscriptionAction extends BaseApiAwareAction implemen
     public function supports($request): bool
     {
         if (
-            false === $request instanceof CreateOnDemandSubscription
-            || false === $request->getModel() instanceof \ArrayAccess) {
+            false === $request instanceof CreateOnDemandSubscription ||
+            false === $request->getModel() instanceof \ArrayAccess) {
             return false;
         }
         $details = ArrayObject::ensureArrayObject($request->getModel());

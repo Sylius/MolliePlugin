@@ -26,13 +26,13 @@ final class MollieGatewayFactoryTest extends TestCase
         $this->mollieGatewayFactory = new MollieGatewayFactory();
     }
 
-    function testInitializable(): void
+    public function testInitializable(): void
     {
         $this->assertInstanceOf(MollieGatewayFactory::class, $this->mollieGatewayFactory);
         $this->assertInstanceOf(GatewayFactory::class, $this->mollieGatewayFactory);
     }
 
-    function testPopulateConfigRun(): void
+    public function testPopulateConfigRun(): void
     {
         $result = $this->mollieGatewayFactory->createConfig([]);
 

@@ -20,18 +20,8 @@ use Twig\Environment;
 
 final class TestApiKeysAction
 {
-    /** @var ApiKeysTestResolverInterface */
-    private $apiKeysTestResolver;
-
-    /** @var Environment */
-    private $twig;
-
-    public function __construct(
-        ApiKeysTestResolverInterface $apiKeysTestResolver,
-        Environment $twig
-    ) {
-        $this->apiKeysTestResolver = $apiKeysTestResolver;
-        $this->twig = $twig;
+    public function __construct(private readonly ApiKeysTestResolverInterface $apiKeysTestResolver, private readonly Environment $twig)
+    {
     }
 
     public function __invoke(Request $request): Response
@@ -42,7 +32,7 @@ final class TestApiKeysAction
             '@SyliusMolliePlugin/Admin/PaymentMethod/testApiKeys.html.twig',
             [
                 'tests' => $data,
-            ]
+            ],
         ));
     }
 }

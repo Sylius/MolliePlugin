@@ -13,28 +13,20 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Action\Api;
 
-use Sylius\MolliePlugin\Entity\MollieCustomer;
-use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Request\Api\CreateCustomer;
 use Mollie\Api\Exceptions\ApiException;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Entity\MollieCustomer;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Request\Api\CreateCustomer;
 
 final class CreateCustomerAction extends BaseApiAwareAction implements ActionInterface, ApiAwareInterface
 {
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    /** @var RepositoryInterface */
-    private $mollieCustomerRepository;
-
-    public function __construct(MollieLoggerActionInterface $loggerAction, RepositoryInterface $mollieCustomerRepository)
+    public function __construct(private readonly MollieLoggerActionInterface $loggerAction, private readonly RepositoryInterface $mollieCustomerRepository)
     {
-        $this->loggerAction = $loggerAction;
-        $this->mollieCustomerRepository = $mollieCustomerRepository;
     }
 
     /** @param CreateCustomer|mixed $request */
@@ -79,6 +71,6 @@ final class CreateCustomerAction extends BaseApiAwareAction implements ActionInt
         return
             $request instanceof CreateCustomer &&
             $request->getModel() instanceof \ArrayAccess
-            ;
+        ;
     }
 }

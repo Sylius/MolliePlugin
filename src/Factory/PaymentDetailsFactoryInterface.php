@@ -20,6 +20,6 @@ interface PaymentDetailsFactoryInterface
 {
     public function createForSubscriptionAndOrder(
         MollieSubscriptionConfigurationInterface $subscriptionConfiguration,
-        OrderInterface $order
+        OrderInterface $order,
     ): array;
 }

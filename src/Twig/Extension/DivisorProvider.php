@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Sylius\MolliePlugin\Twig\Extension;
 
 use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
@@ -17,12 +19,8 @@ use Twig\TwigFunction;
 
 class DivisorProvider extends AbstractExtension
 {
-    /** @var DivisorProviderInterface */
-    private $divisorProvider;
-
-    public function __construct(DivisorProviderInterface $divisorProvider)
+    public function __construct(private readonly DivisorProviderInterface $divisorProvider)
     {
-        $this->divisorProvider = $divisorProvider;
     }
 
     public function getFunctions(): array
@@ -31,8 +29,8 @@ class DivisorProvider extends AbstractExtension
             new TwigFunction(
                 'mollie_get_divisor',
                 [$this->divisorProvider, 'getDivisor'],
-                ['is_safe' => ['html']]
-            )
+                ['is_safe' => ['html']],
+            ),
         ];
     }
 }

@@ -20,6 +20,6 @@ interface MollieCountriesRestrictionResolverInterface
     public function resolve(
         MollieGatewayConfigInterface $paymentMethod,
         array $methods,
-        string $countryCode
+        string $countryCode,
     ): ?array;
 }

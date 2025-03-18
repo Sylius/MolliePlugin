@@ -27,7 +27,7 @@ final class PaymentSurchargeTypeValidator extends ConstraintValidator
 
     public const SURCHARGE_LIMIT_FIELD = 'surchargeLimit';
 
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if ($value instanceof PaymentSurchargeFeeInterface) {
             $this->validatePaymentSurcharge($value, $constraint);

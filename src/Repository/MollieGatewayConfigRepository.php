@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Repository;
 
-use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 
 class MollieGatewayConfigRepository extends EntityRepository implements MollieGatewayConfigRepositoryInterface
 {

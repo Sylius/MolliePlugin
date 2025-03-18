@@ -33,7 +33,7 @@ final class ManagingPaymentMethodContext implements Context
     public function __construct(
         CreatePageInterface $createPage,
         string $mollieTestApiKey,
-        string $mollieProfileId
+        string $mollieProfileId,
     ) {
         $this->createPage = $createPage;
         $this->mollieTestApiKey = $mollieTestApiKey;
@@ -86,7 +86,7 @@ final class ManagingPaymentMethodContext implements Context
         foreach ($fields as $field) {
             Assert::true($this->createPage->containsErrorWithMessage(sprintf(
                 '%s cannot be blank.',
-                trim($field)
+                trim($field),
             )));
         }
     }

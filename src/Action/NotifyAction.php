@@ -13,12 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Action;
 
-use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
-use Sylius\MolliePlugin\Action\StateMachine\SetStatusOrderActionInterface;
-use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
-use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
-use Sylius\MolliePlugin\Request\StateMachine\StatusRecurringSubscription;
 use Mollie\Api\Exceptions\ApiException;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
@@ -29,34 +23,20 @@ use Payum\Core\GatewayAwareTrait;
 use Payum\Core\Reply\HttpResponse;
 use Payum\Core\Request\GetHttpRequest;
 use Payum\Core\Request\Notify;
+use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
+use Sylius\MolliePlugin\Action\StateMachine\SetStatusOrderActionInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
+use Sylius\MolliePlugin\Request\StateMachine\StatusRecurringSubscription;
 use Symfony\Component\HttpFoundation\Response;
 
 final class NotifyAction extends BaseApiAwareAction implements ActionInterface, ApiAwareInterface, GatewayAwareInterface
 {
     use GatewayAwareTrait;
 
-    /** @var GetHttpRequest */
-    private $getHttpRequest;
-
-    /** @var MollieSubscriptionRepositoryInterface */
-    private $subscriptionRepository;
-
-    /** @var SetStatusOrderActionInterface */
-    private $setStatusOrderAction;
-
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    public function __construct(
-        GetHttpRequest $getHttpRequest,
-        MollieSubscriptionRepositoryInterface $subscriptionRepository,
-        SetStatusOrderActionInterface $setStatusOrderAction,
-        MollieLoggerActionInterface $loggerAction
-    ) {
-        $this->getHttpRequest = $getHttpRequest;
-        $this->subscriptionRepository = $subscriptionRepository;
-        $this->setStatusOrderAction = $setStatusOrderAction;
-        $this->loggerAction = $loggerAction;
+    public function __construct(private GetHttpRequest $getHttpRequest, private MollieSubscriptionRepositoryInterface $subscriptionRepository, private SetStatusOrderActionInterface $setStatusOrderAction, private MollieLoggerActionInterface $loggerAction)
+    {
     }
 
     /** @param Notify|mixed $request */
@@ -72,7 +52,7 @@ final class NotifyAction extends BaseApiAwareAction implements ActionInterface, 
                 $payment = $this->mollieApiClient->payments->get($this->getHttpRequest->request['id']);
             } catch (\Exception $e) {
                 $this->loggerAction->addNegativeLog(
-                    sprintf('Error with get customer from mollie with: %s', $e->getMessage())
+                    sprintf('Error with get customer from mollie with: %s', $e->getMessage()),
                 );
 
                 throw new ApiException(sprintf('Error with get customer from mollie with: %s', $e->getMessage()));
@@ -94,12 +74,12 @@ final class NotifyAction extends BaseApiAwareAction implements ActionInterface, 
             throw new HttpResponse(Response::$statusTexts[Response::HTTP_OK], Response::HTTP_OK);
         }
 
-        if (true === isset($details['order_mollie_id']) && str_starts_with($this->getHttpRequest->request['id'], 'ord_')) {
+        if (true === isset($details['order_mollie_id']) && str_starts_with((string) $this->getHttpRequest->request['id'], 'ord_')) {
             try {
                 $order = $this->mollieApiClient->orders->get($this->getHttpRequest->request['id']);
             } catch (\Exception $e) {
                 $this->loggerAction->addNegativeLog(
-                    sprintf('Error with get order from mollie with: %s', $e->getMessage())
+                    sprintf('Error with get order from mollie with: %s', $e->getMessage()),
                 );
 
                 throw new ApiException('Error to get order with ' . $e->getMessage());

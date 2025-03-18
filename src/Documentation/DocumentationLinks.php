@@ -24,12 +24,8 @@ final class DocumentationLinks implements DocumentationLinksInterface
         'api_key' => 'https://www.mollie.com/dashboard/developers/api-keys',
     ];
 
-    /** @var TranslatorInterface */
-    private $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(private readonly TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
     public function getSingleClickDoc(): string
@@ -37,7 +33,7 @@ final class DocumentationLinks implements DocumentationLinksInterface
         $link = \sprintf(
             '<a target="_blank" href="%s"> %s </a>',
             self::DOCUMENTATION_LINKS['single_click'],
-            $this->translator->trans('sylius_mollie_plugin.ui.mollie_single_click')
+            $this->translator->trans('sylius_mollie_plugin.ui.mollie_single_click'),
         );
 
         return $this->translator->trans('sylius_mollie_plugin.ui.read_more_single_click_enabled', [
@@ -50,7 +46,7 @@ final class DocumentationLinks implements DocumentationLinksInterface
         $link = \sprintf(
             '<a target="_blank" href="%s"> %s </a>',
             self::DOCUMENTATION_LINKS['mollie_components'],
-            $this->translator->trans('sylius_mollie_plugin.ui.mollie_components')
+            $this->translator->trans('sylius_mollie_plugin.ui.mollie_components'),
         );
 
         return $this->translator->trans('sylius_mollie_plugin.ui.read_more_enable_components', [
@@ -65,7 +61,7 @@ final class DocumentationLinks implements DocumentationLinksInterface
             $this->translator->trans('sylius_mollie_plugin.ui.click'),
             self::DOCUMENTATION_LINKS['payment_methods'],
             $this->translator->trans('sylius_mollie_plugin.ui.here'),
-            $this->translator->trans('sylius_mollie_plugin.ui.payment_methods_doc')
+            $this->translator->trans('sylius_mollie_plugin.ui.payment_methods_doc'),
         );
     }
 
@@ -76,7 +72,7 @@ final class DocumentationLinks implements DocumentationLinksInterface
             $this->translator->trans('sylius_mollie_plugin.ui.find_you_api_key'),
             self::DOCUMENTATION_LINKS['api_key'],
             $this->translator->trans('sylius_mollie_plugin.ui.mollie_profile'),
-            $this->translator->trans('sylius_mollie_plugin.ui.it_starts_with')
+            $this->translator->trans('sylius_mollie_plugin.ui.it_starts_with'),
         );
     }
 }
