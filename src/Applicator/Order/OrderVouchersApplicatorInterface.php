@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Distributor\Order;
+namespace Sylius\MolliePlugin\Applicator\Order;
 
 use Sylius\Component\Core\Model\OrderInterface;
 
-interface OrderVoucherDistributorInterface
+interface OrderVouchersApplicatorInterface
 {
     public function distribute(OrderInterface $order, int $amount): void;
 }

@@ -13,19 +13,13 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Twig\Extension;
 
-use Sylius\MolliePlugin\Checker\Version\MolliePluginLatestVersionCheckerInterface;
 use Sylius\MolliePlugin\SyliusMolliePlugin;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
-use Webmozart\Assert\Assert;
 
 final class MolliePluginLatestVersion extends AbstractExtension
 {
-    public function __construct(private readonly MolliePluginLatestVersionCheckerInterface $latestVersionChecker)
-    {
-    }
-
     public function getFunctions(): array
     {
         return [
@@ -42,8 +36,7 @@ final class MolliePluginLatestVersion extends AbstractExtension
 
     public function versionRenderWidget(Environment $environment): string
     {
-        Assert::notNull($this->latestVersionChecker->checkLatestVersion());
-        $latestVersion = str_replace('v', '', $this->latestVersionChecker->checkLatestVersion());
+        $latestVersion = str_replace('v', '', SyliusMolliePlugin::VERSION);
 
         if (SyliusMolliePlugin::VERSION === $latestVersion) {
             return '';

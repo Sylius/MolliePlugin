@@ -42,7 +42,7 @@ final class CreateOrderAction extends BaseApiAwareAction implements ActionInterf
         if (null !== $method) {
             $paymentMethod = $this->methodConfigResolver->getConfigFromMethodId($method);
 
-            $orderExpiredTime = $paymentMethod->getOrderExpiration();
+            $orderExpiredTime = $paymentMethod->getOrderExpirationDays();
             $interval = new \DateInterval('P' . $orderExpiredTime . 'D');
             $dateExpired = new \DateTimeImmutable('now');
             $dateExpired = $dateExpired->add($interval);
