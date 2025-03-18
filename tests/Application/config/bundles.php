@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-$bundles = [
+return [
     Knp\Bundle\SnappyBundle\KnpSnappyBundle::class => ['all' => true],
     Bazinga\Bundle\JsTranslationBundle\BazingaJsTranslationBundle::class => ['all' => true],
     Nelmio\Alice\Bridge\Symfony\NelmioAliceBundle::class => ['all' => true],
@@ -74,10 +74,3 @@ $bundles = [
     Sylius\MolliePlugin\SyliusMolliePlugin::class => ['all' => true],
     Sylius\RefundPlugin\SyliusRefundPlugin::class => ['all' => true],
 ];
-
-if (class_exists(Sylius\AdminOrderCreationPlugin\SyliusAdminOrderCreationPlugin::class)) {
-    $bundles[FOS\JsRoutingBundle\FOSJsRoutingBundle::class] = ['all' => true];
-    $bundles[Sylius\AdminOrderCreationPlugin\SyliusAdminOrderCreationPlugin::class] = ['all' => true];
-}
-
-return $bundles;

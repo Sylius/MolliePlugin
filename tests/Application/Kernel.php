@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\MolliePlugin\Application;
 
 use PSS\SymfonyMockerContainer\DependencyInjection\MockerContainer;
+use Sylius\AdminOrderCreationPlugin\SyliusAdminOrderCreationPlugin;
 use Sylius\Bundle\CoreBundle\Application\Kernel as SyliusKernel;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -110,6 +111,9 @@ final class Kernel extends BaseKernel
         $syliusConfigDir = $this->getProjectDir() . '/config/sylius/' . SyliusKernel::MAJOR_VERSION . '.' . SyliusKernel::MINOR_VERSION;
         if (is_dir($syliusConfigDir)) {
             yield $syliusConfigDir;
+        }
+        if (class_exists(SyliusAdminOrderCreationPlugin::class)) {
+            yield $this->getProjectDir() . '/config/integration/sylius_admin_order_creation_plugin';
         }
     }
 
