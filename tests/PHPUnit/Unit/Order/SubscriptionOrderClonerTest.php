@@ -21,8 +21,7 @@ use Sylius\Component\Core\OrderPaymentStates;
 use Sylius\Component\Core\OrderShippingStates;
 use Sylius\Component\Order\Model\OrderInterface as SyliusOrderInterface;
 use Sylius\Component\Resource\Generator\RandomnessGeneratorInterface;
-use Sylius\Resource\Factory\FactoryInterface;
-use Sylius\Component\Resource\Factory\FactoryInterface as LegacyFactoryInterface;
+use Sylius\Component\Resource\Factory\FactoryInterface;
 use SyliusMolliePlugin\Order\AdjustmentClonerInterface;
 use SyliusMolliePlugin\Order\OrderItemClonerInterface;
 use SyliusMolliePlugin\Order\ShipmentClonerInterface;
@@ -33,7 +32,6 @@ final class SubscriptionOrderClonerTest extends TestCase
 {
     private OrderItemClonerInterface $orderItemClonerMock;
 
-    private FactoryInterface|LegacyFactoryInterface $orderFactoryMock;
 
     private RandomnessGeneratorInterface $generatorMock;
 
@@ -43,12 +41,7 @@ final class SubscriptionOrderClonerTest extends TestCase
     private SubscriptionOrderCloner $subscriptionOrderCloner;
     protected function setUp(): void
     {
-        $version = InstalledVersions::getVersion('sylius/sylius');
-        if ($version < '1.12.0') {
-            $this->orderFactoryMock = $this->createMock(LegacyFactoryInterface::class);
-        } else {
-            $this->orderFactoryMock = $this->createMock(FactoryInterface::class);
-        }
+        $this->orderFactoryMock = $this->createMock(FactoryInterface::class);
         $this->orderItemClonerMock = $this->createMock(OrderItemClonerInterface::class);
         $this->generatorMock = $this->createMock(RandomnessGeneratorInterface::class);
         $this->adjustmentClonerMock = $this->createMock(AdjustmentClonerInterface::class);
