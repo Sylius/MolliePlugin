@@ -9,6 +9,9 @@
         <testsuite name="functional">
             <directory>tests/PHPUnit/Functional</directory>
         </testsuite>
+        <testsuite name="unit">
+            <directory>tests/PHPUnit/Unit</directory>
+        </testsuite>
     </testsuites>
 
     <php>

@@ -196,7 +196,6 @@ final class ConvertMolliePaymentAction extends BaseApiAwareAction implements Act
         return
             $request instanceof Convert &&
             $request->getSource() instanceof PaymentInterface &&
-            'array' === $request->getTo()
-            ;
+            'array' === $request->getTo();
     }
 }
