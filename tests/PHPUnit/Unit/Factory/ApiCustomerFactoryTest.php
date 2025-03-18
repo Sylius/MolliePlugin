@@ -22,17 +22,17 @@ final class ApiCustomerFactoryTest extends TestCase
 {
     private ApiCustomerFactory $apiCustomerFactory;
 
-    function setUp(): void
+    public function setUp(): void
     {
         $this->apiCustomerFactory = new ApiCustomerFactory();
     }
 
-    function testInitializable(): void
+    public function testInitializable(): void
     {
         $this->assertInstanceOf(ApiCustomerFactoryInterface::class, $this->apiCustomerFactory);
     }
 
-    function testCreatesNewCreateCustomer(): void
+    public function testCreatesNewCreateCustomer(): void
     {
         $details = [
             'amount' => [

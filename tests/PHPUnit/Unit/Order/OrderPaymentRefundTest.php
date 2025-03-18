@@ -24,12 +24,12 @@ use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\RefundPlugin\Event\UnitsRefunded;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Order\OrderPaymentRefund;
 use Sylius\MolliePlugin\Order\OrderPaymentRefundInterface;
 use Sylius\MolliePlugin\Request\Api\RefundOrder;
+use Sylius\RefundPlugin\Event\UnitsRefunded;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -52,7 +52,7 @@ final class OrderPaymentRefundTest extends TestCase
         $this->orderPaymentRefund = new OrderPaymentRefund(
             $this->orderRepository,
             $this->loggerAction,
-            $this->payum
+            $this->payum,
         );
     }
 

@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Factory;
 
-use Sylius\MolliePlugin\Factory\MollieSubscriptionScheduleFactoryInterface;
-use Sylius\MolliePlugin\Factory\MollieSubscriptionScheduleFactory;
-use Sylius\Component\Resource\Factory\FactoryInterface;
-use Sylius\MolliePlugin\Entity\MollieSubscriptionScheduleInterface;
-use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use PHPUnit\Framework\TestCase;
+use Sylius\Component\Resource\Factory\FactoryInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionScheduleInterface;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionScheduleFactory;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionScheduleFactoryInterface;
 
 final class MollieSubscriptionScheduleFactoryTest extends TestCase
 {
@@ -32,12 +32,12 @@ final class MollieSubscriptionScheduleFactoryTest extends TestCase
         $this->mollieSubscriptionScheduleFactory = new MollieSubscriptionScheduleFactory($this->decoratedFactoryMock);
     }
 
-    function testImplementsMollieSubscriptionScheduleFactoryInterface(): void
+    public function testImplementsMollieSubscriptionScheduleFactoryInterface(): void
     {
         $this->assertInstanceOf(MollieSubscriptionScheduleFactoryInterface::class, $this->mollieSubscriptionScheduleFactory);
     }
 
-    function testCreatesConfiguredForSubscriptionWhenFulfilledDateIsNull(): void
+    public function testCreatesConfiguredForSubscriptionWhenFulfilledDateIsNull(): void
     {
         $scheduleMock = $this->createMock(MollieSubscriptionScheduleInterface::class);
         $mollieSubscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
@@ -62,13 +62,13 @@ final class MollieSubscriptionScheduleFactoryTest extends TestCase
         $result = $this->mollieSubscriptionScheduleFactory->createConfiguredForSubscription(
             $mollieSubscriptionMock,
             $scheduledDateStart,
-            9
+            9,
         );
 
         $this->assertSame($scheduleMock, $result);
     }
 
-    function testCreatesConfiguredForSubscriptionWhenFulfilledDateIsNotNull(): void
+    public function testCreatesConfiguredForSubscriptionWhenFulfilledDateIsNotNull(): void
     {
         $scheduleMock = $this->createMock(MollieSubscriptionScheduleInterface::class);
         $mollieSubscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
@@ -104,7 +104,7 @@ final class MollieSubscriptionScheduleFactoryTest extends TestCase
             $mollieSubscriptionMock,
             $scheduledDateStart,
             9,
-            $fulfilledDate
+            $fulfilledDate,
         );
 
         $this->assertSame($scheduleMock, $result);

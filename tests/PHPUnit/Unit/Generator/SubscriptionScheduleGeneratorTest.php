@@ -37,7 +37,7 @@ final class SubscriptionScheduleGeneratorTest extends TestCase
         $this->scheduleFactoryMock = $this->createMock(MollieSubscriptionScheduleFactoryInterface::class);
         $this->subscriptionScheduleGenerator = new SubscriptionScheduleGenerator(
             $this->datePeriodFactoryMock,
-            $this->scheduleFactoryMock
+            $this->scheduleFactoryMock,
         );
     }
 
@@ -45,7 +45,7 @@ final class SubscriptionScheduleGeneratorTest extends TestCase
     {
         $this->assertInstanceOf(
             SubscriptionScheduleGeneratorInterface::class,
-            $this->subscriptionScheduleGenerator
+            $this->subscriptionScheduleGenerator,
         );
     }
 
@@ -82,7 +82,7 @@ final class SubscriptionScheduleGeneratorTest extends TestCase
             ->with(
                 $this->callback(fn ($actualStartedAt) => $actualStartedAt instanceof \DateTime),
                 5,
-                'month'
+                'month',
             )
             ->willReturn($datePeriods);
 
@@ -93,10 +93,14 @@ final class SubscriptionScheduleGeneratorTest extends TestCase
                 [$subscriptionMock, $this->callback(fn ($d) => $d->format('Y-m-d H:i:s') === $datePeriods[1]->format('Y-m-d H:i:s')), 1, null],
                 [$subscriptionMock, $this->callback(fn ($d) => $d->format('Y-m-d H:i:s') === $datePeriods[2]->format('Y-m-d H:i:s')), 2, null],
                 [$subscriptionMock, $this->callback(fn ($d) => $d->format('Y-m-d H:i:s') === $datePeriods[3]->format('Y-m-d H:i:s')), 3, null],
-                [$subscriptionMock, $this->callback(fn ($d) => $d->format('Y-m-d H:i:s') === $datePeriods[4]->format('Y-m-d H:i:s')), 4, null]
+                [$subscriptionMock, $this->callback(fn ($d) => $d->format('Y-m-d H:i:s') === $datePeriods[4]->format('Y-m-d H:i:s')), 4, null],
             )
             ->willReturnOnConsecutiveCalls(
-                $scheduleMock, $scheduleMock, $scheduleMock, $scheduleMock, $scheduleMock
+                $scheduleMock,
+                $scheduleMock,
+                $scheduleMock,
+                $scheduleMock,
+                $scheduleMock,
             );
 
         $subscriptionMock->expects($this->once())

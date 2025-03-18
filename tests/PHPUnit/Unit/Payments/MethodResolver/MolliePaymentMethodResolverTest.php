@@ -56,7 +56,7 @@ final class MolliePaymentMethodResolverTest extends TestCase
             $this->paymentMethodRepositoryMock,
             $this->factoryNameResolverMock,
             $this->mollieMethodFilterMock,
-            $this->entityManagerMock
+            $this->entityManagerMock,
         );
     }
 
@@ -137,7 +137,7 @@ final class MolliePaymentMethodResolverTest extends TestCase
             ->method('setParameter')
             ->withConsecutive(
                 ['methodId', $parentMethodMock->getId()],
-                ['channelId', 1]
+                ['channelId', 1],
             )
             ->willReturnSelf()
         ;
@@ -259,7 +259,7 @@ final class MolliePaymentMethodResolverTest extends TestCase
             ->method('setParameter')
             ->withConsecutive(
                 ['methodId', $parentMethodMock->getId()],
-                ['channelId', 1]
+                ['channelId', 1],
             )
             ->willReturnSelf()
         ;
@@ -322,6 +322,7 @@ final class MolliePaymentMethodResolverTest extends TestCase
 
         $this->assertSame([$parentMethodMock], $this->molliePaymentMethodResolver->getSupportedMethods($subjectMock));
     }
+
     public function testSupports(): void
     {
         $subjectMock = $this->createMock(PaymentInterface::class);

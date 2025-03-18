@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Order;
 
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;

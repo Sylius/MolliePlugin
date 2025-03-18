@@ -16,9 +16,9 @@ namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Checker\Gateway;
 use PHPUnit\Framework\TestCase;
 use Sylius\MolliePlugin\Checker\Gateway\MollieGatewayFactoryChecker;
 use Sylius\MolliePlugin\Checker\Gateway\MollieGatewayFactoryCheckerInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
 use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
-use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 
 final class MollieGatewayFactoryCheckerTest extends TestCase
 {
