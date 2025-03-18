@@ -11,13 +11,13 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action\Api;
+namespace Sylius\MolliePlugin\Action\Api;
 
 use Mollie\Api\Types\PaymentMethod;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Parser\Response\GuzzleNegativeResponseParserInterface;
-use SyliusMolliePlugin\Request\Api\CreatePayment;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Parser\Response\GuzzleNegativeResponseParserInterface;
+use Sylius\MolliePlugin\Request\Api\CreatePayment;
 use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Resources\Payment;
 use Payum\Core\Bridge\Spl\ArrayObject;

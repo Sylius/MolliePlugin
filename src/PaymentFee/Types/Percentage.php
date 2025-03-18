@@ -11,14 +11,14 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\PaymentFee\Types;
+namespace Sylius\MolliePlugin\PaymentFee\Types;
 
-use SyliusMolliePlugin\Entity\MollieGatewayConfig;
-use SyliusMolliePlugin\Order\AdjustmentInterface;
-use SyliusMolliePlugin\Payments\PaymentTerms\Options;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
+use Sylius\MolliePlugin\Order\AdjustmentInterface;
+use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 use Sylius\Component\Order\Factory\AdjustmentFactoryInterface;
 use Sylius\Component\Order\Model\OrderInterface;
-use SyliusMolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 use Webmozart\Assert\Assert;
 
 final class Percentage implements SurchargeTypeInterface

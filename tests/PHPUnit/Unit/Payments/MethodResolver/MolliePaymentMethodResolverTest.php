@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Payments\MethodResolver;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Payments\MethodResolver;
 
 use Composer\InstalledVersions;
 use Doctrine\DBAL\Connection;
@@ -23,11 +23,11 @@ use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Payments\MethodResolver\MollieMethodFilterInterface;
-use SyliusMolliePlugin\Payments\MethodResolver\MolliePaymentMethodResolver;
-use SyliusMolliePlugin\Repository\PaymentMethodRepositoryInterface;
-use SyliusMolliePlugin\Resolver\MollieFactoryNameResolverInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Payments\MethodResolver\MollieMethodFilterInterface;
+use Sylius\MolliePlugin\Payments\MethodResolver\MolliePaymentMethodResolver;
+use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
+use Sylius\MolliePlugin\Resolver\MollieFactoryNameResolverInterface;
 
 final class MolliePaymentMethodResolverTest extends TestCase
 {

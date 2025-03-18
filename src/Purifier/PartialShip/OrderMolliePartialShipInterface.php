@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Purifier\PartialShip;
+namespace Sylius\MolliePlugin\Purifier\PartialShip;
 
 use Sylius\Component\Core\Model\OrderInterface;
 

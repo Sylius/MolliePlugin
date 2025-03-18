@@ -11,22 +11,22 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Creator;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Creator;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mollie\Api\Resources\Method;
 use Mollie\Api\Resources\MethodCollection;
 use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Creator\MollieMethodsCreator;
-use SyliusMolliePlugin\Creator\MollieMethodsCreatorInterface;
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
-use SyliusMolliePlugin\Factory\MethodsFactoryInterface;
-use SyliusMolliePlugin\Factory\MollieGatewayConfigFactoryInterface;
-use SyliusMolliePlugin\Factory\MollieSubscriptionGatewayFactory;
-use SyliusMolliePlugin\Payments\Methods\MethodInterface;
-use SyliusMolliePlugin\Payments\MethodsInterface;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Creator\MollieMethodsCreator;
+use Sylius\MolliePlugin\Creator\MollieMethodsCreatorInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Factory\MethodsFactoryInterface;
+use Sylius\MolliePlugin\Factory\MollieGatewayConfigFactoryInterface;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Payments\Methods\MethodInterface;
+use Sylius\MolliePlugin\Payments\MethodsInterface;
 
 final class MollieMethodsCreatorTest extends TestCase
 {

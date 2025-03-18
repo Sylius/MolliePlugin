@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Provider\Order;
+namespace Sylius\MolliePlugin\Provider\Order;
 
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
 use Payum\Core\Payum;
 use SM\Factory\FactoryInterface as StateMachineFactoryInterface;
 use Sylius\AdminOrderCreationPlugin\Provider\PaymentTokenProviderInterface;

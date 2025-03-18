@@ -6,7 +6,7 @@
                                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
 >
-    <mapped-superclass name="Tests\SyliusMolliePlugin\Entity\ProductVariant" table="sylius_product_variant">
+    <mapped-superclass name="Tests\Sylius\MolliePlugin\Entity\ProductVariant" table="sylius_product_variant">
         <field name="recurring" type="boolean" nullable="false" column="recurring">
             <options>
                 <option name="default">0</option>

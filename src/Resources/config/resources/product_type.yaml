@@ -3,6 +3,6 @@ sylius_resource:
         sylius_mollie_plugin.product_type:
             driver: doctrine/orm
             classes:
-                model: SyliusMolliePlugin\Entity\ProductType
-                interface: SyliusMolliePlugin\Entity\ProductTypeInterface
-                form: SyliusMolliePlugin\Form\Type\ProductTypeType
+                model: Sylius\MolliePlugin\Entity\ProductType
+                interface: Sylius\MolliePlugin\Entity\ProductTypeInterface
+                form: Sylius\MolliePlugin\Form\Type\ProductTypeType

@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Processor;
+namespace Sylius\MolliePlugin\Processor;
 
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Entity\MollieGatewayConfig;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\PaymentFee\Calculate;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\PaymentFee\Calculate;
 use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Payment\Model\PaymentInterface;

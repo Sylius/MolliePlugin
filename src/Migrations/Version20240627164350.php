@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace SyliusMolliePlugin\Migrations;
+namespace Sylius\MolliePlugin\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;

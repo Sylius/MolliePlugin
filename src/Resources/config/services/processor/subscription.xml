@@ -4,7 +4,7 @@
 		   xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 	<services>
 		<defaults public="true" />
-		<service id="sylius_mollie_plugin.processor.subscription_payment_processor" class="SyliusMolliePlugin\Processor\SubscriptionProcessor">
+		<service id="sylius_mollie_plugin.processor.subscription_payment_processor" class="Sylius\MolliePlugin\Processor\SubscriptionProcessor">
 			<argument type="service" id="sylius_mollie_plugin.order.order_cloner"/>
 			<argument type="service" id="sylius.custom_factory.payment"/>
 			<argument type="service" id="sylius.repository.order"/>
@@ -13,7 +13,7 @@
 			<argument type="service" id="payum"/>
 			<argument type="service" id="sylius.repository.gateway_config"/>
 		</service>
-		<service id="sylius_mollie_plugin.processor.subscription_schedule_processor" class="SyliusMolliePlugin\Processor\SubscriptionScheduleProcessor">
+		<service id="sylius_mollie_plugin.processor.subscription_schedule_processor" class="Sylius\MolliePlugin\Processor\SubscriptionScheduleProcessor">
 			<argument type="service" id="sylius_mollie_plugin.repository.mollie_subscription_schedule"/>
 			<argument type="service" id="sylius_mollie_plugin.generator.subscription_schedule_generator"/>
 		</service>

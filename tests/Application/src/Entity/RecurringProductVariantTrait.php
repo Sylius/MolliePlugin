@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Application\src\Entity;
+namespace Tests\Sylius\MolliePlugin\Application\src\Entity;
 
 trait RecurringProductVariantTrait
 {

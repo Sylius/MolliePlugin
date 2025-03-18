@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Order;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Order;
 
 use Composer\InstalledVersions;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -23,11 +23,11 @@ use Sylius\Component\Order\Model\OrderInterface as SyliusOrderInterface;
 use Sylius\Component\Resource\Generator\RandomnessGeneratorInterface;
 use Sylius\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface as LegacyFactoryInterface;
-use SyliusMolliePlugin\Order\AdjustmentClonerInterface;
-use SyliusMolliePlugin\Order\OrderItemClonerInterface;
-use SyliusMolliePlugin\Order\ShipmentClonerInterface;
-use SyliusMolliePlugin\Order\SubscriptionOrderCloner;
-use SyliusMolliePlugin\Order\SubscriptionOrderClonerInterface;
+use Sylius\MolliePlugin\Order\AdjustmentClonerInterface;
+use Sylius\MolliePlugin\Order\OrderItemClonerInterface;
+use Sylius\MolliePlugin\Order\ShipmentClonerInterface;
+use Sylius\MolliePlugin\Order\SubscriptionOrderCloner;
+use Sylius\MolliePlugin\Order\SubscriptionOrderClonerInterface;
 
 final class SubscriptionOrderClonerTest extends TestCase
 {
@@ -63,10 +63,10 @@ final class SubscriptionOrderClonerTest extends TestCase
 
     public function testClonesSubscriptionOrder(): void
     {
-        $orderMock = $this->createMock(\SyliusMolliePlugin\Entity\OrderInterface::class);
-        $clonedOrderMock = $this->createMock(\SyliusMolliePlugin\Entity\OrderInterface::class);
-        $rootOrderMock = $this->createMock(\SyliusMolliePlugin\Entity\OrderInterface::class);
-        $subscriptionMock = $this->createMock(\SyliusMolliePlugin\Entity\MollieSubscriptionInterface::class);
+        $orderMock = $this->createMock(\Sylius\MolliePlugin\Entity\OrderInterface::class);
+        $clonedOrderMock = $this->createMock(\Sylius\MolliePlugin\Entity\OrderInterface::class);
+        $rootOrderMock = $this->createMock(\Sylius\MolliePlugin\Entity\OrderInterface::class);
+        $subscriptionMock = $this->createMock(\Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::class);
         $orderItemMock = $this->createMock(\Sylius\Component\Core\Model\OrderItemInterface::class);
         $clonedItemMock = $this->createMock(\Sylius\Component\Core\Model\OrderItemInterface::class);
         $channelMock = $this->createMock(\Sylius\Component\Channel\Model\ChannelInterface::class);

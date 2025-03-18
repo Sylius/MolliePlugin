@@ -11,22 +11,22 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action;
+namespace Sylius\MolliePlugin\Action;
 
 use Payum\Core\Reply\HttpRedirect;
 use Sylius\Component\Core\Model\Payment;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use SyliusMolliePlugin\Action\Api\BaseApiAwareAction;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Payments\PaymentTerms\Options;
-use SyliusMolliePlugin\Request\Api\CreateCustomer;
-use SyliusMolliePlugin\Request\Api\CreateInternalRecurring;
-use SyliusMolliePlugin\Request\Api\CreateOnDemandSubscription;
-use SyliusMolliePlugin\Request\Api\CreateOnDemandSubscriptionPayment;
-use SyliusMolliePlugin\Request\Api\CreateOrder;
-use SyliusMolliePlugin\Request\Api\CreatePayment;
+use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
+use Sylius\MolliePlugin\Request\Api\CreateCustomer;
+use Sylius\MolliePlugin\Request\Api\CreateInternalRecurring;
+use Sylius\MolliePlugin\Request\Api\CreateOnDemandSubscription;
+use Sylius\MolliePlugin\Request\Api\CreateOnDemandSubscriptionPayment;
+use Sylius\MolliePlugin\Request\Api\CreateOrder;
+use Sylius\MolliePlugin\Request\Api\CreatePayment;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Exception\RuntimeException;
@@ -35,7 +35,7 @@ use Payum\Core\Request\Capture;
 use Payum\Core\Security\GenericTokenFactoryInterface;
 use Payum\Core\Security\TokenInterface;
 use Psr\Log\InvalidArgumentException;
-use SyliusMolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
+use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
 
 final class CaptureAction extends BaseApiAwareAction implements CaptureActionInterface
 {

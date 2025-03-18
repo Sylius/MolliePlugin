@@ -11,13 +11,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Factory;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Factory;
 
 use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Factory\PaymentDetailsFactoryInterface;
-use SyliusMolliePlugin\Factory\PaymentDetailsFactory;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Factory\PaymentDetailsFactoryInterface;
+use Sylius\MolliePlugin\Factory\PaymentDetailsFactory;
 
 final class PaymentDetailsFactoryTest extends TestCase
 {

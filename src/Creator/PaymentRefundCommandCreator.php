@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Creator;
+namespace Sylius\MolliePlugin\Creator;
 
-use SyliusMolliePlugin\Exceptions\OfflineRefundPaymentMethodNotFound;
-use SyliusMolliePlugin\Provider\Divisor\DivisorProviderInterface;
-use SyliusMolliePlugin\Refund\Units\PaymentUnitsItemRefundInterface;
-use SyliusMolliePlugin\Refund\Units\ShipmentUnitRefundInterface;
+use Sylius\MolliePlugin\Exceptions\OfflineRefundPaymentMethodNotFound;
+use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Refund\Units\PaymentUnitsItemRefundInterface;
+use Sylius\MolliePlugin\Refund\Units\ShipmentUnitRefundInterface;
 use Mollie\Api\Resources\Payment;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Order\Factory\AdjustmentFactoryInterface;

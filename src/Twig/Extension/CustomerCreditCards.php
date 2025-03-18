@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace SyliusMolliePlugin\Twig\Extension;
+namespace Sylius\MolliePlugin\Twig\Extension;
 
 use Sylius\Component\Customer\Context\CustomerContextInterface;
 use Sylius\Component\Customer\Model\CustomerInterface;
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Entity\MollieCustomerInterface;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Entity\MollieCustomerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;

@@ -11,17 +11,17 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Generator;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Generator;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionScheduleInterface;
-use SyliusMolliePlugin\Factory\DatePeriodFactoryInterface;
-use SyliusMolliePlugin\Factory\MollieSubscriptionScheduleFactoryInterface;
-use SyliusMolliePlugin\Generator\SubscriptionScheduleGenerator;
-use SyliusMolliePlugin\Generator\SubscriptionScheduleGeneratorInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionScheduleInterface;
+use Sylius\MolliePlugin\Factory\DatePeriodFactoryInterface;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionScheduleFactoryInterface;
+use Sylius\MolliePlugin\Generator\SubscriptionScheduleGenerator;
+use Sylius\MolliePlugin\Generator\SubscriptionScheduleGeneratorInterface;
 
 final class SubscriptionScheduleGeneratorTest extends TestCase
 {

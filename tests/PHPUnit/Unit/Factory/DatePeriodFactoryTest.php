@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Factory;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Factory;
 
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Factory\DatePeriodFactory;
-use SyliusMolliePlugin\Factory\DatePeriodFactoryInterface;
+use Sylius\MolliePlugin\Factory\DatePeriodFactory;
+use Sylius\MolliePlugin\Factory\DatePeriodFactoryInterface;
 
 final class DatePeriodFactoryTest extends TestCase
 {

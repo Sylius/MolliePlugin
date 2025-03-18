@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Payments\MethodResolver;
+namespace Sylius\MolliePlugin\Payments\MethodResolver;
 
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace SyliusMolliePlugin\DTO\MolliePayment;
+namespace Sylius\MolliePlugin\DTO\MolliePayment;
 
 class MolliePayment
 {

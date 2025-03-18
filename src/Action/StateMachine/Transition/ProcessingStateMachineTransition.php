@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action\StateMachine\Transition;
+namespace Sylius\MolliePlugin\Action\StateMachine\Transition;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Transitions\MollieSubscriptionProcessingTransitions;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Transitions\MollieSubscriptionProcessingTransitions;
 use SM\Factory\FactoryInterface;
 
 final class ProcessingStateMachineTransition implements ProcessingStateMachineTransitionInterface

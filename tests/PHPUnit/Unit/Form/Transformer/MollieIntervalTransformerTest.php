@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Form\Transformer;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Form\Transformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
-use SyliusMolliePlugin\Form\Transformer\MollieIntervalTransformer;
+use Sylius\MolliePlugin\Form\Transformer\MollieIntervalTransformer;
 use PHPUnit\Framework\TestCase;
 
 final class MollieIntervalTransformerTest extends TestCase

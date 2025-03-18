@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Entity;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Entity;
 
 use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionScheduleInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionSchedule;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionScheduleInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionSchedule;
 
 final class MollieSubscriptionScheduleTest extends TestCase
 {

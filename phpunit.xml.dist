@@ -16,7 +16,7 @@
 
     <php>
         <server name="APP_ENV" value="test" />
-        <server name="KERNEL_CLASS" value="Tests\SyliusMolliePlugin\Application\Kernel" />
+        <server name="KERNEL_CLASS" value="Tests\Sylius\MolliePlugin\Application\Kernel" />
         <server name="EXPECTED_RESPONSE_DIR" value="tests/PHPUnit/Responses/json" />
         <server name="IS_DOCTRINE_ORM_SUPPORTED" value="true" />
     </php>

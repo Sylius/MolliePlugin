@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Calculator;
+namespace Sylius\MolliePlugin\Calculator;
 
 interface CalculateTaxAmountInterface
 {

@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Order;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Order;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Payum\Core\GatewayInterface;
@@ -25,11 +25,11 @@ use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\RefundPlugin\Event\UnitsRefunded;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Order\OrderPaymentRefund;
-use SyliusMolliePlugin\Order\OrderPaymentRefundInterface;
-use SyliusMolliePlugin\Request\Api\RefundOrder;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Order\OrderPaymentRefund;
+use Sylius\MolliePlugin\Order\OrderPaymentRefundInterface;
+use Sylius\MolliePlugin\Request\Api\RefundOrder;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

@@ -11,13 +11,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Factory;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Factory;
 
-use SyliusMolliePlugin\Factory\MollieSubscriptionScheduleFactoryInterface;
-use SyliusMolliePlugin\Factory\MollieSubscriptionScheduleFactory;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionScheduleFactoryInterface;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionScheduleFactory;
 use Sylius\Component\Resource\Factory\FactoryInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionScheduleInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionScheduleInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use PHPUnit\Framework\TestCase;
 
 final class MollieSubscriptionScheduleFactoryTest extends TestCase

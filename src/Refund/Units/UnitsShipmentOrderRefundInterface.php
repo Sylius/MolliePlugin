@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Refund\Units;
+namespace Sylius\MolliePlugin\Refund\Units;
 
 use Mollie\Api\Resources\Order;
 use Sylius\Component\Core\Model\OrderInterface;

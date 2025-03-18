@@ -6,12 +6,12 @@
                                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
 >
-    <mapped-superclass name="SyliusMolliePlugin\Entity\MollieMinMax" table="mollie_configuration_amount_limits">
+    <mapped-superclass name="Sylius\MolliePlugin\Entity\MollieMinMax" table="mollie_configuration_amount_limits">
         <id name="id" type="integer">
             <generator strategy="AUTO"/>
         </id>
         <field name="minimumAmount" column="min_amount" type="float" nullable="true" />
         <field name="maximumAmount" column="max_amount" type="float" nullable="true" />
-        <one-to-one field="mollieGatewayConfig" target-entity="SyliusMolliePlugin\Entity\MollieGatewayConfig" mapped-by="amountLimits"/>
+        <one-to-one field="mollieGatewayConfig" target-entity="Sylius\MolliePlugin\Entity\MollieGatewayConfig" mapped-by="amountLimits"/>
     </mapped-superclass>
 </doctrine-mapping>

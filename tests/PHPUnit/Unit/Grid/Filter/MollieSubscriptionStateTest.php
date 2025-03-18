@@ -11,13 +11,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Grid\Filter;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Grid\Filter;
 
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Grid\Data\DataSourceInterface;
 use Sylius\Component\Grid\Data\ExpressionBuilderInterface;
 use Sylius\Component\Grid\Filtering\FilterInterface;
-use SyliusMolliePlugin\Grid\Filter\MollieSubscriptionState;
+use Sylius\MolliePlugin\Grid\Filter\MollieSubscriptionState;
 
 final class MollieSubscriptionStateTest extends TestCase
 {

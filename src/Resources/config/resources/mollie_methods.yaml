@@ -3,9 +3,9 @@ sylius_resource:
     sylius_mollie_plugin.mollie_gateway_config:
       driver: doctrine/orm
       classes:
-        model: SyliusMolliePlugin\Entity\MollieGatewayConfig
-        repository: SyliusMolliePlugin\Repository\MollieGatewayConfigRepository
+        model: Sylius\MolliePlugin\Entity\MollieGatewayConfig
+        repository: Sylius\MolliePlugin\Repository\MollieGatewayConfigRepository
       translation:
         classes:
-          model: SyliusMolliePlugin\Entity\MollieGatewayConfigTranslation
-          interface: SyliusMolliePlugin\Entity\MollieGatewayConfigTranslationInterface
+          model: Sylius\MolliePlugin\Entity\MollieGatewayConfigTranslation
+          interface: Sylius\MolliePlugin\Entity\MollieGatewayConfigTranslationInterface

@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\PartialShip;
+namespace Sylius\MolliePlugin\PartialShip;
 
 use Mollie\Api\Resources\Order;
 use Sylius\Component\Core\Model\OrderInterface;

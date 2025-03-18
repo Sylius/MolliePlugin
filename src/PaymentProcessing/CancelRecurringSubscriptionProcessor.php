@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\PaymentProcessing;
+namespace Sylius\MolliePlugin\PaymentProcessing;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Factory\MollieSubscriptionGatewayFactory;
-use SyliusMolliePlugin\Request\Api\CancelRecurringSubscription;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Request\Api\CancelRecurringSubscription;
 use Payum\Core\Payum;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 

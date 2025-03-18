@@ -4,26 +4,26 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <defaults public="true" />
-        <service id="sylius_mollie_plugin.order.order_payment_refund" class="SyliusMolliePlugin\Order\OrderPaymentRefund">
+        <service id="sylius_mollie_plugin.order.order_payment_refund" class="Sylius\MolliePlugin\Order\OrderPaymentRefund">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius_mollie_plugin.logger.mollie_logger_action"/>
             <argument type="service" id="payum"/>
         </service>
-        <service id="sylius_mollie_plugin.order.order_item_cloner" class="SyliusMolliePlugin\Order\OrderItemCloner">
+        <service id="sylius_mollie_plugin.order.order_item_cloner" class="Sylius\MolliePlugin\Order\OrderItemCloner">
             <argument type="service" id="sylius.factory.order_item"/>
             <argument type="service" id="sylius.factory.order_item_unit"/>
         </service>
-        <service id="sylius_mollie_plugin.order.adjustment_cloner" class="SyliusMolliePlugin\Order\AdjustmentCloner">
+        <service id="sylius_mollie_plugin.order.adjustment_cloner" class="Sylius\MolliePlugin\Order\AdjustmentCloner">
             <argument type="service" id="sylius.factory.adjustment"/>
         </service>
-        <service id="sylius_mollie_plugin.order.shipment_cloner" class="SyliusMolliePlugin\Order\ShipmentCloner">
+        <service id="sylius_mollie_plugin.order.shipment_cloner" class="Sylius\MolliePlugin\Order\ShipmentCloner">
             <argument type="service" id="sylius.factory.shipment"/>
             <argument type="service" id="sylius_mollie_plugin.order.shipment_unit_cloner"/>
         </service>
-        <service id="sylius_mollie_plugin.order.shipment_unit_cloner" class="SyliusMolliePlugin\Order\ShipmentUnitCloner">
+        <service id="sylius_mollie_plugin.order.shipment_unit_cloner" class="Sylius\MolliePlugin\Order\ShipmentUnitCloner">
             <argument type="service" id="sylius.factory.shipment_unit"/>
         </service>
-        <service id="sylius_mollie_plugin.order.order_cloner" class="SyliusMolliePlugin\Order\SubscriptionOrderCloner">
+        <service id="sylius_mollie_plugin.order.order_cloner" class="Sylius\MolliePlugin\Order\SubscriptionOrderCloner">
             <argument type="service" id="sylius_mollie_plugin.order.order_item_cloner"/>
             <argument type="service" id="sylius.factory.order"/>
             <argument type="service" id="sylius.random_generator"/>

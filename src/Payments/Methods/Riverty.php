@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace SyliusMolliePlugin\Payments\Methods;
+namespace Sylius\MolliePlugin\Payments\Methods;
 
 use Mollie\Api\Types\PaymentMethod;
 

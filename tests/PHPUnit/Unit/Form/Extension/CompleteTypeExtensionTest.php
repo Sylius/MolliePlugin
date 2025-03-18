@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Form\Extension;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Form\Extension;
 
-use SyliusMolliePlugin\Form\Extension\CompleteTypeExtension;
-use SyliusMolliePlugin\Form\Type\DirectDebitType;
+use Sylius\MolliePlugin\Form\Extension\CompleteTypeExtension;
+use Sylius\MolliePlugin\Form\Type\DirectDebitType;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Validator\Constraints\Valid;
 use Symfony\Component\Form\FormBuilderInterface;

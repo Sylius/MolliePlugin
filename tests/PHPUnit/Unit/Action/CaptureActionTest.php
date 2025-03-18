@@ -11,18 +11,18 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Action;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Action;
 
 use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Action\CaptureAction;
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Payments\PaymentTerms\Options;
-use SyliusMolliePlugin\Request\Api\CreateCustomer;
-use SyliusMolliePlugin\Request\Api\CreateInternalRecurring;
-use SyliusMolliePlugin\Request\Api\CreateOrder;
-use SyliusMolliePlugin\Request\Api\CreatePayment;
-use SyliusMolliePlugin\Request\Api\CreateSubscriptionPayment;
+use Sylius\MolliePlugin\Action\CaptureAction;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
+use Sylius\MolliePlugin\Request\Api\CreateCustomer;
+use Sylius\MolliePlugin\Request\Api\CreateInternalRecurring;
+use Sylius\MolliePlugin\Request\Api\CreateOrder;
+use Sylius\MolliePlugin\Request\Api\CreatePayment;
+use Sylius\MolliePlugin\Request\Api\CreateSubscriptionPayment;
 use Mollie\Api\Endpoints\PaymentEndpoint;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
@@ -40,7 +40,7 @@ use Psr\Log\InvalidArgumentException;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
-use SyliusMolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
+use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
 use Mollie\Api\Resources\Payment;
 
 final class CaptureActionTest extends TestCase

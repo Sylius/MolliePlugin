@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\DTO;
+namespace Sylius\MolliePlugin\DTO;
 
 use Mollie\Api\Resources\MethodCollection;
 

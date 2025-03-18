@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Helper;
+namespace Sylius\MolliePlugin\Helper;
 
 use Mollie\Api\Types\PaymentMethod;
 use Sylius\Component\Addressing\Model\ZoneInterface;
@@ -19,10 +19,10 @@ use Sylius\Component\Core\Model\ImageInterface;
 use Sylius\Component\Core\Model\Scope;
 use Sylius\Component\Core\Model\ShippingMethodInterface;
 use Sylius\Component\Taxation\Model\TaxRateInterface;
-use SyliusMolliePlugin\Calculator\CalculateTaxAmountInterface;
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
-use SyliusMolliePlugin\Payments\PaymentTerms\Options;
-use SyliusMolliePlugin\Resolver\MealVoucherResolverInterface;
+use Sylius\MolliePlugin\Calculator\CalculateTaxAmountInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
+use Sylius\MolliePlugin\Resolver\MealVoucherResolverInterface;
 use Sylius\Component\Addressing\Matcher\ZoneMatcherInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItem;

@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Cli;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Cli;
 
 use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Cli\SendAbandonedPaymentLink;
-use SyliusMolliePlugin\Creator\AbandonedPaymentLinkCreatorInterface;
+use Sylius\MolliePlugin\Cli\SendAbandonedPaymentLink;
+use Sylius\MolliePlugin\Creator\AbandonedPaymentLinkCreatorInterface;
 use Symfony\Component\Console\Command\Command;
 
 final class SendAbandonedPaymentLinkTest extends TestCase

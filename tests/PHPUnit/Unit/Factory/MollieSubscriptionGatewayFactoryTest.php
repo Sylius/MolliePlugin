@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Factory;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Factory;
 
 use Payum\Core\GatewayFactory;
 use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
 
 final class MollieSubscriptionGatewayFactoryTest extends TestCase
 {

@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\MealVouchers;
+namespace Sylius\MolliePlugin\MealVouchers;
 
 final class Options
 {

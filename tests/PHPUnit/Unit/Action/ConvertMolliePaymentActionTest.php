@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Action;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Action;
 
 use ArrayObject;
 use Payum\Core\GatewayInterface;
@@ -23,17 +23,17 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Customer\Context\CustomerContextInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use SyliusMolliePlugin\Action\ConvertMolliePaymentAction;
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
-use SyliusMolliePlugin\Factory\ApiCustomerFactoryInterface;
-use SyliusMolliePlugin\Helper\ConvertOrderInterface;
-use SyliusMolliePlugin\Helper\IntToStringConverterInterface;
-use SyliusMolliePlugin\Helper\PaymentDescriptionInterface;
-use SyliusMolliePlugin\Provider\Divisor\DivisorProviderInterface;
-use SyliusMolliePlugin\Request\Api\CreateCustomer;
-use SyliusMolliePlugin\Resolver\PaymentLocaleResolverInterface;
+use Sylius\MolliePlugin\Action\ConvertMolliePaymentAction;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Factory\ApiCustomerFactoryInterface;
+use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
+use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
+use Sylius\MolliePlugin\Helper\PaymentDescriptionInterface;
+use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Request\Api\CreateCustomer;
+use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 final class ConvertMolliePaymentActionTest extends TestCase

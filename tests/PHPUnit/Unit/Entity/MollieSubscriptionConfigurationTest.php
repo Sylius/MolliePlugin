@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Entity;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Entity;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Entity\MollieSubscriptionConfiguration;
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionConfiguration;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 
 final class MollieSubscriptionConfigurationTest extends TestCase
 {

@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Payments\Methods;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Payments\Methods;
 
 use Mollie\Api\Types\PaymentMethod;
 use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Payments\Methods\AbstractMethod;
-use SyliusMolliePlugin\Payments\Methods\DirectDebit;
+use Sylius\MolliePlugin\Payments\Methods\AbstractMethod;
+use Sylius\MolliePlugin\Payments\Methods\DirectDebit;
 
 final class DirectDebitTest extends TestCase
 {
