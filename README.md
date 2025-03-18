@@ -165,7 +165,6 @@ tests/application/public/build/mollie-shop/..
 
 ```
 $ bin/behat
-$ bin/phpspec run
 ```
 
 ## Community
