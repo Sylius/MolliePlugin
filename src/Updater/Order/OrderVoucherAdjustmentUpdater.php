@@ -38,7 +38,7 @@ final class OrderVoucherAdjustmentUpdater implements OrderVoucherAdjustmentUpdat
         RepositoryInterface $orderRepository,
         AdjustmentFactoryInterface $adjustmentFactory,
         OrderVouchersApplicatorInterface $orderVouchersApplicator,
-        DivisorProviderInterface $divisorProvider
+        DivisorProviderInterface $divisorProvider,
     ) {
         $this->orderRepository = $orderRepository;
         $this->adjustmentFactory = $adjustmentFactory;
