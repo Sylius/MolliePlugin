@@ -45,7 +45,7 @@ final class ResolverGroupProviderTest extends TestCase
 
         $this->assertSame([
             'sylius',
-            'recurring_product_variant'
+            'recurring_product_variant',
         ], $this->resolverGroupProvider->provide($formMock));
     }
 
@@ -59,7 +59,7 @@ final class ResolverGroupProviderTest extends TestCase
 
         $this->assertSame([
             'sylius',
-            'non_recurring_product_variant'
+            'non_recurring_product_variant',
         ], $this->resolverGroupProvider->provide($formMock));
     }
 

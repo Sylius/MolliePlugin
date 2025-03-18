@@ -49,7 +49,7 @@ final class MollieMethodsResolverTest extends TestCase
             $this->loggerActionMock,
             $this->mollieApiClientMock,
             $this->gatewayConfigRepositoryMock,
-            $this->helperMock
+            $this->helperMock,
         );
     }
 
@@ -68,7 +68,7 @@ final class MollieMethodsResolverTest extends TestCase
             'environment' => 'test',
             'api_key_test' => 'test_key123',
             'times' => '5',
-            'interval' => '12 months'
+            'interval' => '12 months',
         ]);
 
         $this->mollieApiClientMock->method('setApiKey')->with('test_key123')->willReturn($clientMock);
@@ -95,7 +95,7 @@ final class MollieMethodsResolverTest extends TestCase
             'environment' => 'test',
             'api_key_test' => 'test_key123',
             'times' => '5',
-            'interval' => '12 months'
+            'interval' => '12 months',
         ]);
 
         $this->mollieApiClientMock->method('setApiKey')->with('test_key123')->willReturn($clientMock);
@@ -121,7 +121,7 @@ final class MollieMethodsResolverTest extends TestCase
             'environment' => 'test',
             'api_key_test' => 'test_key123',
             'times' => '5',
-            'interval' => '12 months'
+            'interval' => '12 months',
         ]);
 
         $this->mollieApiClientMock->method('setApiKey')->with('test_key123')->willReturn($clientMock);

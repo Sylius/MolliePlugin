@@ -46,12 +46,12 @@ final class MollieMethodsCreatorTest extends TestCase
         $this->mollieMethodsCreator = new MollieMethodsCreator($this->methodsFactoryMock, $this->entityManagerMock, $this->factoryMock);
     }
 
-    function testImplementInterface(): void
+    public function testImplementInterface(): void
     {
         $this->assertInstanceOf(MollieMethodsCreatorInterface::class, $this->mollieMethodsCreator);
     }
 
-    function testCreatesMethodsWhenAllMollieMethodsAreEmpty(): void
+    public function testCreatesMethodsWhenAllMollieMethodsAreEmpty(): void
     {
         $methodsMock = $this->createMock(MethodsInterface::class);
         $methodMock = $this->createMock(MethodInterface::class);
@@ -62,7 +62,7 @@ final class MollieMethodsCreatorTest extends TestCase
         $this->methodsFactoryMock->expects($this->once())->method('createNew')->willReturn($methodsMock);
 
         $methodsCollectionArray = [];
-        $methodsCollectionArrayIterator = new \ArrayIterator($methodsCollectionArray); 
+        $methodsCollectionArrayIterator = new \ArrayIterator($methodsCollectionArray);
 
         $methodCollectionMock->expects($this->once())->method('getIterator')->willReturn($methodsCollectionArrayIterator);
 
@@ -74,7 +74,7 @@ final class MollieMethodsCreatorTest extends TestCase
         $this->mollieMethodsCreator->createMethods($methodCollectionMock, $gatewayConfigMock);
     }
 
-    function testCreatesMethodsWhenAllMollieMethodsAreUnsupported(): void
+    public function testCreatesMethodsWhenAllMollieMethodsAreUnsupported(): void
     {
         $methodsMock = $this->createMock(MethodsInterface::class);
         $methodMock = $this->createMock(MethodInterface::class);
@@ -101,7 +101,7 @@ final class MollieMethodsCreatorTest extends TestCase
         $this->mollieMethodsCreator->createMethods($methodCollectionMock, $gatewayConfigMock);
     }
 
-    function testCreatesMethodsWhenAllMollieMethodsAreNotUnsupportedAndFactoryNameIsNotSubscriptionAndSupportedIsFalseAndInitialIsTrue(): void
+    public function testCreatesMethodsWhenAllMollieMethodsAreNotUnsupportedAndFactoryNameIsNotSubscriptionAndSupportedIsFalseAndInitialIsTrue(): void
     {
         $methodsMock = $this->createMock(MethodsInterface::class);
         $methodMock = $this->createMock(MethodInterface::class);
@@ -115,7 +115,7 @@ final class MollieMethodsCreatorTest extends TestCase
         $mollieMethod = new Method($mollieApiClientMock);
         $mollieMethod->id = 'bancontact';
         $methodsCollectionArray = [$mollieMethod];
-        $methodsCollectionArrayIterator = new \ArrayIterator($methodsCollectionArray); 
+        $methodsCollectionArrayIterator = new \ArrayIterator($methodsCollectionArray);
 
         $gatewayConfigMock->expects($this->once())->method('getFactoryName')->willReturn('not_subscription');
         $methodCollectionMock->expects($this->once())->method('getIterator')->willReturn($methodsCollectionArrayIterator);
@@ -129,7 +129,7 @@ final class MollieMethodsCreatorTest extends TestCase
         $this->mollieMethodsCreator->createMethods($methodCollectionMock, $gatewayConfigMock);
     }
 
-    function testCreatesMethodsWhenAllMollieMethodsAreSupportedAndFactoryNameIsNotSubscriptionAndBothSupportedAndInitialAreFalse(): void
+    public function testCreatesMethodsWhenAllMollieMethodsAreSupportedAndFactoryNameIsNotSubscriptionAndBothSupportedAndInitialAreFalse(): void
     {
         $methodsMock = $this->createMock(MethodsInterface::class);
         $methodMock = $this->createMock(MethodInterface::class);
@@ -143,7 +143,7 @@ final class MollieMethodsCreatorTest extends TestCase
         $mollieMethod = new Method($mollieApiClientMock);
         $mollieMethod->id = 'not_inghomepay';
         $methodsCollectionArray = [$mollieMethod];
-        $methodsCollectionArrayIterator = new \ArrayIterator($methodsCollectionArray); 
+        $methodsCollectionArrayIterator = new \ArrayIterator($methodsCollectionArray);
 
         $gatewayConfigMock->expects($this->once())->method('getFactoryName')->willReturn('not_subscription');
         $methodCollectionMock->expects($this->once())->method('getIterator')->willReturn($methodsCollectionArrayIterator);
@@ -157,7 +157,7 @@ final class MollieMethodsCreatorTest extends TestCase
         $this->mollieMethodsCreator->createMethods($methodCollectionMock, $gatewayConfigMock);
     }
 
-    function testCreatesMethodsWhenAllMollieMethodsAreSupportedAndFactoryNameIsNotSubscriptionAndSupportedIsTrueAndInitialIsFalse(): void
+    public function testCreatesMethodsWhenAllMollieMethodsAreSupportedAndFactoryNameIsNotSubscriptionAndSupportedIsTrueAndInitialIsFalse(): void
     {
         $methodsMock = $this->createMock(MethodsInterface::class);
         $methodMock = $this->createMock(MethodInterface::class);
@@ -171,7 +171,7 @@ final class MollieMethodsCreatorTest extends TestCase
         $mollieMethod = new Method($mollieApiClientMock);
         $mollieMethod->id = 'directdebit';
         $methodsCollectionArray = [$mollieMethod];
-        $methodsCollectionArrayIterator = new \ArrayIterator($methodsCollectionArray); 
+        $methodsCollectionArrayIterator = new \ArrayIterator($methodsCollectionArray);
 
         $gatewayConfigMock->expects($this->once())->method('getFactoryName')->willReturn('not_subscription');
         $methodCollectionMock->expects($this->once())->method('getIterator')->willReturn($methodsCollectionArrayIterator);
@@ -185,7 +185,7 @@ final class MollieMethodsCreatorTest extends TestCase
         $this->mollieMethodsCreator->createMethods($methodCollectionMock, $gatewayConfigMock);
     }
 
-    function testCreatesMethodsWhenAllMollieMethodsAreSupportedAndFactoryNameIsSubscriptionAndSupportedIsFalseAndInitialIsTrue(): void
+    public function testCreatesMethodsWhenAllMollieMethodsAreSupportedAndFactoryNameIsSubscriptionAndSupportedIsFalseAndInitialIsTrue(): void
     {
         $methodsMock = $this->createMock(MethodsInterface::class);
         $methodMock = $this->createMock(MethodInterface::class);
@@ -199,7 +199,7 @@ final class MollieMethodsCreatorTest extends TestCase
         $mollieMethod = new Method($mollieApiClientMock);
         $mollieMethod->id = 'bancontact';
         $methodsCollectionArray = [$mollieMethod];
-        $methodsCollectionArrayIterator = new \ArrayIterator($methodsCollectionArray); 
+        $methodsCollectionArrayIterator = new \ArrayIterator($methodsCollectionArray);
 
         $gatewayConfigMock->expects($this->once())->method('getFactoryName')->willReturn(MollieSubscriptionGatewayFactory::FACTORY_NAME);
         $methodCollectionMock->expects($this->once())->method('getIterator')->willReturn($methodsCollectionArrayIterator);
@@ -213,7 +213,7 @@ final class MollieMethodsCreatorTest extends TestCase
         $this->mollieMethodsCreator->createMethods($methodCollectionMock, $gatewayConfigMock);
     }
 
-    function testCreatesMethodsWhenAllMollieMethodsAreSupportedAndFactoryNameIsSubscriptionAndBothSupportedAndInitialAreFalse(): void
+    public function testCreatesMethodsWhenAllMollieMethodsAreSupportedAndFactoryNameIsSubscriptionAndBothSupportedAndInitialAreFalse(): void
     {
         $methodsMock = $this->createMock(MethodsInterface::class);
         $methodMock = $this->createMock(MethodInterface::class);
@@ -227,7 +227,7 @@ final class MollieMethodsCreatorTest extends TestCase
         $mollieMethod = new Method($mollieApiClientMock);
         $mollieMethod->id = 'not_inghomepay';
         $methodsCollectionArray = [$mollieMethod];
-        $methodsCollectionArrayIterator = new \ArrayIterator($methodsCollectionArray); 
+        $methodsCollectionArrayIterator = new \ArrayIterator($methodsCollectionArray);
 
         $gatewayConfigMock->expects($this->once())->method('getFactoryName')->willReturn(MollieSubscriptionGatewayFactory::FACTORY_NAME);
         $methodCollectionMock->expects($this->once())->method('getIterator')->willReturn($methodsCollectionArrayIterator);
@@ -241,7 +241,7 @@ final class MollieMethodsCreatorTest extends TestCase
         $this->mollieMethodsCreator->createMethods($methodCollectionMock, $gatewayConfigMock);
     }
 
-    function testCreatesMethodsWhenAllMollieMethodsAreSupportedAndFactoryNameIsSubscriptionAndSupportedIsTrueAndInitialIsFalse(): void
+    public function testCreatesMethodsWhenAllMollieMethodsAreSupportedAndFactoryNameIsSubscriptionAndSupportedIsTrueAndInitialIsFalse(): void
     {
         $methodsMock = $this->createMock(MethodsInterface::class);
         $methodMock = $this->createMock(MethodInterface::class);
@@ -255,7 +255,7 @@ final class MollieMethodsCreatorTest extends TestCase
         $mollieMethod = new Method($mollieApiClientMock);
         $mollieMethod->id = 'creditcard';
         $methodsCollectionArray = [$mollieMethod];
-        $methodsCollectionArrayIterator = new \ArrayIterator($methodsCollectionArray); 
+        $methodsCollectionArrayIterator = new \ArrayIterator($methodsCollectionArray);
 
         $gatewayConfigMock->expects($this->once())->method('getFactoryName')->willReturn(MollieSubscriptionGatewayFactory::FACTORY_NAME);
         $methodCollectionMock->expects($this->once())->method('getIterator')->willReturn($methodsCollectionArrayIterator);

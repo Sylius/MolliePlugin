@@ -26,12 +26,13 @@ final class DirectDebitTest extends TestCase
     {
         $this->directDebit = new DirectDebit();
     }
-    function testGetsMethodId(): void
+
+    public function testGetsMethodId(): void
     {
         $this->assertSame(PaymentMethod::DIRECTDEBIT, $this->directDebit->getMethodId());
     }
 
-    function testGetsPaymentType(): void
+    public function testGetsPaymentType(): void
     {
         $this->assertSame(AbstractMethod::PAYMENT_API, $this->directDebit->getPaymentType());
     }

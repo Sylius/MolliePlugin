@@ -45,7 +45,7 @@ final class StatusRecurringSubscriptionActionTest extends TestCase
         $this->statusRecurringSubscriptionAction = new StatusRecurringSubscriptionAction($this->subscriptionManagerMock, $this->subscriptionAndPaymentIdApplicatorMock, $this->subscriptionAndSyliusPaymentApplicatorMock, $this->stateMachineTransition);
     }
 
-    function testAppliesAbortTransition(): void
+    public function testAppliesAbortTransition(): void
     {
         $requestMock = $this->createMock(StatusRecurringSubscription::class);
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
@@ -57,7 +57,7 @@ final class StatusRecurringSubscriptionActionTest extends TestCase
             ->method('apply')
             ->withConsecutive(
                 [$subscriptionMock, MollieSubscriptionTransitions::TRANSITION_COMPLETE],
-                [$subscriptionMock, MollieSubscriptionTransitions::TRANSITION_ABORT]
+                [$subscriptionMock, MollieSubscriptionTransitions::TRANSITION_ABORT],
             )
         ;
         $this->subscriptionManagerMock->expects($this->once())->method('persist')->with($subscriptionMock);
@@ -66,7 +66,7 @@ final class StatusRecurringSubscriptionActionTest extends TestCase
         $this->statusRecurringSubscriptionAction->execute($requestMock);
     }
 
-    function testExecutesWhenPaymentIdIsNotNull(): void
+    public function testExecutesWhenPaymentIdIsNotNull(): void
     {
         $requestMock = $this->createMock(StatusRecurringSubscription::class);
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
@@ -79,7 +79,7 @@ final class StatusRecurringSubscriptionActionTest extends TestCase
             ->method('apply')
             ->withConsecutive(
                 [$subscriptionMock, MollieSubscriptionTransitions::TRANSITION_COMPLETE],
-                [$subscriptionMock, MollieSubscriptionTransitions::TRANSITION_ABORT]
+                [$subscriptionMock, MollieSubscriptionTransitions::TRANSITION_ABORT],
             )
         ;
         $this->subscriptionManagerMock->expects($this->once())->method('persist')->with($subscriptionMock);
@@ -88,7 +88,7 @@ final class StatusRecurringSubscriptionActionTest extends TestCase
         $this->statusRecurringSubscriptionAction->execute($requestMock);
     }
 
-    function testExecutesWhenSyliusPaymentIsNotNull(): void
+    public function testExecutesWhenSyliusPaymentIsNotNull(): void
     {
         $requestMock = $this->createMock(StatusRecurringSubscription::class);
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
@@ -105,7 +105,7 @@ final class StatusRecurringSubscriptionActionTest extends TestCase
             ->method('apply')
             ->withConsecutive(
                 [$subscriptionMock, MollieSubscriptionTransitions::TRANSITION_COMPLETE],
-                [$subscriptionMock, MollieSubscriptionTransitions::TRANSITION_ABORT]
+                [$subscriptionMock, MollieSubscriptionTransitions::TRANSITION_ABORT],
             )
         ;
         $this->subscriptionManagerMock->expects($this->once())->method('persist')->with($subscriptionMock);
@@ -114,7 +114,7 @@ final class StatusRecurringSubscriptionActionTest extends TestCase
         $this->statusRecurringSubscriptionAction->execute($requestMock);
     }
 
-    function testSupportsStatusRecurringSubscriptionRequestAndSubscriptionModel(): void
+    public function testSupportsStatusRecurringSubscriptionRequestAndSubscriptionModel(): void
     {
         $requestMock = $this->createMock(StatusRecurringSubscription::class);
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);

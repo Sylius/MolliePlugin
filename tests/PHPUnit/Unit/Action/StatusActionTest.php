@@ -67,7 +67,7 @@ final class StatusActionTest extends TestCase
             $this->orderRefund,
             $this->loggerAction,
             $this->orderVoucherAdjustmentUpdater,
-            $this->mollieOrderRefundChecker
+            $this->mollieOrderRefundChecker,
         );
 
         $this->statusAction->setApi($this->mollieApiClient);

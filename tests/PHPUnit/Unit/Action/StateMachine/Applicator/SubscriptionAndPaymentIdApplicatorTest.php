@@ -50,12 +50,12 @@ final class SubscriptionAndPaymentIdApplicatorTest extends TestCase
         $this->subscriptionAndPaymentIdApplicator = new SubscriptionAndPaymentIdApplicator($this->mollieApiClientMock, $this->stateMachineTransitionMock, $this->paymentStateMachineTransitionMock, $this->processingStateMachineTransitionMock);
     }
 
-    function testImplementInterface(): void
+    public function testImplementInterface(): void
     {
         $this->assertInstanceOf(SubscriptionAndPaymentIdApplicatorInterface::class, $this->subscriptionAndPaymentIdApplicator);
     }
 
-    function testAppliesTransitionWhenStatusIsOpen(): void
+    public function testAppliesTransitionWhenStatusIsOpen(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $configurationMock = $this->createMock(MollieSubscriptionConfigurationInterface::class);
@@ -77,7 +77,7 @@ final class SubscriptionAndPaymentIdApplicatorTest extends TestCase
         $this->subscriptionAndPaymentIdApplicator->execute($subscriptionMock, 'id_1');
     }
 
-    function testAppliesTransitionWhenStatusIsPending(): void
+    public function testAppliesTransitionWhenStatusIsPending(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $configurationMock = $this->createMock(MollieSubscriptionConfigurationInterface::class);
@@ -99,7 +99,7 @@ final class SubscriptionAndPaymentIdApplicatorTest extends TestCase
         $this->subscriptionAndPaymentIdApplicator->execute($subscriptionMock, 'id_1');
     }
 
-    function testAppliesTransitionWhenStatusIsAuthorized(): void
+    public function testAppliesTransitionWhenStatusIsAuthorized(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $configurationMock = $this->createMock(MollieSubscriptionConfigurationInterface::class);
@@ -121,7 +121,7 @@ final class SubscriptionAndPaymentIdApplicatorTest extends TestCase
         $this->subscriptionAndPaymentIdApplicator->execute($subscriptionMock, 'id_1');
     }
 
-    function testAppliesTransitionWhenStatusIsPaid(): void
+    public function testAppliesTransitionWhenStatusIsPaid(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $configurationMock = $this->createMock(MollieSubscriptionConfigurationInterface::class);
@@ -145,7 +145,7 @@ final class SubscriptionAndPaymentIdApplicatorTest extends TestCase
         $this->subscriptionAndPaymentIdApplicator->execute($subscriptionMock, 'id_1');
     }
 
-    function testAppliesTransitionWhenStatusIsFailure(): void
+    public function testAppliesTransitionWhenStatusIsFailure(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $configurationMock = $this->createMock(MollieSubscriptionConfigurationInterface::class);

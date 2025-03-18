@@ -27,12 +27,12 @@ final class KlarnaPayNowTest extends TestCase
         $this->klarnaPayNow = new KlarnaPayNow();
     }
 
-    function testGetsMethodId(): void
+    public function testGetsMethodId(): void
     {
         $this->assertSame(PaymentMethod::KLARNA_PAY_NOW, $this->klarnaPayNow->getMethodId());
     }
 
-    function testGetsPaymentType(): void
+    public function testGetsPaymentType(): void
     {
         $this->assertSame(AbstractMethod::ORDER_API, $this->klarnaPayNow->getPaymentType());
     }

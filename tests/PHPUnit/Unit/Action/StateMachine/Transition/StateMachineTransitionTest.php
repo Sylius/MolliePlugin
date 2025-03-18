@@ -33,12 +33,12 @@ final class StateMachineTransitionTest extends TestCase
         $this->stateMachineTransition = new StateMachineTransition($this->subscriptionSateMachineFactoryMock);
     }
 
-    function testImplementInterface(): void
+    public function testImplementInterface(): void
     {
         $this->assertInstanceOf(StateMachineTransitionInterface::class, $this->stateMachineTransition);
     }
 
-    function testAppliesTransition(): void
+    public function testAppliesTransition(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $stateMachineMock = $this->createMock(StateMachineInterface::class);
@@ -46,10 +46,10 @@ final class StateMachineTransitionTest extends TestCase
         $this->subscriptionSateMachineFactoryMock->expects($this->once())->method('get')->with($subscriptionMock, MollieSubscriptionTransitions::GRAPH)->willReturn($stateMachineMock);
         $stateMachineMock->expects($this->once())->method('can')->with(MollieSubscriptionTransitions::TRANSITION_COMPLETE)->willReturn(true);
         $stateMachineMock->expects($this->once())->method('apply')->with(MollieSubscriptionTransitions::TRANSITION_COMPLETE)->willReturn(true);
-        $this->stateMachineTransition->apply($subscriptionMock,MollieSubscriptionTransitions::TRANSITION_COMPLETE);
+        $this->stateMachineTransition->apply($subscriptionMock, MollieSubscriptionTransitions::TRANSITION_COMPLETE);
     }
 
-    function testCannotAppliesTransition(): void
+    public function testCannotAppliesTransition(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $stateMachineMock = $this->createMock(StateMachineInterface::class);
@@ -57,6 +57,6 @@ final class StateMachineTransitionTest extends TestCase
         $this->subscriptionSateMachineFactoryMock->expects($this->once())->method('get')->with($subscriptionMock, MollieSubscriptionTransitions::GRAPH)->willReturn($stateMachineMock);
         $stateMachineMock->expects($this->once())->method('can')->with(MollieSubscriptionTransitions::TRANSITION_COMPLETE)->willReturn(false);
         $stateMachineMock->expects($this->never())->method('apply')->with(MollieSubscriptionTransitions::TRANSITION_COMPLETE);
-        $this->stateMachineTransition->apply($subscriptionMock,MollieSubscriptionTransitions::TRANSITION_COMPLETE);
+        $this->stateMachineTransition->apply($subscriptionMock, MollieSubscriptionTransitions::TRANSITION_COMPLETE);
     }
 }

@@ -30,7 +30,7 @@ final class SendAbandonedPaymentLinkTest extends TestCase
         $this->sendAbandonedPaymentLink = new SendAbandonedPaymentLink($this->abandonedPaymentLinkCreatorMock);
     }
 
-    function testExtendsCommand(): void
+    public function testExtendsCommand(): void
     {
         $this->assertInstanceOf(Command::class, $this->sendAbandonedPaymentLink);
     }

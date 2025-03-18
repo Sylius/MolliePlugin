@@ -29,13 +29,14 @@ final class CancelRecurringSubscriptionProcessorTest extends TestCase
     private Payum $payumMock;
 
     private CancelRecurringSubscriptionProcessor $cancelRecurringSubscriptionProcessor;
+
     protected function setUp(): void
     {
         $this->payumMock = $this->createMock(Payum::class);
         $this->cancelRecurringSubscriptionProcessor = new CancelRecurringSubscriptionProcessor($this->payumMock);
     }
 
-    function testProcessesCancelRecurringSubscription(): void
+    public function testProcessesCancelRecurringSubscription(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $orderMock = $this->createMock(OrderInterface::class);
@@ -86,7 +87,7 @@ final class CancelRecurringSubscriptionProcessorTest extends TestCase
         $this->cancelRecurringSubscriptionProcessor->process($subscriptionMock);
     }
 
-    function testProcessesCancelRecurringSubscriptionWhenLastOrderIsNull(): void
+    public function testProcessesCancelRecurringSubscriptionWhenLastOrderIsNull(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $gatewayMock = $this->createMock(GatewayInterface::class);
@@ -96,7 +97,7 @@ final class CancelRecurringSubscriptionProcessorTest extends TestCase
         $this->cancelRecurringSubscriptionProcessor->process($subscriptionMock);
     }
 
-    function testProcessesCancelRecurringSubscriptionWhenLastPaymentIsNull(): void
+    public function testProcessesCancelRecurringSubscriptionWhenLastPaymentIsNull(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $orderMock = $this->createMock(OrderInterface::class);
@@ -108,7 +109,7 @@ final class CancelRecurringSubscriptionProcessorTest extends TestCase
         $this->cancelRecurringSubscriptionProcessor->process($subscriptionMock);
     }
 
-    function testProcessesCancelRecurringSubscriptionWithNullConfig(): void
+    public function testProcessesCancelRecurringSubscriptionWithNullConfig(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $orderMock = $this->createMock(OrderInterface::class);
@@ -124,7 +125,7 @@ final class CancelRecurringSubscriptionProcessorTest extends TestCase
         $this->cancelRecurringSubscriptionProcessor->process($subscriptionMock);
     }
 
-    function testProcessesCancelRecurringSubscriptionWithWrongFactoryName(): void
+    public function testProcessesCancelRecurringSubscriptionWithWrongFactoryName(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $orderMock = $this->createMock(OrderInterface::class);

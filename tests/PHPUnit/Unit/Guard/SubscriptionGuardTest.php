@@ -30,12 +30,12 @@ final class SubscriptionGuardTest extends TestCase
         $this->subscriptionGuard = new SubscriptionGuard();
     }
 
-    function testImplementSubscriptionGuardInterface(): void
+    public function testImplementSubscriptionGuardInterface(): void
     {
         $this->assertInstanceOf(SubscriptionGuardInterface::class, $this->subscriptionGuard);
     }
 
-    function testEligibleForPaymentsAbort(): void
+    public function testEligibleForPaymentsAbort(): void
     {
         /** @var MollieSubscriptionInterface|MockObject $subscriptionMock */
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
@@ -48,7 +48,7 @@ final class SubscriptionGuardTest extends TestCase
         $this->assertFalse($this->subscriptionGuard->isEligibleForPaymentsAbort($subscriptionMock));
     }
 
-    function testCompletableWithFulfilledDate(): void
+    public function testCompletableWithFulfilledDate(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $scheduleMock = $this->createMock(MollieSubscriptionScheduleInterface::class);
@@ -66,7 +66,7 @@ final class SubscriptionGuardTest extends TestCase
         $this->assertTrue($this->subscriptionGuard->isCompletable($subscriptionMock));
     }
 
-    function testCompletableWithoutFulfilledDate(): void
+    public function testCompletableWithoutFulfilledDate(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $scheduleMock = $this->createMock(MollieSubscriptionScheduleInterface::class);

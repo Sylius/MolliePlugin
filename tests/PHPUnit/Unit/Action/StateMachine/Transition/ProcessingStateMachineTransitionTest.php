@@ -33,12 +33,12 @@ final class ProcessingStateMachineTransitionTest extends TestCase
         $this->processingStateMachineTransition = new ProcessingStateMachineTransition($this->subscriptionSateMachineFactoryMock);
     }
 
-    function testImplementInterface(): void
+    public function testImplementInterface(): void
     {
         $this->assertInstanceOf(ProcessingStateMachineTransitionInterface::class, $this->processingStateMachineTransition);
     }
 
-    function testAppliesTransition(): void
+    public function testAppliesTransition(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $stateMachineMock = $this->createMock(StateMachineInterface::class);
@@ -46,10 +46,10 @@ final class ProcessingStateMachineTransitionTest extends TestCase
         $this->subscriptionSateMachineFactoryMock->expects($this->once())->method('get')->with($subscriptionMock, MollieSubscriptionProcessingTransitions::GRAPH)->willReturn($stateMachineMock);
         $stateMachineMock->expects($this->once())->method('can')->with(MollieSubscriptionProcessingTransitions::TRANSITION_PROCESS)->willReturn(true);
         $stateMachineMock->expects($this->once())->method('apply')->with(MollieSubscriptionProcessingTransitions::TRANSITION_PROCESS)->willReturn(true);
-        $this->processingStateMachineTransition->apply($subscriptionMock,MollieSubscriptionProcessingTransitions::TRANSITION_PROCESS);
+        $this->processingStateMachineTransition->apply($subscriptionMock, MollieSubscriptionProcessingTransitions::TRANSITION_PROCESS);
     }
 
-    function testCannotAppliesTransition(): void
+    public function testCannotAppliesTransition(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $stateMachineMock = $this->createMock(StateMachineInterface::class);
@@ -57,6 +57,6 @@ final class ProcessingStateMachineTransitionTest extends TestCase
         $this->subscriptionSateMachineFactoryMock->expects($this->once())->method('get')->with($subscriptionMock, MollieSubscriptionProcessingTransitions::GRAPH)->willReturn($stateMachineMock);
         $stateMachineMock->expects($this->once())->method('can')->with(MollieSubscriptionProcessingTransitions::TRANSITION_PROCESS)->willReturn(false);
         $stateMachineMock->expects($this->never())->method('apply')->with(MollieSubscriptionProcessingTransitions::TRANSITION_PROCESS);
-        $this->processingStateMachineTransition->apply($subscriptionMock,MollieSubscriptionProcessingTransitions::TRANSITION_PROCESS);
+        $this->processingStateMachineTransition->apply($subscriptionMock, MollieSubscriptionProcessingTransitions::TRANSITION_PROCESS);
     }
 }

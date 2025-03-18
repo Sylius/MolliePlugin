@@ -50,12 +50,11 @@ final class CheckoutOrderCollidingProductsListenerTest extends TestCase
         $this->checkoutOrderCollidingProductsListener = new CheckoutOrderCollidingProductsListener(
             $this->routerMock,
             $this->translatorMock,
-            $requestStackMock
+            $requestStackMock,
         );
     }
 
-
-    function testExecuteOnUpdate(): void
+    public function testExecuteOnUpdate(): void
     {
         $eventMock = $this->createMock(ResourceControllerEvent::class);
         $orderMock = $this->createMock(OrderInterface::class);

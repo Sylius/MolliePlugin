@@ -106,8 +106,8 @@ final class SubscriptionProcessorTest extends TestCase
 
         $methodData = [
             'metadata' => [
-                'molliePaymentMethods' => 'test_method'
-            ]
+                'molliePaymentMethods' => 'test_method',
+            ],
         ];
         $lastPaymentMock->expects($this->once())->method('getDetails')->willReturn($methodData);
         $lastPaymentMock->expects($this->once())->method('getMethod')->willReturn($methodMock);
@@ -117,8 +117,8 @@ final class SubscriptionProcessorTest extends TestCase
 
         $details = [
             'metadata' => [
-                'gateway' => 'gateway_id'
-            ]
+                'gateway' => 'gateway_id',
+            ],
         ];
         $this->paymentDetailsFactoryMock->expects($this->once())
             ->method('createForSubscriptionAndOrder')
@@ -203,8 +203,8 @@ final class SubscriptionProcessorTest extends TestCase
 
         $methodData = [
             'metadata' => [
-                'molliePaymentMethods' => 'test_method'
-            ]
+                'molliePaymentMethods' => 'test_method',
+            ],
         ];
         $lastPaymentMock->expects($this->once())->method('getDetails')->willReturn($methodData);
         $lastPaymentMock->expects($this->once())->method('getMethod')->willReturn($methodMock);
@@ -214,8 +214,8 @@ final class SubscriptionProcessorTest extends TestCase
 
         $details = [
             'metadata' => [
-                'gateway' => 'gateway_id'
-            ]
+                'gateway' => 'gateway_id',
+            ],
         ];
         $this->paymentDetailsFactoryMock->expects($this->once())
             ->method('createForSubscriptionAndOrder')
