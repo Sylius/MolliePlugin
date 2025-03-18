@@ -35,10 +35,10 @@ final class OrderVoucherAdjustmentUpdater implements OrderVoucherAdjustmentUpdat
     private $divisorProvider;
 
     public function __construct(
-        RepositoryInterface              $orderRepository,
-        AdjustmentFactoryInterface       $adjustmentFactory,
+        RepositoryInterface $orderRepository,
+        AdjustmentFactoryInterface $adjustmentFactory,
         OrderVouchersApplicatorInterface $orderVouchersApplicator,
-        DivisorProviderInterface         $divisorProvider
+        DivisorProviderInterface $divisorProvider
     ) {
         $this->orderRepository = $orderRepository;
         $this->adjustmentFactory = $adjustmentFactory;
