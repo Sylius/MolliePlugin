@@ -11,13 +11,13 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Distributor\Order;
+namespace Sylius\MolliePlugin\Applicator\Order;
 
 use Sylius\Component\Core\Distributor\ProportionalIntegerDistributorInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\MolliePlugin\Applicator\UnitsPromotionAdjustmentsApplicatorInterface;
 
-final class OrderVoucherDistributor implements OrderVoucherDistributorInterface
+final class OrderVouchersApplicator implements OrderVouchersApplicatorInterface
 {
     public function __construct(private readonly ProportionalIntegerDistributorInterface $proportionalIntegerDistributor, private readonly UnitsPromotionAdjustmentsApplicatorInterface $unitsPromotionAdjustmentsApplicator)
     {

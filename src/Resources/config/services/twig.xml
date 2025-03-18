@@ -17,7 +17,6 @@
         </service>
 
         <service id="sylius_mollie_plugin.twig.extension.mollie_plugin_latest_version" class="Sylius\MolliePlugin\Twig\Extension\MolliePluginLatestVersion" public="false">
-            <argument type="service" id="sylius_mollie_plugin.checker.version.mollie_plugin_latest_version_checker"/>
             <tag name="twig.extension" />
         </service>
 
