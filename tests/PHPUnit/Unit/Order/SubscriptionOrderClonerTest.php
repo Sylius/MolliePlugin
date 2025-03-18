@@ -43,8 +43,8 @@ final class SubscriptionOrderClonerTest extends TestCase
     private SubscriptionOrderCloner $subscriptionOrderCloner;
     protected function setUp(): void
     {
-        $version = InstalledVersions::getVersion('sylius/sylius');
-        if ($version < '1.12.0') {
+        $version = InstalledVersions::getVersion('sylius/resource-bundle');
+        if ($version < '1.11.0') {
             $this->orderFactoryMock = $this->createMock(LegacyFactoryInterface::class);
         } else {
             $this->orderFactoryMock = $this->createMock(FactoryInterface::class);
