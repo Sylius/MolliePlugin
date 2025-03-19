@@ -15,11 +15,11 @@ namespace Sylius\MolliePlugin\PaymentFee;
 
 use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
-use Sylius\MolliePlugin\Exceptions\UnknownPaymentSurchargeTye;
+use Sylius\MolliePlugin\Exceptions\UnknownPaymentSurchargeType;
 use Sylius\MolliePlugin\PaymentFee\Calculator\PaymentSurchargeCalculatorInterface;
 use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 
-final class CompositePaymentSurchargeCalculator implements CompositePaymentSurchargeCalculatorInterface
+final class CompositePaymentSurchargeCalculator implements PaymentSurchargeCalculatorInterface
 {
     /**
      * @param PaymentSurchargeCalculatorInterface[] $calculators
@@ -40,6 +40,11 @@ final class CompositePaymentSurchargeCalculator implements CompositePaymentSurch
             }
         }
 
-        throw new UnknownPaymentSurchargeTye(sprintf('No calculator supports payment type: %s', $paymentType));
+        throw new UnknownPaymentSurchargeType(sprintf('No calculator supports payment type: %s', $paymentType));
+    }
+
+    public function supports(string $type): bool
+    {
+        return true;
     }
 }

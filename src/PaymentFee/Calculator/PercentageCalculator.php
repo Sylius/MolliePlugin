@@ -34,7 +34,7 @@ final class PercentageCalculator implements PaymentSurchargeCalculatorInterface
         return Options::PERCENTAGE === array_search($type, Options::getAvailablePaymentSurchargeFeeType(), true);
     }
 
-    public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): OrderInterface
+    public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): void
     {
         $paymentSurchargeFee = $paymentMethod->getPaymentSurchargeFee();
         Assert::notNull($paymentSurchargeFee);
@@ -59,7 +59,5 @@ final class PercentageCalculator implements PaymentSurchargeCalculatorInterface
         $adjustment->setAmount((int) ceil($amount));
         $adjustment->setNeutral(false);
         $order->addAdjustment($adjustment);
-
-        return $order;
     }
 }

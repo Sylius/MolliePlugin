@@ -24,8 +24,7 @@ final class NoFeeCalculator implements PaymentSurchargeCalculatorInterface
         return Options::NO_FEE === $type;
     }
 
-    public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): OrderInterface
+    public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): void
     {
-        return $order;
     }
 }

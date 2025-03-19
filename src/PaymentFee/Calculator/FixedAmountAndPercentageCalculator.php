@@ -26,8 +26,8 @@ final class FixedAmountAndPercentageCalculator implements PaymentSurchargeCalcul
 {
     public function __construct(
         private readonly AdjustmentFactoryInterface $adjustmentFactory,
-        private readonly PercentageCalculator $percentageCalculator,
-        private readonly FixedAmountCalculator $fixedAmountCalculator,
+        private readonly PaymentSurchargeCalculatorInterface $percentageCalculator,
+        private readonly PaymentSurchargeCalculatorInterface $fixedAmountCalculator,
         private readonly DivisorProviderInterface $divisorProvider,
     ) {
     }
@@ -37,7 +37,7 @@ final class FixedAmountAndPercentageCalculator implements PaymentSurchargeCalcul
         return Options::FIXED_FEE_AND_PERCENTAGE === array_search($type, Options::getAvailablePaymentSurchargeFeeType(), true);
     }
 
-    public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): OrderInterface
+    public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): void
     {
         $paymentSurchargeFee = $paymentMethod->getPaymentSurchargeFee();
         Assert::notNull($paymentSurchargeFee);
@@ -45,11 +45,11 @@ final class FixedAmountAndPercentageCalculator implements PaymentSurchargeCalcul
 
         $limit = $paymentSurchargeFee->getSurchargeLimit() * $this->divisorProvider->getDivisor();
 
-        $percentageOrder = $this->percentageCalculator->calculate($order, $paymentMethod);
-        $fixedOrder = $this->fixedAmountCalculator->calculate($order, $paymentMethod);
+        $this->percentageCalculator->calculate($order, $paymentMethod);
+        $this->fixedAmountCalculator->calculate($order, $paymentMethod);
 
-        $percentageAmount = $this->getSumOfCalculatedValue($percentageOrder->getAdjustments(AdjustmentInterface::PERCENTAGE_ADJUSTMENT));
-        $fixedAmount = $this->getSumOfCalculatedValue($fixedOrder->getAdjustments(AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT));
+        $percentageAmount = $this->getSumOfCalculatedValue($order->getAdjustments(AdjustmentInterface::PERCENTAGE_ADJUSTMENT));
+        $fixedAmount = $this->getSumOfCalculatedValue($order->getAdjustments(AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT));
 
         $totalAmount = $percentageAmount + $fixedAmount;
 
@@ -69,8 +69,6 @@ final class FixedAmountAndPercentageCalculator implements PaymentSurchargeCalcul
         $adjustment->setAmount((int) ceil($totalAmount));
         $adjustment->setNeutral(false);
         $order->addAdjustment($adjustment);
-
-        return $order;
     }
 
     private function getSumOfCalculatedValue(Collection $adjustments): float

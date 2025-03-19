@@ -34,7 +34,7 @@ final class FixedAmountCalculator implements PaymentSurchargeCalculatorInterface
         return Options::FIXED_FEE === array_search($type, Options::getAvailablePaymentSurchargeFeeType(), true);
     }
 
-    public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): OrderInterface
+    public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): void
     {
         Assert::notNull($paymentMethod->getPaymentSurchargeFee());
         $fixedAmount = $paymentMethod->getPaymentSurchargeFee()->getFixedAmount();
@@ -50,7 +50,5 @@ final class FixedAmountCalculator implements PaymentSurchargeCalculatorInterface
         $adjustment->setNeutral(false);
 
         $order->addAdjustment($adjustment);
-
-        return $order;
     }
 }

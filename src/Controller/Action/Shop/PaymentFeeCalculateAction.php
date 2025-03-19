@@ -28,8 +28,14 @@ use Twig\Environment;
 
 final class PaymentFeeCalculateAction implements PaymentFeeCalculateActionInterface
 {
-    public function __construct(private readonly CompositePaymentSurchargeCalculatorInterface $calculate, private readonly CartContextInterface $cartContext, private readonly RepositoryInterface $methodRepository, private readonly AdjustmentsAggregatorInterface $adjustmentsAggregator, private readonly ConvertPriceToAmount $convertPriceToAmount, private readonly Environment $twig)
-    {
+    public function __construct(
+        private readonly CompositePaymentSurchargeCalculatorInterface $paymentSurchargeCalculator,
+        private readonly CartContextInterface $cartContext,
+        private readonly RepositoryInterface $methodRepository,
+        private readonly AdjustmentsAggregatorInterface $adjustmentsAggregator,
+        private readonly ConvertPriceToAmount $convertPriceToAmount,
+        private readonly Environment $twig,
+    ) {
     }
 
     public function __invoke(Request $request, string $methodId): Response
@@ -42,7 +48,7 @@ final class PaymentFeeCalculateAction implements PaymentFeeCalculateActionInterf
             throw new NotFoundException(sprintf('Method with id %s not found', $methodId));
         }
 
-        $this->calculate->calculate($order, $method);
+        $this->paymentSurchargeCalculator->calculate($order, $method);
 
         $paymentFee = $this->getPaymentFee($order);
 
