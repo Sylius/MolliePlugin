@@ -5,7 +5,7 @@
     <services>
         <defaults public="true" />
         <service id="sylius_mollie_plugin.processor.payment_surcharge_processor" class="Sylius\MolliePlugin\Processor\PaymentSurchargeProcessor">
-            <argument type="service" id="sylius_mollie_plugin.payment_surcharge.calculator.composite"/>
+            <argument type="service" id="sylius_mollie.payment_surcharge.calculator.composite"/>
         </service>
     </services>
 </container>

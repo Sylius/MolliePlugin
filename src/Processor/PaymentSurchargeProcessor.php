@@ -19,12 +19,12 @@ use Sylius\Component\Payment\Model\PaymentInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Entity\OrderInterface;
-use Sylius\MolliePlugin\PaymentFee\CompositePaymentSurchargeCalculator;
+use Sylius\MolliePlugin\PaymentFee\CompositePaymentSurchargeCalculatorInterface;
 use Webmozart\Assert\Assert;
 
 final class PaymentSurchargeProcessor implements PaymentSurchargeProcessorInterface
 {
-    public function __construct(private readonly CompositePaymentSurchargeCalculator $calculate)
+    public function __construct(private readonly CompositePaymentSurchargeCalculatorInterface $calculate)
     {
     }
 

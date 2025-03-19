@@ -43,6 +43,8 @@ final class Options
 
     public const LOG_INFO = 'sylius_mollie_plugin.ui.info';
 
+    public const NO_FEE = 'no_fee';
+
     public static function getAvailablePaymentType(): array
     {
         return [

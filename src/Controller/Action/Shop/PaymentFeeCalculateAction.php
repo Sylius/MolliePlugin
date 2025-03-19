@@ -20,7 +20,7 @@ use Sylius\Component\Order\Context\CartContextInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Helper\ConvertPriceToAmount;
-use Sylius\MolliePlugin\PaymentFee\CompositePaymentSurchargeCalculator;
+use Sylius\MolliePlugin\PaymentFee\CompositePaymentSurchargeCalculatorInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +28,7 @@ use Twig\Environment;
 
 final class PaymentFeeCalculateAction implements PaymentFeeCalculateActionInterface
 {
-    public function __construct(private readonly CompositePaymentSurchargeCalculator $calculate, private readonly CartContextInterface $cartContext, private readonly RepositoryInterface $methodRepository, private readonly AdjustmentsAggregatorInterface $adjustmentsAggregator, private readonly ConvertPriceToAmount $convertPriceToAmount, private readonly Environment $twig)
+    public function __construct(private readonly CompositePaymentSurchargeCalculatorInterface $calculate, private readonly CartContextInterface $cartContext, private readonly RepositoryInterface $methodRepository, private readonly AdjustmentsAggregatorInterface $adjustmentsAggregator, private readonly ConvertPriceToAmount $convertPriceToAmount, private readonly Environment $twig)
     {
     }
 
