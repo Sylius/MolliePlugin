@@ -1,6 +1,7 @@
 imports:
     - vendor/sylius/sylius/src/Sylius/Behat/Resources/config/suites.yml
     - tests/Behat/Resources/suites.yml
+    - tests/Behat/Resources/integration/sylius_admin_order_creation_plugin/suites.yaml
 
 default:
     formatters:
@@ -44,4 +45,14 @@ default:
 
         FriendsOfBehat\SuiteSettingsExtension:
             paths:
-                - "features"
+                - "features/admin"
+                - "features/shop"
+    gherkin:
+        filters:
+            tags: "~@todo&&~@cli" # CLI is excluded as it registers an error handler that mutes fatal errors
+
+admin_order_creation:
+    extensions:
+        FriendsOfBehat\SuiteSettingsExtension:
+            paths:
+                - "features/integration/admin_order_creation"

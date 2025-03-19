@@ -8,7 +8,7 @@
             <argument type="service" id="sylius_mollie_plugin.resolver.address.apple_pay_address_resolver"/>
             <argument type="service" id="sylius_mollie_plugin.mollie_api_client"/>
             <argument type="service" id="sylius_mollie_plugin.provider.order.order_payment_apple_pay_direct_provider"/>
-            <argument type="service" id="Sylius\AdminOrderCreationPlugin\Provider\CustomerProvider"/>
+            <argument type="service" id="sylius_mollie.provider.customer"/>
             <argument type="service" id="sylius_mollie_plugin.provider.apple.apple_pay_direct_payment_provider"/>
         </service>
         <service id="sylius_mollie_plugin.provider.order.order_payment_apple_pay_direct_provider" class="Sylius\MolliePlugin\Provider\Order\OrderPaymentApplePayDirectProvider">
@@ -16,7 +16,7 @@
             <argument type="service" id="sm.factory"/>
             <argument type="service" id="sylius.repository.payment_method"/>
             <argument type="service" id="sylius.repository.gateway_config"/>
-            <argument type="service" id="Sylius\AdminOrderCreationPlugin\Provider\PaymentTokenProvider"/>
+            <argument type="service" id="sylius_mollie.provider.payment_token"/>
             <argument type="service" id="payum"/>
         </service>
         <service id="sylius_mollie_plugin.provider.divisor.divisor_provider" class="Sylius\MolliePlugin\Provider\Divisor\DivisorProvider"/>
@@ -24,5 +24,17 @@
             <argument type="service" id="sylius_mollie_plugin.resolver.apple_pay_direct.apple_pay_direct_payment_type_resolver"/>
         </service>
         <service id="bit_bag.sylius_mollie_plugin.form.extension.resolver_group_provider" class="Sylius\MolliePlugin\Provider\Form\ResolverGroupProvider"/>
+
+        <service id="sylius_mollie.provider.payment_token" class="Sylius\MolliePlugin\Provider\PaymentToken\PaymentTokenProvider">
+            <argument type="service" id="payum" />
+            <argument type="string">sylius_shop_order_after_pay</argument>
+        </service>
+        <service id="Sylius\MolliePlugin\Provider\PaymentToken\PaymentTokenProviderInterface" alias="sylius_mollie.provider.payment_token" />
+
+        <service id="sylius_mollie.provider.customer" class="Sylius\MolliePlugin\Provider\Customer\CustomerProvider">
+            <argument type="service" id="sylius.repository.customer" />
+            <argument type="service" id="sylius.factory.customer"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Provider\Customer\CustomerProviderInterface" alias="sylius_mollie.provider.customer" />
     </services>
 </container>

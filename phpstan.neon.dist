@@ -29,5 +29,7 @@ parameters:
         - '#Call to an undefined method Sylius\\MolliePlugin\\Entity\\TemplateMollieEmail::initializeTranslationsCollection\(\)#'
         - '#Negated boolean expression is always true.#'
 
+        - '#.* Sylius\\AdminOrderCreationPlugin\\.*#' # Ignore all errors from missing AdminOrderCreationPlugin
+
         - '#Property .* is never read, only written.#'
         - '#Method .*get.*Translation\(\) should return Sylius\\.*Resource\\Model\\TranslationInterface but returns Sylius\\.*Resource\\Model\\TranslationInterface.#'

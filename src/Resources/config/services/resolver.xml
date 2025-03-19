@@ -33,7 +33,7 @@
             <argument type="service" id="sylius_mollie_plugin.helper.int_to_string"/>
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius_mollie_plugin.preparer.payment_link_email_preparer"/>
-            <argument type="service" id="Sylius\AdminOrderCreationPlugin\Provider\PaymentTokenProvider" />
+            <argument type="service" id="sylius_mollie.provider.payment_token" />
         </service>
         <service id="sylius_mollie_plugin.resolver.mollie_countries_restriction_resolver" class="Sylius\MolliePlugin\Resolver\MollieCountriesRestrictionResolver">
             <argument type="service" id="sylius_mollie_plugin.resolver.payment_methods_image"/>

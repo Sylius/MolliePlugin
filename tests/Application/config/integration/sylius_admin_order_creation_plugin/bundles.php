@@ -11,10 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Repository;
-
-use Sylius\Component\Core\Repository\CustomerRepositoryInterface as BaseCustomerRepositoryInterface;
-
-interface CustomerRepositoryInterface extends BaseCustomerRepositoryInterface
-{
-}
+return [
+    FOS\JsRoutingBundle\FOSJsRoutingBundle::class => ['all' => true],
+    Sylius\AdminOrderCreationPlugin\SyliusAdminOrderCreationPlugin::class => ['all' => true],
+];
