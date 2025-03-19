@@ -30,7 +30,7 @@ final class MollieEmailTemplateMenuListener
 
         $cmsRootMenuItem
             ->addChild('mollie_email_template', [
-                'route' => 'sylius_mollie_plugin_admin_template_mollie_email_index',
+                'route' => 'sylius_mollie_admin_template_mollie_email_index',
             ])
             ->setLabel('sylius_mollie_plugin.ui.template_mollie_emails')
             ->setLabelAttribute('icon', 'envelope');
