@@ -34,11 +34,9 @@ use Webmozart\Assert\Assert;
 
 final class ConvertOrder implements ConvertOrderInterface
 {
-    /** @var OrderInterface */
-    private $order;
+    private OrderInterface $order;
 
-    /** @var ZoneInterface */
-    private $zone;
+    private ZoneInterface $zone;
 
     public function __construct(private readonly IntToStringConverterInterface $intToStringConverter, private readonly CalculateTaxAmountInterface $calculateTaxAmount, private readonly MealVoucherResolverInterface $mealVoucherResolver, private readonly TaxRateResolverInterface $taxRateResolver, private readonly ZoneMatcherInterface $zoneMatcher, private readonly RequestStack $requestStack)
     {
