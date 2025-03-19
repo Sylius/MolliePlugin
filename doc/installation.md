@@ -438,7 +438,7 @@ class Product extends BaseProduct implements ProductInterface
      */
     #[ORM\ManyToOne(targetEntity: ProductType::class)]
     #[ORM\JoinColumn(name: "product_type_id", referencedColumnName: "id", onDelete: "SET NULL")]
-    protected ?ProductType $productType = null;
+    protected ?ProductTypeInterface $productType = null;
 }
 
 ```
@@ -491,6 +491,7 @@ namespace App\Entity\Product;
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\ProductVariant as BaseProductVariant;
 use Sylius\Component\Product\Model\ProductVariantTranslationInterface;
+use SyliusMolliePlugin\Entity\RecurringProductVariantTrait;
 
 /**
  * @ORM\Entity
@@ -500,30 +501,6 @@ class ProductVariant extends BaseProductVariant
 {
     use RecurringProductVariantTrait;
 
-    protected function createTranslation(): ProductVariantTranslationInterface
-    {
-        return new ProductVariantTranslation();
-    }
-    
-    public function getName(): ?string
-    {
-        return parent::getName() ?: $this->getProduct()->getName();
-    }
-}
-```
-Add RecurringProductVariantTrait implementation:
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace App\Entity\Product;
-
-
-use Doctrine\ORM\Mapping as ORM;
-
-trait RecurringProductVariantTrait
-{
     /**
      * @var bool
      * @ORM\Column(type="boolean", name="recurring", nullable="false", options={"default":0})
@@ -542,34 +519,14 @@ trait RecurringProductVariantTrait
      */
     private ?string $interval = null;
 
-    public function isRecurring(): bool
+    protected function createTranslation(): ProductVariantTranslationInterface
     {
-        return $this->recurring;
-    }
-
-    public function setRecurring(bool $recurring): void
-    {
-        $this->recurring = $recurring;
-    }
-
-    public function getTimes(): ?int
-    {
-        return $this->times;
-    }
-
-    public function setTimes(?int $times): void
-    {
-        $this->times = $times;
+        return new ProductVariantTranslation();
     }
 
     public function getName(): ?string
     {
-        return $this->interval;
-    }
-
-    public function setInterval(?string $interval): void
-    {
-        $this->interval = $interval;
+        return parent::getName() ?: $this->getProduct()->getName();
     }
 }
 ```
@@ -595,30 +552,6 @@ class ProductVariant extends BaseProductVariant
 {
     use RecurringProductVariantTrait;
 
-    protected function createTranslation(): ProductVariantTranslationInterface
-    {
-        return new ProductVariantTranslation();
-    }
-
-    public function getName(): ?string
-    {
-        return parent::getName() ?: $this->getProduct()->getName();
-    }
-}
-
-```
-Add RecurringProductVariantTrait implementation:
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace App\Entity\Product;
-
-use Doctrine\ORM\Mapping as ORM;
-
-trait RecurringProductVariantTrait
-{
     /**
      * @var bool
      * @ORM\Column(type="boolean", name="recurring", nullable="false", options={"default":0})
@@ -640,36 +573,17 @@ trait RecurringProductVariantTrait
     #[ORM\Column(name: "recurring_interval", type: "string", nullable: true)]
     private ?string $interval = null;
 
-    public function isRecurring(): bool
+    protected function createTranslation(): ProductVariantTranslationInterface
     {
-        return $this->recurring;
+        return new ProductVariantTranslation();
     }
 
-    public function setRecurring(bool $recurring): void
+    public function getName(): ?string
     {
-        $this->recurring = $recurring;
-    }
-
-    public function getTimes(): ?int
-    {
-        return $this->times;
-    }
-
-    public function setTimes(?int $times): void
-    {
-        $this->times = $times;
-    }
-
-    public function getInterval(): ?string
-    {
-        return $this->interval;
-    }
-
-    public function setInterval(?string $interval): void
-    {
-        $this->interval = $interval;
+        return parent::getName() ?: $this->getProduct()->getName();
     }
 }
+
 ```
 
 If you don't use annotations, you can also define new Entity mapping inside your `src/Resources/config/doctrine` directory.

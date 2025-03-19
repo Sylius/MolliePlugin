@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace SyliusMolliePlugin\Entity;
 
+/** @mixin OrderInterface */
 trait RecurringOrderTrait
 {
     /**

@@ -11,8 +11,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Application\src\Entity;
+namespace SyliusMolliePlugin\Entity;
 
+/** @mixin ProductVariantInterface */
 trait RecurringProductVariantTrait
 {
     private bool $recurring = false;
