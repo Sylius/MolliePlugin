@@ -15,20 +15,15 @@ namespace Sylius\MolliePlugin\Entity;
 
 class MollieMethodImage implements MollieMethodImageInterface
 {
-    /** @var int|null */
-    protected $id;
+    protected ?int $id = null;
 
-    /** @var string|null */
-    protected $name;
+    protected ?string $name = null;
 
-    /** @var \SplFileInfo|null */
-    protected $file;
+    protected ?\SplFileInfo $file = null;
 
-    /** @var string|null */
-    protected $path;
+    protected ?string $path = null;
 
-    /** @var MollieGatewayConfigInterface */
-    protected $mollieGatewayConfig;
+    protected MollieGatewayConfigInterface $mollieGatewayConfig;
 
     public function getId(): ?int
     {

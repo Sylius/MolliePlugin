@@ -17,14 +17,11 @@ use Sylius\Component\Core\Model\AdminUserInterface;
 
 class OnboardingWizardStatus implements OnboardingWizardStatusInterface
 {
-    /** @var int */
-    protected $id;
+    protected int $id;
 
-    /** @var AdminUserInterface */
-    protected $adminUser;
+    protected AdminUserInterface $adminUser;
 
-    /** @var bool */
-    protected $completed;
+    protected bool $completed;
 
     public function getId(): int
     {

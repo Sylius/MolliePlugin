@@ -25,53 +25,37 @@ class MollieGatewayConfig extends AbstractMethod implements ResourceInterface, M
         getTranslation as private doGetTranslation;
     }
 
-    /** @var int */
-    protected $id;
+    protected int $id;
 
-    /** @var string|null */
-    protected $methodId;
+    protected ?string $methodId = null;
 
-    /** @var GatewayConfigInterface */
-    protected $gateway;
+    protected GatewayConfigInterface $gateway;
 
-    /** @var PaymentSurchargeFeeInterface|null */
-    protected $paymentSurchargeFee;
+    protected ?PaymentSurchargeFeeInterface $paymentSurchargeFee = null;
 
-    /** @var MollieMinMaxInterface|null */
-    protected $amountLimits;
+    protected ?MollieMinMaxInterface $amountLimits = null;
 
-    /** @var MollieMethodImageInterface|null */
-    protected $customizeMethodImage;
+    protected ?MollieMethodImageInterface $customizeMethodImage = null;
 
-    /** @var array|null */
-    protected $countryLevel;
+    protected ?array $countryLevel = null;
 
-    /** @var array|null */
-    protected $countryLevelAllowed;
+    protected ?array $countryLevelAllowed = null;
 
-    /** @var array|null */
-    protected $countryLevelExcluded;
+    protected ?array $countryLevelExcluded = null;
 
-    /** @var int|null */
-    protected $orderExpirationDays = 28;
+    protected ?int $orderExpirationDays = 28;
 
-    /** @var string|null */
-    protected $paymentDescription;
+    protected ?string $paymentDescription = null;
 
-    /** @var bool|null */
-    protected $loggerEnabled;
+    protected ?bool $loggerEnabled = null;
 
-    /** @var int|null */
-    protected $loggerLevel;
+    protected ?int $loggerLevel = null;
 
-    /** @var string|null */
-    protected $countryRestriction;
+    protected ?string $countryRestriction = null;
 
-    /** @var int|null */
-    protected $position;
+    protected ?int $position = null;
 
-    /** @var bool|null */
-    protected $qrCodeEnabled;
+    protected ?bool $qrCodeEnabled = null;
 
     public function __construct()
     {
