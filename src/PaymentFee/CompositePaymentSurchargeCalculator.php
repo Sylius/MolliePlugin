@@ -17,6 +17,7 @@ use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Exceptions\UnknownPaymentSurchargeTye;
 use Sylius\MolliePlugin\PaymentFee\Calculator\PaymentSurchargeCalculatorInterface;
+use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 
 final class CompositePaymentSurchargeCalculator implements CompositePaymentSurchargeCalculatorInterface
 {
@@ -27,16 +28,18 @@ final class CompositePaymentSurchargeCalculator implements CompositePaymentSurch
     {
     }
 
-    public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): ?OrderInterface
+    public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): void
     {
-        $paymentType = $paymentMethod->getPaymentSurchargeFee()?->getType() ?? '';
+        $paymentType = $paymentMethod->getPaymentSurchargeFee()?->getType() ?? Options::NO_FEE;
 
         foreach ($this->calculators as $calculator) {
             if ($calculator->supports($paymentType)) {
-                return $calculator->calculate($order, $paymentMethod);
+                $calculator->calculate($order, $paymentMethod);
+
+                return;
             }
         }
 
-        throw new UnknownPaymentSurchargeTye(sprintf('Unknown payment type %s', $paymentType));
+        throw new UnknownPaymentSurchargeTye(sprintf('No calculator supports payment type: %s', $paymentType));
     }
 }

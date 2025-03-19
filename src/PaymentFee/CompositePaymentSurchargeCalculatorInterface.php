@@ -18,5 +18,5 @@ use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 
 interface CompositePaymentSurchargeCalculatorInterface
 {
-    public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): ?OrderInterface;
+    public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): void;
 }

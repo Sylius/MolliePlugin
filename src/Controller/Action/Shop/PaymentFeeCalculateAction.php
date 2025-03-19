@@ -34,6 +34,7 @@ final class PaymentFeeCalculateAction implements PaymentFeeCalculateActionInterf
 
     public function __invoke(Request $request, string $methodId): Response
     {
+        /** @var OrderInterface $order */
         $order = $this->cartContext->getCart();
         $method = $this->methodRepository->findOneBy(['methodId' => $methodId]);
 
@@ -41,14 +42,9 @@ final class PaymentFeeCalculateAction implements PaymentFeeCalculateActionInterf
             throw new NotFoundException(sprintf('Method with id %s not found', $methodId));
         }
 
-        /** @var ?OrderInterface $calculatedOrder */
-        $calculatedOrder = $this->calculate->calculate($order, $method);
+        $this->calculate->calculate($order, $method);
 
-        if (null === $calculatedOrder) {
-            return new JsonResponse([], Response::HTTP_OK);
-        }
-
-        $paymentFee = $this->getPaymentFee($calculatedOrder);
+        $paymentFee = $this->getPaymentFee($order);
 
         if (0 === count($paymentFee)) {
             return new JsonResponse([], Response::HTTP_OK);
@@ -61,7 +57,7 @@ final class PaymentFeeCalculateAction implements PaymentFeeCalculateActionInterf
                     'paymentFee' => $this->convertPriceToAmount->convert(reset($paymentFee)),
                 ],
             ),
-            'orderTotal' => $this->convertPriceToAmount->convert($calculatedOrder->getTotal()),
+            'orderTotal' => $this->convertPriceToAmount->convert($order->getTotal()),
         ]);
     }
 
