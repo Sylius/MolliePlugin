@@ -704,10 +704,10 @@ mkdir -p templates/bundles/SyliusRefundPlugin/
 **Note:** Ba aware that the following commands will override your existing templates!
 
 ```
-cp -R vendor/mollie/sylius-plugin/tests/Application/templates/bundles/SyliusAdminBundle/* templates/bundles/SyliusAdminBundle/
-cp -R vendor/mollie/sylius-plugin/tests/Application/templates/bundles/SyliusShopBundle/* templates/bundles/SyliusShopBundle/
-cp -R vendor/mollie/sylius-plugin/tests/Application/templates/bundles/SyliusUiBundle/* templates/bundles/SyliusUiBundle/
-cp -R vendor/mollie/sylius-plugin/tests/Application/templates/bundles/SyliusRefundPlugin/* templates/bundles/SyliusRefundPlugin/
+cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusAdminBundle/* templates/bundles/SyliusAdminBundle/
+cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusShopBundle/* templates/bundles/SyliusShopBundle/
+cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusUiBundle/* templates/bundles/SyliusUiBundle/
+cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusRefundPlugin/* templates/bundles/SyliusRefundPlugin/
 ```
 
 #### 14. Install assets:
@@ -757,10 +757,10 @@ public/bundles/syliusmollieplugin/mollie/shop.js
 
 Another way is to import already built assets directly from mollie source files:
 ```
-vendor/mollie/sylius-plugin/src/Resources/public/mollie/admin.css
-vendor/mollie/sylius-plugin/src/Resources/public/mollie/admin.js
-vendor/mollie/sylius-plugin/src/Resources/public/mollie/shop.css
-vendor/mollie/sylius-plugin/src/Resources/public/mollie/shop.js
+vendor/sylius/mollie-plugin/src/Resources/public/mollie/admin.css
+vendor/sylius/mollie-plugin/src/Resources/public/mollie/admin.js
+vendor/sylius/mollie-plugin/src/Resources/public/mollie/shop.css
+vendor/sylius/mollie-plugin/src/Resources/public/mollie/shop.js
 ```
 
 #### 3. Using `webpack`
@@ -794,7 +794,7 @@ Encore.addEntry(
     'mollie-shop-entry',
     path.resolve(
       __dirname,
-      'vendor/mollie/sylius-plugin/src/Resources/assets/shop/entry.js'
+      'vendor/sylius/mollie-plugin/src/Resources/assets/shop/entry.js'
     )
 )
 
@@ -802,7 +802,7 @@ Encore.addEntry(
     'mollie-admin-entry',
     path.resolve(
         __dirname,
-        'vendor/mollie/sylius-plugin/src/Resources/assets/admin/entry.js'
+        'vendor/sylius/mollie-plugin/src/Resources/assets/admin/entry.js'
     )
 )
 ```
