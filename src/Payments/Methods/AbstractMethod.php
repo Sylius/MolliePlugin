@@ -25,6 +25,7 @@ abstract class AbstractMethod implements MethodInterface
 
     protected string $description;
 
+    /** @var array<string, mixed> */
     protected array $config;
 
     protected bool $enabled = false;
