@@ -22,7 +22,7 @@ jobs:
                 node: [ "14.x" ]
                 mysql: [ "8.4" ]
                 symfony: [ "^6.4" ]
-                sylius: [ "~1.12.19", "~1.13.11" ]
+                sylius: [ "~1.13.11" ]
                 admin_order_creation: [ "no" ]
 
                 include:
