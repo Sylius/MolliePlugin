@@ -24,7 +24,7 @@ final class OrderVoucherAdjustmentUpdater implements OrderVoucherAdjustmentUpdat
     public function __construct(
         private readonly RepositoryInterface $orderRepository,
         private readonly OrderVouchersApplicatorInterface $orderVouchersApplicator,
-        private readonly DivisorProviderInterface $divisorProvider
+        private readonly DivisorProviderInterface $divisorProvider,
     ) {
     }
 
