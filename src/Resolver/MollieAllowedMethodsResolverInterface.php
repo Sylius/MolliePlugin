@@ -17,5 +17,10 @@ use Sylius\Component\Core\Model\OrderInterface;
 
 interface MollieAllowedMethodsResolverInterface
 {
+    /**
+     * @return string[] List of IDs of the allowed methods
+     *
+     * @see \Mollie\Api\Resources\Method
+     */
     public function resolve(OrderInterface $order): array;
 }

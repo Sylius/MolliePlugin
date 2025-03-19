@@ -40,6 +40,16 @@ final class MollieAllowedMethodsResolver implements MollieAllowedMethodsResolver
         return $allowedMethodsIds;
     }
 
+    /**
+     * @return array{
+     *     amount: array{
+     *         value: string,
+     *         currency: string
+     *     },
+     *     billingCountry: string|null,
+     *     locale: string|null
+     * }
+     */
     private function createParametersByOrder(OrderInterface $order): array
     {
         $parameters = array_merge(
