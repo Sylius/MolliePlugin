@@ -35,16 +35,16 @@ winzou_state_machine:
             guard:
                 sylius_mollie_plugin_activate_recurring_subscription_guard_for_complete:
                     on: 'complete'
-                    do: [ '@sylius_mollie_plugin.guard.subscription', 'isCompletable' ]
+                    do: [ '@sylius_mollie.guard.subscription', 'isCompletable' ]
                     args: [ 'object' ]
                 sylius_mollie_plugin_activate_recurring_subscription_guard_for_abort:
                     on: 'abort'
-                    do: [ '@sylius_mollie_plugin.guard.subscription', 'isEligibleForPaymentsAbort' ]
+                    do: [ '@sylius_mollie.guard.subscription', 'isEligibleForPaymentsAbort' ]
                     args: [ 'object' ]
             after:
                 sylius_mollie_plugin_activate_recurring_subscription_process:
                     on: ["activate"]
-                    do: ["@sylius_mollie_plugin.processor.subscription_schedule_processor", "processScheduleGeneration"]
+                    do: ["@sylius_mollie.processor.subscription_schedule", "processScheduleGeneration"]
                     args: ["object"]
 
     mollie_subscription_processing:
