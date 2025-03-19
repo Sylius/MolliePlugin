@@ -247,20 +247,55 @@ The following service IDs have been removed:
 | `sylius_mollie_plugin.validator.constraits.payment_surcharge_type_validator`                              | `sylius_mollie.validator.payment_surcharge_type`                                |
 | `sylius_mollie_plugin.validator.apple_pay_direct.apple_pay_address_validator`                             | `sylius_mollie.validator.apple_pay_direct.apple_pay_address`                    |
 | `sylius_mollie_plugin.validator.apple_pay_direct.payment_method_checkout_validator`                       | `sylius_mollie.validator.apple_pay_direct.payment_method_checkout`              |
-| `sylius_mollie_plugin.validator.constraints.payment_method_mollie_channel_unique_validator`               | `sylius_mollie.validator.payment_method_mollie_channel_unique`      |
+| `sylius_mollie_plugin.validator.constraints.payment_method_mollie_channel_unique_validator`               | `sylius_mollie.validator.payment_method_mollie_channel_unique`                  |
 | `sylius_mollie_plugin.validator.refund.refund_units_command_validator`                                    | `sylius_mollie.validator.refund.refund_units_command`                           |
 | `sylius_mollie_plugin.checker.version.mollie_plugin_latest_version_checker`                               | `sylius_mollie.checker.version.mollie_plugin_latest_version`                    |
 | `sylius_mollie_plugin.checker.voucher.product_voucher_type_checker`                                       | `sylius_mollie.checker.voucher.product_voucher_type`                            |
+| `sylius_mollie_plugin.page.shop.account.order.index`                                                      | `sylius_mollie.behat.page.shop.account.order.index`                             |
+| `sylius_mollie_plugin.page.shop.checkout.complete`                                                        | `sylius_mollie.behat.page.shop.checkout.complete`                               |
+| `sylius_mollie_plugin.page.admin.order_index`                                                             | `sylius_mollie.behat.page.admin.order_index`                                    |
+| `sylius_mollie_plugin.page.admin.order_show`                                                              | `sylius_mollie.behat.page.admin.order_show`                                     |
+| `sylius_mollie_plugin.page.admin.payment_method.create`                                                   | `sylius_mollie.behat.page.admin.payment_method.create`                          |
+| `sylius_mollie_plugin.behat.context.setup.mollie`                                                         | `sylius_mollie.behat.context.setup.mollie`                                      |
+| `sylius_mollie_plugin.context.setup.order`                                                                | `sylius_mollie.behat.context.setup.order`                                       |
+| `sylius_mollie_plugin.context.setup.subscription`                                                         | `sylius_mollie.behat.context.setup.subscription`                                |
+| `sylius_mollie_plugin.behat.context.setup.product`                                                        | `sylius_mollie.behat.context.setup.product`                                     |
+| `sylius_mollie_plugin.behat.context.ui.admin.managing_payment_method_mollie`                              | `sylius_mollie.behat.context.ui.admin.managing_payment_method_mollie`           |
+| `sylius_mollie_plugin.behat.context.ui.shop.checkout`                                                     | `sylius_mollie.behat.context.ui.shop.checkout`                                  |
+| `sylius_mollie_plugin.behat.context.ui.shop.product`                                                      | `sylius_mollie.behat.context.ui.shop.product`                                   |
+| `sylius_mollie_plugin.behat.context.ui.admin.refund`                                                      | `sylius_mollie.behat.context.ui.admin.refund`                                   |
+| `sylius_mollie_plugin.behat.context.ui.shop.account`                                                      | `sylius_mollie.behat.context.ui.shop.account`                                   |
+| `sylius_mollie_plugin.behat.context.ui.admin.order`                                                       | `sylius_mollie.behat.context.ui.admin.order`                                    |
+| `sylius_mollie_plugin.behat.context.ui.admin.managing_orders`                                             | `sylius_mollie.behat.context.ui.admin.managing_orders`                          |
 
 1. Removed parameters:
 
-The following parameters have been removed:
+The following parameters have been replaced:
 
 | Removed parameter                                                                        | Use Instead                                                                       |
 |------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
 | `sylius_mollie_plugin.form.type.payment_methods.validation_groups.transport`             | `sylius_mollie.form.type.payment_methods.validation_groups.transport`             |
 | `sylius_mollie_plugin.form.type.payment_methods.payment_surcharge_fee.validation_groups` | `sylius_mollie.form.type.payment_methods.payment_surcharge_fee.validation_groups` |
 | `sylius_mollie_plugin.form.type.mollie.validation_groups`                                | `sylius_mollie.form.type.mollie.validation_groups`                                |
-| `sylius_mollie_plugin.admin.version.uri`                                                 | `sylius_mollie.admin.version.uri`                                                 |
 | `sylius_mollie_plugin.twig.functions`                                                    | `sylius_mollie.twig.functions`                                                    |
 | `sylius_mollie_plugin_render_email_template`                                             | `sylius_mollie_render_email_template`                                             |
+
+The following parameters have been removed:
+
+- `sylius_mollie_plugin.admin.version.uri`
+
+1. Renamed resources:
+
+| From                                                | To                                           |
+|-----------------------------------------------------|----------------------------------------------|
+| `sylius_mollie_plugin.amount_limits`                | `sylius_mollie.amount_limits`                |
+| `sylius_mollie_plugin.mollie_customer`              | `sylius_mollie.mollie_customer`              |
+| `sylius_mollie_plugin.template_mollie_email`        | `sylius_mollie.template_mollie_email`        |
+| `sylius_mollie_plugin.mollie_logger`                | `sylius_mollie.mollie_logger`                |
+| `sylius_mollie_plugin.mollie_method_image`          | `sylius_mollie.mollie_method_image`          |
+| `sylius_mollie_plugin.mollie_gateway_config`        | `sylius_mollie.mollie_gateway_config`        |
+| `sylius_mollie_plugin.mollie_subscription`          | `sylius_mollie.mollie_subscription`          |
+| `sylius_mollie_plugin.mollie_subscription_schedule` | `sylius_mollie.mollie_subscription_schedule` |
+| `sylius_mollie_plugin.onboarding_wizard_status`     | `sylius_mollie.onboarding_wizard_status`     |
+| `sylius_mollie_plugin.payment_surcharge_fee`        | `sylius_mollie.payment_surcharge_fee`        |
+| `sylius_mollie_plugin.product_type`                 | `sylius_mollie.product_type`                 |
