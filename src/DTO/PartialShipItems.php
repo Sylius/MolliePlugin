@@ -18,8 +18,7 @@ use Doctrine\Common\Collections\Collection;
 
 final class PartialShipItems
 {
-    /** @var Collection */
-    private $partialShipItems;
+    private Collection $partialShipItems;
 
     public function __construct()
     {
