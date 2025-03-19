@@ -51,7 +51,7 @@ final class OrderPaymentRefund implements OrderPaymentRefundInterface
         /** @var PaymentInterface|false|null $payment */
         $payment = $order->getPayments()->last();
         if (!$payment instanceof PaymentInterface) {
-            $this->loggerAction->addNegativeLog(sprintf('No payment in refund'));
+            $this->loggerAction->addNegativeLog('No payment in refund');
 
             throw new NotFoundHttpException();
         }
@@ -75,10 +75,8 @@ final class OrderPaymentRefund implements OrderPaymentRefundInterface
 
         $hash = $details['metadata']['refund_token'];
 
-        /** @var TokenInterface|mixed $token */
         $token = $this->payum->getTokenStorage()->find($hash);
-
-        if (null === $token || !$token instanceof TokenInterface) {
+        if (!$token instanceof TokenInterface) {
             $this->loggerAction->addNegativeLog(sprintf('A token with hash `%s` could not be found.', $hash));
 
             throw new BadRequestHttpException(sprintf('A token with hash `%s` could not be found.', $hash));
