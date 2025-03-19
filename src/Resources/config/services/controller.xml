@@ -26,7 +26,7 @@
             <argument type="service" id="sylius_mollie_plugin.logger.mollie_logger_action"/>
         </service>
         <service id="sylius_mollie_plugin.controller.action.shop.payment_fee_calculate_action" class="Sylius\MolliePlugin\Controller\Action\Shop\PaymentFeeCalculateAction">
-            <argument type="service" id="sylius_mollie_plugin.payment_surcharge.calculate"/>
+            <argument type="service" id="sylius_mollie_plugin.payment_surcharge.calculator.composite"/>
             <argument type="service" id="sylius.context.cart"/>
             <argument type="service" id="sylius_mollie_plugin.repository.mollie_gateway_config"/>
             <argument type="service" id="sylius.adjustments_aggregator" />
@@ -34,7 +34,7 @@
             <argument type="service" id="twig"/>
         </service>
         <service id="sylius_mollie_plugin.sylius_mollie_plugin.controller.action.shop.payment_fee_calculate_action" class="Sylius\MolliePlugin\Controller\Action\Shop\PaymentFeeCalculateAction">
-            <argument type="service" id="sylius_mollie_plugin.payment_surcharge.calculate"/>
+            <argument type="service" id="sylius_mollie_plugin.payment_surcharge.calculator.composite"/>
             <argument type="service" id="sylius.context.cart"/>
             <argument type="service" id="sylius_mollie_plugin.repository.mollie_gateway_config"/>
             <argument type="service" id="sylius.adjustments_aggregator" />
