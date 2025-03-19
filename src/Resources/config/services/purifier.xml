@@ -1,19 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <defaults public="true" />
-        <service id="sylius_mollie_plugin.purifier.partial_ship.order_shipment_purifier" class="Sylius\MolliePlugin\Purifier\PartialShip\OrderShipmentPurifier" public="true">
-            <argument type="service" id="sylius_mollie_plugin.purifier.partial_ship.order_mollie_partial_ship"/>
+
+        <service id="sylius_mollie.purifier.partial_ship.order_shipment" class="Sylius\MolliePlugin\Purifier\PartialShip\OrderShipmentPurifier">
+            <argument type="service" id="sylius_mollie.purifier.partial_ship.order_mollie_partial_ship"/>
         </service>
-        <service id="sylius_mollie_plugin.purifier.partial_ship.order_mollie_partial_ship" class="Sylius\MolliePlugin\Purifier\PartialShip\OrderMolliePartialShip" public="true">
-            <argument type="service" id="sylius_mollie_plugin.mollie_api_client"/>
-            <argument type="service" id="sylius_mollie_plugin.logger.mollie_logger_action"/>
-            <argument type="service" id="sylius_mollie_plugin.resolver.partial_ship.from_sylius_to_mollie_lines_resolver"/>
+
+        <service id="sylius_mollie.purifier.partial_ship.order_mollie_partial_ship" class="Sylius\MolliePlugin\Purifier\PartialShip\OrderMolliePartialShip">
+            <argument type="service" id="sylius_mollie.mollie_api_client"/>
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
+            <argument type="service" id="sylius_mollie.resolver.partial_ship.from_sylius_to_mollie_lines"/>
         </service>
-        <service id="sylius_mollie_plugin.purifier.mollie_payment_method_purifier" class="Sylius\MolliePlugin\Purifier\MolliePaymentMethodPurifier" public="true">
-            <argument type="service" id="sylius_mollie_plugin.repository.mollie_gateway_config"/>
+
+        <service id="sylius_mollie.purifier.mollie_payment_method" class="Sylius\MolliePlugin\Purifier\MolliePaymentMethodPurifier">
+            <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
         </service>
     </services>
 </container>

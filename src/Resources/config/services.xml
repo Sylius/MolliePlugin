@@ -5,8 +5,12 @@
         <import resource="services/**/*.xml" />
     </imports>
     <services>
-        <defaults public="false" />
         <defaults autowire="false" />
         <defaults autoconfigure="false" />
+
+        <service id="sylius_mollie.mollie_payment" class="Sylius\MolliePlugin\Action\ApiPlatform\MolliePayment">
+            <argument type="service" id="router" />
+            <tag name="sylius.api.payment_method_handler" />
+        </service>
     </services>
 </container>
