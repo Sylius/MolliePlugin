@@ -164,8 +164,8 @@ tests/application/public/build/mollie-shop/..
 ## Testing
 
 ```
-$ bin/behat
-$ bin/phpspec run
+$ vendor/bin/behat
+$ vendor/bin/phpunit
 ```
 
 ## Community

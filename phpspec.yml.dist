@@ -1,4 +1,0 @@
-suites:
-    main:
-        namespace: SyliusMolliePlugin
-        psr4_prefix: SyliusMolliePlugin
