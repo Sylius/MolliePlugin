@@ -27,17 +27,13 @@ use Webmozart\Assert\Assert;
 
 final class OrderContext implements Context
 {
-    /** @var EntityManager */
-    private $entityManager;
+    private EntityManager $entityManager;
 
-    /** @var StateMachineFactoryInterface */
-    private $stateMachineFactory;
+    private StateMachineFactoryInterface $stateMachineFactory;
 
-    /** @var RegistryInterface|Payum */
-    private $payum;
+    private Payum|RegistryInterface $payum;
 
-    /** @var DivisorProviderInterface */
-    private $divisorProvider;
+    private DivisorProviderInterface $divisorProvider;
 
     private MollieGatewayFactoryCheckerInterface $mollieGatewayFactoryChecker;
 

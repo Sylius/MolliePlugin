@@ -28,11 +28,9 @@ use Webmozart\Assert\Assert;
 
 final class SubscriptionContext implements Context
 {
-    /** @var EntityManagerInterface */
-    private $entityManagerSubscription;
+    private EntityManagerInterface $entityManagerSubscription;
 
-    /** @var FactoryInterface */
-    private $subscriptionFactory;
+    private FactoryInterface $subscriptionFactory;
 
     private SharedStorageInterface $sharedStorage;
 

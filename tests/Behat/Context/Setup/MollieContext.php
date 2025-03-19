@@ -32,17 +32,13 @@ use Webmozart\Assert\Assert;
 
 final class MollieContext implements Context
 {
-    /** @var SharedStorageInterface */
-    private $sharedStorage;
+    private SharedStorageInterface $sharedStorage;
 
-    /** @var PaymentMethodRepositoryInterface */
-    private $paymentMethodRepository;
+    private PaymentMethodRepositoryInterface $paymentMethodRepository;
 
-    /** @var ExampleFactoryInterface */
-    private $paymentMethodExampleFactory;
+    private ExampleFactoryInterface $paymentMethodExampleFactory;
 
-    /** @var EntityManager */
-    private $paymentMethodManager;
+    private EntityManager $paymentMethodManager;
 
     private string $mollieApiKeyTest;
 

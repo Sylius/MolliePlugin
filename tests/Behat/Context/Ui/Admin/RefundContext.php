@@ -19,8 +19,7 @@ use Sylius\Component\Core\Model\OrderInterface;
 
 final class RefundContext implements Context
 {
-    /** @var ManagingOrdersContext */
-    private $managingOrdersContext;
+    private ManagingOrdersContext $managingOrdersContext;
 
     public function __construct(
         ManagingOrdersContext $managingOrdersContext,

@@ -19,8 +19,7 @@ use Webmozart\Assert\Assert;
 
 final class ManagingPaymentMethodContext implements Context
 {
-    /** @var CreatePageInterface */
-    private $createPage;
+    private CreatePageInterface $createPage;
 
     private string $mollieTestApiKey;
 
