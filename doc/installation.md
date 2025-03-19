@@ -5,7 +5,7 @@ Ensure that you have `wkhtmltopdf` installed, and that you have the proper path 
 #### 1. Require Mollie plugin with composer:
 
 ```bash
-composer require mollie/sylius-plugin --no-scripts -W
+composer require sylius/mollie-plugin --no-scripts -W
 ```
 
 #### 2. Follow the installation instructions of RefundPlugin
