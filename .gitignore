@@ -19,6 +19,5 @@
 /public
 /.phpunit.result.cache
 /behat.yml
-/phpspec.yml
 /phpunit.xml
 /phpstan.neon
