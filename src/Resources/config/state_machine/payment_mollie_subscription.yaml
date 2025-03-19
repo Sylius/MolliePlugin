@@ -13,7 +13,7 @@ winzou_state_machine:
                     args: [ "object" ]
 
     mollie_subscription_manual:
-        class: "%sylius_mollie_plugin.model.mollie_subscription.class%"
+        class: "%sylius_mollie.model.mollie_subscription.class%"
         property_path: state
         graph: mollie_subscription_payment_graph_manual
         state_machine_class: "%sylius.state_machine.class%"
@@ -37,7 +37,7 @@ winzou_state_machine:
                 to: canceled
 
     mollie_subscription_payment_state_graph:
-        class: "%sylius_mollie_plugin.model.mollie_subscription.class%"
+        class: "%sylius_mollie.model.mollie_subscription.class%"
         property_path: paymentState
         graph: mollie_subscription_payment_state_graph
         state_machine_class: "%sylius.state_machine.class%"

@@ -1,6 +1,6 @@
 sylius_mollie_plugin_mollie_logger:
   resource: |
-    alias: sylius_mollie_plugin.mollie_logger
+    alias: sylius_mollie.mollie_logger
     section: admin
     path: /mollie/logger
     permission: true

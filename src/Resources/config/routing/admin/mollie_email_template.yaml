@@ -1,6 +1,6 @@
 sylius_mollie_plugin_mollie_logger:
   resource: |
-    alias: sylius_mollie_plugin.template_mollie_email
+    alias: sylius_mollie.template_mollie_email
     section: admin
     path: /mollie/email-template
     templates: "@SyliusAdmin\\Crud"

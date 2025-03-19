@@ -4,7 +4,7 @@ sylius_grid:
             driver:
                 name: doctrine/orm
                 options:
-                    class: "%sylius_mollie_plugin.model.mollie_subscription.class%"
+                    class: "%sylius_mollie.model.mollie_subscription.class%"
             actions:
                 item:
                     show:

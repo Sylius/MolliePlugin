@@ -1,6 +1,6 @@
 sylius_mollie_plugin_mollie_subscription:
     resource: |
-        alias: sylius_mollie_plugin.mollie_subscription
+        alias: sylius_mollie.mollie_subscription
         section: admin
         path: /mollie/subscription
         permission: true

@@ -2,7 +2,7 @@ sylius_admin_order_payment_refund:
   path: /orders/{orderId}/payments/{id}/refund
   methods: [PUT,POST]
   defaults:
-    _controller: sylius_mollie_plugin.controller.action.admin.refund
+    _controller: sylius_mollie.controller.admin.refund
 
 sylius_mollie_plugin_payum_refund:
   resource: "@PayumBundle/Resources/config/routing/refund.xml"

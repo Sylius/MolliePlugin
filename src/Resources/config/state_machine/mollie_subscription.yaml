@@ -1,6 +1,6 @@
 winzou_state_machine:
     mollie_subscription:
-        class: "%sylius_mollie_plugin.model.mollie_subscription.class%"
+        class: "%sylius_mollie.model.mollie_subscription.class%"
         property_path: state
         graph: mollie_subscription_graph
         state_machine_class: "%sylius.state_machine.class%"
@@ -48,7 +48,7 @@ winzou_state_machine:
                     args: ["object"]
 
     mollie_subscription_processing:
-        class: "%sylius_mollie_plugin.model.mollie_subscription.class%"
+        class: "%sylius_mollie.model.mollie_subscription.class%"
         property_path: processingState
         graph: mollie_subscription_processing_graph
         state_machine_class: "%sylius.state_machine.class%"
