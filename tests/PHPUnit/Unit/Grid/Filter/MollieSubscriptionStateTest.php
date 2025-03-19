@@ -11,13 +11,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Grid\Filter;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Grid\Filter;
 
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Grid\Data\DataSourceInterface;
 use Sylius\Component\Grid\Data\ExpressionBuilderInterface;
 use Sylius\Component\Grid\Filtering\FilterInterface;
-use SyliusMolliePlugin\Grid\Filter\MollieSubscriptionState;
+use Sylius\MolliePlugin\Grid\Filter\MollieSubscriptionState;
 
 final class MollieSubscriptionStateTest extends TestCase
 {
@@ -28,12 +28,12 @@ final class MollieSubscriptionStateTest extends TestCase
         $this->mollieSubscriptionState = new MollieSubscriptionState();
     }
 
-    function testImplementFilterInterface(): void
+    public function testImplementFilterInterface(): void
     {
         $this->assertInstanceOf(FilterInterface::class, $this->mollieSubscriptionState);
     }
 
-    function testAppliesWhenArrayKeyExists(): void
+    public function testAppliesWhenArrayKeyExists(): void
     {
         $sourceMock = $this->createMock(DataSourceInterface::class);
         $builderMock = $this->createMock(ExpressionBuilderInterface::class);
@@ -56,7 +56,7 @@ final class MollieSubscriptionStateTest extends TestCase
         $this->mollieSubscriptionState->apply($sourceMock, 'name', $data, []);
     }
 
-    function testReturnsWhenArrayKeyDoesNotExists(): void
+    public function testReturnsWhenArrayKeyDoesNotExists(): void
     {
         $sourceMock = $this->createMock(DataSourceInterface::class);
 
@@ -68,7 +68,7 @@ final class MollieSubscriptionStateTest extends TestCase
         $this->mollieSubscriptionState->apply($sourceMock, 'name', $data, []);
     }
 
-    function testReturnsWhenArrayKeyHasEmptyValue(): void
+    public function testReturnsWhenArrayKeyHasEmptyValue(): void
     {
         $sourceMock = $this->createMock(DataSourceInterface::class);
 

@@ -11,18 +11,17 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Entity;
+namespace Sylius\MolliePlugin\Entity;
 
-use SyliusMolliePlugin\Payments\Methods\AbstractMethod;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\Resource\Model\TranslatableTrait;
 use Sylius\Component\Resource\Model\TranslationInterface;
+use Sylius\MolliePlugin\Payments\Methods\AbstractMethod;
 
-class MollieGatewayConfig extends AbstractMethod implements ResourceInterface, MollieGatewayConfigInterface
+class MollieGatewayConfig extends AbstractMethod implements ResourceInterface, MollieGatewayConfigInterface, \Stringable
 {
     use TranslatableTrait {
         __construct as private initializeTranslationsCollection;
-
         getTranslation as private doGetTranslation;
     }
 
@@ -71,9 +70,7 @@ class MollieGatewayConfig extends AbstractMethod implements ResourceInterface, M
     /** @var int|null */
     protected $position;
 
-    /**
-     * @var bool|null
-     */
+    /** @var bool|null */
     protected $qrCodeEnabled;
 
     public function __construct()

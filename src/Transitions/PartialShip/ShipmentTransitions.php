@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Transitions\PartialShip;
+namespace Sylius\MolliePlugin\Transitions\PartialShip;
 
 final class ShipmentTransitions
 {

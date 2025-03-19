@@ -11,44 +11,24 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Creator;
+namespace Sylius\MolliePlugin\Creator;
 
-use SyliusMolliePlugin\DTO\PartialRefundItems;
-use SyliusMolliePlugin\Exceptions\OfflineRefundPaymentMethodNotFound;
-use SyliusMolliePlugin\Helper\ConvertOrderInterface;
-use SyliusMolliePlugin\Refund\Units\UnitsItemOrderRefundInterface;
-use SyliusMolliePlugin\Refund\Units\UnitsShipmentOrderRefundInterface;
 use Mollie\Api\Resources\Order;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\DTO\PartialRefundItems;
+use Sylius\MolliePlugin\Exceptions\OfflineRefundPaymentMethodNotFound;
+use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
+use Sylius\MolliePlugin\Refund\Units\UnitsItemOrderRefundInterface;
+use Sylius\MolliePlugin\Refund\Units\UnitsShipmentOrderRefundInterface;
 use Sylius\RefundPlugin\Command\RefundUnits;
 use Sylius\RefundPlugin\Provider\RefundPaymentMethodsProviderInterface;
 use Webmozart\Assert\Assert;
 
 final class OrderRefundCommandCreator implements OrderRefundCommandCreatorInterface
 {
-    /** @var RepositoryInterface */
-    private $orderRepository;
-
-    /** @var UnitsItemOrderRefundInterface */
-    private $unitsItemOrderRefund;
-
-    /** @var UnitsShipmentOrderRefundInterface */
-    private $shipmentOrderRefund;
-
-    /** @var RefundPaymentMethodsProviderInterface */
-    private $refundPaymentMethodProvider;
-
-    public function __construct(
-        RepositoryInterface $orderRepository,
-        UnitsItemOrderRefundInterface $unitsItemOrderRefund,
-        UnitsShipmentOrderRefundInterface $shipmentOrderRefund,
-        RefundPaymentMethodsProviderInterface $refundPaymentMethodProvider
-    ) {
-        $this->orderRepository = $orderRepository;
-        $this->unitsItemOrderRefund = $unitsItemOrderRefund;
-        $this->shipmentOrderRefund = $shipmentOrderRefund;
-        $this->refundPaymentMethodProvider = $refundPaymentMethodProvider;
+    public function __construct(private readonly RepositoryInterface $orderRepository, private readonly UnitsItemOrderRefundInterface $unitsItemOrderRefund, private readonly UnitsShipmentOrderRefundInterface $shipmentOrderRefund, private readonly RefundPaymentMethodsProviderInterface $refundPaymentMethodProvider)
+    {
     }
 
     public function fromOrder(Order $order): RefundUnits
@@ -77,7 +57,7 @@ final class OrderRefundCommandCreator implements OrderRefundCommandCreatorInterf
                 $partialRefundItems->addPartialRefundItemByQuantity(
                     $line->metadata->item_id,
                     $line->type,
-                    $line->quantityRefunded - $getRefundedQuantity
+                    $line->quantityRefunded - $getRefundedQuantity,
                 );
             }
         }
@@ -87,7 +67,7 @@ final class OrderRefundCommandCreator implements OrderRefundCommandCreatorInterf
 
         if (0 === count($refundMethods)) {
             throw new OfflineRefundPaymentMethodNotFound(
-                sprintf('Not found offline payment method on this channel with code :%s', $syliusOrder->getChannel()->getCode())
+                sprintf('Not found offline payment method on this channel with code :%s', $syliusOrder->getChannel()->getCode()),
             );
         }
 

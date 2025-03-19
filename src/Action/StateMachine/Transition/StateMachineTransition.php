@@ -11,20 +11,16 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action\StateMachine\Transition;
+namespace Sylius\MolliePlugin\Action\StateMachine\Transition;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Transitions\MollieSubscriptionTransitions;
 use SM\Factory\FactoryInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Transitions\MollieSubscriptionTransitions;
 
 final class StateMachineTransition implements StateMachineTransitionInterface
 {
-    /** @var FactoryInterface */
-    private $subscriptionStateMachineFactory;
-
-    public function __construct(FactoryInterface $subscriptionStateMachineFactory)
+    public function __construct(private readonly FactoryInterface $subscriptionStateMachineFactory)
     {
-        $this->subscriptionStateMachineFactory = $subscriptionStateMachineFactory;
     }
 
     public function apply(MollieSubscriptionInterface $subscription, string $transitions): void

@@ -11,35 +11,24 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action\Api;
+namespace Sylius\MolliePlugin\Action\Api;
 
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Request\Api\CreateOrder;
-use SyliusMolliePlugin\Resolver\PaymentMethodConfigResolverInterface;
 use Mollie\Api\Exceptions\ApiException;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayAwareTrait;
 use Payum\Core\Reply\HttpRedirect;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Request\Api\CreateOrder;
+use Sylius\MolliePlugin\Resolver\PaymentMethodConfigResolverInterface;
 use Webmozart\Assert\Assert;
 
 final class CreateOrderAction extends BaseApiAwareAction implements ActionInterface
 {
     use GatewayAwareTrait;
 
-    /** @var PaymentMethodConfigResolverInterface */
-    private $methodConfigResolver;
-
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    public function __construct(
-        PaymentMethodConfigResolverInterface $methodConfigResolver,
-        MollieLoggerActionInterface $loggerAction
-    ) {
-        $this->methodConfigResolver = $methodConfigResolver;
-        $this->loggerAction = $loggerAction;
+    public function __construct(private PaymentMethodConfigResolverInterface $methodConfigResolver, private MollieLoggerActionInterface $loggerAction)
+    {
     }
 
     public function execute($request): void
@@ -49,8 +38,8 @@ final class CreateOrderAction extends BaseApiAwareAction implements ActionInterf
         $customerId = $details['metadata']['customer_mollie_id'] ?? null;
         $method = $details['metadata']['molliePaymentMethods'] ?? '';
 
+        /** @phpstan-ignore-next-line What is even supposed to happen here? */
         if (null !== $method) {
-            /** @var MollieGatewayConfigInterface $paymentMethod */
             $paymentMethod = $this->methodConfigResolver->getConfigFromMethodId($method);
 
             $orderExpiredTime = $paymentMethod->getOrderExpiration();
@@ -76,6 +65,7 @@ final class CreateOrderAction extends BaseApiAwareAction implements ActionInterf
                 'redirectUrl' => $details['backurl'],
                 'webhookUrl' => $details['webhookUrl'],
                 'lines' => $details['lines'],
+                /** @phpstan-ignore-next-line */
                 'expiresAt' => isset($dateExpired) ?
                     $dateExpired->format('Y-m-d') :
                     (new \DateTimeImmutable('now'))->format('Y-m-d'),

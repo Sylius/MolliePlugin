@@ -9,7 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace SyliusMolliePlugin\Controller\Action\Shop;
+declare(strict_types=1);
+
+namespace Sylius\MolliePlugin\Controller\Action\Shop;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Payum\Core\Model\GatewayConfigInterface;
@@ -22,7 +24,7 @@ use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Order\Repository\OrderRepositoryInterface;
 use Sylius\Component\Resource\Metadata\MetadataInterface;
-use SyliusMolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,23 +34,21 @@ use Symfony\Component\Routing\RouterInterface;
 final class PayumController
 {
     private const CHECKOUT_STATE_COMPLETED_STATUS = 'completed';
+
     private const STATE_MACHINE_COMPLETE_STATE = 'complete';
 
     public function __construct(
-        private Payum $payum,
-        private OrderRepositoryInterface $orderRepository,
-        private MetadataInterface $orderMetadata,
-        private RequestConfigurationFactoryInterface $requestConfigurationFactory,
-        private RouterInterface $router,
-        private FactoryInterface $stateMachineFactory,
-        private EntityManagerInterface $entityManager
+        private readonly Payum $payum,
+        private readonly OrderRepositoryInterface $orderRepository,
+        private readonly MetadataInterface $orderMetadata,
+        private readonly RequestConfigurationFactoryInterface $requestConfigurationFactory,
+        private readonly RouterInterface $router,
+        private readonly FactoryInterface $stateMachineFactory,
+        private readonly EntityManagerInterface $entityManager,
     ) {
     }
 
     /**
-     * @param Request $request
-     *
-     * @return Response
      * @throws \SM\SMException
      */
     public function __invoke(Request $request): Response
@@ -66,6 +66,7 @@ final class PayumController
         $payment = $order->getLastPayment();
         if (null === $payment) {
             $url = $this->router->generate('sylius_shop_order_thank_you');
+
             return new RedirectResponse($url);
         }
         $redirectOptions = ['route' => 'sylius_shop_order_after_pay'];
@@ -83,12 +84,6 @@ final class PayumController
         }
     }
 
-    /**
-     * @param PaymentInterface $payment
-     * @param array $redirectOptions
-     *
-     * @return TokenInterface
-     */
     private function provideTokenBasedOnPayment(PaymentInterface $payment, array $redirectOptions): TokenInterface
     {
         /** @var PaymentMethodInterface $paymentMethod */
@@ -120,9 +115,6 @@ final class PayumController
         return $token;
     }
 
-    /**
-     * @return GenericTokenFactoryInterface
-     */
     private function getTokenFactory(): GenericTokenFactoryInterface
     {
         return $this->payum->getTokenFactory();

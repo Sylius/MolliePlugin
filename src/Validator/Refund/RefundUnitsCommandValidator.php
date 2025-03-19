@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Validator\Refund;
+namespace Sylius\MolliePlugin\Validator\Refund;
 
-use SyliusMolliePlugin\Checker\Refund\DuplicateRefundTheSameAmountCheckerInterface;
+use Sylius\MolliePlugin\Checker\Refund\DuplicateRefundTheSameAmountCheckerInterface;
 use Sylius\RefundPlugin\Checker\OrderRefundingAvailabilityCheckerInterface;
 use Sylius\RefundPlugin\Command\RefundUnits;
 use Sylius\RefundPlugin\Exception\InvalidRefundAmount;
@@ -27,20 +27,12 @@ final class RefundUnitsCommandValidator implements RefundUnitsCommandValidatorIn
     /** @var OrderRefundingAvailabilityCheckerInterface */
     private $orderRefundingAvailabilityChecker;
 
-    /** @var RefundAmountValidatorInterface */
-    private $refundAmountValidator;
-
-    /** @var DuplicateRefundTheSameAmountCheckerInterface */
-    private $duplicateRefundTheSameAmountChecker;
-
     public function __construct(
         OrderRefundingAvailabilityCheckerInterface $orderRefundingAvailabilityChecker,
-        RefundAmountValidatorInterface $refundAmountValidator,
-        DuplicateRefundTheSameAmountCheckerInterface $duplicateRefundTheSameAmountChecker
+        private readonly RefundAmountValidatorInterface $refundAmountValidator,
+        private readonly DuplicateRefundTheSameAmountCheckerInterface $duplicateRefundTheSameAmountChecker,
     ) {
         $this->orderRefundingAvailabilityChecker = $orderRefundingAvailabilityChecker;
-        $this->refundAmountValidator = $refundAmountValidator;
-        $this->duplicateRefundTheSameAmountChecker = $duplicateRefundTheSameAmountChecker;
     }
 
     public function validate(RefundUnits $command): void
@@ -63,7 +55,7 @@ final class RefundUnitsCommandValidator implements RefundUnitsCommandValidatorIn
             $this->refundAmountValidator->validateUnits($command->units());
             $this->refundAmountValidator->validateUnits($command->shipments());
         }
-        
+
         if (true === $this->duplicateRefundTheSameAmountChecker->check($command)) {
             throw new InvalidRefundAmount('A duplicate refund has been detected');
         }

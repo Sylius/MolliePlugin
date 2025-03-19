@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Payments\Methods;
+namespace Sylius\MolliePlugin\Payments\Methods;
 
-use SyliusMolliePlugin\Entity\ProductTypeInterface;
+use Sylius\MolliePlugin\Entity\ProductTypeInterface;
 
 interface MethodInterface
 {

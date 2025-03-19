@@ -11,16 +11,17 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Calculator;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Calculator;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Calculator\CalculateTaxAmount;
-use SyliusMolliePlugin\Helper\IntToStringConverterInterface;
+use Sylius\MolliePlugin\Calculator\CalculateTaxAmount;
+use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
 
 final class CalculateTaxAmountTest extends TestCase
 {
     private MockObject $converterMock;
+
     private CalculateTaxAmount $calculateTaxAmount;
 
     protected function setUp(): void

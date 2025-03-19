@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Behat\Context\Ui\Admin;
+namespace Tests\Sylius\MolliePlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
-use Tests\SyliusMolliePlugin\Behat\Page\Admin\PaymentMethod\CreatePageInterface;
+use Tests\Sylius\MolliePlugin\Behat\Page\Admin\PaymentMethod\CreatePageInterface;
 use Webmozart\Assert\Assert;
 
 final class ManagingPaymentMethodContext implements Context
@@ -33,7 +33,7 @@ final class ManagingPaymentMethodContext implements Context
     public function __construct(
         CreatePageInterface $createPage,
         string $mollieTestApiKey,
-        string $mollieProfileId
+        string $mollieProfileId,
     ) {
         $this->createPage = $createPage;
         $this->mollieTestApiKey = $mollieTestApiKey;
@@ -86,7 +86,7 @@ final class ManagingPaymentMethodContext implements Context
         foreach ($fields as $field) {
             Assert::true($this->createPage->containsErrorWithMessage(sprintf(
                 '%s cannot be blank.',
-                trim($field)
+                trim($field),
             )));
         }
     }

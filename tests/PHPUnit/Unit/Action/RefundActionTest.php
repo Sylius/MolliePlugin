@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Action;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Action;
 
 use Mollie\Api\Endpoints\PaymentEndpoint;
 use Mollie\Api\Exceptions\ApiException;
@@ -24,10 +24,10 @@ use Payum\Core\Request\Refund;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Resource\Exception\UpdateHandlingException;
-use SyliusMolliePlugin\Action\RefundAction;
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Helper\ConvertRefundDataInterface;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Action\RefundAction;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Helper\ConvertRefundDataInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 
 final class RefundActionTest extends TestCase
 {

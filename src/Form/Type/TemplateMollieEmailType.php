@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Form\Type;
+namespace Sylius\MolliePlugin\Form\Type;
 
-use SyliusMolliePlugin\Entity\TemplateMollieEmail;
-use SyliusMolliePlugin\Form\Type\Translation\TemplateMollieEmailTranslationType;
-use SyliusMolliePlugin\TemplateEmailTerms\Options;
 use Sylius\Bundle\ResourceBundle\Form\Type\ResourceTranslationsType;
+use Sylius\MolliePlugin\Entity\TemplateMollieEmail;
+use Sylius\MolliePlugin\Form\Type\Translation\TemplateMollieEmailTranslationType;
+use Sylius\MolliePlugin\TemplateEmailTerms\Options;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

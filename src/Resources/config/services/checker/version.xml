@@ -8,7 +8,7 @@
 
     <services>
         <defaults public="true" />
-        <service id="sylius_mollie_plugin.checker.version.mollie_plugin_latest_version_checker" class="SyliusMolliePlugin\Checker\Version\MolliePluginLatestVersionChecker">
+        <service id="sylius_mollie_plugin.checker.version.mollie_plugin_latest_version_checker" class="Sylius\MolliePlugin\Checker\Version\MolliePluginLatestVersionChecker">
         </service>
     </services>
 </container>

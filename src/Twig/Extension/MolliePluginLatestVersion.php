@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Twig\Extension;
+namespace Sylius\MolliePlugin\Twig\Extension;
 
-use SyliusMolliePlugin\SyliusMolliePlugin;
-use SyliusMolliePlugin\Checker\Version\MolliePluginLatestVersionCheckerInterface;
+use Sylius\MolliePlugin\Checker\Version\MolliePluginLatestVersionCheckerInterface;
+use Sylius\MolliePlugin\SyliusMolliePlugin;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -22,12 +22,8 @@ use Webmozart\Assert\Assert;
 
 final class MolliePluginLatestVersion extends AbstractExtension
 {
-    /** @var MolliePluginLatestVersionCheckerInterface */
-    private $latestVersionChecker;
-
-    public function __construct(MolliePluginLatestVersionCheckerInterface $latestVersionChecker)
+    public function __construct(private readonly MolliePluginLatestVersionCheckerInterface $latestVersionChecker)
     {
-        $this->latestVersionChecker = $latestVersionChecker;
     }
 
     public function getFunctions(): array
@@ -39,7 +35,7 @@ final class MolliePluginLatestVersion extends AbstractExtension
                 [
                     'needs_environment' => true,
                     'is_safe' => ['html'],
-                ]
+                ],
             ),
         ];
     }

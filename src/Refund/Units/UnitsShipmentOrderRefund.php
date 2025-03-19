@@ -11,24 +11,20 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Refund\Units;
+namespace Sylius\MolliePlugin\Refund\Units;
 
-use SyliusMolliePlugin\Helper\ConvertOrderInterface;
 use Mollie\Api\Resources\Order;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Order\Model\Adjustment;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
 use Sylius\RefundPlugin\Model\RefundType;
 use Sylius\RefundPlugin\Model\ShipmentRefund;
 
 final class UnitsShipmentOrderRefund implements UnitsShipmentOrderRefundInterface
 {
-    /** @var RepositoryInterface */
-    private $refundUnitsRepository;
-
-    public function __construct(RepositoryInterface $refundUnitsRepository)
+    public function __construct(private readonly RepositoryInterface $refundUnitsRepository)
     {
-        $this->refundUnitsRepository = $refundUnitsRepository;
     }
 
     public function refund(Order $order, OrderInterface $syliusOrder): array
@@ -51,7 +47,7 @@ final class UnitsShipmentOrderRefund implements UnitsShipmentOrderRefundInterfac
                 return [
                     new ShipmentRefund(
                         $refundedShipment->getId(),
-                        $refundedShipment->getAmount()
+                        $refundedShipment->getAmount(),
                     ),
                 ];
             }

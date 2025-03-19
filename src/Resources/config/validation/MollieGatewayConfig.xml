@@ -5,7 +5,7 @@
                     xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
         https://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
-    <class name="SyliusMolliePlugin\Entity\MollieGatewayConfig">
+    <class name="Sylius\MolliePlugin\Entity\MollieGatewayConfig">
         <property name="translations">
             <constraint name="Valid"/>
         </property>

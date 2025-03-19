@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Payments\Methods;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Payments\Methods;
 
 use Mollie\Api\Types\PaymentMethod;
 use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Payments\Methods\AbstractMethod;
-use SyliusMolliePlugin\Payments\Methods\KlarnaPayNow;
+use Sylius\MolliePlugin\Payments\Methods\AbstractMethod;
+use Sylius\MolliePlugin\Payments\Methods\KlarnaPayNow;
 
 final class KlarnaPayNowTest extends TestCase
 {
@@ -27,12 +27,12 @@ final class KlarnaPayNowTest extends TestCase
         $this->klarnaPayNow = new KlarnaPayNow();
     }
 
-    function testGetsMethodId(): void
+    public function testGetsMethodId(): void
     {
         $this->assertSame(PaymentMethod::KLARNA_PAY_NOW, $this->klarnaPayNow->getMethodId());
     }
 
-    function testGetsPaymentType(): void
+    public function testGetsPaymentType(): void
     {
         $this->assertSame(AbstractMethod::ORDER_API, $this->klarnaPayNow->getPaymentType());
     }

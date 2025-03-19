@@ -11,16 +11,16 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\EventListener;
+namespace Sylius\MolliePlugin\EventListener;
 
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Factory\MollieGatewayFactory;
-use SyliusMolliePlugin\Form\Type\MollieGatewayConfigurationType;
 use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Resources\Order;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -28,16 +28,8 @@ use Webmozart\Assert\Assert;
 
 final class ShipmentShipEventListener
 {
-    /** @var RequestStack */
-    private $requestStack;
-
-    /** @var MollieApiClient */
-    private $apiClient;
-
-    public function __construct(MollieApiClient $apiClient, RequestStack $requestStack)
+    public function __construct(private readonly MollieApiClient $apiClient, private readonly RequestStack $requestStack)
     {
-        $this->apiClient = $apiClient;
-        $this->requestStack = $requestStack;
     }
 
     public function shipAll(GenericEvent $event): void
@@ -57,14 +49,16 @@ final class ShipmentShipEventListener
         /** @var PaymentMethodInterface $paymentMethod */
         $paymentMethod = $payment->getMethod();
 
-        Assert::notNull($paymentMethod->getGatewayConfig());
-        $factoryName = $paymentMethod->getGatewayConfig()->getFactoryName() ?? null;
+        $gatewayConfig = $paymentMethod->getGatewayConfig();
+        Assert::notNull($gatewayConfig);
+
+        $factoryName = $gatewayConfig->getFactoryName();
 
         if (!isset($payment->getDetails()['order_mollie_id']) || MollieGatewayFactory::FACTORY_NAME !== $factoryName) {
             return;
         }
 
-        $modusKey = $this->getModus($paymentMethod->getGatewayConfig()->getConfig());
+        $modusKey = $this->getModus($gatewayConfig->getConfig());
 
         try {
             $this->apiClient->setApiKey($modusKey);

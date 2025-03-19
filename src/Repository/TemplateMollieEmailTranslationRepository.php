@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Repository;
+namespace Sylius\MolliePlugin\Repository;
 
-use SyliusMolliePlugin\Entity\TemplateMollieEmailTranslationInterface;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
+use Sylius\MolliePlugin\Entity\TemplateMollieEmailTranslationInterface;
 
 class TemplateMollieEmailTranslationRepository extends EntityRepository implements TemplateMollieEmailTranslationRepositoryInterface
 {
@@ -28,6 +28,6 @@ class TemplateMollieEmailTranslationRepository extends EntityRepository implemen
             ->setParameter('type', $type)
             ->getQuery()
             ->getOneOrNullResult()
-            ;
+        ;
     }
 }

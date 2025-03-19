@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Checker\Version;
+namespace Sylius\MolliePlugin\Checker\Version;
 
 interface MolliePluginLatestVersionCheckerInterface
 {

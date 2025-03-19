@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Factory;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Factory;
 
 use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Factory\MethodsFactory;
-use SyliusMolliePlugin\Factory\MethodsFactoryInterface;
-use SyliusMolliePlugin\Payments\MethodsInterface;
+use Sylius\MolliePlugin\Factory\MethodsFactory;
+use Sylius\MolliePlugin\Factory\MethodsFactoryInterface;
+use Sylius\MolliePlugin\Payments\MethodsInterface;
 
 final class MethodsFactoryTest extends TestCase
 {
@@ -27,12 +27,12 @@ final class MethodsFactoryTest extends TestCase
         $this->methodsFactory = new MethodsFactory();
     }
 
-    function testImplementsMethodsFactoryInterface(): void
+    public function testImplementsMethodsFactoryInterface(): void
     {
         $this->assertInstanceOf(MethodsFactoryInterface::class, $this->methodsFactory);
     }
 
-    function testCreatesNewMethod(): void
+    public function testCreatesNewMethod(): void
     {
         $method = $this->methodsFactory->createNew();
         $this->assertInstanceOf(MethodsInterface::class, $method);

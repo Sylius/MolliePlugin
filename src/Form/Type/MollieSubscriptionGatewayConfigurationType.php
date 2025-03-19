@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Form\Type;
+namespace Sylius\MolliePlugin\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 

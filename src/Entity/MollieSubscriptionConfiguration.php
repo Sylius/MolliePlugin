@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Entity;
+namespace Sylius\MolliePlugin\Entity;
 
 class MollieSubscriptionConfiguration implements MollieSubscriptionConfigurationInterface
 {
@@ -33,11 +33,8 @@ class MollieSubscriptionConfiguration implements MollieSubscriptionConfiguration
 
     protected array $paymentDetailsConfiguration = [];
 
-    protected MollieSubscriptionInterface $subscription;
-
-    public function __construct(MollieSubscriptionInterface $subscription)
+    public function __construct(protected MollieSubscriptionInterface $subscription)
     {
-        $this->subscription = $subscription;
     }
 
     public function getId(): ?int

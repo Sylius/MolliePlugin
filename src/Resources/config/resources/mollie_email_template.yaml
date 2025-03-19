@@ -3,11 +3,11 @@ sylius_resource:
     sylius_mollie_plugin.template_mollie_email:
       driver: doctrine/orm
       classes:
-        model: SyliusMolliePlugin\Entity\TemplateMollieEmail
-        interface: SyliusMolliePlugin\Entity\TemplateMollieEmailInterface
-        form: SyliusMolliePlugin\Form\Type\TemplateMollieEmailType
+        model: Sylius\MolliePlugin\Entity\TemplateMollieEmail
+        interface: Sylius\MolliePlugin\Entity\TemplateMollieEmailInterface
+        form: Sylius\MolliePlugin\Form\Type\TemplateMollieEmailType
       translation:
         classes:
-            model: SyliusMolliePlugin\Entity\TemplateMollieEmailTranslation
-            interface: SyliusMolliePlugin\Entity\TemplateMollieEmailTranslationInterface
-            repository: SyliusMolliePlugin\Repository\TemplateMollieEmailTranslationRepository
+            model: Sylius\MolliePlugin\Entity\TemplateMollieEmailTranslation
+            interface: Sylius\MolliePlugin\Entity\TemplateMollieEmailTranslationInterface
+            repository: Sylius\MolliePlugin\Repository\TemplateMollieEmailTranslationRepository

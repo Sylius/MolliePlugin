@@ -11,16 +11,16 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Controller\Action\Shop;
+namespace Sylius\MolliePlugin\Controller\Action\Shop;
 
-use SyliusMolliePlugin\Entity\MollieGatewayConfig;
-use SyliusMolliePlugin\Helper\ConvertPriceToAmount;
-use SyliusMolliePlugin\PaymentFee\Calculate;
 use Liip\ImagineBundle\Exception\Config\Filter\NotFoundException;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Order\Aggregator\AdjustmentsAggregatorInterface;
 use Sylius\Component\Order\Context\CartContextInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
+use Sylius\MolliePlugin\Helper\ConvertPriceToAmount;
+use Sylius\MolliePlugin\PaymentFee\Calculate;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,38 +28,8 @@ use Twig\Environment;
 
 final class PaymentFeeCalculateAction implements PaymentFeeCalculateActionInterface
 {
-    /** @var Calculate */
-    private $calculate;
-
-    /** @var CartContextInterface */
-    private $cartContext;
-
-    /** @var RepositoryInterface */
-    private $methodRepository;
-
-    /** @var AdjustmentsAggregatorInterface */
-    private $adjustmentsAggregator;
-
-    /** @var ConvertPriceToAmount */
-    private $convertPriceToAmount;
-
-    /** @var Environment */
-    private $twig;
-
-    public function __construct(
-        Calculate $calculate,
-        CartContextInterface $cartContext,
-        RepositoryInterface $methodRepository,
-        AdjustmentsAggregatorInterface $adjustmentsAggregator,
-        ConvertPriceToAmount $convertPriceToAmount,
-        Environment $twig
-    ) {
-        $this->calculate = $calculate;
-        $this->cartContext = $cartContext;
-        $this->methodRepository = $methodRepository;
-        $this->adjustmentsAggregator = $adjustmentsAggregator;
-        $this->convertPriceToAmount = $convertPriceToAmount;
-        $this->twig = $twig;
+    public function __construct(private readonly Calculate $calculate, private readonly CartContextInterface $cartContext, private readonly RepositoryInterface $methodRepository, private readonly AdjustmentsAggregatorInterface $adjustmentsAggregator, private readonly ConvertPriceToAmount $convertPriceToAmount, private readonly Environment $twig)
+    {
     }
 
     public function __invoke(Request $request, string $methodId): Response
@@ -89,7 +59,7 @@ final class PaymentFeeCalculateAction implements PaymentFeeCalculateActionInterf
                 'SyliusMolliePlugin:Shop/PaymentMollie:_paymentFeeTableTr.html.twig',
                 [
                     'paymentFee' => $this->convertPriceToAmount->convert(reset($paymentFee)),
-                ]
+                ],
             ),
             'orderTotal' => $this->convertPriceToAmount->convert($calculatedOrder->getTotal()),
         ]);

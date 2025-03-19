@@ -4,7 +4,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <defaults public="true" />
-        <service id="sylius_mollie_plugin.action.create_payment" class="SyliusMolliePlugin\Action\Api\CreatePaymentAction">
+        <service id="sylius_mollie_plugin.action.create_payment" class="Sylius\MolliePlugin\Action\Api\CreatePaymentAction">
             <argument type="service" id="sylius_mollie_plugin.logger.mollie_logger_action"/>
             <argument type="service" id="sylius_mollie_plugin.parser.response.guzzle_negative_response_parser"/>
             <argument type="service" id="request_stack"/>
@@ -12,50 +12,50 @@
             <tag name="payum.action" factory="mollie" alias="payum.action.create_payment"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.create_payment_subscription"/>
         </service>
-        <service id="sylius_mollie_plugin.action.create_order" class="SyliusMolliePlugin\Action\Api\CreateOrderAction">
+        <service id="sylius_mollie_plugin.action.create_order" class="Sylius\MolliePlugin\Action\Api\CreateOrderAction">
             <argument type="service" id="sylius_mollie_plugin.resolver.payment_config"/>
             <argument type="service" id="sylius_mollie_plugin.logger.mollie_logger_action"/>
             <tag name="payum.action" factory="mollie" alias="payum.action.create_order"/>
         </service>
-        <service id="sylius_mollie_plugin.action.mollie_payment" class="SyliusMolliePlugin\Action\ApiPlatform\MolliePayment">
+        <service id="sylius_mollie_plugin.action.mollie_payment" class="Sylius\MolliePlugin\Action\ApiPlatform\MolliePayment">
             <argument type="service" id="router" />
             <tag name="sylius.api.payment_method_handler" />
         </service>
-        <service class="SyliusMolliePlugin\Action\Api\CreateOnDemandPaymentAction" id="sylius_mollie_plugin.action.api.create_on_demand_payment_action">
+        <service class="Sylius\MolliePlugin\Action\Api\CreateOnDemandPaymentAction" id="sylius_mollie_plugin.action.api.create_on_demand_payment_action">
             <argument id="sylius_mollie_plugin.logger.mollie_logger_action" type="service"/>
             <argument id="sylius_mollie_plugin.parser.response.guzzle_negative_response_parser" type="service"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.create_on_demand_payment_action"/>
         </service>
-        <service class="SyliusMolliePlugin\Action\Api\CreateOnDemandSubscriptionAction" id="sylius_mollie_plugin.action.api.create_on_demand_subscription_action">
+        <service class="Sylius\MolliePlugin\Action\Api\CreateOnDemandSubscriptionAction" id="sylius_mollie_plugin.action.api.create_on_demand_subscription_action">
             <argument id="sylius_mollie_plugin.logger.mollie_logger_action" type="service"/>
             <argument id="sylius_mollie_plugin.parser.response.guzzle_negative_response_parser" type="service"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.create_on_demand_subscription_action"/>
         </service>
-        <service id="sylius_mollie_plugin.action.create_internal_subscription" class="SyliusMolliePlugin\Action\Api\CreateInternalSubscriptionAction">
+        <service id="sylius_mollie_plugin.action.create_internal_subscription" class="Sylius\MolliePlugin\Action\Api\CreateInternalSubscriptionAction">
             <argument type="service" id="sylius_mollie_plugin.repository.mollie_subscription"/>
             <argument type="service" id="sylius_mollie_plugin.custom_factory.mollie_subscription"/>
             <argument type="service" id="sylius.repository.order"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.create_internal_subscription"/>
         </service>
-        <service id="sylius_mollie_plugin.payum_action.refund" class="SyliusMolliePlugin\Action\RefundAction">
+        <service id="sylius_mollie_plugin.payum_action.refund" class="Sylius\MolliePlugin\Action\RefundAction">
             <argument type="service" id="sylius_mollie_plugin.logger.mollie_logger_action"/>
             <argument type="service" id="sylius_mollie_plugin.helper.convert_refund_data"/>
             <tag name="payum.action" factory="mollie" alias="payum.action.refund"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.refund_subscription"/>
         </service>
-        <service id="sylius_mollie_plugin.payum_action.refund_order" class="SyliusMolliePlugin\Action\RefundOrderAction">
+        <service id="sylius_mollie_plugin.payum_action.refund_order" class="Sylius\MolliePlugin\Action\RefundOrderAction">
             <argument type="service" id="sylius_mollie_plugin.logger.mollie_logger_action"/>
             <argument type="service" id="sylius_mollie_plugin.helper.convert_refund_data"/>
             <tag name="payum.action" factory="mollie" alias="payum.action.refund_order"/>
         </service>
-        <service id="sylius_mollie_plugin.action.capture" class="SyliusMolliePlugin\Action\CaptureAction">
+        <service id="sylius_mollie_plugin.action.capture" class="Sylius\MolliePlugin\Action\CaptureAction">
             <tag name="payum.action" factory="mollie" alias="payum.action.capture"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.capture_subscription"/>
             <argument type="service" id="sylius.repository.order" />
             <argument type="service" id="sylius_mollie_plugin.resolver.mollie_api_client_key_resolver"/>
             <argument type="service" id="sylius.repository.payment" />
         </service>
-        <service id="sylius_mollie_plugin.action.notify" class="SyliusMolliePlugin\Action\NotifyAction">
+        <service id="sylius_mollie_plugin.action.notify" class="Sylius\MolliePlugin\Action\NotifyAction">
             <argument type="service" id="sylius_mollie_plugin.get_http_request"/>
             <argument type="service" id="sylius_mollie_plugin.repository.mollie_subscription"/>
             <argument type="service" id="sylius_mollie_plugin.payum_action.order_set_status"/>
@@ -63,7 +63,7 @@
             <tag name="payum.action" factory="mollie" alias="payum.action.notify"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.notify_subscription"/>
         </service>
-        <service id="sylius_mollie_plugin.action.status" class="SyliusMolliePlugin\Action\StatusAction">
+        <service id="sylius_mollie_plugin.action.status" class="Sylius\MolliePlugin\Action\StatusAction">
             <argument type="service" id="bit_bag.sylius_mollie_plugin.refund.payment_refund"/>
             <argument type="service" id="sylius_mollie_plugin.refund.order_refund"/>
             <argument type="service" id="sylius_mollie_plugin.logger.mollie_logger_action"/>
@@ -72,13 +72,13 @@
             <tag name="payum.action" factory="mollie" alias="payum.action.status"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.status_subscription"/>
         </service>
-        <service id="sylius_mollie_plugin.payum_action.api.create_customer" class="SyliusMolliePlugin\Action\Api\CreateCustomerAction">
+        <service id="sylius_mollie_plugin.payum_action.api.create_customer" class="Sylius\MolliePlugin\Action\Api\CreateCustomerAction">
             <argument type="service" id="sylius_mollie_plugin.logger.mollie_logger_action"/>
             <argument type="service" id="sylius_mollie_plugin.repository.mollie_customer"/>
             <tag name="payum.action" factory="mollie" alias="payum.action.api.create_customer"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.api.create_customer_subscription"/>
         </service>
-        <service id="sylius_mollie_plugin.action.convert_mollie_payment" class="SyliusMolliePlugin\Action\ConvertMolliePaymentAction">
+        <service id="sylius_mollie_plugin.action.convert_mollie_payment" class="Sylius\MolliePlugin\Action\ConvertMolliePaymentAction">
             <argument type="service" id="sylius_mollie_plugin.helper.payment_description"/>
             <argument type="service" id="sylius_mollie_plugin.repository.mollie_gateway_config"/>
             <argument type="service" id="sylius_mollie_plugin.payments.order_converter"/>
@@ -89,7 +89,7 @@
             <argument type="service" id="sylius_mollie_plugin.provider.divisor.divisor_provider"/>
             <tag name="payum.action" factory="mollie" alias="payum.action.convert_mollie_payment"/>
         </service>
-        <service id="sylius_mollie_plugin.action.convert_mollie_subscription_payment" class="SyliusMolliePlugin\Action\ConvertMollieSubscriptionPaymentAction">
+        <service id="sylius_mollie_plugin.action.convert_mollie_subscription_payment" class="Sylius\MolliePlugin\Action\ConvertMollieSubscriptionPaymentAction">
             <argument type="service" id="sylius_mollie_plugin.helper.payment_description"/>
             <argument type="service" id="sylius_mollie_plugin.repository.mollie_gateway_config"/>
             <argument type="service" id="sylius_mollie_plugin.payments.order_converter"/>
@@ -99,7 +99,7 @@
             <argument type="service" id="sylius_mollie_plugin.provider.divisor.divisor_provider"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.convert_mollie_subscription_payment"/>
         </service>
-        <service id="sylius_mollie_plugin.payum_action.state_machine.status_recurring_subscription" class="SyliusMolliePlugin\Action\StateMachine\StatusRecurringSubscriptionAction">
+        <service id="sylius_mollie_plugin.payum_action.state_machine.status_recurring_subscription" class="Sylius\MolliePlugin\Action\StateMachine\StatusRecurringSubscriptionAction">
             <argument type="service" id="sylius_mollie_plugin.manager.mollie_subscription"/>
             <argument type="service" id="bit_bag.sylius_mollie_plugin.action.state_machine.applicator.subscription_and_payment_id_applicator"/>
             <argument type="service" id="bit_bag.sylius_mollie_plugin.action.state_machine.applicator.subscription_and_sylius_payment_applicator"/>
@@ -107,36 +107,36 @@
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.state_machine.status_recurring_subscription"/>
         </service>
         <service id="bit_bag.sylius_mollie_plugin.action.state_machine.applicator.subscription_and_payment_id_applicator"
-                 class="SyliusMolliePlugin\Action\StateMachine\Applicator\SubscriptionAndPaymentIdApplicator">
+                 class="Sylius\MolliePlugin\Action\StateMachine\Applicator\SubscriptionAndPaymentIdApplicator">
             <argument type="service" id="sylius_mollie_plugin.mollie_api_client"/>
             <argument type="service" id="bit_bag.sylius_mollie_plugin.action.state_machine.transition.state_machine_transition"/>
             <argument type="service" id="bit_bag.sylius_mollie_plugin.action.state_machine.transition.payment_state_machine_transition"/>
             <argument type="service" id="bit_bag.sylius_mollie_plugin.action.state_machine.transition.processing_state_machine_transition"/>
         </service>
         <service id="bit_bag.sylius_mollie_plugin.action.state_machine.applicator.subscription_and_sylius_payment_applicator"
-                 class="SyliusMolliePlugin\Action\StateMachine\Applicator\SubscriptionAndSyliusPaymentApplicator">
+                 class="Sylius\MolliePlugin\Action\StateMachine\Applicator\SubscriptionAndSyliusPaymentApplicator">
             <argument type="service" id="bit_bag.sylius_mollie_plugin.action.state_machine.transition.state_machine_transition"/>
             <argument type="service" id="bit_bag.sylius_mollie_plugin.action.state_machine.transition.payment_state_machine_transition"/>
             <argument type="service" id="bit_bag.sylius_mollie_plugin.action.state_machine.transition.processing_state_machine_transition"/>
         </service>
         <service id="bit_bag.sylius_mollie_plugin.action.state_machine.transition.payment_state_machine_transition"
-                 class="SyliusMolliePlugin\Action\StateMachine\Transition\PaymentStateMachineTransition">
+                 class="Sylius\MolliePlugin\Action\StateMachine\Transition\PaymentStateMachineTransition">
             <argument type="service" id="sm.factory"/>
         </service>
         <service id="bit_bag.sylius_mollie_plugin.action.state_machine.transition.processing_state_machine_transition"
-                 class="SyliusMolliePlugin\Action\StateMachine\Transition\ProcessingStateMachineTransition">
+                 class="Sylius\MolliePlugin\Action\StateMachine\Transition\ProcessingStateMachineTransition">
             <argument type="service" id="sm.factory"/>
         </service>
         <service id="bit_bag.sylius_mollie_plugin.action.state_machine.transition.state_machine_transition"
-                 class="SyliusMolliePlugin\Action\StateMachine\Transition\StateMachineTransition">
+                 class="Sylius\MolliePlugin\Action\StateMachine\Transition\StateMachineTransition">
             <argument type="service" id="sm.factory"/>
         </service>
         <service id="sylius_mollie_plugin.payum_action.state_machine.cancel_recurring_subscription"
-                 class="SyliusMolliePlugin\Action\Api\CancelRecurringSubscriptionAction">
+                 class="Sylius\MolliePlugin\Action\Api\CancelRecurringSubscriptionAction">
             <argument type="service" id="sylius_mollie_plugin.logger.mollie_logger_action"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.state_machine.cancel_recurring_subscription"/>
         </service>
-        <service id="sylius_mollie_plugin.payum_action.order_set_status" class="SyliusMolliePlugin\Action\StateMachine\SetStatusOrderAction">
+        <service id="sylius_mollie_plugin.payum_action.order_set_status" class="Sylius\MolliePlugin\Action\StateMachine\SetStatusOrderAction">
             <argument type="service" id="sm.factory"/>
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius_mollie_plugin.partial_ship.create_partial_ship_from_mollie"/>

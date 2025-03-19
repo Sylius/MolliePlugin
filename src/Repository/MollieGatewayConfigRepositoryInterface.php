@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Repository;
+namespace Sylius\MolliePlugin\Repository;
 
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 
 interface MollieGatewayConfigRepositoryInterface extends RepositoryInterface
 {

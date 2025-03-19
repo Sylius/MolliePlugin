@@ -11,38 +11,38 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Payments;
+namespace Sylius\MolliePlugin\Payments;
 
-use SyliusMolliePlugin\Payments\Methods\Alma;
-use SyliusMolliePlugin\Payments\Methods\ApplePay;
-use SyliusMolliePlugin\Payments\Methods\Bancomatpay;
-use SyliusMolliePlugin\Payments\Methods\Bancontact;
-use SyliusMolliePlugin\Payments\Methods\BankTransfer;
-use SyliusMolliePlugin\Payments\Methods\Belfius;
-use SyliusMolliePlugin\Payments\Methods\Billie;
-use SyliusMolliePlugin\Payments\Methods\Blik;
-use SyliusMolliePlugin\Payments\Methods\CreditCard;
-use SyliusMolliePlugin\Payments\Methods\DirectDebit;
-use SyliusMolliePlugin\Payments\Methods\Eps;
-use SyliusMolliePlugin\Payments\Methods\GiftCard;
-use SyliusMolliePlugin\Payments\Methods\Ideal;
-use SyliusMolliePlugin\Payments\Methods\In3;
-use SyliusMolliePlugin\Payments\Methods\Kbc;
-use SyliusMolliePlugin\Payments\Methods\KlarnaOne;
-use SyliusMolliePlugin\Payments\Methods\Klarnapaylater;
-use SyliusMolliePlugin\Payments\Methods\KlarnaPayNow;
-use SyliusMolliePlugin\Payments\Methods\Klarnasliceit;
-use SyliusMolliePlugin\Payments\Methods\MealVoucher;
-use SyliusMolliePlugin\Payments\Methods\MyBank;
-use SyliusMolliePlugin\Payments\Methods\Payconiq;
-use SyliusMolliePlugin\Payments\Methods\PayPal;
-use SyliusMolliePlugin\Payments\Methods\Przelewy24;
-use SyliusMolliePlugin\Payments\Methods\Riverty;
-use SyliusMolliePlugin\Payments\Methods\Satispay;
-use SyliusMolliePlugin\Payments\Methods\SofortBanking;
 use Mollie\Api\Resources\Method;
-use SyliusMolliePlugin\Payments\Methods\Trustly;
-use SyliusMolliePlugin\Payments\Methods\Twint;
+use Sylius\MolliePlugin\Payments\Methods\Alma;
+use Sylius\MolliePlugin\Payments\Methods\ApplePay;
+use Sylius\MolliePlugin\Payments\Methods\Bancomatpay;
+use Sylius\MolliePlugin\Payments\Methods\Bancontact;
+use Sylius\MolliePlugin\Payments\Methods\BankTransfer;
+use Sylius\MolliePlugin\Payments\Methods\Belfius;
+use Sylius\MolliePlugin\Payments\Methods\Billie;
+use Sylius\MolliePlugin\Payments\Methods\Blik;
+use Sylius\MolliePlugin\Payments\Methods\CreditCard;
+use Sylius\MolliePlugin\Payments\Methods\DirectDebit;
+use Sylius\MolliePlugin\Payments\Methods\Eps;
+use Sylius\MolliePlugin\Payments\Methods\GiftCard;
+use Sylius\MolliePlugin\Payments\Methods\Ideal;
+use Sylius\MolliePlugin\Payments\Methods\In3;
+use Sylius\MolliePlugin\Payments\Methods\Kbc;
+use Sylius\MolliePlugin\Payments\Methods\KlarnaOne;
+use Sylius\MolliePlugin\Payments\Methods\Klarnapaylater;
+use Sylius\MolliePlugin\Payments\Methods\KlarnaPayNow;
+use Sylius\MolliePlugin\Payments\Methods\Klarnasliceit;
+use Sylius\MolliePlugin\Payments\Methods\MealVoucher;
+use Sylius\MolliePlugin\Payments\Methods\MyBank;
+use Sylius\MolliePlugin\Payments\Methods\Payconiq;
+use Sylius\MolliePlugin\Payments\Methods\PayPal;
+use Sylius\MolliePlugin\Payments\Methods\Przelewy24;
+use Sylius\MolliePlugin\Payments\Methods\Riverty;
+use Sylius\MolliePlugin\Payments\Methods\Satispay;
+use Sylius\MolliePlugin\Payments\Methods\SofortBanking;
+use Sylius\MolliePlugin\Payments\Methods\Trustly;
+use Sylius\MolliePlugin\Payments\Methods\Twint;
 
 interface MethodsInterface
 {
@@ -75,7 +75,7 @@ interface MethodsInterface
         Trustly::class,
         Bancomatpay::class,
         Payconiq::class,
-        Satispay::class
+        Satispay::class,
     ];
 
     public function getAllEnabled(): array;

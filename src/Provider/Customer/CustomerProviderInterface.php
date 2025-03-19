@@ -11,10 +11,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Repository;
+namespace Sylius\MolliePlugin\Provider\Customer;
 
-use Sylius\Component\Core\Repository\CustomerRepositoryInterface as BaseCustomerRepositoryInterface;
+use Sylius\Component\Core\Model\CustomerInterface;
 
-interface CustomerRepositoryInterface extends BaseCustomerRepositoryInterface
+interface CustomerProviderInterface
 {
+    public function provideNewCustomer(string $email): CustomerInterface;
 }

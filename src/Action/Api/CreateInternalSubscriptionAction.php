@@ -11,34 +11,22 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action\Api;
+namespace Sylius\MolliePlugin\Action\Api;
 
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Factory\MollieSubscriptionFactoryInterface;
-use SyliusMolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
-use SyliusMolliePlugin\Repository\OrderRepositoryInterface;
-use SyliusMolliePlugin\Request\Api\CreateInternalRecurring;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionFactoryInterface;
+use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
+use Sylius\MolliePlugin\Repository\OrderRepositoryInterface;
+use Sylius\MolliePlugin\Request\Api\CreateInternalRecurring;
 
 final class CreateInternalSubscriptionAction extends BaseApiAwareAction implements ActionInterface, ApiAwareInterface
 {
-    private MollieSubscriptionRepositoryInterface $subscriptionRepository;
-
-    private MollieSubscriptionFactoryInterface $subscriptionFactory;
-
-    private OrderRepositoryInterface $orderRepository;
-
-    public function __construct(
-        MollieSubscriptionRepositoryInterface $subscriptionRepository,
-        MollieSubscriptionFactoryInterface $subscriptionFactory,
-        OrderRepositoryInterface $orderRepository
-    ) {
-        $this->subscriptionRepository = $subscriptionRepository;
-        $this->subscriptionFactory = $subscriptionFactory;
-        $this->orderRepository = $orderRepository;
+    public function __construct(private readonly MollieSubscriptionRepositoryInterface $subscriptionRepository, private readonly MollieSubscriptionFactoryInterface $subscriptionFactory, private readonly OrderRepositoryInterface $orderRepository)
+    {
     }
 
     public function execute($request): void
@@ -58,7 +46,7 @@ final class CreateInternalSubscriptionAction extends BaseApiAwareAction implemen
                 $rootOrder,
                 $item,
                 $model->getArrayCopy(),
-                $model['mandate_mollie_id'] ?? null
+                $model['mandate_mollie_id'] ?? null,
             );
             $subscription->getSubscriptionConfiguration()->setCustomerId($model['customer_mollie_id']);
             $this->subscriptionRepository->add($subscription);

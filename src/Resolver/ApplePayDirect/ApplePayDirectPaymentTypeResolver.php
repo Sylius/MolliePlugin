@@ -11,39 +11,24 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver\ApplePayDirect;
+namespace Sylius\MolliePlugin\Resolver\ApplePayDirect;
 
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Helper\IntToStringConverterInterface;
-use SyliusMolliePlugin\Payments\Methods\AbstractMethod;
 use Sylius\Component\Core\Model\PaymentInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
+use Sylius\MolliePlugin\Payments\Methods\AbstractMethod;
 
 final class ApplePayDirectPaymentTypeResolver implements ApplePayDirectPaymentTypeResolverInterface
 {
-    /** @var ApplePayDirectApiPaymentResolverInterface */
-    private $apiPaymentResolver;
-
-    /** @var ApplePayDirectApiOrderPaymentResolverInterface */
-    private $apiOrderPaymentResolver;
-
-    /** @var IntToStringConverterInterface */
-    private $intToStringConverter;
-
-    public function __construct(
-        ApplePayDirectApiPaymentResolverInterface $apiPaymentResolver,
-        ApplePayDirectApiOrderPaymentResolverInterface $apiOrderPaymentResolver,
-        IntToStringConverterInterface $intToStringConverter
-    ) {
-        $this->apiPaymentResolver = $apiPaymentResolver;
-        $this->apiOrderPaymentResolver = $apiOrderPaymentResolver;
-        $this->intToStringConverter = $intToStringConverter;
+    public function __construct(private readonly ApplePayDirectApiPaymentResolverInterface $apiPaymentResolver, private readonly ApplePayDirectApiOrderPaymentResolverInterface $apiOrderPaymentResolver, private readonly IntToStringConverterInterface $intToStringConverter)
+    {
     }
 
     public function resolve(
         MollieGatewayConfigInterface $mollieGatewayConfig,
         PaymentInterface $payment,
-        array $applePayDirectToken
+        array $applePayDirectToken,
     ): void {
         $details = [];
         /** @var OrderInterface $order */
@@ -78,7 +63,7 @@ final class ApplePayDirectPaymentTypeResolver implements ApplePayDirectPaymentTy
     private function createPaymentOrder(
         OrderInterface $order,
         MollieGatewayConfigInterface $mollieGatewayConfig,
-        array $details
+        array $details,
     ): void {
         $this->apiOrderPaymentResolver->resolve($order, $mollieGatewayConfig, $details);
     }

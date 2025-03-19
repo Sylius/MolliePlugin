@@ -11,19 +11,15 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Helper;
+namespace Sylius\MolliePlugin\Helper;
 
 use Sylius\RefundPlugin\Model\OrderItemUnitRefund;
 use Sylius\RefundPlugin\Model\ShipmentRefund;
 
 final class ConvertRefundData implements ConvertRefundDataInterface
 {
-    /** @var IntToStringConverterInterface */
-    private $intToStringConverter;
-
-    public function __construct(IntToStringConverterInterface $intToStringConverter)
+    public function __construct(private readonly IntToStringConverterInterface $intToStringConverter)
     {
-        $this->intToStringConverter = $intToStringConverter;
     }
 
     public function convert(array $data, string $currency): array

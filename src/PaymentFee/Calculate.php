@@ -11,35 +11,20 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\PaymentFee;
+namespace Sylius\MolliePlugin\PaymentFee;
 
-use SyliusMolliePlugin\Entity\MollieGatewayConfig;
-use SyliusMolliePlugin\Exceptions\UnknownPaymentSurchargeTye;
-use SyliusMolliePlugin\PaymentFee\Types\FixedAmount;
-use SyliusMolliePlugin\PaymentFee\Types\FixedAmountAndPercentage;
-use SyliusMolliePlugin\PaymentFee\Types\Percentage;
 use Sylius\Component\Order\Model\OrderInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
+use Sylius\MolliePlugin\Exceptions\UnknownPaymentSurchargeTye;
+use Sylius\MolliePlugin\PaymentFee\Types\FixedAmount;
+use Sylius\MolliePlugin\PaymentFee\Types\FixedAmountAndPercentage;
+use Sylius\MolliePlugin\PaymentFee\Types\Percentage;
 use Webmozart\Assert\Assert;
 
 final class Calculate
 {
-    /** @var FixedAmount */
-    private $fixedAmount;
-
-    /** @var Percentage */
-    private $percentage;
-
-    /** @var FixedAmountAndPercentage */
-    private $fixedAmountAndPercentage;
-
-    public function __construct(
-        FixedAmount $fixedAmount,
-        Percentage $percentage,
-        FixedAmountAndPercentage $fixedAmountAndPercentage
-    ) {
-        $this->fixedAmount = $fixedAmount;
-        $this->percentage = $percentage;
-        $this->fixedAmountAndPercentage = $fixedAmountAndPercentage;
+    public function __construct(private readonly FixedAmount $fixedAmount, private readonly Percentage $percentage, private readonly FixedAmountAndPercentage $fixedAmountAndPercentage)
+    {
     }
 
     public function calculateFromCart(OrderInterface $order, MollieGatewayConfig $paymentMethod): ?OrderInterface

@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Helper;
+namespace Sylius\MolliePlugin\Helper;
 
 interface IntToStringConverterInterface
 {

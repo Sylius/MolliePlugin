@@ -11,13 +11,13 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Factory;
+namespace Sylius\MolliePlugin\Factory;
 
 interface DatePeriodFactoryInterface
 {
     public function createForSubscriptionConfiguration(
         \DateTime $start,
         int $times,
-        string $interval
+        string $interval,
     ): array;
 }

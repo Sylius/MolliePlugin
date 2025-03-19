@@ -11,27 +11,17 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Checker\Refund;
+namespace Sylius\MolliePlugin\Checker\Refund;
 
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Repository\CreditMemoRepositoryInterface;
-use SyliusMolliePlugin\Repository\OrderRepositoryInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Repository\CreditMemoRepositoryInterface;
+use Sylius\MolliePlugin\Repository\OrderRepositoryInterface;
 use Sylius\RefundPlugin\Command\RefundUnits;
 
 final class DuplicateRefundTheSameAmountChecker implements DuplicateRefundTheSameAmountCheckerInterface
 {
-    /** @var CreditMemoRepositoryInterface */
-    private $creditMemoRepository;
-
-    /** @var OrderRepositoryInterface */
-    private $orderRepository;
-
-    public function __construct(
-        CreditMemoRepositoryInterface $creditMemoRepository,
-        OrderRepositoryInterface $orderRepository
-    ) {
-        $this->creditMemoRepository = $creditMemoRepository;
-        $this->orderRepository = $orderRepository;
+    public function __construct(private readonly CreditMemoRepositoryInterface $creditMemoRepository, private readonly OrderRepositoryInterface $orderRepository)
+    {
     }
 
     public function check(RefundUnits $command): bool
@@ -46,7 +36,7 @@ final class DuplicateRefundTheSameAmountChecker implements DuplicateRefundTheSam
         $creditMemos = $this->creditMemoRepository->findByOrderNumberAndDateTime(
             $order->getId(),
             $now,
-            $this->getTotalAmount($command)
+            $this->getTotalAmount($command),
         );
 
         return 0 !== count($creditMemos);

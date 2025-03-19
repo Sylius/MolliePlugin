@@ -11,12 +11,8 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Order;
+namespace Sylius\MolliePlugin\Order;
 
-use SyliusMolliePlugin\Factory\MollieGatewayFactory;
-use SyliusMolliePlugin\Factory\MollieSubscriptionGatewayFactory;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Request\Api\RefundOrder;
 use Payum\Core\Payum;
 use Payum\Core\Request\Refund as RefundAction;
 use Payum\Core\Security\TokenInterface;
@@ -25,6 +21,10 @@ use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Resource\Exception\UpdateHandlingException;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Request\Api\RefundOrder;
 use Sylius\RefundPlugin\Event\UnitsRefunded;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -32,23 +32,8 @@ use Webmozart\Assert\Assert;
 
 final class OrderPaymentRefund implements OrderPaymentRefundInterface
 {
-    /** @var RepositoryInterface */
-    private $orderRepository;
-
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    /** @var Payum */
-    private $payum;
-
-    public function __construct(
-        RepositoryInterface $orderRepository,
-        MollieLoggerActionInterface $loggerAction,
-        Payum $payum
-    ) {
-        $this->orderRepository = $orderRepository;
-        $this->loggerAction = $loggerAction;
-        $this->payum = $payum;
+    public function __construct(private readonly RepositoryInterface $orderRepository, private readonly MollieLoggerActionInterface $loggerAction, private readonly Payum $payum)
+    {
     }
 
     public function refund(UnitsRefunded $units): void
@@ -56,7 +41,7 @@ final class OrderPaymentRefund implements OrderPaymentRefundInterface
         /** @var OrderInterface $order */
         $order = $this->orderRepository->findOneBy(['number' => $units->orderNumber()]);
 
-        /** @var PaymentInterface|null|false $payment */
+        /** @var PaymentInterface|false|null $payment */
         $payment = $order->getPayments()->last();
         if (!$payment instanceof PaymentInterface) {
             $this->loggerAction->addNegativeLog(sprintf('No payment in refund'));
@@ -67,9 +52,10 @@ final class OrderPaymentRefund implements OrderPaymentRefundInterface
         /** @var PaymentMethodInterface $paymentMethod */
         $paymentMethod = $payment->getMethod();
 
-        Assert::notNull($paymentMethod->getGatewayConfig());
-        $factoryName = $paymentMethod->getGatewayConfig()->getFactoryName() ?? null;
+        $gatewayConfig = $paymentMethod->getGatewayConfig();
+        Assert::notNull($gatewayConfig);
 
+        $factoryName = $gatewayConfig->getFactoryName();
         if (false === in_array($factoryName, [MollieGatewayFactory::FACTORY_NAME, MollieSubscriptionGatewayFactory::FACTORY_NAME], true)) {
             return;
         }

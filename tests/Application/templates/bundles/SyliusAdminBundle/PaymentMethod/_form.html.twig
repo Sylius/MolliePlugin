@@ -1,7 +1,7 @@
 {% import '@SyliusUi/Macro/flags.html.twig' as flags %}
 
-{% set mollieStandardGateway = constant('SyliusMolliePlugin\\Factory\\MollieGatewayFactory::FACTORY_NAME') %}
-{% set mollieRecuringGateway = constant('SyliusMolliePlugin\\Factory\\MollieSubscriptionGatewayFactory::FACTORY_NAME') %}
+{% set mollieStandardGateway = constant('Sylius\\MolliePlugin\\Factory\\MollieGatewayFactory::FACTORY_NAME') %}
+{% set mollieRecuringGateway = constant('Sylius\\MolliePlugin\\Factory\\MollieSubscriptionGatewayFactory::FACTORY_NAME') %}
 
 {% if form.vars.value.gatewayConfig.factoryName is same as (mollieStandardGateway) %}
     {% include '@SyliusAdmin/PaymentMethod/_mollieMessage.html.twig' %}

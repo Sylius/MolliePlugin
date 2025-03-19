@@ -11,19 +11,15 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Context\Admin;
+namespace Sylius\MolliePlugin\Context\Admin;
 
 use Sylius\Component\Core\Model\AdminUserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 final class AdminUserContext implements AdminUserContextInterface
 {
-    /** @var TokenStorageInterface */
-    private $tokenStorage;
-
-    public function __construct(TokenStorageInterface $tokenStorage)
+    public function __construct(private readonly TokenStorageInterface $tokenStorage)
     {
-        $this->tokenStorage = $tokenStorage;
     }
 
     public function getAdminUser(): ?AdminUserInterface

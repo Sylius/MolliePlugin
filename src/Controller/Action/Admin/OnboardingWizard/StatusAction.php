@@ -11,26 +11,18 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Controller\Action\Admin\OnboardingWizard;
+namespace Sylius\MolliePlugin\Controller\Action\Admin\OnboardingWizard;
 
-use SyliusMolliePlugin\Context\Admin\AdminUserContextInterface;
-use SyliusMolliePlugin\Entity\OnboardingWizardStatus;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Context\Admin\AdminUserContextInterface;
+use Sylius\MolliePlugin\Entity\OnboardingWizardStatus;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 final class StatusAction
 {
-    /** @var RepositoryInterface */
-    private $statusRepository;
-
-    /** @var AdminUserContextInterface */
-    private $adminUserContext;
-
-    public function __construct(RepositoryInterface $statusRepository, AdminUserContextInterface $adminUserContext)
+    public function __construct(private readonly RepositoryInterface $statusRepository, private readonly AdminUserContextInterface $adminUserContext)
     {
-        $this->statusRepository = $statusRepository;
-        $this->adminUserContext = $adminUserContext;
     }
 
     public function __invoke(): Response

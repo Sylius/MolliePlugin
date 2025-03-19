@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Action\Api;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Action\Api;
 
 use Mollie\Api\Endpoints\CustomerEndpoint;
 use Mollie\Api\Exceptions\ApiException;
@@ -21,13 +21,13 @@ use Payum\Core\ApiAwareInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use SyliusMolliePlugin\Action\Api\BaseApiAwareAction;
-use SyliusMolliePlugin\Action\Api\CreateCustomerAction;
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Entity\MollieCustomer;
-use SyliusMolliePlugin\Entity\MollieCustomerInterface;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Request\Api\CreateCustomer;
+use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
+use Sylius\MolliePlugin\Action\Api\CreateCustomerAction;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Entity\MollieCustomer;
+use Sylius\MolliePlugin\Entity\MollieCustomerInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Request\Api\CreateCustomer;
 
 final class CreateCustomerActionTest extends TestCase
 {

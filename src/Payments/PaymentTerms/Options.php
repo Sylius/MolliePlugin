@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Payments\PaymentTerms;
+namespace Sylius\MolliePlugin\Payments\PaymentTerms;
 
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Payments\Methods\MealVoucher;
 use Mollie\Api\Types\PaymentMethod;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Payments\Methods\MealVoucher;
 
 final class Options
 {
@@ -87,14 +87,14 @@ final class Options
             PaymentMethod::IN3,
             PaymentMethod::BILLIE,
             MealVoucher::MEAL_VOUCHERS,
-            PaymentMethod::RIVERTY
+            PaymentMethod::RIVERTY,
         ];
     }
 
     public static function getOnlyPaymentAPIMethods(): array
     {
         return [
-            PaymentMethod::ALMA
+            PaymentMethod::ALMA,
         ];
     }
 }
