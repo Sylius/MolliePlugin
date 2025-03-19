@@ -1,6 +1,11 @@
-sylius_mollie_plugin:
-    resource: "@SyliusMolliePlugin/Resources/config/routing.yaml"
-sylius_admin_order_creation:
-    resource: "@SyliusAdminOrderCreationPlugin/Resources/config/app/routing.yml"
 _bazinga_jstranslation:
     resource: "@BazingaJsTranslationBundle/Resources/config/routing/routing.yml"
+
+sylius_refund:
+    resource: "@SyliusRefundPlugin/Resources/config/routing.yml"
+
+sylius_admin_order_creation:
+    resource: "@SyliusAdminOrderCreationPlugin/Resources/config/app/routing.yml"
+
+sylius_mollie_plugin:
+    resource: "@SyliusMolliePlugin/Resources/config/routing.yaml"

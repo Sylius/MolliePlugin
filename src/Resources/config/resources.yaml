@@ -12,4 +12,3 @@ imports:
     - { resource: "@SyliusMolliePlugin/Resources/config/resources/onboarding_wizard_status.yaml" }
     - { resource: "@SyliusMolliePlugin/Resources/config/resources/mollie_subscription.yaml" }
     - { resource: "@SyliusMolliePlugin/Resources/config/resources/mollie_subscription_schedule.yaml" }
-    - { resource: "@SyliusRefundPlugin/Resources/config/app/config.yml" }
