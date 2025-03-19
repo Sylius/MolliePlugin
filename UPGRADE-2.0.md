@@ -52,7 +52,7 @@
 
     ```diff
     - <service id="sylius_mollie_plugin.distributor.order.order_voucher_distributor" class="Sylius\MolliePlugin\Distributor\Order\OrderVoucherDistributor">
-    + <service id="sylius_mollie_plugin.applicator.order.order_vouchers_applicator" class="Sylius\MolliePlugin\Applicator\Order\OrderVouchersApplicator">
+    + <service id="sylius_mollie_plugin.applicator.order.order_vouchers" class="Sylius\MolliePlugin\Applicator\Order\OrderVouchersApplicator">
     ```
 
    Additionally, the following service has been removed:
