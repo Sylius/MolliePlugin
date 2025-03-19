@@ -1,18 +1,18 @@
 # Installation
 
-#### 1. Require refund plugin with composer:
-
-```bash
-composer require sylius/refund-plugin
-```
-
 Ensure that you have `wkhtmltopdf` installed, and that you have the proper path to it set in the .env file (`WKHTMLTOPDF_PATH` and `WKHTMLTOIMAGE_PATH` variables).
 
-#### 2. Require Mollie plugin with composer:
+#### 1. Require Mollie plugin with composer:
 
 ```bash
 composer require mollie/sylius-plugin --no-scripts -W
 ```
+
+#### 2. Follow the installation instructions of RefundPlugin
+
+**Note:** The refund plugin is already required so some steps might not be necessary
+
+https://github.com/Sylius/RefundPlugin/blob/1.5/docs/legacy_installation.md
 
 #### 3. Update the GatewayConfig entity class with the following code:
 
@@ -562,7 +562,7 @@ trait RecurringProductVariantTrait
         $this->times = $times;
     }
 
-    public function getInterval(): ?string
+    public function getName(): ?string
     {
         return $this->interval;
     }
