@@ -71,6 +71,14 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         return $this->getMolliePaymentOptions($order, $address->getCountryCode());
     }
 
+    /**
+     * @return array{
+     *     data: array<string, string>,
+     *     image: array<string, string>,
+     *     issuers: array<string, mixed>|null,
+     *     paymentFee: array<string, mixed>
+     * }
+     */
     private function getMolliePaymentOptions(MollieOrderInterface $order, string $countryCode): array
     {
         $methods = $this->getDefaultOptions();
@@ -125,11 +133,17 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         return $this->productVoucherTypeChecker->checkTheProductTypeOnCart($order, $methods);
     }
 
+    /**
+     * @param MollieGatewayConfigInterface[] $paymentConfigs
+     *
+     * @param string[] $allowedMethodsIds
+     *
+     * @return MollieGatewayConfigInterface[]
+     */
     private function filterPaymentMethods(array $paymentConfigs, array $allowedMethodsIds, float $orderTotal): array
     {
         $allowedMethods = [];
 
-        /** @var MollieGatewayConfig $allowedMethod */
         foreach ($paymentConfigs as $allowedMethod) {
             if (isset($allowedMethod[0]) && !empty($allowedMethod[0]) && in_array($allowedMethod[0]->getMethodId(), $allowedMethodsIds, true)) {
                 $minAmountLimit = $allowedMethod[self::MINIMUM_FIELD];
@@ -157,6 +171,14 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         return $allowedMethods;
     }
 
+    /**
+     * @return array{
+     *     data: array<string, string>,
+     *     image: array<string, string>,
+     *     issuers: array<string, mixed>|null,
+     *     paymentFee: array<string, mixed>
+     * }
+     */
     private function getDefaultOptions(): array
     {
         return [
