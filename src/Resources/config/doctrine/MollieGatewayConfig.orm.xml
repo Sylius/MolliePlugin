@@ -23,7 +23,7 @@
         <field name="countryRestriction" column="country_restriction" nullable="true" />
         <field name="countryLevelExcluded" column="country_level_excluded" type="array" nullable="true" />
         <field name="countryLevelAllowed" column="country_level_allowed" type="array" nullable="true" />
-        <field name="orderExpiration" column="order_expiration" type="integer" nullable="true" />
+        <field name="orderExpirationDays" column="order_expiration_days" type="integer" nullable="true" />
         <field name="applePayDirectButton" column="apple_pay_direct" type="boolean" />
         <field name="position" column="position" type="integer" />
         <field name="qrCodeEnabled" column="qr_code_enabled" type="boolean" nullable="true" />

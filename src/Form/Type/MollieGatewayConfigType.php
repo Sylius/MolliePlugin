@@ -114,7 +114,7 @@ final class MollieGatewayConfigType extends AbstractResourceType
                 'required' => false,
                 'multiple' => true,
             ])
-            ->add('orderExpiration', ChoiceType::class, [
+            ->add('orderExpirationDays', ChoiceType::class, [
                 'label' => 'sylius_mollie_plugin.ui.order_expiration_days',
                 'required' => false,
                 'choices' => array_combine(

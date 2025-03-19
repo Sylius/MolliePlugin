@@ -53,7 +53,7 @@ class MollieGatewayConfig extends AbstractMethod implements ResourceInterface, M
     protected $countryLevelExcluded;
 
     /** @var int|null */
-    protected $orderExpiration = 28;
+    protected $orderExpirationDays = 28;
 
     /** @var string|null */
     protected $paymentDescription;
@@ -133,14 +133,14 @@ class MollieGatewayConfig extends AbstractMethod implements ResourceInterface, M
         $this->countryLevel = $countryLevel;
     }
 
-    public function getOrderExpiration(): ?int
+    public function getOrderExpirationDays(): ?int
     {
-        return $this->orderExpiration;
+        return $this->orderExpirationDays;
     }
 
-    public function setOrderExpiration(?int $orderExpiration): void
+    public function setOrderExpirationDays(?int $orderExpirationDays): void
     {
-        $this->orderExpiration = $orderExpiration;
+        $this->orderExpirationDays = $orderExpirationDays;
     }
 
     public function getPaymentDescription(): ?string

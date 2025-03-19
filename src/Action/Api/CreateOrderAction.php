@@ -27,8 +27,10 @@ final class CreateOrderAction extends BaseApiAwareAction implements ActionInterf
 {
     use GatewayAwareTrait;
 
-    public function __construct(private PaymentMethodConfigResolverInterface $methodConfigResolver, private MollieLoggerActionInterface $loggerAction)
-    {
+    public function __construct(
+        private PaymentMethodConfigResolverInterface $methodConfigResolver,
+        private MollieLoggerActionInterface $loggerAction,
+    ) {
     }
 
     public function execute($request): void
@@ -42,8 +44,7 @@ final class CreateOrderAction extends BaseApiAwareAction implements ActionInterf
         if (null !== $method) {
             $paymentMethod = $this->methodConfigResolver->getConfigFromMethodId($method);
 
-            $orderExpiredTime = $paymentMethod->getOrderExpiration();
-            $interval = new \DateInterval('P' . $orderExpiredTime . 'D');
+            $interval = new \DateInterval('P' . $paymentMethod->getOrderExpirationDays() . 'D');
             $dateExpired = new \DateTimeImmutable('now');
             $dateExpired = $dateExpired->add($interval);
         }
@@ -89,6 +90,7 @@ final class CreateOrderAction extends BaseApiAwareAction implements ActionInterf
     {
         return
             $request instanceof CreateOrder &&
-            $request->getModel() instanceof \ArrayAccess;
+            $request->getModel() instanceof \ArrayAccess
+        ;
     }
 }

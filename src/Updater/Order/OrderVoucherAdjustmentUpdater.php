@@ -15,15 +15,17 @@ namespace Sylius\MolliePlugin\Updater\Order;
 
 use Mollie\Api\Resources\Payment;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Order\Factory\AdjustmentFactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\MolliePlugin\Distributor\Order\OrderVoucherDistributorInterface;
+use Sylius\MolliePlugin\Applicator\Order\OrderVouchersApplicatorInterface;
 use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 
 final class OrderVoucherAdjustmentUpdater implements OrderVoucherAdjustmentUpdaterInterface
 {
-    public function __construct(private readonly RepositoryInterface $orderRepository, private readonly AdjustmentFactoryInterface $adjustmentFactory, private readonly OrderVoucherDistributorInterface $orderVoucherDistributor, private readonly DivisorProviderInterface $divisorProvider)
-    {
+    public function __construct(
+        private readonly RepositoryInterface $orderRepository,
+        private readonly OrderVouchersApplicatorInterface $orderVouchersApplicator,
+        private readonly DivisorProviderInterface $divisorProvider,
+    ) {
     }
 
     public function update(Payment $molliePayment, int $orderId): void
@@ -41,6 +43,6 @@ final class OrderVoucherAdjustmentUpdater implements OrderVoucherAdjustmentUpdat
 
         $amount = (int) ($amount * $this->divisorProvider->getDivisor());
 
-        $this->orderVoucherDistributor->distribute($order, $amount);
+        $this->orderVouchersApplicator->distribute($order, $amount);
     }
 }
