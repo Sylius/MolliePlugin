@@ -26,5 +26,6 @@ final class NoFeeCalculator implements PaymentSurchargeCalculatorInterface
 
     public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): void
     {
+        // noop
     }
 }

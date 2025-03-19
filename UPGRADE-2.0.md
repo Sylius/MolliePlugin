@@ -17,6 +17,18 @@
    The `Sylius\MolliePlugin\Distributor\Order\OrderVoucherDistributor` class has been renamed
    to `Sylius\MolliePlugin\Applicator\OrderOrderVouchersApplicator` along with its interface.
 
+1. The `Sylius\MolliePlugin\PaymentFee\Types\SurchargeTypeInterface` has been refactored into
+   `Sylius\MolliePlugin\PaymentFee\Calculator\PaymentSurchargeCalculatorInterface` along with all its implementations. This includes:
+    - `Sylius\MolliePlugin\PaymentFee\Types\FixedAmount` => `Sylius\MolliePlugin\PaymentFee\Calculator\FixedAmountCalculator`
+    - `Sylius\MolliePlugin\PaymentFee\Types\Percentage` => `Sylius\MolliePlugin\PaymentFee\Calculator\PercentageCalculator`
+    - `Sylius\MolliePlugin\PaymentFee\Types\FixedAmountAndPercentage` => `Sylius\MolliePlugin\PaymentFee\Calculator\FixedAmountAndPercentageCalculator`
+
+   The interface itself has also been slightly changed:
+    - method `::canCalculate` has been renamed to `::supports`
+    - method `::calculate` does not have a return value anymore
+
+   The previous service `sylius_mollie_plugin.payment_surcharge.calculate` has been refactored into `sylius_mollie.payment_surcharge.calculator.composite` which also implements the new `PaymentSurchargeCalculatorInterface`. Instead of static dependency to a few calculators, it's now a composite consisting of all calculators tagged with `sylius_mollie.payment_surcharge.calculator`.
+
 1. Changes in `Sylius\MolliePlugin\Entity\MollieGatewayConfig`:
 
    The `orderExpiration` property has been renamed to `orderExpirationDays`:
