@@ -1,6 +1,8 @@
-# UPGRADE FROM 1.x to 2.0
+# UPGRADE FROM 1.x TO 2.0
 
 1. The following classes have been removed:
+   - `Sylius\MolliePlugin\Checker\Version\MolliePluginLatestVersionChecker`
+   - `Sylius\MolliePlugin\Checker\Version\MolliePluginLatestVersionCheckerInterface`
    - `Sylius\MolliePlugin\Repository\ProductVariantRepository`
    - `Sylius\MolliePlugin\Repository\ProductVariantRepositoryInterface`
    - `Sylius\MolliePlugin\Repository\CustomerRepository`
@@ -10,25 +12,12 @@
    It has been made purely optional, and an integration layer for it has been added.
    If you were using this plugin, you need to install it manually.
 
-1. **Class and interface names have been updated.**
+1. Class and interface names have been updated
 
-   The `OrderVoucherDistributor` class has been renamed to `OrderVouchersApplicator`, and its interface has also been updated:
+   The `Sylius\MolliePlugin\Distributor\Order\OrderVoucherDistributor` class has been renamed
+   to `Sylius\MolliePlugin\Applicator\OrderOrderVouchersApplicator` along with its interface.
 
-    ```diff
-    - final class OrderVoucherDistributor implements OrderVoucherDistributorInterface
-    + final class OrderVouchersApplicator implements OrderVouchersApplicatorInterface
-    ```
-
----
-
-2. **The following files have been removed:**
-
-    - `src/Checker/Version/MolliePluginLatestVersionChecker.php`
-    - `src/Checker/Version/MolliePluginLatestVersionCheckerInterface.php`
-
----
-
-3. **Changes in the `MollieGatewayConfig` entity:**
+1. Changes in `Sylius\MolliePlugin\Entity\MollieGatewayConfig`:
 
    The `orderExpiration` property has been renamed to `orderExpirationDays`:
 
@@ -44,9 +33,7 @@
     + <field name="orderExpirationDays" column="order_expiration_days" type="integer" nullable="true" />
     ```
 
----
-
-4. **Service ID changes:**
+1. Service changes
 
    The service ID `sylius_mollie_plugin.distributor.order.order_voucher_distributor` has been renamed to:
 
@@ -55,37 +42,5 @@
     + <service id="sylius_mollie_plugin.applicator.order.order_vouchers" class="Sylius\MolliePlugin\Applicator\Order\OrderVouchersApplicator">
     ```
 
-   Additionally, the following service has been removed:
-
-    ```xml
-    <service id="sylius_mollie_plugin.checker.version.mollie_plugin_latest_version_checker" />
-    ```
-
----
-
-5. **Required database changes:**
-
-   A Doctrine migration has already been added. To apply the changes, run:
-
-    ```bash
-    bin/console doctrine:migrations:migrate
-    ```
-
----
-
-6. **Updating your code:**
-
-   If your application uses `OrderVoucherDistributor`, `OrderVoucherDistributorInterface`, or the `orderExpiration` property, update all occurrences to their new names:
-
-    - Replace `OrderVoucherDistributor` with `OrderVouchersApplicator`
-    - Replace `OrderVoucherDistributorInterface` with `OrderVouchersApplicatorInterface`
-    - Replace `orderExpiration` with `orderExpirationDays` in all entity references
-
----
-
-7. **Removing dependency on `MolliePluginLatestVersionChecker`:**
-
-   If your code relied on `MolliePluginLatestVersionChecker`, remove any references to it or replace it with `SyliusMolliePlugin::VERSION`.
-
----
-
+1. Removed services:
+   - `sylius_mollie_plugin.checker.version.mollie_plugin_latest_version_checker`
