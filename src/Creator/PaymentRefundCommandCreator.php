@@ -63,7 +63,7 @@ final class PaymentRefundCommandCreator implements PaymentRefundCommandCreatorIn
 
         Assert::notNull($order->getNumber());
 
-        return new RefundUnits($order->getNumber(), $orderItemUnitRefund, $shipmentRefund, $refundMethod->getId(), '');
+        return new RefundUnits($order->getNumber(), array_merge($orderItemUnitRefund, $shipmentRefund), $refundMethod->getId(), '');
     }
 
     private function getSumOfAmountExistingRefunds(array $refundedUnits): int

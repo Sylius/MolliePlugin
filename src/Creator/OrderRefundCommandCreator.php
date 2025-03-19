@@ -78,6 +78,6 @@ final class OrderRefundCommandCreator implements OrderRefundCommandCreatorInterf
 
         Assert::notNull($syliusOrder->getNumber());
 
-        return new RefundUnits($syliusOrder->getNumber(), $unitsToRefund, $shipmentToRefund, $refundMethod->getId(), '');
+        return new RefundUnits($syliusOrder->getNumber(), array_merge($unitsToRefund, $shipmentToRefund), $refundMethod->getId(), '');
     }
 }

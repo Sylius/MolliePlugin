@@ -17,11 +17,17 @@ use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Repository\CreditMemoRepositoryInterface;
 use Sylius\MolliePlugin\Repository\OrderRepositoryInterface;
 use Sylius\RefundPlugin\Command\RefundUnits;
+use Sylius\RefundPlugin\Filter\UnitRefundFilterInterface;
+use Sylius\RefundPlugin\Model\OrderItemUnitRefund;
+use Sylius\RefundPlugin\Model\ShipmentRefund;
 
 final class DuplicateRefundTheSameAmountChecker implements DuplicateRefundTheSameAmountCheckerInterface
 {
-    public function __construct(private readonly CreditMemoRepositoryInterface $creditMemoRepository, private readonly OrderRepositoryInterface $orderRepository)
-    {
+    public function __construct(
+        private readonly CreditMemoRepositoryInterface $creditMemoRepository,
+        private readonly OrderRepositoryInterface $orderRepository,
+        private readonly UnitRefundFilterInterface $unitRefundFilter,
+    ) {
     }
 
     public function check(RefundUnits $command): bool
@@ -46,11 +52,11 @@ final class DuplicateRefundTheSameAmountChecker implements DuplicateRefundTheSam
     {
         $total = 0;
 
-        foreach ($command->units() as $unit) {
+        foreach ($this->unitRefundFilter->filterUnitRefunds($command->units(), OrderItemUnitRefund::class) as $unit) {
             $total += $unit->total();
         }
 
-        foreach ($command->shipments() as $shipment) {
+        foreach ($this->unitRefundFilter->filterUnitRefunds($command->units(), ShipmentRefund::class) as $shipment) {
             $total += $shipment->total();
         }
 
