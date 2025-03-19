@@ -1,6 +1,6 @@
 sylius_resource:
-  resources:
-    sylius_mollie_plugin.mollie_logger:
-      driver: doctrine/orm
-      classes:
-        model: Sylius\MolliePlugin\Entity\MollieLogger
+    resources:
+        sylius_mollie.mollie_logger:
+            driver: doctrine/orm
+            classes:
+                model: Sylius\MolliePlugin\Entity\MollieLogger

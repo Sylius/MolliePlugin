@@ -1,6 +1,6 @@
 sylius_resource:
     resources:
-        sylius_mollie_plugin.mollie_subscription_schedule:
+        sylius_mollie.mollie_subscription_schedule:
             driver: doctrine/orm
             classes:
                 model: Sylius\MolliePlugin\Entity\MollieSubscriptionSchedule
