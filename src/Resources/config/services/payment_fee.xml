@@ -48,7 +48,7 @@
         </service>
 
         <service
-             id="Sylius\MolliePlugin\PaymentFee\CompositePaymentSurchargeCalculatorInterface"
+             id="Sylius\MolliePlugin\PaymentFee\Calculator\PaymentSurchargeCalculatorInterface"
              alias="sylius_mollie.payment_surcharge.calculator.composite"
         />
 
