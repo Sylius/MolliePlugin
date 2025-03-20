@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\PaymentFee\Types;
+namespace Sylius\MolliePlugin\PaymentFee\Calculator;
 
 use Sylius\Component\Order\Factory\AdjustmentFactoryInterface;
 use Sylius\Component\Order\Model\OrderInterface;
@@ -21,44 +21,43 @@ use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 use Webmozart\Assert\Assert;
 
-final class Percentage implements SurchargeTypeInterface
+final class PercentageCalculator implements PaymentSurchargeCalculatorInterface
 {
-    public function __construct(private readonly AdjustmentFactoryInterface $adjustmentFactory, private readonly DivisorProviderInterface $divisorProvider)
-    {
+    public function __construct(
+        private readonly AdjustmentFactoryInterface $adjustmentFactory,
+        private readonly DivisorProviderInterface $divisorProvider,
+    ) {
     }
 
-    public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): OrderInterface
+    public function supports(string $type): bool
+    {
+        return Options::PERCENTAGE === array_search($type, Options::getAvailablePaymentSurchargeFeeType(), true);
+    }
+
+    public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): void
     {
         $paymentSurchargeFee = $paymentMethod->getPaymentSurchargeFee();
-
         Assert::notNull($paymentSurchargeFee);
         Assert::notNull($paymentSurchargeFee->getSurchargeLimit());
+
         $limit = $paymentSurchargeFee->getSurchargeLimit() * $this->divisorProvider->getDivisor();
         $percentage = $paymentSurchargeFee->getPercentage();
-
         Assert::notNull($percentage);
+
         $amount = ($order->getItemsTotal() / 100) * $percentage;
 
-        if (false === $order->getAdjustments(AdjustmentInterface::PERCENTAGE_ADJUSTMENT)->isEmpty()) {
+        if (!$order->getAdjustments(AdjustmentInterface::PERCENTAGE_ADJUSTMENT)->isEmpty()) {
             $order->removeAdjustments(AdjustmentInterface::PERCENTAGE_ADJUSTMENT);
         }
 
-        if (0 < $limit && $limit <= $amount) {
+        if ($limit > 0 && $amount > $limit) {
             $amount = $limit;
         }
 
-        /** @var AdjustmentInterface $adjustment */
         $adjustment = $this->adjustmentFactory->createNew();
         $adjustment->setType(AdjustmentInterface::PERCENTAGE_ADJUSTMENT);
         $adjustment->setAmount((int) ceil($amount));
         $adjustment->setNeutral(false);
         $order->addAdjustment($adjustment);
-
-        return $order;
-    }
-
-    public function canCalculate(string $type): bool
-    {
-        return Options::PERCENTAGE === array_search($type, Options::getAvailablePaymentSurchargeFeeType(), true);
     }
 }

@@ -20,7 +20,7 @@ use Sylius\Component\Order\Context\CartContextInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Helper\ConvertPriceToAmount;
-use Sylius\MolliePlugin\PaymentFee\Calculate;
+use Sylius\MolliePlugin\PaymentFee\Calculator\PaymentSurchargeCalculatorInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,12 +28,19 @@ use Twig\Environment;
 
 final class PaymentFeeCalculateAction implements PaymentFeeCalculateActionInterface
 {
-    public function __construct(private readonly Calculate $calculate, private readonly CartContextInterface $cartContext, private readonly RepositoryInterface $methodRepository, private readonly AdjustmentsAggregatorInterface $adjustmentsAggregator, private readonly ConvertPriceToAmount $convertPriceToAmount, private readonly Environment $twig)
-    {
+    public function __construct(
+        private readonly PaymentSurchargeCalculatorInterface $paymentSurchargeCalculator,
+        private readonly CartContextInterface $cartContext,
+        private readonly RepositoryInterface $methodRepository,
+        private readonly AdjustmentsAggregatorInterface $adjustmentsAggregator,
+        private readonly ConvertPriceToAmount $convertPriceToAmount,
+        private readonly Environment $twig,
+    ) {
     }
 
     public function __invoke(Request $request, string $methodId): Response
     {
+        /** @var OrderInterface $order */
         $order = $this->cartContext->getCart();
         $method = $this->methodRepository->findOneBy(['methodId' => $methodId]);
 
@@ -41,14 +48,9 @@ final class PaymentFeeCalculateAction implements PaymentFeeCalculateActionInterf
             throw new NotFoundException(sprintf('Method with id %s not found', $methodId));
         }
 
-        /** @var ?OrderInterface $calculatedOrder */
-        $calculatedOrder = $this->calculate->calculateFromCart($order, $method);
+        $this->paymentSurchargeCalculator->calculate($order, $method);
 
-        if (null === $calculatedOrder) {
-            return new JsonResponse([], Response::HTTP_OK);
-        }
-
-        $paymentFee = $this->getPaymentFee($calculatedOrder);
+        $paymentFee = $this->getPaymentFee($order);
 
         if (0 === count($paymentFee)) {
             return new JsonResponse([], Response::HTTP_OK);
@@ -61,7 +63,7 @@ final class PaymentFeeCalculateAction implements PaymentFeeCalculateActionInterf
                     'paymentFee' => $this->convertPriceToAmount->convert(reset($paymentFee)),
                 ],
             ),
-            'orderTotal' => $this->convertPriceToAmount->convert($calculatedOrder->getTotal()),
+            'orderTotal' => $this->convertPriceToAmount->convert($order->getTotal()),
         ]);
     }
 

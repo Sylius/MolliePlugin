@@ -11,14 +11,14 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\PaymentFee\Types;
+namespace Sylius\MolliePlugin\PaymentFee\Calculator;
 
 use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 
-interface SurchargeTypeInterface
+interface PaymentSurchargeCalculatorInterface
 {
-    public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): OrderInterface;
+    public function supports(string $type): bool;
 
-    public function canCalculate(string $type): bool;
+    public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): void;
 }

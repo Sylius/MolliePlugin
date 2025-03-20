@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\PaymentFee\Types;
+namespace Sylius\MolliePlugin\PaymentFee\Calculator;
 
 use Sylius\Component\Order\Factory\AdjustmentFactoryInterface;
 use Sylius\Component\Order\Model\OrderInterface;
@@ -21,35 +21,34 @@ use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 use Webmozart\Assert\Assert;
 
-final class FixedAmount implements SurchargeTypeInterface
+final class FixedAmountCalculator implements PaymentSurchargeCalculatorInterface
 {
-    public function __construct(private readonly AdjustmentFactoryInterface $adjustmentFactory, private readonly DivisorProviderInterface $divisorProvider)
-    {
+    public function __construct(
+        private readonly AdjustmentFactoryInterface $adjustmentFactory,
+        private readonly DivisorProviderInterface $divisorProvider,
+    ) {
     }
 
-    public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): OrderInterface
+    public function supports(string $type): bool
+    {
+        return Options::FIXED_FEE === array_search($type, Options::getAvailablePaymentSurchargeFeeType(), true);
+    }
+
+    public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): void
     {
         Assert::notNull($paymentMethod->getPaymentSurchargeFee());
         $fixedAmount = $paymentMethod->getPaymentSurchargeFee()->getFixedAmount();
+        Assert::notNull($fixedAmount);
 
         if (false === $order->getAdjustments(AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT)->isEmpty()) {
             $order->removeAdjustments(AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT);
         }
 
-        /** @var AdjustmentInterface $adjustment */
         $adjustment = $this->adjustmentFactory->createNew();
         $adjustment->setType(AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT);
-        Assert::notNull($fixedAmount);
         $adjustment->setAmount((int) ($fixedAmount * $this->divisorProvider->getDivisor()));
         $adjustment->setNeutral(false);
 
         $order->addAdjustment($adjustment);
-
-        return $order;
-    }
-
-    public function canCalculate(string $type): bool
-    {
-        return Options::FIXED_FEE === array_search($type, Options::getAvailablePaymentSurchargeFeeType(), true);
     }
 }
