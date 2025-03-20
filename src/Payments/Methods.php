@@ -45,7 +45,6 @@ final class Methods implements MethodsInterface
     public function getAllEnabled(): array
     {
         $methods = [];
-        /** @var MethodInterface $method */
         foreach ($this->methods as $method) {
             if (true === $method->isEnabled()) {
                 $methods[] = $method->isEnabled();

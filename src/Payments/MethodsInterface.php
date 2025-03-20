@@ -34,6 +34,7 @@ use Sylius\MolliePlugin\Payments\Methods\Klarnapaylater;
 use Sylius\MolliePlugin\Payments\Methods\KlarnaPayNow;
 use Sylius\MolliePlugin\Payments\Methods\Klarnasliceit;
 use Sylius\MolliePlugin\Payments\Methods\MealVoucher;
+use Sylius\MolliePlugin\Payments\Methods\MethodInterface;
 use Sylius\MolliePlugin\Payments\Methods\MyBank;
 use Sylius\MolliePlugin\Payments\Methods\Payconiq;
 use Sylius\MolliePlugin\Payments\Methods\PayPal;
@@ -78,6 +79,7 @@ interface MethodsInterface
         Satispay::class,
     ];
 
+    /** @return MethodInterface[] */
     public function getAllEnabled(): array;
 
     public function add(Method $mollieMethod): void;
