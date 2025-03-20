@@ -18,6 +18,7 @@ use Sylius\MolliePlugin\SyliusMolliePlugin;
 
 class MollieApiClient extends BaseMollieApiClient
 {
+    /** @var array<string, mixed> */
     protected array $config = [];
 
     protected bool $isRecurringSubscription = false;
@@ -32,11 +33,13 @@ class MollieApiClient extends BaseMollieApiClient
         return SyliusMolliePlugin::USER_AGENT_TOKEN;
     }
 
+    /** @param array<string, mixed> $config */
     public function setConfig(array $config): void
     {
         $this->config = $config;
     }
 
+    /** @return array<string, mixed> */
     public function getConfig(): array
     {
         return $this->config;
