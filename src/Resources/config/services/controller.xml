@@ -40,7 +40,7 @@
         </service>
 
         <service id="sylius_mollie.controller.shop.payment_fee_calculate" class="Sylius\MolliePlugin\Controller\Action\Shop\PaymentFeeCalculateAction">
-            <argument type="service" id="sylius_mollie.payment_fee.calculate"/>
+            <argument type="service" id="sylius_mollie.payment_fee.calculator.composite"/>
             <argument type="service" id="sylius.context.cart"/>
             <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
             <argument type="service" id="sylius.adjustments_aggregator" />

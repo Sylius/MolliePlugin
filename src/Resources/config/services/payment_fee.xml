@@ -18,54 +18,54 @@
 >
     <services>
         <service
-            id="sylius_mollie.payment_surcharge.calculator.fixed_amount"
+            id="sylius_mollie.payment_fee.calculator.fixed_amount"
             class="Sylius\MolliePlugin\PaymentFee\Calculator\FixedAmountCalculator"
         >
             <argument type="service" id="sylius.factory.adjustment" />
-            <argument type="service" id="sylius_mollie_plugin.provider.divisor.divisor_provider" />
+            <argument type="service" id="sylius_mollie.provider.divisor" />
 
-            <tag name="sylius_mollie.payment_surcharge.calculator" />
+            <tag name="sylius_mollie.payment_fee.calculator" />
         </service>
 
         <service
-            id="sylius_mollie.payment_surcharge.calculator.percentage"
+            id="sylius_mollie.payment_fee.calculator.percentage"
             class="Sylius\MolliePlugin\PaymentFee\Calculator\PercentageCalculator"
         >
             <argument type="service" id="sylius.factory.adjustment" />
-            <argument type="service" id="sylius_mollie_plugin.provider.divisor.divisor_provider" />
+            <argument type="service" id="sylius_mollie.provider.divisor" />
 
-            <tag name="sylius_mollie.payment_surcharge.calculator" />
+            <tag name="sylius_mollie.payment_fee.calculator" />
         </service>
 
         <service
-            id="sylius_mollie.payment_surcharge.calculator.fixed_amount_and_percentage"
+            id="sylius_mollie.payment_fee.calculator.fixed_amount_and_percentage"
             class="Sylius\MolliePlugin\PaymentFee\Calculator\FixedAmountAndPercentageCalculator"
         >
             <argument type="service" id="sylius.factory.adjustment" />
-            <argument type="service" id="sylius_mollie.payment_surcharge.calculator.percentage" />
-            <argument type="service" id="sylius_mollie.payment_surcharge.calculator.fixed_amount" />
-            <argument type="service" id="sylius_mollie_plugin.provider.divisor.divisor_provider" />
+            <argument type="service" id="sylius_mollie.payment_fee.calculator.percentage" />
+            <argument type="service" id="sylius_mollie.payment_fee.calculator.fixed_amount" />
+            <argument type="service" id="sylius_mollie.provider.divisor" />
 
-            <tag name="sylius_mollie.payment_surcharge.calculator" />
+            <tag name="sylius_mollie.payment_fee.calculator" />
         </service>
 
         <service
-            id="sylius_mollie.payment_surcharge.calculator.no_fee"
+            id="sylius_mollie.payment_fee.calculator.no_fee"
             class="Sylius\MolliePlugin\PaymentFee\Calculator\NoFeeCalculator"
         >
-            <tag name="sylius_mollie.payment_surcharge.calculator" />
+            <tag name="sylius_mollie.payment_fee.calculator" />
         </service>
 
         <service
-            id="sylius_mollie.payment_surcharge.calculator.composite"
+            id="sylius_mollie.payment_fee.calculator.composite"
             class="Sylius\MolliePlugin\PaymentFee\CompositePaymentSurchargeCalculator"
         >
-            <argument type="tagged_iterator" tag="sylius_mollie.payment_surcharge.calculator" />
+            <argument type="tagged_iterator" tag="sylius_mollie.payment_fee.calculator" />
         </service>
 
         <service
             id="Sylius\MolliePlugin\PaymentFee\Calculator\PaymentSurchargeCalculatorInterface"
-            alias="sylius_mollie.payment_surcharge.calculator.composite"
+            alias="sylius_mollie.payment_fee.calculator.composite"
         />
     </services>
 </container>

@@ -16,7 +16,7 @@
     <services>
         <defaults public="true" />
         <service
-                id="sylius_mollie.distributor.order.order_voucher"
+                id="sylius_mollie.applicator.order.order_vouchers"
                 class="Sylius\MolliePlugin\Applicator\Order\OrderVouchersApplicator"
                 public="true"
         >

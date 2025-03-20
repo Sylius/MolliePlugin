@@ -27,7 +27,7 @@
     - method `::canCalculate` has been renamed to `::supports`
     - method `::calculate` does not have a return value anymore
 
-   The previous service `sylius_mollie_plugin.payment_surcharge.calculate` has been refactored into `sylius_mollie.payment_surcharge.calculator.composite` which also implements the new `PaymentSurchargeCalculatorInterface`. Instead of static dependency to a few calculators, it's now a composite consisting of all calculators tagged with `sylius_mollie.payment_surcharge.calculator`.
+   The previous service `sylius_mollie_plugin.payment_surcharge.calculate` has been refactored into `sylius_mollie.payment_fee.calculator.composite` which also implements the new `PaymentSurchargeCalculatorInterface`. Instead of static dependency to a few calculators, it's now a composite consisting of all calculators tagged with `sylius_mollie.payment_fee.calculator`.
 
 1. Changes in `Sylius\MolliePlugin\Entity\MollieGatewayConfig`:
 
@@ -51,7 +51,7 @@
 
     ```diff
     - <service id="sylius_mollie_plugin.distributor.order.order_voucher_distributor" class="Sylius\MolliePlugin\Distributor\Order\OrderVoucherDistributor">
-    + <service id="sylius_mollie_plugin.applicator.order.order_vouchers" class="Sylius\MolliePlugin\Applicator\Order\OrderVouchersApplicator">
+    + <service id="sylius_mollie.applicator.order.order_vouchers" class="Sylius\MolliePlugin\Applicator\Order\OrderVouchersApplicator">
     ```
 
 1. Removed services:
@@ -118,7 +118,7 @@ The following service IDs have been removed:
 | `sylius_mollie_plugin.creator.change_position_payment_method_creator`                                     | `sylius_mollie.creator.change_position_payment_method`                          |
 | `sylius_mollie_plugin.creator.onboarding_wizard.status_creator`                                           | `sylius_mollie.creator.onboarding_wizard.status`                                |
 | `sylius_mollie_plugin.repository.credit_memo_repository`                                                  | `sylius_mollie.repository.credit_memo`                                          |
-| `sylius_mollie_plugin.distributor.order.order_voucher_distributor`                                        | `sylius_mollie.distributor.order.order_voucher`                                 |
+| `sylius_mollie_plugin.distributor.order.order_voucher_distributor`                                        | `sylius_mollie.applicator.order.order_vouchers`                                 |
 | `sylius_mollie_plugin.documentation.documentation_links`                                                  | `sylius_mollie.documentation.documentation_links`                               |
 | `sylius_mollie_plugin.event_listener.shipment_ship_event_listener`                                        | `sylius_mollie.event_listener.shipment_ship`                                    |
 | `sylius_mollie_plugin.event_listener.payment_method_logo_upload_listener`                                 | `sylius_mollie.event_listener.payment_method_logo_upload`                       |
@@ -187,10 +187,10 @@ The following service IDs have been removed:
 | `sylius_mollie_plugin.parser.response.guzzle_negative_response_parser`                                    | `sylius_mollie.parser.guzzle_negative_response`                                 |
 | `sylius_mollie_plugin.partial_ship.create_partial_ship_from_mollie`                                       | `sylius_mollie.partial_ship.create_partial_ship_from_mollie`                    |
 | `sylius_mollie_plugin.processor.payment_surcharge_processor`                                              | `sylius_mollie.processor.payment_surcharge`                                     |
-| `sylius_mollie_plugin.payment_surcharge.types.fix_amount`                                                 | `sylius_mollie.payment_fee.types.fix_amount`                                    |
-| `sylius_mollie_plugin.payment_surcharge.types.fix_amount_and_percentage`                                  | `sylius_mollie.payment_fee.types.fix_amount_and_percentage`                     |
-| `sylius_mollie_plugin.payment_surcharge.types.percentage`                                                 | `sylius_mollie.payment_fee.types.percentage`                                    |
-| `sylius_mollie_plugin.payment_surcharge.calculate`                                                        | `sylius_mollie.payment_fee.calculate`                                           |
+| `sylius_mollie_plugin.payment_surcharge.types.fix_amount`                                                 | `sylius_mollie.payment_fee.calculator.fixed_amount`                             |
+| `sylius_mollie_plugin.payment_surcharge.types.fix_amount_and_percentage`                                  | `sylius_mollie.payment_fee.calculator.fixed_amount_and_percentage`              |
+| `sylius_mollie_plugin.payment_surcharge.types.percentage`                                                 | `sylius_mollie.payment_fee.calculator.percentage`                               |
+| `sylius_mollie_plugin.payment_surcharge.calculate`                                                        | `sylius_mollie.payment_fee.calculator.composite`                                |
 | `sylius_mollie_plugin.email_sender.payment_link_email_sender`                                             | `sylius_mollie.email_sender.payment_link`                                       |
 | `sylius_mollie_plugin.uploader.payment_method_logo_uploader`                                              | `sylius_mollie.uploader.payment_method_logo`                                    |
 | `sylius_mollie_plugin.payment_processing.cancel_recurring_subscription`                                   | `sylius_mollie.payment_processor.cancel_recurring_subscription`                 |

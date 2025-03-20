@@ -19,7 +19,7 @@
                 class="Sylius\MolliePlugin\Processor\PaymentSurchargeProcessor"
                 public="true"
         >
-            <argument type="service" id="sylius_mollie.payment_surcharge.calculator.composite"/>
+            <argument type="service" id="sylius_mollie.payment_fee.calculator.composite"/>
         </service>
     </services>
 </container>
