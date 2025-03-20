@@ -11,39 +11,39 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Factory;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Factory;
 
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Factory\DatePeriodFactory;
-use SyliusMolliePlugin\Factory\DatePeriodFactoryInterface;
+use Sylius\MolliePlugin\Factory\DatePeriodFactory;
+use Sylius\MolliePlugin\Factory\DatePeriodFactoryInterface;
 
 final class DatePeriodFactoryTest extends TestCase
 {
     private DatePeriodFactoryInterface $datePeriodFactory;
 
-    function setUp(): void
+    public function setUp(): void
     {
         $this->datePeriodFactory = new DatePeriodFactory();
     }
 
-    function testImplementsDatePeriodFactoryInterface(): void
+    public function testImplementsDatePeriodFactoryInterface(): void
     {
         $this->assertInstanceOf(DatePeriodFactoryInterface::class, $this->datePeriodFactory);
     }
 
-    function testCreatesForSubscriptionConfiguration(): void
+    public function testCreatesForSubscriptionConfiguration(): void
     {
         $interval = '1 months';
         $times = 3;
         $startedAt = new \DateTime();
 
         $dates = [
-            $startedAt
+            $startedAt,
         ];
 
-        for ($i = 1; $i < $times; $i++) {
-            $dates[] = (clone $dates[$i-1])->modify('1 months');
+        for ($i = 1; $i < $times; ++$i) {
+            $dates[] = (clone $dates[$i - 1])->modify('1 months');
         }
 
         $expectedDates = array_map(fn (\DateTime $date) => $date->format('Y-m-d H:i:s'), $dates);

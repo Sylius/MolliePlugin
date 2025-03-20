@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Payments\PaymentTerms;
+namespace Sylius\MolliePlugin\Payments\PaymentTerms;
 
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Payments\Methods\MealVoucher;
 use Mollie\Api\Types\PaymentMethod;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Payments\Methods\MealVoucher;
 
 final class Options
 {
@@ -42,6 +42,8 @@ final class Options
     public const LOG_EVERYTHING = 'sylius_mollie_plugin.ui.everything';
 
     public const LOG_INFO = 'sylius_mollie_plugin.ui.info';
+
+    public const NO_FEE = 'no_fee';
 
     public static function getAvailablePaymentType(): array
     {
@@ -87,14 +89,14 @@ final class Options
             PaymentMethod::IN3,
             PaymentMethod::BILLIE,
             MealVoucher::MEAL_VOUCHERS,
-            PaymentMethod::RIVERTY
+            PaymentMethod::RIVERTY,
         ];
     }
 
     public static function getOnlyPaymentAPIMethods(): array
     {
         return [
-            PaymentMethod::ALMA
+            PaymentMethod::ALMA,
         ];
     }
 }

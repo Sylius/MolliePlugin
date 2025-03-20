@@ -11,20 +11,20 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Resolver;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Resolver;
 
 use Mollie\Api\Endpoints\MethodEndpoint;
 use Mollie\Api\Resources\MethodCollection;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Creator\MollieMethodsCreatorInterface;
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Factory\MollieGatewayFactory;
-use SyliusMolliePlugin\Factory\MollieSubscriptionGatewayFactory;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Resolver\MollieMethodsResolver;
-use SyliusMolliePlugin\Resolver\MollieMethodsResolverInterface;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Creator\MollieMethodsCreatorInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Resolver\MollieMethodsResolver;
+use Sylius\MolliePlugin\Resolver\MollieMethodsResolverInterface;
 
 final class MollieMethodsResolverTest extends TestCase
 {
@@ -49,7 +49,7 @@ final class MollieMethodsResolverTest extends TestCase
             $this->loggerActionMock,
             $this->mollieApiClientMock,
             $this->gatewayConfigRepositoryMock,
-            $this->helperMock
+            $this->helperMock,
         );
     }
 
@@ -68,7 +68,7 @@ final class MollieMethodsResolverTest extends TestCase
             'environment' => 'test',
             'api_key_test' => 'test_key123',
             'times' => '5',
-            'interval' => '12 months'
+            'interval' => '12 months',
         ]);
 
         $this->mollieApiClientMock->method('setApiKey')->with('test_key123')->willReturn($clientMock);
@@ -95,7 +95,7 @@ final class MollieMethodsResolverTest extends TestCase
             'environment' => 'test',
             'api_key_test' => 'test_key123',
             'times' => '5',
-            'interval' => '12 months'
+            'interval' => '12 months',
         ]);
 
         $this->mollieApiClientMock->method('setApiKey')->with('test_key123')->willReturn($clientMock);
@@ -121,7 +121,7 @@ final class MollieMethodsResolverTest extends TestCase
             'environment' => 'test',
             'api_key_test' => 'test_key123',
             'times' => '5',
-            'interval' => '12 months'
+            'interval' => '12 months',
         ]);
 
         $this->mollieApiClientMock->method('setApiKey')->with('test_key123')->willReturn($clientMock);

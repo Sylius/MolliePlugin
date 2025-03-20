@@ -3,4 +3,4 @@ sylius_resource:
     sylius_mollie_plugin.mollie_logger:
       driver: doctrine/orm
       classes:
-        model: SyliusMolliePlugin\Entity\MollieLogger
+        model: Sylius\MolliePlugin\Entity\MollieLogger

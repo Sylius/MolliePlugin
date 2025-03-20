@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Client;
+namespace Sylius\MolliePlugin\Client;
 
-use SyliusMolliePlugin\SyliusMolliePlugin;
 use Mollie\Api\MollieApiClient as BaseMollieApiClient;
+use Sylius\MolliePlugin\SyliusMolliePlugin;
 
 class MollieApiClient extends BaseMollieApiClient
 {

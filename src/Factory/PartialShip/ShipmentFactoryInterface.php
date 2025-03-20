@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Factory\PartialShip;
+namespace Sylius\MolliePlugin\Factory\PartialShip;
 
 use Sylius\Component\Core\Model\ShipmentInterface;
 

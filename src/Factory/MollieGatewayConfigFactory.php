@@ -11,26 +11,18 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Factory;
+namespace Sylius\MolliePlugin\Factory;
 
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
-use SyliusMolliePlugin\Payments\Methods\MethodInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Payments\Methods\MethodInterface;
 
 final class MollieGatewayConfigFactory implements MollieGatewayConfigFactoryInterface
 {
-    /** @var FactoryInterface */
-    private $mollieGatewayConfigFactory;
-
-    /** @var RepositoryInterface */
-    private $repository;
-
-    public function __construct(FactoryInterface $mollieGatewayConfigFactory, RepositoryInterface $repository)
+    public function __construct(private readonly FactoryInterface $mollieGatewayConfigFactory, private readonly RepositoryInterface $repository)
     {
-        $this->mollieGatewayConfigFactory = $mollieGatewayConfigFactory;
-        $this->repository = $repository;
     }
 
     private function createNewOrUpdate(MethodInterface $method, GatewayConfigInterface $gateway): MollieGatewayConfigInterface
@@ -45,13 +37,13 @@ final class MollieGatewayConfigFactory implements MollieGatewayConfigFactoryInte
         /** @var MollieGatewayConfigInterface $gatewayConfig */
         $gatewayConfig = $this->mollieGatewayConfigFactory->createNew();
 
-        return null !== $methodExist ? $methodExist : $gatewayConfig;
+        return $methodExist ?? $gatewayConfig;
     }
 
     public function create(
         MethodInterface $method,
         GatewayConfigInterface $gateway,
-        int $key
+        int $key,
     ): MollieGatewayConfigInterface {
         $mollieGatewayConfig = $this->createNewOrUpdate($method, $gateway);
 

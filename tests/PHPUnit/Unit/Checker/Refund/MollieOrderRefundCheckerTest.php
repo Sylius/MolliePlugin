@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Checker\Refund;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Checker\Refund;
 
-use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Checker\Refund\MollieOrderRefundChecker;
-use SyliusMolliePlugin\Checker\Refund\MollieOrderRefundCheckerInterface;
 use Mollie\Api\Resources\Order;
+use PHPUnit\Framework\TestCase;
+use Sylius\MolliePlugin\Checker\Refund\MollieOrderRefundChecker;
+use Sylius\MolliePlugin\Checker\Refund\MollieOrderRefundCheckerInterface;
 
 final class MollieOrderRefundCheckerTest extends TestCase
 {
@@ -35,7 +35,7 @@ final class MollieOrderRefundCheckerTest extends TestCase
     public function testReturnsTrueWithOrderLinesQuantityRefundedEqual1And1(): void
     {
         $orderMock = $this->createMock(Order::class);
-        $orderMock->lines = [(object)['quantityRefunded' => 1], (object)['quantityRefunded' => 1]];
+        $orderMock->lines = [(object) ['quantityRefunded' => 1], (object) ['quantityRefunded' => 1]];
 
         $this->assertTrue($this->mollieOrderRefundChecker->check($orderMock));
     }
@@ -43,7 +43,7 @@ final class MollieOrderRefundCheckerTest extends TestCase
     public function testReturnsFalseWithOrderLinesQuantityRefundedEqual0(): void
     {
         $orderMock = $this->createMock(Order::class);
-        $orderMock->lines = [(object)['quantityRefunded' => 0], (object)['quantityRefunded' => 0]];
+        $orderMock->lines = [(object) ['quantityRefunded' => 0], (object) ['quantityRefunded' => 0]];
 
         $this->assertFalse($this->mollieOrderRefundChecker->check($orderMock));
     }
@@ -51,7 +51,7 @@ final class MollieOrderRefundCheckerTest extends TestCase
     public function testReturnsTrueWithOrderLinesQuantityRefundedEqual1And0(): void
     {
         $orderMock = $this->createMock(Order::class);
-        $orderMock->lines = [(object)['quantityRefunded' => 1], (object)['quantityRefunded' => 0]];
+        $orderMock->lines = [(object) ['quantityRefunded' => 1], (object) ['quantityRefunded' => 0]];
 
         $this->assertTrue($this->mollieOrderRefundChecker->check($orderMock));
     }
@@ -59,7 +59,7 @@ final class MollieOrderRefundCheckerTest extends TestCase
     public function testReturnsTrueWithOrderLinesQuantityRefundedEqual0And1(): void
     {
         $orderMock = $this->createMock(Order::class);
-        $orderMock->lines = [(object)['quantityRefunded' => 0], (object)['quantityRefunded' => 1]];
+        $orderMock->lines = [(object) ['quantityRefunded' => 0], (object) ['quantityRefunded' => 1]];
 
         $this->assertTrue($this->mollieOrderRefundChecker->check($orderMock));
     }

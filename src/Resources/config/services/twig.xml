@@ -10,30 +10,29 @@
 
     <services>
         <defaults public="true" />
-        <service id="sylius_mollie_plugin.twig.parser.content_parser" class="SyliusMolliePlugin\Twig\Parser\ContentParser" public="true">
+        <service id="sylius_mollie_plugin.twig.parser.content_parser" class="Sylius\MolliePlugin\Twig\Parser\ContentParser" public="true">
             <argument type="service" id="twig"/>
             <argument>%sylius_mollie_plugin.twig.functions%</argument>
             <argument type="service" id="translator"/>
         </service>
 
-        <service id="sylius_mollie_plugin.twig.extension.mollie_plugin_latest_version" class="SyliusMolliePlugin\Twig\Extension\MolliePluginLatestVersion" public="false">
-            <argument type="service" id="sylius_mollie_plugin.checker.version.mollie_plugin_latest_version_checker"/>
+        <service id="sylius_mollie_plugin.twig.extension.mollie_plugin_latest_version" class="Sylius\MolliePlugin\Twig\Extension\MolliePluginLatestVersion" public="false">
             <tag name="twig.extension" />
         </service>
 
-        <service id="sylius_mollie_plugin.twig.extension.customer_credit_cards" class="SyliusMolliePlugin\Twig\Extension\CustomerCreditCards" public="false">
+        <service id="sylius_mollie_plugin.twig.extension.customer_credit_cards" class="Sylius\MolliePlugin\Twig\Extension\CustomerCreditCards" public="false">
             <argument type="service" id="sylius_mollie_plugin.mollie_api_client"/>
             <argument type="service" id="sylius_mollie_plugin.repository.mollie_customer"/>
             <argument type="service" id="sylius.context.customer"/>
             <tag name="twig.extension" />
         </service>
 
-        <service id="sylius_mollie_plugin.twig.extension.apple_pay_direct_enabled" class="SyliusMolliePlugin\Twig\Extension\ApplePayDirectEnabled" public="false">
+        <service id="sylius_mollie_plugin.twig.extension.apple_pay_direct_enabled" class="Sylius\MolliePlugin\Twig\Extension\ApplePayDirectEnabled" public="false">
             <argument type="service" id="sylius_mollie_plugin.checker.apple_pay.apple_pay_enabled_checker"/>
             <tag name="twig.extension" />
         </service>
 
-        <service id="sylius_mollie_plugin.twig.extension.divisor_provider" class="SyliusMolliePlugin\Twig\Extension\DivisorProvider" public="false">
+        <service id="sylius_mollie_plugin.twig.extension.divisor_provider" class="Sylius\MolliePlugin\Twig\Extension\DivisorProvider" public="false">
             <argument type="service" id="sylius_mollie_plugin.provider.divisor.divisor_provider"/>
             <tag name="twig.extension" />
         </service>

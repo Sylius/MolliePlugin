@@ -11,15 +11,15 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Guard;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Guard;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionScheduleInterface;
-use SyliusMolliePlugin\Guard\SubscriptionGuard;
-use SyliusMolliePlugin\Guard\SubscriptionGuardInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionScheduleInterface;
+use Sylius\MolliePlugin\Guard\SubscriptionGuard;
+use Sylius\MolliePlugin\Guard\SubscriptionGuardInterface;
 
 final class SubscriptionGuardTest extends TestCase
 {
@@ -30,12 +30,12 @@ final class SubscriptionGuardTest extends TestCase
         $this->subscriptionGuard = new SubscriptionGuard();
     }
 
-    function testImplementSubscriptionGuardInterface(): void
+    public function testImplementSubscriptionGuardInterface(): void
     {
         $this->assertInstanceOf(SubscriptionGuardInterface::class, $this->subscriptionGuard);
     }
 
-    function testEligibleForPaymentsAbort(): void
+    public function testEligibleForPaymentsAbort(): void
     {
         /** @var MollieSubscriptionInterface|MockObject $subscriptionMock */
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
@@ -48,7 +48,7 @@ final class SubscriptionGuardTest extends TestCase
         $this->assertFalse($this->subscriptionGuard->isEligibleForPaymentsAbort($subscriptionMock));
     }
 
-    function testCompletableWithFulfilledDate(): void
+    public function testCompletableWithFulfilledDate(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $scheduleMock = $this->createMock(MollieSubscriptionScheduleInterface::class);
@@ -66,7 +66,7 @@ final class SubscriptionGuardTest extends TestCase
         $this->assertTrue($this->subscriptionGuard->isCompletable($subscriptionMock));
     }
 
-    function testCompletableWithoutFulfilledDate(): void
+    public function testCompletableWithoutFulfilledDate(): void
     {
         $subscriptionMock = $this->createMock(MollieSubscriptionInterface::class);
         $scheduleMock = $this->createMock(MollieSubscriptionScheduleInterface::class);

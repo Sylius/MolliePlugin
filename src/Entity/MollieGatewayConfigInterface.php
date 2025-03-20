@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Entity;
+namespace Sylius\MolliePlugin\Entity;
 
-use SyliusMolliePlugin\Payments\Methods\MethodInterface;
 use Sylius\Component\Resource\Model\TranslatableInterface;
+use Sylius\MolliePlugin\Payments\Methods\MethodInterface;
 
 interface MollieGatewayConfigInterface extends MethodInterface, TranslatableInterface
 {
@@ -44,9 +44,9 @@ interface MollieGatewayConfigInterface extends MethodInterface, TranslatableInte
 
     public function setCountryLevel(?array $countryLevel): void;
 
-    public function getOrderExpiration(): ?int;
+    public function getOrderExpirationDays(): ?int;
 
-    public function setOrderExpiration(?int $orderExpiration): void;
+    public function setOrderExpirationDays(?int $orderExpirationDays): void;
 
     public function getPaymentDescription(): ?string;
 

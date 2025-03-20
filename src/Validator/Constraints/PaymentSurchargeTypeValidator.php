@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Validator\Constraints;
+namespace Sylius\MolliePlugin\Validator\Constraints;
 
-use SyliusMolliePlugin\Entity\PaymentSurchargeFeeInterface;
-use SyliusMolliePlugin\Payments\PaymentTerms\Options;
+use Sylius\MolliePlugin\Entity\PaymentSurchargeFeeInterface;
+use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Webmozart\Assert\Assert;
@@ -27,7 +27,7 @@ final class PaymentSurchargeTypeValidator extends ConstraintValidator
 
     public const SURCHARGE_LIMIT_FIELD = 'surchargeLimit';
 
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if ($value instanceof PaymentSurchargeFeeInterface) {
             $this->validatePaymentSurcharge($value, $constraint);

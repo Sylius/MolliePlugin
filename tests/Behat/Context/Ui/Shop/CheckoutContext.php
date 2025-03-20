@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Behat\Context\Ui\Shop;
+namespace Tests\Sylius\MolliePlugin\Behat\Context\Ui\Shop;
 
 use Behat\Behat\Context\Context;
 use Behat\MinkExtension\Context\RawMinkContext;
-use Tests\SyliusMolliePlugin\Behat\Page\Shop\Checkout\CompletePageInterface;
+use Tests\Sylius\MolliePlugin\Behat\Page\Shop\Checkout\CompletePageInterface;
 
 final class CheckoutContext extends RawMinkContext implements Context
 {
@@ -23,7 +23,7 @@ final class CheckoutContext extends RawMinkContext implements Context
     private $summaryPage;
 
     public function __construct(
-        CompletePageInterface $summaryPage
+        CompletePageInterface $summaryPage,
     ) {
         $this->summaryPage = $summaryPage;
     }

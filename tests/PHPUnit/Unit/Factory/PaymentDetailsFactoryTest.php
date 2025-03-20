@@ -11,13 +11,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Factory;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Factory;
 
 use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Factory\PaymentDetailsFactoryInterface;
-use SyliusMolliePlugin\Factory\PaymentDetailsFactory;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Factory\PaymentDetailsFactory;
+use Sylius\MolliePlugin\Factory\PaymentDetailsFactoryInterface;
 
 final class PaymentDetailsFactoryTest extends TestCase
 {
@@ -28,12 +28,12 @@ final class PaymentDetailsFactoryTest extends TestCase
         $this->paymentDetailsFactory = new PaymentDetailsFactory();
     }
 
-    function testImplementsPaymentDetailsFactoryInterface(): void
+    public function testImplementsPaymentDetailsFactoryInterface(): void
     {
         $this->assertInstanceOf(PaymentDetailsFactoryInterface::class, $this->paymentDetailsFactory);
     }
 
-    function testCreatesPaymentDetailsForSubscriptionAndOrder(): void
+    public function testCreatesPaymentDetailsForSubscriptionAndOrder(): void
     {
         $subscriptionConfigurationMock = $this->createMock(MollieSubscriptionConfigurationInterface::class);
         $orderMock = $this->createMock(OrderInterface::class);
@@ -41,12 +41,12 @@ final class PaymentDetailsFactoryTest extends TestCase
         $details = [
             'gateway' => [
                 'metadata' => [
-                    'gateway' => 'test_gateway'
-                ]
+                    'gateway' => 'test_gateway',
+                ],
             ],
             'metadata' => [
-                'gateway' => 'test_gateway'
-            ]
+                'gateway' => 'test_gateway',
+            ],
         ];
 
         $subscriptionConfigurationMock->expects($this->once())->method('getPaymentDetailsConfiguration')
@@ -58,12 +58,11 @@ final class PaymentDetailsFactoryTest extends TestCase
             'cartToken' => null,
             'mandateId' => null,
             'metadata' => [
-                'gateway' => $details['metadata']['gateway']
+                'gateway' => $details['metadata']['gateway'],
             ],
         ], $this->paymentDetailsFactory->createForSubscriptionAndOrder(
             $subscriptionConfigurationMock,
-            $orderMock
+            $orderMock,
         ));
     }
 }
-

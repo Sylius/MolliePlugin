@@ -5,7 +5,7 @@
     <services>
         <defaults public="true" />
         <service id="bit_bag.sylius_mollie_plugin.payments.method_resolver.mollie_method_filter"
-                 class="SyliusMolliePlugin\Payments\MethodResolver\MollieMethodFilter">
+                 class="Sylius\MolliePlugin\Payments\MethodResolver\MollieMethodFilter">
         </service>
     </services>
 </container>

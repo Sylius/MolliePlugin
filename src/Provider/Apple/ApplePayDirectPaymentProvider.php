@@ -11,25 +11,21 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Provider\Apple;
+namespace Sylius\MolliePlugin\Provider\Apple;
 
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Resolver\ApplePayDirect\ApplePayDirectPaymentTypeResolverInterface;
 use Doctrine\Common\Collections\Collection;
 use Mollie\Api\Types\PaymentMethod;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Resolver\ApplePayDirect\ApplePayDirectPaymentTypeResolverInterface;
 use Webmozart\Assert\Assert;
 
 final class ApplePayDirectPaymentProvider implements ApplePayDirectPaymentProviderInterface
 {
-    /** @var ApplePayDirectPaymentTypeResolverInterface */
-    private $applePayDirectPaymentTypeResolver;
-
-    public function __construct(ApplePayDirectPaymentTypeResolverInterface $applePayDirectPaymentTypeResolver)
+    public function __construct(private readonly ApplePayDirectPaymentTypeResolverInterface $applePayDirectPaymentTypeResolver)
     {
-        $this->applePayDirectPaymentTypeResolver = $applePayDirectPaymentTypeResolver;
     }
 
     public function provideApplePayPayment(OrderInterface $order, array $applePayPaymentToken): void

@@ -11,14 +11,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Checker\Gateway;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Checker\Gateway;
 
 use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Checker\Gateway\MollieGatewayFactoryChecker;
-use SyliusMolliePlugin\Checker\Gateway\MollieGatewayFactoryCheckerInterface;
-use SyliusMolliePlugin\Factory\MollieGatewayFactory;
-use SyliusMolliePlugin\Factory\MollieSubscriptionGatewayFactory;
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Checker\Gateway\MollieGatewayFactoryChecker;
+use Sylius\MolliePlugin\Checker\Gateway\MollieGatewayFactoryCheckerInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
 
 final class MollieGatewayFactoryCheckerTest extends TestCase
 {

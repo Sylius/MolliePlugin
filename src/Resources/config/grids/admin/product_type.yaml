@@ -4,7 +4,7 @@ sylius_grid:
             driver:
                 name: doctrine/orm
                 options:
-                    class: SyliusMolliePlugin\Entity\ProductType
+                    class: Sylius\MolliePlugin\Entity\ProductType
             fields:
                 name:
                     type: string

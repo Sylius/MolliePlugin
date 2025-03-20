@@ -11,29 +11,25 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action\StateMachine\Transition;
+namespace Sylius\MolliePlugin\Action\StateMachine\Transition;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Transitions\MollieSubscriptionProcessingTransitions;
 use SM\Factory\FactoryInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Transitions\MollieSubscriptionProcessingTransitions;
 
 final class ProcessingStateMachineTransition implements ProcessingStateMachineTransitionInterface
 {
-    /** @var FactoryInterface */
-    private $subscriptionStateMachineFactory;
-
-    public function __construct(FactoryInterface $subscriptionStateMachineFactory)
+    public function __construct(private readonly FactoryInterface $subscriptionStateMachineFactory)
     {
-        $this->subscriptionStateMachineFactory = $subscriptionStateMachineFactory;
     }
 
     public function apply(
         MollieSubscriptionInterface $subscription,
-        string $transitions
+        string $transitions,
     ): void {
         $stateMachine = $this->subscriptionStateMachineFactory->get(
             $subscription,
-            MollieSubscriptionProcessingTransitions::GRAPH
+            MollieSubscriptionProcessingTransitions::GRAPH,
         );
 
         if (!$stateMachine->can($transitions)) {

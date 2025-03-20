@@ -4,7 +4,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <defaults public="true" />
-        <service id="sylius_mollie_plugin.uploader.payment_method_logo_uploader" class="SyliusMolliePlugin\Uploader\PaymentMethodLogoUploader">
+        <service id="sylius_mollie_plugin.uploader.payment_method_logo_uploader" class="Sylius\MolliePlugin\Uploader\PaymentMethodLogoUploader">
             <argument type="service">
                 <service class="Gaufrette\Filesystem">
                     <argument>%sylius.uploader.filesystem%</argument>

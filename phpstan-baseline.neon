@@ -1,0 +1,901 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Action\\\\ApiPlatform\\\\MolliePayment\\:\\:provideConfiguration\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Action/ApiPlatform/MolliePayment.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Applicator\\\\UnitsPromotionAdjustmentsApplicator\\:\\:apply\\(\\) has parameter \\$promotionAmount with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Applicator/UnitsPromotionAdjustmentsApplicator.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Applicator\\\\UnitsPromotionAdjustmentsApplicatorInterface\\:\\:apply\\(\\) has parameter \\$promotionAmount with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Applicator/UnitsPromotionAdjustmentsApplicatorInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Checker\\\\Voucher\\\\ProductVoucherTypeChecker\\:\\:checkTheProductTypeOnCart\\(\\) has parameter \\$methods with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Checker/Voucher/ProductVoucherTypeChecker.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Checker\\\\Voucher\\\\ProductVoucherTypeChecker\\:\\:checkTheProductTypeOnCart\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Checker/Voucher/ProductVoucherTypeChecker.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Checker\\\\Voucher\\\\ProductVoucherTypeChecker\\:\\:checkVoucherEnabled\\(\\) has parameter \\$methods with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Checker/Voucher/ProductVoucherTypeChecker.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Checker\\\\Voucher\\\\ProductVoucherTypeCheckerInterface\\:\\:checkTheProductTypeOnCart\\(\\) has parameter \\$methods with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Checker/Voucher/ProductVoucherTypeCheckerInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Checker\\\\Voucher\\\\ProductVoucherTypeCheckerInterface\\:\\:checkTheProductTypeOnCart\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Checker/Voucher/ProductVoucherTypeCheckerInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Client\\\\MollieApiClient\\:\\:getConfig\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client/MollieApiClient.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Client\\\\MollieApiClient\\:\\:setConfig\\(\\) has parameter \\$config with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client/MollieApiClient.php
+
+		-
+			message: "#^Property Sylius\\\\MolliePlugin\\\\Client\\\\MollieApiClient\\:\\:\\$config type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Client/MollieApiClient.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Controller\\\\Action\\\\Shop\\\\PaymentFeeCalculateAction\\:\\:getPaymentFee\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Controller/Action/Shop/PaymentFeeCalculateAction.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Controller\\\\Action\\\\Shop\\\\PayumController\\:\\:provideTokenBasedOnPayment\\(\\) has parameter \\$redirectOptions with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Controller/Action/Shop/PayumController.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Creator\\\\ChangePositionPaymentMethodCreator\\:\\:emptyPositionFilter\\(\\) has parameter \\$positions with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Creator/ChangePositionPaymentMethodCreator.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Creator\\\\ChangePositionPaymentMethodCreator\\:\\:emptyPositionFilter\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Creator/ChangePositionPaymentMethodCreator.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Creator\\\\PaymentRefundCommandCreator\\:\\:getSumOfAmountExistingRefunds\\(\\) has parameter \\$refundedUnits with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Creator/PaymentRefundCommandCreator.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\DTO\\\\MolliePayment\\\\Amount\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/DTO/MolliePayment/Amount.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\DTO\\\\MolliePayment\\\\Metadata\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/DTO/MolliePayment/Metadata.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\DTO\\\\MolliePayment\\\\MolliePayment\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/DTO/MolliePayment/MolliePayment.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\DTO\\\\PartialShipItems\\:\\:getArrayFromObject\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/DTO/PartialShipItems.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\DependencyInjection\\\\SyliusMessageBusPolyfillPass\\:\\:setupDefaultCommandBus\\(\\) has parameter \\$buses with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/DependencyInjection/SyliusMessageBusPolyfillPass.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\DependencyInjection\\\\SyliusMollieExtension\\:\\:getConfiguration\\(\\) has parameter \\$config with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/DependencyInjection/SyliusMollieExtension.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\DependencyInjection\\\\SyliusMollieExtension\\:\\:load\\(\\) has parameter \\$configs with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/DependencyInjection/SyliusMollieExtension.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Entity\\\\MollieGatewayConfig\\:\\:getCountryLevel\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/MollieGatewayConfig.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Entity\\\\MollieGatewayConfig\\:\\:getCountryLevelAllowed\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/MollieGatewayConfig.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Entity\\\\MollieGatewayConfig\\:\\:getCountryLevelExcluded\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/MollieGatewayConfig.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Entity\\\\MollieGatewayConfig\\:\\:setCountryLevel\\(\\) has parameter \\$countryLevel with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/MollieGatewayConfig.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Entity\\\\MollieGatewayConfig\\:\\:setCountryLevelAllowed\\(\\) has parameter \\$countryLevelAllowed with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/MollieGatewayConfig.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Entity\\\\MollieGatewayConfig\\:\\:setCountryLevelExcluded\\(\\) has parameter \\$countryLevelExcluded with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/MollieGatewayConfig.php
+
+		-
+			message: "#^Property Sylius\\\\MolliePlugin\\\\Entity\\\\MollieGatewayConfig\\:\\:\\$countryLevel type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/MollieGatewayConfig.php
+
+		-
+			message: "#^Property Sylius\\\\MolliePlugin\\\\Entity\\\\MollieGatewayConfig\\:\\:\\$countryLevelAllowed type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/MollieGatewayConfig.php
+
+		-
+			message: "#^Property Sylius\\\\MolliePlugin\\\\Entity\\\\MollieGatewayConfig\\:\\:\\$countryLevelExcluded type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/MollieGatewayConfig.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Entity\\\\MollieGatewayConfigInterface\\:\\:getCountryLevel\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/MollieGatewayConfigInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Entity\\\\MollieGatewayConfigInterface\\:\\:getCountryLevelAllowed\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/MollieGatewayConfigInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Entity\\\\MollieGatewayConfigInterface\\:\\:getCountryLevelExcluded\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/MollieGatewayConfigInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Entity\\\\MollieGatewayConfigInterface\\:\\:setCountryLevel\\(\\) has parameter \\$countryLevel with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/MollieGatewayConfigInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Entity\\\\MollieGatewayConfigInterface\\:\\:setCountryLevelAllowed\\(\\) has parameter \\$countryLevelAllowed with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/MollieGatewayConfigInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Entity\\\\MollieGatewayConfigInterface\\:\\:setCountryLevelExcluded\\(\\) has parameter \\$countryLevelExcluded with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/MollieGatewayConfigInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Entity\\\\MollieSubscriptionConfiguration\\:\\:getPaymentDetailsConfiguration\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/MollieSubscriptionConfiguration.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Entity\\\\MollieSubscriptionConfiguration\\:\\:setPaymentDetailsConfiguration\\(\\) has parameter \\$paymentDetailsConfiguration with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/MollieSubscriptionConfiguration.php
+
+		-
+			message: "#^Property Sylius\\\\MolliePlugin\\\\Entity\\\\MollieSubscriptionConfiguration\\:\\:\\$paymentDetailsConfiguration type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/MollieSubscriptionConfiguration.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Entity\\\\MollieSubscriptionConfigurationInterface\\:\\:getPaymentDetailsConfiguration\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/MollieSubscriptionConfigurationInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Entity\\\\MollieSubscriptionConfigurationInterface\\:\\:setPaymentDetailsConfiguration\\(\\) has parameter \\$paymentDetailsConfiguration with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/MollieSubscriptionConfigurationInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\EventListener\\\\ShipmentShipEventListener\\:\\:getModus\\(\\) has parameter \\$config with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/EventListener/ShipmentShipEventListener.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Factory\\\\ApiCustomerFactory\\:\\:createNew\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Factory/ApiCustomerFactory.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Factory\\\\ApiCustomerFactoryInterface\\:\\:createNew\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Factory/ApiCustomerFactoryInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Factory\\\\DatePeriodFactory\\:\\:createForSubscriptionConfiguration\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Factory/DatePeriodFactory.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Factory\\\\DatePeriodFactoryInterface\\:\\:createForSubscriptionConfiguration\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Factory/DatePeriodFactoryInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Factory\\\\MollieSubscriptionFactory\\:\\:createFromFirstOrderWithOrderItemAndPaymentConfiguration\\(\\) has parameter \\$paymentConfiguration with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Factory/MollieSubscriptionFactory.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Factory\\\\MollieSubscriptionFactoryInterface\\:\\:createFromFirstOrderWithOrderItemAndPaymentConfiguration\\(\\) has parameter \\$paymentConfiguration with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Factory/MollieSubscriptionFactoryInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Factory\\\\PaymentDetailsFactory\\:\\:createForSubscriptionAndOrder\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Factory/PaymentDetailsFactory.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Factory\\\\PaymentDetailsFactoryInterface\\:\\:createForSubscriptionAndOrder\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Factory/PaymentDetailsFactoryInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Form\\\\Extension\\\\CompleteTypeExtension\\:\\:buildForm\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Form/Extension/CompleteTypeExtension.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Form\\\\Extension\\\\GatewayConfigTypeExtension\\:\\:buildForm\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Form/Extension/GatewayConfigTypeExtension.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Form\\\\Extension\\\\PaymentTypeExtension\\:\\:buildForm\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Form/Extension/PaymentTypeExtension.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Form\\\\Extension\\\\ProductTypeExtension\\:\\:buildForm\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Form/Extension/ProductTypeExtension.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Form\\\\Extension\\\\ProductVariantRecurringExtension\\:\\:buildForm\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Form/Extension/ProductVariantRecurringExtension.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Form\\\\Type\\\\MollieGatewayConfigType\\:\\:getExtendedTypes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Form/Type/MollieGatewayConfigType.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Form\\\\Type\\\\MollieGatewayConfigurationType\\:\\:getMollieApiKey\\(\\) has parameter \\$config with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Form/Type/MollieGatewayConfigurationType.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Generator\\\\SubscriptionScheduleGenerator\\:\\:generate\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Generator/SubscriptionScheduleGenerator.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Generator\\\\SubscriptionScheduleGeneratorInterface\\:\\:generate\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Generator/SubscriptionScheduleGeneratorInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Grid\\\\Filter\\\\MollieLoggerLevel\\:\\:apply\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Grid/Filter/MollieLoggerLevel.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Grid\\\\Filter\\\\MollieSubscriptionState\\:\\:apply\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Grid/Filter/MollieSubscriptionState.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Helper\\\\ConvertOrder\\:\\:convert\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Helper/ConvertOrder.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Helper\\\\ConvertOrder\\:\\:convert\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Helper/ConvertOrder.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Helper\\\\ConvertOrder\\:\\:createAdjustments\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Helper/ConvertOrder.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Helper\\\\ConvertOrder\\:\\:createBillingAddress\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Helper/ConvertOrder.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Helper\\\\ConvertOrder\\:\\:createLines\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Helper/ConvertOrder.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Helper\\\\ConvertOrder\\:\\:createShippingAddress\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Helper/ConvertOrder.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Helper\\\\ConvertOrder\\:\\:createShippingFee\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Helper/ConvertOrder.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Helper\\\\ConvertOrderInterface\\:\\:convert\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Helper/ConvertOrderInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Helper\\\\ConvertOrderInterface\\:\\:convert\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Helper/ConvertOrderInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Helper\\\\ConvertRefundData\\:\\:convert\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Helper/ConvertRefundData.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Helper\\\\ConvertRefundData\\:\\:convert\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Helper/ConvertRefundData.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Helper\\\\ConvertRefundData\\:\\:getTotal\\(\\) has parameter \\$refundsData with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Helper/ConvertRefundData.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Helper\\\\ConvertRefundData\\:\\:getTotal\\(\\) return type has no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: src/Helper/ConvertRefundData.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Helper\\\\ConvertRefundDataInterface\\:\\:convert\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Helper/ConvertRefundDataInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Helper\\\\ConvertRefundDataInterface\\:\\:convert\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Helper/ConvertRefundDataInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\MealVouchers\\\\Options\\:\\:getAvailableMealVouchersCategory\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/MealVouchers/Options.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Options\\\\Country\\\\Options\\:\\:getCountriesConfigOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Options/Country/Options.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\MethodResolver\\\\MollieMethodFilter\\:\\:nonRecurringFilter\\(\\) has parameter \\$paymentMethods with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/MethodResolver/MollieMethodFilter.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\MethodResolver\\\\MollieMethodFilter\\:\\:recurringFilter\\(\\) has parameter \\$paymentMethods with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/MethodResolver/MollieMethodFilter.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\MethodResolver\\\\MollieMethodFilterInterface\\:\\:nonRecurringFilter\\(\\) has parameter \\$paymentMethods with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/MethodResolver/MollieMethodFilterInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\MethodResolver\\\\MollieMethodFilterInterface\\:\\:recurringFilter\\(\\) has parameter \\$paymentMethods with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/MethodResolver/MollieMethodFilterInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\MethodResolver\\\\MolliePaymentMethodResolver\\:\\:filterMethodsByChannel\\(\\) has parameter \\$methods with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/MethodResolver/MolliePaymentMethodResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\MethodResolver\\\\MolliePaymentMethodResolver\\:\\:filterMethodsByChannel\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/MethodResolver/MolliePaymentMethodResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\MethodResolver\\\\MolliePaymentMethodResolver\\:\\:sortMethodsByPosition\\(\\) has parameter \\$methods with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/MethodResolver/MolliePaymentMethodResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\MethodResolver\\\\MolliePaymentMethodResolver\\:\\:sortMethodsByPosition\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/MethodResolver/MolliePaymentMethodResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\:\\:getAllEnabled\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\AbstractMethod\\:\\:getCountry\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/AbstractMethod.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\AbstractMethod\\:\\:getImage\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/AbstractMethod.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\AbstractMethod\\:\\:getIssuers\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/AbstractMethod.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\AbstractMethod\\:\\:getMaximumAmount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/AbstractMethod.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\AbstractMethod\\:\\:getMinimumAmount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/AbstractMethod.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\AbstractMethod\\:\\:setCountry\\(\\) has parameter \\$country with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/AbstractMethod.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\AbstractMethod\\:\\:setImage\\(\\) has parameter \\$image with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/AbstractMethod.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\AbstractMethod\\:\\:setIssuers\\(\\) has parameter \\$issuers with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/AbstractMethod.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\AbstractMethod\\:\\:setMaximumAmount\\(\\) has parameter \\$maximumAmount with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/AbstractMethod.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\AbstractMethod\\:\\:setMinimumAmount\\(\\) has parameter \\$minimumAmount with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/AbstractMethod.php
+
+		-
+			message: "#^Property Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\AbstractMethod\\:\\:\\$config type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/AbstractMethod.php
+
+		-
+			message: "#^Property Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\AbstractMethod\\:\\:\\$country type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/AbstractMethod.php
+
+		-
+			message: "#^Property Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\AbstractMethod\\:\\:\\$image type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/AbstractMethod.php
+
+		-
+			message: "#^Property Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\AbstractMethod\\:\\:\\$issuers type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/AbstractMethod.php
+
+		-
+			message: "#^Property Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\AbstractMethod\\:\\:\\$maximumAmount type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/AbstractMethod.php
+
+		-
+			message: "#^Property Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\AbstractMethod\\:\\:\\$minimumAmount type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/AbstractMethod.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\MethodInterface\\:\\:getCountry\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/MethodInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\MethodInterface\\:\\:getImage\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/MethodInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\MethodInterface\\:\\:getIssuers\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/MethodInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\MethodInterface\\:\\:getMaximumAmount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/MethodInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\MethodInterface\\:\\:getMinimumAmount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/MethodInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\MethodInterface\\:\\:setCountry\\(\\) has parameter \\$country with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/MethodInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\MethodInterface\\:\\:setImage\\(\\) has parameter \\$image with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/MethodInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\MethodInterface\\:\\:setIssuers\\(\\) has parameter \\$issuers with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/MethodInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\MethodInterface\\:\\:setMaximumAmount\\(\\) has parameter \\$maximumAmount with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/MethodInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\Methods\\\\MethodInterface\\:\\:setMinimumAmount\\(\\) has parameter \\$minimumAmount with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/Methods/MethodInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\MethodsInterface\\:\\:getAllEnabled\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/MethodsInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\PaymentTerms\\\\Options\\:\\:getAvailablePaymentSurchargeFeeType\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/PaymentTerms/Options.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\PaymentTerms\\\\Options\\:\\:getAvailablePaymentType\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/PaymentTerms/Options.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\PaymentTerms\\\\Options\\:\\:getDebugLevels\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/PaymentTerms/Options.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\PaymentTerms\\\\Options\\:\\:getLogLevels\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/PaymentTerms/Options.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\PaymentTerms\\\\Options\\:\\:getOnlyOrderAPIMethods\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/PaymentTerms/Options.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Payments\\\\PaymentTerms\\\\Options\\:\\:getOnlyPaymentAPIMethods\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Payments/PaymentTerms/Options.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Provider\\\\Apple\\\\ApplePayDirectPaymentProvider\\:\\:provideApplePayPayment\\(\\) has parameter \\$applePayPaymentToken with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Provider/Apple/ApplePayDirectPaymentProvider.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Provider\\\\Apple\\\\ApplePayDirectPaymentProviderInterface\\:\\:provideApplePayPayment\\(\\) has parameter \\$applePayPaymentToken with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Provider/Apple/ApplePayDirectPaymentProviderInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Provider\\\\Form\\\\ResolverGroupProvider\\:\\:provide\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Provider/Form/ResolverGroupProvider.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Provider\\\\Form\\\\ResolverGroupProviderInterface\\:\\:provide\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Provider/Form/ResolverGroupProviderInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Purifier\\\\PartialShip\\\\OrderMolliePartialShip\\:\\:getModus\\(\\) has parameter \\$config with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Purifier/PartialShip/OrderMolliePartialShip.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Refund\\\\Units\\\\PaymentUnitsItemRefund\\:\\:refund\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Refund/Units/PaymentUnitsItemRefund.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Refund\\\\Units\\\\PaymentUnitsItemRefundInterface\\:\\:refund\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Refund/Units/PaymentUnitsItemRefundInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Refund\\\\Units\\\\ShipmentUnitRefund\\:\\:refund\\(\\) has parameter \\$orderItemUnitRefund with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Refund/Units/ShipmentUnitRefund.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Refund\\\\Units\\\\ShipmentUnitRefund\\:\\:refund\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Refund/Units/ShipmentUnitRefund.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Refund\\\\Units\\\\ShipmentUnitRefundInterface\\:\\:refund\\(\\) has parameter \\$orderItemUnitRefund with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Refund/Units/ShipmentUnitRefundInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Refund\\\\Units\\\\ShipmentUnitRefundInterface\\:\\:refund\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Refund/Units/ShipmentUnitRefundInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Refund\\\\Units\\\\UnitsItemOrderRefund\\:\\:getActualRefunded\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Refund/Units/UnitsItemOrderRefund.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Refund\\\\Units\\\\UnitsItemOrderRefund\\:\\:refund\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Refund/Units/UnitsItemOrderRefund.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Refund\\\\Units\\\\UnitsItemOrderRefundInterface\\:\\:refund\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Refund/Units/UnitsItemOrderRefundInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Refund\\\\Units\\\\UnitsShipmentOrderRefund\\:\\:refund\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Refund/Units/UnitsShipmentOrderRefund.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Refund\\\\Units\\\\UnitsShipmentOrderRefundInterface\\:\\:refund\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Refund/Units/UnitsShipmentOrderRefundInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Repository\\\\CreditMemoRepository\\:\\:findByOrderNumberAndDateTime\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Repository/CreditMemoRepository.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Repository\\\\CreditMemoRepositoryInterface\\:\\:findByOrderNumberAndDateTime\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Repository/CreditMemoRepositoryInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Repository\\\\MollieGatewayConfigRepository\\:\\:findAllEnabledByGateway\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Repository/MollieGatewayConfigRepository.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Repository\\\\MollieGatewayConfigRepository\\:\\:getExistingAmountLimitsById\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Repository/MollieGatewayConfigRepository.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Repository\\\\MollieGatewayConfigRepositoryInterface\\:\\:findAllEnabledByGateway\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Repository/MollieGatewayConfigRepositoryInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Repository\\\\MollieGatewayConfigRepositoryInterface\\:\\:getExistingAmountLimitsById\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Repository/MollieGatewayConfigRepositoryInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Repository\\\\OrderRepository\\:\\:findAbandonedByDateTime\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Repository/OrderRepository.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Repository\\\\OrderRepositoryInterface\\:\\:findAbandonedByDateTime\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Repository/OrderRepositoryInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Repository\\\\PaymentMethodRepository\\:\\:findAllByFactoryNameAndCode\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Repository/PaymentMethodRepository.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Repository\\\\PaymentMethodRepositoryInterface\\:\\:findAllByFactoryNameAndCode\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Repository/PaymentMethodRepositoryInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\Address\\\\AddressResolver\\:\\:resolve\\(\\) has parameter \\$applePayDirectAddress with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/Address/AddressResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\Address\\\\AddressResolverInterface\\:\\:resolve\\(\\) has parameter \\$applePayDirectAddress with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/Address/AddressResolverInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\Address\\\\ApplePayAddressResolver\\:\\:resolve\\(\\) has parameter \\$applePayData with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/Address/ApplePayAddressResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\Address\\\\ApplePayAddressResolverInterface\\:\\:resolve\\(\\) has parameter \\$applePayData with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/Address/ApplePayAddressResolverInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\ApiKeysTestResolver\\:\\:fromRequest\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/ApiKeysTestResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\ApiKeysTestResolverInterface\\:\\:fromRequest\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/ApiKeysTestResolverInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\ApplePayDirect\\\\ApplePayDirectApiOrderPaymentResolver\\:\\:resolve\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/ApplePayDirect/ApplePayDirectApiOrderPaymentResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\ApplePayDirect\\\\ApplePayDirectApiOrderPaymentResolverInterface\\:\\:resolve\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/ApplePayDirect/ApplePayDirectApiOrderPaymentResolverInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\ApplePayDirect\\\\ApplePayDirectApiPaymentResolver\\:\\:resolve\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/ApplePayDirect/ApplePayDirectApiPaymentResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\ApplePayDirect\\\\ApplePayDirectApiPaymentResolverInterface\\:\\:resolve\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/ApplePayDirect/ApplePayDirectApiPaymentResolverInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\ApplePayDirect\\\\ApplePayDirectPaymentTypeResolver\\:\\:createPayment\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/ApplePayDirect/ApplePayDirectPaymentTypeResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\ApplePayDirect\\\\ApplePayDirectPaymentTypeResolver\\:\\:createPaymentOrder\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/ApplePayDirect/ApplePayDirectPaymentTypeResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\ApplePayDirect\\\\ApplePayDirectPaymentTypeResolver\\:\\:resolve\\(\\) has parameter \\$applePayDirectToken with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/ApplePayDirect/ApplePayDirectPaymentTypeResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\ApplePayDirect\\\\ApplePayDirectPaymentTypeResolverInterface\\:\\:resolve\\(\\) has parameter \\$applePayDirectToken with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/ApplePayDirect/ApplePayDirectPaymentTypeResolverInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\MollieAllowedMethodsResolver\\:\\:createParametersByOrder\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/MollieAllowedMethodsResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\MollieAllowedMethodsResolver\\:\\:resolve\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/MollieAllowedMethodsResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\MollieAllowedMethodsResolverInterface\\:\\:resolve\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/MollieAllowedMethodsResolverInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\MollieCountriesRestrictionResolver\\:\\:allowCountryLevel\\(\\) has parameter \\$methods with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/MollieCountriesRestrictionResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\MollieCountriesRestrictionResolver\\:\\:allowCountryLevel\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/MollieCountriesRestrictionResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\MollieCountriesRestrictionResolver\\:\\:excludeCountryLevel\\(\\) has parameter \\$methods with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/MollieCountriesRestrictionResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\MollieCountriesRestrictionResolver\\:\\:excludeCountryLevel\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/MollieCountriesRestrictionResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\MollieCountriesRestrictionResolver\\:\\:resolve\\(\\) has parameter \\$methods with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/MollieCountriesRestrictionResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\MollieCountriesRestrictionResolver\\:\\:resolve\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/MollieCountriesRestrictionResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\MollieCountriesRestrictionResolver\\:\\:setData\\(\\) has parameter \\$methods with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/MollieCountriesRestrictionResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\MollieCountriesRestrictionResolver\\:\\:setData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/MollieCountriesRestrictionResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\MollieCountriesRestrictionResolverInterface\\:\\:resolve\\(\\) has parameter \\$methods with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/MollieCountriesRestrictionResolverInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\MollieCountriesRestrictionResolverInterface\\:\\:resolve\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/MollieCountriesRestrictionResolverInterface.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\MolliePaymentsMethodResolver\\:\\:filterPaymentMethods\\(\\) has parameter \\$allowedMethodsIds with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/MolliePaymentsMethodResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\MolliePaymentsMethodResolver\\:\\:filterPaymentMethods\\(\\) has parameter \\$paymentConfigs with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/MolliePaymentsMethodResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\MolliePaymentsMethodResolver\\:\\:filterPaymentMethods\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/MolliePaymentsMethodResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\MolliePaymentsMethodResolver\\:\\:getDefaultOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/MolliePaymentsMethodResolver.php
+
+		-
+			message: "#^Method Sylius\\\\MolliePlugin\\\\Resolver\\\\MolliePaymentsMethodResolver\\:\\:getMolliePaymentOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Resolver/MolliePaymentsMethodResolver.php

@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\DependencyInjection;
+namespace Sylius\MolliePlugin\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -29,7 +29,7 @@ final class SyliusMessageBusPolyfillPass implements CompilerPassInterface
         $targetBusName = in_array('sylius.command_bus', $buses, true) ? 'sylius.command_bus' : 'sylius_default.bus';
         $container->setAlias(
             self::COMMAND_BUS_ALIAS,
-            $targetBusName
+            $targetBusName,
         );
     }
 

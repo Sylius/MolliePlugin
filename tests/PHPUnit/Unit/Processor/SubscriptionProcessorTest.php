@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Processor;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Processor;
 
 use Payum\Core\GatewayInterface;
 use Payum\Core\Payum;
@@ -23,15 +23,15 @@ use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Payment\Factory\PaymentFactoryInterface;
 use Sylius\Component\Payment\Model\PaymentMethodInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Factory\PaymentDetailsFactoryInterface;
-use SyliusMolliePlugin\Order\SubscriptionOrderClonerInterface;
-use SyliusMolliePlugin\Processor\SubscriptionProcessor;
-use SyliusMolliePlugin\Processor\SubscriptionProcessorInterface;
-use SyliusMolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
-use SyliusMolliePlugin\Repository\OrderRepositoryInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Factory\PaymentDetailsFactoryInterface;
+use Sylius\MolliePlugin\Order\SubscriptionOrderClonerInterface;
+use Sylius\MolliePlugin\Processor\SubscriptionProcessor;
+use Sylius\MolliePlugin\Processor\SubscriptionProcessorInterface;
+use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
+use Sylius\MolliePlugin\Repository\OrderRepositoryInterface;
 
 final class SubscriptionProcessorTest extends TestCase
 {
@@ -106,8 +106,8 @@ final class SubscriptionProcessorTest extends TestCase
 
         $methodData = [
             'metadata' => [
-                'molliePaymentMethods' => 'test_method'
-            ]
+                'molliePaymentMethods' => 'test_method',
+            ],
         ];
         $lastPaymentMock->expects($this->once())->method('getDetails')->willReturn($methodData);
         $lastPaymentMock->expects($this->once())->method('getMethod')->willReturn($methodMock);
@@ -117,8 +117,8 @@ final class SubscriptionProcessorTest extends TestCase
 
         $details = [
             'metadata' => [
-                'gateway' => 'gateway_id'
-            ]
+                'gateway' => 'gateway_id',
+            ],
         ];
         $this->paymentDetailsFactoryMock->expects($this->once())
             ->method('createForSubscriptionAndOrder')
@@ -203,8 +203,8 @@ final class SubscriptionProcessorTest extends TestCase
 
         $methodData = [
             'metadata' => [
-                'molliePaymentMethods' => 'test_method'
-            ]
+                'molliePaymentMethods' => 'test_method',
+            ],
         ];
         $lastPaymentMock->expects($this->once())->method('getDetails')->willReturn($methodData);
         $lastPaymentMock->expects($this->once())->method('getMethod')->willReturn($methodMock);
@@ -214,8 +214,8 @@ final class SubscriptionProcessorTest extends TestCase
 
         $details = [
             'metadata' => [
-                'gateway' => 'gateway_id'
-            ]
+                'gateway' => 'gateway_id',
+            ],
         ];
         $this->paymentDetailsFactoryMock->expects($this->once())
             ->method('createForSubscriptionAndOrder')

@@ -6,7 +6,7 @@
                                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
 >
-    <mapped-superclass name="SyliusMolliePlugin\Entity\MollieGatewayConfig" table="mollie_configuration">
+    <mapped-superclass name="Sylius\MolliePlugin\Entity\MollieGatewayConfig" table="mollie_configuration">
         <id name="id" type="integer">
             <generator strategy="AUTO"/>
         </id>
@@ -23,34 +23,34 @@
         <field name="countryRestriction" column="country_restriction" nullable="true" />
         <field name="countryLevelExcluded" column="country_level_excluded" type="array" nullable="true" />
         <field name="countryLevelAllowed" column="country_level_allowed" type="array" nullable="true" />
-        <field name="orderExpiration" column="order_expiration" type="integer" nullable="true" />
+        <field name="orderExpirationDays" column="order_expiration_days" type="integer" nullable="true" />
         <field name="applePayDirectButton" column="apple_pay_direct" type="boolean" />
         <field name="position" column="position" type="integer" />
         <field name="qrCodeEnabled" column="qr_code_enabled" type="boolean" nullable="true" />
         <many-to-one field="gateway" target-entity="Sylius\Bundle\PayumBundle\Model\GatewayConfigInterface" inversed-by="mollieGatewayConfig">
             <join-column name="gateway_id" referenced-column-name="id"/>
         </many-to-one>
-        <one-to-one field="paymentSurchargeFee" target-entity="SyliusMolliePlugin\Entity\PaymentSurchargeFee" inversed-by="mollieGatewayConfig">
+        <one-to-one field="paymentSurchargeFee" target-entity="Sylius\MolliePlugin\Entity\PaymentSurchargeFee" inversed-by="mollieGatewayConfig">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>
             </cascade>
             <join-column name="payment_surcharge_fee"/>
         </one-to-one>
-        <one-to-one field="amountLimits" target-entity="SyliusMolliePlugin\Entity\MollieMinMax" inversed-by="mollieGatewayConfig">
+        <one-to-one field="amountLimits" target-entity="Sylius\MolliePlugin\Entity\MollieMinMax" inversed-by="mollieGatewayConfig">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>
             </cascade>
             <join-column name="amount_limits_id"/>
         </one-to-one>
-        <one-to-one field="customizeMethodImage" target-entity="SyliusMolliePlugin\Entity\MollieMethodImage" inversed-by="mollieGatewayConfig">
+        <one-to-one field="customizeMethodImage" target-entity="Sylius\MolliePlugin\Entity\MollieMethodImage" inversed-by="mollieGatewayConfig">
             <cascade>
                 <cascade-all />
             </cascade>
             <join-column name="method_image_id"/>
         </one-to-one>
-        <one-to-one field="defaultCategory" target-entity="SyliusMolliePlugin\Entity\ProductType" inversed-by="mollieGatewayConfig">
+        <one-to-one field="defaultCategory" target-entity="Sylius\MolliePlugin\Entity\ProductType" inversed-by="mollieGatewayConfig">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>

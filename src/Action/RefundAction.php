@@ -11,11 +11,8 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action;
+namespace Sylius\MolliePlugin\Action;
 
-use SyliusMolliePlugin\Action\Api\BaseApiAwareAction;
-use SyliusMolliePlugin\Helper\ConvertRefundDataInterface;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
 use Mollie\Api\Exceptions\ApiException;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
@@ -26,24 +23,17 @@ use Payum\Core\GatewayAwareTrait;
 use Payum\Core\Request\Refund;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Resource\Exception\UpdateHandlingException;
+use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
+use Sylius\MolliePlugin\Helper\ConvertRefundDataInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Webmozart\Assert\Assert;
 
 final class RefundAction extends BaseApiAwareAction implements ActionInterface, ApiAwareInterface, GatewayAwareInterface
 {
     use GatewayAwareTrait;
 
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    /** @var ConvertRefundDataInterface */
-    private $convertOrderRefundData;
-
-    public function __construct(
-        MollieLoggerActionInterface $loggerAction,
-        ConvertRefundDataInterface $convertOrderRefundData
-    ) {
-        $this->loggerAction = $loggerAction;
-        $this->convertOrderRefundData = $convertOrderRefundData;
+    public function __construct(private MollieLoggerActionInterface $loggerAction, private ConvertRefundDataInterface $convertOrderRefundData)
+    {
     }
 
     /** @param Refund|mixed $request */
@@ -98,6 +88,6 @@ final class RefundAction extends BaseApiAwareAction implements ActionInterface, 
         return
             $request instanceof Refund &&
             $request->getModel() instanceof \ArrayAccess
-            ;
+        ;
     }
 }

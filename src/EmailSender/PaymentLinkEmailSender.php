@@ -11,31 +11,21 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\EmailSender;
+namespace Sylius\MolliePlugin\EmailSender;
 
-use SyliusMolliePlugin\Entity\TemplateMollieEmailTranslationInterface;
-use SyliusMolliePlugin\Mailer\Emails;
-use SyliusMolliePlugin\Twig\Parser\ContentParserInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Mailer\Sender\SenderInterface;
+use Sylius\MolliePlugin\Entity\TemplateMollieEmailTranslationInterface;
+use Sylius\MolliePlugin\Mailer\Emails;
+use Sylius\MolliePlugin\Twig\Parser\ContentParserInterface;
 use Webmozart\Assert\Assert;
 
 final class PaymentLinkEmailSender implements PaymentLinkEmailSenderInterface
 {
-    /** @var SenderInterface */
-    private $emailSender;
-
-    /** @var ContentParserInterface */
-    private $contentParser;
-
-    public function __construct(
-        SenderInterface $emailSender,
-        ContentParserInterface $contentParser
-    ) {
-        $this->emailSender = $emailSender;
-        $this->contentParser = $contentParser;
+    public function __construct(private readonly SenderInterface $emailSender, private readonly ContentParserInterface $contentParser)
+    {
     }
 
     public function sendConfirmationEmail(OrderInterface $order, TemplateMollieEmailTranslationInterface $template): void

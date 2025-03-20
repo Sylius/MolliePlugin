@@ -11,30 +11,20 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver\PartialShip;
+namespace Sylius\MolliePlugin\Resolver\PartialShip;
 
-use SyliusMolliePlugin\DTO\PartialShipItem;
-use SyliusMolliePlugin\DTO\PartialShipItems;
-use SyliusMolliePlugin\Remover\PartialShip\OldShipmentItemsRemoverInterface;
 use Mollie\Api\Resources\Order;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\DTO\PartialShipItem;
+use Sylius\MolliePlugin\DTO\PartialShipItems;
+use Sylius\MolliePlugin\Remover\PartialShip\OldShipmentItemsRemoverInterface;
 
 final class FromMollieToSyliusResolver implements FromMollieToSyliusResolverInterface
 {
-    /** @var RepositoryInterface */
-    private $unitsItemRepository;
-
-    /** @var OldShipmentItemsRemoverInterface */
-    private $shipmentItemsRemover;
-
-    public function __construct(
-        RepositoryInterface $unitsItemRepository,
-        OldShipmentItemsRemoverInterface $shipmentItemsRemover
-    ) {
-        $this->unitsItemRepository = $unitsItemRepository;
-        $this->shipmentItemsRemover = $shipmentItemsRemover;
+    public function __construct(private readonly RepositoryInterface $unitsItemRepository, private readonly OldShipmentItemsRemoverInterface $shipmentItemsRemover)
+    {
     }
 
     public function resolve(OrderInterface $order, Order $mollieOrder): OrderInterface
@@ -67,9 +57,7 @@ final class FromMollieToSyliusResolver implements FromMollieToSyliusResolverInte
 
     private function getShippedItemQuantity(OrderInterface $order, int $itemId): int
     {
-        $itemCollection = $order->getItems()->filter(function (OrderItemInterface $item) use ($itemId): bool {
-            return $item->getId() === $itemId;
-        });
+        $itemCollection = $order->getItems()->filter(fn (OrderItemInterface $item): bool => $item->getId() === $itemId);
 
         $refundedUnits = $this->unitsItemRepository->findBy([
             'orderItem' => $itemCollection->first(),

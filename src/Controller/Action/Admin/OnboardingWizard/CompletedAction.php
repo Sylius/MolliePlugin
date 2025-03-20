@@ -11,21 +11,17 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Controller\Action\Admin\OnboardingWizard;
+namespace Sylius\MolliePlugin\Controller\Action\Admin\OnboardingWizard;
 
-use SyliusMolliePlugin\Creator\OnboardingWizard\StatusCreatorInterface;
-use SyliusMolliePlugin\Exceptions\AdminUserNotFound;
+use Sylius\MolliePlugin\Creator\OnboardingWizard\StatusCreatorInterface;
+use Sylius\MolliePlugin\Exceptions\AdminUserNotFound;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 final class CompletedAction
 {
-    /** @var StatusCreatorInterface */
-    private $onboardingWizardStatusCreator;
-
-    public function __construct(StatusCreatorInterface $onboardingWizardStatusCreator)
+    public function __construct(private readonly StatusCreatorInterface $onboardingWizardStatusCreator)
     {
-        $this->onboardingWizardStatusCreator = $onboardingWizardStatusCreator;
     }
 
     public function __invoke(): Response

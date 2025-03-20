@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Entity;
+namespace Sylius\MolliePlugin\Entity;
 
 use Sylius\Component\Resource\Model\ResourceInterface;
 
@@ -63,5 +63,4 @@ class MollieMinMax implements ResourceInterface, MollieMinMaxInterface
     {
         $this->mollieGatewayConfig = $mollieGatewayConfig;
     }
-
 }

@@ -11,11 +11,8 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action\Api;
+namespace Sylius\MolliePlugin\Action\Api;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Request\Api\CancelRecurringSubscription;
 use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Resources\Customer;
 use Payum\Core\Action\ActionInterface;
@@ -23,18 +20,17 @@ use Payum\Core\ApiAwareInterface;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\GatewayAwareInterface;
 use Payum\Core\GatewayAwareTrait;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Request\Api\CancelRecurringSubscription;
 use Webmozart\Assert\Assert;
 
 final class CancelRecurringSubscriptionAction extends BaseApiAwareAction implements ActionInterface, GatewayAwareInterface, ApiAwareInterface
 {
     use GatewayAwareTrait;
 
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    public function __construct(MollieLoggerActionInterface $loggerAction)
+    public function __construct(private MollieLoggerActionInterface $loggerAction)
     {
-        $this->loggerAction = $loggerAction;
     }
 
     /** @param CancelRecurringSubscription|mixed $request */
@@ -67,6 +63,6 @@ final class CancelRecurringSubscriptionAction extends BaseApiAwareAction impleme
         return
             $request instanceof CancelRecurringSubscription &&
             $request->getModel() instanceof MollieSubscriptionInterface
-            ;
+        ;
     }
 }

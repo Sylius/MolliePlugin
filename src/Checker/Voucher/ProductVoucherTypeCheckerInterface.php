@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Checker\Voucher;
+namespace Sylius\MolliePlugin\Checker\Voucher;
 
 use Sylius\Component\Core\Model\OrderInterface;
 

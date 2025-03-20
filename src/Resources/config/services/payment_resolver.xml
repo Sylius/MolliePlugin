@@ -6,7 +6,7 @@
         <defaults public="true" />
         <service
                 id="sylius_mollie_plugin.payment_resolver.mollie_payment_method"
-                class="SyliusMolliePlugin\Payments\MethodResolver\MolliePaymentMethodResolver"
+                class="Sylius\MolliePlugin\Payments\MethodResolver\MolliePaymentMethodResolver"
                 decorates="sylius.payment_methods_resolver.default"
         >
             <argument type="service" id="sylius_mollie_plugin.payment_resolver.mollie_payment_method.inner" />

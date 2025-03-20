@@ -9,7 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace SyliusMolliePlugin\Payments\Methods;
+declare(strict_types=1);
+
+namespace Sylius\MolliePlugin\Payments\Methods;
 
 use Mollie\Api\Types\PaymentMethod;
 
@@ -19,6 +21,7 @@ final class Riverty extends AbstractMethod
     {
         return PaymentMethod::RIVERTY;
     }
+
     public function getPaymentType(): string
     {
         return self::ORDER_API;
