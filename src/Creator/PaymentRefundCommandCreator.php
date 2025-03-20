@@ -22,6 +22,7 @@ use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 use Sylius\MolliePlugin\Refund\Units\PaymentUnitsItemRefundInterface;
 use Sylius\MolliePlugin\Refund\Units\ShipmentUnitRefundInterface;
 use Sylius\RefundPlugin\Command\RefundUnits;
+use Sylius\RefundPlugin\Entity\RefundInterface;
 use Sylius\RefundPlugin\Provider\RefundPaymentMethodsProviderInterface;
 use Webmozart\Assert\Assert;
 
@@ -41,6 +42,7 @@ final class PaymentRefundCommandCreator implements PaymentRefundCommandCreatorIn
 
         $allRefunded = $this->refundUnitsRepository->findBy(['order' => $order->getId()]);
 
+        /** @var RefundInterface[] $allRefunded */
         $refunded = $this->getSumOfAmountExistingRefunds($allRefunded);
 
         Assert::notNull($payment->amountRefunded);
@@ -66,6 +68,7 @@ final class PaymentRefundCommandCreator implements PaymentRefundCommandCreatorIn
         return new RefundUnits($order->getNumber(), array_merge($orderItemUnitRefund, $shipmentRefund), $refundMethod->getId(), '');
     }
 
+    /** @param RefundInterface[] $refundedUnits */
     private function getSumOfAmountExistingRefunds(array $refundedUnits): int
     {
         $sum = 0;
