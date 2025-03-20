@@ -15,6 +15,7 @@ namespace Sylius\MolliePlugin\Entity;
 
 use Doctrine\Common\Collections\Collection;
 
+/** @mixin GatewayConfigInterface */
 trait GatewayConfigTrait
 {
     /** @var Collection|MollieGatewayConfigInterface[] */

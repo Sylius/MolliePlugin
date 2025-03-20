@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Entity;
 
+/** @mixin ProductInterface */
 trait ProductTrait
 {
-    /** @var ProductTypeInterface */
-    protected ?ProductType $productType = null;
+    protected ?ProductTypeInterface $productType = null;
 
     public function getProductType(): ?ProductTypeInterface
     {

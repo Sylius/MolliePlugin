@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Entity;
 
+/** @mixin OrderInterface */
 trait RecurringOrderTrait
 {
     protected ?int $recurringSequenceIndex = null;
