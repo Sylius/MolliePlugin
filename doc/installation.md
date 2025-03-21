@@ -970,7 +970,6 @@ Token can be copied from the Mollie admin configuration page.
 ```
 - open checkout url in the browser and complete the payment
 
-
 ---
 
 ### ⚠️ Troubleshooting
