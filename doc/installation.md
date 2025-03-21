@@ -923,8 +923,6 @@ yarn encore production
 
 Update the scheme, since webpack and asset require new tables that are not in the migrations:
 
-
-
 ```bash
 php bin/console doctrine:schema:update --force
 ```
