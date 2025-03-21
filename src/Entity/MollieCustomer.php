@@ -19,7 +19,7 @@ class MollieCustomer implements ResourceInterface, MollieCustomerInterface
 {
     protected int $id;
 
-    protected string $profileId;
+    protected ?string $profileId = null;
 
     protected string $email;
 
