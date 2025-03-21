@@ -47,13 +47,20 @@ RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - && \
     npm install -g yarn && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install Python 2 and required dependencies
+# Install Python 2 and dependencies (required for node-gyp)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     software-properties-common \
     && add-apt-repository universe \
     && apt-get update && apt-get install -y build-essential python2 make gcc g++ libssl-dev pkg-config \
     && ln -sf /usr/bin/python2 /usr/bin/python \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+### 4️⃣ Install MailHog ###
+RUN curl -L -o /usr/local/bin/mailhog https://github.com/mailhog/MailHog/releases/download/v1.0.1/MailHog_linux_amd64 \
+    && chmod +x /usr/local/bin/mailhog
+
+### 5️⃣ Install wkhtmltopdf ###
+RUN apt-get update && apt-get install -y --no-install-recommends wkhtmltopdf && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set Python 2 as the default for node-gyp
 ENV PYTHON=/usr/bin/python2
@@ -73,9 +80,6 @@ RUN envsubst '$ROOT_DIR $PHP_VERSION' < /etc/nginx/sites-available/default.templ
     && rm -f /etc/nginx/sites-enabled/default \
     && ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
-# Copy Supervisor configuration
-COPY .docker/config/supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
 # Copy custom MySQL config
 COPY .docker/config/mysql/my.cnf /etc/mysql/my.cnf
 
@@ -92,7 +96,7 @@ COPY .docker/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 # Expose only the web server port
-EXPOSE 80
+EXPOSE 80 8025
 
 # Start all services using Supervisor
 ENTRYPOINT ["/entrypoint.sh"]
