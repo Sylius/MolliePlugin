@@ -14,7 +14,7 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <parameters>
-        <parameter key="sylius_mollie.form.type.payment_methods.validation_groups.transport" type="collection">
+        <parameter key="sylius_mollie.form.type.mollie_gateway_config.validation_groups" type="collection">
             <parameter>sylius</parameter>
         </parameter>
         <parameter key="sylius_mollie.form.type.payment_methods.payment_surcharge_fee.validation_groups" type="collection">
@@ -46,16 +46,16 @@
             <tag name="form.type"/>
         </service>
 
-        <service id="sylius_mollie.form.extension.complete_type" class="Sylius\MolliePlugin\Form\Extension\CompleteTypeExtension">
+        <service id="sylius_mollie.form.extension.type.complete" class="Sylius\MolliePlugin\Form\Extension\CompleteTypeExtension">
             <tag name="form.type_extension" extended_type="Sylius\Bundle\CoreBundle\Form\Type\Checkout\CompleteType"/>
         </service>
 
-        <service id="sylius_mollie.form.extension.product_variant_recurring" class="Sylius\MolliePlugin\Form\Extension\ProductVariantRecurringExtension">
+        <service id="sylius_mollie.form.extension.type.product_variant_recurring" class="Sylius\MolliePlugin\Form\Extension\ProductVariantRecurringExtension">
             <argument type="service" id="sylius_mollie.provider.form.resolver_group"/>
             <tag name="form.type_extension" extended_type="Sylius\Bundle\ProductBundle\Form\Type\ProductVariantType"/>
         </service>
 
-        <service id="sylius_mollie.form.extension.payment_type" class="Sylius\MolliePlugin\Form\Extension\PaymentTypeExtension">
+        <service id="sylius_mollie.form.extension.type.payment" class="Sylius\MolliePlugin\Form\Extension\PaymentTypeExtension">
             <tag name="form.type_extension" extended_type="Sylius\Bundle\CoreBundle\Form\Type\Checkout\PaymentType"/>
         </service>
 
@@ -79,7 +79,7 @@
             <argument>%sylius_mollie.model.mollie_gateway_config.class%</argument>
             <argument type="service" id="sylius_mollie.documentation.documentation_links"/>
             <argument>%sylius_locale.locale%</argument>
-            <argument>%sylius_mollie.form.type.payment_methods.validation_groups.transport%</argument>
+            <argument>%sylius_mollie.form.type.mollie_gateway_config.validation_groups%</argument>
             <tag name="form.type"/>
         </service>
 
