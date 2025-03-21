@@ -45,4 +45,4 @@ default:
 
                 - sylius_mollie_plugin.behat.context.ui.shop.account
             filters:
-                tags: "@cancelling_mollie_subscription && @ui"
+                tags: "@cancelling_mollie_subscription&&@ui"
