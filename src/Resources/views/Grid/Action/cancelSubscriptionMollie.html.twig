@@ -10,7 +10,7 @@
 
 {#{% set subscriptionMollie = subscription_mollie_repository.findOneByOrderId(data.id) %}#}
 
-{#{% if subscriptionMollie is not null and sm_can(subscriptionMollie, 'cancel', 'mollie_subscription') %}#}
+{#{% if subscriptionMollie is not null and sylius_sm_can(subscriptionMollie, 'mollie_subscription', 'cancel') %}#}
 {#    <form#}
 {#            action="{{ path }}"#}
 {#            method="post"#}

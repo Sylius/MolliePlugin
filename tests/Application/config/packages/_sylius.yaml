@@ -16,6 +16,9 @@ sylius_shop:
     product_grid:
         include_all_descendants: true
 
+sylius_state_machine_abstraction:
+    default_adapter: winzou_state_machine
+
 winzou_state_machine:
     sylius_order_checkout:
         transitions:
