@@ -923,6 +923,8 @@ yarn encore production
 
 Update the scheme, since webpack and asset require new tables that are not in the migrations:
 
+
+
 ```bash
 php bin/console doctrine:schema:update --force
 ```
@@ -971,3 +973,13 @@ Token can be copied from the Mollie admin configuration page.
 - open checkout url in the browser and complete the payment
 
 
+---
+
+### ⚠️ Troubleshooting
+
+If you encounter an error related to duplicate transitions in the `sylius_refund_refund_payment` state machine (e.g. multiple `"complete"` transitions from `"new"` state),  
+you should **remove the following file** from your project:
+```
+config/packages/sylius_refund.yaml
+```
+You should remove it **if your project does not use Symfony Workflow** 
