@@ -32,8 +32,10 @@ final class RefundAction extends BaseApiAwareAction implements ActionInterface, 
 {
     use GatewayAwareTrait;
 
-    public function __construct(private MollieLoggerActionInterface $loggerAction, private ConvertRefundDataInterface $convertOrderRefundData)
-    {
+    public function __construct(
+        private MollieLoggerActionInterface $loggerAction,
+        private ConvertRefundDataInterface $convertOrderRefundData,
+    ) {
     }
 
     /** @param Refund|mixed $request */
@@ -43,30 +45,19 @@ final class RefundAction extends BaseApiAwareAction implements ActionInterface, 
 
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
-        if (!array_key_exists('refund', $details['metadata'])) {
-            return;
-        }
-
-        try {
-            $molliePayment = $this->mollieApiClient->payments->get($details['payment_mollie_id']);
-        } catch (ApiException $e) {
-            $this->loggerAction->addNegativeLog(sprintf('API call failed: %s', htmlspecialchars($e->getMessage())));
-
-            throw new \Exception(sprintf('API call failed: %s', htmlspecialchars($e->getMessage())));
-        }
-
-        if (!$this->shouldBeRefunded($details)) {
+        if (!array_key_exists('refund', $details['metadata']) || !$this->shouldBeRefunded($details)) {
             return;
         }
 
         /** @var PaymentInterface $payment */
         $payment = $request->getFirstModel();
+        $currencyCode = $payment->getCurrencyCode();
+        Assert::notNull($currencyCode);
+
+        $refundData = $this->convertOrderRefundData->convert($details['metadata']['refund'], $currencyCode);
 
         try {
             $molliePayment = $this->mollieApiClient->payments->get($details['payment_mollie_id']);
-
-            Assert::notNull($payment->getCurrencyCode());
-            $refundData = $this->convertOrderRefundData->convert($details['metadata']['refund'], $payment->getCurrencyCode());
 
             if (true === $molliePayment->canBeRefunded()) {
                 $molliePayment->refund(['amount' => $refundData]);

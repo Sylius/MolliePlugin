@@ -34,8 +34,10 @@ final class RefundOrderAction extends BaseApiAwareAction implements ActionInterf
 {
     use GatewayAwareTrait;
 
-    public function __construct(private MollieLoggerActionInterface $loggerAction, private ConvertRefundDataInterface $convertOrderRefundData)
-    {
+    public function __construct(
+        private MollieLoggerActionInterface $loggerAction,
+        private ConvertRefundDataInterface $convertOrderRefundData,
+    ) {
     }
 
     public function execute($request): void
@@ -43,16 +45,9 @@ final class RefundOrderAction extends BaseApiAwareAction implements ActionInterf
         RequestNotSupportedException::assertSupports($this, $request);
 
         $details = ArrayObject::ensureArrayObject($request->getModel());
-
         if (!array_key_exists('refund', $details['metadata']) || !$this->shouldBeRefunded($details)) {
             return;
         }
-
-        /** @var PaymentInterface $payment */
-        $payment = $request->getFirstModel();
-
-        Assert::notNull($payment->getCurrencyCode());
-        $refundData = $this->convertOrderRefundData->convert($details['metadata']['refund'], $payment->getCurrencyCode());
 
         $molliePayment = null;
 
@@ -76,21 +71,15 @@ final class RefundOrderAction extends BaseApiAwareAction implements ActionInterf
 
         /** @var PaymentInterface $payment */
         $payment = $request->getFirstModel();
+        $currencyCode = $payment->getCurrencyCode();
+        Assert::notNull($currencyCode);
+
+        $refundData = $this->convertOrderRefundData->convert($details['metadata']['refund'], $currencyCode);
 
         try {
-            $currencyCode = $payment->getCurrencyCode();
-            Assert::notNull($currencyCode);
+            $this->mollieApiClient->payments->refund($molliePayment, ['amount' => $refundData]);
 
-            $refundData = $this->convertOrderRefundData->convert($details['metadata']['refund'], $currencyCode);
-
-            $this->mollieApiClient->payments->refund(
-                $molliePayment,
-                [
-                    'amount' => $refundData,
-                ],
-            );
-
-            $this->loggerAction->addLog(sprintf('Refund order action with order id: %s', $order->id));
+            $this->loggerAction->addLog(sprintf('Refund order action with order id: %s', $details['order_mollie_id']));
         } catch (ApiException $e) {
             $this->loggerAction->addNegativeLog(sprintf('Error refund order action with: %s', $e->getMessage()));
 
