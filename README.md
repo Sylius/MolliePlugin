@@ -58,14 +58,14 @@ Mollie provides a powerful API allowing webshop and app developers to implement 
 
 We work on stable, supported and up-to-date versions of packages. We recommend you to do the same.
 
-| Package                            | Version                                       |
-|------------------------------------|-----------------------------------------------|
-| PHP                                | ^7.2 \|\| ^8.0                                |
-| ext-json: *                        |                                               |
-| mollie/mollie-api-php              | ^v2.73.0                                      |
-| sylius/admin-order-creation-plugin | ^0.12 \|\| ^0.13 \|\| v0.14 \|\| v0.15.0      |
-| sylius/refund-plugin               | ^1.0                                          |
-| sylius/sylius                      | ~1.9.0 \|\| ~1.10.0 \|\| ~1.11.0 \|\| ~1.12.0 |
+| Package                            | Version                                                    |
+|------------------------------------|------------------------------------------------------------|
+| PHP                                | ^7.4 \|\| ^8.0                                             |
+| ext-json: *                        |                                                            |
+| mollie/mollie-api-php              | ^v2.73.0                                                   |
+| sylius/admin-order-creation-plugin | ^0.12 \|\| ^0.13 \|\| v0.14 \|\| v0.15.0                   |
+| sylius/refund-plugin               | ^1.0                                                       |
+| sylius/sylius                      | ~1.9.0 \|\| ~1.10.0 \|\| ~1.11.0 \|\| ~1.12.0 \|\| ~1.13.0 |
 
 👉 For the full installation guide please go to [installation](doc/installation.md)
 
