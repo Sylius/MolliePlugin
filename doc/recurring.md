@@ -63,12 +63,12 @@ By default, this plugin comes with labels, that indicate **subscription** state 
 However, they may not fit into your template(s). In order to replace them, override of few templates is necesary:
 
 Copy:
-* `vendor/mollie/sylius-plugin/src/Resources/views/Shop/_partial/_recurringBadge.html.twig` into `templates/SyliusMolliePlugin/Shop/_partial/_recurringBadge.html.twig`
+* `vendor/sylius/mollie-plugin/src/Resources/views/Shop/_partial/_recurringBadge.html.twig` into `templates/SyliusMolliePlugin/Shop/_partial/_recurringBadge.html.twig`
 
 Check:
-* `vendor/mollie/sylius-plugin/src/Resources/views/Shop/_partial/_recurringTranslations.html.twig`
-* `vendor/mollie/sylius-plugin/src/Resources/views/Shop/Product`
-* `vendor/mollie/sylius-plugin/src/Resources/views/Shop/Cart`
+* `vendor/sylius/mollie-plugin/src/Resources/views/Shop/_partial/_recurringTranslations.html.twig`
+* `vendor/sylius/mollie-plugin/src/Resources/views/Shop/Product`
+* `vendor/sylius/mollie-plugin/src/Resources/views/Shop/Cart`
 
 for more templates to customize.
 

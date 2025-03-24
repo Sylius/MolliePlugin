@@ -11,52 +11,11 @@ Ensure that you have `wkhtmltopdf` installed, and that you have the proper path 
 #### 2. Require Mollie plugin with composer:
 
 ```bash
-composer require mollie/sylius-plugin --no-scripts -W
+composer require sylius/mollie-plugin --no-scripts -W
 ```
 
 #### 3. Update the GatewayConfig entity class with the following code:
 
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace App\Entity\Payment;
-
-use Doctrine\ORM\Mapping as ORM;
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Entity\GatewayConfigTrait;
-use Doctrine\Common\Collections\ArrayCollection;
-use Sylius\Bundle\PayumBundle\Model\GatewayConfig as BaseGatewayConfig;
-
-/**
- * @ORM\Entity
- * @ORM\Table(name="sylius_gateway_config")
- */
-class GatewayConfig extends BaseGatewayConfig implements GatewayConfigInterface
-{
-    use GatewayConfigTrait;
-
-    /**
-     * @var ArrayCollection
-     * @ORM\OneToMany(
-     *     targetEntity="SyliusMolliePlugin\Entity\MollieGatewayConfig",
-     *     mappedBy="gateway",
-     *     orphanRemoval=true,
-     *     cascade={"all"}
-     * )
-     */
-    protected $mollieGatewayConfig;
-
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->mollieGatewayConfig = new ArrayCollection();
-    }
-}
-```
-In case if you have installed Sylius version 1.13.x, use the following code instead
 ```php
 <?php
 
@@ -144,105 +103,6 @@ sylius_payum:
 
 #### 4. Update the Order entity class with the following code: (do this also when updating to plugin version 5.4.0)
 
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace App\Entity\Order;
-
-use SyliusMolliePlugin\Entity\MolliePaymentIdOrderTrait;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Entity\AbandonedEmailOrderTrait;
-use SyliusMolliePlugin\Entity\QRCodeOrderTrait;
-use SyliusMolliePlugin\Entity\RecurringOrderTrait;
-use Doctrine\Common\Collections\Collection;
-use Sylius\Component\Core\Model\Order as BaseOrder;
-use Sylius\Component\Core\Model\OrderItemInterface;
-use Doctrine\ORM\Mapping as ORM;
-
-/**
- * @ORM\Entity
- * @ORM\Table(name="sylius_order")
- */
-class Order extends BaseOrder implements OrderInterface
-{
-    use AbandonedEmailOrderTrait;
-    use RecurringOrderTrait;
-    use QRCodeOrderTrait;
-    use MolliePaymentIdOrderTrait;
-
-    /**
-     * @var bool
-     * @ORM\Column(type="boolean", name="abandoned_email")
-     */
-    protected bool $abandonedEmail = false;
-
-    /**
-     * @var ?int
-     * @ORM\Column(type="integer", name="recurring_sequence_index", nullable=true)
-     */
-    protected ?int $recurringSequenceIndex = null;
-
-    /**
-     * @var string|null
-     * @ORM\Column(type="text", name="qr_code", nullable=true)
-     */
-    protected ?string $qrCode = null;
-    
-    /**
-     * @var string|null
-     * @ORM\Column(type="text", name="mollie_payment_id", nullable=true)
-     */
-    protected ?string $molliePaymentId = null;
-
-    /**
-     * @var MollieSubscriptionInterface|null
-     * @ORM\ManyToOne(targetEntity="SyliusMolliePlugin\Entity\MollieSubscription")
-     * @ORM\JoinColumn(name="subscription_id", fieldName="subscription", onDelete="RESTRICT")
-     */
-    protected ?MollieSubscriptionInterface $subscription = null;
-
-    public function getRecurringItems(): Collection
-    {
-        return $this
-            ->items
-            ->filter(function (OrderItemInterface $orderItem) {
-                $variant = $orderItem->getVariant();
-
-                return $variant !== null
-                    && true === $variant->isRecurring();
-            })
-            ;
-    }
-
-    public function getNonRecurringItems(): Collection
-    {
-        return $this
-            ->items
-            ->filter(function (OrderItemInterface $orderItem) {
-                $variant = $orderItem->getVariant();
-
-                return $variant !== null
-                    && false === $variant->isRecurring();
-            })
-            ;
-    }
-
-    public function hasRecurringContents(): bool
-    {
-        return 0 < $this->getRecurringItems()->count();
-    }
-
-    public function hasNonRecurringContents(): bool
-    {
-        return 0 < $this->getNonRecurringItems()->count();
-    }
-}
-
-```
-In case if you have installed Sylius version 1.13.x, use the following code instead
 ```php
 <?php
 
@@ -397,35 +257,6 @@ use SyliusMolliePlugin\Entity\ProductType;
  * @ORM\Entity
  * @ORM\Table(name="sylius_product")
  */
-class Product extends BaseProduct implements ProductInterface
-{
-    use ProductTrait;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="SyliusMolliePlugin\Entity\ProductType")
-     * @ORM\JoinColumn(name="product_type_id", fieldName="productType", onDelete="SET NULL")
-     */
-    protected ?ProductType $productType = null;
-}
-```
-In case if you have installed Sylius version 1.13.x, use the following code instead
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace App\Entity\Product;
-
-use Doctrine\ORM\Mapping as ORM;
-use SyliusMolliePlugin\Entity\ProductInterface;
-use SyliusMolliePlugin\Entity\ProductTrait;
-use Sylius\Component\Core\Model\Product as BaseProduct;
-use SyliusMolliePlugin\Entity\ProductType;
-
-/**
- * @ORM\Entity
- * @ORM\Table(name="sylius_product")
- */
 #[ORM\Entity]
 #[ORM\Table(name: 'sylius_product')]
 class Product extends BaseProduct implements ProductInterface
@@ -481,99 +312,6 @@ sylius_product:
 
 #### 6. Update the ProductVariant entity class with the following code:
 
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace App\Entity\Product;
-
-use Doctrine\ORM\Mapping as ORM;
-use Sylius\Component\Core\Model\ProductVariant as BaseProductVariant;
-use Sylius\Component\Product\Model\ProductVariantTranslationInterface;
-
-/**
- * @ORM\Entity
- * @ORM\Table(name="sylius_product_variant")
- */
-class ProductVariant extends BaseProductVariant
-{
-    use RecurringProductVariantTrait;
-
-    protected function createTranslation(): ProductVariantTranslationInterface
-    {
-        return new ProductVariantTranslation();
-    }
-    
-    public function getName(): ?string
-    {
-        return parent::getName() ?: $this->getProduct()->getName();
-    }
-}
-```
-Add RecurringProductVariantTrait implementation:
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace App\Entity\Product;
-
-
-use Doctrine\ORM\Mapping as ORM;
-
-trait RecurringProductVariantTrait
-{
-    /**
-     * @var bool
-     * @ORM\Column(type="boolean", name="recurring", nullable="false", options={"default":0})
-     */
-    private bool $recurring = false;
-
-    /**
-     * @var ?int
-     * @ORM\Column(type="integer", name="recurring_times", nullable="true")
-     */
-    private ?int $times = null;
-
-    /**
-     * @var ?string
-     * @ORM\Column(type="string", name="recurring_interval", nullable="true")
-     */
-    private ?string $interval = null;
-
-    public function isRecurring(): bool
-    {
-        return $this->recurring;
-    }
-
-    public function setRecurring(bool $recurring): void
-    {
-        $this->recurring = $recurring;
-    }
-
-    public function getTimes(): ?int
-    {
-        return $this->times;
-    }
-
-    public function setTimes(?int $times): void
-    {
-        $this->times = $times;
-    }
-
-    public function getInterval(): ?string
-    {
-        return $this->interval;
-    }
-
-    public function setInterval(?string $interval): void
-    {
-        $this->interval = $interval;
-    }
-}
-```
-In case if you have installed Sylius version 1.13.x, use the following code instead
 ```php
 <?php
 
@@ -778,6 +516,19 @@ After running all the above-mentioned commands, run migrate command
 bin/console doctrine:migrations:migrate
 ```
 
+---
+
+### ⚠️ SyliusRefundPlugin Troubleshooting
+
+If you encounter an error related to duplicate transitions in the `sylius_refund_refund_payment` state machine (e.g. multiple `"complete"` transitions from `"new"` state),  
+you should **remove the following file** from your project:
+```
+config/packages/sylius_refund.yaml
+```
+You should remove it **if your project does not use Symfony Workflow**
+
+---
+
 #### 13. Copy Sylius templates overridden in plugin to your templates directory (e.g templates/bundles/):
 **Note:** Some directories may already exist in your project
 
@@ -790,10 +541,10 @@ mkdir -p templates/bundles/SyliusRefundPlugin/
 **Note:** Ba aware that the following commands will override your existing templates!
 
 ```
-cp -R vendor/mollie/sylius-plugin/tests/Application/templates/bundles/SyliusAdminBundle/* templates/bundles/SyliusAdminBundle/
-cp -R vendor/mollie/sylius-plugin/tests/Application/templates/bundles/SyliusShopBundle/* templates/bundles/SyliusShopBundle/
-cp -R vendor/mollie/sylius-plugin/tests/Application/templates/bundles/SyliusUiBundle/* templates/bundles/SyliusUiBundle/
-cp -R vendor/mollie/sylius-plugin/tests/Application/templates/bundles/SyliusRefundPlugin/* templates/bundles/SyliusRefundPlugin/
+cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusAdminBundle/* templates/bundles/SyliusAdminBundle/
+cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusShopBundle/* templates/bundles/SyliusShopBundle/
+cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusUiBundle/* templates/bundles/SyliusUiBundle/
+cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusRefundPlugin/* templates/bundles/SyliusRefundPlugin/
 ```
 
 #### 14. Install assets:
@@ -843,10 +594,10 @@ public/bundles/syliusmollieplugin/mollie/shop.js
 
 Another way is to import already built assets directly from mollie source files:
 ```
-vendor/mollie/sylius-plugin/src/Resources/public/mollie/admin.css
-vendor/mollie/sylius-plugin/src/Resources/public/mollie/admin.js
-vendor/mollie/sylius-plugin/src/Resources/public/mollie/shop.css
-vendor/mollie/sylius-plugin/src/Resources/public/mollie/shop.js
+vendor/sylius/mollie-plugin/src/Resources/public/mollie/admin.css
+vendor/sylius/mollie-plugin/src/Resources/public/mollie/admin.js
+vendor/sylius/mollie-plugin/src/Resources/public/mollie/shop.css
+vendor/sylius/mollie-plugin/src/Resources/public/mollie/shop.js
 ```
 
 #### 3. Using `webpack`
@@ -880,7 +631,7 @@ Encore.addEntry(
     'mollie-shop-entry',
     path.resolve(
       __dirname,
-      'vendor/mollie/sylius-plugin/src/Resources/assets/shop/entry.js'
+      'vendor/sylius/mollie-plugin/src/Resources/assets/shop/entry.js'
     )
 )
 
@@ -888,7 +639,7 @@ Encore.addEntry(
     'mollie-admin-entry',
     path.resolve(
         __dirname,
-        'vendor/mollie/sylius-plugin/src/Resources/assets/admin/entry.js'
+        'vendor/sylius/mollie-plugin/src/Resources/assets/admin/entry.js'
     )
 )
 ```
@@ -969,5 +720,4 @@ Token can be copied from the Mollie admin configuration page.
 }}
 ```
 - open checkout url in the browser and complete the payment
-
 
