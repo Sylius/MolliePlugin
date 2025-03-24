@@ -38,6 +38,20 @@ class MolliePayment
         return $gatewayConfig->getFactoryName() === self::MOLLIE_PAYMENT_METHOD_NAME;
     }
 
+    /**
+     * @return array{
+     *     method: ?string,
+     *     issuer: ?string,
+     *     cardToken: ?string,
+     *     amount: mixed,
+     *     customerId: mixed,
+     *     description: ?string,
+     *     redirectUrl: string,
+     *     webhookUrl: string,
+     *     metadata: ?array<string, mixed>,
+     *     locale: ?string
+     * }
+     */
     public function provideConfiguration(PaymentInterface $payment): array
     {
         /** @var OrderInterface $order */

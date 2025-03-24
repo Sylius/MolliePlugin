@@ -51,6 +51,7 @@ final class SyliusMollieExtension extends Extension implements PrependExtensionI
         ]);
     }
 
+    /** @param array<mixed> $config */
     public function getConfiguration(array $config, ContainerBuilder $container): ConfigurationInterface
     {
         return new Configuration();

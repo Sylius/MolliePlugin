@@ -17,5 +17,6 @@ use Sylius\MolliePlugin\Entity\OrderInterface;
 
 interface ApplePayDirectPaymentProviderInterface
 {
+    /** @param array<string, mixed> $applePayPaymentToken */
     public function provideApplePayPayment(OrderInterface $order, array $applePayPaymentToken): void;
 }

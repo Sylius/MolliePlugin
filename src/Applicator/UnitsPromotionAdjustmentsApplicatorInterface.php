@@ -17,5 +17,6 @@ use Sylius\Component\Core\Model\OrderInterface;
 
 interface UnitsPromotionAdjustmentsApplicatorInterface
 {
+    /** @param int[] $promotionAmount */
     public function apply(OrderInterface $order, array $promotionAmount): void;
 }
