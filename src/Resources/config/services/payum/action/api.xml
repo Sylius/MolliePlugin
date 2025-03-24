@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults public="true" />
+
+        <service id="sylius_mollie.payum.action.api.create_payment" class="Sylius\MolliePlugin\Action\Api\CreatePaymentAction">
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
+            <argument type="service" id="sylius_mollie.parser.guzzle_negative_response"/>
+            <argument type="service" id="request_stack"/>
+            <argument type="service" id="sylius_mollie.repository.mollie_customer"/>
+            <tag name="payum.action" factory="mollie" alias="payum.action.create_payment"/>
+            <tag name="payum.action" factory="mollie_subscription" alias="payum.action.create_payment_subscription"/>
+        </service>
+
+        <service id="sylius_mollie.payum.action.api.create_order" class="Sylius\MolliePlugin\Action\Api\CreateOrderAction">
+            <argument type="service" id="sylius_mollie.resolver.payment_config"/>
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
+            <tag name="payum.action" factory="mollie" alias="payum.action.create_order"/>
+        </service>
+
+        <service id="sylius_mollie.payum.action.api.create_on_demand_payment" class="Sylius\MolliePlugin\Action\Api\CreateOnDemandPaymentAction">
+            <argument id="sylius_mollie.logger.mollie_logger_action" type="service"/>
+            <argument id="sylius_mollie.parser.guzzle_negative_response" type="service"/>
+            <tag name="payum.action" factory="mollie_subscription" alias="payum.action.create_on_demand_payment_action"/>
+        </service>
+
+        <service id="sylius_mollie.payum.action.api.create_on_demand_subscription" class="Sylius\MolliePlugin\Action\Api\CreateOnDemandSubscriptionAction">
+            <argument id="sylius_mollie.logger.mollie_logger_action" type="service"/>
+            <argument id="sylius_mollie.parser.guzzle_negative_response" type="service"/>
+            <tag name="payum.action" factory="mollie_subscription" alias="payum.action.create_on_demand_subscription_action"/>
+        </service>
+
+        <service id="sylius_mollie.payum.action.api.create_internal_subscription" class="Sylius\MolliePlugin\Action\Api\CreateInternalSubscriptionAction">
+            <argument type="service" id="sylius_mollie.repository.mollie_subscription"/>
+            <argument type="service" id="sylius_mollie.custom_factory.mollie_subscription"/>
+            <argument type="service" id="sylius.repository.order"/>
+            <tag name="payum.action" factory="mollie_subscription" alias="payum.action.create_internal_subscription"/>
+        </service>
+
+        <service id="sylius_mollie.payum.action.api.create_customer" class="Sylius\MolliePlugin\Action\Api\CreateCustomerAction">
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
+            <argument type="service" id="sylius_mollie.repository.mollie_customer"/>
+            <tag name="payum.action" factory="mollie" alias="payum.action.api.create_customer"/>
+            <tag name="payum.action" factory="mollie_subscription" alias="payum.action.api.create_customer_subscription"/>
+        </service>
+
+        <service id="sylius_mollie.payum.action.api.cancel_recurring_subscription" class="Sylius\MolliePlugin\Action\Api\CancelRecurringSubscriptionAction">
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
+            <tag name="payum.action" factory="mollie_subscription" alias="payum.action.state_machine.cancel_recurring_subscription"/>
+        </service>
+    </services>
+</container>

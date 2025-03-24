@@ -1,6 +1,6 @@
 sylius_resource:
     resources:
-        sylius_mollie_plugin.mollie_subscription:
+        sylius_mollie.mollie_subscription:
             driver: doctrine/orm
             classes:
                 model: Sylius\MolliePlugin\Entity\MollieSubscription

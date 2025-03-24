@@ -1,16 +1,23 @@
 mollie_subscription:
-  resource: "shop/subscription_mollie.yaml"
+    resource: "shop/subscription_mollie.yaml"
+
 mollie_payment_fee_ajax:
-  resource: "shop/paymentFee.yaml"
+    resource: "shop/paymentFee.yaml"
+
 mollie_apple_pay:
-  resource: "shop/applePay.yaml"
+    resource: "shop/applePay.yaml"
+
 mollie_qr_code:
-  resource: "shop/qrCode.yaml"
+    resource: "shop/qrCode.yaml"
+
 mollie_payum:
-  resource: "shop/payum.yaml"
+    resource: "shop/payum.yaml"
+
 mollie_payment_webhook:
-  resource: "shop/paymentWebhook.yaml"
+    resource: "shop/paymentWebhook.yaml"
+
 mollie_page_redirect:
-  resource: "shop/pageRedirect.yaml"
+    resource: "shop/pageRedirect.yaml"
+
 mollie_credit_card_translation:
-  resource: "shop/creditCardTranslation.yaml"
+    resource: "shop/creditCardTranslation.yaml"

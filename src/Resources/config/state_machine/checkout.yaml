@@ -4,7 +4,7 @@ winzou_state_machine:
       after:
         sylius_mollie_plugin_payment_surcharge:
           on: ["select_payment"]
-          do: ["@sylius_mollie_plugin.processor.payment_surcharge_processor", "process"]
+          do: ["@sylius_mollie.processor.payment_surcharge", "process"]
           args: ["object"]
   sylius_shipment:
     transitions:
@@ -15,7 +15,7 @@ winzou_state_machine:
       before:
         mollie_purify_empty_ready_shipments:
           on: ["ship", "create_and_ship"]
-          do: ["@sylius_mollie_plugin.purifier.partial_ship.order_shipment_purifier", "purify"]
+          do: ["@sylius_mollie.purifier.partial_ship.order_shipment", "purify"]
           args: ["object.getOrder()"]
       after:
         sylius_resolve_state:

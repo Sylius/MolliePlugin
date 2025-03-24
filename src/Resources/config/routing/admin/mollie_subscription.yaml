@@ -1,6 +1,6 @@
 sylius_mollie_plugin_mollie_subscription:
     resource: |
-        alias: sylius_mollie_plugin.mollie_subscription
+        alias: sylius_mollie.mollie_subscription
         section: admin
         path: /mollie/subscription
         permission: true
@@ -19,7 +19,7 @@ sylius_mollie_plugin_mollie_subscription_show:
     path: /mollie/subscription/{id}
     methods: [GET]
     defaults:
-        _controller: sylius_mollie_plugin.controller.action.admin.mollie_subscription_controller::showAction
+        _controller: sylius_mollie.controller.admin.mollie_subscription::showAction
         _sylius:
             section: admin
             permission: true
@@ -29,7 +29,7 @@ sylius_mollie_plugin_mollie_subscription_cancel:
     path: /mollie/subscription/{id}/cancel
     methods: [PUT]
     defaults:
-        _controller: sylius_mollie_plugin.controller.action.admin.mollie_subscription_controller::applyStateMachineTransitionAction
+        _controller: sylius_mollie.controller.admin.mollie_subscription::applyStateMachineTransitionAction
         _sylius:
             permission: true
             state_machine:
@@ -41,7 +41,7 @@ sylius_mollie_plugin_mollie_subscription_pause:
     path: /mollie/subscription/{id}/pause
     methods: [PUT]
     defaults:
-        _controller: sylius_mollie_plugin.controller.action.admin.mollie_subscription_controller::applyStateMachineTransitionAction
+        _controller: sylius_mollie.controller.admin.mollie_subscription::applyStateMachineTransitionAction
         _sylius:
             permission: true
             state_machine:
@@ -53,7 +53,7 @@ sylius_mollie_plugin_mollie_subscription_resume:
     path: /mollie/subscription/{id}/resume
     methods: [PUT]
     defaults:
-        _controller: sylius_mollie_plugin.controller.action.admin.mollie_subscription_controller::applyStateMachineTransitionAction
+        _controller: sylius_mollie.controller.admin.mollie_subscription::applyStateMachineTransitionAction
         _sylius:
             permission: true
             state_machine:

@@ -4,16 +4,16 @@ winzou_state_machine:
             after:
                 sylius_process_subscription_fail:
                     on: [ "fail" ]
-                    do: [ "@sylius_mollie_plugin.payment_processing.subscription_payment_processor", "processFailed" ]
+                    do: [ "@sylius_mollie.payment_processor.subscription_payment", "processFailed" ]
                     args: [ "object" ]
 
                 sylius_process_subscription_success:
                     on: [ "complete" ]
-                    do: [ "@sylius_mollie_plugin.payment_processing.subscription_payment_processor", "processSuccess" ]
+                    do: [ "@sylius_mollie.payment_processor.subscription_payment", "processSuccess" ]
                     args: [ "object" ]
 
     mollie_subscription_manual:
-        class: "%sylius_mollie_plugin.model.mollie_subscription.class%"
+        class: "%sylius_mollie.model.mollie_subscription.class%"
         property_path: state
         graph: mollie_subscription_payment_graph_manual
         state_machine_class: "%sylius.state_machine.class%"
@@ -37,7 +37,7 @@ winzou_state_machine:
                 to: canceled
 
     mollie_subscription_payment_state_graph:
-        class: "%sylius_mollie_plugin.model.mollie_subscription.class%"
+        class: "%sylius_mollie.model.mollie_subscription.class%"
         property_path: paymentState
         graph: mollie_subscription_payment_state_graph
         state_machine_class: "%sylius.state_machine.class%"
@@ -59,5 +59,5 @@ winzou_state_machine:
             before:
                 mollie_subscription_payment_state_after_success:
                     on: [ "success" ]
-                    do: [ "@sylius_mollie_plugin.processor.subscription_schedule_processor", "process" ]
+                    do: [ "@sylius_mollie.processor.subscription_schedule", "process" ]
                     args: [ "object" ]

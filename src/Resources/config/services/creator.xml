@@ -1,50 +1,66 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <defaults public="true" />
-        <service id="bit_bag.sylius_mollie_plugin.creator.payment_refund_command_creator" class="Sylius\MolliePlugin\Creator\PaymentRefundCommandCreator">
+
+        <service id="sylius_mollie.creator.payment_refund_command" class="Sylius\MolliePlugin\Creator\PaymentRefundCommandCreator">
             <argument type="service" id="sylius.repository.order" />
             <argument type="service" id="sylius_refund.repository.refund" />
-            <argument type="service" id="bit_bag.sylius_mollie_plugin.refund.units_item_refund" />
-            <argument type="service" id="bit_bag.sylius_mollie_plugin.refund.shipment_refund" />
+            <argument type="service" id="sylius_mollie.refund.units.payment_units_item" />
+            <argument type="service" id="sylius_mollie.refund.units.shipment_unit" />
             <argument type="service" id="sylius.factory.adjustment"/>
             <argument type="service" id="Sylius\RefundPlugin\Provider\RefundPaymentMethodsProviderInterface" />
-            <argument type="service" id="sylius_mollie_plugin.provider.divisor.divisor_provider"/>
+            <argument type="service" id="sylius_mollie.provider.divisor"/>
         </service>
-        <service id="sylius_mollie_plugin.creator.order_refund_command_creator" class="Sylius\MolliePlugin\Creator\OrderRefundCommandCreator">
+
+        <service id="sylius_mollie.creator.order_refund_command" class="Sylius\MolliePlugin\Creator\OrderRefundCommandCreator">
             <argument type="service" id="sylius.repository.order" />
-            <argument type="service" id="sylius_mollie_plugin.refund.units_item_order_refund" />
-            <argument type="service" id="sylius_mollie_plugin.refund.units.units_shipment_order_refund" />
+            <argument type="service" id="sylius_mollie.refund.units.units_item_order" />
+            <argument type="service" id="sylius_mollie.refund.units.units_shipment_order" />
             <argument type="service" id="Sylius\RefundPlugin\Provider\RefundPaymentMethodsProviderInterface" />
         </service>
-        <service id="sylius_mollie_plugin.creator.abandoned_payment_link_creator" class="Sylius\MolliePlugin\Creator\AbandonedPaymentLinkCreator">
-            <argument type="service" id="sylius_mollie_plugin.resolver.paymentlink_resolver" />
+
+        <service id="sylius_mollie.creator.abandoned_payment_link" class="Sylius\MolliePlugin\Creator\AbandonedPaymentLinkCreator">
+            <argument type="service" id="sylius_mollie.resolver.paymentlink" />
             <argument type="service" id="sylius.repository.order" />
-            <argument type="service" id="sylius_mollie_plugin.preparer.payment_link_email_preparer"/>
+            <argument type="service" id="sylius_mollie.preparer.payment_link_email"/>
             <argument type="service" id="sylius.repository.payment_method"/>
             <argument type="service" id="sylius.context.channel"/>
         </service>
-        <service id="bit_bag.sylius_mollie_plugin.creator.mollie_methods_creator" class="Sylius\MolliePlugin\Creator\MollieMethodsCreator">
-            <argument type="service" id="sylius_mollie_plugin.factory.methods" />
+
+        <service id="sylius_mollie.creator.mollie_methods" class="Sylius\MolliePlugin\Creator\MollieMethodsCreator">
+            <argument type="service" id="sylius_mollie.factory.methods" />
             <argument type="service" id="doctrine.orm.default_entity_manager" />
-            <argument type="service" id="sylius_mollie_plugin.custom_factory.mollie_gateway_config"/>
+            <argument type="service" id="sylius_mollie.custom_factory.mollie_gateway_config"/>
         </service>
-        <service id="sylius_mollie_plugin.creator.api_keys_test_creator" class="Sylius\MolliePlugin\Creator\ApiKeysTestCreator">
-            <argument type="service" id="sylius_mollie_plugin.mollie_api_client"/>
+
+        <service id="sylius_mollie.creator.api_keys_test" class="Sylius\MolliePlugin\Creator\ApiKeysTestCreator">
+            <argument type="service" id="sylius_mollie.mollie_api_client"/>
             <argument type="service" id="translator"/>
         </service>
 
-        <service id="sylius_mollie_plugin.creator.change_position_payment_method_creator" class="Sylius\MolliePlugin\Creator\ChangePositionPaymentMethodCreator">
-            <argument type="service" id="sylius_mollie_plugin.repository.mollie_gateway_config"/>
+        <service id="sylius_mollie.creator.change_position_payment_method" class="Sylius\MolliePlugin\Creator\ChangePositionPaymentMethodCreator">
+            <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
             <argument type="service" id="doctrine.orm.entity_manager"/>
         </service>
 
-        <service id="sylius_mollie_plugin.creator.onboarding_wizard.status_creator" class="Sylius\MolliePlugin\Creator\OnboardingWizard\StatusCreator">
+        <service id="sylius_mollie.creator.onboarding_wizard.status" class="Sylius\MolliePlugin\Creator\OnboardingWizard\StatusCreator">
             <argument type="service" id="doctrine.orm.entity_manager"/>
-            <argument type="service" id="sylius_mollie_plugin.context.admin.admin_user_context"/>
-            <argument type="service" id="sylius_mollie_plugin.resolver.onboarding_wizard.status_resolver"/>
+            <argument type="service" id="sylius_mollie.context.admin.admin_user"/>
+            <argument type="service" id="sylius_mollie.resolver.onboarding_wizard.status"/>
         </service>
     </services>
 </container>

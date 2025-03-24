@@ -23,7 +23,7 @@ admin_order_creation:
                 - sylius.behat.context.setup.taxonomy
                 - sylius.behat.context.setup.user
                 - sylius.behat.context.setup.zone
-                - sylius_mollie_plugin.behat.context.setup.mollie
+                - sylius_mollie.behat.context.setup.mollie
 
                 - sylius.behat.context.transform.address
                 - sylius.behat.context.transform.channel
@@ -50,7 +50,7 @@ admin_order_creation:
                 - sylius.behat.context.ui.email
                 - sylius.behat.context.ui.shop.cart
                 - sylius.behat.context.ui.shop.currency
-                - sylius_mollie_plugin.behat.context.ui.admin.order
+                - sylius_mollie.behat.context.ui.admin.order
                 - Tests\Sylius\AdminOrderCreationPlugin\Behat\Context\Admin\ManagingOrdersContext
 
             filters:
