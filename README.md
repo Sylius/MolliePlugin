@@ -94,7 +94,7 @@ $ yarn install
 $ yarn encore dev
 $ bin/console assets:install -e test
 $ bin/console doctrine:database:create -e test
-$ bin/console doctrine:schema:create -e test
+$ bin/console doctrine:migrations:migrate -e test
 $ symfony server:start
 $ open http://localhost:8080 // or the port showed in your terminal while runing command with symfony server:start
 ```
