@@ -58,4 +58,27 @@ final class AdminOrderShowMenuListener
             ->setLabelAttribute('color', 'blue');
         }
     }
+
+    public function removeRefundsButton(OrderShowMenuBuilderEvent $event): void
+    {
+        $menu = $event->getMenu();
+        $order = $event->getOrder();
+
+        /** @var PaymentInterface|false|null $payment */
+        $payment = $order->getPayments()->last();
+        if (!$payment instanceof PaymentInterface) {
+            return;
+        }
+
+        /** @var PaymentMethodInterface|null $method */
+        $method = $payment->getMethod();
+        $gatewayConfig = $method?->getGatewayConfig();
+        if (null === $gatewayConfig) {
+            return;
+        }
+
+        if (MollieGatewayFactory::FACTORY_NAME === $gatewayConfig->getFactoryName()) {
+            $menu->removeChild('refunds');
+        }
+    }
 }
