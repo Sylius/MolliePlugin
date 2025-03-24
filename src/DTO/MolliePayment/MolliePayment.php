@@ -16,6 +16,7 @@ namespace Sylius\MolliePlugin\DTO\MolliePayment;
 /**
  * @phpstan-import-type AmountArray from Amount
  * @phpstan-import-type MetadataArray from Metadata
+ *
  * @phpstan-type MolliePaymentArray array{
  *      amount: AmountArray,
  *      method: string|null,

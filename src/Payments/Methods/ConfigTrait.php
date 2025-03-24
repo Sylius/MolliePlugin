@@ -13,23 +13,24 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Payments\Methods;
 
+use Sylius\MolliePlugin\DTO\MolliePayment\Amount;
 use Sylius\MolliePlugin\Entity\ProductTypeInterface;
 
+/**
+ * @mixin MethodInterface
+ *
+ * @phpstan-import-type AmountArray from Amount
+ * @phpstan-import-type ImageArray from MethodInterface
+ */
 trait ConfigTrait
 {
-    /**
-     * @var array{
-     *     svg: string,
-     *     size1x?: string,
-     *     size2x?: string
-     * }
-     */
+    /** @var ImageArray */
     protected array $image;
 
-    /** @var array{value: string, currency: string} */
+    /** @var AmountArray */
     protected array $minimumAmount;
 
-    /** @var array{value: string, currency: string} */
+    /** @var AmountArray */
     protected array $maximumAmount;
 
     protected string $paymentType;
@@ -46,69 +47,31 @@ trait ConfigTrait
 
     protected ?bool $applePayDirectButton;
 
-    /**
-     * @return array{
-     *     svg: string,
-     *     size1x?: string,
-     *     size2x?: string
-     * }
-     */
     public function getImage(): array
     {
         return $this->image;
     }
 
-    /**
-     * @param array{
-     *     svg: string,
-     *     size1x?: string,
-     *     size2x?: string
-     * } $image
-     */
     public function setImage(array $image): void
     {
         $this->image = $image;
     }
 
-    /**
-     * @return array{
-     *     value: string,
-     *     currency: string
-     * }
-     */
     public function getMinimumAmount(): array
     {
         return $this->minimumAmount;
     }
 
-    /**
-     * @param array{
-     *     value: string,
-     *     currency: string
-     * } $minimumAmount
-     */
     public function setMinimumAmount(array $minimumAmount): void
     {
         $this->minimumAmount = $minimumAmount;
     }
 
-    /**
-     * @return array{
-     *     value: string,
-     *     currency: string
-     * }
-     */
     public function getMaximumAmount(): array
     {
         return $this->maximumAmount;
     }
 
-    /**
-     * @param array{
-     *     value: string,
-     *     currency: string
-     * } $maximumAmount
-     */
     public function setMaximumAmount(array $maximumAmount): void
     {
         $this->maximumAmount = $maximumAmount;
@@ -124,13 +87,11 @@ trait ConfigTrait
         $this->paymentType = $paymentType;
     }
 
-    /** @return string[] */
     public function getCountry(): array
     {
         return $this->country;
     }
 
-    /** @param string[] $country */
     public function setCountry(array $country): void
     {
         $this->country = $country;
@@ -146,13 +107,11 @@ trait ConfigTrait
         $this->canRefunded = $canRefunded;
     }
 
-    /** @return array<string, mixed> */
     public function getIssuers(): array
     {
         return $this->issuers;
     }
 
-    /** @param array<string, mixed> $issuers */
     public function setIssuers(array $issuers): void
     {
         $this->issuers = $issuers;

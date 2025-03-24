@@ -26,18 +26,14 @@ use Sylius\Component\Order\Model\Adjustment;
 use Sylius\Component\Taxation\Model\TaxRateInterface;
 use Sylius\Component\Taxation\Resolver\TaxRateResolverInterface;
 use Sylius\MolliePlugin\Calculator\CalculateTaxAmountInterface;
+use Sylius\MolliePlugin\DTO\MolliePayment\Amount;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 use Sylius\MolliePlugin\Resolver\MealVoucherResolverInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Webmozart\Assert\Assert;
 
-/**
- * @phpstan-type OrderAmountShape = array{
- *      currency: string,
- *      value: string,
- *  }
- */
+/** @phpstan-import-type AmountArray from Amount */
 final class ConvertOrder implements ConvertOrderInterface
 {
     private OrderInterface $order;
@@ -153,11 +149,11 @@ final class ConvertOrder implements ConvertOrderInterface
      *     name: string,
      *     quantity: int,
      *     vatRate: string,
-     *     unitPrice: OrderAmountShape,
-     *     totalAmount: OrderAmountShape,
-     *     vatAmount: OrderAmountShape,
+     *     unitPrice: AmountArray,
+     *     totalAmount: AmountArray,
+     *     vatAmount: AmountArray,
      *     imageUrl?: string,
-     *     discountAmount?: OrderAmountShape,
+     *     discountAmount?: AmountArray,
      *     metadata?: array{item_id: int},
      * }>
      */
@@ -240,9 +236,9 @@ final class ConvertOrder implements ConvertOrderInterface
      *     name: string,
      *     quantity: int,
      *     vatRate: string,
-     *     unitPrice: OrderAmountShape,
-     *     totalAmount: OrderAmountShape,
-     *     vatAmount: OrderAmountShape,
+     *     unitPrice: AmountArray,
+     *     totalAmount: AmountArray,
+     *     vatAmount: AmountArray,
      * }
      */
     private function createAdjustments(Adjustment $adjustment, int $divisor): array
@@ -273,9 +269,9 @@ final class ConvertOrder implements ConvertOrderInterface
      *     name: string,
      *     quantity: int,
      *     vatRate: string,
-     *     unitPrice: OrderAmountShape,
-     *     totalAmount: OrderAmountShape,
-     *     vatAmount: OrderAmountShape,
+     *     unitPrice: AmountArray,
+     *     totalAmount: AmountArray,
+     *     vatAmount: AmountArray,
      * }>
      */
     private function createShippingFee(int $divisor): array

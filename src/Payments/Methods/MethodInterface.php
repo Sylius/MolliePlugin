@@ -13,8 +13,18 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Payments\Methods;
 
+use Sylius\MolliePlugin\DTO\MolliePayment\Amount;
 use Sylius\MolliePlugin\Entity\ProductTypeInterface;
 
+/**
+ * @phpstan-type ImageArray = array{
+ *     svg: string,
+ *     size1x?: string,
+ *     size2x?: string,
+ * }
+ *
+ * @phpstan-import-type AmountArray from Amount
+ */
 interface MethodInterface
 {
     public function getName(): ?string;
@@ -29,54 +39,22 @@ interface MethodInterface
 
     public function disable(): void;
 
-    /**
-     * @return array{
-     *     svg: string,
-     *     size1x?: string,
-     *     size2x?: string
-     * }
-     */
+    /** @return ImageArray */
     public function getImage(): array;
 
-    /**
-     * @param array{
-     *     svg: string,
-     *     size1x?: string,
-     *     size2x?: string
-     * } $image
-     */
+    /** @param ImageArray $image */
     public function setImage(array $image): void;
 
-    /**
-     * @return array{
-     *     value: string,
-     *     currency: string
-     * }
-     */
+    /** @return AmountArray */
     public function getMinimumAmount(): array;
 
-    /**
-     * @param array{
-     *     value: string,
-     *     currency: string
-     * } $minimumAmount
-     */
+    /** @param AmountArray $minimumAmount */
     public function setMinimumAmount(array $minimumAmount): void;
 
-    /**
-     * @return array{
-     *     value: string,
-     *     currency: string
-     * }
-     */
+    /** @return AmountArray */
     public function getMaximumAmount(): array;
 
-    /**
-     * @param array{
-     *     value: string,
-     *     currency: string
-     * } $maximumAmount
-     */
+    /** @param AmountArray $maximumAmount */
     public function setMaximumAmount(array $maximumAmount): void;
 
     public function getPaymentType(): string;

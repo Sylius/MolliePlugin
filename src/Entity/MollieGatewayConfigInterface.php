@@ -40,7 +40,7 @@ interface MollieGatewayConfigInterface extends MethodInterface, TranslatableInte
 
     public function setCustomizeMethodImage(?MollieMethodImageInterface $customizeMethodImage): void;
 
-    /** @return array<array-key, mixed> */
+    /** @return array<array-key, mixed>|null */
     public function getCountryLevel(): ?array;
 
     /** @param array<array-key, mixed> $countryLevel */
@@ -62,16 +62,16 @@ interface MollieGatewayConfigInterface extends MethodInterface, TranslatableInte
 
     public function setLoggerLevel(?int $loggerLevel): void;
 
-    /** @return array<array-key, mixed> */
+    /** @return array<array-key, mixed>|null */
     public function getCountryLevelAllowed(): ?array;
 
-    /** @param array<array-key, mixed> $countryLevelAllowed */
+    /** @param array<array-key, mixed>|null $countryLevelAllowed */
     public function setCountryLevelAllowed(?array $countryLevelAllowed): void;
 
-    /** @return array<array-key, mixed> */
+    /** @return array<array-key, mixed>|null */
     public function getCountryLevelExcluded(): ?array;
 
-    /** @param array<array-key, mixed> $countryLevelExcluded */
+    /** @param array<array-key, mixed>|null $countryLevelExcluded */
     public function setCountryLevelExcluded(?array $countryLevelExcluded): void;
 
     public function getCountryRestriction(): ?string;

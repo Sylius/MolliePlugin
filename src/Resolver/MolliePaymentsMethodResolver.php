@@ -17,7 +17,6 @@ use Mollie\Api\Exceptions\ApiException;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\MolliePlugin\Checker\Voucher\ProductVoucherTypeCheckerInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
-use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface as MollieOrderInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
@@ -134,7 +133,6 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
 
     /**
      * @param MollieGatewayConfigInterface[] $paymentConfigs
-     *
      * @param string[] $allowedMethodsIds
      *
      * @return MollieGatewayConfigInterface[]

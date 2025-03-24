@@ -59,7 +59,7 @@ final class ChangePositionPaymentMethodCreator implements ChangePositionPaymentM
     {
         return array_filter(
             $positions,
-            static fn (array $position): bool => isset($position['id']) && '' !== $position['id']
+            static fn (array $position): bool => isset($position['id']) && '' !== $position['id'],
         );
     }
 }

@@ -26,5 +26,4 @@ interface MolliePaymentsMethodResolverInterface
      * @see \Mollie\Api\Resources\Method
      */
     public function resolve(): array;
-
 }

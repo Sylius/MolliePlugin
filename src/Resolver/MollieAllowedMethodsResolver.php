@@ -15,8 +15,12 @@ namespace Sylius\MolliePlugin\Resolver;
 
 use Mollie\Api\Resources\Method;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\MolliePlugin\DTO\MolliePayment\Amount;
 use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
 
+/**
+ * @phpstan-import-type AmountArray from Amount
+ */
 final class MollieAllowedMethodsResolver implements MollieAllowedMethodsResolverInterface
 {
     public function __construct(private readonly MollieApiClientKeyResolverInterface $mollieApiClientKeyResolver, private readonly PaymentLocaleResolverInterface $paymentLocaleResolver, private readonly IntToStringConverterInterface $intToStringConverter)
@@ -42,10 +46,7 @@ final class MollieAllowedMethodsResolver implements MollieAllowedMethodsResolver
 
     /**
      * @return array{
-     *     amount: array{
-     *         value: string,
-     *         currency: string
-     *     },
+     *     amount: AmountArray,
      *     billingCountry: string|null,
      *     locale: string|null
      * }

@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Helper;
 
-use Sylius\RefundPlugin\Model\OrderItemUnitRefund;
-use Sylius\RefundPlugin\Model\ShipmentRefund;
 use Sylius\RefundPlugin\Model\UnitRefundInterface;
 
 final class ConvertRefundData implements ConvertRefundDataInterface
