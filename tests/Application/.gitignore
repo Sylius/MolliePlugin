@@ -9,7 +9,7 @@
 /public/build/*
 
 /node_modules
-!yarn.lock
+yarn.lock
 
 ###> symfony/framework-bundle ###
 /.env.*.local
