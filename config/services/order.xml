@@ -23,24 +23,29 @@
             <argument type="service" id="payum"/>
             <argument type="service" id="Sylius\RefundPlugin\Filter\UnitRefundFilterInterface"/>
         </service>
+        <service id="Sylius\MolliePlugin\Order\OrderPaymentRefundInterface" alias="sylius_mollie.order.order_payment_refund" />
 
         <service id="sylius_mollie.order.order_item_cloner" class="Sylius\MolliePlugin\Order\OrderItemCloner">
             <argument type="service" id="sylius.factory.order_item"/>
             <argument type="service" id="sylius.factory.order_item_unit"/>
         </service>
+        <service id="Sylius\MolliePlugin\Order\OrderItemClonerInterface" alias="sylius_mollie.order.order_item_cloner" />
 
         <service id="sylius_mollie.order.adjustment_cloner" class="Sylius\MolliePlugin\Order\AdjustmentCloner">
             <argument type="service" id="sylius.factory.adjustment"/>
         </service>
+        <service id="Sylius\MolliePlugin\Order\AdjustmentClonerInterface" alias="sylius_mollie.order.adjustment_cloner" />
 
         <service id="sylius_mollie.order.shipment_cloner" class="Sylius\MolliePlugin\Order\ShipmentCloner">
             <argument type="service" id="sylius.factory.shipment"/>
             <argument type="service" id="sylius_mollie.order.shipment_unit_cloner"/>
         </service>
+        <service id="Sylius\MolliePlugin\Order\ShipmentClonerInterface" alias="sylius_mollie.order.shipment_cloner" />
 
         <service id="sylius_mollie.order.shipment_unit_cloner" class="Sylius\MolliePlugin\Order\ShipmentUnitCloner">
             <argument type="service" id="sylius.factory.shipment_unit"/>
         </service>
+        <service id="Sylius\MolliePlugin\Order\ShipmentUnitClonerInterface" alias="sylius_mollie.order.shipment_unit_cloner" />
 
         <service id="sylius_mollie.order.subscription_order_cloner" class="Sylius\MolliePlugin\Order\SubscriptionOrderCloner">
             <argument type="service" id="sylius_mollie.order.order_item_cloner"/>
@@ -49,5 +54,6 @@
             <argument type="service" id="sylius_mollie.order.adjustment_cloner"/>
             <argument type="service" id="sylius_mollie.order.shipment_cloner"/>
         </service>
+        <service id="Sylius\MolliePlugin\Order\SubscriptionOrderClonerInterface" alias="sylius_mollie.order.subscription_order_cloner" />
     </services>
 </container>

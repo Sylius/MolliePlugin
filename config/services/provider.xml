@@ -23,6 +23,7 @@
             <argument type="service" id="sylius_mollie.provider.customer"/>
             <argument type="service" id="sylius_mollie.provider.apple.apple_pay_direct_payment"/>
         </service>
+        <service id="Sylius\MolliePlugin\Provider\Apple\ApplePayDirectProviderInterface" alias="sylius_mollie.provider.apple.apple_pay_direct" />
 
         <service id="sylius_mollie.provider.order.order_payment_apple_pay_direct" class="Sylius\MolliePlugin\Provider\Order\OrderPaymentApplePayDirectProvider">
             <argument type="service" id="sylius.custom_factory.payment"/>
@@ -32,14 +33,18 @@
             <argument type="service" id="sylius_mollie.provider.payment_token"/>
             <argument type="service" id="payum"/>
         </service>
+        <service id="Sylius\MolliePlugin\Provider\Order\OrderPaymentApplePayDirectProviderInterface" alias="sylius_mollie.provider.order.order_payment_apple_pay_direct" />
 
         <service id="sylius_mollie.provider.divisor" class="Sylius\MolliePlugin\Provider\Divisor\DivisorProvider"/>
+        <service id="Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface" alias="sylius_mollie.provider.divisor" />
 
         <service id="sylius_mollie.provider.apple.apple_pay_direct_payment" class="Sylius\MolliePlugin\Provider\Apple\ApplePayDirectPaymentProvider">
             <argument type="service" id="sylius_mollie.resolver.apple_pay_direct.apple_pay_direct_payment_type"/>
         </service>
+        <service id="Sylius\MolliePlugin\Provider\Apple\ApplePayDirectPaymentProviderInterface" alias="sylius_mollie.provider.apple.apple_pay_direct_payment" />
 
         <service id="sylius_mollie.provider.form.resolver_group" class="Sylius\MolliePlugin\Form\Resolver\ProductVariantValidationGroupsResolver"/>
+        <service id="Sylius\MolliePlugin\Provider\Form\ResolverGroupProviderInterface" alias="sylius_mollie.provider.form.resolver_group" />
 
         <service id="sylius_mollie.provider.payment_token" class="Sylius\MolliePlugin\Payum\Provider\PaymentTokenProvider">
             <argument type="service" id="payum" />

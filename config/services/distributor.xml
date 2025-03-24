@@ -23,5 +23,6 @@
             <argument type="service" id="sylius.proportional_integer_distributor"/>
             <argument type="service" id="sylius_mollie.applicator.units_promotion_adjustments"/>
         </service>
+        <service id="Sylius\MolliePlugin\Applicator\Order\OrderVouchersApplicatorInterface" alias="sylius_mollie.applicator.order.order_vouchers" />
     </services>
 </container>

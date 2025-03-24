@@ -20,39 +20,45 @@
             <argument type="service" id="sylius_mollie.manager.mollie_subscription"/>
             <argument type="service" id="sylius_mollie.payum.action.state_machine.applicator.subscription_and_payment_id"/>
             <argument type="service" id="sylius_mollie.payum.action.state_machine.applicator.subscription_and_sylius_payment"/>
-            <argument type="service" id="sylius_mollie.payum.action.state_machine.transition.state_machine_transition"/>
+            <argument type="service" id="sylius_mollie.payum.action.state_machine.transition.state_machine"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.state_machine.status_recurring_subscription"/>
         </service>
 
         <service id="sylius_mollie.payum.action.state_machine.applicator.subscription_and_payment_id" class="Sylius\MolliePlugin\StateMachine\Applicator\SubscriptionAndPaymentIdApplicator">
             <argument type="service" id="sylius_mollie.mollie_api_client"/>
-            <argument type="service" id="sylius_mollie.payum.action.state_machine.transition.state_machine_transition"/>
+            <argument type="service" id="sylius_mollie.payum.action.state_machine.transition.state_machine"/>
             <argument type="service" id="sylius_mollie.payum.action.state_machine.transition.payment"/>
             <argument type="service" id="sylius_mollie.payum.action.state_machine.transition.processing_state_machine_transition"/>
         </service>
+        <service id="Sylius\MolliePlugin\Action\StateMachine\Applicator\SubscriptionAndPaymentIdApplicatorInterface" alias="sylius_mollie.payum.action.state_machine.applicator.subscription_and_payment_id" />
 
         <service id="sylius_mollie.payum.action.state_machine.applicator.subscription_and_sylius_payment" class="Sylius\MolliePlugin\StateMachine\Applicator\SubscriptionAndSyliusPaymentApplicator">
-            <argument type="service" id="sylius_mollie.payum.action.state_machine.transition.state_machine_transition"/>
+            <argument type="service" id="sylius_mollie.payum.action.state_machine.transition.state_machine"/>
             <argument type="service" id="sylius_mollie.payum.action.state_machine.transition.payment"/>
             <argument type="service" id="sylius_mollie.payum.action.state_machine.transition.processing_state_machine_transition"/>
         </service>
+        <service id="Sylius\MolliePlugin\Action\StateMachine\Applicator\SubscriptionAndSyliusPaymentApplicatorInterface" alias="sylius_mollie.payum.action.state_machine.applicator.subscription_and_sylius_payment" />
 
         <service id="sylius_mollie.payum.action.state_machine.transition.payment" class="Sylius\MolliePlugin\StateMachine\Transition\PaymentStateMachineTransition">
             <argument type="service" id="sm.factory"/>
         </service>
+        <service id="Sylius\MolliePlugin\Action\StateMachine\Transition\PaymentStateMachineTransitionInterface" alias="sylius_mollie.payum.action.state_machine.transition.payment" />
 
         <service id="sylius_mollie.payum.action.state_machine.transition.processing_state_machine_transition" class="Sylius\MolliePlugin\StateMachine\Transition\ProcessingStateMachineTransition">
             <argument type="service" id="sm.factory"/>
         </service>
+        <service id="Sylius\MolliePlugin\Action\StateMachine\Transition\ProcessingStateMachineTransitionInterface" alias="sylius_mollie.payum.action.state_machine.transition.processing_state_machine_transition" />
 
-        <service id="sylius_mollie.payum.action.state_machine.transition.state_machine_transition" class="Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransition">
+        <service id="sylius_mollie.payum.action.state_machine.transition.state_machine" class="Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransition">
             <argument type="service" id="sm.factory"/>
         </service>
+        <service id="Sylius\MolliePlugin\Action\StateMachine\Transition\StateMachineTransitionInterface" alias="sylius_mollie.payum.action.state_machine.transition.state_machine" />
 
-        <service id="sylius_mollie.action.state_machine.order_set_status" class="Sylius\MolliePlugin\StateMachine\Applicator\MollieOrderStatesApplicator">
+        <service id="sylius_mollie.payum.action.state_machine.order_set_status" class="Sylius\MolliePlugin\StateMachine\Applicator\MollieOrderStatesApplicator">
             <argument type="service" id="sm.factory"/>
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius_mollie.partial_ship.create_partial_ship_from_mollie"/>
         </service>
+        <service id="Sylius\MolliePlugin\Action\StateMachine\SetStatusOrderActionInterface" alias="sylius_mollie.payum.action.state_machine.order_set_status" />
     </services>
 </container>
