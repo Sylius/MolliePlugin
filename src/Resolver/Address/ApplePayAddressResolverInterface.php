@@ -17,5 +17,6 @@ use Sylius\Component\Core\Model\OrderInterface;
 
 interface ApplePayAddressResolverInterface
 {
+    /** @param array<string, mixed> $applePayData */
     public function resolve(OrderInterface $order, array $applePayData): void;
 }

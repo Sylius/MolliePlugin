@@ -22,6 +22,8 @@ interface MolliePaymentsMethodResolverInterface
      *     issuers: array<string, mixed>|null,
      *     paymentFee: array<string, mixed>
      * }
+     *
+     * @see \Mollie\Api\Resources\Method
      */
     public function resolve(): array;
 

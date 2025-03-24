@@ -121,7 +121,6 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
             return $this->getDefaultOptions();
         }
 
-        /** @var MollieGatewayConfigInterface $allowedMethod */
         foreach ($allowedMethods as $allowedMethod) {
             Assert::notNull($methods);
             $methods = $this->countriesRestrictionResolver->resolve($allowedMethod, $methods, $countryCode);
