@@ -17,32 +17,23 @@ use Sylius\MolliePlugin\Entity\ProductTypeInterface;
 
 trait ConfigTrait
 {
-    /** @var array */
-    protected $image;
+    protected array $image;
 
-    /** @var array */
-    protected $minimumAmount;
+    protected array $minimumAmount;
 
-    /** @var array */
-    protected $maximumAmount;
+    protected array $maximumAmount;
 
-    /** @var string */
-    protected $paymentType;
+    protected string $paymentType;
 
-    /** @var array */
-    protected $country;
+    protected array $country;
 
-    /** @var bool */
-    protected $canRefunded = true;
+    protected bool $canRefunded = true;
 
-    /** @var array */
-    protected $issuers = [];
+    protected array $issuers = [];
 
-    /** @var ProductTypeInterface|null */
-    protected $defaultCategory;
+    protected ?ProductTypeInterface $defaultCategory;
 
-    /** @var bool|null */
-    protected $applePayDirectButton;
+    protected ?bool $applePayDirectButton;
 
     public function getImage(): array
     {

@@ -29,8 +29,7 @@ class BeginProcessingSubscriptions extends Command
 
     public const COMMAND_ID = 'mollie:subscription:begin-processing';
 
-    /** @var SymfonyStyle */
-    private $io;
+    private SymfonyStyle $io;
 
     public function __construct(
         private readonly MollieSubscriptionRepositoryInterface $mollieSubscriptionRepository,

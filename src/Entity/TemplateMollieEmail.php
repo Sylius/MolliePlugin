@@ -27,14 +27,11 @@ class TemplateMollieEmail implements TemplateMollieEmailInterface
         $this->initializeTranslationsCollection();
     }
 
-    /** @var int|null */
-    protected $id;
+    protected ?int $id = null;
 
-    /** @var string|null */
-    protected $type;
+    protected ?string $type = null;
 
-    /** @var string|null */
-    protected $styleCss;
+    protected ?string $styleCss = null;
 
     public function getId(): ?int
     {

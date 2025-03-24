@@ -18,8 +18,8 @@ use Doctrine\Common\Collections\Collection;
 /** @mixin GatewayConfigInterface */
 trait GatewayConfigTrait
 {
-    /** @var Collection|MollieGatewayConfigInterface[] */
-    protected $mollieGatewayConfig;
+    /** @var Collection<MollieGatewayConfigInterface> */
+    protected Collection $mollieGatewayConfig;
 
     public function getMollieGatewayConfig(): ?Collection
     {

@@ -29,6 +29,15 @@
 
    The previous service `sylius_mollie_plugin.payment_surcharge.calculate` has been refactored into `sylius_mollie.payment_surcharge.calculator.composite` which also implements the new `PaymentSurchargeCalculatorInterface`. Instead of static dependency to a few calculators, it's now a composite consisting of all calculators tagged with `sylius_mollie.payment_surcharge.calculator`.
 
+1. Changes in `\Sylius\MolliePlugin\Entity\MollieCustomer`:
+   
+   The `profileId` property has been marked as nullable:
+
+    ```diff
+    - protected string $profileId;
+    + protected ?string $profileId = null;
+    ```
+
 1. Changes in `Sylius\MolliePlugin\Entity\MollieGatewayConfig`:
 
    The `orderExpiration` property has been renamed to `orderExpirationDays`:

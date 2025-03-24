@@ -27,19 +27,15 @@ use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 
 final class ProductContext extends RawMinkContext implements Context
 {
-    /** @var SharedStorageInterface */
-    private $sharedStorage;
+    private SharedStorageInterface $sharedStorage;
 
-    /** @var ProductRepository */
-    private $productRepository;
+    private ProductRepository $productRepository;
 
-    /** @var ProductVariantRepository */
-    private $productVariantRepository;
+    private ProductVariantRepository $productVariantRepository;
 
     private RepositoryInterface $channelPricingRepository;
 
-    /** @var DivisorProviderInterface */
-    private $divisorProvider;
+    private DivisorProviderInterface $divisorProvider;
 
     public function __construct(
         SharedStorageInterface $sharedStorage,

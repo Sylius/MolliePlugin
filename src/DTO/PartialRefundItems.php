@@ -18,8 +18,7 @@ use Doctrine\Common\Collections\Collection;
 
 final class PartialRefundItems
 {
-    /** @var Collection */
-    private $partialRefundItems;
+    private Collection $partialRefundItems;
 
     public function __construct()
     {

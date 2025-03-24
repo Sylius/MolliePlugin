@@ -26,8 +26,7 @@ class SendAbandonedPaymentLink extends Command
 
     public const COMMAND_ID = 'mollie:send-payment-link';
 
-    /** @var SymfonyStyle */
-    private $io;
+    private SymfonyStyle $io;
 
     public function __construct(private readonly AbandonedPaymentLinkCreatorInterface $abandonedPaymentLinkCreator)
     {

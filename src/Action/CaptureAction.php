@@ -47,8 +47,7 @@ final class CaptureAction extends BaseApiAwareAction implements CaptureActionInt
 
     use GatewayAwareTrait;
 
-    /** @var GenericTokenFactoryInterface|null */
-    private $tokenFactory;
+    private ?GenericTokenFactoryInterface $tokenFactory = null;
 
     public function __construct(private OrderRepositoryInterface $orderRepository, private MollieApiClientKeyResolverInterface $apiClientKeyResolver, private PaymentRepositoryInterface $paymentRepository)
     {

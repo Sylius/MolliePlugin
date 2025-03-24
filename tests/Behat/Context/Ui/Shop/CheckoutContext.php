@@ -19,8 +19,7 @@ use Tests\Sylius\MolliePlugin\Behat\Page\Shop\Checkout\CompletePageInterface;
 
 final class CheckoutContext extends RawMinkContext implements Context
 {
-    /** @var CompletePageInterface */
-    private $summaryPage;
+    private CompletePageInterface $summaryPage;
 
     public function __construct(
         CompletePageInterface $summaryPage,

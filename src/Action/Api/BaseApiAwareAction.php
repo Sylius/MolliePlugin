@@ -20,16 +20,15 @@ use Sylius\MolliePlugin\Client\MollieApiClient;
 
 abstract class BaseApiAwareAction implements ActionInterface, ApiAwareInterface
 {
-    /** @var MollieApiClient */
-    protected $mollieApiClient;
+    protected MollieApiClient $mollieApiClient;
 
-    public function setApi($mollieApiClient): void
+    public function setApi($api): void
     {
-        if (false === $mollieApiClient instanceof MollieApiClient) {
+        if (false === $api instanceof MollieApiClient) {
             throw new UnsupportedApiException('Not supported.Expected an instance of ' . MollieApiClient::class);
         }
 
-        $this->mollieApiClient = $mollieApiClient;
+        $this->mollieApiClient = $api;
     }
 
     /**

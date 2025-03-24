@@ -17,11 +17,9 @@ use Sylius\Component\Resource\Model\AbstractTranslation;
 
 class MollieGatewayConfigTranslation extends AbstractTranslation implements MollieGatewayConfigTranslationInterface
 {
-    /** @var int|null */
-    protected $id;
+    protected ?int $id = null;
 
-    /** @var string|null */
-    protected $name;
+    protected ?string $name = null;
 
     public function getId(): ?int
     {
