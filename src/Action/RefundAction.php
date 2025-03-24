@@ -23,12 +23,12 @@ use Payum\Core\GatewayAwareTrait;
 use Payum\Core\Request\Refund;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Resource\Exception\UpdateHandlingException;
-use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
+use Sylius\MolliePlugin\Action\Api\BaseRefundAction;
 use Sylius\MolliePlugin\Helper\ConvertRefundDataInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Webmozart\Assert\Assert;
 
-final class RefundAction extends BaseApiAwareAction implements ActionInterface, ApiAwareInterface, GatewayAwareInterface
+final class RefundAction extends BaseRefundAction implements ActionInterface, ApiAwareInterface, GatewayAwareInterface
 {
     use GatewayAwareTrait;
 
@@ -45,7 +45,7 @@ final class RefundAction extends BaseApiAwareAction implements ActionInterface, 
 
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
-        if (!array_key_exists('refund', $details['metadata']) || !$this->shouldBeRefunded($details)) {
+        if (!$this->shouldBeRefunded($details)) {
             return;
         }
 
