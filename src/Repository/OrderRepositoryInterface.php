@@ -14,8 +14,10 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Repository;
 
 use Sylius\Component\Core\Repository\OrderRepositoryInterface as BaseOrderRepositoryInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
 
 interface OrderRepositoryInterface extends BaseOrderRepositoryInterface
 {
+    /** @return OrderInterface[] */
     public function findAbandonedByDateTime(\DateTime $dateTime): array;
 }
