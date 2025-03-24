@@ -13,6 +13,21 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\DTO\MolliePayment;
 
+/**
+ * @phpstan-import-type AmountArray from Amount
+ * @phpstan-import-type MetadataArray from Metadata
+ * @phpstan-type MolliePaymentArray array{
+ *      amount: AmountArray,
+ *      method: string|null,
+ *      description: string|null,
+ *      issuer: string|null,
+ *      metadata: MetadataArray,
+ *      customerId: string|null,
+ *      locale: string|null,
+ *      redirectUrl: string|null,
+ *      webhookUrl: string|null,
+ * }
+ */
 class MolliePayment
 {
     private Amount $amount;
@@ -123,6 +138,7 @@ class MolliePayment
         $this->issuer = $issuer;
     }
 
+    /** @return MolliePaymentArray */
     public function toArray(): array
     {
         return [

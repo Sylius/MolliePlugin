@@ -13,10 +13,30 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\DTO\MolliePayment;
 
+/**
+ * @phpstan-type MetadataArray array{
+ *      order_id: int|null,
+ *      customer_id: string|null,
+ *      molliePaymentMethods: string|null,
+ *      cartToken: string|null,
+ *      saveCardInfo: bool|null,
+ *      useSavedCards: bool|null,
+ *      selected_issuer: string|null,
+ *      methodType: string|null,
+ *  }
+ */
 class Metadata
 {
-    public function __construct(private ?int $orderId, private ?string $customerId, private ?string $molliePaymentMethods, private ?string $cartToken, private ?bool $saveCardInfo, private ?bool $useSavedCards, private ?string $selectedIssuer, private ?string $methodType)
-    {
+    public function __construct(
+        private ?int $orderId,
+        private ?string $customerId,
+        private ?string $molliePaymentMethods,
+        private ?string $cartToken,
+        private ?bool $saveCardInfo,
+        private ?bool $useSavedCards,
+        private ?string $selectedIssuer,
+        private ?string $methodType,
+    ) {
     }
 
     public function getOrderId(): ?int
@@ -99,6 +119,7 @@ class Metadata
         $this->methodType = $methodType;
     }
 
+    /** @return MetadataArray */
     public function toArray(): array
     {
         return [

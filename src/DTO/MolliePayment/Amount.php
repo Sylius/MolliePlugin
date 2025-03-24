@@ -13,11 +13,14 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\DTO\MolliePayment;
 
+/**
+ * @phpstan-type AmountArray array{
+ *     value: string|null,
+ *     currency: string|null,
+ * }
+ */
 class Amount
 {
-    /**
-     * Amount constructor
-     */
     public function __construct(private ?string $value, private ?string $currency)
     {
     }
@@ -42,6 +45,7 @@ class Amount
         $this->currency = $currency;
     }
 
+    /** @return AmountArray */
     public function toArray(): array
     {
         return [

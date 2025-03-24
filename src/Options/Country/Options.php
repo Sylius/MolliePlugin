@@ -21,6 +21,7 @@ final class Options
 
     public const SELECTED_COUNTRIES = 'sylius_mollie_plugin.ui.selected_countries';
 
+    /** @return array<string, string> */
     public static function getCountriesConfigOptions(): array
     {
         return [
