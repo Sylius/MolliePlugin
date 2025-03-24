@@ -54,4 +54,4 @@ admin_order_creation:
                 - Tests\Sylius\AdminOrderCreationPlugin\Behat\Context\Admin\ManagingOrdersContext
 
             filters:
-                tags: "@creating_order_through_admin && @ui"
+                tags: "@creating_order_through_admin&&@ui"

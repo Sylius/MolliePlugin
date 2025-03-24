@@ -50,4 +50,4 @@ default:
                 - sylius_mollie.behat.context.ui.shop.product
                 - Behat\MinkExtension\Context\MinkContext
             filters:
-                tags: "@paying_with_mollie_for_order && @ui"
+                tags: "@paying_with_mollie_for_order&&@ui"

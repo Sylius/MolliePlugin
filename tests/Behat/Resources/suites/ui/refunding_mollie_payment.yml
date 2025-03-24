@@ -55,5 +55,5 @@ default:
 
                 - sylius_mollie.behat.context.ui.admin.refund
             filters:
-                tags: "@refunding_mollie_payment && @ui"
+                tags: "@refunding_mollie_payment&&@ui"
 

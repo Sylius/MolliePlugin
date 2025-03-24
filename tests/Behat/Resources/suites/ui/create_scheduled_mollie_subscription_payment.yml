@@ -49,4 +49,4 @@ default:
 
                 - sylius_mollie.behat.context.ui.shop.account
             filters:
-                tags: "@create_scheduled_mollie_subscription_payment && @ui"
+                tags: "@create_scheduled_mollie_subscription_payment&&@ui"

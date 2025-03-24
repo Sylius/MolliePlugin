@@ -20,6 +20,7 @@
 
         <service id="sylius_mollie.menu_listener.admin_order_show" class="Sylius\MolliePlugin\Menu\AdminOrderShowMenuListener">
             <tag name="kernel.event_listener" event="sylius.menu.admin.order.show" method="addPaymentlinkButton" />
+            <tag name="kernel.event_listener" event="sylius.menu.admin.order.show" method="removeRefundsButton" priority="-100" />
         </service>
 
         <service id="sylius_mollie.menu_listener.mollie_email_template" class="Sylius\MolliePlugin\Menu\MollieEmailTemplateMenuListener">
