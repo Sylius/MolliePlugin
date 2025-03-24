@@ -37,6 +37,19 @@ interface ConvertOrderInterface
 
     public const TAX_RATE_CRITERIA_ZONE = 'zone';
 
+    /**
+     * @param array<string, mixed> $details
+     *
+     * @return array{
+     *     amount: array<array-key, mixed>,
+     *     orderNumber: string,
+     *     shippingAddress: array<string, string>,
+     *     billingAddress: array<string, string>,
+     *     lines: array<array-key, array<string, mixed>>,
+     *     applePayDirectToken?: string,
+     *     backurl?: string
+     * }
+     */
     public function convert(
         OrderInterface $order,
         array $details,

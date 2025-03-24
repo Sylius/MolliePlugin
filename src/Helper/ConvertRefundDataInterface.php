@@ -15,5 +15,13 @@ namespace Sylius\MolliePlugin\Helper;
 
 interface ConvertRefundDataInterface
 {
+    /**
+     * @param array<array-key, mixed> $data
+     *
+     * @return array{
+     *     currency: string,
+     *     value: string,
+     * }
+     */
     public function convert(array $data, string $currency): array;
 }

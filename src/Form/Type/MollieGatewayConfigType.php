@@ -200,6 +200,7 @@ final class MollieGatewayConfigType extends AbstractResourceType
         return 'mollie_payment_method';
     }
 
+    /** @return array<array-key, class-string> */
     public static function getExtendedTypes(): array
     {
         return [ProductFormType::class];

@@ -18,6 +18,14 @@ use Sylius\MolliePlugin\Entity\OrderInterface;
 
 interface PaymentDetailsFactoryInterface
 {
+    /**
+     * @return array{
+     *     recurring: bool,
+     *     cartToken: null,
+     *     mandateId: string|null,
+     *     metadata: array{gateway: string|mixed},
+     * }
+     */
     public function createForSubscriptionAndOrder(
         MollieSubscriptionConfigurationInterface $subscriptionConfiguration,
         OrderInterface $order,

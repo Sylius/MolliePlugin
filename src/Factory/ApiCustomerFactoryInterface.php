@@ -17,5 +17,6 @@ use Sylius\MolliePlugin\Request\Api\CreateCustomer;
 
 interface ApiCustomerFactoryInterface
 {
+    /** @param array<array-key, mixed> $details */
     public function createNew(array $details): CreateCustomer;
 }

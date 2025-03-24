@@ -18,12 +18,17 @@ use Sylius\Component\Grid\Filtering\FilterInterface;
 
 final class MollieLoggerLevel implements FilterInterface
 {
+    /** @param array<array-key, mixed> $options */
     public function apply(
         DataSourceInterface $dataSource,
         string $name,
         $data,
         array $options,
     ): void {
+        if (false === is_array($data) || false === isset($data['loggerLevel'])) {
+            return;
+        }
+
         $dataSource->restrict($dataSource->getExpressionBuilder()->equals('level', $data['loggerLevel']));
     }
 }
