@@ -19,12 +19,6 @@ use Sylius\MolliePlugin\Payments\Methods\MealVoucher;
 
 final class Options
 {
-    public const PERCENTAGE = 'percentage';
-
-    public const FIXED_FEE = 'fixed_fee';
-
-    public const FIXED_FEE_AND_PERCENTAGE = 'fixed_fee_and_percentage';
-
     public const LOG_NOTHING = 'sylius_mollie_plugin.ui.nothing_log';
 
     public const LOG_ERRORS = 'sylius_mollie_plugin.ui.errors';
@@ -33,18 +27,6 @@ final class Options
 
     public const LOG_INFO = 'sylius_mollie_plugin.ui.info';
 
-    public const NO_FEE = 'no_fee';
-
-    public static function getAvailablePaymentSurchargeFeeType(): array
-    {
-        return [
-            self::PERCENTAGE => self::PERCENTAGE,
-            self::FIXED_FEE => self::FIXED_FEE,
-            self::FIXED_FEE_AND_PERCENTAGE => self::FIXED_FEE_AND_PERCENTAGE,
-        ];
-    }
-
-    /** @return array<string, int> */
     public static function getDebugLevels(): array
     {
         return [

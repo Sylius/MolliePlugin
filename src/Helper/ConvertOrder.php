@@ -28,6 +28,7 @@ use Sylius\Component\Taxation\Resolver\TaxRateResolverInterface;
 use Sylius\MolliePlugin\Calculator\CalculateTaxAmountInterface;
 use Sylius\MolliePlugin\DTO\MolliePayment\Amount;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\PaymentFee\PaymentSurchargeFeeType;
 use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 use Sylius\MolliePlugin\Resolver\MealVoucherResolverInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -197,7 +198,7 @@ final class ConvertOrder implements ConvertOrderInterface
 
         /** @var Adjustment $adjustment */
         foreach ($this->order->getAdjustments() as $adjustment) {
-            if (false !== array_search($adjustment->getType(), Options::getAvailablePaymentSurchargeFeeType(), true)) {
+            if (in_array($adjustment->getType(), PaymentSurchargeFeeType::getAllAvailable(), true)) {
                 $details[] = $this->createAdjustments($adjustment, $divisor);
             }
         }

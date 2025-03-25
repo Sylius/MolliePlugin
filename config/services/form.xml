@@ -139,5 +139,9 @@
 
             <tag name="form.type" />
         </service>
+
+        <service id="sylius_mollie.form.type.payment_surcharge_type_choice" class="Sylius\MolliePlugin\Form\Type\PaymentSurchargeFeeTypeChoiceType">
+            <tag name="form.type" />
+        </service>
     </services>
 </container>
