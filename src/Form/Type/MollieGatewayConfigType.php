@@ -115,9 +115,8 @@ final class MollieGatewayConfigType extends AbstractResourceType
             ->add('loggerEnabled', CheckboxType::class, [
                 'label' => 'sylius_mollie_plugin.ui.debug_level_enabled',
             ])
-            ->add('loggerLevel', ChoiceType::class, [
-                'label' => 'sylius_mollie_plugin.ui.debug_level_log',
-                'choices' => Options::getDebugLevels(),
+            ->add('loggerLevel', LoggerLevelChoiceType::class, [
+                'log_type' => LoggerLevelChoiceType::TYPE_DEBUG,
             ])
             ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
                 /** @var MollieGatewayConfigInterface $object */

@@ -143,5 +143,9 @@
         <service id="sylius_mollie.form.type.payment_surcharge_type_choice" class="Sylius\MolliePlugin\Form\Type\PaymentSurchargeFeeTypeChoiceType">
             <tag name="form.type" />
         </service>
+
+        <service id="sylius_mollie.form.type.logger_level_choice" class="Sylius\MolliePlugin\Form\Type\LoggerLevelChoiceType">
+            <tag name="form.type" />
+        </service>
     </services>
 </container>

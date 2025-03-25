@@ -100,9 +100,8 @@ final class MollieGatewayConfigurationType extends AbstractType
                     range(1, 200, 1),
                 ),
             ])
-            ->add('loggerLevel', ChoiceType::class, [
-                'label' => 'sylius_mollie_plugin.ui.debug_level_log',
-                'choices' => Options::getDebugLevels(),
+            ->add('loggerLevel', LoggerLevelChoiceType::class, [
+                'log_type' => LoggerLevelChoiceType::TYPE_DEBUG,
             ])
             ->add('components', CheckboxType::class, [
                 'label' => 'sylius_mollie_plugin.ui.enable_components',

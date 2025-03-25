@@ -28,7 +28,7 @@ final class MollieLoggerAction implements MollieLoggerActionInterface
 
     public function addLog(
         string $message,
-        int $logLevel = self::NOTICE,
+        int $logLevel = LoggerLevel::NOTICE,
         int $errorCode = Response::HTTP_OK,
     ): void {
         if (false === $this->canSaveLog($logLevel)) {
@@ -41,7 +41,7 @@ final class MollieLoggerAction implements MollieLoggerActionInterface
 
     public function addNegativeLog(
         string $message,
-        int $logLevel = self::ERROR,
+        int $logLevel = LoggerLevel::ERROR,
         int $errorCode = Response::HTTP_INTERNAL_SERVER_ERROR,
     ): void {
         if (false === $this->canSaveLog($logLevel)) {
@@ -65,11 +65,11 @@ final class MollieLoggerAction implements MollieLoggerActionInterface
 
             $level = $gatewayConfig->getConfig()['loggerLevel'];
 
-            if (MollieLoggerActionInterface::LOG_EVERYTHING === $level) {
+            if (LoggerLevel::LOG_EVERYTHING === $level) {
                 return true;
             }
 
-            if (MollieLoggerActionInterface::LOG_ERRORS === $level && self::ERROR === $logLevel) {
+            if (LoggerLevel::LOG_ERRORS === $level && LoggerLevel::ERROR === $logLevel) {
                 return true;
             }
 
