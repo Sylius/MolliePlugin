@@ -5,7 +5,7 @@ FROM ubuntu:22.04
 ARG PHP_VERSION=8.1
 
 # Set environment variables
-ENV NODE_VERSION=14
+ENV NODE_VERSION=18
 ENV PROJECT_DIR=/var/www
 ENV ROOT_DIR=/var/www/tests/Application/public
 ENV DEBIAN_FRONTEND=noninteractive
@@ -47,23 +47,12 @@ RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - && \
     npm install -g yarn && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install Python 2 and dependencies (required for node-gyp)
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    software-properties-common \
-    && add-apt-repository universe \
-    && apt-get update && apt-get install -y build-essential python2 make gcc g++ libssl-dev pkg-config \
-    && ln -sf /usr/bin/python2 /usr/bin/python \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
-
 ### 4️⃣ Install MailHog ###
 RUN curl -L -o /usr/local/bin/mailhog https://github.com/mailhog/MailHog/releases/download/v1.0.1/MailHog_linux_amd64 \
     && chmod +x /usr/local/bin/mailhog
 
 ### 5️⃣ Install wkhtmltopdf ###
 RUN apt-get update && apt-get install -y --no-install-recommends wkhtmltopdf && apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Set Python 2 as the default for node-gyp
-ENV PYTHON=/usr/bin/python2
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
