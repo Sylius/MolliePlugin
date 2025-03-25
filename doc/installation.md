@@ -670,6 +670,14 @@ winzou_state_machine:
 sylius_mollie_plugin:
     resource: "@SyliusMolliePlugin/Resources/config/routing.yaml"
 ```
+And add `sylius_refund.supported_gateways` parameter to your services
+
+```xml
+<parameter key="sylius_refund.supported_gateways" type="collection">
+    <parameter>offline</parameter>
+    <parameter>mollie</parameter>
+</parameter>
+```
 
 #### 12. Update your database
 
