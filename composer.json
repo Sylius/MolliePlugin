@@ -46,7 +46,8 @@
         "symfony/flex": "^2.0",
         "symfony/intl": "^5.4 || ^6.4",
         "symfony/web-profiler-bundle": "^5.4 || ^6.4",
-        "symfony/webpack-encore-bundle": "^1.12"
+        "symfony/webpack-encore-bundle": "^1.12",
+        "symplify/easy-coding-standard": "12.5.9"
     },
     "suggest": {
         "sylius/admin-order-creation-plugin": "Allows to create orders in the admin panel."
