@@ -1,5 +1,0 @@
-imports:
-    - { resource: "./state_machine/checkout.yaml" }
-    - { resource: "./state_machine/mollie_subscription.yaml" }
-    - { resource: "./state_machine/mollie_subscription_manual.yaml" }
-    - { resource: "./state_machine/payment_mollie_subscription.yaml" }
