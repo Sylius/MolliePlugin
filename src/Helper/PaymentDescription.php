@@ -19,6 +19,7 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
+use Sylius\MolliePlugin\Payments\PaymentType;
 use Webmozart\Assert\Assert;
 
 final class PaymentDescription implements PaymentDescriptionInterface
@@ -32,7 +33,7 @@ final class PaymentDescription implements PaymentDescriptionInterface
         MollieGatewayConfigInterface $methodConfig,
         OrderInterface $order,
     ): string {
-        $paymentMethodType = array_search($methodConfig->getPaymentType(), Options::getAvailablePaymentType(), true);
+        $paymentMethodType = array_search($methodConfig->getPaymentType(), PaymentType::getAllAvailable(), true);
         $description = $methodConfig->getPaymentDescription();
 
         if (PaymentMethod::PAYPAL === $methodConfig->getMethodId()) {
@@ -41,7 +42,7 @@ final class PaymentDescription implements PaymentDescriptionInterface
             return $this->createPayPalDescription($order->getNumber());
         }
 
-        if (Options::PAYMENT_API === $paymentMethodType &&
+        if (PaymentType::PAYMENT_API === $paymentMethodType &&
             isset($description) &&
             '' !== $description
         ) {

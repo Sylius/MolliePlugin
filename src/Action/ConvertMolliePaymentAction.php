@@ -33,6 +33,7 @@ use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
 use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
 use Sylius\MolliePlugin\Helper\PaymentDescriptionInterface;
 use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
+use Sylius\MolliePlugin\Payments\PaymentType;
 use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
 use Webmozart\Assert\Assert;
@@ -134,16 +135,16 @@ final class ConvertMolliePaymentAction extends BaseApiAwareAction implements Act
 
         if (false === $this->mollieApiClient->isRecurringSubscription()) {
             $details['customerId'] = $model['customer_mollie_id'] ?? null;
-            $details['metadata']['methodType'] = Options::PAYMENT_API;
+            $details['metadata']['methodType'] = PaymentType::PAYMENT_API;
 
             if (null !== ($paymentLocale = $this->paymentLocaleResolver->resolveFromOrder($order))) {
                 $details['locale'] = $paymentLocale;
             }
 
-            if (Options::ORDER_API === array_search($method->getPaymentType(), Options::getAvailablePaymentType(), true)) {
+            if (PaymentType::ORDER_API === array_search($method->getPaymentType(), PaymentType::getAllAvailable(), true)) {
                 unset($details['customerId']);
 
-                $details['metadata']['methodType'] = Options::ORDER_API;
+                $details['metadata']['methodType'] = PaymentType::ORDER_API;
                 $details = $this->orderConverter->convert($order, $details, $divisor, $method);
             }
         }

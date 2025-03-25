@@ -16,15 +16,15 @@ namespace Sylius\MolliePlugin\Form\Type;
 use Sylius\Bundle\ProductBundle\Form\Type\ProductType as ProductFormType;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Sylius\Bundle\ResourceBundle\Form\Type\ResourceTranslationsType;
-use Sylius\MolliePlugin\Documentation\DocumentationLinksInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigTranslationInterface;
 use Sylius\MolliePlugin\Entity\ProductType;
 use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Form\Type\Translation\MollieGatewayConfigTranslationType;
-use Sylius\MolliePlugin\Validator\Constraints\PaymentSurchargeType;
 use Sylius\MolliePlugin\Payments\Methods\AbstractMethod;
 use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
+use Sylius\MolliePlugin\Payments\PaymentType;
+use Sylius\MolliePlugin\Validator\Constraints\PaymentSurchargeType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -39,7 +39,6 @@ final class MollieGatewayConfigType extends AbstractResourceType
     public function __construct(
         string $dataClass,
         array $validationGroups,
-        private readonly DocumentationLinksInterface $documentationLinks,
         private readonly string $defaultLocale,
     ) {
         parent::__construct($dataClass, $validationGroups);
@@ -66,12 +65,7 @@ final class MollieGatewayConfigType extends AbstractResourceType
                 'label' => 'sylius_mollie_plugin.ui.payment_name',
                 'entry_type' => MollieGatewayConfigTranslationType::class,
             ])
-            ->add('paymentType', ChoiceType::class, [
-                'label' => 'sylius_mollie_plugin.ui.payment_type',
-                'choices' => Options::getAvailablePaymentType(),
-                'help' => $this->documentationLinks->getPaymentMethodDoc(),
-                'help_html' => true,
-            ])
+            ->add('paymentType', PaymentTypeChoiceType::class)
             ->add('qrCodeEnabled', CheckboxType::class, [
                 'label' => 'sylius_mollie_plugin.ui.qr_code',
             ])
@@ -135,12 +129,8 @@ final class MollieGatewayConfigType extends AbstractResourceType
 
                 if (MollieSubscriptionGatewayFactory::FACTORY_NAME === $factoryName) {
                     $form->remove('paymentType');
-                    $form->add('paymentType', ChoiceType::class, [
-                        'label' => 'sylius_mollie_plugin.ui.payment_type',
-                        'choices' => Options::getAvailablePaymentType(),
-                        'help' => $this->documentationLinks->getPaymentMethodDoc(),
-                        'help_html' => true,
-                        'empty_data' => Options::PAYMENT_API_VALUE,
+                    $form->add('paymentType', PaymentTypeChoiceType::class, [
+                        'empty_data' => PaymentType::PAYMENT_API_VALUE,
                         'attr' => [
                             'disabled' => 'disabled',
                         ],
@@ -161,11 +151,7 @@ final class MollieGatewayConfigType extends AbstractResourceType
 
                 if (in_array($object->getMethodId(), Options::getOnlyOrderAPIMethods(), true)) {
                     $form->remove('paymentType');
-                    $form->add('paymentType', ChoiceType::class, [
-                        'label' => 'sylius_mollie_plugin.ui.payment_type',
-                        'choices' => Options::getAvailablePaymentType(),
-                        'help' => $this->documentationLinks->getPaymentMethodDoc(),
-                        'help_html' => true,
+                    $form->add('paymentType', PaymentTypeChoiceType::class, [
                         'attr' => [
                             'disabled' => 'disabled',
                         ],
@@ -180,11 +166,11 @@ final class MollieGatewayConfigType extends AbstractResourceType
                 $data = $event->getData();
 
                 if (in_array($object->getMethodId(), Options::getOnlyOrderAPIMethods(), true)) {
-                    $data['paymentType'] = AbstractMethod::ORDER_API;
+                    $data['paymentType'] = PaymentType::ORDER_API_VALUE;
                 }
 
                 if (in_array($object->getMethodId(), Options::getOnlyPaymentAPIMethods(), true)) {
-                    $data['paymentType'] = AbstractMethod::PAYMENT_API;
+                    $data['paymentType'] = PaymentType::PAYMENT_API_VALUE;
                 }
 
                 $event->setData($data);

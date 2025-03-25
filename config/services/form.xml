@@ -78,10 +78,10 @@
             <tag name="form.type_extension" extended_type="Sylius\Bundle\PayumBundle\Form\Type\GatewayConfigType"/>
         </service>
 
-        <service id="sylius_mollie.form.extension.mollie_gateway_config" class="Sylius\MolliePlugin\Form\Type\MollieGatewayConfigType"><argument>%sylius_mollie.model.mollie_gateway_config.class%</argument>
-            <argument type="service" id="sylius_mollie.documentation.documentation_links"/>
-            <argument>%sylius_locale.locale%</argument>
+        <service id="sylius_mollie.form.extension.mollie_gateway_config" class="Sylius\MolliePlugin\Form\Type\MollieGatewayConfigType">
+            <argument>%sylius_mollie.model.mollie_gateway_config.class%</argument>
             <argument>%sylius_mollie.form.type.mollie_gateway_config.validation_groups%</argument>
+            <argument>%sylius_locale.locale%</argument>
             <tag name="form.type"/>
         </service>
 
@@ -131,6 +131,12 @@
         </service>
 
         <service id="sylius_mollie.form.type.countries_restriction_choice" class="Sylius\MolliePlugin\Form\Type\CountriesRestrictionChoiceType">
+            <tag name="form.type" />
+        </service>
+
+        <service id="sylius_mollie.form.type.payment_type_choice" class="Sylius\MolliePlugin\Form\Type\PaymentTypeChoiceType">
+            <argument type="service" id="sylius_mollie.documentation.documentation_links" />
+
             <tag name="form.type" />
         </service>
     </services>

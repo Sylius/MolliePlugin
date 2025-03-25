@@ -19,16 +19,6 @@ use Sylius\MolliePlugin\Payments\Methods\MealVoucher;
 
 final class Options
 {
-    public const ORDER_API = 'Orders API';
-
-    public const ORDER_API_VALUE = 'ORDER_API';
-
-    public const PAYMENT_API = 'Payments API';
-
-    public const PAYMENT_API_VALUE = 'PAYMENT_API';
-
-    public const SUBSCRIPTIONS_API = 'Subscriptions API';
-
     public const PERCENTAGE = 'percentage';
 
     public const FIXED_FEE = 'fixed_fee';
@@ -45,16 +35,6 @@ final class Options
 
     public const NO_FEE = 'no_fee';
 
-    /** @return array<string, string> */
-    public static function getAvailablePaymentType(): array
-    {
-        return [
-            self::PAYMENT_API => self::PAYMENT_API_VALUE,
-            self::ORDER_API => self::ORDER_API_VALUE,
-        ];
-    }
-
-    /** @return array<string, string> */
     public static function getAvailablePaymentSurchargeFeeType(): array
     {
         return [

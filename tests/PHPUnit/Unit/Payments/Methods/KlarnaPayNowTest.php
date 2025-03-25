@@ -17,6 +17,7 @@ use Mollie\Api\Types\PaymentMethod;
 use PHPUnit\Framework\TestCase;
 use Sylius\MolliePlugin\Payments\Methods\AbstractMethod;
 use Sylius\MolliePlugin\Payments\Methods\KlarnaPayNow;
+use Sylius\MolliePlugin\Payments\PaymentType;
 
 final class KlarnaPayNowTest extends TestCase
 {
@@ -34,6 +35,6 @@ final class KlarnaPayNowTest extends TestCase
 
     public function testGetsPaymentType(): void
     {
-        $this->assertSame(AbstractMethod::ORDER_API, $this->klarnaPayNow->getPaymentType());
+        $this->assertSame(PaymentType::ORDER_API_VALUE, $this->klarnaPayNow->getPaymentType());
     }
 }

@@ -36,6 +36,7 @@ use Sylius\MolliePlugin\Action\CaptureAction;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
+use Sylius\MolliePlugin\Payments\PaymentType;
 use Sylius\MolliePlugin\Request\Api\CreateCustomer;
 use Sylius\MolliePlugin\Request\Api\CreateInternalRecurring;
 use Sylius\MolliePlugin\Request\Api\CreateOrder;
@@ -183,7 +184,7 @@ final class CaptureActionTest extends TestCase
                 'cancel_token' => [
                     'cancel_hash',
                 ],
-                'methodType' => Options::ORDER_API,
+                'methodType' => PaymentType::ORDER_API,
                 'order_id' => 'test_order_id',
             ],
             'webhookUrl' => 'url',
@@ -256,7 +257,7 @@ final class CaptureActionTest extends TestCase
         $details = new ArrayObject([
             'metadata' => [
                 'refund_token' => ['refund_token_hash'],
-                'methodType' => Options::ORDER_API,
+                'methodType' => PaymentType::ORDER_API,
                 'molliePaymentMethods' => null,
             ],
             'methodType',
@@ -306,7 +307,7 @@ final class CaptureActionTest extends TestCase
         $details = new ArrayObject([
             'metadata' => [
                 'refund_token' => ['refund_token_hash'],
-                'methodType' => Options::PAYMENT_API,
+                'methodType' => PaymentType::PAYMENT_API,
                 'molliePaymentMethods' => 'not_klarna_scenario',
             ],
             'methodType',
@@ -356,7 +357,7 @@ final class CaptureActionTest extends TestCase
         $details = new ArrayObject([
             'metadata' => [
                 'refund_token' => ['refund_token_hash'],
-                'methodType' => Options::PAYMENT_API,
+                'methodType' => PaymentType::PAYMENT_API,
                 'molliePaymentMethods' => 'klarnapaynow',
             ],
             'methodType',
