@@ -34,4 +34,9 @@ final class SyliusMolliePlugin extends Bundle
         $container->addCompilerPass(new SyliusMessageBusPolyfillPass());
         $container->addCompilerPass(new AdminOrderCreationCompatibilityPass());
     }
+
+    public function getPath(): string
+    {
+        return \dirname(__DIR__);
+    }
 }

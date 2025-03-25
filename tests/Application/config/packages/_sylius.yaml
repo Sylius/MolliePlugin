@@ -3,7 +3,7 @@ imports:
     - { resource: "@SyliusAdminBundle/Resources/config/app/config.yml" }
     - { resource: "@SyliusShopBundle/Resources/config/app/config.yml" }
     - { resource: "@SyliusRefundPlugin/Resources/config/app/config.yml" }
-    - { resource: "@SyliusMolliePlugin/Resources/config/config.yaml" }
+    - { resource: "@SyliusMolliePlugin/config/config.yaml" }
     - { resource: "../../src/Resources/config/config.yaml" }
     - { resource: "../../src/Resources/config/services.xml" }
     - { resource: "@SyliusApiBundle/Resources/config/app/config.yaml" }

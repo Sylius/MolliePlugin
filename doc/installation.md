@@ -639,7 +639,7 @@ return [
 
 imports:
     ...
-    - { resource: "@SyliusMolliePlugin/Resources/config/config.yaml" }
+    - { resource: "@SyliusMolliePlugin/config/config.yaml" }
 ```
 
 #### 9. Add state machine configuration in `config/packages/_sylius.yaml`:
