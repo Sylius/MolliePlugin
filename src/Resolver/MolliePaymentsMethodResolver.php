@@ -17,7 +17,6 @@ use Mollie\Api\Exceptions\ApiException;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\MolliePlugin\Checker\Voucher\ProductVoucherTypeCheckerInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
-use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface as MollieOrderInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
@@ -71,6 +70,14 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         return $this->getMolliePaymentOptions($order, $address->getCountryCode());
     }
 
+    /**
+     * @return array{
+     *     data: array<string, string>,
+     *     image: array<string, string>,
+     *     issuers: array<string, mixed>|null,
+     *     paymentFee: array<string, mixed>
+     * }
+     */
     private function getMolliePaymentOptions(MollieOrderInterface $order, string $countryCode): array
     {
         $methods = $this->getDefaultOptions();
@@ -113,7 +120,6 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
             return $this->getDefaultOptions();
         }
 
-        /** @var MollieGatewayConfigInterface $allowedMethod */
         foreach ($allowedMethods as $allowedMethod) {
             Assert::notNull($methods);
             $methods = $this->countriesRestrictionResolver->resolve($allowedMethod, $methods, $countryCode);
@@ -125,11 +131,16 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         return $this->productVoucherTypeChecker->checkTheProductTypeOnCart($order, $methods);
     }
 
+    /**
+     * @param MollieGatewayConfigInterface[] $paymentConfigs
+     * @param string[] $allowedMethodsIds
+     *
+     * @return MollieGatewayConfigInterface[]
+     */
     private function filterPaymentMethods(array $paymentConfigs, array $allowedMethodsIds, float $orderTotal): array
     {
         $allowedMethods = [];
 
-        /** @var MollieGatewayConfig $allowedMethod */
         foreach ($paymentConfigs as $allowedMethod) {
             if (isset($allowedMethod[0]) && !empty($allowedMethod[0]) && in_array($allowedMethod[0]->getMethodId(), $allowedMethodsIds, true)) {
                 $minAmountLimit = $allowedMethod[self::MINIMUM_FIELD];
@@ -157,6 +168,14 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         return $allowedMethods;
     }
 
+    /**
+     * @return array{
+     *     data: array<string, string>,
+     *     image: array<string, string>,
+     *     issuers: array<string, mixed>|null,
+     *     paymentFee: array<string, mixed>
+     * }
+     */
     private function getDefaultOptions(): array
     {
         return [

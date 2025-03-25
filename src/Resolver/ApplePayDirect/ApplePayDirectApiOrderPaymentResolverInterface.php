@@ -18,6 +18,7 @@ use Sylius\MolliePlugin\Entity\OrderInterface;
 
 interface ApplePayDirectApiOrderPaymentResolverInterface
 {
+    /** @param array<string, mixed> $details */
     public function resolve(
         OrderInterface $order,
         MollieGatewayConfigInterface $mollieGatewayConfig,

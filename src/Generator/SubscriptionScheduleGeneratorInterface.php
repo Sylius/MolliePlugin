@@ -14,8 +14,10 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Generator;
 
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionScheduleInterface;
 
 interface SubscriptionScheduleGeneratorInterface
 {
+    /** @return array<array-key, MollieSubscriptionScheduleInterface> */
     public function generate(MollieSubscriptionInterface $subscription): array;
 }

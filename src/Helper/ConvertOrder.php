@@ -26,12 +26,14 @@ use Sylius\Component\Order\Model\Adjustment;
 use Sylius\Component\Taxation\Model\TaxRateInterface;
 use Sylius\Component\Taxation\Resolver\TaxRateResolverInterface;
 use Sylius\MolliePlugin\Calculator\CalculateTaxAmountInterface;
+use Sylius\MolliePlugin\DTO\MolliePayment\Amount;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 use Sylius\MolliePlugin\Resolver\MealVoucherResolverInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Webmozart\Assert\Assert;
 
+/** @phpstan-import-type AmountArray from Amount */
 final class ConvertOrder implements ConvertOrderInterface
 {
     private OrderInterface $order;
@@ -73,6 +75,18 @@ final class ConvertOrder implements ConvertOrderInterface
         return $details;
     }
 
+    /**
+     * @return array{
+     *     streetAndNumber: string,
+     *     postalCode: string,
+     *     city: string,
+     *     country: string,
+     *     givenName: string,
+     *     familyName: string,
+     *     organizationName: string,
+     *     email: string,
+     * }
+     */
     private function createShippingAddress(CustomerInterface $customer): array
     {
         $shippingAddress = $this->order->getShippingAddress();
@@ -91,6 +105,19 @@ final class ConvertOrder implements ConvertOrderInterface
         ];
     }
 
+    /**
+     * @return array{
+     *     streetAndNumber: string,
+     *     postalCode: string,
+     *     city: string,
+     *     country: string,
+     *     givenName: string,
+     *     familyName: string,
+     *     organizationName: string,
+     *     email: string,
+     *     phone?: string,
+     * }
+     */
     private function createBillingAddress(CustomerInterface $customer, string $methodId): array
     {
         $billingAddress = $this->order->getBillingAddress();
@@ -115,6 +142,21 @@ final class ConvertOrder implements ConvertOrderInterface
         return $address;
     }
 
+    /**
+     * @return array<array-key, array{
+     *     category?: string,
+     *     type: string,
+     *     name: string,
+     *     quantity: int,
+     *     vatRate: string,
+     *     unitPrice: AmountArray,
+     *     totalAmount: AmountArray,
+     *     vatAmount: AmountArray,
+     *     imageUrl?: string,
+     *     discountAmount?: AmountArray,
+     *     metadata?: array{item_id: int},
+     * }>
+     */
     private function createLines(int $divisor, MollieGatewayConfigInterface $method): array
     {
         $details = [];
@@ -188,6 +230,17 @@ final class ConvertOrder implements ConvertOrderInterface
         return $this->requestStack->getCurrentRequest()->getSchemeAndHttpHost();
     }
 
+    /**
+     * @return array{
+     *     type: string,
+     *     name: string,
+     *     quantity: int,
+     *     vatRate: string,
+     *     unitPrice: AmountArray,
+     *     totalAmount: AmountArray,
+     *     vatAmount: AmountArray,
+     * }
+     */
     private function createAdjustments(Adjustment $adjustment, int $divisor): array
     {
         return [
@@ -210,6 +263,17 @@ final class ConvertOrder implements ConvertOrderInterface
         ];
     }
 
+    /**
+     * @return array<array-key, array{
+     *     type: string,
+     *     name: string,
+     *     quantity: int,
+     *     vatRate: string,
+     *     unitPrice: AmountArray,
+     *     totalAmount: AmountArray,
+     *     vatAmount: AmountArray,
+     * }>
+     */
     private function createShippingFee(int $divisor): array
     {
         $details = [];

@@ -17,5 +17,6 @@ use Sylius\Component\Core\Model\AddressInterface;
 
 interface AddressResolverInterface
 {
+    /** @param array<string, mixed> $applePayDirectAddress */
     public function resolve(array $applePayDirectAddress): AddressInterface;
 }

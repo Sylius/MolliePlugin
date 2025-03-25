@@ -51,8 +51,10 @@ interface MollieSubscriptionConfigurationInterface
 
     public function getNumberOfRepetitions(): int;
 
+    /** @param array<array-key, mixed> $paymentDetailsConfiguration */
     public function setPaymentDetailsConfiguration(array $paymentDetailsConfiguration): void;
 
+    /** @return array<array-key, mixed> */
     public function getPaymentDetailsConfiguration(): array;
 
     public function getSubscription(): MollieSubscriptionInterface;

@@ -1,6 +1,3 @@
-includes:
-    - phpstan-baseline.neon
-
 parameters:
     reportUnmatchedIgnoredErrors: false
 
@@ -17,7 +14,6 @@ parameters:
         - 'tests/Application/src/**.php'
 
     ignoreErrors:
-        - identifier: missingType.iteratorValue
         - identifier: missingType.generics
 
         - '#Construct empty\(\) is not allowed. Use more strict comparison.#'

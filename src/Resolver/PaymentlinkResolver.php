@@ -124,7 +124,13 @@ final class PaymentlinkResolver implements PaymentlinkResolverInterface
         return $payment->_links->checkout->href;
     }
 
-    /** @param array<string, mixed> $config */
+    /**
+     * @param array{
+     *    environment?: bool,
+     *    api_key_live?: mixed,
+     *    api_key_test?: mixed
+     * } $config
+     */
     private function getModus(array $config): string
     {
         if (true === $config['environment']) {

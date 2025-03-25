@@ -24,6 +24,13 @@ final class SyliusMessageBusPolyfillPass implements CompilerPassInterface
 
     public const COMMAND_BUS_ALIAS = 'sylius_mollie_plugin.command_bus';
 
+    public function process(ContainerBuilder $container): void
+    {
+        $buses = array_keys($container->findTaggedServiceIds('messenger.bus'));
+        $this->setupDefaultCommandBus($buses, $container);
+    }
+
+    /** @param string[] $buses */
     private function setupDefaultCommandBus(array $buses, ContainerBuilder $container): void
     {
         $targetBusName = in_array('sylius.command_bus', $buses, true) ? 'sylius.command_bus' : 'sylius_default.bus';
@@ -31,11 +38,5 @@ final class SyliusMessageBusPolyfillPass implements CompilerPassInterface
             self::COMMAND_BUS_ALIAS,
             $targetBusName,
         );
-    }
-
-    public function process(ContainerBuilder $container): void
-    {
-        $buses = array_keys($container->findTaggedServiceIds('messenger.bus'));
-        $this->setupDefaultCommandBus($buses, $container);
     }
 }

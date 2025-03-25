@@ -56,6 +56,14 @@ final class ProductVoucherTypeChecker implements ProductVoucherTypeCheckerInterf
         return $methods;
     }
 
+    /**
+     * @param array{
+     *      data: array<string, string>,
+     *      image: array<string, string>,
+     *      issuers: array<string, mixed>|null,
+     *      paymentFee: array<string, mixed>
+     *  } $methods
+     */
     private function checkVoucherEnabled(array $methods): bool
     {
         return in_array(MealVoucher::MEAL_VOUCHERS, array_values($methods['data']), true);

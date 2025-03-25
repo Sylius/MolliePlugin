@@ -18,6 +18,7 @@ use Doctrine\Common\Collections\Collection;
 
 final class PartialShipItems
 {
+    /** @var Collection<PartialShipItem> */
     private Collection $partialShipItems;
 
     public function __construct()
@@ -43,6 +44,7 @@ final class PartialShipItems
         return $this->partialShipItems;
     }
 
+    /** @return array<array-key, array{id: string, quantity: int}> */
     public function getArrayFromObject(): array
     {
         $data = [];

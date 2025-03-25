@@ -13,8 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Helper;
 
-use Sylius\RefundPlugin\Model\OrderItemUnitRefund;
-use Sylius\RefundPlugin\Model\ShipmentRefund;
+use Sylius\RefundPlugin\Model\UnitRefundInterface;
 
 final class ConvertRefundData implements ConvertRefundDataInterface
 {
@@ -38,9 +37,13 @@ final class ConvertRefundData implements ConvertRefundDataInterface
         ];
     }
 
+    /**
+     * @param array<array-key, UnitRefundInterface> $refundsData
+     *
+     * @return iterable<int>
+     */
     private function getTotal(array $refundsData): iterable
     {
-        /** @var OrderItemUnitRefund|ShipmentRefund $refundData */
         foreach ($refundsData as $refundData) {
             yield $refundData->total();
         }

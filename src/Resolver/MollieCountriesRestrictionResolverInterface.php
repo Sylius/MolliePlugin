@@ -17,6 +17,21 @@ use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 
 interface MollieCountriesRestrictionResolverInterface
 {
+    /**
+     * @param array{
+     *     data: array<string, string>,
+     *     image: array<string, string>,
+     *     issuers: array<string, mixed>|null,
+     *     paymentFee: array<string, mixed>
+     * } $methods
+     *
+     * @return array{
+     *     data: array<string, string>,
+     *     image: array<string, string>,
+     *     issuers: array<string, mixed>|null,
+     *     paymentFee: array<string, mixed>
+     * }|null
+     */
     public function resolve(
         MollieGatewayConfigInterface $paymentMethod,
         array $methods,

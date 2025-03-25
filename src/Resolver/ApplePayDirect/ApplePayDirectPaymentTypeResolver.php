@@ -37,6 +37,7 @@ final class ApplePayDirectPaymentTypeResolver implements ApplePayDirectPaymentTy
         if (null === $payment->getAmount()) {
             return;
         }
+
         $amount = $this->intToStringConverter->convertIntToString($payment->getAmount());
 
         $details['amount'] = [
@@ -46,6 +47,7 @@ final class ApplePayDirectPaymentTypeResolver implements ApplePayDirectPaymentTy
 
         $details['applePayDirectToken'] = json_encode($applePayDirectToken);
         $details['backurl'] = $payment->getDetails()['backurl'];
+
         if (AbstractMethod::ORDER_API === $mollieGatewayConfig->getPaymentType()) {
             $this->createPaymentOrder($order, $mollieGatewayConfig, $details);
 
@@ -55,11 +57,13 @@ final class ApplePayDirectPaymentTypeResolver implements ApplePayDirectPaymentTy
         $this->createPayment($order, $details);
     }
 
+    /** @param array<string, mixed> $details */
     private function createPayment(OrderInterface $order, array $details): void
     {
         $this->apiPaymentResolver->resolve($order, $details);
     }
 
+    /** @param array<string, mixed> $details */
     private function createPaymentOrder(
         OrderInterface $order,
         MollieGatewayConfigInterface $mollieGatewayConfig,

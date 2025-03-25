@@ -15,7 +15,6 @@ namespace Sylius\MolliePlugin\Payments;
 
 use Mollie\Api\Resources\Method;
 use Sylius\MolliePlugin\Payments\Methods\AbstractMethod;
-use Sylius\MolliePlugin\Payments\Methods\MethodInterface;
 
 final class Methods implements MethodsInterface
 {
@@ -45,7 +44,6 @@ final class Methods implements MethodsInterface
     public function getAllEnabled(): array
     {
         $methods = [];
-        /** @var MethodInterface $method */
         foreach ($this->methods as $method) {
             if (true === $method->isEnabled()) {
                 $methods[] = $method->isEnabled();

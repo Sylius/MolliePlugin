@@ -20,7 +20,6 @@ use Webmozart\Assert\Assert;
 
 final class MollieMethodFilter implements MollieMethodFilterInterface
 {
-    /** @return PaymentMethodInterface[] */
     public function nonRecurringFilter(array $paymentMethods): array
     {
         $filteredMethods = [];
@@ -35,7 +34,6 @@ final class MollieMethodFilter implements MollieMethodFilterInterface
         return $filteredMethods;
     }
 
-    /** @return PaymentMethodInterface[] */
     public function recurringFilter(array $paymentMethods): array
     {
         $filteredMethods = [];

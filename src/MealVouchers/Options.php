@@ -21,6 +21,7 @@ final class Options
 
     public const GIFT = 'gift';
 
+    /** @return array<string, string> */
     public static function getAvailableMealVouchersCategory(): array
     {
         return [

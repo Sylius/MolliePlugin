@@ -15,10 +15,13 @@ namespace Sylius\MolliePlugin\Repository;
 
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 
 interface MollieGatewayConfigRepositoryInterface extends RepositoryInterface
 {
+    /** @return MollieGatewayConfigInterface[] */
     public function findAllEnabledByGateway(GatewayConfigInterface $gateway): array;
 
+    /** @return MollieGatewayConfigInterface[] */
     public function getExistingAmountLimitsById(int $id): array;
 }

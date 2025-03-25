@@ -13,22 +13,34 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Payments\Methods;
 
+use Sylius\MolliePlugin\DTO\MolliePayment\Amount;
 use Sylius\MolliePlugin\Entity\ProductTypeInterface;
 
+/**
+ * @mixin MethodInterface
+ *
+ * @phpstan-import-type AmountArray from Amount
+ * @phpstan-import-type ImageArray from MethodInterface
+ */
 trait ConfigTrait
 {
+    /** @var ImageArray */
     protected array $image;
 
+    /** @var AmountArray */
     protected array $minimumAmount;
 
+    /** @var AmountArray */
     protected array $maximumAmount;
 
     protected string $paymentType;
 
+    /** @var string[] */
     protected array $country;
 
     protected bool $canRefunded = true;
 
+    /** @var array<string, mixed> */
     protected array $issuers = [];
 
     protected ?ProductTypeInterface $defaultCategory;

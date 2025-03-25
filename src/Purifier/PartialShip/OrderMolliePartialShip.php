@@ -70,6 +70,13 @@ final class OrderMolliePartialShip implements OrderMolliePartialShipInterface
         }
     }
 
+    /**
+     * @param array{
+     *    environment?: bool,
+     *    api_key_live?: mixed,
+     *    api_key_test?: mixed
+     * } $config
+     */
     private function getModus(array $config): string
     {
         if ($config['environment']) {

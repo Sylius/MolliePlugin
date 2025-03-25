@@ -37,6 +37,21 @@ final class MollieCountriesRestrictionResolver implements MollieCountriesRestric
         return $methods;
     }
 
+    /**
+     * @param array{
+     *     data: array<string, string>,
+     *     image: array<string, string>,
+     *     issuers: array<string, mixed>|null,
+     *     paymentFee: array<string, mixed>
+     * } $methods
+     *
+     * @return array{
+     *     data: array<string, string>,
+     *     image: array<string, string>,
+     *     issuers: array<string, mixed>|null,
+     *     paymentFee: array<string, mixed>
+     * }
+     */
     private function allowCountryLevel(
         MollieGatewayConfigInterface $paymentMethod,
         array $methods,
@@ -50,6 +65,21 @@ final class MollieCountriesRestrictionResolver implements MollieCountriesRestric
         return $methods;
     }
 
+    /**
+     * @param array{
+     *     data: array<string, string>,
+     *     image: array<string, string>,
+     *     issuers: array<string, mixed>|null,
+     *     paymentFee: array<string, mixed>
+     * } $methods
+     *
+     * @return array{
+     *     data: array<string, string>,
+     *     image: array<string, string>,
+     *     issuers: array<string, mixed>|null,
+     *     paymentFee: array<string, mixed>
+     * }
+     */
     private function excludeCountryLevel(
         MollieGatewayConfigInterface $paymentMethod,
         array $methods,
@@ -63,6 +93,21 @@ final class MollieCountriesRestrictionResolver implements MollieCountriesRestric
         return $this->setData($methods, $paymentMethod);
     }
 
+    /**
+     * @param array{
+     *     data: array<string, string>,
+     *     image: array<string, string>,
+     *     issuers: array<string, mixed>|null,
+     *     paymentFee: array<string, mixed>
+     * } $methods
+     *
+     * @return array{
+     *     data: array<string, string>,
+     *     image: array<string, string>,
+     *     issuers: array<string, mixed>|null,
+     *     paymentFee: array<string, mixed>
+     * }
+     */
     private function setData(array $methods, MollieGatewayConfigInterface $paymentMethod): array
     {
         /** @var MollieGatewayConfigTranslationInterface $translation */

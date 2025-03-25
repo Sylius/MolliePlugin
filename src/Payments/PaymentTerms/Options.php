@@ -45,6 +45,7 @@ final class Options
 
     public const NO_FEE = 'no_fee';
 
+    /** @return array<string, string> */
     public static function getAvailablePaymentType(): array
     {
         return [
@@ -53,6 +54,7 @@ final class Options
         ];
     }
 
+    /** @return array<string, string> */
     public static function getAvailablePaymentSurchargeFeeType(): array
     {
         return [
@@ -62,6 +64,7 @@ final class Options
         ];
     }
 
+    /** @return array<string, int> */
     public static function getDebugLevels(): array
     {
         return [
@@ -71,6 +74,7 @@ final class Options
         ];
     }
 
+    /** @return array<string, int> */
     public static function getLogLevels(): array
     {
         return [
@@ -79,6 +83,7 @@ final class Options
         ];
     }
 
+    /** @return string[] */
     public static function getOnlyOrderAPIMethods(): array
     {
         return [
@@ -93,6 +98,7 @@ final class Options
         ];
     }
 
+    /** @return string[] */
     public static function getOnlyPaymentAPIMethods(): array
     {
         return [

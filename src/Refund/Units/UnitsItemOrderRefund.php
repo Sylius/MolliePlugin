@@ -19,6 +19,7 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\DTO\PartialRefundItems;
 use Sylius\RefundPlugin\Model\OrderItemUnitRefund;
 use Sylius\RefundPlugin\Model\RefundType;
+use Sylius\RefundPlugin\Model\UnitRefundInterface;
 
 final class UnitsItemOrderRefund implements UnitsItemOrderRefundInterface
 {
@@ -54,11 +55,10 @@ final class UnitsItemOrderRefund implements UnitsItemOrderRefundInterface
 
     public function getActualRefundedQuantity(OrderInterface $order, int $itemId): int
     {
-        $allItems = array_filter($this->getActualRefunded($order, $itemId));
-
-        return count($allItems);
+        return count(array_filter($this->getActualRefunded($order, $itemId)));
     }
 
+    /** @return array<array-key, UnitRefundInterface|null> */
     private function getActualRefunded(OrderInterface $order, int $itemId): array
     {
         $units = $order->getItemUnits();
@@ -66,11 +66,14 @@ final class UnitsItemOrderRefund implements UnitsItemOrderRefundInterface
         $refundedUnits = [];
         foreach ($units as $unit) {
             if ($itemId === $unit->getOrderItem()->getId()) {
-                $refundedUnits[] = $this->refundUnitsRepository->findOneBy([
+                /** @var UnitRefundInterface|null $refundUnit */
+                $refundUnit = $this->refundUnitsRepository->findOneBy([
                     'order' => $order->getId(),
                     'refundedUnitId' => $unit->getId(),
                     'type' => RefundType::orderItemUnit(),
                 ]);
+
+                $refundedUnits[] = $refundUnit;
             }
         }
 

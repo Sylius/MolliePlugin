@@ -67,6 +67,7 @@ final class PaymentFeeCalculateAction implements PaymentFeeCalculateActionInterf
         ]);
     }
 
+    /** @return array<string, int> */
     private function getPaymentFee(OrderInterface $calculatedOrder): array
     {
         foreach (self::PAYMENTS_FEE_METHOD as $paymentFee) {

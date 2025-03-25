@@ -16,6 +16,7 @@ namespace Sylius\MolliePlugin\Payments\MethodResolver;
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Component\Core\Model\PaymentInterface as CorePaymentInterface;
 use Sylius\Component\Payment\Model\PaymentInterface;
+use Sylius\Component\Payment\Model\PaymentMethodInterface;
 use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
@@ -78,6 +79,11 @@ final class MolliePaymentMethodResolver implements PaymentMethodsResolverInterfa
             null !== $subject->getOrder()->getChannel();
     }
 
+    /**
+     * @param PaymentMethodInterface[] $methods
+     *
+     * @return PaymentMethodInterface[]
+     */
     private function filterMethodsByChannel(array $methods, int $channelId): array
     {
         $filteredMethods = [];
@@ -108,7 +114,9 @@ final class MolliePaymentMethodResolver implements PaymentMethodsResolverInterfa
     }
 
     /**
-     * Sorts  payment methods by their position before returning the result
+     * @param PaymentMethodInterface[] $methods
+     *
+     * @return PaymentMethodInterface[]
      */
     private function sortMethodsByPosition(array $methods): array
     {

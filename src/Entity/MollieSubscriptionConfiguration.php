@@ -31,6 +31,7 @@ class MollieSubscriptionConfiguration implements MollieSubscriptionConfiguration
 
     protected int $numberOfRepetitions = 1;
 
+    /** @var array<array-key, mixed> */
     protected array $paymentDetailsConfiguration = [];
 
     public function __construct(protected MollieSubscriptionInterface $subscription)

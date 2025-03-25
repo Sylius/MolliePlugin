@@ -15,6 +15,7 @@ namespace Sylius\MolliePlugin\Factory;
 
 interface DatePeriodFactoryInterface
 {
+    /** @return array<array-key, \DateTime> */
     public function createForSubscriptionConfiguration(
         \DateTime $start,
         int $times,

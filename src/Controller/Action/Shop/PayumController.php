@@ -84,6 +84,7 @@ final class PayumController
         }
     }
 
+    /** @param array<string, mixed> $redirectOptions */
     private function provideTokenBasedOnPayment(PaymentInterface $payment, array $redirectOptions): TokenInterface
     {
         /** @var PaymentMethodInterface $paymentMethod */

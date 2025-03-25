@@ -37,10 +37,13 @@ class MollieGatewayConfig extends AbstractMethod implements ResourceInterface, M
 
     protected ?MollieMethodImageInterface $customizeMethodImage = null;
 
+    /** @var array<array-key, mixed>|null */
     protected ?array $countryLevel = null;
 
+    /** @var array<array-key, mixed>|null */
     protected ?array $countryLevelAllowed = null;
 
+    /** @var array<array-key, mixed>|null */
     protected ?array $countryLevelExcluded = null;
 
     protected ?int $orderExpirationDays = 28;

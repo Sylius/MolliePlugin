@@ -17,5 +17,6 @@ use Symfony\Component\Form\FormInterface;
 
 interface ResolverGroupProviderInterface
 {
+    /** @return string[] */
     public function provide(FormInterface $form): array;
 }

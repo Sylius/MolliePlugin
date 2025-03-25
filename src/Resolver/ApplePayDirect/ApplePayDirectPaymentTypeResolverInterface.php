@@ -18,6 +18,7 @@ use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 
 interface ApplePayDirectPaymentTypeResolverInterface
 {
+    /** @param array<string, mixed> $applePayDirectToken */
     public function resolve(
         MollieGatewayConfigInterface $mollieGatewayConfig,
         PaymentInterface $payment,
