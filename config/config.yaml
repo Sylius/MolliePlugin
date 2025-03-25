@@ -1,5 +1,4 @@
 imports:
-    - { resource: "./services.xml" }
     - { resource: "resources/**/*.yaml" }
     - { resource: "state_machine/**/*.yaml" }
     - { resource: "grids/**/*.yaml" }
