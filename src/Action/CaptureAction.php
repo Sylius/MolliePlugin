@@ -28,6 +28,7 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
 use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Payments\ApiTypeRestrictedPaymentMethods;
 use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 use Sylius\MolliePlugin\Payments\PaymentType;
 use Sylius\MolliePlugin\Request\Api\CreateCustomer;
@@ -128,7 +129,7 @@ final class CaptureAction extends BaseApiAwareAction implements CaptureActionInt
             }
         } else {
             if (isset($details['metadata']['methodType']) && PaymentType::PAYMENT_API === $details['metadata']['methodType']) {
-                if (in_array($details['metadata']['molliePaymentMethods'], Options::getOnlyOrderAPIMethods(), true)) {
+                if (in_array($details['metadata']['molliePaymentMethods'], ApiTypeRestrictedPaymentMethods::onlyOrderApi(), true)) {
                     throw new InvalidArgumentException(sprintf(
                         'Method %s is not allowed to use %s',
                         $details['metadata']['molliePaymentMethods'],
@@ -140,7 +141,7 @@ final class CaptureAction extends BaseApiAwareAction implements CaptureActionInt
             }
 
             if (isset($details['metadata']['methodType']) && PaymentType::ORDER_API === $details['metadata']['methodType']) {
-                if (in_array($details['metadata']['molliePaymentMethods'], Options::getOnlyPaymentAPIMethods(), true)) {
+                if (in_array($details['metadata']['molliePaymentMethods'], ApiTypeRestrictedPaymentMethods::onlyPaymentApi(), true)) {
                     throw new InvalidArgumentException(sprintf(
                         'Method %s is not allowed to use %s',
                         $details['metadata']['molliePaymentMethods'],

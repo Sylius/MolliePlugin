@@ -21,7 +21,7 @@ use Sylius\MolliePlugin\Entity\MollieGatewayConfigTranslationInterface;
 use Sylius\MolliePlugin\Entity\ProductType;
 use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Form\Type\Translation\MollieGatewayConfigTranslationType;
-use Sylius\MolliePlugin\Payments\Methods\AbstractMethod;
+use Sylius\MolliePlugin\Payments\ApiTypeRestrictedPaymentMethods;
 use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 use Sylius\MolliePlugin\Payments\PaymentType;
 use Sylius\MolliePlugin\Validator\Constraints\PaymentSurchargeType;
@@ -149,7 +149,7 @@ final class MollieGatewayConfigType extends AbstractResourceType
                 $object = $form->getData();
                 $data = $event->getData();
 
-                if (in_array($object->getMethodId(), Options::getOnlyOrderAPIMethods(), true)) {
+                if (in_array($object->getMethodId(), ApiTypeRestrictedPaymentMethods::onlyOrderApi(), true)) {
                     $form->remove('paymentType');
                     $form->add('paymentType', PaymentTypeChoiceType::class, [
                         'attr' => [
@@ -165,11 +165,11 @@ final class MollieGatewayConfigType extends AbstractResourceType
                 $object = $event->getForm()->getData();
                 $data = $event->getData();
 
-                if (in_array($object->getMethodId(), Options::getOnlyOrderAPIMethods(), true)) {
+                if (in_array($object->getMethodId(), ApiTypeRestrictedPaymentMethods::onlyOrderApi(), true)) {
                     $data['paymentType'] = PaymentType::ORDER_API_VALUE;
                 }
 
-                if (in_array($object->getMethodId(), Options::getOnlyPaymentAPIMethods(), true)) {
+                if (in_array($object->getMethodId(), ApiTypeRestrictedPaymentMethods::onlyPaymentApi(), true)) {
                     $data['paymentType'] = PaymentType::PAYMENT_API_VALUE;
                 }
 
