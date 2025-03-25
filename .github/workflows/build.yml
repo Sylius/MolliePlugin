@@ -21,7 +21,7 @@ jobs:
                 php: [ 8.1 ]
                 symfony: [ ^5.4 ]
                 sylius: [ ~1.11.0, ~1.12.0, ~1.13.0 ]
-                node: [ 14.x ]
+                node: [ 18.x ]
                 mysql: [ 8.4 ]
 
         env:
@@ -108,7 +108,7 @@ jobs:
                         ${{ runner.os }}-node-${{ matrix.node }}-yarn-
 
             -   name: Install JS dependencies
-                run: (cd tests/Application && yarn install && yarn encore dev)
+                run: (cd tests/Application && yarn install)
 
             -   name: Prepare test application database
                 run: |
@@ -134,11 +134,6 @@ jobs:
 
             -   name: Run unit tests
                 run: vendor/bin/phpunit --colors=always --testsuite=unit
-
-            -   name: Switch to Node 18 for Mockoon
-                uses: actions/setup-node@v4
-                with:
-                    node-version: "18"
 
             -   name: Run Mockoon CLI
                 uses: mockoon/cli-action@v2

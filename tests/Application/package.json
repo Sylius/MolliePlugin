@@ -9,7 +9,6 @@
 		"jquery.dirtyforms": "^2.0.0",
 		"lightbox2": "^2.9.0",
 		"lodash.get": "^4.4.2",
-		"node-sass": "^4.14.1",
 		"semantic-ui-css": "^2.2.0",
 		"shepherd.js": "^8.3.0",
 		"slick-carousel": "^1.8.1",
@@ -41,7 +40,7 @@
 		"gulp-if": "^2.0.0",
 		"gulp-livereload": "^3.8.1",
 		"gulp-order": "^1.1.1",
-		"gulp-sass": "^4.0.1",
+		"gulp-sass": "^5.1.0",
 		"gulp-sourcemaps": "^1.6.0",
 		"gulp-uglifycss": "^1.0.5",
 		"merge-stream": "^1.0.0",
@@ -51,6 +50,7 @@
 		"rollup-plugin-inject": "^2.0.0",
 		"rollup-plugin-node-resolve": "^3.3.0",
 		"rollup-plugin-uglify": "^4.0.0",
+		"sass": "~1.56.0",
 		"sass-loader": "^9.0.1",
 		"upath": "^1.1.0",
 		"yargs": "^6.4.0"
@@ -60,7 +60,7 @@
 		"lint": "yarn lint:js",
 		"lint:js": "eslint gulpfile.babel.js",
 		"watch": "yarn encore dev --watch",
-		"dev": "yarn encore dev --watch",
+		"dev": "yarn encore dev",
 		"gulp": "gulp build"
 	},
 	"repository": {
