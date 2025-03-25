@@ -11,8 +11,11 @@
 
 -->
 
-<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
     <parameters>
         <parameter key="sylius_mollie.form.type.mollie_gateway_config.validation_groups" type="collection">
             <parameter>sylius</parameter>
@@ -75,8 +78,7 @@
             <tag name="form.type_extension" extended_type="Sylius\Bundle\PayumBundle\Form\Type\GatewayConfigType"/>
         </service>
 
-        <service id="sylius_mollie.form.extension.mollie_gateway_config" class="Sylius\MolliePlugin\Form\Type\MollieGatewayConfigType">
-            <argument>%sylius_mollie.model.mollie_gateway_config.class%</argument>
+        <service id="sylius_mollie.form.extension.mollie_gateway_config" class="Sylius\MolliePlugin\Form\Type\MollieGatewayConfigType"><argument>%sylius_mollie.model.mollie_gateway_config.class%</argument>
             <argument type="service" id="sylius_mollie.documentation.documentation_links"/>
             <argument>%sylius_locale.locale%</argument>
             <argument>%sylius_mollie.form.type.mollie_gateway_config.validation_groups%</argument>
@@ -125,6 +127,10 @@
 
         <service id="sylius_mollie.form.type.translation.payment_method_translation" class="Sylius\MolliePlugin\Form\Type\Translation\MollieGatewayConfigTranslationType">
             <argument>%sylius_mollie.model.mollie_gateway_config_translation.class%</argument>
+            <tag name="form.type" />
+        </service>
+
+        <service id="sylius_mollie.form.type.countries_restriction_choice" class="Sylius\MolliePlugin\Form\Type\CountriesRestrictionChoiceType">
             <tag name="form.type" />
         </service>
     </services>

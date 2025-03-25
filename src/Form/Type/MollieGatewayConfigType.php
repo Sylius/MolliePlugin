@@ -22,10 +22,9 @@ use Sylius\MolliePlugin\Entity\MollieGatewayConfigTranslationInterface;
 use Sylius\MolliePlugin\Entity\ProductType;
 use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Form\Type\Translation\MollieGatewayConfigTranslationType;
-use Sylius\MolliePlugin\Options\Country\Options as CountryOptions;
+use Sylius\MolliePlugin\Validator\Constraints\PaymentSurchargeType;
 use Sylius\MolliePlugin\Payments\Methods\AbstractMethod;
 use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
-use Sylius\MolliePlugin\Validator\Constraints\PaymentSurchargeType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -39,9 +38,9 @@ final class MollieGatewayConfigType extends AbstractResourceType
 {
     public function __construct(
         string $dataClass,
+        array $validationGroups,
         private readonly DocumentationLinksInterface $documentationLinks,
         private readonly string $defaultLocale,
-        array $validationGroups = [],
     ) {
         parent::__construct($dataClass, $validationGroups);
     }
@@ -95,10 +94,7 @@ final class MollieGatewayConfigType extends AbstractResourceType
             ->add('customizeMethodImage', CustomizeMethodImageType::class, [
                 'label' => false,
             ])
-            ->add('country_restriction', ChoiceType::class, [
-                'label' => 'sylius_mollie_plugin.ui.country_level_restriction',
-                'choices' => CountryOptions::getCountriesConfigOptions(),
-            ])
+            ->add('country_restriction', CountriesRestrictionChoiceType::class)
             ->add('countryLevel_excluded', CountryType::class, [
                 'label' => 'sylius_mollie_plugin.ui.country_level_exclude',
                 'required' => false,

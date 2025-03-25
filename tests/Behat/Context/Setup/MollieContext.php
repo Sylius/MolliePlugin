@@ -25,6 +25,7 @@ use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
 use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Model\CountriesRestriction;
 use Sylius\MolliePlugin\Purifier\MolliePaymentMethodPurifierInterface;
 use Sylius\MolliePlugin\Repository\MollieGatewayConfigRepositoryInterface;
 use Sylius\MolliePlugin\Resolver\MollieMethodsResolverInterface;
@@ -160,7 +161,7 @@ final class MollieContext implements Context
         foreach ($molliePaymentMethods as $molliePaymentMethod) {
             $molliePaymentMethod->enable();
             $molliePaymentMethod->setCountryRestriction(
-                MollieGatewayConfigInterface::ALL_COUNTRIES,
+                CountriesRestriction::ALL,
             );
         }
     }

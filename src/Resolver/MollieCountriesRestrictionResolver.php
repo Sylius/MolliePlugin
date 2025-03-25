@@ -15,6 +15,7 @@ namespace Sylius\MolliePlugin\Resolver;
 
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigTranslationInterface;
+use Sylius\MolliePlugin\Model\CountriesRestriction;
 
 final class MollieCountriesRestrictionResolver implements MollieCountriesRestrictionResolverInterface
 {
@@ -27,10 +28,10 @@ final class MollieCountriesRestrictionResolver implements MollieCountriesRestric
         array $methods,
         string $countryCode,
     ): ?array {
-        if (MollieGatewayConfigInterface::ALL_COUNTRIES === $paymentMethod->getCountryRestriction()) {
+        if (CountriesRestriction::ALL === $paymentMethod->getCountryRestriction()) {
             return $this->excludeCountryLevel($paymentMethod, $methods, $countryCode);
         }
-        if (MollieGatewayConfigInterface::SELECTED_COUNTRIES === $paymentMethod->getCountryRestriction()) {
+        if (CountriesRestriction::SELECTED === $paymentMethod->getCountryRestriction()) {
             return $this->allowCountryLevel($paymentMethod, $methods, $countryCode);
         }
 
