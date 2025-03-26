@@ -21,3 +21,8 @@
        resource: "@SyliusRefundPlugin/Resources/config/routing.yml"
    ```
    Both of these should be added **before** the MolliePlugin configuration.
+
+1. The `sylius_mollie_plugin_apple_pay_payment` route has been removed, as its controller does not exist.
+
+1. The override of `sylius_refund_refund_units` route has been removed, as its controller does not exist. 
+   The route itself is still present with its initial logic from the Sylius Refund Plugin.
