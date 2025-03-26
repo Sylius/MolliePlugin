@@ -30,18 +30,4 @@ abstract class BaseApiAwareAction implements ActionInterface, ApiAwareInterface
 
         $this->mollieApiClient = $api;
     }
-
-    /**
-     * Checks if payment should be refunded. As long as there are order items to be refunded, payment will be refunded.
-     */
-    public function shouldBeRefunded(\ArrayObject $details): bool
-    {
-        if (isset($details['metadata']['refund']) && array_key_exists('items', $details['metadata']['refund'])) {
-            $items = $details['metadata']['refund']['items'];
-
-            return count($items) > 0 && !empty($items[0]);
-        }
-
-        return false;
-    }
 }
