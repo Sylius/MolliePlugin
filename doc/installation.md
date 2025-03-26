@@ -24,8 +24,8 @@ declare(strict_types=1);
 namespace App\Entity\Payment;
 
 use Doctrine\ORM\Mapping as ORM;
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Entity\GatewayConfigTrait;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sylius\Bundle\PayumBundle\Model\GatewayConfig as BaseGatewayConfig;
 
@@ -40,7 +40,7 @@ class GatewayConfig extends BaseGatewayConfig implements GatewayConfigInterface
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(
-     *     targetEntity="SyliusMolliePlugin\Entity\MollieGatewayConfig",
+     *     targetEntity="Sylius\MolliePlugin\Entity\MollieGatewayConfig",
      *     mappedBy="gateway",
      *     orphanRemoval=true,
      *     cascade={"all"}
@@ -65,11 +65,11 @@ declare(strict_types=1);
 namespace App\Entity\Payment;
 
 use Doctrine\ORM\Mapping as ORM;
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Entity\GatewayConfigTrait;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sylius\Bundle\PayumBundle\Model\GatewayConfig as BaseGatewayConfig;
-use SyliusMolliePlugin\Entity\MollieGatewayConfig;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 
 /**
  * @ORM\Entity
@@ -84,7 +84,7 @@ class GatewayConfig extends BaseGatewayConfig implements GatewayConfigInterface
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(
-     *     targetEntity="SyliusMolliePlugin\Entity\MollieGatewayConfig",
+     *     targetEntity="Sylius\MolliePlugin\Entity\MollieGatewayConfig",
      *     mappedBy="gateway",
      *     orphanRemoval=true,
      *     cascade={"all"}
@@ -120,7 +120,7 @@ If you don't use annotations, you can also define new Entity mapping inside your
                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
 >
     <mapped-superclass name="App\Entity\Payment\GatewayConfig" table="sylius_gateway_config">
-        <one-to-many field="mollieGatewayConfig" target-entity="SyliusMolliePlugin\Entity\MollieGatewayConfig" mapped-by="gateway" orphan-removal="true">
+        <one-to-many field="mollieGatewayConfig" target-entity="Sylius\MolliePlugin\Entity\MollieGatewayConfig" mapped-by="gateway" orphan-removal="true">
             <cascade>
                 <cascade-all />
             </cascade>
@@ -151,12 +151,12 @@ declare(strict_types=1);
 
 namespace App\Entity\Order;
 
-use SyliusMolliePlugin\Entity\MolliePaymentIdOrderTrait;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Entity\AbandonedEmailOrderTrait;
-use SyliusMolliePlugin\Entity\QRCodeOrderTrait;
-use SyliusMolliePlugin\Entity\RecurringOrderTrait;
+use Sylius\MolliePlugin\Entity\MolliePaymentIdOrderTrait;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\AbandonedEmailOrderTrait;
+use Sylius\MolliePlugin\Entity\QRCodeOrderTrait;
+use Sylius\MolliePlugin\Entity\RecurringOrderTrait;
 use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Core\Model\Order as BaseOrder;
 use Sylius\Component\Core\Model\OrderItemInterface;
@@ -199,7 +199,7 @@ class Order extends BaseOrder implements OrderInterface
 
     /**
      * @var MollieSubscriptionInterface|null
-     * @ORM\ManyToOne(targetEntity="SyliusMolliePlugin\Entity\MollieSubscription")
+     * @ORM\ManyToOne(targetEntity="Sylius\MolliePlugin\Entity\MollieSubscription")
      * @ORM\JoinColumn(name="subscription_id", fieldName="subscription", onDelete="RESTRICT")
      */
     protected ?MollieSubscriptionInterface $subscription = null;
@@ -250,12 +250,12 @@ declare(strict_types=1);
 
 namespace App\Entity\Order;
 
-use SyliusMolliePlugin\Entity\MolliePaymentIdOrderTrait;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Entity\AbandonedEmailOrderTrait;
-use SyliusMolliePlugin\Entity\QRCodeOrderTrait;
-use SyliusMolliePlugin\Entity\RecurringOrderTrait;
+use Sylius\MolliePlugin\Entity\MolliePaymentIdOrderTrait;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\AbandonedEmailOrderTrait;
+use Sylius\MolliePlugin\Entity\QRCodeOrderTrait;
+use Sylius\MolliePlugin\Entity\RecurringOrderTrait;
 use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Core\Model\Order as BaseOrder;
 use Sylius\Component\Core\Model\OrderItemInterface;
@@ -304,7 +304,7 @@ class Order extends BaseOrder implements OrderInterface
 
     /**
      * @var MollieSubscriptionInterface|null
-     * @ORM\ManyToOne(targetEntity="SyliusMolliePlugin\Entity\MollieSubscription")
+     * @ORM\ManyToOne(targetEntity="Sylius\MolliePlugin\Entity\MollieSubscription")
      * @ORM\JoinColumn(name="subscription_id", fieldName="subscription", onDelete="RESTRICT")
      */
     #[ORM\ManyToOne(targetEntity: MollieSubscription::class)]
@@ -388,10 +388,10 @@ declare(strict_types=1);
 namespace App\Entity\Product;
 
 use Doctrine\ORM\Mapping as ORM;
-use SyliusMolliePlugin\Entity\ProductInterface;
-use SyliusMolliePlugin\Entity\ProductTrait;
+use Sylius\MolliePlugin\Entity\ProductInterface;
+use Sylius\MolliePlugin\Entity\ProductTrait;
 use Sylius\Component\Core\Model\Product as BaseProduct;
-use SyliusMolliePlugin\Entity\ProductType;
+use Sylius\MolliePlugin\Entity\ProductType;
 
 /**
  * @ORM\Entity
@@ -402,7 +402,7 @@ class Product extends BaseProduct implements ProductInterface
     use ProductTrait;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SyliusMolliePlugin\Entity\ProductType")
+     * @ORM\ManyToOne(targetEntity="Sylius\MolliePlugin\Entity\ProductType")
      * @ORM\JoinColumn(name="product_type_id", fieldName="productType", onDelete="SET NULL")
      */
     protected ?ProductType $productType = null;
@@ -417,10 +417,10 @@ declare(strict_types=1);
 namespace App\Entity\Product;
 
 use Doctrine\ORM\Mapping as ORM;
-use SyliusMolliePlugin\Entity\ProductInterface;
-use SyliusMolliePlugin\Entity\ProductTrait;
+use Sylius\MolliePlugin\Entity\ProductInterface;
+use Sylius\MolliePlugin\Entity\ProductTrait;
 use Sylius\Component\Core\Model\Product as BaseProduct;
-use SyliusMolliePlugin\Entity\ProductType;
+use Sylius\MolliePlugin\Entity\ProductType;
 
 /**
  * @ORM\Entity
@@ -433,7 +433,7 @@ class Product extends BaseProduct implements ProductInterface
     use ProductTrait;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SyliusMolliePlugin\Entity\ProductType")
+     * @ORM\ManyToOne(targetEntity="Sylius\MolliePlugin\Entity\ProductType")
      * @ORM\JoinColumn(name="product_type_id", referencedColumnName="id", onDelete="SET NULL")
      */
     #[ORM\ManyToOne(targetEntity: ProductType::class)]
@@ -456,7 +456,7 @@ If you don't use annotations, you can also define new Entity mapping inside your
     <entity name="App\Entity\Product\Product" table="sylius_product">
         <many-to-one
             field="productType"
-            target-entity="SyliusMolliePlugin\Entity\ProductType"
+            target-entity="Sylius\MolliePlugin\Entity\ProductType"
         >
             <join-column
                 name="product_type_id"
@@ -628,7 +628,7 @@ sylius_product:
 
 return [
     ...
-    SyliusMolliePlugin\SyliusMolliePlugin::class => ['all' => true],
+    Sylius\MolliePlugin\SyliusMolliePlugin::class => ['all' => true],
 ];
 ```
 
@@ -639,7 +639,7 @@ return [
 
 imports:
     ...
-    - { resource: "@SyliusMolliePlugin/Resources/config/config.yaml" }
+    - { resource: "@SyliusMolliePlugin/config/config.yaml" }
 ```
 
 #### 9. Add state machine configuration in `config/packages/_sylius.yaml`:
@@ -670,6 +670,14 @@ winzou_state_machine:
 sylius_mollie_plugin:
     resource: "@SyliusMolliePlugin/Resources/config/routing.yaml"
 ```
+And add `sylius_refund.supported_gateways` parameter to your services
+
+```xml
+<parameter key="sylius_refund.supported_gateways" type="collection">
+    <parameter>offline</parameter>
+    <parameter>mollie</parameter>
+</parameter>
+```
 
 #### 12. Update your database
 
@@ -683,8 +691,8 @@ bin/console doctrine:migrations:migrate
 
 In case if you are updating from older version of plugin (versions < 5.0), you will need to run the following commands before running migrate command.
 ```
-bin/console doctrine:migrations:version --add --range-from='SyliusMolliePlugin\Migrations\Version20200513092722' --range-to='SyliusMolliePlugin\Migrations\Version20220211040328'
-bin/console doctrine:migrations:execute --up 'SyliusMolliePlugin\Migrations\Version20231225151033'
+bin/console doctrine:migrations:version --add --range-from='Sylius\MolliePlugin\Migrations\Version20200513092722' --range-to='Sylius\MolliePlugin\Migrations\Version20220211040328'
+bin/console doctrine:migrations:execute --up 'Sylius\MolliePlugin\Migrations\Version20231225151033'
 ```
 
 After running all the above-mentioned commands, run migrate command

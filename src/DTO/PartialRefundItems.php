@@ -11,15 +11,14 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\DTO;
+namespace Sylius\MolliePlugin\DTO;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 final class PartialRefundItems
 {
-    /** @var Collection */
-    private $partialRefundItems;
+    private Collection $partialRefundItems;
 
     public function __construct()
     {
@@ -39,7 +38,7 @@ final class PartialRefundItems
     public function addPartialRefundItemByQuantity(
         int $id,
         string $type,
-        int $quantity
+        int $quantity,
     ): void {
         for ($oneItem = 0; $oneItem < $quantity; ++$oneItem) {
             $partialRefundItem = new PartialRefundItem();

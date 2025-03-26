@@ -11,10 +11,8 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action\StateMachine;
+namespace Sylius\MolliePlugin\Action\StateMachine;
 
-use SyliusMolliePlugin\PartialShip\CreatePartialShipFromMollieInterface;
-use SyliusMolliePlugin\Transitions\PartialShip\ShipmentTransitions as ShipmentTransitionsPartial;
 use Mollie\Api\Resources\Order;
 use SM\Factory\FactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -22,26 +20,13 @@ use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Order\OrderTransitions;
 use Sylius\Component\Shipping\ShipmentTransitions;
+use Sylius\MolliePlugin\PartialShip\CreatePartialShipFromMollieInterface;
+use Sylius\MolliePlugin\Transitions\PartialShip\ShipmentTransitions as ShipmentTransitionsPartial;
 
 final class SetStatusOrderAction implements SetStatusOrderActionInterface
 {
-    /** @var FactoryInterface */
-    private $factory;
-
-    /** @var OrderRepositoryInterface */
-    private $orderRepository;
-
-    /** @var CreatePartialShipFromMollieInterface */
-    private $createPartialShipFromMollie;
-
-    public function __construct(
-        FactoryInterface $factory,
-        OrderRepositoryInterface $orderRepository,
-        CreatePartialShipFromMollieInterface $createPartialShipFromMollie
-    ) {
-        $this->factory = $factory;
-        $this->orderRepository = $orderRepository;
-        $this->createPartialShipFromMollie = $createPartialShipFromMollie;
+    public function __construct(private readonly FactoryInterface $factory, private readonly OrderRepositoryInterface $orderRepository, private readonly CreatePartialShipFromMollieInterface $createPartialShipFromMollie)
+    {
     }
 
     public function execute(Order $order): void

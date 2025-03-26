@@ -11,25 +11,21 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver;
+namespace Sylius\MolliePlugin\Resolver;
 
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
-use SyliusMolliePlugin\Entity\MollieGatewayConfigTranslationInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigTranslationInterface;
 
 final class MollieCountriesRestrictionResolver implements MollieCountriesRestrictionResolverInterface
 {
-    /** @var MolliePaymentMethodImageResolverInterface */
-    private $imageResolver;
-
-    public function __construct(MolliePaymentMethodImageResolverInterface $imageResolver)
+    public function __construct(private readonly MolliePaymentMethodImageResolverInterface $imageResolver)
     {
-        $this->imageResolver = $imageResolver;
     }
 
     public function resolve(
         MollieGatewayConfigInterface $paymentMethod,
         array $methods,
-        string $countryCode
+        string $countryCode,
     ): ?array {
         if (MollieGatewayConfigInterface::ALL_COUNTRIES === $paymentMethod->getCountryRestriction()) {
             return $this->excludeCountryLevel($paymentMethod, $methods, $countryCode);
@@ -41,10 +37,25 @@ final class MollieCountriesRestrictionResolver implements MollieCountriesRestric
         return $methods;
     }
 
+    /**
+     * @param array{
+     *     data: array<string, string>,
+     *     image: array<string, string>,
+     *     issuers: array<string, mixed>|null,
+     *     paymentFee: array<string, mixed>
+     * } $methods
+     *
+     * @return array{
+     *     data: array<string, string>,
+     *     image: array<string, string>,
+     *     issuers: array<string, mixed>|null,
+     *     paymentFee: array<string, mixed>
+     * }
+     */
     private function allowCountryLevel(
         MollieGatewayConfigInterface $paymentMethod,
         array $methods,
-        string $countryCode
+        string $countryCode,
     ): array {
         if (is_array($paymentMethod->getCountryLevelAllowed()) &&
             in_array($countryCode, $paymentMethod->getCountryLevelAllowed(), true)) {
@@ -54,10 +65,25 @@ final class MollieCountriesRestrictionResolver implements MollieCountriesRestric
         return $methods;
     }
 
+    /**
+     * @param array{
+     *     data: array<string, string>,
+     *     image: array<string, string>,
+     *     issuers: array<string, mixed>|null,
+     *     paymentFee: array<string, mixed>
+     * } $methods
+     *
+     * @return array{
+     *     data: array<string, string>,
+     *     image: array<string, string>,
+     *     issuers: array<string, mixed>|null,
+     *     paymentFee: array<string, mixed>
+     * }
+     */
     private function excludeCountryLevel(
         MollieGatewayConfigInterface $paymentMethod,
         array $methods,
-        string $countryCode
+        string $countryCode,
     ): array {
         if (is_array($paymentMethod->getCountryLevelExcluded()) &&
             in_array($countryCode, $paymentMethod->getCountryLevelExcluded(), true)) {
@@ -67,6 +93,21 @@ final class MollieCountriesRestrictionResolver implements MollieCountriesRestric
         return $this->setData($methods, $paymentMethod);
     }
 
+    /**
+     * @param array{
+     *     data: array<string, string>,
+     *     image: array<string, string>,
+     *     issuers: array<string, mixed>|null,
+     *     paymentFee: array<string, mixed>
+     * } $methods
+     *
+     * @return array{
+     *     data: array<string, string>,
+     *     image: array<string, string>,
+     *     issuers: array<string, mixed>|null,
+     *     paymentFee: array<string, mixed>
+     * }
+     */
     private function setData(array $methods, MollieGatewayConfigInterface $paymentMethod): array
     {
         /** @var MollieGatewayConfigTranslationInterface $translation */
@@ -74,7 +115,7 @@ final class MollieCountriesRestrictionResolver implements MollieCountriesRestric
         $methods['data'][$translation->getName() ?? $paymentMethod->getName()] = $paymentMethod->getMethodId();
         $methods['image'][$paymentMethod->getMethodId()] = $this->imageResolver->resolve($paymentMethod);
         $methods['issuers'][$paymentMethod->getMethodId()] = $paymentMethod->getIssuers();
-        $methods['paymentFee'][$paymentMethod->getMethodId()] = null !== $paymentMethod->getPaymentSurchargeFee() ? $paymentMethod->getPaymentSurchargeFee() : [];
+        $methods['paymentFee'][$paymentMethod->getMethodId()] = $paymentMethod->getPaymentSurchargeFee() ?? [];
 
         return $methods;
     }

@@ -1,0 +1,31 @@
+parameters:
+    reportUnmatchedIgnoredErrors: false
+
+    level: 6
+    paths:
+        - src
+
+    excludePaths:
+        # Makes PHPStan crash
+        - 'src/DependencyInjection/Configuration.php'
+
+        # Test dependencies
+        - 'tests/Application/app/**.php'
+        - 'tests/Application/src/**.php'
+
+    ignoreErrors:
+        - identifier: missingType.generics
+
+        - '#Construct empty\(\) is not allowed. Use more strict comparison.#'
+        - '#Call to an undefined method Sylius\\MolliePlugin\\Entity\\MollieGatewayConfig::initializeTranslationsCollection\(\).#'
+        - '#Call to an undefined method Sylius\\MolliePlugin\\Entity\\MollieGatewayConfig::doGetTranslation\(\).#'
+        - '#Call to function method_exists\(\) with Doctrine\\DBAL\\Query\\QueryBuilder and .+ will always evaluate to true.#'
+        - '#Method Sylius\\RefundPlugin\\Validator\\RefundAmountValidatorInterface::validateUnits\(\) invoked with \d+ parameter[s]?, \d+ required.#'
+        - '#Method Sylius\\MolliePlugin\\Entity\\MollieGatewayConfig::createTranslation\(\) should return Sylius\\Resource\\Model\\TranslationInterface but returns Sylius\\MolliePlugin\\Entity\\MollieGatewayConfigTranslation#'
+        - '#Call to an undefined method Sylius\\MolliePlugin\\Entity\\TemplateMollieEmail::initializeTranslationsCollection\(\)#'
+        - '#Negated boolean expression is always true.#'
+
+        - '#.* Sylius\\AdminOrderCreationPlugin\\.*#' # Ignore all errors from missing AdminOrderCreationPlugin
+
+        - '#Property .* is never read, only written.#'
+        - '#Method .*get.*Translation\(\) should return Sylius\\.*Resource\\Model\\TranslationInterface but returns Sylius\\.*Resource\\Model\\TranslationInterface.#'

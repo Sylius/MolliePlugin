@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Order;
+namespace Sylius\MolliePlugin\Order;
 
-use SyliusMolliePlugin\Payments\PaymentTerms\Options;
 use Sylius\Component\Core\Model\AdjustmentInterface as BaseAdjustmentInterface;
+use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 
 interface AdjustmentInterface extends BaseAdjustmentInterface
 {

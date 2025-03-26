@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Cli;
+namespace Sylius\MolliePlugin\Cli;
 
-use SyliusMolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
-use SyliusMolliePlugin\Transitions\MollieSubscriptionProcessingTransitions;
-use SyliusMolliePlugin\Transitions\MollieSubscriptionTransitions;
 use SM\Factory\Factory;
+use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
+use Sylius\MolliePlugin\Transitions\MollieSubscriptionProcessingTransitions;
+use Sylius\MolliePlugin\Transitions\MollieSubscriptionTransitions;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -29,20 +29,13 @@ class BeginProcessingSubscriptions extends Command
 
     public const COMMAND_ID = 'mollie:subscription:begin-processing';
 
-    /** @var SymfonyStyle */
-    private $io;
-
-    private MollieSubscriptionRepositoryInterface $mollieSubscriptionRepository;
-
-    private Factory $stateMachineFactory;
+    private SymfonyStyle $io;
 
     public function __construct(
-        MollieSubscriptionRepositoryInterface $mollieSubscriptionRepository,
-        Factory $stateMachineFactory
+        private readonly MollieSubscriptionRepositoryInterface $mollieSubscriptionRepository,
+        private readonly Factory $stateMachineFactory,
     ) {
         parent::__construct(self::COMMAND_NAME);
-        $this->mollieSubscriptionRepository = $mollieSubscriptionRepository;
-        $this->stateMachineFactory = $stateMachineFactory;
     }
 
     protected function configure(): void
@@ -84,7 +77,7 @@ class BeginProcessingSubscriptions extends Command
             $this->io->success('Successfully marked scheduled subscriptions');
         } catch (\Exception $exception) {
             $this->io->error(
-                \sprintf('An error has occurred during send payment link process. (%s)', $exception->getMessage())
+                \sprintf('An error has occurred during send payment link process. (%s)', $exception->getMessage()),
             );
 
             return 1;
@@ -97,8 +90,8 @@ class BeginProcessingSubscriptions extends Command
                 \sprintf(
                     'Duration: %.2f ms / Memory: %.2f MB',
                     $event->getDuration(),
-                    $event->getMemory() / (1024 ** 2)
-                )
+                    $event->getMemory() / (1024 ** 2),
+                ),
             );
         }
 

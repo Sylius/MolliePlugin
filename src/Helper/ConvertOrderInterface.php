@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Helper;
+namespace Sylius\MolliePlugin\Helper;
 
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
-use SyliusMolliePlugin\Order\AdjustmentInterface;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Order\AdjustmentInterface;
 
 interface ConvertOrderInterface
 {
@@ -37,10 +37,23 @@ interface ConvertOrderInterface
 
     public const TAX_RATE_CRITERIA_ZONE = 'zone';
 
+    /**
+     * @param array<string, mixed> $details
+     *
+     * @return array{
+     *     amount: array<array-key, mixed>,
+     *     orderNumber: string,
+     *     shippingAddress: array<string, string>,
+     *     billingAddress: array<string, string>,
+     *     lines: array<array-key, array<string, mixed>>,
+     *     applePayDirectToken?: string,
+     *     backurl?: string
+     * }
+     */
     public function convert(
         OrderInterface $order,
         array $details,
         int $divisor,
-        MollieGatewayConfigInterface $method
+        MollieGatewayConfigInterface $method,
     ): array;
 }

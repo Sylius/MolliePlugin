@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Creator;
+namespace Sylius\MolliePlugin\Creator;
 
 use Mollie\Api\Resources\Payment;
 use Sylius\RefundPlugin\Command\RefundUnits;

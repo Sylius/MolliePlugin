@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Cli;
+namespace Sylius\MolliePlugin\Cli;
 
-use SyliusMolliePlugin\Creator\AbandonedPaymentLinkCreatorInterface;
+use Sylius\MolliePlugin\Creator\AbandonedPaymentLinkCreatorInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -26,17 +26,11 @@ class SendAbandonedPaymentLink extends Command
 
     public const COMMAND_ID = 'mollie:send-payment-link';
 
-    /** @var SymfonyStyle */
-    private $io;
+    private SymfonyStyle $io;
 
-    /** @var AbandonedPaymentLinkCreatorInterface */
-    private $abandonedPaymentLinkCreator;
-
-    public function __construct(AbandonedPaymentLinkCreatorInterface $abandonedPaymentLinkCreator)
+    public function __construct(private readonly AbandonedPaymentLinkCreatorInterface $abandonedPaymentLinkCreator)
     {
         parent::__construct(self::COMMAND_NAME);
-
-        $this->abandonedPaymentLinkCreator = $abandonedPaymentLinkCreator;
     }
 
     protected function configure(): void
@@ -73,7 +67,7 @@ class SendAbandonedPaymentLink extends Command
             $this->io->comment(\sprintf(
                 'Duration: %.2f ms / Memory: %.2f MB',
                 $event->getDuration(),
-                $event->getMemory() / (1024 ** 2)
+                $event->getMemory() / (1024 ** 2),
             ));
         }
 

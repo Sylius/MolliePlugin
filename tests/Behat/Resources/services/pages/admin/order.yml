@@ -1,10 +1,10 @@
 services:
-    sylius_mollie_plugin.page.admin.order_index:
-        class: Tests\SyliusMolliePlugin\Behat\Page\Admin\Order\IndexPage
+    sylius_mollie.behat.page.admin.order_index:
+        class: Tests\Sylius\MolliePlugin\Behat\Page\Admin\Order\IndexPage
         parent: "sylius.behat.page.admin.order.index"
         public: false
 
-    sylius_mollie_plugin.page.admin.order_show:
-        class: Tests\SyliusMolliePlugin\Behat\Page\Admin\Order\ShowPage
+    sylius_mollie.behat.page.admin.order_show:
+        class: Tests\Sylius\MolliePlugin\Behat\Page\Admin\Order\ShowPage
         parent: "sylius.behat.page.admin.order.show"
         public: false

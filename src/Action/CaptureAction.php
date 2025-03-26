@@ -11,69 +11,49 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action;
+namespace Sylius\MolliePlugin\Action;
 
-use Payum\Core\Reply\HttpRedirect;
-use Sylius\Component\Core\Model\Payment;
-use Sylius\Component\Core\Model\PaymentInterface;
-use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
-use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use SyliusMolliePlugin\Action\Api\BaseApiAwareAction;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Payments\PaymentTerms\Options;
-use SyliusMolliePlugin\Request\Api\CreateCustomer;
-use SyliusMolliePlugin\Request\Api\CreateInternalRecurring;
-use SyliusMolliePlugin\Request\Api\CreateOnDemandSubscription;
-use SyliusMolliePlugin\Request\Api\CreateOnDemandSubscriptionPayment;
-use SyliusMolliePlugin\Request\Api\CreateOrder;
-use SyliusMolliePlugin\Request\Api\CreatePayment;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Exception\RuntimeException;
 use Payum\Core\GatewayAwareTrait;
+use Payum\Core\Reply\HttpRedirect;
 use Payum\Core\Request\Capture;
 use Payum\Core\Security\GenericTokenFactoryInterface;
 use Payum\Core\Security\TokenInterface;
 use Psr\Log\InvalidArgumentException;
-use SyliusMolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
+use Sylius\Component\Core\Model\Payment;
+use Sylius\Component\Core\Model\PaymentInterface;
+use Sylius\Component\Core\Repository\OrderRepositoryInterface;
+use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
+use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
+use Sylius\MolliePlugin\Request\Api\CreateCustomer;
+use Sylius\MolliePlugin\Request\Api\CreateInternalRecurring;
+use Sylius\MolliePlugin\Request\Api\CreateOnDemandSubscription;
+use Sylius\MolliePlugin\Request\Api\CreateOnDemandSubscriptionPayment;
+use Sylius\MolliePlugin\Request\Api\CreateOrder;
+use Sylius\MolliePlugin\Request\Api\CreatePayment;
+use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
 
 final class CaptureAction extends BaseApiAwareAction implements CaptureActionInterface
 {
-    const PAYMENT_FAILED_STATUS = 'failed';
-    const PAYMENT_CANCELLED_STATUS = 'cancelled';
-    const PAYMENT_NEW_STATUS = 'new';
+    public const PAYMENT_FAILED_STATUS = 'failed';
+
+    public const PAYMENT_CANCELLED_STATUS = 'cancelled';
+
+    public const PAYMENT_NEW_STATUS = 'new';
 
     use GatewayAwareTrait;
 
-    /** @var GenericTokenFactoryInterface|null */
-    private $tokenFactory;
+    private ?GenericTokenFactoryInterface $tokenFactory = null;
 
-    /** @var OrderRepositoryInterface */
-    private $orderRepository;
-
-    /** @var MollieApiClientKeyResolverInterface */
-    private $apiClientKeyResolver;
-
-    /** @var PaymentRepositoryInterface */
-    private $paymentRepository;
-
-    /**
-     * @param OrderRepositoryInterface $orderRepository
-     * @param MollieApiClientKeyResolverInterface $apiClientKeyResolver
-     * @param PaymentRepositoryInterface $paymentRepository
-     */
-    public function __construct(
-        OrderRepositoryInterface $orderRepository,
-        MollieApiClientKeyResolverInterface $apiClientKeyResolver,
-        PaymentRepositoryInterface $paymentRepository
-    )
+    public function __construct(private OrderRepositoryInterface $orderRepository, private MollieApiClientKeyResolverInterface $apiClientKeyResolver, private PaymentRepositoryInterface $paymentRepository)
     {
-        $this->orderRepository = $orderRepository;
-        $this->apiClientKeyResolver = $apiClientKeyResolver;
-        $this->paymentRepository = $paymentRepository;
     }
 
-    public function setGenericTokenFactory(GenericTokenFactoryInterface $genericTokenFactory = null): void
+    public function setGenericTokenFactory(?GenericTokenFactoryInterface $genericTokenFactory = null): void
     {
         $this->tokenFactory = $genericTokenFactory;
     }
@@ -135,7 +115,7 @@ final class CaptureAction extends BaseApiAwareAction implements CaptureActionInt
                     $token->getGatewayName(),
                     $token->getDetails(),
                     'sylius_mollie_plugin_cancel_subscription_mollie',
-                    ['orderId' => $details['metadata']['order_id']]
+                    ['orderId' => $details['metadata']['order_id']],
                 );
 
                 $details['cancel_token'] = $cancelToken->getHash();
@@ -151,7 +131,7 @@ final class CaptureAction extends BaseApiAwareAction implements CaptureActionInt
                     throw new InvalidArgumentException(sprintf(
                         'Method %s is not allowed to use %s',
                         $details['metadata']['molliePaymentMethods'],
-                        Options::PAYMENT_API
+                        Options::PAYMENT_API,
                     ));
                 }
 
@@ -163,7 +143,7 @@ final class CaptureAction extends BaseApiAwareAction implements CaptureActionInt
                     throw new InvalidArgumentException(sprintf(
                         'Method %s is not allowed to use %s',
                         $details['metadata']['molliePaymentMethods'],
-                        Options::ORDER_API
+                        Options::ORDER_API,
                     ));
                 }
 
@@ -200,19 +180,12 @@ final class CaptureAction extends BaseApiAwareAction implements CaptureActionInt
         return $newPayment;
     }
 
-    /**
-     * @param OrderInterface $order
-     * @param string|null $qrCode
-     *
-     * @return void
-     */
-    private function setQrCodeOnOrder(OrderInterface $order, ?string $qrCode = null)
+    private function setQrCodeOnOrder(OrderInterface $order, ?string $qrCode = null): void
     {
         try {
             $order->setQrCode($qrCode);
             $this->orderRepository->add($order);
-        } catch (\Exception $exception) {
-
+        } catch (\Exception) {
         }
     }
 }

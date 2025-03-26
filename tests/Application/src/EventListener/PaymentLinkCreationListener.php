@@ -11,10 +11,8 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Application\src\EventListener;
+namespace Tests\Sylius\MolliePlugin\Application\src\EventListener;
 
-use SyliusMolliePlugin\Factory\MollieGatewayFactory;
-use SyliusMolliePlugin\Factory\MollieSubscriptionGatewayFactory;
 use Doctrine\Persistence\ObjectManager;
 use Payum\Core\Model\GatewayConfigInterface;
 use Payum\Core\Payum;
@@ -23,6 +21,8 @@ use Sylius\AdminOrderCreationPlugin\Sender\OrderPaymentLinkSenderInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Webmozart\Assert\Assert;
 
@@ -44,7 +44,7 @@ final class PaymentLinkCreationListener
         PaymentTokenProviderInterface $paymentTokenProvider,
         ObjectManager $orderManager,
         OrderPaymentLinkSenderInterface $orderPaymentLinkSender,
-        Payum $payum
+        Payum $payum,
     ) {
         $this->paymentTokenProvider = $paymentTokenProvider;
         $this->orderManager = $orderManager;

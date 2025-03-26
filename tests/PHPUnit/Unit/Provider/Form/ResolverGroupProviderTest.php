@@ -11,13 +11,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Provider\Form;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Provider\Form;
 
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\CustomerInterface;
-use SyliusMolliePlugin\Entity\ProductVariantInterface;
-use SyliusMolliePlugin\Provider\Form\ResolverGroupProvider;
-use SyliusMolliePlugin\Provider\Form\ResolverGroupProviderInterface;
+use Sylius\MolliePlugin\Entity\ProductVariantInterface;
+use Sylius\MolliePlugin\Provider\Form\ResolverGroupProvider;
+use Sylius\MolliePlugin\Provider\Form\ResolverGroupProviderInterface;
 use Symfony\Component\Form\FormInterface;
 
 final class ResolverGroupProviderTest extends TestCase
@@ -45,7 +45,7 @@ final class ResolverGroupProviderTest extends TestCase
 
         $this->assertSame([
             'sylius',
-            'recurring_product_variant'
+            'recurring_product_variant',
         ], $this->resolverGroupProvider->provide($formMock));
     }
 
@@ -59,7 +59,7 @@ final class ResolverGroupProviderTest extends TestCase
 
         $this->assertSame([
             'sylius',
-            'non_recurring_product_variant'
+            'non_recurring_product_variant',
         ], $this->resolverGroupProvider->provide($formMock));
     }
 

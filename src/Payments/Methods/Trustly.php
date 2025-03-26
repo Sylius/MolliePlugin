@@ -9,8 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace SyliusMolliePlugin\Payments\Methods;
+declare(strict_types=1);
 
+namespace Sylius\MolliePlugin\Payments\Methods;
 
 class Trustly extends AbstractMethod
 {

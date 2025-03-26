@@ -11,46 +11,27 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Provider\Apple;
+namespace Sylius\MolliePlugin\Provider\Apple;
 
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Provider\Order\OrderPaymentApplePayDirectProviderInterface;
-use SyliusMolliePlugin\Resolver\Address\ApplePayAddressResolverInterface;
-use Sylius\AdminOrderCreationPlugin\Provider\CustomerProviderInterface;
+use Sylius\AdminOrderCreationPlugin\Provider\CustomerProviderInterface as OrderCreationCustomerProviderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Provider\Customer\CustomerProviderInterface;
+use Sylius\MolliePlugin\Provider\Order\OrderPaymentApplePayDirectProviderInterface;
+use Sylius\MolliePlugin\Resolver\Address\ApplePayAddressResolverInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Webmozart\Assert\Assert;
 
 final class ApplePayDirectProvider implements ApplePayDirectProviderInterface
 {
-    /** @var ApplePayAddressResolverInterface */
-    private $applePayAddressResolver;
-
-    /** @var MollieApiClient */
-    private $mollieApiClient;
-
-    /** @var OrderPaymentApplePayDirectProviderInterface */
-    private $paymentApplePayDirectProvider;
-
-    /** @var CustomerProviderInterface */
-    private $customerProvider;
-
-    /** @var ApplePayDirectPaymentProviderInterface */
-    private $applePayDirectPaymentProvider;
-
     public function __construct(
-        ApplePayAddressResolverInterface $applePayAddressResolver,
-        MollieApiClient $mollieApiClient,
-        OrderPaymentApplePayDirectProviderInterface $paymentApplePayDirectProvider,
-        CustomerProviderInterface $customerProvider,
-        ApplePayDirectPaymentProviderInterface $applePayDirectPaymentProvider
+        private readonly ApplePayAddressResolverInterface $applePayAddressResolver,
+        private readonly MollieApiClient $mollieApiClient,
+        private readonly OrderPaymentApplePayDirectProviderInterface $paymentApplePayDirectProvider,
+        private readonly CustomerProviderInterface|OrderCreationCustomerProviderInterface $customerProvider,
+        private readonly ApplePayDirectPaymentProviderInterface $applePayDirectPaymentProvider,
     ) {
-        $this->applePayAddressResolver = $applePayAddressResolver;
-        $this->mollieApiClient = $mollieApiClient;
-        $this->paymentApplePayDirectProvider = $paymentApplePayDirectProvider;
-        $this->customerProvider = $customerProvider;
-        $this->applePayDirectPaymentProvider = $applePayDirectPaymentProvider;
     }
 
     public function provideOrder(OrderInterface $order, Request $request): void

@@ -11,9 +11,19 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Helper;
+namespace Sylius\MolliePlugin\Helper;
 
+use Sylius\MolliePlugin\DTO\MolliePayment\Amount;
+
+/**
+ * @phpstan-import-type AmountArray from Amount
+ */
 interface ConvertRefundDataInterface
 {
+    /**
+     * @param array<array-key, mixed> $data
+     *
+     * @return AmountArray
+     */
     public function convert(array $data, string $currency): array;
 }

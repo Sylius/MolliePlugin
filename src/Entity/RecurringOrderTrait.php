@@ -11,19 +11,13 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Entity;
+namespace Sylius\MolliePlugin\Entity;
 
 /** @mixin OrderInterface */
 trait RecurringOrderTrait
 {
-    /**
-     * @var int|null
-     */
     protected ?int $recurringSequenceIndex = null;
 
-    /**
-     * @var MollieSubscriptionInterface|null
-     */
     protected ?MollieSubscriptionInterface $subscription = null;
 
     public function getRecurringSequenceIndex(): ?int

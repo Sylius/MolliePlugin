@@ -1,4 +1,0 @@
-sylius_mollie_plugin_payum:
-    path: /complete-payment
-    defaults:
-        _controller: sylius_mollie_plugin.controller.action.shop.payum_controller

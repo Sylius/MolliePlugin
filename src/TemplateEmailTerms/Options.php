@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\TemplateEmailTerms;
+namespace Sylius\MolliePlugin\TemplateEmailTerms;
 
-use SyliusMolliePlugin\Entity\TemplateMollieEmailInterface;
+use Sylius\MolliePlugin\Entity\TemplateMollieEmailInterface;
 
 final class Options
 {
@@ -21,6 +21,7 @@ final class Options
 
     public const PAYMENT_LINK_ABANDONED = 'sylius_mollie_plugin.ui.paymentlinkAbandoned';
 
+    /** @return array<string, string> */
     public static function getAvailableEmailTemplate(): array
     {
         return [

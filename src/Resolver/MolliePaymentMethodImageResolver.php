@@ -11,18 +11,14 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver;
+namespace Sylius\MolliePlugin\Resolver;
 
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 
 final class MolliePaymentMethodImageResolver implements MolliePaymentMethodImageResolverInterface
 {
-    /** @var string */
-    private $rootDir;
-
-    public function __construct(string $rootDir)
+    public function __construct(private readonly string $rootDir)
     {
-        $this->rootDir = $rootDir;
     }
 
     public function resolve(MollieGatewayConfigInterface $paymentMethod): string

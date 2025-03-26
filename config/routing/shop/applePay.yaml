@@ -1,0 +1,27 @@
+sylius_mollie_plugin_apple_pay_validation:
+  methods: [POST]
+  path: /mollie/apple-direct/validation
+  defaults:
+    _controller: sylius_mollie.controller.shop.apple_pay_validation
+
+sylius_mollie_plugin_apple_pay_payment:
+    methods: [POST]
+    path: /apple-pay-payment
+    defaults:
+        _controller: sylius_mollie_plugin.controller.action.shop.apple_pay_create_payment
+
+mollie_shop_checkout_apple_complete:
+    path: /mollie/apple-direct/complete
+    methods: [POST, GET]
+    defaults:
+        _controller: sylius_mollie.controller.shop.order::updateAppleOrderAction
+        _sylius:
+            event: complete
+            flash: false
+            repository:
+                method: findCartForSummary
+                arguments:
+                  - "expr:service('sylius.context.cart').getCart().getId()"
+            state_machine:
+                graph: sylius_order_checkout
+                transition: complete

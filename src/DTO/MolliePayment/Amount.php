@@ -9,71 +9,48 @@
  * file that was distributed with this source code.
  */
 
-namespace SyliusMolliePlugin\DTO\MolliePayment;
+declare(strict_types=1);
 
+namespace Sylius\MolliePlugin\DTO\MolliePayment;
+
+/**
+ * @phpstan-type AmountArray array{
+ *     value: string|null,
+ *     currency: string|null,
+ * }
+ */
 class Amount
 {
-    /**
-     * @var string|null
-     */
-    private ?string $value;
-    /**
-     * @var string|null
-     */
-    private ?string $currency;
-
-    /**
-     * Amount constructor
-     */
-    public function __construct(?string $value, ?string $currency)
+    public function __construct(private ?string $value, private ?string $currency)
     {
-        $this->value = $value;
-        $this->currency = $currency;
     }
 
-    /**
-     * @return string|null
-     */
     public function getValue(): ?string
     {
         return $this->value;
     }
 
-    /**
-     * @param string|null $value
-     * @return void
-     */
     public function setValue(?string $value): void
     {
         $this->value = $value;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCurrency(): ?string
     {
         return $this->currency;
     }
 
-    /**
-     * @param string|null $currency
-     *
-     * @return void
-     */
     public function setCurrency(?string $currency): void
     {
         $this->currency = $currency;
     }
 
-    /**
-     * @return array
-     */
+    /** @return AmountArray */
     public function toArray(): array
     {
         return [
             'value' => $this->getValue(),
-            'currency' => $this->getCurrency()
+            'currency' => $this->getCurrency(),
         ];
     }
 }

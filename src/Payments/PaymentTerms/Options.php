@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Payments\PaymentTerms;
+namespace Sylius\MolliePlugin\Payments\PaymentTerms;
 
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Payments\Methods\MealVoucher;
 use Mollie\Api\Types\PaymentMethod;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Payments\Methods\MealVoucher;
 
 final class Options
 {
@@ -43,6 +43,9 @@ final class Options
 
     public const LOG_INFO = 'sylius_mollie_plugin.ui.info';
 
+    public const NO_FEE = 'no_fee';
+
+    /** @return array<string, string> */
     public static function getAvailablePaymentType(): array
     {
         return [
@@ -51,6 +54,7 @@ final class Options
         ];
     }
 
+    /** @return array<string, string> */
     public static function getAvailablePaymentSurchargeFeeType(): array
     {
         return [
@@ -60,6 +64,7 @@ final class Options
         ];
     }
 
+    /** @return array<string, int> */
     public static function getDebugLevels(): array
     {
         return [
@@ -69,6 +74,7 @@ final class Options
         ];
     }
 
+    /** @return array<string, int> */
     public static function getLogLevels(): array
     {
         return [
@@ -77,6 +83,7 @@ final class Options
         ];
     }
 
+    /** @return string[] */
     public static function getOnlyOrderAPIMethods(): array
     {
         return [
@@ -87,14 +94,15 @@ final class Options
             PaymentMethod::IN3,
             PaymentMethod::BILLIE,
             MealVoucher::MEAL_VOUCHERS,
-            PaymentMethod::RIVERTY
+            PaymentMethod::RIVERTY,
         ];
     }
 
+    /** @return string[] */
     public static function getOnlyPaymentAPIMethods(): array
     {
         return [
-            PaymentMethod::ALMA
+            PaymentMethod::ALMA,
         ];
     }
 }

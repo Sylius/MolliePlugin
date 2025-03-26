@@ -11,15 +11,21 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Refund\Units;
+namespace Sylius\MolliePlugin\Refund\Units;
 
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\RefundPlugin\Model\UnitRefundInterface;
 
 interface ShipmentUnitRefundInterface
 {
+    /**
+     * @param array<array-key, UnitRefundInterface> $orderItemUnitRefund
+     *
+     * @return array<array-key, UnitRefundInterface>
+     */
     public function refund(
         OrderInterface $order,
         array $orderItemUnitRefund,
-        int $totalToRefund
+        int $totalToRefund,
     ): array;
 }

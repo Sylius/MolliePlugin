@@ -11,25 +11,17 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\PaymentProcessing;
+namespace Sylius\MolliePlugin\PaymentProcessing;
 
-use SyliusMolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
-use SyliusMolliePlugin\Request\StateMachine\StatusRecurringSubscription;
 use Payum\Core\Payum;
 use Sylius\Component\Core\Model\PaymentInterface;
+use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
+use Sylius\MolliePlugin\Request\StateMachine\StatusRecurringSubscription;
 
 final class SubscriptionPaymentProcessor implements SubscriptionPaymentProcessorInterface
 {
-    private MollieSubscriptionRepositoryInterface $subscriptionRepository;
-
-    private Payum $payum;
-
-    public function __construct(
-        MollieSubscriptionRepositoryInterface $subscriptionRepository,
-        Payum $payum
-    ) {
-        $this->subscriptionRepository = $subscriptionRepository;
-        $this->payum = $payum;
+    public function __construct(private readonly MollieSubscriptionRepositoryInterface $subscriptionRepository, private readonly Payum $payum)
+    {
     }
 
     public function processSuccess(PaymentInterface $payment): void

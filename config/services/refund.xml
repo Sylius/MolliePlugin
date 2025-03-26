@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults public="true" />
+
+        <service id="sylius_mollie.refund.payment" class="Sylius\MolliePlugin\Refund\PaymentRefund">
+            <argument type="service" id="sylius_mollie_plugin.command_bus" />
+            <argument type="service" id="sylius_mollie.creator.payment_refund_command" />
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
+        </service>
+
+        <service id="sylius_mollie.refund.units.shipment_unit" class="Sylius\MolliePlugin\Refund\Units\ShipmentUnitRefund" />
+
+        <service id="sylius_mollie.refund.units.payment_units_item" class="Sylius\MolliePlugin\Refund\Units\PaymentUnitsItemRefund">
+            <argument type="service" id="sylius_mollie.refunded_generator.payment" />
+            <argument type="service" id="sylius_mollie.refund_generator.payment_new_unit" />
+            <argument type="service" id="sylius_mollie.calculator.refund.payment" />
+        </service>
+
+        <service id="sylius_mollie.refund.order" class="Sylius\MolliePlugin\Refund\OrderRefund">
+            <argument type="service" id="sylius.command_bus" />
+            <argument type="service" id="sylius_mollie.creator.order_refund_command" />
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
+        </service>
+
+        <service id="sylius_mollie.refund.units.units_item_order" class="Sylius\MolliePlugin\Refund\Units\UnitsItemOrderRefund">
+            <argument type="service" id="sylius_refund.repository.refund" />
+        </service>
+
+        <service id="sylius_mollie.refund.units.units_shipment_order" class="Sylius\MolliePlugin\Refund\Units\UnitsShipmentOrderRefund">
+            <argument type="service" id="sylius_refund.repository.refund" />
+        </service>
+
+        <service id="sylius_mollie.refund_generator.payment_new_unit" class="Sylius\MolliePlugin\Refund\Generator\PaymentNewUnitRefundGenerator">
+        </service>
+
+        <service id="sylius_mollie.refunded_generator.payment" class="Sylius\MolliePlugin\Refund\Generator\PaymentRefundedGenerator">
+            <argument type="service" id="sylius_refund.repository.refund" />
+        </service>
+
+        <service id="sylius_mollie.calculator.refund.payment" class="Sylius\MolliePlugin\Calculator\Refund\PaymentRefundCalculator">
+        </service>
+    </services>
+</container>

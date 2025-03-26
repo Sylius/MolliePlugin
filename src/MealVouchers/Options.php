@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\MealVouchers;
+namespace Sylius\MolliePlugin\MealVouchers;
 
 final class Options
 {
@@ -21,6 +21,7 @@ final class Options
 
     public const GIFT = 'gift';
 
+    /** @return array<string, string> */
     public static function getAvailableMealVouchersCategory(): array
     {
         return [

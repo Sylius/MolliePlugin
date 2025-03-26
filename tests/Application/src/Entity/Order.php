@@ -11,25 +11,22 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Entity;
+namespace Tests\Sylius\MolliePlugin\Entity;
 
-use SyliusMolliePlugin\Entity\AbandonedEmailOrderTrait;
-use SyliusMolliePlugin\Entity\MolliePaymentIdOrderTrait;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Entity\QRCodeOrderTrait;
-use SyliusMolliePlugin\Entity\RecurringOrderTrait;
 use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Core\Model\Order as BaseOrder;
 use Sylius\Component\Core\Model\OrderItemInterface;
+use Sylius\MolliePlugin\Entity\AbandonedEmailOrderTrait;
+use Sylius\MolliePlugin\Entity\MolliePaymentIdOrderTrait;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Entity\QRCodeOrderTrait;
+use Sylius\MolliePlugin\Entity\RecurringOrderTrait;
 
 class Order extends BaseOrder implements OrderInterface
 {
     use AbandonedEmailOrderTrait;
-
     use RecurringOrderTrait;
-
     use QRCodeOrderTrait;
-
     use MolliePaymentIdOrderTrait;
 
     public function getRecurringItems(): Collection
@@ -39,8 +36,8 @@ class Order extends BaseOrder implements OrderInterface
             ->filter(function (OrderItemInterface $orderItem) {
                 $variant = $orderItem->getVariant();
 
-                return $variant !== null
-                    && true === $variant->isRecurring();
+                return $variant !== null &&
+                    true === $variant->isRecurring();
             })
         ;
     }
@@ -52,8 +49,8 @@ class Order extends BaseOrder implements OrderInterface
             ->filter(function (OrderItemInterface $orderItem) {
                 $variant = $orderItem->getVariant();
 
-                return $variant !== null
-                    && false === $variant->isRecurring();
+                return $variant !== null &&
+                    false === $variant->isRecurring();
             })
         ;
     }

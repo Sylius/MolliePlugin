@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Payments\Methods;
+namespace Sylius\MolliePlugin\Payments\Methods;
 
 abstract class AbstractMethod implements MethodInterface
 {
@@ -21,17 +21,14 @@ abstract class AbstractMethod implements MethodInterface
 
     use ConfigTrait;
 
-    /** @var string|null */
-    protected $name;
+    protected ?string $name = null;
 
-    /** @var string */
-    protected $description;
+    protected string $description;
 
-    /** @var array */
-    protected $config;
+    /** @var array<string, mixed> */
+    protected array $config;
 
-    /** @var bool */
-    protected $enabled = false;
+    protected bool $enabled = false;
 
     public function getName(): ?string
     {
