@@ -4,12 +4,6 @@ sylius_mollie_plugin_apple_pay_validation:
   defaults:
     _controller: sylius_mollie_plugin.controller.action.shop.apple_pay_validation_action
 
-sylius_mollie_plugin_apple_pay_payment:
-  methods: [POST]
-  path: /apple-pay-payment
-  defaults:
-    _controller: sylius_mollie_plugin.controller.action.shop.apple_pay_create_payment
-
 mollie_shop_checkout_apple_complete:
   path: /mollie/apple-direct/complete
   methods: [POST, GET]
