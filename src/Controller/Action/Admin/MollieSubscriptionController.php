@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Controller\Action\Admin;
+namespace Sylius\MolliePlugin\Controller\Action\Admin;
 
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
 

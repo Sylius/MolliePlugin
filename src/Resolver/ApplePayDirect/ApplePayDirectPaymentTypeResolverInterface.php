@@ -11,16 +11,17 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver\ApplePayDirect;
+namespace Sylius\MolliePlugin\Resolver\ApplePayDirect;
 
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 
 interface ApplePayDirectPaymentTypeResolverInterface
 {
+    /** @param array<string, mixed> $applePayDirectToken */
     public function resolve(
         MollieGatewayConfigInterface $mollieGatewayConfig,
         PaymentInterface $payment,
-        array $applePayDirectToken
+        array $applePayDirectToken,
     ): void;
 }

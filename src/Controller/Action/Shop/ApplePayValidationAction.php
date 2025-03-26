@@ -11,35 +11,20 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Controller\Action\Shop;
+namespace Sylius\MolliePlugin\Controller\Action\Shop;
 
-use SyliusMolliePlugin\Checker\ApplePay\ApplePayEnabledCheckerInterface;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
 use Mollie\Api\Exceptions\ApiException;
+use Sylius\MolliePlugin\Checker\ApplePay\ApplePayEnabledCheckerInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class ApplePayValidationAction
 {
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    /** @var MollieApiClientKeyResolverInterface */
-    private $apiClientKeyResolver;
-
-    /** @var ApplePayEnabledCheckerInterface */
-    private $applePayEnabledChecker;
-
-    public function __construct(
-        MollieLoggerActionInterface $loggerAction,
-        MollieApiClientKeyResolverInterface $apiClientKeyResolver,
-        ApplePayEnabledCheckerInterface $applePayEnabledChecker
-    ) {
-        $this->loggerAction = $loggerAction;
-        $this->apiClientKeyResolver = $apiClientKeyResolver;
-        $this->applePayEnabledChecker = $applePayEnabledChecker;
+    public function __construct(private readonly MollieLoggerActionInterface $loggerAction, private readonly MollieApiClientKeyResolverInterface $apiClientKeyResolver, private readonly ApplePayEnabledCheckerInterface $applePayEnabledChecker)
+    {
     }
 
     public function __invoke(Request $request): Response

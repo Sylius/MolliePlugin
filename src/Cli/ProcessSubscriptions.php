@@ -11,13 +11,13 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Cli;
+namespace Sylius\MolliePlugin\Cli;
 
-use SyliusMolliePlugin\Processor\SubscriptionProcessorInterface;
-use SyliusMolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
-use SyliusMolliePlugin\Transitions\MollieSubscriptionPaymentProcessingTransitions;
-use SyliusMolliePlugin\Transitions\MollieSubscriptionProcessingTransitions;
 use SM\Factory\Factory;
+use Sylius\MolliePlugin\Processor\SubscriptionProcessorInterface;
+use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
+use Sylius\MolliePlugin\Transitions\MollieSubscriptionPaymentProcessingTransitions;
+use Sylius\MolliePlugin\Transitions\MollieSubscriptionProcessingTransitions;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -32,28 +32,15 @@ class ProcessSubscriptions extends Command
 
     public const COMMAND_ID = 'mollie:subscription:process';
 
-    /** @var SymfonyStyle */
-    private $io;
-
-    private MollieSubscriptionRepositoryInterface $mollieSubscriptionRepository;
-
-    private Factory $stateMachineFactory;
-
-    private SubscriptionProcessorInterface $subscriptionProcessor;
-
-    private RouterInterface $router;
+    private SymfonyStyle $io;
 
     public function __construct(
-        MollieSubscriptionRepositoryInterface $mollieSubscriptionRepository,
-        Factory $stateMachineFactory,
-        SubscriptionProcessorInterface $subscriptionProcessor,
-        RouterInterface $router
+        private readonly MollieSubscriptionRepositoryInterface $mollieSubscriptionRepository,
+        private readonly Factory $stateMachineFactory,
+        private readonly SubscriptionProcessorInterface $subscriptionProcessor,
+        private readonly RouterInterface $router,
     ) {
         parent::__construct(self::COMMAND_NAME);
-        $this->mollieSubscriptionRepository = $mollieSubscriptionRepository;
-        $this->stateMachineFactory = $stateMachineFactory;
-        $this->subscriptionProcessor = $subscriptionProcessor;
-        $this->router = $router;
     }
 
     protected function configure(): void
@@ -108,7 +95,7 @@ class ProcessSubscriptions extends Command
             $this->io->success('Successfully marked scheduled subscriptions');
         } catch (\Exception $exception) {
             $this->io->error(
-                \sprintf('An error has occurred during send payment link process. (%s)', $exception->getMessage())
+                \sprintf('An error has occurred during send payment link process. (%s)', $exception->getMessage()),
             );
 
             return 1;
@@ -121,8 +108,8 @@ class ProcessSubscriptions extends Command
                 \sprintf(
                     'Duration: %.2f ms / Memory: %.2f MB',
                     $event->getDuration(),
-                    $event->getMemory() / (1024 ** 2)
-                )
+                    $event->getMemory() / (1024 ** 2),
+                ),
             );
         }
 

@@ -11,11 +11,8 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action;
+namespace Sylius\MolliePlugin\Action;
 
-use SyliusMolliePlugin\Action\Api\BaseApiAwareAction;
-use SyliusMolliePlugin\Helper\ConvertRefundDataInterface;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
 use Mollie\Api\Exceptions\ApiException;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
@@ -26,24 +23,19 @@ use Payum\Core\GatewayAwareTrait;
 use Payum\Core\Request\Refund;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Resource\Exception\UpdateHandlingException;
+use Sylius\MolliePlugin\Action\Api\BaseRefundAction;
+use Sylius\MolliePlugin\Helper\ConvertRefundDataInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Webmozart\Assert\Assert;
 
-final class RefundAction extends BaseApiAwareAction implements ActionInterface, ApiAwareInterface, GatewayAwareInterface
+final class RefundAction extends BaseRefundAction implements ActionInterface, ApiAwareInterface, GatewayAwareInterface
 {
     use GatewayAwareTrait;
 
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    /** @var ConvertRefundDataInterface */
-    private $convertOrderRefundData;
-
     public function __construct(
-        MollieLoggerActionInterface $loggerAction,
-        ConvertRefundDataInterface $convertOrderRefundData
+        private MollieLoggerActionInterface $loggerAction,
+        private ConvertRefundDataInterface $convertOrderRefundData,
     ) {
-        $this->loggerAction = $loggerAction;
-        $this->convertOrderRefundData = $convertOrderRefundData;
     }
 
     /** @param Refund|mixed $request */
@@ -53,30 +45,19 @@ final class RefundAction extends BaseApiAwareAction implements ActionInterface, 
 
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
-        if (!array_key_exists('refund', $details['metadata'])) {
-            return;
-        }
-
-        try {
-            $molliePayment = $this->mollieApiClient->payments->get($details['payment_mollie_id']);
-        } catch (ApiException $e) {
-            $this->loggerAction->addNegativeLog(sprintf('API call failed: %s', htmlspecialchars($e->getMessage())));
-
-            throw new \Exception(sprintf('API call failed: %s', htmlspecialchars($e->getMessage())));
-        }
-
         if (!$this->shouldBeRefunded($details)) {
             return;
         }
 
         /** @var PaymentInterface $payment */
         $payment = $request->getFirstModel();
+        $currencyCode = $payment->getCurrencyCode();
+        Assert::notNull($currencyCode);
+
+        $refundData = $this->convertOrderRefundData->convert($details['metadata']['refund'], $currencyCode);
 
         try {
             $molliePayment = $this->mollieApiClient->payments->get($details['payment_mollie_id']);
-
-            Assert::notNull($payment->getCurrencyCode());
-            $refundData = $this->convertOrderRefundData->convert($details['metadata']['refund'], $payment->getCurrencyCode());
 
             if (true === $molliePayment->canBeRefunded()) {
                 $molliePayment->refund(['amount' => $refundData]);
@@ -98,6 +79,6 @@ final class RefundAction extends BaseApiAwareAction implements ActionInterface, 
         return
             $request instanceof Refund &&
             $request->getModel() instanceof \ArrayAccess
-            ;
+        ;
     }
 }

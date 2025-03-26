@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Order;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Order;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Payum\Core\GatewayInterface;
@@ -24,12 +24,16 @@ use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Order\OrderPaymentRefund;
+use Sylius\MolliePlugin\Order\OrderPaymentRefundInterface;
+use Sylius\MolliePlugin\Request\Api\RefundOrder;
 use Sylius\RefundPlugin\Event\UnitsRefunded;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Order\OrderPaymentRefund;
-use SyliusMolliePlugin\Order\OrderPaymentRefundInterface;
-use SyliusMolliePlugin\Request\Api\RefundOrder;
+use Sylius\RefundPlugin\Filter\UnitRefundFilterInterface;
+use Sylius\RefundPlugin\Model\OrderItemUnitRefund;
+use Sylius\RefundPlugin\Model\ShipmentRefund;
+use Sylius\RefundPlugin\Model\UnitRefundInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -41,6 +45,8 @@ final class OrderPaymentRefundTest extends TestCase
 
     private Payum $payum;
 
+    private UnitRefundFilterInterface $unitRefundFilter;
+
     private OrderPaymentRefund $orderPaymentRefund;
 
     protected function setUp(): void
@@ -48,11 +54,13 @@ final class OrderPaymentRefundTest extends TestCase
         $this->orderRepository = $this->createMock(RepositoryInterface::class);
         $this->loggerAction = $this->createMock(MollieLoggerActionInterface::class);
         $this->payum = $this->createMock(Payum::class);
+        $this->unitRefundFilter = $this->createMock(UnitRefundFilterInterface::class);
 
         $this->orderPaymentRefund = new OrderPaymentRefund(
             $this->orderRepository,
             $this->loggerAction,
-            $this->payum
+            $this->payum,
+            $this->unitRefundFilter,
         );
     }
 
@@ -68,10 +76,20 @@ final class OrderPaymentRefundTest extends TestCase
 
     public function testItRefundsOrderPaymentWhenTokenIsNotNullAndOrderMollieIdWasFound(): void
     {
+        $firstShipmentRefund = $this->createMock(UnitRefundInterface::class);
+        $secondShipmentRefund = $this->createMock(UnitRefundInterface::class);
+        $firstUnitRefund = $this->createMock(UnitRefundInterface::class);
+        $secondUnitRefund = $this->createMock(UnitRefundInterface::class);
+
         $units = $this->createMock(UnitsRefunded::class);
         $units->method('orderNumber')->willReturn('#0000001');
-        $units->method('units')->willReturn(['order_item_1', 'order_item_2']);
-        $units->method('shipments')->willReturn(['dhl', 'fedex']);
+
+        $units->method('units')->willReturn([
+            $firstShipmentRefund,
+            $secondShipmentRefund,
+            $firstUnitRefund,
+            $secondUnitRefund,
+        ]);
 
         $order = $this->createMock(OrderInterface::class);
         $payment = $this->createMock(PaymentInterface::class);
@@ -98,6 +116,25 @@ final class OrderPaymentRefundTest extends TestCase
             'order_mollie_id' => 1,
         ];
 
+        $this->unitRefundFilter
+            ->expects($this->exactly(2))
+            ->method('filterUnitRefunds')
+            ->with(
+                [$firstUnitRefund, $secondUnitRefund, $firstShipmentRefund, $secondShipmentRefund],
+                $this->logicalOr(
+                    $this->equalTo(OrderItemUnitRefund::class),
+                    $this->equalTo(ShipmentRefund::class),
+                ),
+            )
+            ->willReturnOnConsecutiveCalls([
+                $firstUnitRefund,
+                $secondUnitRefund,
+            ], [
+                $firstShipmentRefund,
+                $secondShipmentRefund,
+            ])
+        ;
+
         $payment->method('getDetails')->willReturn($details);
         $payment->method('setDetails')->willReturnCallback(function ($newDetails) use (&$details) {
             $details = $newDetails;
@@ -115,10 +152,20 @@ final class OrderPaymentRefundTest extends TestCase
 
     public function testItRefundsOrderPaymentWhenTokenIsNotNullAndOrderMollieIdWasNotFound(): void
     {
+        $firstShipmentRefund = $this->createMock(UnitRefundInterface::class);
+        $secondShipmentRefund = $this->createMock(UnitRefundInterface::class);
+        $firstUnitRefund = $this->createMock(UnitRefundInterface::class);
+        $secondUnitRefund = $this->createMock(UnitRefundInterface::class);
+
         $units = $this->createMock(UnitsRefunded::class);
         $units->method('orderNumber')->willReturn('#0000001');
-        $units->method('units')->willReturn(['order_item_1', 'order_item_2']);
-        $units->method('shipments')->willReturn(['dhl', 'fedex']);
+
+        $units->method('units')->willReturn([
+            $firstShipmentRefund,
+            $secondShipmentRefund,
+            $firstUnitRefund,
+            $secondUnitRefund,
+        ]);
 
         $order = $this->createMock(OrderInterface::class);
         $payment = $this->createMock(PaymentInterface::class);
@@ -144,6 +191,25 @@ final class OrderPaymentRefundTest extends TestCase
             ],
         ];
 
+        $this->unitRefundFilter
+            ->expects($this->exactly(2))
+            ->method('filterUnitRefunds')
+            ->with(
+                [$firstUnitRefund, $secondUnitRefund, $firstShipmentRefund, $secondShipmentRefund],
+                $this->logicalOr(
+                    $this->equalTo(OrderItemUnitRefund::class),
+                    $this->equalTo(ShipmentRefund::class),
+                ),
+            )
+            ->willReturnOnConsecutiveCalls([
+                $firstUnitRefund,
+                $secondUnitRefund,
+            ], [
+                $firstShipmentRefund,
+                $secondShipmentRefund,
+            ])
+        ;
+
         $payment->method('getDetails')->willReturn($details);
         $payment->method('setDetails')->willReturnCallback(function ($newDetails) use (&$details) {
             $details = $newDetails;
@@ -161,10 +227,20 @@ final class OrderPaymentRefundTest extends TestCase
 
     public function testItNotRefundsOrderPaymentWhenTokenIsNull(): void
     {
+        $firstShipmentRefund = $this->createMock(UnitRefundInterface::class);
+        $secondShipmentRefund = $this->createMock(UnitRefundInterface::class);
+        $firstUnitRefund = $this->createMock(UnitRefundInterface::class);
+        $secondUnitRefund = $this->createMock(UnitRefundInterface::class);
+
         $units = $this->createMock(UnitsRefunded::class);
         $units->method('orderNumber')->willReturn('#0000001');
-        $units->method('units')->willReturn(['order_item_1', 'order_item_2']);
-        $units->method('shipments')->willReturn(['dhl', 'fedex']);
+
+        $units->method('units')->willReturn([
+            $firstShipmentRefund,
+            $secondShipmentRefund,
+            $firstUnitRefund,
+            $secondUnitRefund,
+        ]);
 
         $order = $this->createMock(OrderInterface::class);
         $payment = $this->createMock(PaymentInterface::class);
@@ -188,11 +264,34 @@ final class OrderPaymentRefundTest extends TestCase
             ],
         ];
 
+        $this->unitRefundFilter
+            ->expects($this->exactly(2))
+            ->method('filterUnitRefunds')
+            ->with(
+                [$firstUnitRefund, $secondUnitRefund, $firstShipmentRefund, $secondShipmentRefund],
+                $this->logicalOr(
+                    $this->equalTo(OrderItemUnitRefund::class),
+                    $this->equalTo(ShipmentRefund::class),
+                ),
+            )
+            ->willReturnOnConsecutiveCalls([
+                $firstUnitRefund,
+                $secondUnitRefund,
+            ], [
+                $firstShipmentRefund,
+                $secondShipmentRefund,
+            ])
+        ;
+
         $payment->method('getDetails')->willReturn($details);
         $this->payum->method('getTokenStorage')->willReturn($storage);
         $storage->method('find')->willReturn(null);
 
-        $this->loggerAction->expects($this->once())->method('addNegativeLog')->with('A token with hash `test_token` could not be found.');
+        $this->loggerAction
+            ->expects($this->once())
+            ->method('addNegativeLog')
+            ->with('A token with hash `test_token` could not be found.')
+        ;
 
         $this->expectException(BadRequestHttpException::class);
 
@@ -210,6 +309,8 @@ final class OrderPaymentRefundTest extends TestCase
         $order->method('getPayments')->willReturn(new ArrayCollection([null]));
 
         $this->loggerAction->expects($this->once())->method('addNegativeLog')->with('No payment in refund');
+
+        $this->unitRefundFilter->expects($this->never())->method('filterUnitRefunds')->withAnyParameters();
 
         $this->expectException(NotFoundHttpException::class);
 
@@ -231,6 +332,8 @@ final class OrderPaymentRefundTest extends TestCase
         $payment->method('getMethod')->willReturn($paymentMethod);
         $paymentMethod->method('getGatewayConfig')->willReturn($gatewayConfig);
         $gatewayConfig->method('getFactoryName')->willReturn('definitely_not_mollie_subscription_test');
+
+        $this->unitRefundFilter->expects($this->never())->method('filterUnitRefunds')->withAnyParameters();
 
         $payment->expects($this->never())->method('getDetails');
 

@@ -11,35 +11,25 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action\ApiPlatform;
+namespace Sylius\MolliePlugin\Action\ApiPlatform;
 
 use Sylius\Bundle\PayumBundle\Model\GatewayConfigInterface;
+use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Sylius\Component\Core\Model\OrderInterface;
 
 class MolliePayment
 {
     private const MOLLIE_PAYMENT_METHOD_NAME = 'mollie';
 
-    /** @var UrlGeneratorInterface */
-    private $urlGenerator;
-
     /**
      * MolliePayment constructor
      */
-    public function __construct(
-        UrlGeneratorInterface $urlGenerator)
+    public function __construct(private readonly UrlGeneratorInterface $urlGenerator)
     {
-        $this->urlGenerator = $urlGenerator;
     }
 
-    /**
-     * @param PaymentMethodInterface $paymentMethod
-     *
-     * @return bool
-     */
     public function supports(PaymentMethodInterface $paymentMethod): bool
     {
         /** @var GatewayConfigInterface $gatewayConfig */
@@ -49,9 +39,18 @@ class MolliePayment
     }
 
     /**
-     * @param PaymentInterface $payment
-     *
-     * @return array
+     * @return array{
+     *     method: ?string,
+     *     issuer: ?string,
+     *     cardToken: ?string,
+     *     amount: mixed,
+     *     customerId: mixed,
+     *     description: ?string,
+     *     redirectUrl: string,
+     *     webhookUrl: string,
+     *     metadata: ?array<string, mixed>,
+     *     locale: ?string
+     * }
      */
     public function provideConfiguration(PaymentInterface $payment): array
     {
@@ -73,16 +72,16 @@ class MolliePayment
         $webhookUrl .= '?orderId=' . $order->getId();
 
         return [
-            "method" => $methodName,
-            "issuer" => isset($details['selected_issuer'])  ? $details['selected_issuer'] : null,
-            "cardToken" => isset($details['metadata']['cartToken'])  ? $details['metadata']['cartToken'] : null,
-            "amount" => isset($details['amount'])  ? $details['amount'] : null,
-            "customerId" => isset($details['customerId'])  ? $details['customerId'] : null,
-            "description" => isset($details['description'])  ? $details['description'] : null,
-            "redirectUrl" => $redirectUrl,
-            "webhookUrl" => $webhookUrl,
-            "metadata" => isset($details['metadata'])  ? $details['metadata'] : null,
-            "locale" => isset($details['locale'])  ? $details['locale'] : null
+            'method' => $methodName,
+            'issuer' => $details['selected_issuer'] ?? null,
+            'cardToken' => $details['metadata']['cartToken'] ?? null,
+            'amount' => $details['amount'] ?? null,
+            'customerId' => $details['customerId'] ?? null,
+            'description' => $details['description'] ?? null,
+            'redirectUrl' => $redirectUrl,
+            'webhookUrl' => $webhookUrl,
+            'metadata' => $details['metadata'] ?? null,
+            'locale' => $details['locale'] ?? null,
         ];
     }
 }

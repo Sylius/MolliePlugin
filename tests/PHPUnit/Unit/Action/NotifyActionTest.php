@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Action;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Action;
 
 use Mollie\Api\Endpoints\PaymentEndpoint;
 use Mollie\Api\Exceptions\ApiException;
@@ -24,13 +24,13 @@ use Payum\Core\Reply\HttpResponse;
 use Payum\Core\Request\GetHttpRequest;
 use Payum\Core\Request\Notify;
 use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Action\NotifyAction;
-use SyliusMolliePlugin\Action\StateMachine\SetStatusOrderActionInterface;
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
-use SyliusMolliePlugin\Request\StateMachine\StatusRecurringSubscription;
+use Sylius\MolliePlugin\Action\NotifyAction;
+use Sylius\MolliePlugin\Action\StateMachine\SetStatusOrderActionInterface;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
+use Sylius\MolliePlugin\Request\StateMachine\StatusRecurringSubscription;
 use Symfony\Component\HttpFoundation\Response;
 
 final class NotifyActionTest extends TestCase
@@ -56,7 +56,7 @@ final class NotifyActionTest extends TestCase
             $this->getHttpRequest,
             $this->subscriptionRepository,
             $this->setStatusOrderAction,
-            $this->loggerAction
+            $this->loggerAction,
         );
     }
 
@@ -74,6 +74,7 @@ final class NotifyActionTest extends TestCase
     {
         $this->assertInstanceOf(GatewayAwareInterface::class, $this->notifyAction);
     }
+
     public function testItExecutesWhenSequenceTypeIsSet(): void
     {
         $request = $this->createMock(Notify::class);
@@ -108,7 +109,7 @@ final class NotifyActionTest extends TestCase
                     return $request instanceof StatusRecurringSubscription &&
                         $request->getFirstModel() === $subscription &&
                         $request->getPaymentId() === 'payment_id';
-                })]
+                })],
             )
         ;
 
@@ -121,7 +122,6 @@ final class NotifyActionTest extends TestCase
             $this->notifyAction->execute($request);
             $this->fail('Expected HttpResponse exception was not thrown.');
         } catch (HttpResponse $exception) {
-
             $this->assertSame(Response::HTTP_OK, $exception->getStatusCode());
         }
     }

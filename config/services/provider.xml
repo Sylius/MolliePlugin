@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults public="true" />
+
+        <service id="sylius_mollie.provider.apple.apple_pay_direct" class="Sylius\MolliePlugin\Provider\Apple\ApplePayDirectProvider">
+            <argument type="service" id="sylius_mollie.resolver.address.apple_pay_address"/>
+            <argument type="service" id="sylius_mollie.mollie_api_client"/>
+            <argument type="service" id="sylius_mollie.provider.order.order_payment_apple_pay_direct"/>
+            <argument type="service" id="sylius_mollie.provider.customer"/>
+            <argument type="service" id="sylius_mollie.provider.apple.apple_pay_direct_payment"/>
+        </service>
+
+        <service id="sylius_mollie.provider.order.order_payment_apple_pay_direct" class="Sylius\MolliePlugin\Provider\Order\OrderPaymentApplePayDirectProvider">
+            <argument type="service" id="sylius.custom_factory.payment"/>
+            <argument type="service" id="sm.factory"/>
+            <argument type="service" id="sylius.repository.payment_method"/>
+            <argument type="service" id="sylius.repository.gateway_config"/>
+            <argument type="service" id="sylius_mollie.provider.payment_token"/>
+            <argument type="service" id="payum"/>
+        </service>
+
+        <service id="sylius_mollie.provider.divisor" class="Sylius\MolliePlugin\Provider\Divisor\DivisorProvider"/>
+
+        <service id="sylius_mollie.provider.apple.apple_pay_direct_payment" class="Sylius\MolliePlugin\Provider\Apple\ApplePayDirectPaymentProvider">
+            <argument type="service" id="sylius_mollie.resolver.apple_pay_direct.apple_pay_direct_payment_type"/>
+        </service>
+
+        <service id="sylius_mollie.provider.form.resolver_group" class="Sylius\MolliePlugin\Provider\Form\ResolverGroupProvider"/>
+
+        <service id="sylius_mollie.provider.payment_token" class="Sylius\MolliePlugin\Provider\PaymentToken\PaymentTokenProvider">
+            <argument type="service" id="payum" />
+            <argument type="string">sylius_shop_order_after_pay</argument>
+        </service>
+        <service id="Sylius\MolliePlugin\Provider\PaymentToken\PaymentTokenProviderInterface" alias="sylius_mollie.provider.payment_token" />
+
+        <service id="sylius_mollie.provider.customer" class="Sylius\MolliePlugin\Provider\Customer\CustomerProvider">
+            <argument type="service" id="sylius.repository.customer" />
+            <argument type="service" id="sylius.factory.customer"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Provider\Customer\CustomerProviderInterface" alias="sylius_mollie.provider.customer" />
+    </services>
+</container>

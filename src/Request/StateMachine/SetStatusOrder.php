@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Request\StateMachine;
+namespace Sylius\MolliePlugin\Request\StateMachine;
 
 use Payum\Core\Request\Generic;
 

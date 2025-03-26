@@ -11,11 +11,12 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Provider\Form;
+namespace Sylius\MolliePlugin\Provider\Form;
 
 use Symfony\Component\Form\FormInterface;
 
 interface ResolverGroupProviderInterface
 {
+    /** @return string[] */
     public function provide(FormInterface $form): array;
 }

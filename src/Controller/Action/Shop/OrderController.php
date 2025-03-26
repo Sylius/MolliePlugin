@@ -11,15 +11,15 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Controller\Action\Shop;
+namespace Sylius\MolliePlugin\Controller\Action\Shop;
 
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Provider\Apple\ApplePayDirectProviderInterface;
 use Sylius\Bundle\OrderBundle\Controller\OrderController as BaseOrderController;
 use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Sylius\Component\Payment\Model\PaymentInterface;
 use Sylius\Component\Resource\Exception\UpdateHandlingException;
 use Sylius\Component\Resource\ResourceActions;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Provider\Apple\ApplePayDirectProviderInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -68,7 +68,7 @@ final class OrderController extends BaseOrderController
             }
 
             $this->resourceUpdateHandler->handle($resource, $configuration, $this->manager);
-        } catch (UpdateHandlingException $exception) {
+        } catch (UpdateHandlingException) {
             return new JsonResponse([], Response::HTTP_BAD_REQUEST);
         }
 

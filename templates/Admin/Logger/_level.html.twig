@@ -1,0 +1,10 @@
+{% if data %}
+    {% set notice = constant('Sylius\\MolliePlugin\\Logger\\MollieLoggerActionInterface::NOTICE') %}
+    {% set error = constant('Sylius\\MolliePlugin\\Logger\\MollieLoggerActionInterface::ERROR') %}
+
+    {% if data == notice %}
+        <div class="ui info horizontal label">{{'sylius_mollie_plugin.ui.info'|trans}}</div>
+    {% elseif data == error %}
+        <div class="ui red horizontal label">{{'sylius_mollie_plugin.ui.error'|trans}}</div>
+    {% endif %}
+{% endif %}

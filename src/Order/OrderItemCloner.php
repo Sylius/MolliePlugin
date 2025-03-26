@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Order;
+namespace Sylius\MolliePlugin\Order;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
@@ -20,21 +20,13 @@ use Sylius\Component\Resource\Factory\FactoryInterface;
 
 final class OrderItemCloner implements OrderItemClonerInterface
 {
-    private FactoryInterface $orderItemFactory;
-
-    private OrderItemUnitFactoryInterface $orderItemUnitFactory;
-
-    public function __construct(
-        FactoryInterface $orderItemFactory,
-        OrderItemUnitFactoryInterface $orderItemUnitFactory
-    ) {
-        $this->orderItemFactory = $orderItemFactory;
-        $this->orderItemUnitFactory = $orderItemUnitFactory;
+    public function __construct(private readonly FactoryInterface $orderItemFactory, private readonly OrderItemUnitFactoryInterface $orderItemUnitFactory)
+    {
     }
 
     public function clone(
         OrderItemInterface $orderItem,
-        OrderInterface $order
+        OrderInterface $order,
     ): OrderItemInterface {
         /** @var OrderItemInterface $clonedOrderItem */
         $clonedOrderItem = $this->orderItemFactory->createNew();

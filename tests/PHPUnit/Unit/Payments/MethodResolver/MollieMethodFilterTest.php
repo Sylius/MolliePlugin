@@ -11,15 +11,15 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Payments\MethodResolver;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Payments\MethodResolver;
 
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Factory\MollieGatewayFactory;
-use SyliusMolliePlugin\Factory\MollieSubscriptionGatewayFactory;
-use SyliusMolliePlugin\Payments\MethodResolver\MollieMethodFilter;
-use SyliusMolliePlugin\Payments\MethodResolver\MollieMethodFilterInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Payments\MethodResolver\MollieMethodFilter;
+use Sylius\MolliePlugin\Payments\MethodResolver\MollieMethodFilterInterface;
 
 final class MollieMethodFilterTest extends TestCase
 {

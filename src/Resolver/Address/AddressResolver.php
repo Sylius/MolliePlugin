@@ -11,38 +11,18 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver\Address;
+namespace Sylius\MolliePlugin\Resolver\Address;
 
-use SyliusMolliePlugin\Validator\ApplePayDirect\ApplePayAddressValidatorInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Validator\ApplePayDirect\ApplePayAddressValidatorInterface;
 
 final class AddressResolver implements AddressResolverInterface
 {
-    /** @var ApplePayAddressValidatorInterface */
-    private $addressValidator;
-
-    /** @var RepositoryInterface */
-    private $customerRepository;
-
-    /** @var FactoryInterface */
-    private $addressFactory;
-
-    /** @var FactoryInterface */
-    private $customerFactory;
-
-    public function __construct(
-        ApplePayAddressValidatorInterface $addressValidator,
-        RepositoryInterface $customerRepository,
-        FactoryInterface $addressFactory,
-        FactoryInterface $customerFactory
-    ) {
-        $this->addressValidator = $addressValidator;
-        $this->customerRepository = $customerRepository;
-        $this->addressFactory = $addressFactory;
-        $this->customerFactory = $customerFactory;
+    public function __construct(private readonly ApplePayAddressValidatorInterface $addressValidator, private readonly RepositoryInterface $customerRepository, private readonly FactoryInterface $addressFactory, private readonly FactoryInterface $customerFactory)
+    {
     }
 
     public function resolve(array $applePayDirectAddress): AddressInterface

@@ -11,20 +11,19 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Helper;
+namespace Sylius\MolliePlugin\Helper;
 
-use SyliusMolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 
 final class IntToStringConverter implements IntToStringConverterInterface
 {
-    public function __construct(private DivisorProviderInterface $divisorProvider)
+    public function __construct(private readonly DivisorProviderInterface $divisorProvider)
     {
     }
 
     public function convertIntToString(int $value, ?int $divisor = null): string
     {
-        if(null === $divisor)
-        {
+        if (null === $divisor) {
             $divisor = $this->divisorProvider->getDivisor();
         }
 

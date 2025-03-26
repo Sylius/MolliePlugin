@@ -23,8 +23,8 @@ default:
                 - sylius.behat.context.setup.admin_user
                 - sylius.behat.context.setup.user
 
-                - sylius_mollie_plugin.behat.context.setup.mollie
-                - sylius_mollie_plugin.context.setup.order
+                - sylius_mollie.behat.context.setup.mollie
+                - sylius_mollie.behat.context.setup.order
 
                 - sylius.behat.context.transform.address
                 - sylius.behat.context.transform.channel
@@ -53,7 +53,7 @@ default:
                 - sylius.behat.context.ui.shop.checkout.complete
                 - sylius.behat.context.ui.shop.currency
 
-                - sylius_mollie_plugin.behat.context.ui.admin.refund
+                - sylius_mollie.behat.context.ui.admin.refund
             filters:
-                tags: "@refunding_mollie_payment && @ui"
+                tags: "@refunding_mollie_payment&&@ui"
 

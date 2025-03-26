@@ -11,12 +11,8 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Action;
+namespace Sylius\MolliePlugin\Action;
 
-use SyliusMolliePlugin\Action\Api\BaseApiAwareAction;
-use SyliusMolliePlugin\Helper\ConvertRefundDataInterface;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Request\Api\RefundOrder;
 use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Resources\Payment;
 use Mollie\Api\Types\PaymentStatus;
@@ -28,24 +24,20 @@ use Payum\Core\GatewayAwareInterface;
 use Payum\Core\GatewayAwareTrait;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Resource\Exception\UpdateHandlingException;
+use Sylius\MolliePlugin\Action\Api\BaseRefundAction;
+use Sylius\MolliePlugin\Helper\ConvertRefundDataInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Request\Api\RefundOrder;
 use Webmozart\Assert\Assert;
 
-final class RefundOrderAction extends BaseApiAwareAction implements ActionInterface, ApiAwareInterface, GatewayAwareInterface
+final class RefundOrderAction extends BaseRefundAction implements ActionInterface, ApiAwareInterface, GatewayAwareInterface
 {
     use GatewayAwareTrait;
 
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    /** @var ConvertRefundDataInterface */
-    private $convertOrderRefundData;
-
     public function __construct(
-        MollieLoggerActionInterface $loggerAction,
-        ConvertRefundDataInterface $convertOrderRefundData
+        private MollieLoggerActionInterface $loggerAction,
+        private ConvertRefundDataInterface $convertOrderRefundData,
     ) {
-        $this->loggerAction = $loggerAction;
-        $this->convertOrderRefundData = $convertOrderRefundData;
     }
 
     public function execute($request): void
@@ -54,15 +46,9 @@ final class RefundOrderAction extends BaseApiAwareAction implements ActionInterf
 
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
-        if (!array_key_exists('refund', $details['metadata']) || !$this->shouldBeRefunded($details)) {
+        if (!$this->shouldBeRefunded($details)) {
             return;
         }
-
-        /** @var PaymentInterface $payment */
-        $payment = $request->getFirstModel();
-
-        Assert::notNull($payment->getCurrencyCode());
-        $refundData = $this->convertOrderRefundData->convert($details['metadata']['refund'], $payment->getCurrencyCode());
 
         $molliePayment = null;
 
@@ -86,21 +72,15 @@ final class RefundOrderAction extends BaseApiAwareAction implements ActionInterf
 
         /** @var PaymentInterface $payment */
         $payment = $request->getFirstModel();
+        $currencyCode = $payment->getCurrencyCode();
+        Assert::notNull($currencyCode);
+
+        $refundData = $this->convertOrderRefundData->convert($details['metadata']['refund'], $currencyCode);
 
         try {
-            $currencyCode = $payment->getCurrencyCode();
-            Assert::notNull($currencyCode);
+            $this->mollieApiClient->payments->refund($molliePayment, ['amount' => $refundData]);
 
-            $refundData = $this->convertOrderRefundData->convert($details['metadata']['refund'], $currencyCode);
-
-            $this->mollieApiClient->payments->refund(
-                $molliePayment,
-                [
-                    'amount' => $refundData,
-                ]
-            );
-
-            $this->loggerAction->addLog(sprintf('Refund order action with order id: %s', $order->id));
+            $this->loggerAction->addLog(sprintf('Refund order action with order id: %s', $details['order_mollie_id']));
         } catch (ApiException $e) {
             $this->loggerAction->addNegativeLog(sprintf('Error refund order action with: %s', $e->getMessage()));
 

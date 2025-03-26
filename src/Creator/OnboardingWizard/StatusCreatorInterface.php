@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Creator\OnboardingWizard;
+namespace Sylius\MolliePlugin\Creator\OnboardingWizard;
 
-use SyliusMolliePlugin\Entity\OnboardingWizardStatusInterface;
+use Sylius\MolliePlugin\Entity\OnboardingWizardStatusInterface;
 
 interface StatusCreatorInterface
 {

@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Calculator\Refund;
+namespace Sylius\MolliePlugin\Calculator\Refund;
 
-use SyliusMolliePlugin\DTO\PartialRefundItem;
-use SyliusMolliePlugin\DTO\PartialRefundItems;
+use Sylius\MolliePlugin\DTO\PartialRefundItem;
+use Sylius\MolliePlugin\DTO\PartialRefundItems;
 
 final class PaymentRefundCalculator implements PaymentRefundCalculatorInterface
 {

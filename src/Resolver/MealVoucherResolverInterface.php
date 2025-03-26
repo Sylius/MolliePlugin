@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver;
+namespace Sylius\MolliePlugin\Resolver;
 
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 
 interface MealVoucherResolverInterface
 {

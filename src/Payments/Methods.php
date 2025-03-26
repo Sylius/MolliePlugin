@@ -11,15 +11,15 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Payments;
+namespace Sylius\MolliePlugin\Payments;
 
-use SyliusMolliePlugin\Payments\Methods\MethodInterface;
 use Mollie\Api\Resources\Method;
+use Sylius\MolliePlugin\Payments\Methods\AbstractMethod;
 
 final class Methods implements MethodsInterface
 {
-    /** @var array */
-    private $methods;
+    /** @var AbstractMethod[] */
+    private array $methods;
 
     public function add(Method $mollieMethod): void
     {
@@ -32,7 +32,7 @@ final class Methods implements MethodsInterface
                 $payment->setMaximumAmount((array) $mollieMethod->maximumAmount);
                 $payment->setImage((array) $mollieMethod->image);
 
-                /** @var array|null $issuers */
+                /** @var array<array-key, mixed>|null $issuers */
                 $issuers = $mollieMethod->issuers;
                 $payment->setIssuers((array) $issuers);
 
@@ -44,7 +44,6 @@ final class Methods implements MethodsInterface
     public function getAllEnabled(): array
     {
         $methods = [];
-        /** @var MethodInterface $method */
         foreach ($this->methods as $method) {
             if (true === $method->isEnabled()) {
                 $methods[] = $method->isEnabled();

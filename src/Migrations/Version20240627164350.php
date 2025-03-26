@@ -9,7 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace SyliusMolliePlugin\Migrations;
+declare(strict_types=1);
+
+namespace Sylius\MolliePlugin\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
@@ -26,9 +28,6 @@ class Version20240627164350 extends AbstractMigration
 
     /**
      * Delete giropay payment method from mollie configuration table
-     *
-     * @param Schema $schema
-     * @return void
      */
     public function up(Schema $schema): void
     {

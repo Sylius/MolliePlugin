@@ -1,5 +1,5 @@
 services:
-    sylius_mollie_plugin.page.shop.checkout.complete:
-         class: Tests\SyliusMolliePlugin\Behat\Page\Shop\Checkout\CompletePage
+    sylius_mollie.behat.page.shop.checkout.complete:
+         class: Tests\Sylius\MolliePlugin\Behat\Page\Shop\Checkout\CompletePage
          parent: "sylius.behat.page.shop.checkout.complete"
          public: false

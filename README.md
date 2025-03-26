@@ -35,7 +35,7 @@
 
 Few words from Mollie: Our mission is to create a greater playing field for everyone. By offering convenient, safe world-wide payment solutions we remove barriers so you could focus on growing your business. Being authentic is our baseline.
 
-Mollie is one of Europe's fastest-growing fin-tech companies. We provide a simple payment API, that enables webshop and app builders to implement more than twenty different payment methods in one go. Our packages and plugins are completely open-source, freely available, and easy to integrate into your current project.
+Mollie is one of Europe's fastest-growing fintech companies. We provide a simple payment API, that enables webshop and app builders to implement more than twenty different payment methods in one go. Our packages and plugins are completely open-source, freely available, and easy to integrate into your current project.
 
 Mollie thrives on innovation. When we started we spearheaded the payments industry by introducing effortless payment products that were easier, cheaper, and more flexible than what the rigid, cumbersome banks could do. Now, more than a decade later, trusted by 70.000+ businesses, Mollie is still building innovative products and working hard to make payments better.
 
@@ -44,23 +44,6 @@ This **open-source plugin was developed to help the Sylius community** and make 
 
 
 # Installation
-----
-
-### Requirements
-
-We work on stable, supported and up-to-date versions of packages. We recommend you to do the same.
-
-| Package                            | Version                                       |
-|------------------------------------|-----------------------------------------------|
-| PHP                                | ^7.2 \|\| ^8.0                                |
-| ext-json: *                        |                                               |
-| mollie/mollie-api-php              | ^2.0                                          |
-| sylius/admin-order-creation-plugin | ^0.12 \|\| ^0.13 \|\| v0.14                   |
-| sylius/refund-plugin               | ^1.0                                          |
-| sylius/sylius                      | ~1.9.0 \|\| ~1.10.0 \|\| ~1.11.0 \|\| ~1.12.0 |
-
-----
-
 
 For the full installation guide please go to [installation](doc/installation.md)
 

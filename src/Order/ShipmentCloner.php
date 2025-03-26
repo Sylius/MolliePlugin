@@ -11,23 +11,15 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Order;
+namespace Sylius\MolliePlugin\Order;
 
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 
 final class ShipmentCloner implements ShipmentClonerInterface
 {
-    private FactoryInterface $shipmentFactory;
-
-    private ShipmentUnitClonerInterface $shipmentUnitCloner;
-
-    public function __construct(
-        FactoryInterface $shipmentFactory,
-        ShipmentUnitClonerInterface $shipmentUnitCloner
-    ) {
-        $this->shipmentFactory = $shipmentFactory;
-        $this->shipmentUnitCloner = $shipmentUnitCloner;
+    public function __construct(private readonly FactoryInterface $shipmentFactory, private readonly ShipmentUnitClonerInterface $shipmentUnitCloner)
+    {
     }
 
     public function clone(ShipmentInterface $shipment): ShipmentInterface

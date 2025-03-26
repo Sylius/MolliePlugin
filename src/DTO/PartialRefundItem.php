@@ -11,27 +11,21 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\DTO;
+namespace Sylius\MolliePlugin\DTO;
 
 final class PartialRefundItem
 {
-    /** @var int */
-    private $id;
+    private int $id;
 
-    /** @var string */
-    private $type;
+    private string $type;
 
-    /** @var int */
-    private $amountTotal = 0;
+    private int $amountTotal = 0;
 
-    /** @var int */
-    private $amountRefunded = 0;
+    private int $amountRefunded = 0;
 
-    /** @var int */
-    private $quantity = 1;
+    private int $quantity = 1;
 
-    /** @var int */
-    private $amountToRefund = 0;
+    private int $amountToRefund = 0;
 
     public function getId(): int
     {
