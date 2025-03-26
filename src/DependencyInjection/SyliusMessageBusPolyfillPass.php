@@ -22,7 +22,7 @@ final class SyliusMessageBusPolyfillPass implements CompilerPassInterface
         'sylius.command_bus' => 'sylius_default.bus',
     ];
 
-    public const COMMAND_BUS_ALIAS = 'sylius_mollie_plugin.command_bus';
+    public const COMMAND_BUS_ALIAS = 'sylius_mollie.command_bus';
 
     public function process(ContainerBuilder $container): void
     {
