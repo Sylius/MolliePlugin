@@ -20,11 +20,13 @@ final class Version20250326100123 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Rename indexes to match the new table names';
     }
 
     public function up(Schema $schema): void
     {
+        $this->skipIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+
         $this->addSql('ALTER TABLE mollie_configuration DROP INDEX FK_CONFIG_AMOUNT_LIMITS, ADD UNIQUE INDEX UNIQ_EDD60BC52306388E (amount_limits_id)');
         $this->addSql('ALTER TABLE mollie_configuration RENAME INDEX uniq_23cc8504eb71dab7 TO UNIQ_EDD60BC5EB71DAB7');
         $this->addSql('ALTER TABLE mollie_configuration RENAME INDEX uniq_23cc8504dbc26bff TO UNIQ_EDD60BC5DBC26BFF');
@@ -48,6 +50,8 @@ final class Version20250326100123 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
+        $this->skipIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+
         $this->addSql('ALTER TABLE mollie_configuration DROP INDEX UNIQ_EDD60BC52306388E, ADD INDEX FK_CONFIG_AMOUNT_LIMITS (amount_limits_id)');
         $this->addSql('ALTER TABLE mollie_configuration RENAME INDEX idx_edd60bc5577f8e00 TO IDX_23CC8504577F8E00');
         $this->addSql('ALTER TABLE mollie_configuration RENAME INDEX uniq_edd60bc5c6b58e54 TO UNIQ_23CC85048298F');
