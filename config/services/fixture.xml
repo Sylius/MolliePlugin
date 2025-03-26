@@ -8,7 +8,7 @@
     <services>
         <service
             id="sylius_mollie.fixture.listener.products_within_all_channels"
-            class="SyliusMolliePlugin\Fixture\Listener\ProductsWithinAllChannelsListener"
+            class="Sylius\MolliePlugin\Fixture\Listener\ProductsWithinAllChannelsListener"
         >
             <argument type="service" id="sylius.repository.channel" />
             <argument type="service" id="sylius.repository.product" />
