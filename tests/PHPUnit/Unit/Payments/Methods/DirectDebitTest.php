@@ -15,7 +15,6 @@ namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Payments\Methods;
 
 use Mollie\Api\Types\PaymentMethod;
 use PHPUnit\Framework\TestCase;
-use Sylius\MolliePlugin\Payments\Methods\AbstractMethod;
 use Sylius\MolliePlugin\Payments\Methods\DirectDebit;
 use Sylius\MolliePlugin\Payments\PaymentType;
 

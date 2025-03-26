@@ -22,7 +22,6 @@ use Sylius\MolliePlugin\Entity\ProductType;
 use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Form\Type\Translation\MollieGatewayConfigTranslationType;
 use Sylius\MolliePlugin\Payments\ApiTypeRestrictedPaymentMethods;
-use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 use Sylius\MolliePlugin\Payments\PaymentType;
 use Sylius\MolliePlugin\Validator\Constraints\PaymentSurchargeType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

@@ -21,7 +21,6 @@ use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
-use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 use Sylius\MolliePlugin\Payments\PaymentType;
 use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 use Sylius\MolliePlugin\Provider\Order\OrderPaymentApplePayDirectProvider;

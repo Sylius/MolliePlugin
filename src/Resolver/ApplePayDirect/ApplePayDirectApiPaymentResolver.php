@@ -19,7 +19,6 @@ use Mollie\Api\Types\PaymentStatus;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\OrderInterface;
-use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 use Sylius\MolliePlugin\Payments\PaymentType;
 use Sylius\MolliePlugin\Provider\Order\OrderPaymentApplePayDirectProvider;
 use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;

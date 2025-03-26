@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Payments\Methods;
 
 use Mollie\Api\Types\PaymentMethod;
-
 use Sylius\MolliePlugin\Payments\PaymentType;
 
 final class Twint extends AbstractMethod

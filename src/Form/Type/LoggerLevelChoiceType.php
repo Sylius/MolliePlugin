@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Sylius Mollie Plugin package.
+ *
+ * (c) Sylius Sp. z o.o.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Form\Type;
@@ -20,14 +29,14 @@ final class LoggerLevelChoiceType extends AbstractType
         $resolver->setDefaults([
             'label' => 'sylius_mollie_plugin.ui.debug_level_log',
             'log_type' => self::TYPE_DEBUG,
-            'choices' => $this->getDebugChoices(),
+            'choices' => self::getDebugChoices(),
         ]);
 
         $resolver->setAllowedValues('log_type', [self::TYPE_DEBUG, self::TYPE_LOG]);
 
         $resolver->addNormalizer('choices', static function ($options, $choices) {
             if ($options['log_type'] === self::TYPE_LOG) {
-                return $this->getLogChoices();
+                return self::getLogChoices();
             }
 
             return $choices;
@@ -39,7 +48,8 @@ final class LoggerLevelChoiceType extends AbstractType
         return ChoiceType::class;
     }
 
-    private function getLogChoices(): array
+    /** @return array<string, int> */
+    private static function getLogChoices(): array
     {
         return [
             'sylius_mollie_plugin.ui.info' => LoggerLevel::LOG_ERRORS,
@@ -47,7 +57,8 @@ final class LoggerLevelChoiceType extends AbstractType
         ];
     }
 
-    private function getDebugChoices(): array
+    /** @return array<string, int> */
+    private static function getDebugChoices(): array
     {
         return [
             'sylius_mollie_plugin.ui.nothing_log' => LoggerLevel::LOG_DISABLED,

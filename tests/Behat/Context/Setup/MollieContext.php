@@ -25,7 +25,6 @@ use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
 use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Logger\LoggerLevel;
-use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Model\CountriesRestriction;
 use Sylius\MolliePlugin\Purifier\MolliePaymentMethodPurifierInterface;
 use Sylius\MolliePlugin\Repository\MollieGatewayConfigRepositoryInterface;

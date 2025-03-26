@@ -32,7 +32,6 @@ use Sylius\MolliePlugin\Factory\ApiCustomerFactoryInterface;
 use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
 use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
 use Sylius\MolliePlugin\Helper\PaymentDescriptionInterface;
-use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 use Sylius\MolliePlugin\Payments\PaymentType;
 use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;

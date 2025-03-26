@@ -29,7 +29,6 @@ use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Payments\ApiTypeRestrictedPaymentMethods;
-use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 use Sylius\MolliePlugin\Payments\PaymentType;
 use Sylius\MolliePlugin\Request\Api\CreateCustomer;
 use Sylius\MolliePlugin\Request\Api\CreateInternalRecurring;
