@@ -829,12 +829,6 @@ yarn add @babel/preset-env bazinga-translator intl-messageformat lodash.get node
 yarn add --dev @babel/core@7.16.0 @babel/register@7.16.0 @babel/plugin-proposal-object-rest-spread@7.16.5 @symfony/webpack-encore@1.5.0
 ```
 
-Run gulp:
-
-```bash
-yarn run gulp
-```
-
 Build the front-end assets:
 
 ```bash
