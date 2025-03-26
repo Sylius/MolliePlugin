@@ -138,7 +138,7 @@ The following service IDs have been removed:
 | `bit_bag.sylius_mollie_plugin.action.state_machine.applicator.subscription_and_payment_id_applicator`     | `sylius_mollie.payum.action.state_machine.applicator.subscription_and_payment_id`         |
 | `bit_bag.sylius_mollie_plugin.action.state_machine.applicator.subscription_and_sylius_payment_applicator` | `sylius_mollie.payum.action.state_machine.applicator.subscription_and_sylius_payment`     |
 | `bit_bag.sylius_mollie_plugin.action.state_machine.transition.payment_state_machine_transition`           | `sylius_mollie.payum.action.state_machine.transition.payment`                             |
-| `bit_bag.sylius_mollie_plugin.action.state_machine.transition.processing_state_machine_transition`        | `sylius_mollie.payum.action.state_machine.transition.processing_state_machine_transition` |
+| `bit_bag.sylius_mollie_plugin.action.state_machine.transition.processing_state_machine_transition`        | `sylius_mollie.payum.action.state_machine.transition.processing_state_machine` |
 | `bit_bag.sylius_mollie_plugin.action.state_machine.transition.state_machine_transition`                   | `sylius_mollie.payum.action.state_machine.transition.state_machine`                       |
 | `sylius_mollie_plugin.payum_action.state_machine.cancel_recurring_subscription`                           | `sylius_mollie.payum.action.api.cancel_recurring_subscription`                            |
 | `sylius_mollie_plugin.payum_action.order_set_status`                                                      | `sylius_mollie.payum.action.state_machine.order_set_status`                               |
@@ -212,7 +212,7 @@ The following service IDs have been removed:
 | `sylius_mollie_plugin.logger.mollie_logger_action`                                                        | `sylius_mollie.logger.mollie_logger_action`                                               |
 | `sylius_mollie_plugin.order.order_payment_refund`                                                         | `sylius_mollie.order.order_payment_refund`                                                |
 | `sylius_mollie_plugin.order.order_item_cloner`                                                            | `sylius_mollie.order.order_item_cloner`                                                   |
-| `ssylius_mollie_plugin.order.adjustment_cloner`                                                           | `sylius_mollie.order.adjustment_cloner`                                                   |
+| `sylius_mollie_plugin.order.adjustment_cloner`                                                           | `sylius_mollie.order.adjustment_cloner`                                                   |
 | `sylius_mollie_plugin.order.shipment_cloner`                                                              | `sylius_mollie.order.shipment_cloner`                                                     |
 | `sylius_mollie_plugin.order.shipment_unit_cloner`                                                         | `sylius_mollie.order.shipment_unit_cloner`                                                |
 | `sylius_mollie_plugin.order.order_cloner`                                                                 | `sylius_mollie.order.subscription_order_cloner`                                           |
@@ -560,7 +560,7 @@ Make sure to register the theme in your template using:
 | `Sylius\MolliePlugin\Action\StateMachine\Applicator\SubscriptionAndPaymentIdApplicatorInterface`     | `sylius_mollie.payum.action.state_machine.applicator.subscription_and_payment_id`         |
 | `Sylius\MolliePlugin\Action\StateMachine\Applicator\SubscriptionAndSyliusPaymentApplicatorInterface` | `sylius_mollie.payum.action.state_machine.applicator.subscription_and_sylius_payment`     |
 | `Sylius\MolliePlugin\Action\StateMachine\Transition\PaymentStateMachineTransitionInterface`          | `sylius_mollie.payum.action.state_machine.transition.payment`                             |
-| `Sylius\MolliePlugin\Action\StateMachine\Transition\ProcessingStateMachineTransitionInterface`       | `sylius_mollie.payum.action.state_machine.transition.processing_state_machine_transition` |
+| `Sylius\MolliePlugin\Action\StateMachine\Transition\ProcessingStateMachineTransitionInterface`       | `sylius_mollie.payum.action.state_machine.transition.processing_state_machine` |
 | `Sylius\MolliePlugin\Action\StateMachine\Transition\StateMachineTransitionInterface`                 | `sylius_mollie.payum.action.state_machine.transition.state_machine`                       |
 | `Sylius\MolliePlugin\Action\StateMachine\SetStatusOrderActionInterface`                              | `sylius_mollie.payum.action.state_machine.order_set_status`                               |
 
