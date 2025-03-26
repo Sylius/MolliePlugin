@@ -1,0 +1,10 @@
+{% macro doc(label) %}
+    {% set links = {
+        'sylius_mollie_plugin.help.api_key_doc': '<a target="_blank" href="https://www.mollie.com/dashboard/developers/api-keys">Mollie profile</a> – it starts with test_/live_',
+        'sylius_mollie_plugin.help.mollie_components_doc': '<a target="_blank" href="https://www.mollie.com/en/news/post/better-checkout-flows-with-mollie-components">Mollie Components</a> – better checkout experience.',
+        'sylius_mollie_plugin.help.single_click_doc': '<a target="_blank" href="https://help.mollie.com/hc/en-us/articles/115000671249-What-are-single-click-payments-and-how-does-it-work-">Single Click Payments</a> – read more.',
+        'sylius_mollie_plugin.help.payment_methods_doc': 'Click <a target="_blank" href="https://docs.mollie.com/orders/why-use-orders">here</a> to learn about Mollie Payment Methods.'
+    } %}
+
+    {{ links[label]|default('')|raw }}
+{% endmacro %}
