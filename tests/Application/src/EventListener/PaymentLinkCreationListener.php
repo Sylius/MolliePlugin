@@ -28,28 +28,12 @@ use Webmozart\Assert\Assert;
 
 final class PaymentLinkCreationListener
 {
-    /** @var PaymentTokenProviderInterface */
-    private $paymentTokenProvider;
-
-    /** @var ObjectManager */
-    private $orderManager;
-
-    /** @var OrderPaymentLinkSenderInterface */
-    private $orderPaymentLinkSender;
-
-    /** @var Payum */
-    private $payum;
-
     public function __construct(
-        PaymentTokenProviderInterface $paymentTokenProvider,
-        ObjectManager $orderManager,
-        OrderPaymentLinkSenderInterface $orderPaymentLinkSender,
-        Payum $payum,
+        private readonly PaymentTokenProviderInterface $paymentTokenProvider,
+        private readonly ObjectManager $orderManager,
+        private readonly OrderPaymentLinkSenderInterface $orderPaymentLinkSender,
+        private readonly Payum $payum,
     ) {
-        $this->paymentTokenProvider = $paymentTokenProvider;
-        $this->orderManager = $orderManager;
-        $this->orderPaymentLinkSender = $orderPaymentLinkSender;
-        $this->payum = $payum;
     }
 
     public function setPaymentLink(GenericEvent $event): void
