@@ -32,7 +32,7 @@
             </div>
         {% endif %}
     {% endif %}
-    {% if sm_can(payment, 'refund', 'sylius_payment') %}
+    {% if payment.method.gatewayConfig.factoryName == 'mollie' and sm_can(payment, 'refund', 'sylius_payment') %}
         <div class="ui segment">
             <form action="{{ path('sylius_admin_order_payment_refund', {'orderId': order.id, 'id': payment.id}) }}" method="post" novalidate>
                 <input type="hidden" name="_method" value="PUT">
