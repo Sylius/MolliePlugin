@@ -1,0 +1,108 @@
+sylius_fixtures:
+    suites:
+        default:
+            listeners:
+                products_within_all_channels: ~
+
+            fixtures:
+                geographical:
+                    options:
+                        countries:
+                            - 'AT'
+                            - 'AU'
+                            - 'BE'
+                            - 'CA'
+                            - 'CH'
+                            - 'CN'
+                            - 'DE'
+                            - 'DK'
+                            - 'ES'
+                            - 'FR'
+                            - 'GB'
+                            - 'IT'
+                            - 'MX'
+                            - 'NL'
+                            - 'NO'
+                            - 'NZ'
+                            - 'PL'
+                            - 'PT'
+                            - 'SE'
+                            - 'US'
+                        zones:
+                            EEA:
+                                name: 'European Economic Area'
+                                countries:
+                                    - 'AT'
+                                    - 'BE'
+                                    - 'CH'
+                                    - 'DE'
+                                    - 'DK'
+                                    - 'ES'
+                                    - 'FR'
+                                    - 'IT'
+                                    - 'NL'
+                                    - 'NO'
+                                    - 'PL'
+                                    - 'PT'
+                                    - 'SE'
+                channel:
+                    options:
+                        custom:
+                            eur_web_store:
+                                name: 'Euro Web Store'
+                                code: 'WEB_EUR'
+                                locales:
+                                    - '%locale%'
+                                currencies:
+                                    - 'EUR'
+                                enabled: true
+                                shop_billing_data:
+                                    company: 'Sylius'
+                                    tax_id: '0001112222'
+                                    country_code: 'FR'
+                                    street: 'Test St. 15'
+                                    city: 'eCommerce Town'
+                                    postcode: '00 33 22'
+                                menu_taxon: 'MENU_CATEGORY'
+                                contact_phone_number: '+41 123 456 789'
+                                contact_email: 'contact@example.com'
+                payment_method:
+                    options:
+                        custom:
+                            cash_on_delivery:
+                                channels:
+                                    - 'FASHION_WEB'
+                                    - 'WEB_EUR'
+                            bank_transfer:
+                                channels:
+                                    - 'FASHION_WEB'
+                                    - 'WEB_EUR'
+                shipping_method:
+                    options:
+                        custom:
+                            dhl_eea:
+                                code: 'dhl_eea'
+                                name: 'DHL EEA'
+                                enabled: true
+                                channels:
+                                    - 'FASHION_WEB'
+                                    - 'WEB_EUR'
+                                zone: 'EEA'
+                            ups:
+                                enabled: true
+                                channels:
+                                    - 'FASHION_WEB'
+                                    - 'WEB_EUR'
+                                zone: 'WORLD'
+                            dhl_express:
+                                enabled: true
+                                channels:
+                                    - 'FASHION_WEB'
+                                    - 'WEB_EUR'
+                                zone: 'WORLD'
+                            fedex:
+                                enabled: true
+                                channels:
+                                    - 'FASHION_WEB'
+                                    - 'WEB_EUR'
+                                zone: 'US'
