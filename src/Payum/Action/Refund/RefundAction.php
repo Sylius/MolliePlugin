@@ -11,11 +11,9 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Action;
+namespace Sylius\MolliePlugin\Payum\Action\Refund;
 
 use Mollie\Api\Exceptions\ApiException;
-use Payum\Core\Action\ActionInterface;
-use Payum\Core\ApiAwareInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\GatewayAwareInterface;
@@ -23,12 +21,11 @@ use Payum\Core\GatewayAwareTrait;
 use Payum\Core\Request\Refund;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Resource\Exception\UpdateHandlingException;
-use Sylius\MolliePlugin\Action\Api\BaseRefundAction;
 use Sylius\MolliePlugin\Helper\ConvertRefundDataInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Webmozart\Assert\Assert;
 
-final class RefundAction extends BaseRefundAction implements ActionInterface, ApiAwareInterface, GatewayAwareInterface
+final class RefundAction extends BaseRefundAction implements GatewayAwareInterface
 {
     use GatewayAwareTrait;
 

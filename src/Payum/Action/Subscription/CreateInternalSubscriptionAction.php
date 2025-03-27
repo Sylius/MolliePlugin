@@ -11,22 +11,24 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Action\Api;
+namespace Sylius\MolliePlugin\Payum\Action\Subscription;
 
-use Payum\Core\Action\ActionInterface;
-use Payum\Core\ApiAwareInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Factory\MollieSubscriptionFactoryInterface;
+use Sylius\MolliePlugin\Payum\Action\BaseApiAwareAction;
+use Sylius\MolliePlugin\Payum\Request\Subscription\CreateInternalRecurring;
 use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
 use Sylius\MolliePlugin\Repository\OrderRepositoryInterface;
-use Sylius\MolliePlugin\Request\Api\CreateInternalRecurring;
 
-final class CreateInternalSubscriptionAction extends BaseApiAwareAction implements ActionInterface, ApiAwareInterface
+final class CreateInternalSubscriptionAction extends BaseApiAwareAction
 {
-    public function __construct(private readonly MollieSubscriptionRepositoryInterface $subscriptionRepository, private readonly MollieSubscriptionFactoryInterface $subscriptionFactory, private readonly OrderRepositoryInterface $orderRepository)
-    {
+    public function __construct(
+        private readonly MollieSubscriptionRepositoryInterface $subscriptionRepository,
+        private readonly MollieSubscriptionFactoryInterface $subscriptionFactory,
+        private readonly OrderRepositoryInterface $orderRepository,
+    ) {
     }
 
     public function execute($request): void

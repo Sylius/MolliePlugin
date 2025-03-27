@@ -11,22 +11,22 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Action\Api;
+namespace Sylius\MolliePlugin\Payum\Action;
 
 use Mollie\Api\Exceptions\ApiException;
-use Payum\Core\Action\ActionInterface;
-use Payum\Core\ApiAwareInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Entity\MollieCustomer;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Request\Api\CreateCustomer;
+use Sylius\MolliePlugin\Payum\Request\CreateCustomer;
 
-final class CreateCustomerAction extends BaseApiAwareAction implements ActionInterface, ApiAwareInterface
+final class CreateCustomerAction extends BaseApiAwareAction
 {
-    public function __construct(private readonly MollieLoggerActionInterface $loggerAction, private readonly RepositoryInterface $mollieCustomerRepository)
-    {
+    public function __construct(
+        private readonly MollieLoggerActionInterface $loggerAction,
+        private readonly RepositoryInterface $mollieCustomerRepository,
+    ) {
     }
 
     /** @param CreateCustomer|mixed $request */

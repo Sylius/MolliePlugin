@@ -11,21 +11,20 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Action\Api;
+namespace Sylius\MolliePlugin\Payum\Action\Subscription;
 
 use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Resources\Customer;
-use Payum\Core\Action\ActionInterface;
-use Payum\Core\ApiAwareInterface;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\GatewayAwareInterface;
 use Payum\Core\GatewayAwareTrait;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Request\Api\CancelRecurringSubscription;
+use Sylius\MolliePlugin\Payum\Action\BaseApiAwareAction;
+use Sylius\MolliePlugin\Payum\Request\Subscription\CancelRecurringSubscription;
 use Webmozart\Assert\Assert;
 
-final class CancelRecurringSubscriptionAction extends BaseApiAwareAction implements ActionInterface, GatewayAwareInterface, ApiAwareInterface
+final class CancelRecurringSubscriptionAction extends BaseApiAwareAction implements GatewayAwareInterface
 {
     use GatewayAwareTrait;
 

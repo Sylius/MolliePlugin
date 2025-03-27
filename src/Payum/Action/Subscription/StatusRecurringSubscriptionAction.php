@@ -11,24 +11,26 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Action\StateMachine;
+namespace Sylius\MolliePlugin\Payum\Action\Subscription;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Payum\Core\Action\ActionInterface;
-use Payum\Core\ApiAwareInterface;
 use Payum\Core\Exception\RequestNotSupportedException;
-use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
-use Sylius\MolliePlugin\Action\StateMachine\Applicator\SubscriptionAndPaymentIdApplicatorInterface;
-use Sylius\MolliePlugin\Action\StateMachine\Applicator\SubscriptionAndSyliusPaymentApplicatorInterface;
-use Sylius\MolliePlugin\Action\StateMachine\Transition\StateMachineTransitionInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
-use Sylius\MolliePlugin\Request\StateMachine\StatusRecurringSubscription;
-use Sylius\MolliePlugin\Transitions\MollieSubscriptionTransitions;
+use Sylius\MolliePlugin\Payum\Action\BaseApiAwareAction;
+use Sylius\MolliePlugin\Payum\Request\Subscription\StatusRecurringSubscription;
+use Sylius\MolliePlugin\StateMachine\Applicator\SubscriptionAndPaymentIdApplicatorInterface;
+use Sylius\MolliePlugin\StateMachine\Applicator\SubscriptionAndSyliusPaymentApplicatorInterface;
+use Sylius\MolliePlugin\StateMachine\MollieSubscriptionTransitions;
+use Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransitionInterface;
 
-final class StatusRecurringSubscriptionAction extends BaseApiAwareAction implements ActionInterface, ApiAwareInterface
+final class StatusRecurringSubscriptionAction extends BaseApiAwareAction
 {
-    public function __construct(private readonly EntityManagerInterface $subscriptionManager, private readonly SubscriptionAndPaymentIdApplicatorInterface $subscriptionAndPaymentIdApplicator, private readonly SubscriptionAndSyliusPaymentApplicatorInterface $subscriptionAndSyliusPaymentApplicator, private readonly StateMachineTransitionInterface $stateMachineTransition)
-    {
+    public function __construct(
+        private readonly EntityManagerInterface $subscriptionManager,
+        private readonly SubscriptionAndPaymentIdApplicatorInterface $subscriptionAndPaymentIdApplicator,
+        private readonly SubscriptionAndSyliusPaymentApplicatorInterface $subscriptionAndSyliusPaymentApplicator,
+        private readonly StateMachineTransitionInterface $stateMachineTransition,
+    ) {
     }
 
     /** @param StatusRecurringSubscription|mixed $request */

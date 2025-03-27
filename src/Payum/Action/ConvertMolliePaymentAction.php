@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Action;
+namespace Sylius\MolliePlugin\Payum\Action;
 
 use Mollie\Api\Types\PaymentMethod;
 use Payum\Core\Action\ActionInterface;
@@ -26,7 +26,6 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Customer\Context\CustomerContextInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Factory\ApiCustomerFactoryInterface;
 use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
@@ -37,12 +36,20 @@ use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
 use Webmozart\Assert\Assert;
 
-final class ConvertMolliePaymentAction extends BaseApiAwareAction implements ActionInterface, GatewayAwareInterface, ApiAwareInterface
+final class ConvertMolliePaymentAction extends BaseApiAwareAction implements GatewayAwareInterface
 {
     use GatewayAwareTrait;
 
-    public function __construct(private PaymentDescriptionInterface $paymentDescription, private RepositoryInterface $mollieMethodsRepository, private ConvertOrderInterface $orderConverter, private CustomerContextInterface $customerContext, private PaymentLocaleResolverInterface $paymentLocaleResolver, private ApiCustomerFactoryInterface $apiCustomerFactory, private IntToStringConverterInterface $intToStringConverter, private DivisorProviderInterface $divisorProvider)
-    {
+    public function __construct(
+        private PaymentDescriptionInterface $paymentDescription,
+        private RepositoryInterface $mollieMethodsRepository,
+        private ConvertOrderInterface $orderConverter,
+        private CustomerContextInterface $customerContext,
+        private PaymentLocaleResolverInterface $paymentLocaleResolver,
+        private ApiCustomerFactoryInterface $apiCustomerFactory,
+        private IntToStringConverterInterface $intToStringConverter,
+        private DivisorProviderInterface $divisorProvider,
+    ) {
     }
 
     /** @param Convert|mixed $request */
@@ -156,7 +163,6 @@ final class ConvertMolliePaymentAction extends BaseApiAwareAction implements Act
         return
             $request instanceof Convert &&
             $request->getSource() instanceof PaymentInterface &&
-            'array' === $request->getTo()
-        ;
+            'array' === $request->getTo();
     }
 }

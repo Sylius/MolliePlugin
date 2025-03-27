@@ -11,17 +11,17 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Action;
+namespace Sylius\MolliePlugin\Payum\Action;
 
 use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Resources\Payment;
 use Mollie\Api\Types\PaymentStatus;
 use Mollie\Api\Types\SubscriptionStatus;
 use Payum\Core\Exception\RequestNotSupportedException;
+use Payum\Core\GatewayAwareInterface;
 use Payum\Core\GatewayAwareTrait;
 use Payum\Core\Request\GetStatusInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
-use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
 use Sylius\MolliePlugin\Checker\Refund\MollieOrderRefundCheckerInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Payments\Methods\MealVoucher;
@@ -30,12 +30,17 @@ use Sylius\MolliePlugin\Refund\PaymentRefundInterface;
 use Sylius\MolliePlugin\Updater\Order\OrderVoucherAdjustmentUpdaterInterface;
 use Webmozart\Assert\Assert;
 
-final class StatusAction extends BaseApiAwareAction implements StatusActionInterface
+final class StatusAction extends BaseApiAwareAction implements GatewayAwareInterface
 {
     use GatewayAwareTrait;
 
-    public function __construct(private PaymentRefundInterface $paymentRefund, private OrderRefundInterface $orderRefund, private MollieLoggerActionInterface $loggerAction, private OrderVoucherAdjustmentUpdaterInterface $orderVoucherAdjustmentUpdater, private MollieOrderRefundCheckerInterface $mollieOrderRefundChecker)
-    {
+    public function __construct(
+        private PaymentRefundInterface $paymentRefund,
+        private OrderRefundInterface $orderRefund,
+        private MollieLoggerActionInterface $loggerAction,
+        private OrderVoucherAdjustmentUpdaterInterface $orderVoucherAdjustmentUpdater,
+        private MollieOrderRefundCheckerInterface $mollieOrderRefundChecker,
+    ) {
     }
 
     /** @param GetStatusInterface|mixed $request */

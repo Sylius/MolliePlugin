@@ -11,14 +11,16 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Action;
+namespace Sylius\MolliePlugin\Payum\Action;
 
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Exception\RuntimeException;
+use Payum\Core\GatewayAwareInterface;
 use Payum\Core\GatewayAwareTrait;
 use Payum\Core\Reply\HttpRedirect;
 use Payum\Core\Request\Capture;
+use Payum\Core\Security\GenericTokenFactoryAwareInterface;
 use Payum\Core\Security\GenericTokenFactoryInterface;
 use Payum\Core\Security\TokenInterface;
 use Psr\Log\InvalidArgumentException;
@@ -26,19 +28,18 @@ use Sylius\Component\Core\Model\Payment;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
-use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Payments\ApiTypeRestrictedPaymentMethods;
 use Sylius\MolliePlugin\Payments\PaymentType;
-use Sylius\MolliePlugin\Request\Api\CreateCustomer;
-use Sylius\MolliePlugin\Request\Api\CreateInternalRecurring;
-use Sylius\MolliePlugin\Request\Api\CreateOnDemandSubscription;
-use Sylius\MolliePlugin\Request\Api\CreateOnDemandSubscriptionPayment;
-use Sylius\MolliePlugin\Request\Api\CreateOrder;
-use Sylius\MolliePlugin\Request\Api\CreatePayment;
+use Sylius\MolliePlugin\Payum\Request\CreateCustomer;
+use Sylius\MolliePlugin\Payum\Request\CreateOrder;
+use Sylius\MolliePlugin\Payum\Request\CreatePayment;
+use Sylius\MolliePlugin\Payum\Request\Subscription\CreateInternalRecurring;
+use Sylius\MolliePlugin\Payum\Request\Subscription\CreateOnDemandSubscription;
+use Sylius\MolliePlugin\Payum\Request\Subscription\CreateOnDemandSubscriptionPayment;
 use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
 
-final class CaptureAction extends BaseApiAwareAction implements CaptureActionInterface
+final class CaptureAction extends BaseApiAwareAction implements GenericTokenFactoryAwareInterface, GatewayAwareInterface
 {
     public const PAYMENT_FAILED_STATUS = 'failed';
 

@@ -11,25 +11,27 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Action\Api;
+namespace Sylius\MolliePlugin\Payum\Action\Subscription;
 
 use Mollie\Api\Exceptions\ApiException;
-use Payum\Core\Action\ActionInterface;
-use Payum\Core\ApiAwareInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayAwareInterface;
 use Payum\Core\GatewayAwareTrait;
+use Payum\Core\Reply\HttpRedirect;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Parser\Response\GuzzleNegativeResponseParserInterface;
-use Sylius\MolliePlugin\Request\Api\CreateOnDemandSubscriptionPayment;
-use Sylius\MolliePlugin\Request\Api\CreateSepaMandate;
+use Sylius\MolliePlugin\Payum\Action\BaseApiAwareAction;
+use Sylius\MolliePlugin\Payum\Request\CreateSepaMandate;
+use Sylius\MolliePlugin\Payum\Request\Subscription\CreateOnDemandSubscription;
 
-final class CreateOnDemandPaymentAction extends BaseApiAwareAction implements ActionInterface, GatewayAwareInterface, ApiAwareInterface
+final class CreateOnDemandSubscriptionAction extends BaseApiAwareAction implements GatewayAwareInterface
 {
     use GatewayAwareTrait;
 
-    public function __construct(private MollieLoggerActionInterface $loggerAction, private GuzzleNegativeResponseParserInterface $guzzleNegativeResponseParser)
-    {
+    public function __construct(
+        private MollieLoggerActionInterface $loggerAction,
+        private GuzzleNegativeResponseParserInterface $guzzleNegativeResponseParser,
+    ) {
     }
 
     /** @param CreateSepaMandate|mixed $request */
@@ -44,44 +46,52 @@ final class CreateOnDemandPaymentAction extends BaseApiAwareAction implements Ac
                 'amount' => $details['amount'],
                 'customerId' => $details['customerId'] ?? null,
                 'description' => $details['description'],
+                'redirectUrl' => $details['backurl'],
                 'webhookUrl' => $details['webhookUrl'],
                 'metadata' => $details['metadata'],
-                'mandateId' => $details['mandateId'],
-                'sequenceType' => 'recurring',
+                'sequenceType' => 'first',
             ];
             /** @throws ApiException|\Exception */
             $payment = $this->mollieApiClient->payments->create($paymentSettings);
         } catch (ApiException $e) {
             $message = $this->guzzleNegativeResponseParser->parse($e);
-            $this->loggerAction->addNegativeLog(sprintf('Error with create payment with: %s', $e->getMessage()));
+            $formattedMessage = sprintf('Error with create payment with: %s', $e->getMessage());
+            $this->loggerAction->addNegativeLog($formattedMessage);
 
             if ('' === $message) {
-                throw new ApiException(sprintf('Error with create payment with: %s', $e->getMessage()));
+                throw new ApiException($formattedMessage);
             }
 
             $details['statusError'] = $message;
 
             return;
         } catch (\Exception $e) {
-            $this->loggerAction->addNegativeLog(sprintf('Error with create payment with: %s', $e->getMessage()));
+            $formattedMessage = sprintf('Error with create payment with: %s', $e->getMessage());
+            $this->loggerAction->addNegativeLog($formattedMessage);
 
-            throw new ApiException(sprintf('Error with create payment with: %s', $e->getMessage()));
+            throw new ApiException($formattedMessage);
         }
 
         $details['payment_mollie_id'] = $payment->id;
 
         $this->loggerAction->addLog(sprintf('Create payment in mollie with id: %s', $payment->id));
+
+        if (null === $payment->getCheckoutUrl()) {
+            throw new HttpRedirect($details['backurl']);
+        }
+
+        throw new HttpRedirect($payment->getCheckoutUrl());
     }
 
     public function supports($request): bool
     {
         if (
-            false === $request instanceof CreateOnDemandSubscriptionPayment ||
+            false === $request instanceof CreateOnDemandSubscription ||
             false === $request->getModel() instanceof \ArrayAccess) {
             return false;
         }
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
-        return 'recurring' === ($details['metadata']['sequenceType'] ?? 'first');
+        return 'first' === ($details['metadata']['sequenceType'] ?? 'first');
     }
 }

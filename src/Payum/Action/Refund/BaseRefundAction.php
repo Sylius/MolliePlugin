@@ -11,7 +11,9 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Action\Api;
+namespace Sylius\MolliePlugin\Payum\Action\Refund;
+
+use Sylius\MolliePlugin\Payum\Action\BaseApiAwareAction;
 
 abstract class BaseRefundAction extends BaseApiAwareAction
 {

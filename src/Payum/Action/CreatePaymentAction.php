@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Action\Api;
+namespace Sylius\MolliePlugin\Payum\Action;
 
 use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Types\PaymentMethod;
@@ -21,7 +21,7 @@ use Payum\Core\Reply\HttpRedirect;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Parser\Response\GuzzleNegativeResponseParserInterface;
-use Sylius\MolliePlugin\Request\Api\CreatePayment;
+use Sylius\MolliePlugin\Payum\Request\CreatePayment;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Webmozart\Assert\Assert;
