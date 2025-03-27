@@ -24,7 +24,7 @@ final class CreatePage extends BaseCreatePage implements CreatePageInterface
      */
     public function setApiKey(string $apiKey): void
     {
-        $this->getDocument()->fillField('Test API Key *', $apiKey);
+        $this->getDocument()->fillField('Test API Key', $apiKey);
     }
 
     /**
