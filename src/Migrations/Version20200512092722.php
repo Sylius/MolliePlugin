@@ -16,7 +16,7 @@ namespace Sylius\MolliePlugin\Migrations;
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\Migrations\AbstractMigration;
+use Sylius\Bundle\CoreBundle\Doctrine\Migrations\AbstractMigration;
 
 final class Version20200512092722 extends AbstractMigration
 {
