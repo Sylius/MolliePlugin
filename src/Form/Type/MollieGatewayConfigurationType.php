@@ -32,6 +32,7 @@ use Symfony\Component\Validator\Constraints\Regex;
 final class MollieGatewayConfigurationType extends AbstractType
 {
     public const API_KEY_LIVE = 'api_key_live';
+
     public const API_KEY_TEST = 'api_key_test';
 
     public function __construct(private readonly MollieApiClient $apiClient)
