@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Action\StateMachine\Transition;
+namespace Sylius\MolliePlugin\StateMachine\Applicator;
 
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 
-interface StateMachineTransitionInterface
+interface SubscriptionAndPaymentIdApplicatorInterface
 {
-    public function apply(MollieSubscriptionInterface $subscription, string $transitions): void;
+    public function execute(MollieSubscriptionInterface $subscription, string $paymentId): void;
 }

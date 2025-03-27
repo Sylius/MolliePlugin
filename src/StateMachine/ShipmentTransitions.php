@@ -11,17 +11,13 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Transitions;
+namespace Sylius\MolliePlugin\StateMachine;
 
-final class MollieRecurringTransitions
+final class ShipmentTransitions
 {
-    public const GRAPH_MANUAL = 'mollie_subscription_payment_graph_manual';
+    public const GRAPH = 'sylius_shipment';
 
-    public const TRANSITION_ACTIVATE = 'activate';
-
-    public const TRANSITION_CANCEL = 'cancel';
-
-    public const TRANSITION_COMPLETE = 'complete';
+    public const TRANSITION_CREATE_AND_SHIP = 'create_and_ship';
 
     private function __construct()
     {

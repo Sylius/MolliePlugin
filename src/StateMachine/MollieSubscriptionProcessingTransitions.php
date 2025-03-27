@@ -11,13 +11,15 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Transitions\PartialShip;
+namespace Sylius\MolliePlugin\StateMachine;
 
-final class ShipmentTransitions
+final class MollieSubscriptionProcessingTransitions
 {
-    public const GRAPH = 'sylius_shipment';
+    public const GRAPH = 'mollie_subscription_processing_graph';
 
-    public const TRANSITION_CREATE_AND_SHIP = 'create_and_ship';
+    public const TRANSITION_PROCESS = 'process';
+
+    public const TRANSITION_SCHEDULE = 'schedule';
 
     private function __construct()
     {

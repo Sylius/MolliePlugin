@@ -16,10 +16,10 @@ namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Action\StateMachine\Transition;
 use PHPUnit\Framework\TestCase;
 use SM\Factory\FactoryInterface;
 use SM\StateMachine\StateMachineInterface;
-use Sylius\MolliePlugin\Action\StateMachine\Transition\StateMachineTransition;
-use Sylius\MolliePlugin\Action\StateMachine\Transition\StateMachineTransitionInterface;
+use Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransition;
+use Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransitionInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
-use Sylius\MolliePlugin\Transitions\MollieSubscriptionTransitions;
+use Sylius\MolliePlugin\StateMachine\MollieSubscriptionTransitions;
 
 final class StateMachineTransitionTest extends TestCase
 {

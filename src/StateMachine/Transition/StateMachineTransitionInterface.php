@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Action\StateMachine;
+namespace Sylius\MolliePlugin\StateMachine\Transition;
 
-use Mollie\Api\Resources\Order;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 
-interface SetStatusOrderActionInterface
+interface StateMachineTransitionInterface
 {
-    public function execute(Order $order): void;
+    public function apply(MollieSubscriptionInterface $subscription, string $transitions): void;
 }

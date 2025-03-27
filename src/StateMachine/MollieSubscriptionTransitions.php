@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Transitions;
+namespace Sylius\MolliePlugin\StateMachine;
 
 final class MollieSubscriptionTransitions
 {

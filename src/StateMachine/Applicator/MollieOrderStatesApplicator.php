@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Action\StateMachine;
+namespace Sylius\MolliePlugin\StateMachine\Applicator;
 
 use Mollie\Api\Resources\Order;
 use SM\Factory\FactoryInterface;
@@ -21,12 +21,15 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Order\OrderTransitions;
 use Sylius\Component\Shipping\ShipmentTransitions;
 use Sylius\MolliePlugin\PartialShip\CreatePartialShipFromMollieInterface;
-use Sylius\MolliePlugin\Transitions\PartialShip\ShipmentTransitions as ShipmentTransitionsPartial;
+use Sylius\MolliePlugin\StateMachine\ShipmentTransitions as ShipmentTransitionsPartial;
 
-final class SetStatusOrderAction implements SetStatusOrderActionInterface
+final class MollieOrderStatesApplicator implements MollieOrderStatesApplicatorInterface
 {
-    public function __construct(private readonly FactoryInterface $factory, private readonly OrderRepositoryInterface $orderRepository, private readonly CreatePartialShipFromMollieInterface $createPartialShipFromMollie)
-    {
+    public function __construct(
+        private readonly FactoryInterface $factory,
+        private readonly OrderRepositoryInterface $orderRepository,
+        private readonly CreatePartialShipFromMollieInterface $createPartialShipFromMollie,
+    ) {
     }
 
     public function execute(Order $order): void
@@ -44,45 +47,53 @@ final class SetStatusOrderAction implements SetStatusOrderActionInterface
         $lastShipment = $orderSylius->getShipments()->last();
 
         if ($order->isCompleted()) {
-            $this->applyStateMachineOrderTransition($orderSylius, OrderTransitions::TRANSITION_FULFILL);
-            $this->applyStateMachineShipmentsTransition($firstShipment, ShipmentTransitions::TRANSITION_SHIP);
-        }
-        if ($order->isCanceled() || $order->isExpired()) {
-            $this->applyStateMachineOrderTransition($orderSylius, OrderTransitions::TRANSITION_CANCEL);
+            $this->applyOrderTransition($orderSylius, OrderTransitions::TRANSITION_FULFILL);
+            $this->applyShipmentTransition($firstShipment, ShipmentTransitions::TRANSITION_SHIP);
         }
 
-        if ($order->isShipping() && $this->isConfirmNotify($order, $firstShipment) && false === $this->isShippingAllItems($firstShipment)) {
+        if ($order->isCanceled() || $order->isExpired()) {
+            $this->applyOrderTransition($orderSylius, OrderTransitions::TRANSITION_CANCEL);
+        }
+
+        if (
+            $order->isShipping() &&
+            $this->isConfirmNotify($order, $firstShipment) &&
+            false === $this->isShippingAllItems($firstShipment)
+        ) {
             return;
         }
+
         if ($order->isShipping() && false === $this->isShippingAllItems($firstShipment)) {
             $this->createPartialShipFromMollie->create($orderSylius, $order);
-            $this->applyStateMachineShipmentsTransition($lastShipment, ShipmentTransitionsPartial::TRANSITION_CREATE_AND_SHIP);
+            $this->applyShipmentTransition(
+                $lastShipment,
+                ShipmentTransitionsPartial::TRANSITION_CREATE_AND_SHIP
+            );
         }
+
         if ($order->isShipping() && true === $this->isShippingAllItems($firstShipment)) {
-            $this->applyStateMachineShipmentsTransition($lastShipment, ShipmentTransitions::TRANSITION_SHIP);
+            $this->applyShipmentTransition($lastShipment, ShipmentTransitions::TRANSITION_SHIP);
         }
     }
 
-    private function applyStateMachineOrderTransition(OrderInterface $orderSylius, string $transitions): void
+    private function applyOrderTransition(OrderInterface $orderSylius, string $transition): void
     {
         $stateMachine = $this->factory->get($orderSylius, OrderTransitions::GRAPH);
-
-        if (!$stateMachine->can($transitions)) {
+        if (!$stateMachine->can($transition)) {
             return;
         }
 
-        $stateMachine->apply($transitions);
+        $stateMachine->apply($transition);
     }
 
-    private function applyStateMachineShipmentsTransition(ShipmentInterface $orderSylius, string $transitions): void
+    private function applyShipmentTransition(ShipmentInterface $orderSylius, string $transition): void
     {
         $stateMachine = $this->factory->get($orderSylius, ShipmentTransitions::GRAPH);
-
-        if (!$stateMachine->can($transitions)) {
+        if (!$stateMachine->can($transition)) {
             return;
         }
 
-        $stateMachine->apply($transitions);
+        $stateMachine->apply($transition);
     }
 
     private function isShippingAllItems(ShipmentInterface $shipment): bool

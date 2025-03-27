@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Action\StateMachine\Transition;
+namespace Sylius\MolliePlugin\StateMachine\Transition;
 
 use SM\Factory\FactoryInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
-use Sylius\MolliePlugin\Transitions\MollieSubscriptionPaymentProcessingTransitions;
+use Sylius\MolliePlugin\StateMachine\MollieSubscriptionPaymentProcessingTransitions;
 
 final class PaymentStateMachineTransition implements PaymentStateMachineTransitionInterface
 {
