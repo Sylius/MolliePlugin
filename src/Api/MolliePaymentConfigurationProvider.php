@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Action\ApiPlatform;
+namespace Sylius\MolliePlugin\Api;
 
 use Sylius\Bundle\PayumBundle\Model\GatewayConfigInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -19,13 +19,10 @@ use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class MolliePayment
+class MolliePaymentConfigurationProvider
 {
     private const MOLLIE_PAYMENT_METHOD_NAME = 'mollie';
 
-    /**
-     * MolliePayment constructor
-     */
     public function __construct(private readonly UrlGeneratorInterface $urlGenerator)
     {
     }
