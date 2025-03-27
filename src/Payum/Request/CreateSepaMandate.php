@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Request\Api;
+namespace Sylius\MolliePlugin\Payum\Request;
 
 use Payum\Core\Request\Generic;
 
-final class CreateSubscriptionPayment extends Generic
+class CreateSepaMandate extends Generic
 {
 }

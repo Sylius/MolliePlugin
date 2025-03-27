@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Request\Api;
+namespace Sylius\MolliePlugin\Payum\Request\Refund;
 
 use Payum\Core\Request\Generic;
 
-class GetMethods extends Generic
+class RefundOrder extends Generic
 {
 }

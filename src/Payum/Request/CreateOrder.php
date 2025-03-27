@@ -11,12 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Request\Api;
+namespace Sylius\MolliePlugin\Payum\Request;
 
-interface CreateOnDemandSubscriptionInterface
+use Payum\Core\Request\Generic;
+
+class CreateOrder extends Generic
 {
-    /**
-     * @return mixed
-     */
-    public function getModel();
 }

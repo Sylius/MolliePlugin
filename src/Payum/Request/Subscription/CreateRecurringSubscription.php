@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Request\Api;
+namespace Sylius\MolliePlugin\Payum\Request\Subscription;
 
 use Payum\Core\Request\Generic;
 
-final class CreateOnDemandSubscription extends Generic implements CreateOnDemandSubscriptionInterface
+class CreateRecurringSubscription extends Generic
 {
 }
