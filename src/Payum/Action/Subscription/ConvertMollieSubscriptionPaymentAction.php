@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Payum\Action\Subscription;
 
-use Payum\Core\Action\ActionInterface;
-use Payum\Core\ApiAwareInterface;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\GatewayAwareInterface;
 use Payum\Core\GatewayAwareTrait;
@@ -24,13 +22,13 @@ use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Customer\Context\CustomerContextInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\MolliePlugin\Payum\Action\BaseApiAwareAction;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
 use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
 use Sylius\MolliePlugin\Helper\PaymentDescriptionInterface;
-use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Payum\Action\BaseApiAwareAction;
 use Sylius\MolliePlugin\Payum\Request\CreateCustomer;
+use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
 use Webmozart\Assert\Assert;
 

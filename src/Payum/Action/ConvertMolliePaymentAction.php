@@ -14,8 +14,6 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Payum\Action;
 
 use Mollie\Api\Types\PaymentMethod;
-use Payum\Core\Action\ActionInterface;
-use Payum\Core\ApiAwareInterface;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\GatewayAwareInterface;
 use Payum\Core\GatewayAwareTrait;

@@ -24,10 +24,10 @@ use Payum\Core\Request\Refund;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Resource\Exception\UpdateHandlingException;
-use Sylius\MolliePlugin\Action\RefundAction;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Helper\ConvertRefundDataInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Payum\Action\Refund\RefundAction;
 
 final class RefundActionTest extends TestCase
 {

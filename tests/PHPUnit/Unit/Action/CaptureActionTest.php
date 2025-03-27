@@ -32,15 +32,15 @@ use Psr\Log\InvalidArgumentException;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
-use Sylius\MolliePlugin\Action\CaptureAction;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Payments\PaymentType;
-use Sylius\MolliePlugin\Request\Api\CreateCustomer;
-use Sylius\MolliePlugin\Request\Api\CreateInternalRecurring;
-use Sylius\MolliePlugin\Request\Api\CreateOrder;
-use Sylius\MolliePlugin\Request\Api\CreatePayment;
-use Sylius\MolliePlugin\Request\Api\CreateSubscriptionPayment;
+use Sylius\MolliePlugin\Payum\Action\CaptureAction;
+use Sylius\MolliePlugin\Payum\Request\CreateCustomer;
+use Sylius\MolliePlugin\Payum\Request\CreateOrder;
+use Sylius\MolliePlugin\Payum\Request\CreatePayment;
+use Sylius\MolliePlugin\Payum\Request\Subscription\CreateInternalRecurring;
+use Sylius\MolliePlugin\Payum\Request\Subscription\CreateSubscriptionPayment;
 use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
 
 final class CaptureActionTest extends TestCase

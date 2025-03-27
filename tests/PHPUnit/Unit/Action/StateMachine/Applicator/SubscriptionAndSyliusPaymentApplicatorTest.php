@@ -15,15 +15,15 @@ namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Action\StateMachine\Applicator;
 
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\PaymentInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\MolliePlugin\StateMachine\Applicator\SubscriptionAndSyliusPaymentApplicator;
 use Sylius\MolliePlugin\StateMachine\Applicator\SubscriptionAndSyliusPaymentApplicatorInterface;
-use Sylius\MolliePlugin\StateMachine\Transition\PaymentStateMachineTransitionInterface;
-use Sylius\MolliePlugin\StateMachine\Transition\ProcessingStateMachineTransitionInterface;
-use Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransitionInterface;
-use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\MolliePlugin\StateMachine\MollieSubscriptionPaymentProcessingTransitions;
 use Sylius\MolliePlugin\StateMachine\MollieSubscriptionProcessingTransitions;
 use Sylius\MolliePlugin\StateMachine\MollieSubscriptionTransitions;
+use Sylius\MolliePlugin\StateMachine\Transition\PaymentStateMachineTransitionInterface;
+use Sylius\MolliePlugin\StateMachine\Transition\ProcessingStateMachineTransitionInterface;
+use Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransitionInterface;
 
 final class SubscriptionAndSyliusPaymentApplicatorTest extends TestCase
 {

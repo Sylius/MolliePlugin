@@ -28,7 +28,7 @@ use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Order\OrderPaymentRefund;
 use Sylius\MolliePlugin\Order\OrderPaymentRefundInterface;
-use Sylius\MolliePlugin\Request\Api\RefundOrder;
+use Sylius\MolliePlugin\Payum\Request\Refund\RefundOrder;
 use Sylius\RefundPlugin\Event\UnitsRefunded;
 use Sylius\RefundPlugin\Filter\UnitRefundFilterInterface;
 use Sylius\RefundPlugin\Model\OrderItemUnitRefund;

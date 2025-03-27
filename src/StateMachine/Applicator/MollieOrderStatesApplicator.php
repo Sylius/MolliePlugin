@@ -67,7 +67,7 @@ final class MollieOrderStatesApplicator implements MollieOrderStatesApplicatorIn
             $this->createPartialShipFromMollie->create($orderSylius, $order);
             $this->applyShipmentTransition(
                 $lastShipment,
-                ShipmentTransitionsPartial::TRANSITION_CREATE_AND_SHIP
+                ShipmentTransitionsPartial::TRANSITION_CREATE_AND_SHIP,
             );
         }
 

@@ -27,7 +27,7 @@ use Sylius\Component\Resource\StateMachine\StateMachineInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
-use Sylius\MolliePlugin\Provider\PaymentToken\PaymentTokenProviderInterface;
+use Sylius\MolliePlugin\Payum\Provider\PaymentTokenProviderInterface;
 use Webmozart\Assert\Assert;
 
 final class OrderPaymentApplePayDirectProvider implements OrderPaymentApplePayDirectProviderInterface

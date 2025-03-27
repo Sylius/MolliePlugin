@@ -23,7 +23,6 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Customer\Context\CustomerContextInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\MolliePlugin\Action\ConvertMolliePaymentAction;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
@@ -31,8 +30,9 @@ use Sylius\MolliePlugin\Factory\ApiCustomerFactoryInterface;
 use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
 use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
 use Sylius\MolliePlugin\Helper\PaymentDescriptionInterface;
+use Sylius\MolliePlugin\Payum\Action\ConvertMolliePaymentAction;
+use Sylius\MolliePlugin\Payum\Request\CreateCustomer;
 use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
-use Sylius\MolliePlugin\Request\Api\CreateCustomer;
 use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 

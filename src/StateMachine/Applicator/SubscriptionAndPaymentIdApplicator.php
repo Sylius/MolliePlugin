@@ -14,14 +14,14 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\StateMachine\Applicator;
 
 use Mollie\Api\Types\PaymentStatus;
-use Sylius\MolliePlugin\StateMachine\Transition\PaymentStateMachineTransitionInterface;
-use Sylius\MolliePlugin\StateMachine\Transition\ProcessingStateMachineTransitionInterface;
-use Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransitionInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\MolliePlugin\StateMachine\MollieSubscriptionPaymentProcessingTransitions;
 use Sylius\MolliePlugin\StateMachine\MollieSubscriptionProcessingTransitions;
 use Sylius\MolliePlugin\StateMachine\MollieSubscriptionTransitions;
+use Sylius\MolliePlugin\StateMachine\Transition\PaymentStateMachineTransitionInterface;
+use Sylius\MolliePlugin\StateMachine\Transition\ProcessingStateMachineTransitionInterface;
+use Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransitionInterface;
 
 final class SubscriptionAndPaymentIdApplicator implements SubscriptionAndPaymentIdApplicatorInterface
 {

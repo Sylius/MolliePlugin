@@ -26,7 +26,7 @@ use Sylius\Component\Resource\Exception\UpdateHandlingException;
 use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
 use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Request\Api\RefundOrder;
+use Sylius\MolliePlugin\Payum\Request\Refund\RefundOrder;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;

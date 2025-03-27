@@ -25,8 +25,8 @@ use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
 use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType;
 use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
-use Sylius\MolliePlugin\Preparer\PaymentLinkEmailPreparerInterface;
 use Sylius\MolliePlugin\Payum\Provider\PaymentTokenProviderInterface;
+use Sylius\MolliePlugin\Preparer\PaymentLinkEmailPreparerInterface;
 use Webmozart\Assert\Assert;
 
 final class PaymentlinkResolver implements PaymentlinkResolverInterface
