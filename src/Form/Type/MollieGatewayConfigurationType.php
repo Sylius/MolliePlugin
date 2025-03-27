@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Form\Type;
 
 use Sylius\MolliePlugin\Client\MollieApiClient;
-use Sylius\MolliePlugin\Documentation\DocumentationLinksInterface;
 use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 use Sylius\MolliePlugin\Validator\Constraints\LiveApiKeyIsNotBlank;
 use Symfony\Component\Form\AbstractType;
@@ -35,7 +34,7 @@ final class MollieGatewayConfigurationType extends AbstractType
 
     public const API_KEY_TEST = 'api_key_test';
 
-    public function __construct(private readonly DocumentationLinksInterface $documentationLinks, private readonly MollieApiClient $apiClient)
+    public function __construct(private readonly MollieApiClient $apiClient)
     {
     }
 
@@ -53,7 +52,7 @@ final class MollieGatewayConfigurationType extends AbstractType
             ])
             ->add(self::API_KEY_TEST, PasswordType::class, [
                 'always_empty' => false,
-                'label' => $this->documentationLinks->getApiKeyDoc(),
+                'label' => 'sylius_mollie_plugin.ui.api_key_test',
                 'help' => ' ',
                 'constraints' => [
                     new NotBlank([
@@ -107,13 +106,13 @@ final class MollieGatewayConfigurationType extends AbstractType
             ->add('components', CheckboxType::class, [
                 'label' => 'sylius_mollie_plugin.ui.enable_components',
                 'attr' => ['class' => 'mollie-components'],
-                'help' => $this->documentationLinks->getMollieComponentsDoc(),
+                'help' => 'sylius_mollie_plugin.help.mollie_components_doc',
                 'help_html' => true,
             ])
             ->add('single_click_enabled', CheckboxType::class, [
                 'label' => 'sylius_mollie_plugin.ui.single_click_enabled',
                 'attr' => ['class' => 'mollie-single-click-payment'],
-                'help' => $this->documentationLinks->getSingleClickDoc(),
+                'help' => 'sylius_mollie_plugin.help.single_click_doc',
                 'help_html' => true,
             ])
             ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {

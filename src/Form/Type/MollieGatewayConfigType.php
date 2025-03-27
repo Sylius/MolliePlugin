@@ -16,7 +16,6 @@ namespace Sylius\MolliePlugin\Form\Type;
 use Sylius\Bundle\ProductBundle\Form\Type\ProductType as ProductFormType;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Sylius\Bundle\ResourceBundle\Form\Type\ResourceTranslationsType;
-use Sylius\MolliePlugin\Documentation\DocumentationLinksInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigTranslationInterface;
 use Sylius\MolliePlugin\Entity\ProductType;
@@ -39,7 +38,6 @@ final class MollieGatewayConfigType extends AbstractResourceType
 {
     public function __construct(
         string $dataClass,
-        private readonly DocumentationLinksInterface $documentationLinks,
         private readonly string $defaultLocale,
         array $validationGroups = [],
     ) {
@@ -70,7 +68,7 @@ final class MollieGatewayConfigType extends AbstractResourceType
             ->add('paymentType', ChoiceType::class, [
                 'label' => 'sylius_mollie_plugin.ui.payment_type',
                 'choices' => Options::getAvailablePaymentType(),
-                'help' => $this->documentationLinks->getPaymentMethodDoc(),
+                'help' => 'sylius_mollie_plugin.help.payment_methods_doc',
                 'help_html' => true,
             ])
             ->add('qrCodeEnabled', CheckboxType::class, [
@@ -142,7 +140,7 @@ final class MollieGatewayConfigType extends AbstractResourceType
                     $form->add('paymentType', ChoiceType::class, [
                         'label' => 'sylius_mollie_plugin.ui.payment_type',
                         'choices' => Options::getAvailablePaymentType(),
-                        'help' => $this->documentationLinks->getPaymentMethodDoc(),
+                        'help' => 'sylius_mollie_plugin.help.payment_methods_doc',
                         'help_html' => true,
                         'empty_data' => Options::PAYMENT_API_VALUE,
                         'attr' => [
@@ -168,7 +166,7 @@ final class MollieGatewayConfigType extends AbstractResourceType
                     $form->add('paymentType', ChoiceType::class, [
                         'label' => 'sylius_mollie_plugin.ui.payment_type',
                         'choices' => Options::getAvailablePaymentType(),
-                        'help' => $this->documentationLinks->getPaymentMethodDoc(),
+                        'help' => 'sylius_mollie_plugin.help.payment_methods_doc',
                         'help_html' => true,
                         'attr' => [
                             'disabled' => 'disabled',
