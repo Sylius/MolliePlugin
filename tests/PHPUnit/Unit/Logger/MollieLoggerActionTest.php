@@ -18,6 +18,7 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieLoggerInterface;
 use Sylius\MolliePlugin\Factory\MollieLoggerFactoryInterface;
+use Sylius\MolliePlugin\Logger\LoggerLevel;
 use Sylius\MolliePlugin\Logger\MollieLoggerAction;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Resolver\MollieFactoryNameResolverInterface;
@@ -71,7 +72,7 @@ final class MollieLoggerActionTest extends TestCase
             ->willReturn($configMock)
         ;
 
-        $logLevel = MollieLoggerActionInterface::NOTICE;
+        $logLevel = LoggerLevel::NOTICE;
         $message = 'log_test_message';
         $errorCode = Response::HTTP_OK;
 
@@ -83,7 +84,7 @@ final class MollieLoggerActionTest extends TestCase
 
         $configMock->expects($this->once())
             ->method('getConfig')
-            ->willReturn(['loggerLevel' => MollieLoggerActionInterface::LOG_EVERYTHING])
+            ->willReturn(['loggerLevel' => LoggerLevel::LOG_EVERYTHING])
         ;
 
         $this->repositoryMock->expects($this->once())
@@ -103,7 +104,7 @@ final class MollieLoggerActionTest extends TestCase
         $loggerMock = $this->createMock(MollieLoggerInterface::class);
         $configMock = $this->createMock(GatewayConfigInterface::class);
 
-        $logLevel = MollieLoggerActionInterface::ERROR;
+        $logLevel = LoggerLevel::ERROR;
         $message = 'log_test_message';
         $errorCode = Response::HTTP_OK;
 
@@ -139,7 +140,7 @@ final class MollieLoggerActionTest extends TestCase
             ->willReturn('mollie_subscription')
         ;
 
-        $logLevel = MollieLoggerActionInterface::ERROR;
+        $logLevel = LoggerLevel::ERROR;
         $message = 'log_test_message';
         $errorCode = Response::HTTP_OK;
 
@@ -175,7 +176,7 @@ final class MollieLoggerActionTest extends TestCase
             ->willReturn($configMock)
         ;
 
-        $logLevel = MollieLoggerActionInterface::NOTICE;
+        $logLevel = LoggerLevel::NOTICE;
         $message = 'log_test_negative_message';
         $errorCode = Response::HTTP_INTERNAL_SERVER_ERROR;
 
@@ -187,7 +188,7 @@ final class MollieLoggerActionTest extends TestCase
 
         $configMock->expects($this->once())
             ->method('getConfig')
-            ->willReturn(['loggerLevel' => MollieLoggerActionInterface::LOG_EVERYTHING])
+            ->willReturn(['loggerLevel' => LoggerLevel::LOG_EVERYTHING])
         ;
 
         $this->repositoryMock->expects($this->once())
@@ -208,7 +209,7 @@ final class MollieLoggerActionTest extends TestCase
         $loggerMock = $this->createMock(MollieLoggerInterface::class);
         $configMock = $this->createMock(GatewayConfigInterface::class);
 
-        $logLevel = MollieLoggerActionInterface::ERROR;
+        $logLevel = LoggerLevel::ERROR;
         $message = 'log_test_negative_message';
         $errorCode = Response::HTTP_INTERNAL_SERVER_ERROR;
 
@@ -244,7 +245,7 @@ final class MollieLoggerActionTest extends TestCase
             ->willReturn('mollie_subscription')
         ;
 
-        $logLevel = MollieLoggerActionInterface::ERROR;
+        $logLevel = LoggerLevel::ERROR;
         $message = 'log_test_negative_message';
         $errorCode = Response::HTTP_INTERNAL_SERVER_ERROR;
 

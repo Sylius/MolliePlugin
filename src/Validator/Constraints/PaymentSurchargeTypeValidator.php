@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Validator\Constraints;
 
 use Sylius\MolliePlugin\Entity\PaymentSurchargeFeeInterface;
-use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
+use Sylius\MolliePlugin\PaymentFee\PaymentSurchargeFeeType;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Webmozart\Assert\Assert;
@@ -38,19 +38,19 @@ final class PaymentSurchargeTypeValidator extends ConstraintValidator
 
     private function validatePaymentSurcharge(PaymentSurchargeFeeInterface $paymentSurchargeFee, Constraint $constraint): void
     {
-        if (Options::PERCENTAGE === $paymentSurchargeFee->getType() && null === $paymentSurchargeFee->getPercentage()) {
+        if (PaymentSurchargeFeeType::PERCENTAGE === $paymentSurchargeFee->getType() && null === $paymentSurchargeFee->getPercentage()) {
             $this->createNegativeResponse($constraint, self::PERCENTAGE_FIELD);
         }
-        if (Options::PERCENTAGE === $paymentSurchargeFee->getType() && null === $paymentSurchargeFee->getSurchargeLimit()) {
+        if (PaymentSurchargeFeeType::PERCENTAGE === $paymentSurchargeFee->getType() && null === $paymentSurchargeFee->getSurchargeLimit()) {
             $this->createNegativeResponse($constraint, self::SURCHARGE_LIMIT_FIELD);
         }
-        if (Options::FIXED_FEE === $paymentSurchargeFee->getType() && null === $paymentSurchargeFee->getFixedAmount()) {
+        if (PaymentSurchargeFeeType::FIXED === $paymentSurchargeFee->getType() && null === $paymentSurchargeFee->getFixedAmount()) {
             $this->createNegativeResponse($constraint, self::FIXED_AMOUNT_FIELD);
         }
-        if (Options::FIXED_FEE_AND_PERCENTAGE === $paymentSurchargeFee->getType() && null === $paymentSurchargeFee->getPercentage()) {
+        if (PaymentSurchargeFeeType::FIXED_AND_PERCENTAGE === $paymentSurchargeFee->getType() && null === $paymentSurchargeFee->getPercentage()) {
             $this->createNegativeResponse($constraint, self::PERCENTAGE_FIELD);
         }
-        if (Options::FIXED_FEE_AND_PERCENTAGE === $paymentSurchargeFee->getType() && null === $paymentSurchargeFee->getFixedAmount()) {
+        if (PaymentSurchargeFeeType::FIXED_AND_PERCENTAGE === $paymentSurchargeFee->getType() && null === $paymentSurchargeFee->getFixedAmount()) {
             $this->createNegativeResponse($constraint, self::FIXED_AMOUNT_FIELD);
         }
     }

@@ -15,8 +15,8 @@ namespace Sylius\MolliePlugin\Form\Type;
 
 use Sylius\Bundle\ResourceBundle\Form\Type\ResourceTranslationsType;
 use Sylius\MolliePlugin\Entity\TemplateMollieEmail;
+use Sylius\MolliePlugin\Entity\TemplateMollieEmailInterface;
 use Sylius\MolliePlugin\Form\Type\Translation\TemplateMollieEmailTranslationType;
-use Sylius\MolliePlugin\TemplateEmailTerms\Options;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -32,7 +32,10 @@ final class TemplateMollieEmailType extends AbstractType
         $builder
             ->add('type', ChoiceType::class, [
                 'label' => 'sylius_mollie_plugin.ui.template_type',
-                'choices' => Options::getAvailableEmailTemplate(),
+                'choices' => [
+                    'sylius_mollie_plugin.ui.paymentlink' => TemplateMollieEmailInterface::PAYMENT_LINK,
+                    'sylius_mollie_plugin.ui.paymentlinkAbandoned' => TemplateMollieEmailInterface::PAYMENT_LINK_ABANDONED,
+                ],
             ])
             ->add('styleCss', TextareaType::class, [
                 'label' => 'sylius_mollie_plugin.ui.style_css',

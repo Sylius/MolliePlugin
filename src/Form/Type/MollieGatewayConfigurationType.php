@@ -15,7 +15,6 @@ namespace Sylius\MolliePlugin\Form\Type;
 
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Documentation\DocumentationLinksInterface;
-use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
 use Sylius\MolliePlugin\Validator\Constraints\LiveApiKeyIsNotBlank;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -100,9 +99,8 @@ final class MollieGatewayConfigurationType extends AbstractType
                     range(1, 200, 1),
                 ),
             ])
-            ->add('loggerLevel', ChoiceType::class, [
-                'label' => 'sylius_mollie_plugin.ui.debug_level_log',
-                'choices' => Options::getDebugLevels(),
+            ->add('loggerLevel', LoggerLevelChoiceType::class, [
+                'log_type' => LoggerLevelChoiceType::TYPE_DEBUG,
             ])
             ->add('components', CheckboxType::class, [
                 'label' => 'sylius_mollie_plugin.ui.enable_components',

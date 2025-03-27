@@ -18,10 +18,6 @@ use Sylius\MolliePlugin\Payments\Methods\MethodInterface;
 
 interface MollieGatewayConfigInterface extends MethodInterface, TranslatableInterface
 {
-    public const ALL_COUNTRIES = 'ALL_COUNTRIES';
-
-    public const SELECTED_COUNTRIES = 'SELECTED_COUNTRIES';
-
     public function getId(): int;
 
     public function getMethodId(): ?string;

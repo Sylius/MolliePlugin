@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\MealVouchers;
+namespace Sylius\MolliePlugin\Model;
 
-final class Options
+final class MealVoucherType
 {
     public const MEAL = 'meal';
 
@@ -22,7 +22,7 @@ final class Options
     public const GIFT = 'gift';
 
     /** @return array<string, string> */
-    public static function getAvailableMealVouchersCategory(): array
+    public static function getAvailable(): array
     {
         return [
             self::MEAL => self::MEAL,

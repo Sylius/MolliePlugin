@@ -17,7 +17,7 @@ use Sylius\Component\Order\Factory\AdjustmentFactoryInterface;
 use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Order\AdjustmentInterface;
-use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
+use Sylius\MolliePlugin\PaymentFee\PaymentSurchargeFeeType;
 use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 use Webmozart\Assert\Assert;
 
@@ -31,7 +31,7 @@ final class FixedAmountCalculator implements PaymentSurchargeCalculatorInterface
 
     public function supports(string $type): bool
     {
-        return Options::FIXED_FEE === array_search($type, Options::getAvailablePaymentSurchargeFeeType(), true);
+        return PaymentSurchargeFeeType::FIXED === $type;
     }
 
     public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): void
