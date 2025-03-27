@@ -41,11 +41,11 @@
 
         <service id="sylius_mollie.provider.form.resolver_group" class="Sylius\MolliePlugin\Provider\Form\ResolverGroupProvider"/>
 
-        <service id="sylius_mollie.provider.payment_token" class="Sylius\MolliePlugin\Provider\PaymentToken\PaymentTokenProvider">
+        <service id="sylius_mollie.provider.payment_token" class="Sylius\MolliePlugin\Payum\Provider\PaymentTokenProvider">
             <argument type="service" id="payum" />
             <argument type="string">sylius_shop_order_after_pay</argument>
         </service>
-        <service id="Sylius\MolliePlugin\Provider\PaymentToken\PaymentTokenProviderInterface" alias="sylius_mollie.provider.payment_token" />
+        <service id="Sylius\MolliePlugin\Payum\Provider\PaymentTokenProviderInterface" alias="sylius_mollie.provider.payment_token" />
 
         <service id="sylius_mollie.provider.customer" class="Sylius\MolliePlugin\Provider\Customer\CustomerProvider">
             <argument type="service" id="sylius.repository.customer" />
