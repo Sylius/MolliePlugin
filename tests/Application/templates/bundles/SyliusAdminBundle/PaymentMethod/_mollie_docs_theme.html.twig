@@ -1,7 +1,7 @@
 {% extends '@SyliusAdmin/Form/theme.html.twig' %}
 
 {% block form_help %}
-    {% import '@SyliusMolliePlugin/Admin/form/_mollie_docs.html.twig' as docs %}
+    {% import '@SyliusAdmin/PaymentMethod/_mollie_docs.html.twig' as docs %}
 
     {% if help is not empty and help starts with 'sylius_mollie_plugin.help.' %}
         <div class="ui pointing label">

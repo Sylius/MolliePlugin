@@ -1,5 +1,5 @@
 {% import '@SyliusUi/Macro/flags.html.twig' as flags %}
-{% form_theme form with ['@SyliusMolliePlugin/Admin/form/_mollie_docs_theme.html.twig'] %}
+{% form_theme form with ['@SyliusAdmin/PaymentMethod/_mollie_docs_theme.html.twig'] %}
 
 {% set mollieStandardGateway = constant('Sylius\\MolliePlugin\\Factory\\MollieGatewayFactory::FACTORY_NAME') %}
 {% set mollieRecuringGateway = constant('Sylius\\MolliePlugin\\Factory\\MollieSubscriptionGatewayFactory::FACTORY_NAME') %}
