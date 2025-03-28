@@ -18,10 +18,10 @@
    to `Sylius\MolliePlugin\Applicator\OrderOrderVouchersApplicator` along with its interface.
 
 1. The `Sylius\MolliePlugin\PaymentFee\Types\SurchargeTypeInterface` has been refactored into
-   `Sylius\MolliePlugin\PaymentFee\Calculator\PaymentSurchargeCalculatorInterface` along with all its implementations. This includes:
-    - `Sylius\MolliePlugin\PaymentFee\Types\FixedAmount` => `Sylius\MolliePlugin\PaymentFee\Calculator\FixedAmountCalculator`
-    - `Sylius\MolliePlugin\PaymentFee\Types\Percentage` => `Sylius\MolliePlugin\PaymentFee\Calculator\PercentageCalculator`
-    - `Sylius\MolliePlugin\PaymentFee\Types\FixedAmountAndPercentage` => `Sylius\MolliePlugin\PaymentFee\Calculator\FixedAmountAndPercentageCalculator`
+   `Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeCalculatorInterface` along with all its implementations. This includes:
+    - `Sylius\MolliePlugin\PaymentFee\Types\FixedAmount` => `Sylius\MolliePlugin\Calculator\PaymentFee\FixedAmountCalculator`
+    - `Sylius\MolliePlugin\PaymentFee\Types\Percentage` => `Sylius\MolliePlugin\Calculator\PaymentFee\PercentageCalculator`
+    - `Sylius\MolliePlugin\PaymentFee\Types\FixedAmountAndPercentage` => `Sylius\MolliePlugin\Calculator\PaymentFee\FixedAmountAndPercentageCalculator`
 
    The interface itself has also been slightly changed:
     - method `::canCalculate` has been renamed to `::supports`
@@ -361,6 +361,12 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\Checker\Refund\MollieOrderRefundCheckerInterface`                               | `Sylius\MolliePlugin\Refund\Checker\MollieOrderRefundCheckerInterface`                        |
 | `Sylius\MolliePlugin\Validator\Refund\RefundUnitsCommandValidator`                                   | `Sylius\MolliePlugin\Refund\Validator\RefundUnitsCommandValidator`                            |
 | `Sylius\MolliePlugin\PaymentFee\PaymentSurchargeFeeType`                                             | `Sylius\MolliePlugin\Model\PaymentSurchargeFeeType`                                           |
+| `Sylius\MolliePlugin\PaymentFee\CompositePaymentSurchargeCalculator`                                 | `Sylius\MolliePlugin\Calculator\PaymentFee\CompositePaymentSurchargeCalculator`               |
+| `Sylius\MolliePlugin\PaymentFee\Calculator\FixedAmountAndPercentageCalculator`                       | `Sylius\MolliePlugin\Calculator\PaymentFee\FixedAmountAndPercentageCalculator`                |
+| `Sylius\MolliePlugin\PaymentFee\Calculator\FixedAmountCalculator`                                    | `Sylius\MolliePlugin\Calculator\PaymentFee\FixedAmountCalculator`                             |
+| `Sylius\MolliePlugin\PaymentFee\Calculator\NoFeeCalculator`                                          | `Sylius\MolliePlugin\Calculator\PaymentFee\NoFeeCalculator`                                   |
+| `Sylius\MolliePlugin\PaymentFee\Calculator\PaymentSurchargeCalculatorInterface`                      | `Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeCalculatorInterface`               |
+| `Sylius\MolliePlugin\PaymentFee\Calculator\PercentageCalculator`                                     | `Sylius\MolliePlugin\Calculator\PaymentFee\PercentageCalculator`                              |
 
 1. Removed parameters:
 
