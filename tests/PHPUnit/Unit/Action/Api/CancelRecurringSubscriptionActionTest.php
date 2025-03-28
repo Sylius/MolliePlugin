@@ -19,13 +19,13 @@ use Mollie\Api\Resources\Customer;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
 use PHPUnit\Framework\TestCase;
-use Sylius\MolliePlugin\Action\Api\BaseApiAwareAction;
-use Sylius\MolliePlugin\Action\Api\CancelRecurringSubscriptionAction;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Request\Api\CancelRecurringSubscription;
+use Sylius\MolliePlugin\Payum\Action\BaseApiAwareAction;
+use Sylius\MolliePlugin\Payum\Action\Subscription\CancelRecurringSubscriptionAction;
+use Sylius\MolliePlugin\Payum\Request\Subscription\CancelRecurringSubscription;
 
 final class CancelRecurringSubscriptionActionTest extends TestCase
 {

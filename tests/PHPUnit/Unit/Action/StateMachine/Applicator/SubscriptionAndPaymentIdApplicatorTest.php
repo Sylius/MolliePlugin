@@ -17,17 +17,17 @@ use Mollie\Api\Endpoints\PaymentEndpoint;
 use Mollie\Api\Resources\Payment;
 use Mollie\Api\Types\PaymentStatus;
 use PHPUnit\Framework\TestCase;
-use Sylius\MolliePlugin\Action\StateMachine\Applicator\SubscriptionAndPaymentIdApplicator;
-use Sylius\MolliePlugin\Action\StateMachine\Applicator\SubscriptionAndPaymentIdApplicatorInterface;
-use Sylius\MolliePlugin\Action\StateMachine\Transition\PaymentStateMachineTransitionInterface;
-use Sylius\MolliePlugin\Action\StateMachine\Transition\ProcessingStateMachineTransitionInterface;
-use Sylius\MolliePlugin\Action\StateMachine\Transition\StateMachineTransitionInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
-use Sylius\MolliePlugin\Transitions\MollieSubscriptionPaymentProcessingTransitions;
-use Sylius\MolliePlugin\Transitions\MollieSubscriptionProcessingTransitions;
-use Sylius\MolliePlugin\Transitions\MollieSubscriptionTransitions;
+use Sylius\MolliePlugin\StateMachine\Applicator\SubscriptionAndPaymentIdApplicator;
+use Sylius\MolliePlugin\StateMachine\Applicator\SubscriptionAndPaymentIdApplicatorInterface;
+use Sylius\MolliePlugin\StateMachine\MollieSubscriptionPaymentProcessingTransitions;
+use Sylius\MolliePlugin\StateMachine\MollieSubscriptionProcessingTransitions;
+use Sylius\MolliePlugin\StateMachine\MollieSubscriptionTransitions;
+use Sylius\MolliePlugin\StateMachine\Transition\PaymentStateMachineTransitionInterface;
+use Sylius\MolliePlugin\StateMachine\Transition\ProcessingStateMachineTransitionInterface;
+use Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransitionInterface;
 
 final class SubscriptionAndPaymentIdApplicatorTest extends TestCase
 {

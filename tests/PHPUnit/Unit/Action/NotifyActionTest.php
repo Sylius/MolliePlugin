@@ -24,13 +24,13 @@ use Payum\Core\Reply\HttpResponse;
 use Payum\Core\Request\GetHttpRequest;
 use Payum\Core\Request\Notify;
 use PHPUnit\Framework\TestCase;
-use Sylius\MolliePlugin\Action\NotifyAction;
-use Sylius\MolliePlugin\Action\StateMachine\SetStatusOrderActionInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Payum\Action\NotifyAction;
+use Sylius\MolliePlugin\Payum\Request\Subscription\StatusRecurringSubscription;
 use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
-use Sylius\MolliePlugin\Request\StateMachine\StatusRecurringSubscription;
+use Sylius\MolliePlugin\StateMachine\Applicator\MollieOrderStatesApplicatorInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 final class NotifyActionTest extends TestCase
@@ -41,7 +41,7 @@ final class NotifyActionTest extends TestCase
 
     private MollieSubscriptionRepositoryInterface $subscriptionRepository;
 
-    private SetStatusOrderActionInterface $setStatusOrderAction;
+    private MollieOrderStatesApplicatorInterface $setStatusOrderAction;
 
     private MollieLoggerActionInterface $loggerAction;
 
@@ -49,7 +49,7 @@ final class NotifyActionTest extends TestCase
     {
         $this->getHttpRequest = $this->createMock(GetHttpRequest::class);
         $this->subscriptionRepository = $this->createMock(MollieSubscriptionRepositoryInterface::class);
-        $this->setStatusOrderAction = $this->createMock(SetStatusOrderActionInterface::class);
+        $this->setStatusOrderAction = $this->createMock(MollieOrderStatesApplicatorInterface::class);
         $this->loggerAction = $this->createMock(MollieLoggerActionInterface::class);
 
         $this->notifyAction = new NotifyAction(

@@ -16,13 +16,13 @@ namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Action\StateMachine;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\PaymentInterface;
-use Sylius\MolliePlugin\Action\StateMachine\Applicator\SubscriptionAndPaymentIdApplicatorInterface;
-use Sylius\MolliePlugin\Action\StateMachine\Applicator\SubscriptionAndSyliusPaymentApplicatorInterface;
-use Sylius\MolliePlugin\Action\StateMachine\StatusRecurringSubscriptionAction;
-use Sylius\MolliePlugin\Action\StateMachine\Transition\StateMachineTransitionInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
-use Sylius\MolliePlugin\Request\StateMachine\StatusRecurringSubscription;
-use Sylius\MolliePlugin\Transitions\MollieSubscriptionTransitions;
+use Sylius\MolliePlugin\Payum\Action\Subscription\StatusRecurringSubscriptionAction;
+use Sylius\MolliePlugin\Payum\Request\Subscription\StatusRecurringSubscription;
+use Sylius\MolliePlugin\StateMachine\Applicator\SubscriptionAndPaymentIdApplicatorInterface;
+use Sylius\MolliePlugin\StateMachine\Applicator\SubscriptionAndSyliusPaymentApplicatorInterface;
+use Sylius\MolliePlugin\StateMachine\MollieSubscriptionTransitions;
+use Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransitionInterface;
 
 final class StatusRecurringSubscriptionActionTest extends TestCase
 {

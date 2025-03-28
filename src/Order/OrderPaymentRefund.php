@@ -24,7 +24,7 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
 use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Request\Api\RefundOrder;
+use Sylius\MolliePlugin\Payum\Request\Refund\RefundOrder;
 use Sylius\RefundPlugin\Event\UnitsRefunded;
 use Sylius\RefundPlugin\Filter\UnitRefundFilterInterface;
 use Sylius\RefundPlugin\Model\OrderItemUnitRefund;

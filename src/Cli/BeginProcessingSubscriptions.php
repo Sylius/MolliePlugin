@@ -15,8 +15,8 @@ namespace Sylius\MolliePlugin\Cli;
 
 use SM\Factory\Factory;
 use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
-use Sylius\MolliePlugin\Transitions\MollieSubscriptionProcessingTransitions;
-use Sylius\MolliePlugin\Transitions\MollieSubscriptionTransitions;
+use Sylius\MolliePlugin\StateMachine\MollieSubscriptionProcessingTransitions;
+use Sylius\MolliePlugin\StateMachine\MollieSubscriptionTransitions;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

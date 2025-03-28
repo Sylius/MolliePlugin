@@ -16,7 +16,7 @@ namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Factory;
 use PHPUnit\Framework\TestCase;
 use Sylius\MolliePlugin\Factory\ApiCustomerFactory;
 use Sylius\MolliePlugin\Factory\ApiCustomerFactoryInterface;
-use Sylius\MolliePlugin\Request\Api\CreateCustomer;
+use Sylius\MolliePlugin\Payum\Request\CreateCustomer;
 
 final class ApiCustomerFactoryTest extends TestCase
 {
