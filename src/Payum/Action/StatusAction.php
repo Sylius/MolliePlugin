@@ -27,7 +27,7 @@ use Sylius\MolliePlugin\Payments\Methods\MealVoucher;
 use Sylius\MolliePlugin\Refund\Checker\MollieOrderRefundCheckerInterface;
 use Sylius\MolliePlugin\Refund\OrderRefundInterface;
 use Sylius\MolliePlugin\Refund\PaymentRefundInterface;
-use Sylius\MolliePlugin\Updater\Order\OrderVoucherAdjustmentUpdaterInterface;
+use Sylius\MolliePlugin\Voucher\Updater\OrderVoucherAdjustmentUpdaterInterface;
 use Webmozart\Assert\Assert;
 
 final class StatusAction extends BaseApiAwareAction implements GatewayAwareInterface

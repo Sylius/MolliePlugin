@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Updater\Order;
+namespace Sylius\MolliePlugin\Voucher\Updater;
 
 use Mollie\Api\Resources\Payment;
 

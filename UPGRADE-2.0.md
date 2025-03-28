@@ -70,7 +70,7 @@
 
 1. Constructor changes
 
-   The constructor of `Sylius\MolliePlugin\Updater\Order\OrderVoucherAdjustmentUpdater` has been changed:
+   The constructor of `Sylius\MolliePlugin\Voucher\Updater\OrderVoucherAdjustmentUpdater` has been changed:
 
     ```diff
     public function __construct(
@@ -395,6 +395,8 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\Applicator\UnitsPromotionAdjustmentsApplicatorInterface`                        | `Sylius\MolliePlugin\Voucher\Applicator\UnitsVouchersApplicatorInterface`                     |
 | `Sylius\MolliePlugin\Checker\Voucher\ProductVoucherTypeChecker`                                      | `Sylius\MolliePlugin\Voucher\Checker\ProductVoucherTypeChecker`                               |
 | `Sylius\MolliePlugin\Checker\Voucher\ProductVoucherTypeCheckerInterface`                             | `Sylius\MolliePlugin\Voucher\Checker\ProductVoucherTypeCheckerInterface`                      |
+| `Sylius\MolliePlugin\Updater\Order\OrderVoucherAdjustmentUpdater`                                    | `Sylius\MolliePlugin\Voucher\Updater\OrderVoucherAdjustmentUpdater`                           |
+| `Sylius\MolliePlugin\Updater\Order\OrderVoucherAdjustmentUpdaterInterface`                           | `Sylius\MolliePlugin\Voucher\Updater\OrderVoucherAdjustmentUpdaterInterface`                  |
 
 1. Removed parameters:
 

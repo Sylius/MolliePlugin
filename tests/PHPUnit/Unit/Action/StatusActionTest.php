@@ -32,7 +32,7 @@ use Sylius\MolliePlugin\Payum\Action\StatusAction;
 use Sylius\MolliePlugin\Refund\Checker\MollieOrderRefundCheckerInterface;
 use Sylius\MolliePlugin\Refund\OrderRefundInterface;
 use Sylius\MolliePlugin\Refund\PaymentRefundInterface;
-use Sylius\MolliePlugin\Updater\Order\OrderVoucherAdjustmentUpdaterInterface;
+use Sylius\MolliePlugin\Voucher\Updater\OrderVoucherAdjustmentUpdaterInterface;
 
 final class StatusActionTest extends TestCase
 {
