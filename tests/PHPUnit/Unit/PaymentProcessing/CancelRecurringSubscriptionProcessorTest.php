@@ -21,8 +21,8 @@ use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
-use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
-use Sylius\MolliePlugin\PaymentProcessing\CancelRecurringSubscriptionProcessor;
+use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Subscription\Processor\CancelRecurringSubscriptionProcessor;
 
 final class CancelRecurringSubscriptionProcessorTest extends TestCase
 {

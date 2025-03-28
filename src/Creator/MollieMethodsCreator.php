@@ -18,8 +18,8 @@ use Mollie\Api\Resources\MethodCollection;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Factory\MethodsFactoryInterface;
 use Sylius\MolliePlugin\Factory\MollieGatewayConfigFactoryInterface;
-use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Payments\Methods\MethodInterface;
+use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Resolver\MollieMethodsResolverInterface;
 
 final class MollieMethodsCreator implements MollieMethodsCreatorInterface

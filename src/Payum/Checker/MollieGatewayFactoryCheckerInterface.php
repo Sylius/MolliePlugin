@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Checker\Gateway;
+namespace Sylius\MolliePlugin\Payum\Checker;
 
 use Payum\Core\Model\GatewayConfigInterface;
 

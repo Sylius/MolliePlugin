@@ -16,7 +16,7 @@ namespace Sylius\MolliePlugin\PaymentProcessing;
 use Payum\Core\Payum;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
-use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Payum\Request\Subscription\CancelRecurringSubscription;
 
 final class CancelRecurringSubscriptionProcessor implements CancelRecurringSubscriptionProcessorInterface

@@ -16,7 +16,7 @@ namespace Sylius\MolliePlugin\Menu;
 use Sylius\Bundle\AdminBundle\Event\OrderShowMenuBuilderEvent;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
-use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
 use Webmozart\Assert\Assert;
 
 final class AdminOrderShowMenuListener

@@ -403,6 +403,23 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\Preparer\PaymentLinkEmailPreparerInterface`                                     | `Sylius\MolliePlugin\Mailer\Manager\PaymentLinkEmailPreparerInterface`                        |
 | `Sylius\MolliePlugin\Provider\Form\ResolverGroupProvider`                                            | `Sylius\MolliePlugin\Form\Resolver\ValidationGroupsResolver`                                  |
 | `Sylius\MolliePlugin\Provider\Form\ResolverGroupProviderInterface`                                   | `Sylius\MolliePlugin\Form\Resolver\ValidationGroupsResolverInterface`                         |
+| `Sylius\MolliePlugin\Checker\Gateway\MollieGatewayFactoryChecker`                                    | `Sylius\MolliePlugin\Checker\Gateway\MollieGatewayFactoryChecker`                             |
+| `Sylius\MolliePlugin\Checker\Gateway\MollieGatewayFactoryCheckerInterface`                           | `Sylius\MolliePlugin\Checker\Gateway\MollieGatewayFactoryCheckerInterface`                    |
+| `Sylius\MolliePlugin\Factory\MollieGatewayFactory`                                                   | `Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory`                                      |
+| `Sylius\MolliePlugin\Factory\MollieGatewayFactoryInterface`                                          | `Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactoryInterface`                             |
+| `Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory`                                       | `Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory`                          |
+| `Sylius\MolliePlugin\PaymentProcessing\CancelRecurringSubscriptionProcessor`                         | `Sylius\MolliePlugin\Subscription\Processor\CancelRecurringSubscriptionProcessor`             |
+| `Sylius\MolliePlugin\PaymentProcessing\CancelRecurringSubscriptionProcessorInterface`                | `Sylius\MolliePlugin\Subscription\Processor\CancelRecurringSubscriptionProcessorInterface`    |
+| `Sylius\MolliePlugin\PaymentProcessing\SubscriptionPaymentProcessor`                                 | `Sylius\MolliePlugin\Subscription\Processor\SubscriptionPaymentProcessor`                     |
+| `Sylius\MolliePlugin\PaymentProcessing\SubscriptionPaymentProcessorInterface`                        | `Sylius\MolliePlugin\Subscription\Processor\SubscriptionPaymentProcessorInterface`            |
+| `Sylius\MolliePlugin\Processor\SubscriptionProcessor`                                                | `Sylius\MolliePlugin\Subscription\Processor\SubscriptionProcessor`                            |
+| `Sylius\MolliePlugin\Processor\SubscriptionProcessorInterface`                                       | `Sylius\MolliePlugin\Subscription\Processor\SubscriptionProcessorInterface`                   |
+| `Sylius\MolliePlugin\Processor\SubscriptionScheduleProcessor`                                        | `Sylius\MolliePlugin\Subscription\Processor\SubscriptionScheduleProcessor`                    |
+| `Sylius\MolliePlugin\Processor\SubscriptionScheduleProcessorInterface`                               | `Sylius\MolliePlugin\Subscription\Processor\SubscriptionScheduleProcessorInterface`           |
+| `Sylius\MolliePlugin\Generator\SubscriptionScheduleGenerator`                                        | `Sylius\MolliePlugin\Subscription\Generator\SubscriptionScheduleGenerator`                    |
+| `Sylius\MolliePlugin\Generator\SubscriptionScheduleGeneratorInterface`                               | `Sylius\MolliePlugin\Subscription\Generator\SubscriptionScheduleGeneratorInterface`           |
+| `Sylius\MolliePlugin\Guard\SubscriptionGuard`                                                        | `Sylius\MolliePlugin\Subscription\Guard\SubscriptionGuard`                                    |
+| `Sylius\MolliePlugin\Guard\SubscriptionGuardInterface`                                               | `Sylius\MolliePlugin\Subscription\Guard\SubscriptionGuardInterface`                           |
 
 1. The `Sylius\MolliePlugin\Documentation\DocumentationLinks` class and the related service alias `sylius_mollie.documentation.documentation_links` have been removed.
 
