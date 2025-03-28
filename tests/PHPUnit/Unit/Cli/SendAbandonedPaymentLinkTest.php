@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Cli;
 
 use PHPUnit\Framework\TestCase;
-use Sylius\MolliePlugin\Cli\SendAbandonedPaymentLink;
+use Sylius\MolliePlugin\Console\Command\SendAbandonedPaymentLink;
 use Sylius\MolliePlugin\Creator\AbandonedPaymentLinkCreatorInterface;
 use Symfony\Component\Console\Command\Command;
 

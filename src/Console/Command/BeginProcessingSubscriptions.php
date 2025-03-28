@@ -11,34 +11,29 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Cli;
+namespace Sylius\MolliePlugin\Console\Command;
 
 use SM\Factory\Factory;
-use Sylius\MolliePlugin\Processor\SubscriptionProcessorInterface;
 use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
-use Sylius\MolliePlugin\StateMachine\MollieSubscriptionPaymentProcessingTransitions;
 use Sylius\MolliePlugin\StateMachine\MollieSubscriptionProcessingTransitions;
+use Sylius\MolliePlugin\StateMachine\MollieSubscriptionTransitions;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
-use Webmozart\Assert\Assert;
 
-class ProcessSubscriptions extends Command
+class BeginProcessingSubscriptions extends Command
 {
-    public const COMMAND_NAME = 'mollie:subscription:process';
+    public const COMMAND_NAME = 'mollie:subscription:begin-processing';
 
-    public const COMMAND_ID = 'mollie:subscription:process';
+    public const COMMAND_ID = 'mollie:subscription:begin-processing';
 
     private SymfonyStyle $io;
 
     public function __construct(
         private readonly MollieSubscriptionRepositoryInterface $mollieSubscriptionRepository,
         private readonly Factory $stateMachineFactory,
-        private readonly SubscriptionProcessorInterface $subscriptionProcessor,
-        private readonly RouterInterface $router,
     ) {
         parent::__construct(self::COMMAND_NAME);
     }
@@ -63,33 +58,20 @@ class ProcessSubscriptions extends Command
         try {
             $this->io->writeln('Processing...');
 
-            $subscriptions = $this->mollieSubscriptionRepository->findProcessableSubscriptions();
-            $routerContext = $this->router->getContext();
+            $subscriptions = $this->mollieSubscriptionRepository->findScheduledSubscriptions();
             foreach ($subscriptions as $subscription) {
-                $processingGraph = $this->stateMachineFactory->get($subscription, MollieSubscriptionProcessingTransitions::GRAPH);
+                $graph = $this->stateMachineFactory->get($subscription, MollieSubscriptionTransitions::GRAPH);
 
-                if (false === $processingGraph->can(MollieSubscriptionProcessingTransitions::TRANSITION_PROCESS)) {
-                    continue;
+                if ($graph->can(MollieSubscriptionTransitions::TRANSITION_PROCESS)) {
+                    $graph->apply(MollieSubscriptionTransitions::TRANSITION_PROCESS);
+
+                    $processingGraph = $this->stateMachineFactory->get($subscription, MollieSubscriptionProcessingTransitions::GRAPH);
+                    if ($processingGraph->can(MollieSubscriptionProcessingTransitions::TRANSITION_SCHEDULE)) {
+                        $processingGraph->apply(MollieSubscriptionProcessingTransitions::TRANSITION_SCHEDULE);
+                    }
+
+                    $this->mollieSubscriptionRepository->add($subscription);
                 }
-
-                $paymentGraph = $this->stateMachineFactory->get($subscription, MollieSubscriptionPaymentProcessingTransitions::GRAPH);
-
-                if (false === $paymentGraph->can(MollieSubscriptionPaymentProcessingTransitions::TRANSITION_BEGIN)) {
-                    continue;
-                }
-
-                $paymentGraph->apply(MollieSubscriptionPaymentProcessingTransitions::TRANSITION_BEGIN);
-
-                $configuration = $subscription->getSubscriptionConfiguration();
-                $routerContext->setHost($configuration->getHostName());
-                $firstOrder = $subscription->getFirstOrder();
-
-                Assert::notNull($firstOrder);
-                $routerContext->setParameter('_locale', $firstOrder->getLocaleCode());
-                $this->subscriptionProcessor->processNextPayment($subscription);
-
-                $processingGraph->apply(MollieSubscriptionProcessingTransitions::TRANSITION_PROCESS);
-                $this->mollieSubscriptionRepository->add($subscription);
             }
 
             $this->io->success('Successfully marked scheduled subscriptions');

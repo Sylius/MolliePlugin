@@ -367,6 +367,9 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\PaymentFee\Calculator\NoFeeCalculator`                                          | `Sylius\MolliePlugin\Calculator\PaymentFee\NoFeeCalculator`                                   |
 | `Sylius\MolliePlugin\PaymentFee\Calculator\PaymentSurchargeCalculatorInterface`                      | `Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeCalculatorInterface`               |
 | `Sylius\MolliePlugin\PaymentFee\Calculator\PercentageCalculator`                                     | `Sylius\MolliePlugin\Calculator\PaymentFee\PercentageCalculator`                              |
+| `Sylius\MolliePlugin\Cli\BeginProcessingSubscriptions`                                               | `Sylius\MolliePlugin\Console\Command\BeginProcessingSubscriptions`                            |
+| `Sylius\MolliePlugin\Cli\ProcessSubscriptions`                                                       | `Sylius\MolliePlugin\Console\Command\ProcessSubscriptions`                                    |
+| `Sylius\MolliePlugin\Cli\SendAbandonedPaymentLink`                                                   | `Sylius\MolliePlugin\Console\Command\SendAbandonedPaymentLink`                                |
 
 1. Removed parameters:
 

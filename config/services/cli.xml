@@ -17,18 +17,18 @@
         xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <services>
-        <service id="sylius_mollie.console.command.send_abandoned_payment_link" class="Sylius\MolliePlugin\Cli\SendAbandonedPaymentLink">
+        <service id="sylius_mollie.console.command.send_abandoned_payment_link" class="Sylius\MolliePlugin\Console\Command\SendAbandonedPaymentLink">
             <argument type="service" id="sylius_mollie.creator.abandoned_payment_link"/>
             <tag name="console.command"/>
         </service>
 
-        <service id="sylius_mollie.console.command.subscription.begin_processing" class="Sylius\MolliePlugin\Cli\BeginProcessingSubscriptions">
+        <service id="sylius_mollie.console.command.subscription.begin_processing" class="Sylius\MolliePlugin\Console\Command\BeginProcessingSubscriptions">
             <argument type="service" id="sylius_mollie.repository.mollie_subscription"/>
             <argument type="service" id="sm.factory"/>
             <tag name="console.command"/>
         </service>
 
-        <service id="sylius_mollie.console.command.subscription.process" class="Sylius\MolliePlugin\Cli\ProcessSubscriptions">
+        <service id="sylius_mollie.console.command.subscription.process" class="Sylius\MolliePlugin\Console\Command\ProcessSubscriptions">
             <argument type="service" id="sylius_mollie.repository.mollie_subscription"/>
             <argument type="service" id="sm.factory"/>
             <argument type="service" id="sylius_mollie.processor.subscription_payment"/>
