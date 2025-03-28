@@ -15,10 +15,6 @@ namespace Sylius\MolliePlugin\Payments\Methods;
 
 abstract class AbstractMethod implements MethodInterface
 {
-    public const PAYMENT_API = 'PAYMENT_API';
-
-    public const ORDER_API = 'ORDER_API';
-
     use ConfigTrait;
 
     protected ?string $name = null;

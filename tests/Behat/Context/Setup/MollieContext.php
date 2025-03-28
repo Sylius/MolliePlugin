@@ -24,7 +24,8 @@ use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
 use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
-use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Logger\LoggerLevel;
+use Sylius\MolliePlugin\Model\CountriesRestriction;
 use Sylius\MolliePlugin\Purifier\MolliePaymentMethodPurifierInterface;
 use Sylius\MolliePlugin\Repository\MollieGatewayConfigRepositoryInterface;
 use Sylius\MolliePlugin\Resolver\MollieMethodsResolverInterface;
@@ -96,7 +97,7 @@ final class MollieContext implements Context
             'api_key_test' => $this->mollieApiKeyTest,
             'profile_id' => $this->mollieProfileId,
             'environment' => null,
-            'loggerLevel' => MollieLoggerActionInterface::LOG_EVERYTHING,
+            'loggerLevel' => LoggerLevel::LOG_EVERYTHING,
         ]);
 
         $this->paymentMethodManager->flush();
@@ -139,7 +140,7 @@ final class MollieContext implements Context
             'api_key_test' => $this->mollieApiKeyTest,
             'profile_id' => $this->mollieProfileId,
             'environment' => null,
-            'loggerLevel' => MollieLoggerActionInterface::LOG_EVERYTHING,
+            'loggerLevel' => LoggerLevel::LOG_EVERYTHING,
         ]);
 
         $this->paymentMethodManager->flush();
@@ -160,7 +161,7 @@ final class MollieContext implements Context
         foreach ($molliePaymentMethods as $molliePaymentMethod) {
             $molliePaymentMethod->enable();
             $molliePaymentMethod->setCountryRestriction(
-                MollieGatewayConfigInterface::ALL_COUNTRIES,
+                CountriesRestriction::ALL,
             );
         }
     }

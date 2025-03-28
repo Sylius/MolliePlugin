@@ -33,16 +33,6 @@
 		"eslint-import-resolver-babel-module": "^4.0.0",
 		"eslint-plugin-import": "^2.12.0",
 		"fast-async": "^6.3.7",
-		"gulp": "^4.0.2",
-		"gulp-chug": "^0.5",
-		"gulp-concat": "^2.6.0",
-		"gulp-debug": "^2.1.2",
-		"gulp-if": "^2.0.0",
-		"gulp-livereload": "^3.8.1",
-		"gulp-order": "^1.1.1",
-		"gulp-sass": "^5.1.0",
-		"gulp-sourcemaps": "^1.6.0",
-		"gulp-uglifycss": "^1.0.5",
 		"merge-stream": "^1.0.0",
 		"rollup": "^0.60.7",
 		"rollup-plugin-babel": "^3.0.4",
@@ -58,14 +48,8 @@
 	"scripts": {
 		"build": "yarn encore prod",
 		"lint": "yarn lint:js",
-		"lint:js": "eslint gulpfile.babel.js",
 		"watch": "yarn encore dev --watch",
-		"dev": "yarn encore dev",
-		"gulp": "gulp build"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/Sylius/Sylius.git"
+		"dev": "yarn encore dev"
 	},
 	"author": "Paweł Jędrzejewski",
 	"license": "MIT"

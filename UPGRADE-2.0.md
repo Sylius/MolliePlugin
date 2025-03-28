@@ -29,6 +29,11 @@
 
    The previous service `sylius_mollie_plugin.payment_surcharge.calculate` has been refactored into `sylius_mollie.payment_fee.calculator.composite` which also implements the new `PaymentSurchargeCalculatorInterface`. Instead of static dependency to a few calculators, it's now a composite consisting of all calculators tagged with `sylius_mollie.payment_fee.calculator`.
 
+1. The methods `getSubscription` and `setSubsscription` have been removed from `Sylius\MolliePlugin\Entity\OrderInterface` and `Sylius\MolliePlugin\Entity\RecurringOrderTrait`.
+   There was an incorrect relationship between the `Order` and `MollieSubscription` entities. The `Order` entity had a many-to-one relationship to `MollieSubscription` entity,
+   while the `MollieSubscription` entity had a many-to-many relationship with the `Order` entity. Now, only a unidirectional many-to-many relationship remains
+   between the `MollieSubscription` and `Order` entities.
+
 1. Changes in `\Sylius\MolliePlugin\Entity\MollieCustomer`:
    
    The `profileId` property has been marked as nullable:
@@ -61,6 +66,19 @@
     ```diff
     - <service id="sylius_mollie_plugin.distributor.order.order_voucher_distributor" class="Sylius\MolliePlugin\Distributor\Order\OrderVoucherDistributor">
     + <service id="sylius_mollie.applicator.order.order_vouchers" class="Sylius\MolliePlugin\Applicator\Order\OrderVouchersApplicator">
+    ```
+
+1. Constructor changes
+
+   The constructor of `Sylius\MolliePlugin\Updater\Order\OrderVoucherAdjustmentUpdater` has been changed:
+
+    ```diff
+    public function __construct(
+        RepositoryInterface $orderRepository,
+    -   AdjustmentFactoryInterface $adjustmentFactory,
+        OrderVouchersApplicatorInterface $orderVouchersApplicator,
+        DivisorProviderInterface $divisorProvider,
+    )
     ```
 
 1. Removed services:

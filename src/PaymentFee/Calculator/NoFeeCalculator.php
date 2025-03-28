@@ -15,13 +15,13 @@ namespace Sylius\MolliePlugin\PaymentFee\Calculator;
 
 use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
-use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
+use Sylius\MolliePlugin\PaymentFee\PaymentSurchargeFeeType;
 
 final class NoFeeCalculator implements PaymentSurchargeCalculatorInterface
 {
     public function supports(string $type): bool
     {
-        return Options::NO_FEE === $type;
+        return PaymentSurchargeFeeType::NONE === $type;
     }
 
     public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): void

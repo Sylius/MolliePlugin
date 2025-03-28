@@ -10,8 +10,5 @@
         <field name="recurringSequenceIndex" type="integer" nullable="true" column="recurring_sequence_index"/>
         <field name="qrCode" type="text" nullable="true" length="1500" column="qr_code"/>
         <field name="molliePaymentId" type="text" nullable="true" length="1500" column="mollie_payment_id"/>
-        <many-to-one field="subscription" target-entity="Sylius\MolliePlugin\Entity\MollieSubscription" inversed-by="orders">
-            <join-column referenced-column-name="id" on-delete="RESTRICT"/>
-        </many-to-one>
     </mapped-superclass>
 </doctrine-mapping>

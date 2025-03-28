@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Payments\Methods;
 
 use Mollie\Api\Types\PaymentMethod;
-use Sylius\MolliePlugin\Payments\PaymentTerms\Options;
+use Sylius\MolliePlugin\Payments\PaymentType;
 
 final class MyBank extends AbstractMethod
 {
@@ -25,6 +25,6 @@ final class MyBank extends AbstractMethod
 
     public function getPaymentType(): string
     {
-        return Options::ORDER_API;
+        return PaymentType::ORDER_API_VALUE;
     }
 }

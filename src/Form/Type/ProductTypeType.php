@@ -15,7 +15,7 @@ namespace Sylius\MolliePlugin\Form\Type;
 
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Sylius\MolliePlugin\Entity\ProductType;
-use Sylius\MolliePlugin\MealVouchers\Options;
+use Sylius\MolliePlugin\Model\MealVoucherType;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,7 +27,7 @@ final class ProductTypeType extends AbstractResourceType
     {
         $builder
             ->add('name', ChoiceType::class, [
-                'choices' => Options::getAvailableMealVouchersCategory(),
+                'choices' => MealVoucherType::getAvailable(),
                 'empty_data' => null,
             ]);
     }
