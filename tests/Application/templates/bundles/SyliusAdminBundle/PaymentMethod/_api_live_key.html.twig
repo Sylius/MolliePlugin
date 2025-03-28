@@ -1,12 +1,20 @@
+{% import '@SyliusAdmin/PaymentMethod/_documentation_helpers.html.twig' as doc %}
+
 <div class="field">
     <label for="sylius_payment_method_gatewayConfig_config_{{ field.vars.name }}" class="required">
         {{ field.vars.label|trans|raw|nl2br }}
     </label>
     <div class="ui input">
         {{ form_widget(field) }}
-        <button id="{{ field.vars.name }}" type="button" class="ui button primary">{{ 'sylius_mollie_plugin.ui.show_hide'|trans }}</button>
+        <button id="{{ field.vars.name }}" type="button" class="ui button primary">
+            {{ 'sylius_mollie_plugin.ui.show_hide'|trans }}
+        </button>
     </div>
-    {{ form_help(field) }}
+
+    <div class="ui pointing label">
+        {{ doc.documentation_help('api_key') }}
+    </div>
+
     {{ form_errors(field) }}
 </div>
 
@@ -19,4 +27,5 @@
         {{ 'sylius_mollie_plugin.ui.test_api_keys'|trans }}
     </button>
 </div>
+
 <div class="ui test-api-key-div"></div>

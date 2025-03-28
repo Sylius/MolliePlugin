@@ -1,0 +1,18 @@
+{% macro documentation_help(key) %}
+    {% set links = {
+        'single_click': 'https://help.mollie.com/hc/en-us/articles/115000671249-What-are-single-click-payments-and-how-does-it-work-',
+        'mollie_components': 'https://www.mollie.com/en/news/post/better-checkout-flows-with-mollie-components',
+        'payment_methods': 'https://docs.mollie.com/orders/why-use-orders',
+        'api_key': 'https://www.mollie.com/dashboard/developers/api-keys'
+    } %}
+
+    {% if key == 'single_click' %}
+        {{ 'sylius_mollie_plugin.ui.read_more_single_click_enabled'|trans({
+            '%link%': '<a target="_blank" href="' ~ links.single_click ~ '">' ~ 'sylius_mollie_plugin.ui.mollie_single_click'|trans ~ '</a>'
+        })|raw }}
+    {% elseif key == 'mollie_components' %}
+        {{ 'sylius_mollie_plugin.ui.read_more_enable_components'|trans({
+            '%link%': '<a target="_blank" href="' ~ links.mollie_components ~ '">' ~ 'sylius_mollie_plugin.ui.mollie_components'|trans ~ '</a>'
+        })|raw }}
+    {% endif %}
+{% endmacro %}

@@ -106,13 +106,11 @@ final class MollieGatewayConfigurationType extends AbstractType
             ->add('components', CheckboxType::class, [
                 'label' => 'sylius_mollie_plugin.ui.enable_components',
                 'attr' => ['class' => 'mollie-components'],
-                'help' => 'sylius_mollie_plugin.help.mollie_components_doc',
                 'help_html' => true,
             ])
             ->add('single_click_enabled', CheckboxType::class, [
                 'label' => 'sylius_mollie_plugin.ui.single_click_enabled',
                 'attr' => ['class' => 'mollie-single-click-payment'],
-                'help' => 'sylius_mollie_plugin.help.single_click_doc',
                 'help_html' => true,
             ])
             ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
