@@ -295,6 +295,7 @@ The following service IDs have been removed:
 | `sylius_mollie_plugin.behat.context.ui.admin.order`                                                       | `sylius_mollie.behat.context.ui.admin.order`                                              |
 | `sylius_mollie_plugin.behat.context.ui.admin.managing_orders`                                             | `sylius_mollie.behat.context.ui.admin.managing_orders`                                    |
 | `sylius_mollie_plugin.command_bus`                                                                        | `sylius_mollie.command_bus`                                                               |
+| `sylius_mollie.documentation.documentation_links`                                                         | `@SyliusAdmin/PaymentMethod/_mollie_gateway_help_theme.html.twig`                                                                                   |
 
 1. Removed parameters:
 
