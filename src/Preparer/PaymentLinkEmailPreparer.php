@@ -15,8 +15,8 @@ namespace Sylius\MolliePlugin\Preparer;
 
 use Liip\ImagineBundle\Exception\Config\Filter\NotFoundException;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\MolliePlugin\EmailSender\PaymentLinkEmailSenderInterface;
 use Sylius\MolliePlugin\Entity\TemplateMollieEmailTranslationInterface;
+use Sylius\MolliePlugin\Mailer\Sender\PaymentLinkEmailSenderInterface;
 use Sylius\MolliePlugin\Repository\TemplateMollieEmailTranslationRepositoryInterface;
 
 final class PaymentLinkEmailPreparer implements PaymentLinkEmailPreparerInterface

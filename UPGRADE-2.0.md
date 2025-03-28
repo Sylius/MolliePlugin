@@ -397,6 +397,8 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\Checker\Voucher\ProductVoucherTypeCheckerInterface`                             | `Sylius\MolliePlugin\Voucher\Checker\ProductVoucherTypeCheckerInterface`                      |
 | `Sylius\MolliePlugin\Updater\Order\OrderVoucherAdjustmentUpdater`                                    | `Sylius\MolliePlugin\Voucher\Updater\OrderVoucherAdjustmentUpdater`                           |
 | `Sylius\MolliePlugin\Updater\Order\OrderVoucherAdjustmentUpdaterInterface`                           | `Sylius\MolliePlugin\Voucher\Updater\OrderVoucherAdjustmentUpdaterInterface`                  |
+| `Sylius\MolliePlugin\EmailSender\PaymentLinkEmailSender`                                             | `Sylius\MolliePlugin\Mailer\Sender\PaymentLinkEmailSender`                                    |
+| `Sylius\MolliePlugin\EmailSender\PaymentLinkEmailSenderInterface`                                    | `Sylius\MolliePlugin\Mailer\Sender\PaymentLinkEmailSenderInterface`                           |
 
 1. The `Sylius\MolliePlugin\Documentation\DocumentationLinks` class and the related service alias `sylius_mollie.documentation.documentation_links` have been removed.
 
