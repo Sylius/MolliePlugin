@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Preparer;
+namespace Sylius\MolliePlugin\Mailer\Manager;
 
 use Sylius\Component\Core\Model\OrderInterface;
 
-interface PaymentLinkEmailPreparerInterface
+interface PaymentLinkEmailManagerInterface
 {
     public function prepare(OrderInterface $order, string $templateName): void;
 }

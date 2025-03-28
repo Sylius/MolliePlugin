@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Preparer;
+namespace Sylius\MolliePlugin\Mailer\Manager;
 
 use Liip\ImagineBundle\Exception\Config\Filter\NotFoundException;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -19,7 +19,7 @@ use Sylius\MolliePlugin\Entity\TemplateMollieEmailTranslationInterface;
 use Sylius\MolliePlugin\Mailer\Sender\PaymentLinkEmailSenderInterface;
 use Sylius\MolliePlugin\Repository\TemplateMollieEmailTranslationRepositoryInterface;
 
-final class PaymentLinkEmailPreparer implements PaymentLinkEmailPreparerInterface
+final class PaymentLinkEmailManager implements PaymentLinkEmailManagerInterface
 {
     public function __construct(private readonly TemplateMollieEmailTranslationRepositoryInterface $templateRepository, private readonly PaymentLinkEmailSenderInterface $emailSender)
     {
