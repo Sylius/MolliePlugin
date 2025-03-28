@@ -1,5 +1,7 @@
 sylius_mollie_plugin:
     ui:
+        read_more_live_api_key: '%link% - your API key starts with "live_"'
+        read_more_test_api_key: '%link% - your API key starts with "test_"'
         product_variant:
             tab:
                 recurring: 'Recurring settings'

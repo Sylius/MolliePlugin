@@ -53,7 +53,6 @@ final class MollieGatewayConfigurationType extends AbstractType
             ->add(self::API_KEY_TEST, PasswordType::class, [
                 'always_empty' => false,
                 'label' => 'sylius_mollie_plugin.ui.api_key_test',
-                'help' => ' ',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'sylius_mollie_plugin.api_key.not_blank',

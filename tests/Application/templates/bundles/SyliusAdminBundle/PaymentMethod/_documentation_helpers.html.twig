@@ -10,9 +10,21 @@
         {{ 'sylius_mollie_plugin.ui.read_more_single_click_enabled'|trans({
             '%link%': '<a target="_blank" href="' ~ links.single_click ~ '">' ~ 'sylius_mollie_plugin.ui.mollie_single_click'|trans ~ '</a>'
         })|raw }}
+
     {% elseif key == 'mollie_components' %}
         {{ 'sylius_mollie_plugin.ui.read_more_enable_components'|trans({
             '%link%': '<a target="_blank" href="' ~ links.mollie_components ~ '">' ~ 'sylius_mollie_plugin.ui.mollie_components'|trans ~ '</a>'
         })|raw }}
+
+    {% elseif key == 'api_key_live' %}
+        {{ 'sylius_mollie_plugin.ui.read_more_live_api_key'|trans({
+            '%link%': '<a target="_blank" href="' ~ links.api_key ~ '">' ~ 'sylius_mollie_plugin.ui.mollie_profile'|trans ~ '</a>'
+        })|raw }}
+
+    {% elseif key == 'api_key_test' %}
+        {{ 'sylius_mollie_plugin.ui.read_more_test_api_key'|trans({
+            '%link%': '<a target="_blank" href="' ~ links.api_key ~ '">' ~ 'sylius_mollie_plugin.ui.mollie_profile'|trans ~ '</a>'
+        })|raw }}
+
     {% endif %}
 {% endmacro %}
