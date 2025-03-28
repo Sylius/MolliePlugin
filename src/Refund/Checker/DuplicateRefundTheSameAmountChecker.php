@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Checker\Refund;
+namespace Sylius\MolliePlugin\Refund\Checker;
 
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Repository\CreditMemoRepositoryInterface;

@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Calculator\Refund;
+namespace Sylius\MolliePlugin\Refund\Checker;
 
-use Sylius\MolliePlugin\DTO\PartialRefundItems;
+use Mollie\Api\Resources\Order;
 
-interface PaymentRefundCalculatorInterface
+interface MollieOrderRefundCheckerInterface
 {
-    public function calculate(PartialRefundItems $partialRefundItems, int $totalToRefund): PartialRefundItems;
+    public function check(Order $order): bool;
 }
