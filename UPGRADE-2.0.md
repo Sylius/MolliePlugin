@@ -416,6 +416,8 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\Processor\SubscriptionProcessorInterface`                                       | `Sylius\MolliePlugin\Subscription/Processor\SubscriptionProcessorInterface`                   |
 | `Sylius\MolliePlugin\Processor\SubscriptionScheduleProcessor`                                        | `Sylius\MolliePlugin\Subscription/Processor\SubscriptionScheduleProcessor`                    |
 | `Sylius\MolliePlugin\Processor\SubscriptionScheduleProcessorInterface`                               | `Sylius\MolliePlugin\Subscription/Processor\SubscriptionScheduleProcessorInterface`           |
+| `Sylius\MolliePlugin\Generator\SubscriptionScheduleGenerator`                                        | `Sylius\MolliePlugin\Subscription\Generator\SubscriptionScheduleGenerator`                    |
+| `Sylius\MolliePlugin\Generator\SubscriptionScheduleGeneratorInterface`                               | `Sylius\MolliePlugin\Subscription\Generator\SubscriptionScheduleGeneratorInterface`           |
 
 1. The `Sylius\MolliePlugin\Documentation\DocumentationLinks` class and the related service alias `sylius_mollie.documentation.documentation_links` have been removed.
 
