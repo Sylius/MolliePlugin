@@ -283,13 +283,71 @@ The following service IDs have been removed:
 | `sylius_mollie_plugin.behat.context.ui.admin.managing_orders`                                             | `sylius_mollie.behat.context.ui.admin.managing_orders`                                    |
 | `sylius_mollie_plugin.command_bus`                                                                        | `sylius_mollie.command_bus`                                                               |
 
+1. Removed classes:
+   - `Sylius\MolliePlugin\Action\CaptureActionInterface`
+   - `Sylius\MolliePlugin\Action\StatusActionInterface`
+   - `Sylius\MolliePlugin\Request\StateMachine\SetStatusOrder`
+
+1. Namespace changes:
+
+| From                                                                                                 | To                                                                                            |
+|------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| `Sylius\MolliePlugin\Action\ApiPlatform\MolliePayment`                                               | `Sylius\MolliePlugin\Api\MolliePaymentConfigurationProvider`                                  |
+| `Sylius\MolliePlugin\Action\Api\BaseRefundAction`                                                    | `Sylius\MolliePlugin\Payum\Action\Refund\BaseRefundAction`                                    |
+| `Sylius\MolliePlugin\Action\RefundAction`                                                            | `Sylius\MolliePlugin\Payum\Action\Refund\RefundAction`                                        |
+| `Sylius\MolliePlugin\Action\RefundOrderAction`                                                       | `Sylius\MolliePlugin\Payum\Action\Refund\RefundOrderAction`                                   |
+| `Sylius\MolliePlugin\Action\Api\CancelRecurringSubscriptionAction`                                   | `Sylius\MolliePlugin\Payum\Action\Subscription\CancelRecurringSubscriptionAction`             |
+| `Sylius\MolliePlugin\Action\ConvertMollieSubscriptionPaymentAction`                                  | `Sylius\MolliePlugin\Payum\Action\Subscription\ConvertMollieSubscriptionPaymentAction`        |
+| `Sylius\MolliePlugin\Action\Api\CreateInternalSubscriptionAction`                                    | `Sylius\MolliePlugin\Payum\Action\Subscription\CreateInternalSubscriptionAction`              |
+| `Sylius\MolliePlugin\Action\Api\CreateOnDemandSubscriptionAction`                                    | `Sylius\MolliePlugin\Payum\Action\Subscription\CreateOnDemandSubscriptionAction`              |
+| `Sylius\MolliePlugin\Action\StateMachine\CreateOnDemandSubscriptionAction`                           | `Sylius\MolliePlugin\Payum\Action\Subscription\StatusRecurringSubscriptionAction`             |
+| `Sylius\MolliePlugin\Action\Api\BaseApiAwareAction`                                                  | `Sylius\MolliePlugin\Payum\Action\BaseApiAwareAction`                                         |
+| `Sylius\MolliePlugin\Action\CaptureAction`                                                           | `Sylius\MolliePlugin\Payum\Action\CaptureAction`                                              |
+| `Sylius\MolliePlugin\Action\ConvertMolliePaymentAction`                                              | `Sylius\MolliePlugin\Payum\Action\ConvertMolliePaymentAction`                                 |
+| `Sylius\MolliePlugin\Action\Api\CreateCustomerAction`                                                | `Sylius\MolliePlugin\Payum\Action\CreateCustomerAction`                                       |
+| `Sylius\MolliePlugin\Action\Api\CreateOnDemandPaymentAction`                                         | `Sylius\MolliePlugin\Payum\Action\CreateOnDemandPaymentAction`                                |
+| `Sylius\MolliePlugin\Action\Api\CreateOrderAction`                                                   | `Sylius\MolliePlugin\Payum\Action\CreateOrderAction`                                          |
+| `Sylius\MolliePlugin\Action\Api\CreatePaymentAction`                                                 | `Sylius\MolliePlugin\Payum\Action\CreatePaymentAction`                                        |
+| `Sylius\MolliePlugin\Action\NotifyAction`                                                            | `Sylius\MolliePlugin\Payum\Action\NotifyAction`                                               |
+| `Sylius\MolliePlugin\Action\StatusAction`                                                            | `Sylius\MolliePlugin\Payum\Action\StatusAction`                                               |
+| `Sylius\MolliePlugin\Provider\PaymentToken\PaymentTokenProvider`                                     | `Sylius\MolliePlugin\Payum\Provider\PaymentTokenProvider`                                     |
+| `Sylius\MolliePlugin\Provider\PaymentToken\PaymentTokenProviderInterface`                            | `Sylius\MolliePlugin\Payum\Provider\PaymentTokenProviderInterface`                            |
+| `Sylius\MolliePlugin\Request\Api\RefundOrder`                                                        | `Sylius\MolliePlugin\Payum\Request\Refund\RefundOrder`                                        |
+| `Sylius\MolliePlugin\Request\Api\CancelRecurringSubscription`                                        | `Sylius\MolliePlugin\Payum\Request\Seubcription\CancelRecurringSubscription`                  |
+| `Sylius\MolliePlugin\Request\Api\CreateInternalRecurring`                                            | `Sylius\MolliePlugin\Payum\Request\Subscription\CreateInternalRecurring`                      |
+| `Sylius\MolliePlugin\Request\StateMachine\CreateOnDemandSubscription`                                | `Sylius\MolliePlugin\Payum\Request\Subscription\CreateOnDemandSubscription`                   |
+| `Sylius\MolliePlugin\Request\Api\CreateOnDemandSubscriptionPayment`                                  | `Sylius\MolliePlugin\Payum\Request\Subscription\CreateOnDemandSubscriptionPayment`            |
+| `Sylius\MolliePlugin\Request\Api\CreateRecurringPayment`                                             | `Sylius\MolliePlugin\Payum\Request\Subscription\CreateRecurringPayment`                       |
+| `Sylius\MolliePlugin\Request\Api\CreateSubscriptionPayment`                                          | `Sylius\MolliePlugin\Payum\Request\Subscription\CreateSubscriptionPayment`                    |
+| `Sylius\MolliePlugin\Request\StateMachine\StatusRecurringSubscription`                               | `Sylius\MolliePlugin\Payum\Request\Subscription\StatusRecurringSubscription`                  |
+| `Sylius\MolliePlugin\Request\Api\ConfigureNextOrder`                                                 | `Sylius\MolliePlugin\Payum\Request\ConfigureNextOrder`                                        |
+| `Sylius\MolliePlugin\Request\Api\CreateCustomer`                                                     | `Sylius\MolliePlugin\Payum\Request\CreateCustomer`                                            |
+| `Sylius\MolliePlugin\Request\Api\CreateOrder`                                                        | `Sylius\MolliePlugin\Payum\Request\CreateOrder`                                               |
+| `Sylius\MolliePlugin\Request\Api\CreatePayment`                                                      | `Sylius\MolliePlugin\Payum\Request\CreatePayment`                                             |
+| `Sylius\MolliePlugin\Request\Api\CreateSepaMandate`                                                  | `Sylius\MolliePlugin\Payum\Request\CreateSepaMandate`                                         |
+| `Sylius\MolliePlugin\Request\Api\GetMethods`                                                         | `Sylius\MolliePlugin\Payum\Request\GetMethods`                                                |
+| `Sylius\MolliePlugin\Action\StateMachine\SetStatusOrderAction`                                       | `Sylius\MolliePlugin\StateMachine\Applicator\MollieOrderStatesApplicator`                     |
+| `Sylius\MolliePlugin\Action\StateMachine\SetStatusOrderActionInterface`                              | `Sylius\MolliePlugin\StateMachine\Applicator\MollieOrderStatesApplicatorInterface`            |
+| `Sylius\MolliePlugin\Action\StateMachine\Applicator\SubscriptionAndPaymentIdApplicator`              | `Sylius\MolliePlugin\StateMachine\Applicator\SubscriptionAndPaymentIdApplicator`              |
+| `Sylius\MolliePlugin\Action\StateMachine\Applicator\SubscriptionAndPaymentIdApplicatorInterface`     | `Sylius\MolliePlugin\StateMachine\Applicator\SubscriptionAndPaymentIdApplicatorInterface`     |
+| `Sylius\MolliePlugin\Action\StateMachine\Applicator\SubscriptionAndSyliusPaymentApplicator`          | `Sylius\MolliePlugin\StateMachine\Applicator\SubscriptionAndSyliusPaymentApplicator`          |
+| `Sylius\MolliePlugin\Action\StateMachine\Applicator\SubscriptionAndSyliusPaymentApplicatorInterface` | `Sylius\MolliePlugin\StateMachine\Applicator\SubscriptionAndSyliusPaymentApplicatorInterface` |
+| `Sylius\MolliePlugin\Action\StateMachine\Transition\PaymentStateMachineTransition`                   | `Sylius\MolliePlugin\StateMachine\Transition\PaymentStateMachineTransition`                   |
+| `Sylius\MolliePlugin\Action\StateMachine\Transition\PaymentStateMachineTransitionInterface`          | `Sylius\MolliePlugin\StateMachine\Transition\PaymentStateMachineTransitionInterface`          |
+| `Sylius\MolliePlugin\Action\StateMachine\Transition\StateMachineTransition`                          | `Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransition`                          |
+| `Sylius\MolliePlugin\Transition\MollieRecurringTransitions`                                          | `Sylius\MolliePlugin\StateMachine\MollieRecurringTransitions`                                 |
+| `Sylius\MolliePlugin\Transition\MollieSubscriptionPaymentProcessingTransitions`                      | `Sylius\MolliePlugin\StateMachine\MollieSubscriptionPaymentProcessingTransitions`             |
+| `Sylius\MolliePlugin\Transition\MollieSubscriptionProcessingTransitions`                             | `Sylius\MolliePlugin\StateMachine\MollieSubscriptionProcessingTransitions`                    |
+| `Sylius\MolliePlugin\Transition\MollieSubscriptionTransitions`                                       | `Sylius\MolliePlugin\StateMachine\MollieSubscriptionTransitions`                              |
+| `Sylius\MolliePlugin\Transition\PartialShip\ShipmentTransitions`                                     | `Sylius\MolliePlugin\StateMachine\ShipmentTransitions`                                        |
+
 1. Removed parameters:
 
 The following parameters have been replaced:
 
 | Removed parameter                                                                        | Use Instead                                                                       |
 |------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
-| `sylius_mollie_plugin.form.type.payment_methods.validation_groups.transport`             | `sylius_mollie.form.type.mollie_gateway_config.validation_groups`             |
+| `sylius_mollie_plugin.form.type.payment_methods.validation_groups.transport`             | `sylius_mollie.form.type.mollie_gateway_config.validation_groups`                 |
 | `sylius_mollie_plugin.form.type.payment_methods.payment_surcharge_fee.validation_groups` | `sylius_mollie.form.type.payment_methods.payment_surcharge_fee.validation_groups` |
 | `sylius_mollie_plugin.form.type.mollie.validation_groups`                                | `sylius_mollie.form.type.mollie.validation_groups`                                |
 | `sylius_mollie_plugin.twig.functions`                                                    | `sylius_mollie.twig.functions`                                                    |
