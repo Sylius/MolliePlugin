@@ -1,5 +1,3 @@
-{% import '@SyliusAdmin/PaymentMethod/_documentation_helpers.html.twig' as doc %}
-
 <div class="required field">
     <label for="sylius_payment_method_gatewayConfig_config_{{ field.vars.name }}" class="required">
         {{ field.vars.label|trans|raw|nl2br }}
@@ -11,9 +9,6 @@
         </button>
     </div>
 
-    <div class="ui pointing label">
-        {{ doc.documentation_help('api_key_test') }}
-    </div>
-
+    {{ form_help(field) }}
     {{ form_errors(field) }}
 </div>
