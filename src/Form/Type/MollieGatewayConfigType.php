@@ -149,11 +149,7 @@ final class MollieGatewayConfigType extends AbstractResourceType
 
                 if (in_array($object->getMethodId(), ApiTypeRestrictedPaymentMethods::onlyOrderApi(), true)) {
                     $form->remove('paymentType');
-                    $form->add('paymentType', ChoiceType::class, [
-                        'label' => 'sylius_mollie_plugin.ui.payment_type',
-                        'choices' => Options::getAvailablePaymentType(),
-                        'help' => 'sylius_mollie_plugin.help.payment_methods_doc',
-                        'help_html' => true,
+                    $form->add('paymentType', PaymentTypeChoiceType::class, [
                         'attr' => [
                             'disabled' => 'disabled',
                         ],
