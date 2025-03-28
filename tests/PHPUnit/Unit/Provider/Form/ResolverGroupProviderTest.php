@@ -16,23 +16,23 @@ namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Provider\Form;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\MolliePlugin\Entity\ProductVariantInterface;
-use Sylius\MolliePlugin\Provider\Form\ResolverGroupProvider;
-use Sylius\MolliePlugin\Provider\Form\ResolverGroupProviderInterface;
+use Sylius\MolliePlugin\Form\Resolver\ValidationGroupsResolver;
+use Sylius\MolliePlugin\Form\Resolver\ValidationGroupsResolverInterface;
 use Symfony\Component\Form\FormInterface;
 
 final class ResolverGroupProviderTest extends TestCase
 {
-    private ResolverGroupProvider $resolverGroupProvider;
+    private ValidationGroupsResolver $resolverGroupProvider;
 
     protected function setUp(): void
     {
-        $this->resolverGroupProvider = new ResolverGroupProvider();
+        $this->resolverGroupProvider = new ValidationGroupsResolver();
     }
 
     public function testInitializable(): void
     {
-        $this->assertInstanceOf(ResolverGroupProvider::class, $this->resolverGroupProvider);
-        $this->assertInstanceOf(ResolverGroupProviderInterface::class, $this->resolverGroupProvider);
+        $this->assertInstanceOf(ValidationGroupsResolver::class, $this->resolverGroupProvider);
+        $this->assertInstanceOf(ValidationGroupsResolverInterface::class, $this->resolverGroupProvider);
     }
 
     public function testProvidesWhenProductVariantIsRecurring(): void

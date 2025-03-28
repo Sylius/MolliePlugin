@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Provider\Form;
+namespace Sylius\MolliePlugin\Form\Resolver;
 
 use Sylius\MolliePlugin\Entity\ProductVariantInterface;
 use Symfony\Component\Form\FormInterface;
 
-final class ResolverGroupProvider implements ResolverGroupProviderInterface
+final class ValidationGroupsResolver implements ValidationGroupsResolverInterface
 {
     public function provide(FormInterface $form): array
     {

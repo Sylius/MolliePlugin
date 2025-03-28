@@ -401,6 +401,8 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\EmailSender\PaymentLinkEmailSenderInterface`                                    | `Sylius\MolliePlugin\Mailer\Sender\PaymentLinkEmailSenderInterface`                           |
 | `Sylius\MolliePlugin\Preparer\PaymentLinkEmailPreparer`                                              | `Sylius\MolliePlugin\Mailer\Manager\PaymentLinkEmailManager`                                  |
 | `Sylius\MolliePlugin\Preparer\PaymentLinkEmailPreparerInterface`                                     | `Sylius\MolliePlugin\Mailer\Manager\PaymentLinkEmailPreparerInterface`                        |
+| `Sylius\MolliePlugin\Provider\Form\ResolverGroupProvider`                                            | `Sylius\MolliePlugin\Form\Resolver\ValidationGroupsResolver`                                  |
+| `Sylius\MolliePlugin\Provider\Form\ResolverGroupProviderInterface`                                   | `Sylius\MolliePlugin\Form\Resolver\ValidationGroupsResolverInterface`                         |
 
 1. The `Sylius\MolliePlugin\Documentation\DocumentationLinks` class and the related service alias `sylius_mollie.documentation.documentation_links` have been removed.
 
