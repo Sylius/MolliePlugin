@@ -15,7 +15,6 @@ namespace Sylius\MolliePlugin\Resolver;
 
 use Mollie\Api\Exceptions\ApiException;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\MolliePlugin\Checker\Voucher\ProductVoucherTypeCheckerInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface as MollieOrderInterface;
@@ -24,6 +23,7 @@ use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 use Sylius\MolliePlugin\Repository\MollieGatewayConfigRepository;
 use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
 use Sylius\MolliePlugin\Resolver\Order\PaymentCheckoutOrderResolverInterface;
+use Sylius\MolliePlugin\Voucher\Checker\ProductVoucherTypeCheckerInterface;
 use Webmozart\Assert\Assert;
 
 final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolverInterface

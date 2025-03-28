@@ -393,6 +393,8 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\Applicator\Order\OrderVoucherApplicatorInterface`                               | `Sylius\MolliePlugin\Voucher\Applicator\OrderVoucherApplicatorInterface`                      |
 | `Sylius\MolliePlugin\Applicator\UnitsPromotionAdjustmentsApplicator`                                 | `Sylius\MolliePlugin\Voucher\Applicator\UnitsVouchersApplicator`                              |
 | `Sylius\MolliePlugin\Applicator\UnitsPromotionAdjustmentsApplicatorInterface`                        | `Sylius\MolliePlugin\Voucher\Applicator\UnitsVouchersApplicatorInterface`                     |
+| `Sylius\MolliePlugin\Checker\Voucher\ProductVoucherTypeChecker`                                      | `Sylius\MolliePlugin\Voucher\Checker\ProductVoucherTypeChecker`                               |
+| `Sylius\MolliePlugin\Checker\Voucher\ProductVoucherTypeCheckerInterface`                             | `Sylius\MolliePlugin\Voucher\Checker\ProductVoucherTypeCheckerInterface`                      |
 
 1. Removed parameters:
 
