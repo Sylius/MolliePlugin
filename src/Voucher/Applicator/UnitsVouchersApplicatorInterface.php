@@ -11,11 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Applicator\Order;
+namespace Sylius\MolliePlugin\Voucher\Applicator;
 
 use Sylius\Component\Core\Model\OrderInterface;
 
-interface OrderVouchersApplicatorInterface
+interface UnitsVouchersApplicatorInterface
 {
-    public function distribute(OrderInterface $order, int $amount): void;
+    /** @param int[] $promotionAmount */
+    public function apply(OrderInterface $order, array $promotionAmount): void;
 }

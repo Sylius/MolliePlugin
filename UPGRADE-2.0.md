@@ -15,7 +15,7 @@
 1. Class and interface names have been updated
 
    The `Sylius\MolliePlugin\Distributor\Order\OrderVoucherDistributor` class has been renamed
-   to `Sylius\MolliePlugin\Applicator\OrderOrderVouchersApplicator` along with its interface.
+   to `Sylius\MolliePlugin\Voucher\Applicator\OrderOrderVouchersApplicator` along with its interface.
 
 1. The `Sylius\MolliePlugin\PaymentFee\Types\SurchargeTypeInterface` has been refactored into
    `Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeCalculatorInterface` along with all its implementations. This includes:
@@ -65,7 +65,7 @@
 
     ```diff
     - <service id="sylius_mollie_plugin.distributor.order.order_voucher_distributor" class="Sylius\MolliePlugin\Distributor\Order\OrderVoucherDistributor">
-    + <service id="sylius_mollie.applicator.order.order_vouchers" class="Sylius\MolliePlugin\Applicator\Order\OrderVouchersApplicator">
+    + <service id="sylius_mollie.applicator.order.order_vouchers" class="Sylius\MolliePlugin\Voucher\Applicator\OrderVouchersApplicator">
     ```
 
 1. Constructor changes
@@ -389,6 +389,10 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\Controller\Action\Shop\PaymentFeeCalculateAction`                               | `Sylius\MolliePlugin\Controller\Shop\PaymentFeeCalculateAction`                               |
 | `Sylius\MolliePlugin\Controller\Action\Shop\PayumController`                                         | `Sylius\MolliePlugin\Controller\Shop\PayumController`                                         |
 | `Sylius\MolliePlugin\Controller\Action\Shop\QrCodeAction`                                            | `Sylius\MolliePlugin\Controller\Shop\QrCodeAction`                                            |
+| `Sylius\MolliePlugin\Applicator\Order\OrderVoucherApplicator`                                        | `Sylius\MolliePlugin\Voucher\Applicator\OrderVoucherApplicator`                               |
+| `Sylius\MolliePlugin\Applicator\Order\OrderVoucherApplicatorInterface`                               | `Sylius\MolliePlugin\Voucher\Applicator\OrderVoucherApplicatorInterface`                      |
+| `Sylius\MolliePlugin\Applicator\UnitsPromotionAdjustmentsApplicator`                                 | `Sylius\MolliePlugin\Voucher\Applicator\UnitsVouchersApplicator`                              |
+| `Sylius\MolliePlugin\Applicator\UnitsPromotionAdjustmentsApplicatorInterface`                        | `Sylius\MolliePlugin\Voucher\Applicator\UnitsVouchersApplicatorInterface`                     |
 
 1. Removed parameters:
 
