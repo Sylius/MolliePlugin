@@ -370,6 +370,8 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\Cli\BeginProcessingSubscriptions`                                               | `Sylius\MolliePlugin\Console\Command\BeginProcessingSubscriptions`                            |
 | `Sylius\MolliePlugin\Cli\ProcessSubscriptions`                                                       | `Sylius\MolliePlugin\Console\Command\ProcessSubscriptions`                                    |
 | `Sylius\MolliePlugin\Cli\SendAbandonedPaymentLink`                                                   | `Sylius\MolliePlugin\Console\Command\SendAbandonedPaymentLink`                                |
+| `Sylius\MolliePlugin\Context\Admin\AdminUserContext`                                                 | `Sylius\MolliePlugin\Context\AdminUserContext`                                                |
+| `Sylius\MolliePlugin\Context\Admin\AdminUserContextInterface`                                        | `Sylius\MolliePlugin\Context\AdminUserContextInterface`                                       |
 
 1. Removed parameters:
 
