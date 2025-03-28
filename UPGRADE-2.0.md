@@ -359,6 +359,7 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\Checker\Refund\DuplicateRefundTheSameAmountCheckerInterface`                    | `Sylius\MolliePlugin\Refund\Checker\DuplicateRefundTheSameAmountCheckerInterface`             |
 | `Sylius\MolliePlugin\Checker\Refund\MollieOrderRefundChecker`                                        | `Sylius\MolliePlugin\Refund\Checker\MollieOrderRefundChecker`                                 |
 | `Sylius\MolliePlugin\Checker\Refund\MollieOrderRefundCheckerInterface`                               | `Sylius\MolliePlugin\Refund\Checker\MollieOrderRefundCheckerInterface`                        |
+| `Sylius\MolliePlugin\Validator\Refund\RefundUnitsCommandValidator`                                   | `Sylius\MolliePlugin\Refund\Validator\RefundUnitsCommandValidator`                            |
 
 1. Removed parameters:
 
