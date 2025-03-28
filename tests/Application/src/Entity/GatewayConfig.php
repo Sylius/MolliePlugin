@@ -13,11 +13,14 @@ declare(strict_types=1);
 
 namespace Tests\SyliusMolliePlugin\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use SyliusMolliePlugin\Entity\GatewayConfigInterface;
 use SyliusMolliePlugin\Entity\GatewayConfigTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sylius\Bundle\PayumBundle\Model\GatewayConfig as BaseGatewayConfig;
 
+#[ORM\Entity]
+#[ORM\Table(name: 'sylius_gateway_config')]
 class GatewayConfig extends BaseGatewayConfig implements GatewayConfigInterface
 {
     use GatewayConfigTrait;
