@@ -133,8 +133,9 @@ final class MollieGatewayConfigurationType extends AbstractType
             ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
                 $data = $event->getData();
 
-                $apiKeyField = isset($data['environment']) ? MollieGatewayConfigurationType::API_KEY_LIVE : MollieGatewayConfigurationType::API_KEY_TEST;                $apiKey = $data[$apiKeyField] ?? '';
+                $apiKeyField = $data['environment'] ? MollieGatewayConfigurationType::API_KEY_LIVE : MollieGatewayConfigurationType::API_KEY_TEST;
 
+                $apiKey = $data[$apiKeyField] ?? '';
                 if (!preg_match('/^(test|live)_\w{26,}$/', $apiKey)) {
                     return;
                 }
