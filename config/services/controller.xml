@@ -47,7 +47,6 @@
             <argument type="service" id="sylius_mollie.helper.convert_price_to_amount" />
             <argument type="service" id="twig"/>
         </service>
-        <service id="Sylius\MolliePlugin\Controller\Action\Shop\PaymentFeeCalculateActionInterface" alias="sylius_mollie.controller.shop.payment_fee_calculate" />
 
         <service id="sylius_mollie.controller.shop.qr_code" class="Sylius\MolliePlugin\Controller\Shop\QrCodeAction">
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>

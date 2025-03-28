@@ -59,6 +59,6 @@
         <service id="Sylius\MolliePlugin\Refund\Generator\PaymentRefundedGeneratorInterface" alias="sylius_mollie.refunded_generator.payment" />
 
         <service id="sylius_mollie.calculator.refund.payment" class="Sylius\MolliePlugin\Refund\Calculator\PaymentRefundCalculator" />
-        <service id="Sylius\MolliePlugin\Calculator\Refund\PaymentRefundCalculatorInterface" alias="sylius_mollie.calculator.refund.payment" />
+        <service id="Sylius\MolliePlugin\Refund\Calculator\PaymentRefundCalculatorInterface" alias="sylius_mollie.calculator.refund.payment" />
     </services>
 </container>

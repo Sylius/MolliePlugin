@@ -21,6 +21,6 @@
         >
             <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
         </service>
-        <service id="Sylius\MolliePlugin\Checker\Voucher\ProductVoucherTypeCheckerInterface" alias="sylius_mollie.checker.voucher.product_voucher_type"/>
+        <service id="Sylius\MolliePlugin\Voucher\Checker\ProductVoucherTypeCheckerInterface" alias="sylius_mollie.checker.voucher.product_voucher_type"/>
     </services>
 </container>

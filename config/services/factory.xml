@@ -77,6 +77,6 @@
         <service id="Sylius\MolliePlugin\Factory\PaymentDetailsFactoryInterface" alias="sylius_mollie.factory.payment_details"/>
 
         <service id="sylius_mollie.factory.api_customer" class="Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactory"/>
-        <service id="Sylius\MolliePlugin\Factory\ApiCustomerFactoryInterface" alias="sylius_mollie.factory.api_customer"/>
+        <service id="Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactoryInterface" alias="sylius_mollie.factory.api_customer"/>
     </services>
 </container>

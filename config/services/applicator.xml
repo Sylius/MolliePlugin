@@ -22,6 +22,6 @@
             <argument type="service" id="sylius.custom_factory.adjustment"/>
             <argument type="service" id="sylius.integer_distributor"/>
         </service>
-        <service id="Sylius\MolliePlugin\Applicator\UnitsPromotionAdjustmentsApplicatorInterface" alias="sylius_mollie.applicator.units_promotion_adjustments"/>
+        <service id="Sylius\MolliePlugin\Voucher\Applicator\UnitsVouchersApplicatorInterface" alias="sylius_mollie.applicator.units_promotion_adjustments"/>
     </services>
 </container>

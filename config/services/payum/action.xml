@@ -36,7 +36,6 @@
             <tag name="payum.action" factory="mollie" alias="payum.action.capture"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.capture_subscription"/>
         </service>
-        <service id="Sylius\MolliePlugin\Action\CaptureActionInterface" alias="sylius_mollie.payum.action.capture" />
 
         <service id="sylius_mollie.payum.action.notify" class="Sylius\MolliePlugin\Payum\Action\NotifyAction">
             <argument type="service" id="sylius_mollie.get_http_request"/>
@@ -56,6 +55,5 @@
             <tag name="payum.action" factory="mollie" alias="payum.action.status"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.status_subscription"/>
         </service>
-        <service id="Sylius\MolliePlugin\Action\StatusActionInterface" alias="sylius_mollie.payum.action.status" />
     </services>
 </container>
