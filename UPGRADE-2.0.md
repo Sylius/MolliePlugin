@@ -68,6 +68,19 @@
     + <service id="sylius_mollie.applicator.order.order_vouchers" class="Sylius\MolliePlugin\Applicator\Order\OrderVouchersApplicator">
     ```
 
+1. Constructor changes
+
+   The constructor of `Sylius\MolliePlugin\Updater\Order\OrderVoucherAdjustmentUpdater` has been changed:
+
+    ```diff
+    public function __construct(
+        RepositoryInterface $orderRepository,
+    -   AdjustmentFactoryInterface $adjustmentFactory,
+        OrderVouchersApplicatorInterface $orderVouchersApplicator,
+        DivisorProviderInterface $divisorProvider,
+    )
+    ```
+
 1. Removed services:
    - `sylius_mollie_plugin.checker.version.mollie_plugin_latest_version_checker`
 
