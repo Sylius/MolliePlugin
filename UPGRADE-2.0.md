@@ -355,6 +355,10 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\Transition\PartialShip\ShipmentTransitions`                                     | `Sylius\MolliePlugin\StateMachine\ShipmentTransitions`                                        |
 | `Sylius\MolliePlugin\Calculator\Refund\PaymentRefundCalculator`                                      | `Sylius\MolliePlugin\Refund\Calculator\PaymentRefundCalculator`                               |
 | `Sylius\MolliePlugin\Calculator\Refund\PaymentRefundCalculatorInterface`                             | `Sylius\MolliePlugin\Refund\Calculator\PaymentRefundCalculatorInterface`                      |
+| `Sylius\MolliePlugin\Checker\Refund\DuplicateRefundTheSameAmountChecker`                             | `Sylius\MolliePlugin\Refund\Checker\DuplicateRefundTheSameAmountChecker`                      |
+| `Sylius\MolliePlugin\Checker\Refund\DuplicateRefundTheSameAmountCheckerInterface`                    | `Sylius\MolliePlugin\Refund\Checker\DuplicateRefundTheSameAmountCheckerInterface`             |
+| `Sylius\MolliePlugin\Checker\Refund\MollieOrderRefundChecker`                                        | `Sylius\MolliePlugin\Refund\Checker\MollieOrderRefundChecker`                                 |
+| `Sylius\MolliePlugin\Checker\Refund\MollieOrderRefundCheckerInterface`                               | `Sylius\MolliePlugin\Refund\Checker\MollieOrderRefundCheckerInterface`                        |
 
 1. Removed parameters:
 

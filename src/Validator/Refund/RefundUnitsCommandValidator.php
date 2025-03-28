@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Validator\Refund;
 
-use Sylius\MolliePlugin\Checker\Refund\DuplicateRefundTheSameAmountCheckerInterface;
+use Sylius\MolliePlugin\Refund\Checker\DuplicateRefundTheSameAmountCheckerInterface;
 use Sylius\RefundPlugin\Checker\OrderRefundingAvailabilityCheckerInterface;
 use Sylius\RefundPlugin\Command\RefundUnits;
 use Sylius\RefundPlugin\Exception\InvalidRefundAmount;
