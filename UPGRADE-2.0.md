@@ -360,6 +360,7 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\Checker\Refund\MollieOrderRefundChecker`                                        | `Sylius\MolliePlugin\Refund\Checker\MollieOrderRefundChecker`                                 |
 | `Sylius\MolliePlugin\Checker\Refund\MollieOrderRefundCheckerInterface`                               | `Sylius\MolliePlugin\Refund\Checker\MollieOrderRefundCheckerInterface`                        |
 | `Sylius\MolliePlugin\Validator\Refund\RefundUnitsCommandValidator`                                   | `Sylius\MolliePlugin\Refund\Validator\RefundUnitsCommandValidator`                            |
+| `Sylius\MolliePlugin\PaymentFee\PaymentSurchargeFeeType`                                             | `Sylius\MolliePlugin\Model\PaymentSurchargeFeeType`                                           |
 
 1. Removed parameters:
 

@@ -28,7 +28,7 @@ use Sylius\Component\Taxation\Resolver\TaxRateResolverInterface;
 use Sylius\MolliePlugin\Calculator\CalculateTaxAmountInterface;
 use Sylius\MolliePlugin\DTO\MolliePayment\Amount;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
-use Sylius\MolliePlugin\PaymentFee\PaymentSurchargeFeeType;
+use Sylius\MolliePlugin\Model\PaymentSurchargeFeeType;
 use Sylius\MolliePlugin\Resolver\MealVoucherResolverInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Webmozart\Assert\Assert;

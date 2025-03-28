@@ -15,7 +15,7 @@ namespace Sylius\MolliePlugin\PaymentFee\Calculator;
 
 use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
-use Sylius\MolliePlugin\PaymentFee\PaymentSurchargeFeeType;
+use Sylius\MolliePlugin\Model\PaymentSurchargeFeeType;
 
 final class NoFeeCalculator implements PaymentSurchargeCalculatorInterface
 {

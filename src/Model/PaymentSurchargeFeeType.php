@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\PaymentFee;
+namespace Sylius\MolliePlugin\Model;
 
 final class PaymentSurchargeFeeType
 {
