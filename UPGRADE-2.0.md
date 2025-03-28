@@ -353,6 +353,8 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\Transition\MollieSubscriptionProcessingTransitions`                             | `Sylius\MolliePlugin\StateMachine\MollieSubscriptionProcessingTransitions`                    |
 | `Sylius\MolliePlugin\Transition\MollieSubscriptionTransitions`                                       | `Sylius\MolliePlugin\StateMachine\MollieSubscriptionTransitions`                              |
 | `Sylius\MolliePlugin\Transition\PartialShip\ShipmentTransitions`                                     | `Sylius\MolliePlugin\StateMachine\ShipmentTransitions`                                        |
+| `Sylius\MolliePlugin\Calculator\Refund\PaymentRefundCalculator`                                      | `Sylius\MolliePlugin\Refund\Calculator\PaymentRefundCalculator`                               |
+| `Sylius\MolliePlugin\Calculator\Refund\PaymentRefundCalculatorInterface`                             | `Sylius\MolliePlugin\Refund\Calculator\PaymentRefundCalculatorInterface`                      |
 
 1. Removed parameters:
 

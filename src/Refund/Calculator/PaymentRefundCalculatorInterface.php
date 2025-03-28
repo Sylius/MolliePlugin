@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Calculator\Refund;
+namespace Sylius\MolliePlugin\Refund\Calculator;
 
 use Sylius\MolliePlugin\DTO\PartialRefundItems;
 
