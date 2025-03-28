@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Controller\Action\Shop;
+namespace Sylius\MolliePlugin\Controller\Shop;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Order\Repository\OrderRepositoryInterface;

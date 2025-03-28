@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Controller\Action\Shop;
+namespace Sylius\MolliePlugin\Controller\Shop;
 
 use Mollie\Api\Exceptions\ApiException;
 use Sylius\MolliePlugin\Checker\ApplePay\ApplePayEnabledCheckerInterface;

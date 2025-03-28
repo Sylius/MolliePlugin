@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Controller\Action\Admin;
+namespace Sylius\MolliePlugin\Controller\Admin;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
@@ -23,7 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Webmozart\Assert\Assert;
 
-final class DeletePaymentMethodImage
+final class DeletePaymentMethodImageAction
 {
     public function __construct(private readonly PaymentMethodLogoUploaderInterface $logoUploader, private readonly RepositoryInterface $logoRepository, private readonly EntityManagerInterface $entityManager, private readonly MollieLoggerActionInterface $loggerAction)
     {

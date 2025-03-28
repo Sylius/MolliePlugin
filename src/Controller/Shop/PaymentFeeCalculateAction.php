@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Controller\Action\Shop;
+namespace Sylius\MolliePlugin\Controller\Shop;
 
 use Liip\ImagineBundle\Exception\Config\Filter\NotFoundException;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -21,13 +21,20 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeCalculatorInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Helper\ConvertPriceToAmount;
+use Sylius\MolliePlugin\Order\AdjustmentInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
-final class PaymentFeeCalculateAction implements PaymentFeeCalculateActionInterface
+final class PaymentFeeCalculateAction
 {
+    public const PAYMENTS_FEE_METHOD = [
+        AdjustmentInterface::PERCENTAGE_ADJUSTMENT,
+        AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT,
+        AdjustmentInterface::PERCENTAGE_AND_AMOUNT_ADJUSTMENT,
+    ];
+
     public function __construct(
         private readonly PaymentSurchargeCalculatorInterface $paymentSurchargeCalculator,
         private readonly CartContextInterface $cartContext,

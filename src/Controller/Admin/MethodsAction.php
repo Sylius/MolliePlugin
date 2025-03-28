@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Controller\Action\Admin;
+namespace Sylius\MolliePlugin\Controller\Admin;
 
 use Mollie\Api\Exceptions\ApiException;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;

@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Controller\Action\Shop;
+namespace Sylius\MolliePlugin\Controller\Shop;
 
 use Sylius\Bundle\OrderBundle\Controller\OrderController as BaseOrderController;
 use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;

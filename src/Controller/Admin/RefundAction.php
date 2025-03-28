@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Controller\Action\Admin;
+namespace Sylius\MolliePlugin\Controller\Admin;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Payum\Core\Payum;
-use Payum\Core\Request\Refund as RefundAction;
+use Payum\Core\Request\Refund;
 use Payum\Core\Security\TokenInterface;
 use SM\Factory\FactoryInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
@@ -36,7 +36,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Webmozart\Assert\Assert;
 
-final class Refund
+final class RefundAction
 {
     public function __construct(
         private readonly PaymentRepositoryInterface $paymentRepository,
@@ -109,7 +109,7 @@ final class Refund
             if (isset($payment->getDetails()['order_mollie_id'])) {
                 $gateway->execute(new RefundOrder($token));
             } else {
-                $gateway->execute(new RefundAction($token));
+                $gateway->execute(new Refund($token));
             }
 
             $this->applyStateMachineTransition($payment);
