@@ -15,7 +15,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <defaults public="true" />
-        <service id="sylius_mollie.controller.admin.refund" class="Sylius\MolliePlugin\Controller\Action\Admin\Refund">
+        <service id="sylius_mollie.controller.admin.refund" class="Sylius\MolliePlugin\Controller\Admin\RefundAction">
             <argument type="service" id="sylius.repository.payment"/>
             <argument type="service" id="payum"/>
             <argument type="service" id="request_stack"/>
@@ -24,7 +24,7 @@
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
         </service>
 
-        <service id="sylius_mollie.controller.admin.methods" class="Sylius\MolliePlugin\Controller\Action\Admin\MethodsAction">
+        <service id="sylius_mollie.controller.admin.methods" class="Sylius\MolliePlugin\Controller\Admin\MethodsAction">
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
             <argument type="service" id="request_stack"/>
             <argument type="service" id="sylius_mollie.resolver.mollie_methods"/>
@@ -32,14 +32,14 @@
             <argument type="service" id="sylius.repository.gateway_config"/>
         </service>
 
-        <service id="sylius_mollie.controller.admin.delete_payment_method_image" class="Sylius\MolliePlugin\Controller\Action\Admin\DeletePaymentMethodImage">
+        <service id="sylius_mollie.controller.admin.delete_payment_method_image" class="Sylius\MolliePlugin\Controller\Admin\DeletePaymentMethodImageAction">
             <argument type="service" id="sylius_mollie.uploader.payment_method_logo"/>
             <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
             <argument type="service" id="sylius.manager.gateway_config"/>
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
         </service>
 
-        <service id="sylius_mollie.controller.shop.payment_fee_calculate" class="Sylius\MolliePlugin\Controller\Action\Shop\PaymentFeeCalculateAction">
+        <service id="sylius_mollie.controller.shop.payment_fee_calculate" class="Sylius\MolliePlugin\Controller\Shop\PaymentFeeCalculateAction">
             <argument type="service" id="sylius_mollie.payment_fee.calculator.composite"/>
             <argument type="service" id="sylius.context.cart"/>
             <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
@@ -48,7 +48,7 @@
             <argument type="service" id="twig"/>
         </service>
 
-        <service id="sylius_mollie.controller.shop.qr_code" class="Sylius\MolliePlugin\Controller\Action\Shop\QrCodeAction">
+        <service id="sylius_mollie.controller.shop.qr_code" class="Sylius\MolliePlugin\Controller\Shop\QrCodeAction">
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
             <argument type="service" id="sylius.context.cart"/>
             <argument type="service" id="sylius_mollie.mollie_api_client"/>
@@ -59,11 +59,11 @@
             <argument type="service" id="sylius_mollie.helper.int_to_string"/>
         </service>
 
-        <service id="sylius_mollie.controller.shop.credit_card_translation" class="Sylius\MolliePlugin\Controller\Action\Shop\CreditCardTranslationController">
+        <service id="sylius_mollie.controller.shop.credit_card_translation" class="Sylius\MolliePlugin\Controller\Shop\CreditCardTranslationController">
             <argument type="service" id="translator"/>
         </service>
 
-        <service id="sylius_mollie.controller.shop.payum_controller" class="Sylius\MolliePlugin\Controller\Action\Shop\PayumController">
+        <service id="sylius_mollie.controller.shop.payum_controller" class="Sylius\MolliePlugin\Controller\Shop\PayumController">
             <argument type="service" id="payum" />
             <argument type="service" id="sylius.repository.order" />
             <argument type="service">
@@ -78,7 +78,7 @@
             <argument type="service" id="doctrine.orm.default_entity_manager"/>
         </service>
 
-        <service id="sylius_mollie.controller.shop.payment_webhook" class="Sylius\MolliePlugin\Controller\Action\Shop\PaymentWebhookController">
+        <service id="sylius_mollie.controller.shop.payment_webhook" class="Sylius\MolliePlugin\Controller\Shop\PaymentWebhookController">
             <argument type="service" id="sylius_mollie.mollie_api_client"/>
             <argument type="service" id="sylius_mollie.resolver.mollie_api_client_key"/>
             <argument type="service" id="sylius.repository.order" />
@@ -86,12 +86,12 @@
             <argument type="service" id="SM\Factory\Factory"/>
         </service>
 
-        <service id="sylius_mollie.controller.shop.page_redirect" class="Sylius\MolliePlugin\Controller\Action\Shop\PageRedirectController">
+        <service id="sylius_mollie.controller.shop.page_redirect" class="Sylius\MolliePlugin\Controller\Shop\PageRedirectController">
             <argument type="service" id="router" />
             <argument type="service" id="sylius.repository.order" />
         </service>
 
-        <service id="sylius_mollie.controller.admin.generate_paymentlink" class="Sylius\MolliePlugin\Controller\Action\Admin\GeneratePaymentlinkAction">
+        <service id="sylius_mollie.controller.admin.generate_paymentlink" class="Sylius\MolliePlugin\Controller\Admin\GeneratePaymentlinkAction">
             <argument type="service" id="sylius.repository.order" />
             <argument type="service" id="twig" />
             <argument type="service" id="request_stack" />
@@ -102,7 +102,7 @@
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
         </service>
 
-        <service id="sylius_mollie.controller.shop.apple_pay_validation" class="Sylius\MolliePlugin\Controller\Action\Shop\ApplePayValidationAction">
+        <service id="sylius_mollie.controller.shop.apple_pay_validation" class="Sylius\MolliePlugin\Controller\Shop\ApplePayValidationAction">
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
             <argument type="service" id="sylius_mollie.resolver.mollie_api_client_key"/>
             <argument type="service" id="sylius_mollie.checker.apple_pay.apple_pay_enabled"/>
@@ -110,33 +110,31 @@
 
         <service
                 id="sylius_mollie.controller.shop.order"
-                class="Sylius\MolliePlugin\Controller\Action\Shop\OrderController"
+                class="Sylius\MolliePlugin\Controller\Shop\OrderController"
                 public="true"
                 parent="sylius.controller.order"
         />
 
         <service
-                id="sylius_mollie.controller.admin.mollie_subscription"
-                class="Sylius\MolliePlugin\Controller\Action\Admin\MollieSubscriptionController"
-                public="true"
-                parent="sylius_mollie.controller.mollie_subscription"
+            id="sylius_mollie.controller.admin.mollie_subscription"
+            alias="sylius_mollie.controller.mollie_subscription"
         />
 
-        <service id="sylius_mollie.controller.admin.test_api_keys" class="Sylius\MolliePlugin\Controller\Action\Admin\TestApiKeysAction">
+        <service id="sylius_mollie.controller.admin.test_api_keys" class="Sylius\MolliePlugin\Controller\Admin\TestApiKeysAction">
             <argument type="service" id="sylius_mollie.resolver.api_keys_test"/>
             <argument type="service" id="twig"/>
         </service>
 
-        <service id="sylius_mollie.controller.admin.change_position_payment_method" class="Sylius\MolliePlugin\Controller\Action\Admin\ChangePositionPaymentMethodAction">
+        <service id="sylius_mollie.controller.admin.change_position_payment_method" class="Sylius\MolliePlugin\Controller\Admin\ChangePositionPaymentMethodAction">
             <argument type="service" id="sylius_mollie.creator.change_position_payment_method"/>
         </service>
 
-        <service id="sylius_mollie.controller.onboarding_wizard.status" class="Sylius\MolliePlugin\Controller\Action\Admin\OnboardingWizard\StatusAction">
+        <service id="sylius_mollie.controller.onboarding_wizard.status" class="Sylius\MolliePlugin\Controller\Admin\OnboardingWizard\StatusAction">
             <argument type="service" id="sylius_mollie.repository.onboarding_wizard_status"/>
             <argument type="service" id="sylius_mollie.context.admin.admin_user"/>
         </service>
 
-        <service id="sylius_mollie.controller.onboarding_wizard.completed" class="Sylius\MolliePlugin\Controller\Action\Admin\OnboardingWizard\CompletedAction">
+        <service id="sylius_mollie.controller.onboarding_wizard.completed" class="Sylius\MolliePlugin\Controller\Admin\OnboardingWizard\CompletedAction">
             <argument type="service" id="sylius_mollie.creator.onboarding_wizard.status"/>
         </service>
     </services>

@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Controller\Action\Admin;
+namespace Sylius\MolliePlugin\Controller\Admin;
 
 use Sylius\MolliePlugin\Creator\ChangePositionPaymentMethodCreatorInterface;
 use Symfony\Component\HttpFoundation\Request;

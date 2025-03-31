@@ -300,6 +300,8 @@ The following service IDs have been removed:
    - `Sylius\MolliePlugin\Action\CaptureActionInterface`
    - `Sylius\MolliePlugin\Action\StatusActionInterface`
    - `Sylius\MolliePlugin\Request\StateMachine\SetStatusOrder`
+   - `Sylius\MolliePlugin\Controller\Action\Admin\MollieSubscriptionController`
+   - `Sylius\MolliePlugin\Controller\Action\Shop\PaymentFeeCalculateActionInterface`
 
 1. Namespace changes:
 
@@ -367,6 +369,26 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\PaymentFee\Calculator\NoFeeCalculator`                                          | `Sylius\MolliePlugin\Calculator\PaymentFee\NoFeeCalculator`                                   |
 | `Sylius\MolliePlugin\PaymentFee\Calculator\PaymentSurchargeCalculatorInterface`                      | `Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeCalculatorInterface`               |
 | `Sylius\MolliePlugin\PaymentFee\Calculator\PercentageCalculator`                                     | `Sylius\MolliePlugin\Calculator\PaymentFee\PercentageCalculator`                              |
+| `Sylius\MolliePlugin\Cli\BeginProcessingSubscriptions`                                               | `Sylius\MolliePlugin\Console\Command\BeginProcessingSubscriptions`                            |
+| `Sylius\MolliePlugin\Cli\ProcessSubscriptions`                                                       | `Sylius\MolliePlugin\Console\Command\ProcessSubscriptions`                                    |
+| `Sylius\MolliePlugin\Cli\SendAbandonedPaymentLink`                                                   | `Sylius\MolliePlugin\Console\Command\SendAbandonedPaymentLink`                                |
+| `Sylius\MolliePlugin\Context\Admin\AdminUserContext`                                                 | `Sylius\MolliePlugin\Context\AdminUserContext`                                                |
+| `Sylius\MolliePlugin\Context\Admin\AdminUserContextInterface`                                        | `Sylius\MolliePlugin\Context\AdminUserContextInterface`                                       |
+| `Sylius\MolliePlugin\Controller\Action\Admin\OnboardingWizard\CompleteAction`                        | `Sylius\MolliePlugin\Controller\Admin\OnboardingWizard\CompleteAction`                        |
+| `Sylius\MolliePlugin\Controller\Action\Admin\OnboardingWizard\StatusAction`                          | `Sylius\MolliePlugin\Controller\Admin\OnboardingWizard\StatusAction`                          |
+| `Sylius\MolliePlugin\Controller\Action\Admin\ChangePositionPaymentMethodAction`                      | `Sylius\MolliePlugin\Controller\Admin\ChangePositionPaymentMethodAction`                      |
+| `Sylius\MolliePlugin\Controller\Action\Admin\DeletePaymentMethodImage`                               | `Sylius\MolliePlugin\Controller\Admin\DeletedPaymentMethodImageAction`                        |
+| `Sylius\MolliePlugin\Controller\Action\Admin\GeneratePaymentlinkAction`                              | `Sylius\MolliePlugin\Controller\Admin\GeneratePaymentlinkAction`                              |
+| `Sylius\MolliePlugin\Controller\Action\Admin\MethodsAction`                                          | `Sylius\MolliePlugin\Controller\Admin\MethodsAction`                                          |
+| `Sylius\MolliePlugin\Controller\Action\Admin\Refund`                                                 | `Sylius\MolliePlugin\Controller\Admin\RefundAction`                                           |
+| `Sylius\MolliePlugin\Controller\Action\Admin\TestApiKeysAction`                                      | `Sylius\MolliePlugin\Controller\Admin\TestApiKeysAction`                                      |
+| `Sylius\MolliePlugin\Controller\Action\Shop\ApplePayValidationAction`                                | `Sylius\MolliePlugin\Controller\Shop\ApplePayValidationAction`                                |
+| `Sylius\MolliePlugin\Controller\Action\Shop\CreditCardTranslationController`                         | `Sylius\MolliePlugin\Controller\Shop\CreditCardTranslationController`                         |
+| `Sylius\MolliePlugin\Controller\Action\Shop\OrderController`                                         | `Sylius\MolliePlugin\Controller\Shop\OrderController`                                         |
+| `Sylius\MolliePlugin\Controller\Action\Shop\PageRedirectController`                                  | `Sylius\MolliePlugin\Controller\Shop\PageRedirectController`                                  |
+| `Sylius\MolliePlugin\Controller\Action\Shop\PaymentFeeCalculateAction`                               | `Sylius\MolliePlugin\Controller\Shop\PaymentFeeCalculateAction`                               |
+| `Sylius\MolliePlugin\Controller\Action\Shop\PayumController`                                         | `Sylius\MolliePlugin\Controller\Shop\PayumController`                                         |
+| `Sylius\MolliePlugin\Controller\Action\Shop\QrCodeAction`                                            | `Sylius\MolliePlugin\Controller\Shop\QrCodeAction`                                            |
 
 1. Removed parameters:
 

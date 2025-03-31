@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Controller\Action\Admin\OnboardingWizard;
+namespace Sylius\MolliePlugin\Controller\Admin\OnboardingWizard;
 
 use Sylius\MolliePlugin\Creator\OnboardingWizard\StatusCreatorInterface;
 use Sylius\MolliePlugin\Exceptions\AdminUserNotFound;

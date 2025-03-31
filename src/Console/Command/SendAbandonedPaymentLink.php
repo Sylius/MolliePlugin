@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Cli;
+namespace Sylius\MolliePlugin\Console\Command;
 
 use Sylius\MolliePlugin\Creator\AbandonedPaymentLinkCreatorInterface;
 use Symfony\Component\Console\Command\Command;
