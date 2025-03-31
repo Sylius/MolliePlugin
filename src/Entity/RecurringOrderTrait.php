@@ -13,18 +13,18 @@ declare(strict_types=1);
 
 namespace SyliusMolliePlugin\Entity;
 
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use Sylius\Component\Core\Model\OrderItemInterface;
+
 /** @mixin OrderInterface */
 trait RecurringOrderTrait
 {
     /**
-     * @var int|null
+     * @ORM\Column(type="integer", name="recurring_sequence_index", nullable=true)
      */
+    #[ORM\Column(name: "recurring_sequence_index", type: "integer", nullable: true)]
     protected ?int $recurringSequenceIndex = null;
-
-    /**
-     * @var MollieSubscriptionInterface|null
-     */
-    protected ?MollieSubscriptionInterface $subscription = null;
 
     public function getRecurringSequenceIndex(): ?int
     {
@@ -36,13 +36,39 @@ trait RecurringOrderTrait
         $this->recurringSequenceIndex = $recurringSequenceIndex;
     }
 
-    public function getSubscription(): ?MollieSubscriptionInterface
+    public function getRecurringItems(): Collection
     {
-        return $this->subscription;
+        return $this
+            ->items
+            ->filter(function (OrderItemInterface $orderItem) {
+                $variant = $orderItem->getVariant();
+
+                return $variant !== null
+                    && true === $variant->isRecurring();
+            })
+        ;
     }
 
-    public function setSubscription(?MollieSubscriptionInterface $subscription): void
+    public function getNonRecurringItems(): Collection
     {
-        $this->subscription = $subscription;
+        return $this
+            ->items
+            ->filter(function (OrderItemInterface $orderItem) {
+                $variant = $orderItem->getVariant();
+
+                return $variant !== null
+                    && false === $variant->isRecurring();
+            })
+        ;
+    }
+
+    public function hasRecurringContents(): bool
+    {
+        return 0 < $this->getRecurringItems()->count();
+    }
+
+    public function hasNonRecurringContents(): bool
+    {
+        return 0 < $this->getNonRecurringItems()->count();
     }
 }
