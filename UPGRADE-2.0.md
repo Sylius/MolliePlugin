@@ -84,6 +84,7 @@
 1. Method signature changes:
 
    The `::provide` method of `ValidationGroupsResolverInterface` has been renamed to `::resolve`.
+   The `::prepare` method of `PaymentLinkEmailManagerInterface` has been renamed to `::send`.
 
 1. Removed services:
    - `sylius_mollie_plugin.checker.version.mollie_plugin_latest_version_checker`

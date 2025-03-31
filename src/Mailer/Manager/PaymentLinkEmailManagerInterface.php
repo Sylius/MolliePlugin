@@ -17,5 +17,5 @@ use Sylius\Component\Core\Model\OrderInterface;
 
 interface PaymentLinkEmailManagerInterface
 {
-    public function prepare(OrderInterface $order, string $templateName): void;
+    public function send(OrderInterface $order, string $templateName): void;
 }

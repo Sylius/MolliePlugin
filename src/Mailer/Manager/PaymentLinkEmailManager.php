@@ -25,7 +25,7 @@ final class PaymentLinkEmailManager implements PaymentLinkEmailManagerInterface
     {
     }
 
-    public function prepare(OrderInterface $order, string $templateName): void
+    public function send(OrderInterface $order, string $templateName): void
     {
         $locale = $order->getLocaleCode();
 

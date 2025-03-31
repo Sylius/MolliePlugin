@@ -119,7 +119,7 @@ final class PaymentlinkResolver implements PaymentlinkResolverInterface
 
         $this->orderRepository->add($order);
 
-        $this->emailPreparer->prepare($order, $templateName);
+        $this->emailPreparer->send($order, $templateName);
 
         return $payment->_links->checkout->href;
     }
