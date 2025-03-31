@@ -52,5 +52,6 @@ jobs:
                   context: .
                   push: true
                   tags: |
-                      ghcr.io/${{ github.repository }}:${{ env.TAG }}
-                      ghcr.io/${{ github.repository }}:${{ env.MAJOR_MINOR }}
+                      ghcr.io/${{ github.repository_owner }}/$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]'):${{ env.TAG }}
+                      ghcr.io/${{ github.repository_owner }}/$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]'):${{ env.MAJOR_MINOR }}
+                  
