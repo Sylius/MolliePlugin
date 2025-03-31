@@ -87,5 +87,7 @@ RUN chmod +x /entrypoint.sh
 # Expose only the web server port
 EXPOSE 80 8025
 
+LABEL org.opencontainers.image.description="Demo Docker image for showcasing the Sylius Mollie Plugin integration"
+
 # Start all services using Supervisor
 ENTRYPOINT ["/entrypoint.sh"]
