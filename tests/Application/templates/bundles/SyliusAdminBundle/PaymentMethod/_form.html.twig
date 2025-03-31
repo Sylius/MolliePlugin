@@ -6,7 +6,7 @@
 {% set mollieRecuringGateway = constant('Sylius\\MolliePlugin\\Factory\\MollieSubscriptionGatewayFactory::FACTORY_NAME') %}
 
 {% if form.vars.value.gatewayConfig.factoryName is same as (mollieStandardGateway) %}
-    {% include '@SyliusAdmin/PaymentMethod/_mollieMessage.html.twig' %}
+    {% include '@SyliusMolliePlugin/Admin/PaymentMethod/_mollieMessage.html.twig' %}
     {{ mollie_render_version_widget() }}
 {% endif %}
 
@@ -49,11 +49,11 @@
                 </div>
 
     {% elseif field.vars.name == 'api_key_test' %}
-        {% include 'bundles/SyliusAdminBundle/PaymentMethod/_api_test_key.html.twig' %}
+        {% include '@SyliusMolliePlugin/Admin/PaymentMethod/_api_test_key.html.twig' %}
         </div>
 
     {% elseif field.vars.name == 'api_key_live' %}
-        {% include 'bundles/SyliusAdminBundle/PaymentMethod/_api_live_key.html.twig' %}
+        {% include '@SyliusMolliePlugin/Admin/PaymentMethod/_api_live_key.html.twig' %}
         </div>
 
     {% else %}
@@ -67,7 +67,7 @@
     </div>
 
 {% if form.vars.value.gatewayConfig.factoryName in [mollieStandardGateway, mollieRecuringGateway] %}
-    {% include 'bundles/SyliusAdminBundle/PaymentMethod/_mollieMethodsForm.html.twig' %}
+    {% include '@SyliusMolliePlugin/Admin/PaymentMethod/_mollieMethodsForm.html.twig' %}
 {% endif %}
 
 <div class="ui styled fluid accordion">
