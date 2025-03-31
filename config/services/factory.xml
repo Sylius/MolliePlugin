@@ -68,6 +68,6 @@
 
         <service id="sylius_mollie.factory.payment_details" class="Sylius\MolliePlugin\Factory\PaymentDetailsFactory"/>
 
-        <service id="sylius_mollie.factory.api_customer" class="Sylius\MolliePlugin\Factory\ApiCustomerFactory"/>
+        <service id="sylius_mollie.factory.api_customer" class="Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactory"/>
     </services>
 </container>

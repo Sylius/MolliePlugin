@@ -439,6 +439,8 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\Resolver\PartialShip\FromMollieToSyliusResolverInterface`                       | `Sylius\MolliePlugin\PartialShip\Resolver\FromMollieToSyliusResolverInterface`                |
 | `Sylius\MolliePlugin\Resolver\PartialShip\FromSyliusToMollieLinesResolver`                           | `Sylius\MolliePlugin\PartialShip\Resolver\FromSyliusToMollieLinesResolver`                    |
 | `Sylius\MolliePlugin\Resolver\PartialShip\FromSyliusToMollieLinesResolverInterface`                  | `Sylius\MolliePlugin\PartialShip\Resolver\FromSyliusToMollieLinesResolverInterface`           |
+| `Sylius\MolliePlugin\Factory\ApiCustomerFactory`                                                     | `Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactory`                                     |
+| `Sylius\MolliePlugin\Factory\ApiCustomerFactoryInterface`                                            | `Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactoryInterface`                            |
 
 1. The `Sylius\MolliePlugin\Documentation\DocumentationLinks` class and the related service alias `sylius_mollie.documentation.documentation_links` have been removed.
 

@@ -14,22 +14,22 @@ declare(strict_types=1);
 namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Factory;
 
 use PHPUnit\Framework\TestCase;
-use Sylius\MolliePlugin\Factory\ApiCustomerFactory;
-use Sylius\MolliePlugin\Factory\ApiCustomerFactoryInterface;
+use Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactory;
+use Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactoryInterface;
 use Sylius\MolliePlugin\Payum\Request\CreateCustomer;
 
 final class ApiCustomerFactoryTest extends TestCase
 {
-    private ApiCustomerFactory $apiCustomerFactory;
+    private CreateCustomerFactory $createCustomerFactory;
 
     public function setUp(): void
     {
-        $this->apiCustomerFactory = new ApiCustomerFactory();
+        $this->createCustomerFactory = new CreateCustomerFactory();
     }
 
     public function testInitializable(): void
     {
-        $this->assertInstanceOf(ApiCustomerFactoryInterface::class, $this->apiCustomerFactory);
+        $this->assertInstanceOf(CreateCustomerFactoryInterface::class, $this->createCustomerFactory);
     }
 
     public function testCreatesNewCreateCustomer(): void
@@ -53,6 +53,6 @@ final class ApiCustomerFactoryTest extends TestCase
             'email' => 'shop@example.com',
         ];
 
-        $this->assertInstanceOf(CreateCustomer::class, $this->apiCustomerFactory->createNew($details));
+        $this->assertInstanceOf(CreateCustomer::class, $this->createCustomerFactory->createNew($details));
     }
 }

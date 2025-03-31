@@ -26,11 +26,11 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
-use Sylius\MolliePlugin\Factory\ApiCustomerFactoryInterface;
 use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
 use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
 use Sylius\MolliePlugin\Helper\PaymentDescriptionInterface;
 use Sylius\MolliePlugin\Payum\Action\ConvertMolliePaymentAction;
+use Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactoryInterface;
 use Sylius\MolliePlugin\Payum\Request\CreateCustomer;
 use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
@@ -50,7 +50,7 @@ final class ConvertMolliePaymentActionTest extends TestCase
 
     private PaymentLocaleResolverInterface $paymentLocaleResolverMock;
 
-    private ApiCustomerFactoryInterface $apiCustomerFactoryMock;
+    private CreateCustomerFactoryInterface $createCustomerFactoryMock;
 
     private ConvertMolliePaymentAction $convertMolliePaymentAction;
 
@@ -62,7 +62,7 @@ final class ConvertMolliePaymentActionTest extends TestCase
         $this->orderConverterMock = $this->createMock(ConvertOrderInterface::class);
         $this->customerContextMock = $this->createMock(CustomerContextInterface::class);
         $this->paymentLocaleResolverMock = $this->createMock(PaymentLocaleResolverInterface::class);
-        $this->apiCustomerFactoryMock = $this->createMock(ApiCustomerFactoryInterface::class);
+        $this->createCustomerFactoryMock = $this->createMock(CreateCustomerFactoryInterface::class);
         $this->intToStringConverterMock = $this->createMock(IntToStringConverterInterface::class);
         $this->divisorProviderMock = $this->createMock(DivisorProviderInterface::class);
         $this->convertMolliePaymentAction =
@@ -72,7 +72,7 @@ final class ConvertMolliePaymentActionTest extends TestCase
                 $this->orderConverterMock,
                 $this->customerContextMock,
                 $this->paymentLocaleResolverMock,
-                $this->apiCustomerFactoryMock,
+                $this->createCustomerFactoryMock,
                 $this->intToStringConverterMock,
                 $this->divisorProviderMock,
             )
@@ -112,7 +112,7 @@ final class ConvertMolliePaymentActionTest extends TestCase
         $paymentMock->method('getDetails')->willReturn($inputDetails);
 
         $mollieApiClientMock->expects($this->once())->method('isRecurringSubscription')->willReturn(false);
-        $this->apiCustomerFactoryMock->expects($this->once())->method('createNew')->willReturn($mollieCustomerMock);
+        $this->createCustomerFactoryMock->expects($this->once())->method('createNew')->willReturn($mollieCustomerMock);
         $this->convertMolliePaymentAction->setApi($mollieApiClientMock);
         $this->convertMolliePaymentAction->setGateway($gatewayMock);
         $customerMock->expects($this->once())->method('getFullName')->willReturn('Jan Kowalski');
@@ -132,7 +132,7 @@ final class ConvertMolliePaymentActionTest extends TestCase
             'single_click_enabled' => true,
         ]);
 
-        $this->apiCustomerFactoryMock->expects($this->once())->method('createNew')->with($inputDetails)->willReturn($mollieCustomerMock);
+        $this->createCustomerFactoryMock->expects($this->once())->method('createNew')->with($inputDetails)->willReturn($mollieCustomerMock);
         $mollieCustomerMock->expects($this->once())->method('getModel')->willReturn(new ArrayObject(
             [
                 'customer_mollie_id' => 15,
