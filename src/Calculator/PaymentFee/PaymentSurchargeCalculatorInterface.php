@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\PaymentFee\Calculator;
+namespace Sylius\MolliePlugin\Calculator\PaymentFee;
 
 use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;

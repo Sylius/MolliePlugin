@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\PaymentFee;
+namespace Sylius\MolliePlugin\Calculator\PaymentFee;
 
 use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Exceptions\UnknownPaymentSurchargeType;
-use Sylius\MolliePlugin\PaymentFee\Calculator\PaymentSurchargeCalculatorInterface;
+use Sylius\MolliePlugin\Model\PaymentSurchargeFeeType;
 
 final class CompositePaymentSurchargeCalculator implements PaymentSurchargeCalculatorInterface
 {
