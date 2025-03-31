@@ -14,7 +14,7 @@
                     {{ form_row(form.details.useSavedCards) }}
                     {% set isRendered = true %}
                 {% endif %}
-                {% include '@SyliusShop/Checkout/SelectPayment/_choiceMollie.html.twig' with {
+                {% include '@SyliusMolliePlugin/Shop/Checkout/SelectPayment/_choiceMollie.html.twig' with {
                     'form': choice_form,
                     'method': form.method.vars.choices[key].data,
                     'mollie_payment_options': form.details
