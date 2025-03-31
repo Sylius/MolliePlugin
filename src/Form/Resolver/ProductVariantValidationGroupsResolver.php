@@ -16,9 +16,9 @@ namespace Sylius\MolliePlugin\Form\Resolver;
 use Sylius\MolliePlugin\Entity\ProductVariantInterface;
 use Symfony\Component\Form\FormInterface;
 
-final class ValidationGroupsResolver implements ValidationGroupsResolverInterface
+final class ProductVariantValidationGroupsResolver implements ValidationGroupsResolverInterface
 {
-    public function provide(FormInterface $form): array
+    public function resolve(FormInterface $form): array
     {
         $groups = ['sylius'];
         $data = $form->getData();

@@ -86,6 +86,6 @@ final class ProductVariantRecurringExtension extends AbstractTypeExtension
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefault('validation_groups', fn (FormInterface $form): array => $this->groupProvider->provide($form));
+        $resolver->setDefault('validation_groups', fn (FormInterface $form): array => $this->groupProvider->resolve($form));
     }
 }

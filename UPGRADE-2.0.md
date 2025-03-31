@@ -81,6 +81,10 @@
     )
     ```
 
+1. Method signature changes:
+
+   The `::provide` method of `ValidationGroupsResolverInterface` has been renamed to `::resolve`.
+
 1. Removed services:
    - `sylius_mollie_plugin.checker.version.mollie_plugin_latest_version_checker`
 
@@ -401,7 +405,7 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\EmailSender\PaymentLinkEmailSenderInterface`                                    | `Sylius\MolliePlugin\Mailer\Sender\PaymentLinkEmailSenderInterface`                           |
 | `Sylius\MolliePlugin\Preparer\PaymentLinkEmailPreparer`                                              | `Sylius\MolliePlugin\Mailer\Manager\PaymentLinkEmailManager`                                  |
 | `Sylius\MolliePlugin\Preparer\PaymentLinkEmailPreparerInterface`                                     | `Sylius\MolliePlugin\Mailer\Manager\PaymentLinkEmailPreparerInterface`                        |
-| `Sylius\MolliePlugin\Provider\Form\ResolverGroupProvider`                                            | `Sylius\MolliePlugin\Form\Resolver\ValidationGroupsResolver`                                  |
+| `Sylius\MolliePlugin\Provider\Form\ResolverGroupProvider`                                            | `Sylius\MolliePlugin\Form\Resolver\ProductVariantValidationGroupsResolver`                    |
 | `Sylius\MolliePlugin\Provider\Form\ResolverGroupProviderInterface`                                   | `Sylius\MolliePlugin\Form\Resolver\ValidationGroupsResolverInterface`                         |
 | `Sylius\MolliePlugin\Checker\Gateway\MollieGatewayFactoryChecker`                                    | `Sylius\MolliePlugin\Checker\Gateway\MollieGatewayFactoryChecker`                             |
 | `Sylius\MolliePlugin\Checker\Gateway\MollieGatewayFactoryCheckerInterface`                           | `Sylius\MolliePlugin\Checker\Gateway\MollieGatewayFactoryCheckerInterface`                    |

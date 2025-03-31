@@ -18,5 +18,5 @@ use Symfony\Component\Form\FormInterface;
 interface ValidationGroupsResolverInterface
 {
     /** @return string[] */
-    public function provide(FormInterface $form): array;
+    public function resolve(FormInterface $form): array;
 }
