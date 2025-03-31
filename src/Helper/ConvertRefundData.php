@@ -11,19 +11,14 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Helper;
+namespace Sylius\MolliePlugin\Helper;
 
-use Sylius\RefundPlugin\Model\OrderItemUnitRefund;
-use Sylius\RefundPlugin\Model\ShipmentRefund;
+use Sylius\RefundPlugin\Model\UnitRefundInterface;
 
 final class ConvertRefundData implements ConvertRefundDataInterface
 {
-    /** @var IntToStringConverterInterface */
-    private $intToStringConverter;
-
-    public function __construct(IntToStringConverterInterface $intToStringConverter)
+    public function __construct(private readonly IntToStringConverterInterface $intToStringConverter)
     {
-        $this->intToStringConverter = $intToStringConverter;
     }
 
     public function convert(array $data, string $currency): array
@@ -42,9 +37,13 @@ final class ConvertRefundData implements ConvertRefundDataInterface
         ];
     }
 
+    /**
+     * @param array<array-key, UnitRefundInterface> $refundsData
+     *
+     * @return iterable<int>
+     */
     private function getTotal(array $refundsData): iterable
     {
-        /** @var OrderItemUnitRefund|ShipmentRefund $refundData */
         foreach ($refundsData as $refundData) {
             yield $refundData->total();
         }

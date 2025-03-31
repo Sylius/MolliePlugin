@@ -11,9 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Payments\Methods;
+namespace Sylius\MolliePlugin\Payments\Methods;
 
 use Mollie\Api\Types\PaymentMethod;
+use Sylius\MolliePlugin\Payments\PaymentType;
 
 final class Klarnapaylater extends AbstractMethod
 {
@@ -24,6 +25,6 @@ final class Klarnapaylater extends AbstractMethod
 
     public function getPaymentType(): string
     {
-        return self::ORDER_API;
+        return PaymentType::ORDER_API_VALUE;
     }
 }

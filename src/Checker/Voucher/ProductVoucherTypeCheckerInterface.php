@@ -11,11 +11,26 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Checker\Voucher;
+namespace Sylius\MolliePlugin\Checker\Voucher;
 
 use Sylius\Component\Core\Model\OrderInterface;
 
 interface ProductVoucherTypeCheckerInterface
 {
+    /**
+     * @param array{
+     *      data: array<string, string>,
+     *      image: array<string, string>,
+     *      issuers: array<string, mixed>|null,
+     *      paymentFee: array<string, mixed>
+     *  } $methods
+     *
+     * @return array{
+     *     data: array<string, string>,
+     *     image: array<string, string>,
+     *     issuers: array<string, mixed>|null,
+     *     paymentFee: array<string, mixed>
+     * }
+     */
     public function checkTheProductTypeOnCart(OrderInterface $order, array $methods): array;
 }

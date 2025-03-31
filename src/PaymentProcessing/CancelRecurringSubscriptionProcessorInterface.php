@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\PaymentProcessing;
+namespace Sylius\MolliePlugin\PaymentProcessing;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 
 interface CancelRecurringSubscriptionProcessorInterface
 {

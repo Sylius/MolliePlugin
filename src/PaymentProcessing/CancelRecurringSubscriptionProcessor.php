@@ -11,22 +11,18 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\PaymentProcessing;
+namespace Sylius\MolliePlugin\PaymentProcessing;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Factory\MollieSubscriptionGatewayFactory;
-use SyliusMolliePlugin\Request\Api\CancelRecurringSubscription;
 use Payum\Core\Payum;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Payum\Request\Subscription\CancelRecurringSubscription;
 
 final class CancelRecurringSubscriptionProcessor implements CancelRecurringSubscriptionProcessorInterface
 {
-    /** @var Payum */
-    private $payum;
-
-    public function __construct(Payum $payum)
+    public function __construct(private readonly Payum $payum)
     {
-        $this->payum = $payum;
     }
 
     /**

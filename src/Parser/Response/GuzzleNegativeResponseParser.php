@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Parser\Response;
+namespace Sylius\MolliePlugin\Parser\Response;
 
 use Mollie\Api\Exceptions\ApiException;
 use Webmozart\Assert\Assert;

@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Action;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Action;
 
 use Mollie\Api\Endpoints\PaymentEndpoint;
 use Mollie\Api\Exceptions\ApiException;
@@ -24,10 +24,10 @@ use Payum\Core\Request\Refund;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Resource\Exception\UpdateHandlingException;
-use SyliusMolliePlugin\Action\RefundAction;
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Helper\ConvertRefundDataInterface;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Helper\ConvertRefundDataInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Payum\Action\Refund\RefundAction;
 
 final class RefundActionTest extends TestCase
 {
@@ -121,6 +121,52 @@ final class RefundActionTest extends TestCase
         $this->refundAction->execute($request);
     }
 
+    public function testItDoesNothingWhenMetadataHasNoRefund(): void
+    {
+        $request = $this->createMock(Refund::class);
+        $mollieApiClient = $this->createMock(MollieApiClient::class);
+        $paymentEndpoint = $this->createMock(PaymentEndpoint::class);
+
+        $mollieApiClient->payments = $paymentEndpoint;
+
+        $this->refundAction->setApi($mollieApiClient);
+
+        $details = new ArrayObject([
+            'payment_mollie_id' => 4,
+            'created_in_mollie' => null,
+            'metadata' => ['not_refund' => ['test_refund']],
+        ]);
+
+        $request->method('getModel')->willReturn($details);
+
+        $paymentEndpoint->expects(self::never())->method('get')->withAnyParameters();
+
+        $this->refundAction->execute($request);
+    }
+
+    public function testItDoesNothingWhenRefundMetadataHasNoItems(): void
+    {
+        $request = $this->createMock(Refund::class);
+        $mollieApiClient = $this->createMock(MollieApiClient::class);
+        $paymentEndpoint = $this->createMock(PaymentEndpoint::class);
+
+        $mollieApiClient->payments = $paymentEndpoint;
+
+        $this->refundAction->setApi($mollieApiClient);
+
+        $details = new ArrayObject([
+            'payment_mollie_id' => 4,
+            'created_in_mollie' => null,
+            'metadata' => ['refund' => ['test_refund']],
+        ]);
+
+        $request->method('getModel')->willReturn($details);
+
+        $paymentEndpoint->expects(self::never())->method('get')->withAnyParameters();
+
+        $this->refundAction->execute($request);
+    }
+
     public function testItTriesToRefundAndThrowsApiException(): void
     {
         $request = $this->createMock(Refund::class);
@@ -136,13 +182,14 @@ final class RefundActionTest extends TestCase
         $details = new ArrayObject([
             'payment_mollie_id' => 4,
             'created_in_mollie' => null,
-            'metadata' => ['refund' => ['test_refund']],
+            'metadata' => ['refund' => ['test_refund', 'items' => ['test_item']]],
         ]);
 
         $request->method('getModel')->willReturn($details);
         $exception = new ApiException();
-        $paymentEndpoint->method('get')->willThrowException($exception);
+        $this->convertOrderRefundData->method('convert')->willReturn(['5']);
 
+        $paymentEndpoint->method('get')->with(4)->willThrowException($exception);
         $this->loggerAction->expects($this->once())->method('addNegativeLog')->with($this->stringContains('API call failed:'));
 
         $this->expectException(\Exception::class);

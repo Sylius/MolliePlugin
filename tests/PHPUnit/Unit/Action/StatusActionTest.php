@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Action;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Action;
 
 use Exception;
 use Mollie\Api\Endpoints\CustomerEndpoint;
@@ -26,13 +26,13 @@ use Payum\Core\GatewayInterface;
 use Payum\Core\Request\GetStatusInterface;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\PaymentInterface;
-use SyliusMolliePlugin\Action\StatusAction;
-use SyliusMolliePlugin\Checker\Refund\MollieOrderRefundCheckerInterface;
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Refund\OrderRefundInterface;
-use SyliusMolliePlugin\Refund\PaymentRefundInterface;
-use SyliusMolliePlugin\Updater\Order\OrderVoucherAdjustmentUpdaterInterface;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Payum\Action\StatusAction;
+use Sylius\MolliePlugin\Refund\Checker\MollieOrderRefundCheckerInterface;
+use Sylius\MolliePlugin\Refund\OrderRefundInterface;
+use Sylius\MolliePlugin\Refund\PaymentRefundInterface;
+use Sylius\MolliePlugin\Updater\Order\OrderVoucherAdjustmentUpdaterInterface;
 
 final class StatusActionTest extends TestCase
 {
@@ -67,7 +67,7 @@ final class StatusActionTest extends TestCase
             $this->orderRefund,
             $this->loggerAction,
             $this->orderVoucherAdjustmentUpdater,
-            $this->mollieOrderRefundChecker
+            $this->mollieOrderRefundChecker,
         );
 
         $this->statusAction->setApi($this->mollieApiClient);

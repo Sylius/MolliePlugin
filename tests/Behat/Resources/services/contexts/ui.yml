@@ -1,48 +1,48 @@
 services:
-    sylius_mollie_plugin.behat.context.ui.admin.managing_payment_method_mollie:
-        class: Tests\SyliusMolliePlugin\Behat\Context\Ui\Admin\ManagingPaymentMethodContext
+    sylius_mollie.behat.context.ui.admin.managing_payment_method_mollie:
+        class: Tests\Sylius\MolliePlugin\Behat\Context\Ui\Admin\ManagingPaymentMethodContext
         public: true
         arguments:
-            - "@sylius_mollie_plugin.page.admin.payment_method.create"
+            - "@sylius_mollie.behat.page.admin.payment_method.create"
             - "%env(MOLLIE_TEST_API_KEY)%"
             - "%env(MOLLIE_PROFILE_KEY)%"
 
-    sylius_mollie_plugin.behat.context.ui.shop.checkout:
-        class: Tests\SyliusMolliePlugin\Behat\Context\Ui\Shop\CheckoutContext
+    sylius_mollie.behat.context.ui.shop.checkout:
+        class: Tests\Sylius\MolliePlugin\Behat\Context\Ui\Shop\CheckoutContext
         public: true
         arguments:
-            - "@sylius_mollie_plugin.page.shop.checkout.complete"
+            - "@sylius_mollie.behat.page.shop.checkout.complete"
 
-    sylius_mollie_plugin.behat.context.ui.shop.product:
-        class: Tests\SyliusMolliePlugin\Behat\Context\Ui\Shop\ProductContext
+    sylius_mollie.behat.context.ui.shop.product:
+        class: Tests\Sylius\MolliePlugin\Behat\Context\Ui\Shop\ProductContext
         public: true
         arguments:
             - "@sylius.repository.payment"
 
-    sylius_mollie_plugin.behat.context.ui.admin.refund:
-        class: Tests\SyliusMolliePlugin\Behat\Context\Ui\Admin\RefundContext
+    sylius_mollie.behat.context.ui.admin.refund:
+        class: Tests\Sylius\MolliePlugin\Behat\Context\Ui\Admin\RefundContext
         public: true
         arguments:
             - "@sylius.behat.context.ui.admin.managing_orders"
 
-    sylius_mollie_plugin.behat.context.ui.shop.account:
-        class: Tests\SyliusMolliePlugin\Behat\Context\Ui\Shop\AccountContext
+    sylius_mollie.behat.context.ui.shop.account:
+        class: Tests\Sylius\MolliePlugin\Behat\Context\Ui\Shop\AccountContext
         public: true
         arguments:
-            - "@sylius_mollie_plugin.page.shop.account.order.index"
+            - "@sylius_mollie.behat.page.shop.account.order.index"
             - "@sylius.behat.notification_checker"
 
 
-    sylius_mollie_plugin.behat.context.ui.admin.order:
-        class: Tests\SyliusMolliePlugin\Behat\Context\Ui\Admin\OrderContext
+    sylius_mollie.behat.context.ui.admin.order:
+        class: Tests\Sylius\MolliePlugin\Behat\Context\Ui\Admin\OrderContext
         public: true
         arguments:
-            - "@sylius_mollie_plugin.page.admin.order_index"
+            - "@sylius_mollie.behat.page.admin.order_index"
             - "@sylius.repository.payment"
-            - "@sylius_mollie_plugin.page.admin.order_show"
+            - "@sylius_mollie.behat.page.admin.order_show"
 
-    sylius_mollie_plugin.behat.context.ui.admin.managing_orders:
-        class: Tests\SyliusMolliePlugin\Behat\Context\Ui\Admin\ManagingOrdersContext
+    sylius_mollie.behat.context.ui.admin.managing_orders:
+        class: Tests\Sylius\MolliePlugin\Behat\Context\Ui\Admin\ManagingOrdersContext
         public: true
         arguments:
             - "@sylius.behat.page.admin.order.index"

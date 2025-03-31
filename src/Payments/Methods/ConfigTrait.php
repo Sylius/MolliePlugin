@@ -11,38 +11,41 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Payments\Methods;
+namespace Sylius\MolliePlugin\Payments\Methods;
 
-use SyliusMolliePlugin\Entity\ProductTypeInterface;
+use Sylius\MolliePlugin\DTO\MolliePayment\Amount;
+use Sylius\MolliePlugin\Entity\ProductTypeInterface;
 
+/**
+ * @mixin MethodInterface
+ *
+ * @phpstan-import-type AmountArray from Amount
+ * @phpstan-import-type ImageArray from MethodInterface
+ */
 trait ConfigTrait
 {
-    /** @var array */
-    protected $image;
+    /** @var ImageArray */
+    protected array $image;
 
-    /** @var array */
-    protected $minimumAmount;
+    /** @var AmountArray */
+    protected array $minimumAmount;
 
-    /** @var array */
-    protected $maximumAmount;
+    /** @var AmountArray */
+    protected array $maximumAmount;
 
-    /** @var string */
-    protected $paymentType;
+    protected string $paymentType;
 
-    /** @var array */
-    protected $country;
+    /** @var string[] */
+    protected array $country;
 
-    /** @var bool */
-    protected $canRefunded = true;
+    protected bool $canRefunded = true;
 
-    /** @var array */
-    protected $issuers = [];
+    /** @var array<string, mixed> */
+    protected array $issuers = [];
 
-    /** @var ProductTypeInterface|null */
-    protected $defaultCategory;
+    protected ?ProductTypeInterface $defaultCategory;
 
-    /** @var bool|null */
-    protected $applePayDirectButton;
+    protected ?bool $applePayDirectButton;
 
     public function getImage(): array
     {

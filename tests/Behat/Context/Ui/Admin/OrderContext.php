@@ -11,14 +11,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Behat\Context\Ui\Admin;
+namespace Tests\Sylius\MolliePlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
-use SyliusMolliePlugin\Entity\OrderInterface;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 use Sylius\Component\Payment\Model\PaymentInterface;
-use Tests\SyliusMolliePlugin\Behat\Page\Admin\Order\IndexPageInterface;
-use Tests\SyliusMolliePlugin\Behat\Page\Admin\Order\ShowPageInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Tests\Sylius\MolliePlugin\Behat\Page\Admin\Order\IndexPageInterface;
+use Tests\Sylius\MolliePlugin\Behat\Page\Admin\Order\ShowPageInterface;
 use Webmozart\Assert\Assert;
 
 final class OrderContext implements Context
@@ -32,7 +32,7 @@ final class OrderContext implements Context
     public function __construct(
         IndexPageInterface $indexPage,
         PaymentRepositoryInterface $paymentRepository,
-        ShowPageInterface $showPage
+        ShowPageInterface $showPage,
     ) {
         $this->indexPage = $indexPage;
         $this->paymentRepository = $paymentRepository;

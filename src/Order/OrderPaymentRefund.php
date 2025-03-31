@@ -11,12 +11,8 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Order;
+namespace Sylius\MolliePlugin\Order;
 
-use SyliusMolliePlugin\Factory\MollieGatewayFactory;
-use SyliusMolliePlugin\Factory\MollieSubscriptionGatewayFactory;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Request\Api\RefundOrder;
 use Payum\Core\Payum;
 use Payum\Core\Request\Refund as RefundAction;
 use Payum\Core\Security\TokenInterface;
@@ -25,41 +21,37 @@ use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Resource\Exception\UpdateHandlingException;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Payum\Request\Refund\RefundOrder;
 use Sylius\RefundPlugin\Event\UnitsRefunded;
+use Sylius\RefundPlugin\Filter\UnitRefundFilterInterface;
+use Sylius\RefundPlugin\Model\OrderItemUnitRefund;
+use Sylius\RefundPlugin\Model\ShipmentRefund;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Webmozart\Assert\Assert;
 
 final class OrderPaymentRefund implements OrderPaymentRefundInterface
 {
-    /** @var RepositoryInterface */
-    private $orderRepository;
-
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    /** @var Payum */
-    private $payum;
-
     public function __construct(
-        RepositoryInterface $orderRepository,
-        MollieLoggerActionInterface $loggerAction,
-        Payum $payum
+        private readonly RepositoryInterface $orderRepository,
+        private readonly MollieLoggerActionInterface $loggerAction,
+        private readonly Payum $payum,
+        private readonly UnitRefundFilterInterface $unitRefundFilter,
     ) {
-        $this->orderRepository = $orderRepository;
-        $this->loggerAction = $loggerAction;
-        $this->payum = $payum;
     }
 
-    public function refund(UnitsRefunded $units): void
+    public function refund(UnitsRefunded $unitsRefunded): void
     {
         /** @var OrderInterface $order */
-        $order = $this->orderRepository->findOneBy(['number' => $units->orderNumber()]);
+        $order = $this->orderRepository->findOneBy(['number' => $unitsRefunded->orderNumber()]);
 
-        /** @var PaymentInterface|null|false $payment */
+        /** @var PaymentInterface|false|null $payment */
         $payment = $order->getPayments()->last();
         if (!$payment instanceof PaymentInterface) {
-            $this->loggerAction->addNegativeLog(sprintf('No payment in refund'));
+            $this->loggerAction->addNegativeLog('No payment in refund');
 
             throw new NotFoundHttpException();
         }
@@ -67,25 +59,24 @@ final class OrderPaymentRefund implements OrderPaymentRefundInterface
         /** @var PaymentMethodInterface $paymentMethod */
         $paymentMethod = $payment->getMethod();
 
-        Assert::notNull($paymentMethod->getGatewayConfig());
-        $factoryName = $paymentMethod->getGatewayConfig()->getFactoryName() ?? null;
+        $gatewayConfig = $paymentMethod->getGatewayConfig();
+        Assert::notNull($gatewayConfig);
 
+        $factoryName = $gatewayConfig->getFactoryName();
         if (false === in_array($factoryName, [MollieGatewayFactory::FACTORY_NAME, MollieSubscriptionGatewayFactory::FACTORY_NAME], true)) {
             return;
         }
 
         $details = $payment->getDetails();
 
-        $details['metadata']['refund']['items'] = $units->units();
-        $details['metadata']['refund']['shipments'] = $units->shipments();
+        $details['metadata']['refund']['items'] = $this->unitRefundFilter->filterUnitRefunds($unitsRefunded->units(), OrderItemUnitRefund::class);
+        $details['metadata']['refund']['shipments'] = $this->unitRefundFilter->filterUnitRefunds($unitsRefunded->units(), ShipmentRefund::class);
         $payment->setDetails($details);
 
         $hash = $details['metadata']['refund_token'];
 
-        /** @var TokenInterface|mixed $token */
         $token = $this->payum->getTokenStorage()->find($hash);
-
-        if (null === $token || !$token instanceof TokenInterface) {
+        if (!$token instanceof TokenInterface) {
             $this->loggerAction->addNegativeLog(sprintf('A token with hash `%s` could not be found.', $hash));
 
             throw new BadRequestHttpException(sprintf('A token with hash `%s` could not be found.', $hash));

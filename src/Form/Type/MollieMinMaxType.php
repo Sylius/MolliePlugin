@@ -9,9 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace SyliusMolliePlugin\Form\Type;
+declare(strict_types=1);
 
-use SyliusMolliePlugin\Entity\MollieMinMax;
+namespace Sylius\MolliePlugin\Form\Type;
+
+use Sylius\MolliePlugin\Entity\MollieMinMax;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,7 +33,7 @@ class MollieMinMaxType extends AbstractType
                         'value' => 0,
                         'message' => 'sylius_mollie_plugin.form.error.greater_than',
                         'groups' => ['sylius'],
-                    ])
+                    ]),
                 ],
             ])
             ->add('maximumAmount', NumberType::class, [

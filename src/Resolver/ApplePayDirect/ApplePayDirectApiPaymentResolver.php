@@ -11,37 +11,22 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver\ApplePayDirect;
+namespace Sylius\MolliePlugin\Resolver\ApplePayDirect;
 
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Payments\PaymentTerms\Options;
-use SyliusMolliePlugin\Provider\Order\OrderPaymentApplePayDirectProvider;
-use SyliusMolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
 use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Types\PaymentMethod;
 use Mollie\Api\Types\PaymentStatus;
 use Sylius\Component\Core\Model\PaymentInterface;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Payments\PaymentType;
+use Sylius\MolliePlugin\Provider\Order\OrderPaymentApplePayDirectProvider;
+use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
 
 final class ApplePayDirectApiPaymentResolver implements ApplePayDirectApiPaymentResolverInterface
 {
-    /** @var MollieApiClient */
-    private $mollieApiClient;
-
-    /** @var MollieApiClientKeyResolverInterface */
-    private $apiClientKeyResolver;
-
-    /** @var OrderPaymentApplePayDirectProvider */
-    private $paymentApplePayDirectProvider;
-
-    public function __construct(
-        MollieApiClient $mollieApiClient,
-        MollieApiClientKeyResolverInterface $apiClientKeyResolver,
-        OrderPaymentApplePayDirectProvider $paymentApplePayDirectProvider
-    ) {
-        $this->mollieApiClient = $mollieApiClient;
-        $this->apiClientKeyResolver = $apiClientKeyResolver;
-        $this->paymentApplePayDirectProvider = $paymentApplePayDirectProvider;
+    public function __construct(private readonly MollieApiClient $mollieApiClient, private readonly MollieApiClientKeyResolverInterface $apiClientKeyResolver, private readonly OrderPaymentApplePayDirectProvider $paymentApplePayDirectProvider)
+    {
     }
 
     public function resolve(OrderInterface $order, array $details): void
@@ -57,7 +42,7 @@ final class ApplePayDirectApiPaymentResolver implements ApplePayDirectApiPayment
             'order_id' => $order->getId(),
             'customer_id' => null !== $customer ? $customer->getId() : null,
             'molliePaymentMethods' => PaymentMethod::APPLEPAY,
-            'methodType' => Options::PAYMENT_API,
+            'methodType' => PaymentType::PAYMENT_API,
             'refund_token' => $refundToken,
         ];
 
@@ -70,7 +55,7 @@ final class ApplePayDirectApiPaymentResolver implements ApplePayDirectApiPayment
                     'applePayPaymentToken' => $details['applePayDirectToken'],
                     'metadata' => $metadata,
                     'redirectUrl' => $details['backurl'],
-                ]
+                ],
             );
 
             if (PaymentStatus::STATUS_PAID === $response->status) {

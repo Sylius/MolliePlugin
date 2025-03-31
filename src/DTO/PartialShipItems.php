@@ -11,15 +11,15 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\DTO;
+namespace Sylius\MolliePlugin\DTO;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 final class PartialShipItems
 {
-    /** @var Collection */
-    private $partialShipItems;
+    /** @var Collection<PartialShipItem> */
+    private Collection $partialShipItems;
 
     public function __construct()
     {
@@ -44,6 +44,7 @@ final class PartialShipItems
         return $this->partialShipItems;
     }
 
+    /** @return array<array-key, array{id: string, quantity: int}> */
     public function getArrayFromObject(): array
     {
         $data = [];

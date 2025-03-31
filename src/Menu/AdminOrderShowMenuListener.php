@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Menu;
+namespace Sylius\MolliePlugin\Menu;
 
-use SyliusMolliePlugin\Factory\MollieGatewayFactory;
 use Sylius\Bundle\AdminBundle\Event\OrderShowMenuBuilderEvent;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
 use Webmozart\Assert\Assert;
 
 final class AdminOrderShowMenuListener
@@ -33,7 +33,7 @@ final class AdminOrderShowMenuListener
         $menu = $event->getMenu();
         $order = $event->getOrder();
 
-        /** @var PaymentInterface|null|false $payment */
+        /** @var PaymentInterface|false|null $payment */
         $payment = $order->getPayments()->last();
 
         if (!$payment instanceof PaymentInterface) {
@@ -56,6 +56,29 @@ final class AdminOrderShowMenuListener
             ->setLabel('sylius_mollie_plugin.ui.paymentlink_generate')
             ->setLabelAttribute('icon', 'link all')
             ->setLabelAttribute('color', 'blue');
+        }
+    }
+
+    public function removeRefundsButton(OrderShowMenuBuilderEvent $event): void
+    {
+        $menu = $event->getMenu();
+        $order = $event->getOrder();
+
+        /** @var PaymentInterface|false|null $payment */
+        $payment = $order->getPayments()->last();
+        if (!$payment instanceof PaymentInterface) {
+            return;
+        }
+
+        /** @var PaymentMethodInterface|null $method */
+        $method = $payment->getMethod();
+        $gatewayConfig = $method?->getGatewayConfig();
+        if (null === $gatewayConfig) {
+            return;
+        }
+
+        if (MollieGatewayFactory::FACTORY_NAME === $gatewayConfig->getFactoryName()) {
+            $menu->removeChild('refunds');
         }
     }
 }

@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\EmailSender;
+namespace Sylius\MolliePlugin\EmailSender;
 
-use SyliusMolliePlugin\Entity\TemplateMollieEmailTranslationInterface;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\MolliePlugin\Entity\TemplateMollieEmailTranslationInterface;
 
 interface PaymentLinkEmailSenderInterface
 {

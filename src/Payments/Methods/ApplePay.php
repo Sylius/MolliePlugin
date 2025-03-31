@@ -11,9 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Payments\Methods;
+namespace Sylius\MolliePlugin\Payments\Methods;
 
 use Mollie\Api\Types\PaymentMethod;
+use Sylius\MolliePlugin\Payments\PaymentType;
 
 final class ApplePay extends AbstractMethod
 {
@@ -24,6 +25,6 @@ final class ApplePay extends AbstractMethod
 
     public function getPaymentType(): string
     {
-        return self::PAYMENT_API;
+        return PaymentType::PAYMENT_API_VALUE;
     }
 }

@@ -11,32 +11,28 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Helper;
+namespace Sylius\MolliePlugin\Helper;
 
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
-use SyliusMolliePlugin\Payments\PaymentTerms\Options;
 use Mollie\Api\Types\PaymentMethod;
 use Sylius\Bundle\PayumBundle\Provider\PaymentDescriptionProviderInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Payments\PaymentType;
 use Webmozart\Assert\Assert;
 
 final class PaymentDescription implements PaymentDescriptionInterface
 {
-    /** @var PaymentDescriptionProviderInterface */
-    private $paymentDescriptionProvider;
-
-    public function __construct(PaymentDescriptionProviderInterface $paymentDescriptionProvider)
+    public function __construct(private readonly PaymentDescriptionProviderInterface $paymentDescriptionProvider)
     {
-        $this->paymentDescriptionProvider = $paymentDescriptionProvider;
     }
 
     public function getPaymentDescription(
         PaymentInterface $payment,
         MollieGatewayConfigInterface $methodConfig,
-        OrderInterface $order
+        OrderInterface $order,
     ): string {
-        $paymentMethodType = array_search($methodConfig->getPaymentType(), Options::getAvailablePaymentType(), true);
+        $paymentMethodType = array_search($methodConfig->getPaymentType(), PaymentType::getAllAvailable(), true);
         $description = $methodConfig->getPaymentDescription();
 
         if (PaymentMethod::PAYPAL === $methodConfig->getMethodId()) {
@@ -45,9 +41,9 @@ final class PaymentDescription implements PaymentDescriptionInterface
             return $this->createPayPalDescription($order->getNumber());
         }
 
-        if (Options::PAYMENT_API === $paymentMethodType
-            && isset($description)
-            && '' !== $description
+        if (PaymentType::PAYMENT_API === $paymentMethodType &&
+            isset($description) &&
+            '' !== $description
         ) {
             Assert::notNull($order->getChannel());
             $replacements = [
@@ -60,7 +56,7 @@ final class PaymentDescription implements PaymentDescriptionInterface
             return str_replace(
                 array_keys($replacements),
                 array_values($replacements),
-                $methodConfig->getPaymentDescription()
+                $methodConfig->getPaymentDescription(),
             );
         }
 

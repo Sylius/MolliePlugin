@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Form\Extension;
+namespace Sylius\MolliePlugin\Form\Extension;
 
-use SyliusMolliePlugin\Entity\ProductType;
 use Sylius\Bundle\ProductBundle\Form\Type\ProductType as ProductFormType;
+use Sylius\MolliePlugin\Entity\ProductType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormBuilderInterface;

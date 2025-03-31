@@ -11,7 +11,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Payments\Methods;
+namespace Sylius\MolliePlugin\Payments\Methods;
+
+use Sylius\MolliePlugin\Payments\PaymentType;
 
 final class MealVoucher extends AbstractMethod
 {
@@ -24,6 +26,6 @@ final class MealVoucher extends AbstractMethod
 
     public function getPaymentType(): string
     {
-        return self::ORDER_API;
+        return PaymentType::ORDER_API_VALUE;
     }
 }

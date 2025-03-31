@@ -11,11 +11,12 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Factory;
+namespace Sylius\MolliePlugin\Factory;
 
-use SyliusMolliePlugin\Request\Api\CreateCustomer;
+use Sylius\MolliePlugin\Payum\Request\CreateCustomer;
 
 interface ApiCustomerFactoryInterface
 {
+    /** @param array<array-key, mixed> $details */
     public function createNew(array $details): CreateCustomer;
 }

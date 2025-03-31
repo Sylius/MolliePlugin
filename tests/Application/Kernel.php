@@ -11,9 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Application;
+namespace Tests\Sylius\MolliePlugin\Application;
 
 use PSS\SymfonyMockerContainer\DependencyInjection\MockerContainer;
+use Sylius\AdminOrderCreationPlugin\SyliusAdminOrderCreationPlugin;
 use Sylius\Bundle\CoreBundle\Application\Kernel as SyliusKernel;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -50,13 +51,6 @@ final class Kernel extends BaseKernel
         }
     }
 
-    protected function configureRoutes(RoutingConfigurator $routes): void
-    {
-        foreach ($this->getConfigurationDirectories() as $confDir) {
-            $this->loadRoutesConfiguration($routes, $confDir);
-        }
-    }
-
     protected function getContainerBaseClass(): string
     {
         if ($this->isTestEnvironment() && class_exists(MockerContainer::class)) {
@@ -66,17 +60,26 @@ final class Kernel extends BaseKernel
         return parent::getContainerBaseClass();
     }
 
+    private function configureRoutes(RoutingConfigurator $routes): void
+    {
+        foreach ($this->getConfigurationDirectories() as $confDir) {
+            $this->loadRoutesConfiguration($routes, $confDir);
+        }
+    }
+
+    private function configureContainer(ContainerConfigurator $container, LoaderInterface $loader, ContainerBuilder $builder): void
+    {
+        foreach ($this->getConfigurationDirectories() as $confDir) {
+            $this->loadContainerConfiguration($loader, $confDir);
+        }
+    }
+
     private function loadContainerConfiguration(LoaderInterface $loader, string $confDir): void
     {
         $loader->load($confDir . '/{packages}/*' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{packages}/' . $this->environment . '/**/*' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{services}' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{services}_' . $this->environment . self::CONFIG_EXTS, 'glob');
-    }
-
-    private function isTestEnvironment(): bool
-    {
-        return 0 === strpos($this->getEnvironment(), 'test');
     }
 
     private function loadRoutesConfiguration(RoutingConfigurator $routes, string $confDir): void
@@ -109,12 +112,13 @@ final class Kernel extends BaseKernel
         if (is_dir($syliusConfigDir)) {
             yield $syliusConfigDir;
         }
+        if (class_exists(SyliusAdminOrderCreationPlugin::class)) {
+            yield $this->getProjectDir() . '/config/integration/sylius_admin_order_creation_plugin';
+        }
     }
 
-    protected function configureContainer(ContainerConfigurator $container, LoaderInterface $loader, ContainerBuilder $builder): void
+    private function isTestEnvironment(): bool
     {
-        foreach ($this->getConfigurationDirectories() as $confDir) {
-            $this->loadContainerConfiguration($loader, $confDir);
-        }
+        return str_starts_with($this->getEnvironment(), 'test');
     }
 }

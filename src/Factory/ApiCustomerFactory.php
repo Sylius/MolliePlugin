@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Factory;
+namespace Sylius\MolliePlugin\Factory;
 
-use SyliusMolliePlugin\Request\Api\CreateCustomer;
+use Sylius\MolliePlugin\Payum\Request\CreateCustomer;
 
 final class ApiCustomerFactory implements ApiCustomerFactoryInterface
 {

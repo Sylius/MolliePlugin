@@ -11,16 +11,17 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Logger;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Logger;
 
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Entity\MollieLoggerInterface;
-use SyliusMolliePlugin\Factory\MollieLoggerFactoryInterface;
-use SyliusMolliePlugin\Logger\MollieLoggerAction;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Resolver\MollieFactoryNameResolverInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\MollieLoggerInterface;
+use Sylius\MolliePlugin\Factory\MollieLoggerFactoryInterface;
+use Sylius\MolliePlugin\Logger\LoggerLevel;
+use Sylius\MolliePlugin\Logger\MollieLoggerAction;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Resolver\MollieFactoryNameResolverInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 final class MollieLoggerActionTest extends TestCase
@@ -46,17 +47,16 @@ final class MollieLoggerActionTest extends TestCase
             $this->loggerFactoryMock,
             $this->repositoryMock,
             $this->gatewayRepositoryMock,
-            $this->mollieFactoryNameResolverMock
+            $this->mollieFactoryNameResolverMock,
         );
     }
 
-    function testImplementMollieLoggerActionInterface(): void
+    public function testImplementMollieLoggerActionInterface(): void
     {
         $this->assertInstanceOf(MollieLoggerActionInterface::class, $this->mollieLoggerAction);
     }
 
-
-    function testAddsLogWhenLogEverythingIsSet(): void
+    public function testAddsLogWhenLogEverythingIsSet(): void
     {
         $this->mollieFactoryNameResolverMock->expects($this->once())
             ->method('resolve')
@@ -72,7 +72,7 @@ final class MollieLoggerActionTest extends TestCase
             ->willReturn($configMock)
         ;
 
-        $logLevel = MollieLoggerActionInterface::NOTICE;
+        $logLevel = LoggerLevel::NOTICE;
         $message = 'log_test_message';
         $errorCode = Response::HTTP_OK;
 
@@ -84,7 +84,7 @@ final class MollieLoggerActionTest extends TestCase
 
         $configMock->expects($this->once())
             ->method('getConfig')
-            ->willReturn(['loggerLevel' => MollieLoggerActionInterface::LOG_EVERYTHING])
+            ->willReturn(['loggerLevel' => LoggerLevel::LOG_EVERYTHING])
         ;
 
         $this->repositoryMock->expects($this->once())
@@ -95,7 +95,7 @@ final class MollieLoggerActionTest extends TestCase
         $this->mollieLoggerAction->addLog($message, $logLevel, $errorCode);
     }
 
-    function testAddsLogWhenLogErrorsIsSet(): void
+    public function testAddsLogWhenLogErrorsIsSet(): void
     {
         $this->mollieFactoryNameResolverMock->expects($this->once())
             ->method('resolve')
@@ -104,7 +104,7 @@ final class MollieLoggerActionTest extends TestCase
         $loggerMock = $this->createMock(MollieLoggerInterface::class);
         $configMock = $this->createMock(GatewayConfigInterface::class);
 
-        $logLevel = MollieLoggerActionInterface::ERROR;
+        $logLevel = LoggerLevel::ERROR;
         $message = 'log_test_message';
         $errorCode = Response::HTTP_OK;
 
@@ -133,14 +133,14 @@ final class MollieLoggerActionTest extends TestCase
         $this->mollieLoggerAction->addLog($message, $logLevel, $errorCode);
     }
 
-    function testCannotAddsLog(): void
+    public function testCannotAddsLog(): void
     {
         $this->mollieFactoryNameResolverMock->expects($this->once())
             ->method('resolve')
             ->willReturn('mollie_subscription')
         ;
 
-        $logLevel = MollieLoggerActionInterface::ERROR;
+        $logLevel = LoggerLevel::ERROR;
         $message = 'log_test_message';
         $errorCode = Response::HTTP_OK;
 
@@ -161,7 +161,7 @@ final class MollieLoggerActionTest extends TestCase
         $this->mollieLoggerAction->addLog($message, $logLevel, $errorCode);
     }
 
-    function testAddsNegativeLogWhenLogEverythingIsSet(): void
+    public function testAddsNegativeLogWhenLogEverythingIsSet(): void
     {
         $this->mollieFactoryNameResolverMock->expects($this->once())
             ->method('resolve')
@@ -176,7 +176,7 @@ final class MollieLoggerActionTest extends TestCase
             ->willReturn($configMock)
         ;
 
-        $logLevel = MollieLoggerActionInterface::NOTICE;
+        $logLevel = LoggerLevel::NOTICE;
         $message = 'log_test_negative_message';
         $errorCode = Response::HTTP_INTERNAL_SERVER_ERROR;
 
@@ -188,7 +188,7 @@ final class MollieLoggerActionTest extends TestCase
 
         $configMock->expects($this->once())
             ->method('getConfig')
-            ->willReturn(['loggerLevel' => MollieLoggerActionInterface::LOG_EVERYTHING])
+            ->willReturn(['loggerLevel' => LoggerLevel::LOG_EVERYTHING])
         ;
 
         $this->repositoryMock->expects($this->once())
@@ -199,7 +199,7 @@ final class MollieLoggerActionTest extends TestCase
         $this->mollieLoggerAction->addLog($message, $logLevel, $errorCode);
     }
 
-    function testAddsNegativeLogWhenLogErrorsIsSet(): void
+    public function testAddsNegativeLogWhenLogErrorsIsSet(): void
     {
         $this->mollieFactoryNameResolverMock->expects($this->once())
             ->method('resolve')
@@ -209,7 +209,7 @@ final class MollieLoggerActionTest extends TestCase
         $loggerMock = $this->createMock(MollieLoggerInterface::class);
         $configMock = $this->createMock(GatewayConfigInterface::class);
 
-        $logLevel = MollieLoggerActionInterface::ERROR;
+        $logLevel = LoggerLevel::ERROR;
         $message = 'log_test_negative_message';
         $errorCode = Response::HTTP_INTERNAL_SERVER_ERROR;
 
@@ -238,14 +238,14 @@ final class MollieLoggerActionTest extends TestCase
         $this->mollieLoggerAction->addLog($message, $logLevel, $errorCode);
     }
 
-    function testCannotAddsNegativeLog(): void
+    public function testCannotAddsNegativeLog(): void
     {
         $this->mollieFactoryNameResolverMock->expects($this->once())
             ->method('resolve')
             ->willReturn('mollie_subscription')
         ;
 
-        $logLevel = MollieLoggerActionInterface::ERROR;
+        $logLevel = LoggerLevel::ERROR;
         $message = 'log_test_negative_message';
         $errorCode = Response::HTTP_INTERNAL_SERVER_ERROR;
 

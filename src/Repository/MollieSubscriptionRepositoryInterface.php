@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Repository;
+namespace Sylius\MolliePlugin\Repository;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 
 interface MollieSubscriptionRepositoryInterface extends RepositoryInterface
 {

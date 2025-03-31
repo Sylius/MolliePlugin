@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Entity;
+namespace Tests\Sylius\MolliePlugin\Entity;
 
 use Sylius\Component\Core\Model\AdminUser as BaseAdminUser;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherAwareInterface;

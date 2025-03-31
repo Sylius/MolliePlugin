@@ -1,0 +1,4 @@
+sylius_mollie_plugin_thankYou_page_redirect:
+    path: /thank-you
+    defaults:
+        _controller: sylius_mollie.controller.shop.page_redirect::thankYouAction
