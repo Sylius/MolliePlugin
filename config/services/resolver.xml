@@ -145,11 +145,5 @@
             <argument type="service" id="sylius_mollie.helper.int_to_string"/>
         </service>
         <service id="Sylius\MolliePlugin\Resolver\MollieAllowedMethodsResolverInterface" alias="sylius_mollie.resolver.mollie_allowed_methods" />
-
-        <service id="sylius_mollie.resolver.onboarding_wizard.status" class="Sylius\MolliePlugin\Resolver\OnboardingWizard\StatusResolver">
-            <argument type="service" id="sylius_mollie.repository.onboarding_wizard_status"/>
-            <argument type="service" id="sylius_mollie.custom_factory.onboarding_wizard.status"/>
-        </service>
-        <service id="Sylius\MolliePlugin\Resolver\OnboardingWizard\StatusResolverInterface" alias="sylius_mollie.resolver.onboarding_wizard.status" />
     </services>
 </container>

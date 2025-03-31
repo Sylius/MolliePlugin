@@ -13,32 +13,29 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Controller\Admin\OnboardingWizard;
 
-use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Context\AdminUserContextInterface;
-use Sylius\MolliePlugin\Entity\OnboardingWizardStatus;
+use Sylius\MolliePlugin\Entity\OnboardingStatusAwareInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 final class StatusAction
 {
-    public function __construct(private readonly RepositoryInterface $statusRepository, private readonly AdminUserContextInterface $adminUserContext)
+    public function __construct(private readonly AdminUserContextInterface $adminUserContext)
     {
     }
 
     public function __invoke(): Response
     {
         $adminUser = $this->adminUserContext->getAdminUser();
-
         if (null === $adminUser) {
             return new JsonResponse(['message' => "Couldn't resolve admin user account."], Response::HTTP_BAD_REQUEST);
         }
 
-        $onboardingWizardStatus = $this->statusRepository->findOneBy(['adminUser' => $adminUser]);
+        $onboardingStatus = $adminUser instanceof OnboardingStatusAwareInterface
+            ? $adminUser->isMollieOnboardingCompleted()
+            : false
+        ;
 
-        if ($onboardingWizardStatus instanceof OnboardingWizardStatus) {
-            return new JsonResponse(['completed' => $onboardingWizardStatus->isCompleted()]);
-        }
-
-        return new JsonResponse(['completed' => false]);
+        return new JsonResponse(['completed' => $onboardingStatus]);
     }
 }

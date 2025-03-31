@@ -81,10 +81,36 @@
     )
     ```
 
+   The constructor of `Sylius\MolliePlugin\Controller\Admin\OnboardingWizard\CompletedAction` has been changed:
+
+    ```diff
+    use Doctrine\ORM\EntityManagerInterface;
+    use Sylius\MolliePlugin\Context\AdminUserContextInterface;
+
+    public function __construct(
+    -   StatusCreatorInterface $onboardingWizardStatusCreator,
+    +   AdminUserContextInterface $adminUserContext,
+    +   EntityManagerInterface $entityManager,
+    )
+    ```
+
+   The constructor of `Sylius\MolliePlugin\Controller\Admin\OnboardingWizard\StatusAction` has been changed:
+
+    ```diff
+    public function __construct(
+    -   RepositoryInterface $statusRepository,
+        AdminUserContextInterface $adminUserContext,
+    )
+    ```
+
 1. Method signature changes:
 
    The `::provide` method of `ValidationGroupsResolverInterface` has been renamed to `::resolve`.
    The `::prepare` method of `PaymentLinkEmailManagerInterface` has been renamed to `::send`.
+
+1. The entity `Sylius\MolliePlugin\Entity\OnboardingWizardStatus` along with its resource configuration and related classes have been removed.
+   The onboarding status itself has been moved to a field `bool $mollieOnboardingCompleted = false` within the  
+   `Sylius\MolliePlugin\Entity\OnboardingStatusAwareTrait` which should be applied on the `AdminUser` entity.
 
 1. Removed services:
    - `sylius_mollie_plugin.checker.version.mollie_plugin_latest_version_checker`
