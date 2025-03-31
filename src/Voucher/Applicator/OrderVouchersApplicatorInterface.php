@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Updater\Order;
+namespace Sylius\MolliePlugin\Voucher\Applicator;
 
-use Mollie\Api\Resources\Payment;
+use Sylius\Component\Core\Model\OrderInterface;
 
-interface OrderVoucherAdjustmentUpdaterInterface
+interface OrderVouchersApplicatorInterface
 {
-    public function update(Payment $molliePayment, int $orderId): void;
+    public function distribute(OrderInterface $order, int $amount): void;
 }

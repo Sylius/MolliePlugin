@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Applicator;
+namespace Sylius\MolliePlugin\Voucher\Applicator;
 
 use Sylius\Component\Core\Distributor\IntegerDistributorInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -20,10 +20,12 @@ use Sylius\Component\Order\Factory\AdjustmentFactoryInterface;
 use Sylius\Component\Order\Model\OrderItemUnitInterface;
 use Sylius\MolliePlugin\Order\AdjustmentInterface;
 
-final class UnitsPromotionAdjustmentsApplicator implements UnitsPromotionAdjustmentsApplicatorInterface
+final class UnitsVouchersApplicator implements UnitsVouchersApplicatorInterface
 {
-    public function __construct(private readonly AdjustmentFactoryInterface $adjustmentFactory, private readonly IntegerDistributorInterface $distributor)
-    {
+    public function __construct(
+        private readonly AdjustmentFactoryInterface $adjustmentFactory,
+        private readonly IntegerDistributorInterface $distributor,
+    ) {
     }
 
     public function apply(OrderInterface $order, array $promotionAmount): void
