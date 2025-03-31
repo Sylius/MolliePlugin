@@ -297,6 +297,17 @@ The following service IDs have been removed:
 | `sylius_mollie_plugin.command_bus`                                                                        | `sylius_mollie.command_bus`                                                               |
 | `sylius_mollie.documentation.documentation_links`                                                         | `@SyliusAdmin/PaymentMethod/_mollie_gateway_help_theme.html.twig`                                                                                   |
 
+1. The `Sylius\MolliePlugin\Documentation\DocumentationLinks` class and the related service alias `sylius_mollie.documentation.documentation_links` have been removed.
+
+Help links for Mollie configuration fields are now handled via a dedicated form theme:
+`@SyliusAdmin/PaymentMethod/_mollie_gateway_help_theme.html.twig.`
+
+If you were previously injecting or using the `DocumentationLinks` service, please update your templates to rely on the form theme instead.
+
+Make sure to register the theme in your template using:
+
+- `{% form_theme form '@SyliusAdmin/PaymentMethod/_mollie_gateway_help_theme.html.twig' %}`
+
 1. Removed parameters:
 
 The following parameters have been replaced:
