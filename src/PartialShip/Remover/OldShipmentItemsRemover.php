@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Remover\PartialShip;
+namespace Sylius\MolliePlugin\PartialShip\Remover;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemUnitInterface;

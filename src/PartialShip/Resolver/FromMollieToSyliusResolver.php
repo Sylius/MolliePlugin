@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Resolver\PartialShip;
+namespace Sylius\MolliePlugin\PartialShip\Resolver;
 
 use Mollie\Api\Resources\Order;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -19,7 +19,7 @@ use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\DTO\PartialShipItem;
 use Sylius\MolliePlugin\DTO\PartialShipItems;
-use Sylius\MolliePlugin\Remover\PartialShip\OldShipmentItemsRemoverInterface;
+use Sylius\MolliePlugin\PartialShip\Remover\OldShipmentItemsRemoverInterface;
 
 final class FromMollieToSyliusResolver implements FromMollieToSyliusResolverInterface
 {

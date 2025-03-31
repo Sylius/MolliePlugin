@@ -11,11 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Purifier\PartialShip;
+namespace Sylius\MolliePlugin\PartialShip\Converter;
 
+use Mollie\Api\Resources\Order;
 use Sylius\Component\Core\Model\OrderInterface;
 
-interface OrderShipmentPurifierInterface
+interface CreatePartialShipFromMollieInterface
 {
-    public function purify(OrderInterface $order): void;
+    public function create(OrderInterface $order, Order $mollieOrder): OrderInterface;
 }

@@ -11,13 +11,14 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Resolver\PartialShip;
+namespace Sylius\MolliePlugin\PartialShip\Resolver;
 
-use Doctrine\Common\Collections\Collection;
 use Mollie\Api\Resources\Order;
-use Sylius\MolliePlugin\DTO\PartialShipItems;
+use Sylius\Component\Core\Model\OrderInterface;
 
-interface FromSyliusToMollieLinesResolverInterface
+interface FromMollieToSyliusResolverInterface
 {
-    public function resolve(Collection $units, Order $mollieOrder): PartialShipItems;
+    public const SHIPPING_STATUS = 'shipping';
+
+    public function resolve(OrderInterface $order, Order $mollieOrder): OrderInterface;
 }

@@ -425,6 +425,20 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\Generator\SubscriptionScheduleGeneratorInterface`                               | `Sylius\MolliePlugin\Subscription\Generator\SubscriptionScheduleGeneratorInterface`           |
 | `Sylius\MolliePlugin\Guard\SubscriptionGuard`                                                        | `Sylius\MolliePlugin\Subscription\Guard\SubscriptionGuard`                                    |
 | `Sylius\MolliePlugin\Guard\SubscriptionGuardInterface`                                               | `Sylius\MolliePlugin\Subscription\Guard\SubscriptionGuardInterface`                           |
+| `Sylius\MolliePlugin\PartialShip\CreatePartialShipFromMollie`                                        | `Sylius\MolliePlugin\PartialShip\Converter\CreatePartialShipFromMollie`                       |
+| `Sylius\MolliePlugin\PartialShip\CreatePartialShipFromMollieInterface`                               | `Sylius\MolliePlugin\PartialShip\Converter\CreatePartialShipFromMollieInterface`              |
+| `Sylius\MolliePlugin\Factory\PartialShip\ShipmentFactory`                                            | `Sylius\MolliePlugin\PartialShip\Factory\ShipmentFactory`                                     |
+| `Sylius\MolliePlugin\Factory\PartialShip\ShipmentFactoryInterface`                                   | `Sylius\MolliePlugin\PartialShip\Factory\ShipmentFactoryInterface`                            |
+| `Sylius\MolliePlugin\Purifier\PartialShip\OrderMolliePartialShip`                                    | `Sylius\MolliePlugin\PartialShip\OrderMolliePartialShip`                                      |
+| `Sylius\MolliePlugin\Purifier\PartialShip\OrderMolliePartialShipInterface`                           | `Sylius\MolliePlugin\PartialShip\OrderMolliePartialShipInterface`                             |
+| `Sylius\MolliePlugin\Purifier\PartialShip\OrderShipmentPurifier`                                     | `Sylius\MolliePlugin\PartialShip\Purifier\OrderShipmentPurifier`                              |
+| `Sylius\MolliePlugin\Purifier\PartialShip\OrderShipmentPurifierInterface`                            | `Sylius\MolliePlugin\PartialShip\Purifier\OrderShipmentPurifierInterface`                     |
+| `Sylius\MolliePlugin\Remover\PartialShip\OldShipmentItemsRemover`                                    | `Sylius\MolliePlugin\PartialShip\Remover\OldShipmentItemsRemover`                             |
+| `Sylius\MolliePlugin\Remover\PartialShip\OldShipmentItemsRemoverInterface`                           | `Sylius\MolliePlugin\PartialShip\Remover\OldShipmentItemsRemoverInterface`                    |
+| `Sylius\MolliePlugin\Resolver\PartialShip\FromMollieToSyliusResolver`                                | `Sylius\MolliePlugin\PartialShip\Resolver\FromMollieToSyliusResolver`                         |
+| `Sylius\MolliePlugin\Resolver\PartialShip\FromMollieToSyliusResolverInterface`                       | `Sylius\MolliePlugin\PartialShip\Resolver\FromMollieToSyliusResolverInterface`                |
+| `Sylius\MolliePlugin\Resolver\PartialShip\FromSyliusToMollieLinesResolver`                           | `Sylius\MolliePlugin\PartialShip\Resolver\FromSyliusToMollieLinesResolver`                    |
+| `Sylius\MolliePlugin\Resolver\PartialShip\FromSyliusToMollieLinesResolverInterface`                  | `Sylius\MolliePlugin\PartialShip\Resolver\FromSyliusToMollieLinesResolverInterface`           |
 
 1. The `Sylius\MolliePlugin\Documentation\DocumentationLinks` class and the related service alias `sylius_mollie.documentation.documentation_links` have been removed.
 

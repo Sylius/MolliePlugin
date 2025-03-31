@@ -11,12 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Remover\PartialShip;
+namespace Sylius\MolliePlugin\PartialShip;
 
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\MolliePlugin\DTO\PartialShipItems;
 
-interface OldShipmentItemsRemoverInterface
+interface OrderMolliePartialShipInterface
 {
-    public function remove(OrderInterface $order, PartialShipItems $shipItems): OrderInterface;
+    public function partialShip(OrderInterface $order): void;
 }
