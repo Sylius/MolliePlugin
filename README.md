@@ -21,6 +21,7 @@
 ## Table of Contents
 
 * [Overview](#overview)
+* [Demo](#mollie-plugin-demo)
 * [We are here to help](#we-are-here-to-help)
 * [Installation](#installation)
   * [Requirements](#requirements)
