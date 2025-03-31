@@ -15,8 +15,8 @@ namespace Sylius\MolliePlugin\PaymentProcessing;
 
 use Payum\Core\Payum;
 use Sylius\Component\Core\Model\PaymentInterface;
+use Sylius\MolliePlugin\Payum\Request\Subscription\StatusRecurringSubscription;
 use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
-use Sylius\MolliePlugin\Request\StateMachine\StatusRecurringSubscription;
 
 final class SubscriptionPaymentProcessor implements SubscriptionPaymentProcessorInterface
 {

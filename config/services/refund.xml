@@ -51,7 +51,7 @@
             <argument type="service" id="sylius_refund.repository.refund" />
         </service>
 
-        <service id="sylius_mollie.calculator.refund.payment" class="Sylius\MolliePlugin\Calculator\Refund\PaymentRefundCalculator">
+        <service id="sylius_mollie.calculator.refund.payment" class="Sylius\MolliePlugin\Refund\Calculator\PaymentRefundCalculator">
         </service>
     </services>
 </container>

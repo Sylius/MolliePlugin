@@ -14,16 +14,19 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Refund\Units;
 
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\MolliePlugin\Calculator\Refund\PaymentRefundCalculatorInterface;
 use Sylius\MolliePlugin\DTO\PartialRefundItem;
+use Sylius\MolliePlugin\Refund\Calculator\PaymentRefundCalculatorInterface;
 use Sylius\MolliePlugin\Refund\Generator\PaymentNewUnitRefundGeneratorInterface;
 use Sylius\MolliePlugin\Refund\Generator\PaymentRefundedGeneratorInterface;
 use Sylius\RefundPlugin\Model\OrderItemUnitRefund;
 
 final class PaymentUnitsItemRefund implements PaymentUnitsItemRefundInterface
 {
-    public function __construct(private readonly PaymentRefundedGeneratorInterface $paymentRefundedGenerator, private readonly PaymentNewUnitRefundGeneratorInterface $paymentNewUnitRefundGenerator, private readonly PaymentRefundCalculatorInterface $paymentRefundCalculator)
-    {
+    public function __construct(
+        private readonly PaymentRefundedGeneratorInterface $paymentRefundedGenerator,
+        private readonly PaymentNewUnitRefundGeneratorInterface $paymentNewUnitRefundGenerator,
+        private readonly PaymentRefundCalculatorInterface $paymentRefundCalculator,
+    ) {
     }
 
     public function refund(OrderInterface $order, int $totalToRefund): array

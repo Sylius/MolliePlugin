@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Form\Type;
 
-use Sylius\MolliePlugin\PaymentFee\PaymentSurchargeFeeType as FeeType;
+use Sylius\MolliePlugin\Model\PaymentSurchargeFeeType as FeeType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;

@@ -17,7 +17,7 @@
         <defaults public="true" />
         <service
                 id="sylius_mollie.applicator.order.order_vouchers"
-                class="Sylius\MolliePlugin\Applicator\Order\OrderVouchersApplicator"
+                class="Sylius\MolliePlugin\Voucher\Applicator\OrderVouchersApplicator"
                 public="true"
         >
             <argument type="service" id="sylius.proportional_integer_distributor"/>

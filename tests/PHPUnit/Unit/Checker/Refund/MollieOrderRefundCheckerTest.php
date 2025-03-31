@@ -15,8 +15,8 @@ namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Checker\Refund;
 
 use Mollie\Api\Resources\Order;
 use PHPUnit\Framework\TestCase;
-use Sylius\MolliePlugin\Checker\Refund\MollieOrderRefundChecker;
-use Sylius\MolliePlugin\Checker\Refund\MollieOrderRefundCheckerInterface;
+use Sylius\MolliePlugin\Refund\Checker\MollieOrderRefundChecker;
+use Sylius\MolliePlugin\Refund\Checker\MollieOrderRefundCheckerInterface;
 
 final class MollieOrderRefundCheckerTest extends TestCase
 {

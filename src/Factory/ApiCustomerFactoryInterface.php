@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Factory;
 
-use Sylius\MolliePlugin\Request\Api\CreateCustomer;
+use Sylius\MolliePlugin\Payum\Request\CreateCustomer;
 
 interface ApiCustomerFactoryInterface
 {

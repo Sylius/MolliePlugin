@@ -16,7 +16,7 @@
     <services>
         <service
                 id="sylius_mollie.updater.order.order_voucher_adjustment"
-                class="Sylius\MolliePlugin\Updater\Order\OrderVoucherAdjustmentUpdater"
+                class="Sylius\MolliePlugin\Voucher\Updater\OrderVoucherAdjustmentUpdater"
                 public="true"
         >
             <argument type="service" id="sylius.repository.order"/>

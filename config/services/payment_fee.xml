@@ -19,7 +19,7 @@
     <services>
         <service
             id="sylius_mollie.payment_fee.calculator.fixed_amount"
-            class="Sylius\MolliePlugin\PaymentFee\Calculator\FixedAmountCalculator"
+            class="Sylius\MolliePlugin\Calculator\PaymentFee\FixedAmountCalculator"
         >
             <argument type="service" id="sylius.factory.adjustment" />
             <argument type="service" id="sylius_mollie.provider.divisor" />
@@ -29,7 +29,7 @@
 
         <service
             id="sylius_mollie.payment_fee.calculator.percentage"
-            class="Sylius\MolliePlugin\PaymentFee\Calculator\PercentageCalculator"
+            class="Sylius\MolliePlugin\Calculator\PaymentFee\PercentageCalculator"
         >
             <argument type="service" id="sylius.factory.adjustment" />
             <argument type="service" id="sylius_mollie.provider.divisor" />
@@ -39,7 +39,7 @@
 
         <service
             id="sylius_mollie.payment_fee.calculator.fixed_amount_and_percentage"
-            class="Sylius\MolliePlugin\PaymentFee\Calculator\FixedAmountAndPercentageCalculator"
+            class="Sylius\MolliePlugin\Calculator\PaymentFee\FixedAmountAndPercentageCalculator"
         >
             <argument type="service" id="sylius.factory.adjustment" />
             <argument type="service" id="sylius_mollie.payment_fee.calculator.percentage" />
@@ -51,20 +51,20 @@
 
         <service
             id="sylius_mollie.payment_fee.calculator.no_fee"
-            class="Sylius\MolliePlugin\PaymentFee\Calculator\NoFeeCalculator"
+            class="Sylius\MolliePlugin\Calculator\PaymentFee\NoFeeCalculator"
         >
             <tag name="sylius_mollie.payment_fee.calculator" />
         </service>
 
         <service
             id="sylius_mollie.payment_fee.calculator.composite"
-            class="Sylius\MolliePlugin\PaymentFee\CompositePaymentSurchargeCalculator"
+            class="Sylius\MolliePlugin\Calculator\PaymentFee\CompositePaymentSurchargeCalculator"
         >
             <argument type="tagged_iterator" tag="sylius_mollie.payment_fee.calculator" />
         </service>
 
         <service
-            id="Sylius\MolliePlugin\PaymentFee\Calculator\PaymentSurchargeCalculatorInterface"
+            id="Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeCalculatorInterface"
             alias="sylius_mollie.payment_fee.calculator.composite"
         />
     </services>

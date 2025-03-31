@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Validator\Constraints;
 
 use Sylius\MolliePlugin\Entity\PaymentSurchargeFeeInterface;
-use Sylius\MolliePlugin\PaymentFee\PaymentSurchargeFeeType;
+use Sylius\MolliePlugin\Model\PaymentSurchargeFeeType;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Webmozart\Assert\Assert;
