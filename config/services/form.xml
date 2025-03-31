@@ -33,7 +33,6 @@
 
     <services>
         <service id="sylius_mollie.form.type.mollie_gateway_configuration" class="Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType">
-            <argument type="service" id="sylius_mollie.documentation.documentation_links"/>
             <argument type="service" id="sylius_mollie.mollie_api_client"/>
             <tag name="sylius.gateway_configuration_type" type="mollie" label="sylius_mollie_plugin.ui.mollie_gateway_label"/>
             <tag name="form.type"/>
@@ -135,8 +134,6 @@
         </service>
 
         <service id="sylius_mollie.form.type.payment_type_choice" class="Sylius\MolliePlugin\Form\Type\PaymentTypeChoiceType">
-            <argument type="service" id="sylius_mollie.documentation.documentation_links" />
-
             <tag name="form.type" />
         </service>
 

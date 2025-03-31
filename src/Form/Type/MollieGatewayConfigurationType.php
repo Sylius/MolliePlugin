@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Form\Type;
 
 use Sylius\MolliePlugin\Client\MollieApiClient;
-use Sylius\MolliePlugin\Documentation\DocumentationLinksInterface;
 use Sylius\MolliePlugin\Validator\Constraints\LiveApiKeyIsNotBlank;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -34,7 +33,7 @@ final class MollieGatewayConfigurationType extends AbstractType
 
     public const API_KEY_TEST = 'api_key_test';
 
-    public function __construct(private readonly DocumentationLinksInterface $documentationLinks, private readonly MollieApiClient $apiClient)
+    public function __construct(private readonly MollieApiClient $apiClient)
     {
     }
 
@@ -52,8 +51,7 @@ final class MollieGatewayConfigurationType extends AbstractType
             ])
             ->add(self::API_KEY_TEST, PasswordType::class, [
                 'always_empty' => false,
-                'label' => $this->documentationLinks->getApiKeyDoc(),
-                'help' => ' ',
+                'label' => 'sylius_mollie_plugin.ui.api_key_test',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'sylius_mollie_plugin.api_key.not_blank',
@@ -105,13 +103,11 @@ final class MollieGatewayConfigurationType extends AbstractType
             ->add('components', CheckboxType::class, [
                 'label' => 'sylius_mollie_plugin.ui.enable_components',
                 'attr' => ['class' => 'mollie-components'],
-                'help' => $this->documentationLinks->getMollieComponentsDoc(),
                 'help_html' => true,
             ])
             ->add('single_click_enabled', CheckboxType::class, [
                 'label' => 'sylius_mollie_plugin.ui.single_click_enabled',
                 'attr' => ['class' => 'mollie-single-click-payment'],
-                'help' => $this->documentationLinks->getSingleClickDoc(),
                 'help_html' => true,
             ])
             ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {

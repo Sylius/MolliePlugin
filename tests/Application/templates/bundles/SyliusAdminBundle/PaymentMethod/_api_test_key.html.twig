@@ -4,7 +4,11 @@
     </label>
     <div class="ui input js-onboardingWizard-apiKey">
         {{ form_widget(field) }}
-        <button id="{{ field.vars.name }}" type="button" class="ui button primary">{{ 'sylius_mollie_plugin.ui.show_hide'|trans }}</button>
+        <button id="{{ field.vars.name }}" type="button" class="ui button primary">
+            {{ 'sylius_mollie_plugin.ui.show_hide'|trans }}
+        </button>
     </div>
+
+    {{ form_help(field) }}
     {{ form_errors(field) }}
 </div>
