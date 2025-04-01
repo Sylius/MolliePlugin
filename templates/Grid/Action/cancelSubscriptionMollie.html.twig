@@ -6,7 +6,7 @@
     {% set path = options.link.url|default(path(options.link.route|default(grid.requestConfiguration.getRouteName('show')), options.link.parameters|default({'id': data.id}))) %}
 {% endif %}
 
-{% set factoryName = constant('Sylius\\MolliePlugin\\MollieSubscriptionGatewayFactory::FACTORY_NAME') %}
+{% set factoryName = constant('Sylius\\MolliePlugin\\Payum\\Factory\\MollieSubscriptionGatewayFactory::FACTORY_NAME') %}
 
 {#{% set subscriptionMollie = subscription_mollie_repository.findOneByOrderId(data.id) %}#}
 

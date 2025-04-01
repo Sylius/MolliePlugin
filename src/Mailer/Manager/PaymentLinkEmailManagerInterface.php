@@ -11,12 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\EmailSender;
+namespace Sylius\MolliePlugin\Mailer\Manager;
 
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\MolliePlugin\Entity\TemplateMollieEmailTranslationInterface;
 
-interface PaymentLinkEmailSenderInterface
+interface PaymentLinkEmailManagerInterface
 {
-    public function sendConfirmationEmail(OrderInterface $order, TemplateMollieEmailTranslationInterface $template): void;
+    public function send(OrderInterface $order, string $templateName): void;
 }

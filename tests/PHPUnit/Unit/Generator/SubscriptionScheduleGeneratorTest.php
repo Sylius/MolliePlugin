@@ -20,8 +20,8 @@ use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionScheduleInterface;
 use Sylius\MolliePlugin\Factory\DatePeriodFactoryInterface;
 use Sylius\MolliePlugin\Factory\MollieSubscriptionScheduleFactoryInterface;
-use Sylius\MolliePlugin\Generator\SubscriptionScheduleGenerator;
-use Sylius\MolliePlugin\Generator\SubscriptionScheduleGeneratorInterface;
+use Sylius\MolliePlugin\Subscription\Generator\SubscriptionScheduleGenerator;
+use Sylius\MolliePlugin\Subscription\Generator\SubscriptionScheduleGeneratorInterface;
 
 final class SubscriptionScheduleGeneratorTest extends TestCase
 {

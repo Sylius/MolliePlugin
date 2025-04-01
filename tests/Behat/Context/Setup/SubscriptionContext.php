@@ -23,7 +23,7 @@ use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\MolliePlugin\Entity\MollieCustomer;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionScheduleInterface;
-use Sylius\MolliePlugin\Processor\SubscriptionScheduleProcessorInterface;
+use Sylius\MolliePlugin\Subscription\Processor\SubscriptionScheduleProcessorInterface;
 use Webmozart\Assert\Assert;
 
 final class SubscriptionContext implements Context

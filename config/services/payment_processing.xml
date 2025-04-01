@@ -16,11 +16,11 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius_mollie.payment_processor.cancel_recurring_subscription" class="Sylius\MolliePlugin\PaymentProcessing\CancelRecurringSubscriptionProcessor">
+        <service id="sylius_mollie.payment_processor.cancel_recurring_subscription" class="Sylius\MolliePlugin\Subscription\Processor\CancelRecurringSubscriptionProcessor">
             <argument type="service" id="payum"/>
         </service>
 
-        <service id="sylius_mollie.payment_processor.subscription_payment" class="Sylius\MolliePlugin\PaymentProcessing\SubscriptionPaymentProcessor">
+        <service id="sylius_mollie.payment_processor.subscription_payment" class="Sylius\MolliePlugin\Subscription\Processor\SubscriptionPaymentProcessor">
             <argument type="service" id="sylius_mollie.repository.mollie_subscription"/>
             <argument type="service" id="payum"/>
         </service>

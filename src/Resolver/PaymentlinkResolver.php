@@ -21,12 +21,12 @@ use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
-use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
-use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType;
 use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
+use Sylius\MolliePlugin\Mailer\Manager\PaymentLinkEmailManagerInterface;
+use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Payum\Provider\PaymentTokenProviderInterface;
-use Sylius\MolliePlugin\Preparer\PaymentLinkEmailPreparerInterface;
 use Webmozart\Assert\Assert;
 
 final class PaymentlinkResolver implements PaymentlinkResolverInterface
@@ -35,7 +35,7 @@ final class PaymentlinkResolver implements PaymentlinkResolverInterface
         private readonly MollieApiClient $mollieApiClient,
         private readonly IntToStringConverterInterface $intToStringConverter,
         private readonly RepositoryInterface $orderRepository,
-        private readonly PaymentLinkEmailPreparerInterface $emailPreparer,
+        private readonly PaymentLinkEmailManagerInterface $paymentLinkEmailManager,
         private readonly OrderCreationPaymentTokenProviderInterface|PaymentTokenProviderInterface $paymentTokenProvider,
     ) {
     }
@@ -119,7 +119,7 @@ final class PaymentlinkResolver implements PaymentlinkResolverInterface
 
         $this->orderRepository->add($order);
 
-        $this->emailPreparer->prepare($order, $templateName);
+        $this->paymentLinkEmailManager->send($order, $templateName);
 
         return $payment->_links->checkout->href;
     }

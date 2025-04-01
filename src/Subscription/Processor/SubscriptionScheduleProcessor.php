@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Processor;
+namespace Sylius\MolliePlugin\Subscription\Processor;
 
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
-use Sylius\MolliePlugin\Generator\SubscriptionScheduleGeneratorInterface;
+use Sylius\MolliePlugin\Subscription\Generator\SubscriptionScheduleGeneratorInterface;
 use Webmozart\Assert\Assert;
 
 final class SubscriptionScheduleProcessor implements SubscriptionScheduleProcessorInterface

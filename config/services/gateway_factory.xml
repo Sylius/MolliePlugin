@@ -16,9 +16,9 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius_mollie.gateway_factory.mollie_gateway" class="Sylius\MolliePlugin\Factory\MollieGatewayFactory" />
+        <service id="sylius_mollie.gateway_factory.mollie_gateway" class="Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory" />
 
-        <service id="sylius_mollie.gateway_factory.mollie_subscription_gateway" class="Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory" />
+        <service id="sylius_mollie.gateway_factory.mollie_subscription_gateway" class="Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory" />
 
         <service id="sylius_mollie.payum.gateway_factory.builder.mollie" class="Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder">
             <argument type="service" id="sylius_mollie.gateway_factory.mollie_gateway"/>

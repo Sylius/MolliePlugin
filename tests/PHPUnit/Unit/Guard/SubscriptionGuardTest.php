@@ -18,8 +18,8 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionScheduleInterface;
-use Sylius\MolliePlugin\Guard\SubscriptionGuard;
-use Sylius\MolliePlugin\Guard\SubscriptionGuardInterface;
+use Sylius\MolliePlugin\Subscription\Guard\SubscriptionGuard;
+use Sylius\MolliePlugin\Subscription\Guard\SubscriptionGuardInterface;
 
 final class SubscriptionGuardTest extends TestCase
 {

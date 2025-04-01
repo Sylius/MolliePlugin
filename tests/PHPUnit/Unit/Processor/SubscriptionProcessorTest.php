@@ -28,10 +28,10 @@ use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Factory\PaymentDetailsFactoryInterface;
 use Sylius\MolliePlugin\Order\SubscriptionOrderClonerInterface;
-use Sylius\MolliePlugin\Processor\SubscriptionProcessor;
-use Sylius\MolliePlugin\Processor\SubscriptionProcessorInterface;
 use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
 use Sylius\MolliePlugin\Repository\OrderRepositoryInterface;
+use Sylius\MolliePlugin\Subscription\Processor\SubscriptionProcessor;
+use Sylius\MolliePlugin\Subscription\Processor\SubscriptionProcessorInterface;
 
 final class SubscriptionProcessorTest extends TestCase
 {
