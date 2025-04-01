@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Twig\Extension;
 
-use Sylius\MolliePlugin\Checker\ApplePay\ApplePayEnabledCheckerInterface;
+use Sylius\MolliePlugin\ApplePay\Checker\ApplePayEnabledCheckerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

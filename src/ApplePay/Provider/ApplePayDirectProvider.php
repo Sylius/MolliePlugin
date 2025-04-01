@@ -11,23 +11,20 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Provider\Apple;
+namespace Sylius\MolliePlugin\ApplePay\Provider;
 
 use Sylius\AdminOrderCreationPlugin\Provider\CustomerProviderInterface as OrderCreationCustomerProviderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
-use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\ApplePay\Resolver\AddressResolverInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Provider\Customer\CustomerProviderInterface;
-use Sylius\MolliePlugin\Provider\Order\OrderPaymentApplePayDirectProviderInterface;
-use Sylius\MolliePlugin\Resolver\Address\ApplePayAddressResolverInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Webmozart\Assert\Assert;
 
 final class ApplePayDirectProvider implements ApplePayDirectProviderInterface
 {
     public function __construct(
-        private readonly ApplePayAddressResolverInterface $applePayAddressResolver,
-        private readonly MollieApiClient $mollieApiClient,
+        private readonly AddressResolverInterface $applePayAddressResolver,
         private readonly OrderPaymentApplePayDirectProviderInterface $paymentApplePayDirectProvider,
         private readonly CustomerProviderInterface|OrderCreationCustomerProviderInterface $customerProvider,
         private readonly ApplePayDirectPaymentProviderInterface $applePayDirectPaymentProvider,
@@ -37,28 +34,28 @@ final class ApplePayDirectProvider implements ApplePayDirectProviderInterface
     public function provideOrder(OrderInterface $order, Request $request): void
     {
         $applePayPaymentToken = $request->get('token');
-        $applePayAddress = [];
-        $applePayAddress['shippingContact'] = $request->get('shippingContact');
-        $applePayAddress['billingContact'] = $request->get('billingContact');
+        $applePayBillingAddress = $request->get('billingContact');
+        $applePayShippingAddress = $request->get('shippingContact');
 
         Assert::notNull($applePayPaymentToken);
-        Assert::notNull($applePayAddress['shippingContact']);
-        Assert::notNull($applePayAddress['billingContact']);
+        Assert::notNull($applePayBillingAddress);
+        Assert::notNull($applePayShippingAddress);
 
-        if (isset($applePayAddress['shippingContact']['emailAddress'])) {
-            $applePayAddress['billingContact']['emailAddress'] = $applePayAddress['shippingContact']['emailAddress'];
+        if (isset($applePayShippingAddress['emailAddress'])) {
+            $applePayBillingAddress['emailAddress'] = $applePayShippingAddress['emailAddress'];
         }
 
-        $this->applePayAddressResolver->resolve($order, $applePayAddress);
+        $order->setShippingAddress($this->applePayAddressResolver->resolve($applePayShippingAddress));
+        $order->setBillingAddress($this->applePayAddressResolver->resolve($applePayBillingAddress));
+
         $this->paymentApplePayDirectProvider->provideOrderPayment($order, PaymentInterface::STATE_NEW);
 
-        Assert::notNull($order->getShippingAddress());
         if (null !== $customer = $order->getShippingAddress()->getCustomer()) {
             $order->setCustomer($customer);
         }
 
         if (null === $order->getCustomer()) {
-            $this->customerProvider->provideNewCustomer($applePayAddress['shippingContact']['emailAddress']);
+            $this->customerProvider->provideNewCustomer($applePayShippingAddress['emailAddress']);
         }
 
         $this->applePayDirectPaymentProvider->provideApplePayPayment($order, $applePayPaymentToken);

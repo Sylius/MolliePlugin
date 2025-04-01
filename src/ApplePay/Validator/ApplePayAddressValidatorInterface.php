@@ -11,9 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Checker\ApplePay;
+namespace Sylius\MolliePlugin\ApplePay\Validator;
 
-interface ApplePayEnabledCheckerInterface
+interface ApplePayAddressValidatorInterface
 {
-    public function isEnabled(): bool;
+    /** @param array<string, mixed> $data */
+    public function validate(array $data): void;
 }

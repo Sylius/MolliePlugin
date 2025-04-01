@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Resolver\ApplePayDirect;
+namespace Sylius\MolliePlugin\ApplePay\Provider;
 
 use Sylius\MolliePlugin\Entity\OrderInterface;
 
-interface ApplePayDirectApiPaymentResolverInterface
+interface ApplePayDirectPaymentProviderInterface
 {
-    /** @param array<string, mixed> $details */
-    public function resolve(OrderInterface $order, array $details): void;
+    /** @param array<string, mixed> $applePayPaymentToken */
+    public function provideApplePayPayment(OrderInterface $order, array $applePayPaymentToken): void;
 }

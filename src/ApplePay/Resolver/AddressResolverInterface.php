@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Resolver\Address;
+namespace Sylius\MolliePlugin\ApplePay\Resolver;
 
 use Sylius\Component\Core\Model\AddressInterface;
 
