@@ -28,7 +28,7 @@ use Sylius\MolliePlugin\Resolver\PaymentlinkResolverInterface;
 
 final class AbandonedPaymentLinkCreator implements AbandonedPaymentLinkCreatorInterface
 {
-    public function __construct(private readonly PaymentlinkResolverInterface $paymentLinkResolver, private readonly OrderRepositoryInterface $orderRepository, private readonly PaymentLinkEmailManagerInterface $emailPreparer, private readonly PaymentMethodRepositoryInterface $paymentMethodRepository, private readonly ChannelContextInterface $channelContext)
+    public function __construct(private readonly PaymentlinkResolverInterface $paymentLinkResolver, private readonly OrderRepositoryInterface $orderRepository, private readonly PaymentLinkEmailManagerInterface $paymentLinkEmailManager, private readonly PaymentMethodRepositoryInterface $paymentMethodRepository, private readonly ChannelContextInterface $channelContext)
     {
     }
 
@@ -40,20 +40,17 @@ final class AbandonedPaymentLinkCreator implements AbandonedPaymentLinkCreatorIn
             $channel,
             MollieGatewayFactory::FACTORY_NAME,
         );
-
         if (null === $paymentMethod) {
             return;
         }
 
         /** @var ?GatewayConfigInterface $gateway */
         $gateway = $paymentMethod->getGatewayConfig();
-
         if (null === $gateway) {
             return;
         }
 
         $abandonedEnabled = $gateway->getConfig()['abandoned_email_enabled'] ?? false;
-
         if (false === $abandonedEnabled) {
             return;
         }

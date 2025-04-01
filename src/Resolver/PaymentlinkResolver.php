@@ -35,7 +35,7 @@ final class PaymentlinkResolver implements PaymentlinkResolverInterface
         private readonly MollieApiClient $mollieApiClient,
         private readonly IntToStringConverterInterface $intToStringConverter,
         private readonly RepositoryInterface $orderRepository,
-        private readonly PaymentLinkEmailManagerInterface $emailPreparer,
+        private readonly PaymentLinkEmailManagerInterface $paymentLinkEmailManager,
         private readonly OrderCreationPaymentTokenProviderInterface|PaymentTokenProviderInterface $paymentTokenProvider,
     ) {
     }
@@ -119,7 +119,7 @@ final class PaymentlinkResolver implements PaymentlinkResolverInterface
 
         $this->orderRepository->add($order);
 
-        $this->emailPreparer->send($order, $templateName);
+        $this->paymentLinkEmailManager->send($order, $templateName);
 
         return $payment->_links->checkout->href;
     }

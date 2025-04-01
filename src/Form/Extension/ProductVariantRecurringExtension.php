@@ -30,7 +30,7 @@ use Symfony\Component\Validator\Constraints\Valid;
 
 final class ProductVariantRecurringExtension extends AbstractTypeExtension
 {
-    public function __construct(private readonly ValidationGroupsResolverInterface $groupProvider)
+    public function __construct(private readonly ValidationGroupsResolverInterface $validationGroupsResolver)
     {
     }
 
@@ -86,6 +86,9 @@ final class ProductVariantRecurringExtension extends AbstractTypeExtension
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefault('validation_groups', fn (FormInterface $form): array => $this->groupProvider->resolve($form));
+        $resolver->setDefault(
+            'validation_groups',
+            fn (FormInterface $form): array => $this->validationGroupsResolver->resolve($form),
+        );
     }
 }
