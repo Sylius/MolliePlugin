@@ -11,8 +11,9 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Converter;
+namespace Sylius\MolliePlugin\Refund\Converter;
 
+use Sylius\MolliePlugin\Converter\IntToStringConverterInterface;
 use Sylius\RefundPlugin\Model\UnitRefundInterface;
 
 final class RefundDataConverter implements RefundDataConverterInterface

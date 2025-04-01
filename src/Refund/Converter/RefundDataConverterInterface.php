@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Converter;
+namespace Sylius\MolliePlugin\Refund\Converter;
 
 use Sylius\MolliePlugin\DTO\MolliePayment\Amount;
 

@@ -21,8 +21,8 @@ use Payum\Core\GatewayAwareTrait;
 use Payum\Core\Request\Refund;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Resource\Exception\UpdateHandlingException;
-use Sylius\MolliePlugin\Converter\RefundDataConverterInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Refund\Converter\RefundDataConverterInterface;
 use Webmozart\Assert\Assert;
 
 final class RefundAction extends BaseRefundAction implements GatewayAwareInterface
