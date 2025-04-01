@@ -536,6 +536,13 @@ The following service IDs have been renamed:
 | `Sylius\MolliePlugin\Provider\Customer\CustomerProviderInterface`                                    | `Sylius\MolliePlugin\Provider\CustomerProviderInterface`                                      |
 | `Sylius\MolliePlugin\Provider\Divisor\DivisorProvider`                                               | `Sylius\MolliePlugin\Provider\DivisorProvider`                                                |
 | `Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface`                                      | `Sylius\MolliePlugin\Provider\DivisorProviderInterface`                                       |
+| `Sylius\MolliePlugin\Helper\IntToStringConverter`                                                    | `Sylius\MolliePlugin\Converter\IntToStringConverter`                                          |
+| `Sylius\MolliePlugin\Helper\IntToStringConverterInterface`                                           | `Sylius\MolliePlugin\Converter\IntToStringConverterInterface`                                 |
+| `Sylius\MolliePlugin\Helper\ConvertOrder`                                                            | `Sylius\MolliePlugin\Converter\OrderConverter`                                                |
+| `Sylius\MolliePlugin\Helper\ConvertOrderInterface`                                                   | `Sylius\MolliePlugin\Converter\OrderConverterInterface`                                       |
+| `Sylius\MolliePlugin\Helper\ConvertPriceToAmount`                                                    | `Sylius\MolliePlugin\Converter\PriceToAmountConverter`                                        |
+| `Sylius\MolliePlugin\Helper\ConvertRefundData`                                                       | `Sylius\MolliePlugin\Converter\RefundDataConverter`                                           |
+| `Sylius\MolliePlugin\Helper\ConvertRefundDataInterface`                                              | `Sylius\MolliePlugin\Converter\RefundDataConverterInterface`                                  |
 
 1. The `Sylius\MolliePlugin\Documentation\DocumentationLinks` class and the related service alias `sylius_mollie.documentation.documentation_links` have been removed.
 

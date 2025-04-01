@@ -16,7 +16,7 @@ namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Calculator;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\MolliePlugin\Calculator\CalculateTaxAmount;
-use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
+use Sylius\MolliePlugin\Converter\IntToStringConverterInterface;
 
 final class CalculateTaxAmountTest extends TestCase
 {

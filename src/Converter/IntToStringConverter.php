@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Helper;
+namespace Sylius\MolliePlugin\Converter;
 
 use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
 

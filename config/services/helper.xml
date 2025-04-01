@@ -16,12 +16,12 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius_mollie.helper.int_to_string" class="Sylius\MolliePlugin\Helper\IntToStringConverter">
+        <service id="sylius_mollie.helper.int_to_string" class="Sylius\MolliePlugin\Converter\IntToStringConverter">
             <argument type="service" id="sylius_mollie.provider.divisor"/>
         </service>
         <service id="Sylius\MolliePlugin\Helper\IntToStringConverterInterface" alias="sylius_mollie.helper.int_to_string" />
 
-        <service id="sylius_mollie.helper.convert_order" class="Sylius\MolliePlugin\Helper\ConvertOrder">
+        <service id="sylius_mollie.helper.convert_order" class="Sylius\MolliePlugin\Converter\OrderConverter">
             <argument type="service" id="sylius_mollie.helper.int_to_string"/>
             <argument type="service" id="sylius_mollie.calculator.calculate_tax_amount"/>
             <argument type="service" id="sylius_mollie.resolver.meal_voucher"/>
@@ -31,13 +31,13 @@
         </service>
         <service id="Sylius\MolliePlugin\Helper\ConvertOrderInterface" alias="sylius_mollie.helper.convert_order" />
 
-        <service id="sylius_mollie.helper.convert_price_to_amount" class="Sylius\MolliePlugin\Helper\ConvertPriceToAmount">
+        <service id="sylius_mollie.helper.convert_price_to_amount" class="Sylius\MolliePlugin\Converter\PriceToAmountConverter">
             <argument type="service" id="sylius.context.currency"/>
             <argument type="service" id="sylius.context.locale"/>
             <argument type="service" id="sylius.templating.helper.format_money"/>
         </service>
 
-        <service id="sylius_mollie.helper.convert_refund_data" class="Sylius\MolliePlugin\Helper\ConvertRefundData">
+        <service id="sylius_mollie.helper.convert_refund_data" class="Sylius\MolliePlugin\Converter\RefundDataConverter">
             <argument type="service" id="sylius_mollie.helper.int_to_string"/>
         </service>
         <service id="Sylius\MolliePlugin\Helper\ConvertRefundDataInterface" alias="sylius_mollie.helper.convert_refund_data" />

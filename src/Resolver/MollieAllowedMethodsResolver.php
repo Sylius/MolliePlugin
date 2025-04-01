@@ -15,8 +15,8 @@ namespace Sylius\MolliePlugin\Resolver;
 
 use Mollie\Api\Resources\Method;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\MolliePlugin\Converter\IntToStringConverterInterface;
 use Sylius\MolliePlugin\DTO\MolliePayment\Amount;
-use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
 
 /**
  * @phpstan-import-type AmountArray from Amount

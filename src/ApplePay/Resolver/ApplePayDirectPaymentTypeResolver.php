@@ -14,9 +14,9 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\ApplePay\Resolver;
 
 use Sylius\Component\Core\Model\PaymentInterface;
+use Sylius\MolliePlugin\Converter\IntToStringConverterInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
-use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
 use Sylius\MolliePlugin\Payments\PaymentType;
 
 final class ApplePayDirectPaymentTypeResolver implements ApplePayDirectPaymentTypeResolverInterface

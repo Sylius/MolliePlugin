@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Helper;
+namespace Sylius\MolliePlugin\Converter;
 
-interface IntToStringConverterInterface
+interface PriceToAmountConverterInterface
 {
-    public function convertIntToString(int $value, ?int $divisor = null): string;
+    public function convert(int $price): string;
 }

@@ -21,7 +21,7 @@ use Payum\Core\GatewayAwareTrait;
 use Payum\Core\Request\Refund;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Resource\Exception\UpdateHandlingException;
-use Sylius\MolliePlugin\Helper\ConvertRefundDataInterface;
+use Sylius\MolliePlugin\Converter\RefundDataConverterInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Webmozart\Assert\Assert;
 
@@ -31,7 +31,7 @@ final class RefundAction extends BaseRefundAction implements GatewayAwareInterfa
 
     public function __construct(
         private MollieLoggerActionInterface $loggerAction,
-        private ConvertRefundDataInterface $convertOrderRefundData,
+        private RefundDataConverterInterface $convertOrderRefundData,
     ) {
     }
 

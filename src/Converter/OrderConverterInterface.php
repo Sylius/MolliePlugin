@@ -11,13 +11,13 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Helper;
+namespace Sylius\MolliePlugin\Converter;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Model\AdjustmentInterface;
 
-interface ConvertOrderInterface
+interface OrderConverterInterface
 {
     public const PAYMENT_FEE = 'PAYMENT_FEE';
 

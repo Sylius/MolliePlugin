@@ -16,9 +16,9 @@ namespace Sylius\MolliePlugin\Refund\Creator;
 use Mollie\Api\Resources\Order;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Converter\OrderConverterInterface;
 use Sylius\MolliePlugin\DTO\PartialRefundItems;
 use Sylius\MolliePlugin\Exceptions\OfflineRefundPaymentMethodNotFound;
-use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
 use Sylius\MolliePlugin\Refund\Units\UnitsItemOrderRefundInterface;
 use Sylius\MolliePlugin\Refund\Units\UnitsShipmentOrderRefundInterface;
 use Sylius\RefundPlugin\Command\RefundUnits;
@@ -46,7 +46,7 @@ final class OrderRefundCommandCreator implements OrderRefundCommandCreatorInterf
                 throw new \InvalidArgumentException();
             }
 
-            if ('paid' === $line->status && ConvertOrderInterface::PHYSICAL_TYPE === $line->type) {
+            if ('paid' === $line->status && OrderConverterInterface::PHYSICAL_TYPE === $line->type) {
                 if (!property_exists($line, 'metadata') ||
                     !property_exists($line, 'quantityRefunded')
                 ) {
