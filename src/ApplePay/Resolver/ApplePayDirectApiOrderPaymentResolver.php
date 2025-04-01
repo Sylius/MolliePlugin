@@ -23,7 +23,7 @@ use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
 use Sylius\MolliePlugin\Payments\PaymentType;
-use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
 use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
 use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
 

@@ -29,7 +29,7 @@ use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
 use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
 use Sylius\MolliePlugin\Payments\PaymentType;
 use Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactoryInterface;
-use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
 use Sylius\MolliePlugin\Provider\PaymentDescriptionProviderInterface;
 use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
 use Webmozart\Assert\Assert;

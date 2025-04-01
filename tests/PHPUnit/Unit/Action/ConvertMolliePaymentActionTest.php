@@ -31,7 +31,7 @@ use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
 use Sylius\MolliePlugin\Payum\Action\ConvertMolliePaymentAction;
 use Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactoryInterface;
 use Sylius\MolliePlugin\Payum\Request\CreateCustomer;
-use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
 use Sylius\MolliePlugin\Provider\PaymentDescriptionProviderInterface;
 use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Helper;
 
-use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
 
 final class IntToStringConverter implements IntToStringConverterInterface
 {
