@@ -543,6 +543,8 @@ The following service IDs have been renamed:
 | `Sylius\MolliePlugin\Helper\ConvertPriceToAmount`                                                    | `Sylius\MolliePlugin\Converter\PriceToAmountConverter`                                        |
 | `Sylius\MolliePlugin\Helper\ConvertRefundData`                                                       | `Sylius\MolliePlugin\Refund\Converter\RefundDataConverter`                                    |
 | `Sylius\MolliePlugin\Helper\ConvertRefundDataInterface`                                              | `Sylius\MolliePlugin\Refund\Converter\RefundDataConverterInterface`                           |
+| `Sylius\MolliePlugin\Parser\Response\GuzzleNegativeResponseParser`                                   | `Sylius\MolliePlugin\Client\Parser\ApiExceptionParser`                                        |
+| `Sylius\MolliePlugin\Parser\Response\GuzzleNegativeResponseParserInterface`                          | `Sylius\MolliePlugin\Client\Parser\ApiExceptionParserInterface`                               |
 
 1. The `Sylius\MolliePlugin\Documentation\DocumentationLinks` class and the related service alias `sylius_mollie.documentation.documentation_links` have been removed.
 

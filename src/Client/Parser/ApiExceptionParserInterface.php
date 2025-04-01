@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Parser\Response;
+namespace Sylius\MolliePlugin\Client\Parser;
 
 use Mollie\Api\Exceptions\ApiException;
 
-interface GuzzleNegativeResponseParserInterface
+interface ApiExceptionParserInterface
 {
     public function parse(ApiException $exception): string;
 }
