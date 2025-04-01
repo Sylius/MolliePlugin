@@ -5,15 +5,15 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
-        "doctrine/annotations": "^1.0",
+        "doctrine/persistence": "^3.4",
         "ext-json": "*",
         "league/flysystem-bundle": "^2.4",
-        "mollie/mollie-api-php": "^v2.73.0",
-        "sylius/admin-order-creation-plugin":  "v0.14 || v0.15.0",
+        "mollie/mollie-api-php": "^2.73",
+        "sylius/admin-order-creation-plugin": "0.14 || 0.15",
         "sylius/refund-plugin": "^1.0",
         "sylius/sylius": "~1.11.0 || ~1.12.0 || ~1.13.0",
-        "symfony/mailer": "^5.4",
-        "symfony/messenger": "^5.2 || ^6.0",
+        "symfony/mailer": "^5.4 || ^6.4",
+        "symfony/messenger": "^5.4 || ^6.4",
         "willdurand/js-translation-bundle": "^4.0 || ^5.0"
     },
     "require-dev": {
@@ -75,7 +75,8 @@
             "phpstan/extension-installer": true,
             "composer/package-versions-deprecated": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "symfony/thanks": false
+            "symfony/thanks": false,
+            "symfony/flex": true
         }
     }
 }
