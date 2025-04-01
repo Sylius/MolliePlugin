@@ -51,10 +51,10 @@
         </service>
         <service id="Sylius\MolliePlugin\Payum\Provider\PaymentTokenProviderInterface" alias="sylius_mollie.provider.payment_token" />
 
-        <service id="sylius_mollie.provider.customer" class="Sylius\MolliePlugin\Provider\Customer\CustomerProvider">
+        <service id="sylius_mollie.provider.customer" class="Sylius\MolliePlugin\Provider\CustomerProvider">
             <argument type="service" id="sylius.repository.customer" />
             <argument type="service" id="sylius.factory.customer"/>
         </service>
-        <service id="Sylius\MolliePlugin\Provider\Customer\CustomerProviderInterface" alias="sylius_mollie.provider.customer" />
+        <service id="Sylius\MolliePlugin\Provider\CustomerProviderInterface" alias="sylius_mollie.provider.customer" />
     </services>
 </container>

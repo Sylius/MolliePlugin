@@ -17,7 +17,7 @@ use Sylius\AdminOrderCreationPlugin\Provider\CustomerProviderInterface as OrderC
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\MolliePlugin\ApplePay\Resolver\AddressResolverInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
-use Sylius\MolliePlugin\Provider\Customer\CustomerProviderInterface;
+use Sylius\MolliePlugin\Provider\CustomerProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Webmozart\Assert\Assert;
 

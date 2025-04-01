@@ -532,6 +532,8 @@ The following service IDs have been renamed:
 | `Sylius\MolliePlugin\Creator\PaymentRefundCommandCreatorInterface`                                   | `Sylius\MolliePlugin\Refund\Creator\PaymentRefundCommandCreatorInterface`                     |
 | `Sylius\MolliePlugin\Helper\PaymentDescription`                                                      | `Sylius\MolliePlugin\Provider\PaymentDescriptionProvider`                                     |
 | `Sylius\MolliePlugin\Helper\PaymentDescriptionInterface`                                             | `Sylius\MolliePlugin\Provider\PaymentDescriptionProviderInterface`                            |
+| `Sylius\MolliePlugin\Provider\Customer\CustomerProvider`                                             | `Sylius\MolliePlugin\Provider\CustomerProvider`                                               |
+| `Sylius\MolliePlugin\Provider\Customer\CustomerProviderInterface`                                    | `Sylius\MolliePlugin\Provider\CustomerProviderInterface`                                      |
 
 1. The `Sylius\MolliePlugin\Documentation\DocumentationLinks` class and the related service alias `sylius_mollie.documentation.documentation_links` have been removed.
 

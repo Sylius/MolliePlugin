@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Provider\Customer;
+namespace Sylius\MolliePlugin\Provider;
 
 use Sylius\Component\Core\Model\CustomerInterface;
 
