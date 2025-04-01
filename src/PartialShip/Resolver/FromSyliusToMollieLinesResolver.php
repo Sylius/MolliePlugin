@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Resolver\PartialShip;
+namespace Sylius\MolliePlugin\PartialShip\Resolver;
 
 use Doctrine\Common\Collections\Collection;
 use Mollie\Api\Resources\Order;

@@ -20,7 +20,7 @@ use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Order\OrderTransitions;
 use Sylius\Component\Shipping\ShipmentTransitions;
-use Sylius\MolliePlugin\PartialShip\CreatePartialShipFromMollieInterface;
+use Sylius\MolliePlugin\PartialShip\Converter\CreatePartialShipFromMollieInterface;
 use Sylius\MolliePlugin\StateMachine\ShipmentTransitions as ShipmentTransitionsPartial;
 
 final class MollieOrderStatesApplicator implements MollieOrderStatesApplicatorInterface

@@ -25,11 +25,11 @@ use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Customer\Context\CustomerContextInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
-use Sylius\MolliePlugin\Factory\ApiCustomerFactoryInterface;
 use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
 use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
 use Sylius\MolliePlugin\Helper\PaymentDescriptionInterface;
 use Sylius\MolliePlugin\Payments\PaymentType;
+use Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactoryInterface;
 use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
 use Webmozart\Assert\Assert;
@@ -44,7 +44,7 @@ final class ConvertMolliePaymentAction extends BaseApiAwareAction implements Gat
         private ConvertOrderInterface $orderConverter,
         private CustomerContextInterface $customerContext,
         private PaymentLocaleResolverInterface $paymentLocaleResolver,
-        private ApiCustomerFactoryInterface $apiCustomerFactory,
+        private CreateCustomerFactoryInterface $createCustomerFactory,
         private IntToStringConverterInterface $intToStringConverter,
         private DivisorProviderInterface $divisorProvider,
     ) {
@@ -108,7 +108,7 @@ final class ConvertMolliePaymentAction extends BaseApiAwareAction implements Gat
         ];
 
         if (null !== $this->customerContext->getCustomer() && true === ($gatewayConfig['single_click_enabled'] ?? false)) {
-            $mollieCustomer = $this->apiCustomerFactory->createNew($details);
+            $mollieCustomer = $this->createCustomerFactory->createNew($details);
             $this->gateway->execute($mollieCustomer);
             $model = $mollieCustomer->getModel();
             $details['metadata']['customer_mollie_id'] = $model['customer_mollie_id'];

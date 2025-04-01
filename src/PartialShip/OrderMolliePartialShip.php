@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Purifier\PartialShip;
+namespace Sylius\MolliePlugin\PartialShip;
 
 use Mollie\Api\Exceptions\ApiException;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -19,8 +19,8 @@ use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\PartialShip\Resolver\FromSyliusToMollieLinesResolverInterface;
 use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
-use Sylius\MolliePlugin\Resolver\PartialShip\FromSyliusToMollieLinesResolverInterface;
 use Webmozart\Assert\Assert;
 
 final class OrderMolliePartialShip implements OrderMolliePartialShipInterface

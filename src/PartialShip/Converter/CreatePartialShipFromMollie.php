@@ -11,15 +11,15 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\PartialShip;
+namespace Sylius\MolliePlugin\PartialShip\Converter;
 
 use Doctrine\Common\Collections\Collection;
 use Mollie\Api\Resources\Order;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\MolliePlugin\Factory\PartialShip\ShipmentFactoryInterface;
-use Sylius\MolliePlugin\Resolver\PartialShip\FromMollieToSyliusResolverInterface;
+use Sylius\MolliePlugin\PartialShip\Factory\ShipmentFactoryInterface;
+use Sylius\MolliePlugin\PartialShip\Resolver\FromMollieToSyliusResolverInterface;
 
 final class CreatePartialShipFromMollie implements CreatePartialShipFromMollieInterface
 {

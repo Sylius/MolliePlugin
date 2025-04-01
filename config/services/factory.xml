@@ -33,7 +33,7 @@
             <argument type="service" id=".inner"/>
         </service>
 
-        <service id="sylius_mollie.factory.shipment" class="Sylius\MolliePlugin\Factory\PartialShip\ShipmentFactory">
+        <service id="sylius_mollie.factory.shipment" class="Sylius\MolliePlugin\PartialShip\Factory\ShipmentFactory">
             <argument type="service" id="sylius.factory.shipment" />
         </service>
 
@@ -68,6 +68,6 @@
 
         <service id="sylius_mollie.factory.payment_details" class="Sylius\MolliePlugin\Factory\PaymentDetailsFactory"/>
 
-        <service id="sylius_mollie.factory.api_customer" class="Sylius\MolliePlugin\Factory\ApiCustomerFactory"/>
+        <service id="sylius_mollie.factory.api_customer" class="Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactory"/>
     </services>
 </container>

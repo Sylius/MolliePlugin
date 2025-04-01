@@ -11,11 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Purifier\PartialShip;
+namespace Sylius\MolliePlugin\PartialShip\Purifier;
 
 use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
+use Sylius\MolliePlugin\PartialShip\OrderMolliePartialShipInterface;
 
 final class OrderShipmentPurifier implements OrderShipmentPurifierInterface
 {
