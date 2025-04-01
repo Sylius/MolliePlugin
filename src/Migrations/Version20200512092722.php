@@ -68,9 +68,7 @@ final class Version20200512092722 extends AbstractMigration
         $this->addSql('ALTER TABLE mollie_subscription_payments ADD CONSTRAINT FK_DC1E0C489A1887DC FOREIGN KEY (subscription_id) REFERENCES mollie_subscription (id)');
         $this->addSql('ALTER TABLE mollie_subscription_payments ADD CONSTRAINT FK_DC1E0C484C3A3BB FOREIGN KEY (payment_id) REFERENCES sylius_payment (id)');
         $this->addSql('ALTER TABLE mollie_subscription_schedule ADD CONSTRAINT FK_E3F48681D38231D4 FOREIGN KEY (mollie_subscription_id) REFERENCES mollie_subscription (id)');
-        $this->addSql('ALTER TABLE sylius_order ADD subscription_id INT DEFAULT NULL, ADD abandoned_email TINYINT(1) NOT NULL, ADD recurring_sequence_index INT DEFAULT NULL, ADD qr_code TEXT DEFAULT NULL, ADD mollie_payment_id TEXT DEFAULT NULL');
-        $this->addSql('ALTER TABLE sylius_order ADD CONSTRAINT FK_6196A1F99A1887DC FOREIGN KEY (subscription_id) REFERENCES mollie_subscription (id) ON DELETE RESTRICT');
-        $this->addSql('CREATE INDEX IDX_6196A1F99A1887DC ON sylius_order (subscription_id)');
+        $this->addSql('ALTER TABLE sylius_order ADD abandoned_email TINYINT(1) NOT NULL, ADD recurring_sequence_index INT DEFAULT NULL, ADD qr_code TEXT DEFAULT NULL, ADD mollie_payment_id TEXT DEFAULT NULL');
         $this->addSql('ALTER TABLE sylius_product ADD product_type_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE sylius_product ADD CONSTRAINT FK_677B9B7414959723 FOREIGN KEY (product_type_id) REFERENCES mollie_product_type (id) ON DELETE SET NULL');
         $this->addSql('CREATE INDEX IDX_677B9B7414959723 ON sylius_product (product_type_id)');
@@ -84,7 +82,6 @@ final class Version20200512092722 extends AbstractMigration
         }
 
         $this->addSql('ALTER TABLE sylius_product DROP FOREIGN KEY FK_677B9B7414959723');
-        $this->addSql('ALTER TABLE sylius_order DROP FOREIGN KEY FK_6196A1F99A1887DC');
         $this->addSql('ALTER TABLE mollie_configuration DROP FOREIGN KEY FK_EDD60BC5EB71DAB7');
         $this->addSql('ALTER TABLE mollie_configuration DROP FOREIGN KEY FK_EDD60BC52306388E');
         $this->addSql('ALTER TABLE mollie_configuration DROP FOREIGN KEY FK_EDD60BC5DBC26BFF');
@@ -117,8 +114,7 @@ final class Version20200512092722 extends AbstractMigration
         $this->addSql('DROP TABLE mollie_subscription_payments');
         $this->addSql('DROP TABLE mollie_subscription_configuration');
         $this->addSql('DROP TABLE mollie_subscription_schedule');
-        $this->addSql('DROP INDEX IDX_6196A1F99A1887DC ON sylius_order');
-        $this->addSql('ALTER TABLE sylius_order DROP subscription_id, DROP abandoned_email, DROP recurring_sequence_index, DROP qr_code, DROP mollie_payment_id');
+        $this->addSql('ALTER TABLE sylius_order DROP abandoned_email, DROP recurring_sequence_index, DROP qr_code, DROP mollie_payment_id');
         $this->addSql('DROP INDEX IDX_677B9B7414959723 ON sylius_product');
         $this->addSql('ALTER TABLE sylius_product DROP product_type_id');
         $this->addSql('ALTER TABLE sylius_product_variant DROP recurring, DROP recurring_times, DROP recurring_interval');
