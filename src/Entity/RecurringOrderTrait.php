@@ -20,10 +20,8 @@ use Sylius\Component\Core\Model\OrderItemInterface;
 /** @mixin OrderInterface */
 trait RecurringOrderTrait
 {
-    /**
-     * @ORM\Column(type="integer", name="recurring_sequence_index", nullable=true)
-     */
-    #[ORM\Column(name: "recurring_sequence_index", type: "integer", nullable: true)]
+    /** @ORM\Column(type="integer", name="recurring_sequence_index", nullable=true) */
+    #[ORM\Column(name: 'recurring_sequence_index', type: 'integer', nullable: true)]
     protected ?int $recurringSequenceIndex = null;
 
     public function getRecurringSequenceIndex(): ?int
@@ -43,8 +41,8 @@ trait RecurringOrderTrait
             ->filter(function (OrderItemInterface $orderItem) {
                 $variant = $orderItem->getVariant();
 
-                return $variant !== null
-                    && true === $variant->isRecurring();
+                return $variant !== null &&
+                    true === $variant->isRecurring();
             })
         ;
     }
@@ -56,8 +54,8 @@ trait RecurringOrderTrait
             ->filter(function (OrderItemInterface $orderItem) {
                 $variant = $orderItem->getVariant();
 
-                return $variant !== null
-                    && false === $variant->isRecurring();
+                return $variant !== null &&
+                    false === $variant->isRecurring();
             })
         ;
     }

@@ -18,11 +18,8 @@ use Doctrine\ORM\Mapping as ORM;
 /** @mixin OrderInterface */
 trait MolliePaymentIdOrderTrait
 {
-    /**
-     * @var string|null
-     * @ORM\Column(type="text", name="mollie_payment_id", length=1500, nullable=true)
-     */
-    #[ORM\Column(name: "mollie_payment_id", type: "text", length: 1500, nullable: true)]
+    /** @ORM\Column(type="text", name="mollie_payment_id", length=1500, nullable=true) */
+    #[ORM\Column(name: 'mollie_payment_id', type: 'text', length: 1500, nullable: true)]
     protected ?string $molliePaymentId = null;
 
     public function getMolliePaymentId(): ?string

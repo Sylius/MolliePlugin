@@ -18,11 +18,8 @@ use Doctrine\ORM\Mapping as ORM;
 /** @mixin OrderInterface */
 trait AbandonedEmailOrderTrait
 {
-    /**
-     * @var bool
-     * @ORM\Column(type="boolean", name="abandoned_email")
-     */
-    #[ORM\Column(name: "abandoned_email", type: "boolean")]
+    /** @ORM\Column(type="boolean", name="abandoned_email") */
+    #[ORM\Column(name: 'abandoned_email', type: 'boolean')]
     protected bool $abandonedEmail = false;
 
     public function isAbandonedEmail(): bool

@@ -21,6 +21,7 @@ trait GatewayConfigTrait
 {
     /**
      * @var Collection<MollieGatewayConfigInterface>
+     *
      * @ORM\OneToMany(
      *     targetEntity="SyliusMolliePlugin\Entity\MollieGatewayConfig",
      *     mappedBy="gateway",
@@ -29,10 +30,10 @@ trait GatewayConfigTrait
      * )
      */
     #[ORM\OneToMany(
-        mappedBy: "gateway",
+        mappedBy: 'gateway',
         targetEntity: MollieGatewayConfig::class,
-        cascade: ["all"],
-        orphanRemoval: true
+        cascade: ['all'],
+        orphanRemoval: true,
     )]
     protected Collection $mollieGatewayConfig;
 

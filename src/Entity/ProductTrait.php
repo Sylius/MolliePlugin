@@ -20,10 +20,11 @@ trait ProductTrait
 {
     /**
      * @ORM\ManyToOne(targetEntity="SyliusMolliePlugin\Entity\ProductType")
+     *
      * @ORM\JoinColumn(name="product_type_id", referencedColumnName="id", onDelete="SET NULL")
      */
     #[ORM\ManyToOne(targetEntity: ProductType::class)]
-    #[ORM\JoinColumn(name: "product_type_id", referencedColumnName: "id", onDelete: "SET NULL")]
+    #[ORM\JoinColumn(name: 'product_type_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     protected ?ProductType $productType = null;
 
     public function getProductType(): ?ProductTypeInterface
