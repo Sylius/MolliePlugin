@@ -109,6 +109,15 @@ jobs:
             -   name: Install PHP dependencies
                 run: composer install --no-interaction
 
+            -   name: Run PHPStan
+                run: vendor/bin/phpstan analyse
+
+            -   name: Run ECS
+                run: vendor/bin/ecs check
+
+            -   name: Run unit tests
+                run: vendor/bin/phpunit --colors=always --testsuite=unit
+
             -   name: Get Yarn cache directory
                 id: yarn-cache
                 run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
@@ -139,15 +148,6 @@ jobs:
 
             -   name: Load fixtures in test application
                 run: (cd tests/Application && bin/console sylius:fixtures:load -n)
-
-            -   name: Run PHPStan
-                run: vendor/bin/phpstan analyse
-
-            -   name: Run ECS
-                run: vendor/bin/ecs check
-
-            -   name: Run unit tests
-                run: vendor/bin/phpunit --colors=always --testsuite=unit
 
             -   name: Run Mockoon CLI
                 uses: mockoon/cli-action@v2
