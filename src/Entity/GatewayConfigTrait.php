@@ -14,11 +14,27 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Entity;
 
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 /** @mixin GatewayConfigInterface */
 trait GatewayConfigTrait
 {
-    /** @var Collection<MollieGatewayConfigInterface> */
+    /**
+     * @var Collection<MollieGatewayConfigInterface>
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="SyliusMolliePlugin\Entity\MollieGatewayConfig",
+     *     mappedBy="gateway",
+     *     orphanRemoval=true,
+     *     cascade={"all"}
+     * )
+     */
+    #[ORM\OneToMany(
+        mappedBy: 'gateway',
+        targetEntity: MollieGatewayConfig::class,
+        cascade: ['all'],
+        orphanRemoval: true,
+    )]
     protected Collection $mollieGatewayConfig;
 
     public function getMollieGatewayConfig(): ?Collection
