@@ -11,16 +11,14 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Helper;
+namespace Sylius\MolliePlugin\Provider;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 
-interface PaymentDescriptionInterface
+interface PaymentDescriptionProviderInterface
 {
-    public const PAYPAL_DESCRIPTION = 'Order';
-
     public function getPaymentDescription(
         PaymentInterface $payment,
         MollieGatewayConfigInterface $methodConfig,

@@ -42,7 +42,7 @@
         </service>
         <service id="Sylius\MolliePlugin\Helper\ConvertRefundDataInterface" alias="sylius_mollie.helper.convert_refund_data" />
 
-        <service id="sylius_mollie.helper.payment_description" class="Sylius\MolliePlugin\Helper\PaymentDescription">
+        <service id="sylius_mollie.helper.payment_description" class="Sylius\MolliePlugin\Provider\PaymentDescriptionProvider">
             <argument type="service" id="sylius.payment_description_provider"/>
         </service>
         <service id="Sylius\MolliePlugin\Helper\PaymentDescriptionInterface" alias="sylius_mollie.helper.payment_description" />

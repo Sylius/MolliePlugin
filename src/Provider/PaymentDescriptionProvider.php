@@ -11,20 +11,21 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Helper;
+namespace Sylius\MolliePlugin\Provider;
 
 use Mollie\Api\Types\PaymentMethod;
-use Sylius\Bundle\PayumBundle\Provider\PaymentDescriptionProviderInterface;
+use Sylius\Bundle\PayumBundle\Provider\PaymentDescriptionProviderInterface as BasePaymentDescriptionProviderInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Payments\PaymentType;
 use Webmozart\Assert\Assert;
 
-final class PaymentDescription implements PaymentDescriptionInterface
+final class PaymentDescriptionProvider implements PaymentDescriptionProviderInterface
 {
-    public function __construct(private readonly PaymentDescriptionProviderInterface $paymentDescriptionProvider)
-    {
+    public function __construct(
+        private readonly BasePaymentDescriptionProviderInterface $basePaymentDescriptionProvider,
+    ) {
     }
 
     public function getPaymentDescription(
@@ -38,7 +39,7 @@ final class PaymentDescription implements PaymentDescriptionInterface
         if (PaymentMethod::PAYPAL === $methodConfig->getMethodId()) {
             Assert::notNull($order->getNumber());
 
-            return $this->createPayPalDescription($order->getNumber());
+            return sprintf('Order %s', $order->getNumber());
         }
 
         if (PaymentType::PAYMENT_API === $paymentMethodType &&
@@ -60,11 +61,6 @@ final class PaymentDescription implements PaymentDescriptionInterface
             );
         }
 
-        return $this->paymentDescriptionProvider->getPaymentDescription($payment);
-    }
-
-    private function createPayPalDescription(string $orderNumber): string
-    {
-        return sprintf('%s %s', self::PAYPAL_DESCRIPTION, $orderNumber);
+        return $this->basePaymentDescriptionProvider->getPaymentDescription($payment);
     }
 }
