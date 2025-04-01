@@ -23,7 +23,7 @@
             <argument type="service" id="payum"/>
             <argument type="service" id="Sylius\RefundPlugin\Filter\UnitRefundFilterInterface"/>
         </service>
-        <service id="Sylius\MolliePlugin\Order\OrderPaymentRefundInterface" alias="sylius_mollie.order.order_payment_refund" />
+        <service id="Sylius\MolliePlugin\Refund\Handler\OrderPaymentRefundInterface" alias="sylius_mollie.order.order_payment_refund" />
 
         <service id="sylius_mollie.order.order_item_cloner" class="Sylius\MolliePlugin\Order\OrderItemCloner">
             <argument type="service" id="sylius.factory.order_item"/>
@@ -41,11 +41,6 @@
             <argument type="service" id="sylius_mollie.order.shipment_unit_cloner"/>
         </service>
         <service id="Sylius\MolliePlugin\Order\ShipmentClonerInterface" alias="sylius_mollie.order.shipment_cloner" />
-
-        <service id="sylius_mollie.order.shipment_unit_cloner" class="Sylius\MolliePlugin\Order\ShipmentUnitCloner">
-            <argument type="service" id="sylius.factory.shipment_unit"/>
-        </service>
-        <service id="Sylius\MolliePlugin\Order\ShipmentUnitClonerInterface" alias="sylius_mollie.order.shipment_unit_cloner" />
 
         <service id="sylius_mollie.order.subscription_order_cloner" class="Sylius\MolliePlugin\Order\SubscriptionOrderCloner">
             <argument type="service" id="sylius_mollie.order.order_item_cloner"/>

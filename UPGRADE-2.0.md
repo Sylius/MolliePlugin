@@ -118,6 +118,15 @@
    )
    ```
 
+   The constructor of `Sylius\MolliePlugin\Order\ShipmentCloner` has been changed:
+   
+   ```diff
+   public function __construct(
+       FactoryInterface $shipmentFactory,
+   -   ShipmentUnitClonerInterface $shipmentUnitCloner,
+   )
+   ```
+
 1. Method signature changes:
 
    The `::provide` method of `ValidationGroupsResolverInterface` has been renamed to `::resolve`.
@@ -352,6 +361,8 @@ The following service IDs have been removed:
    - `Sylius\MolliePlugin\Controller\Action\Shop\PaymentFeeCalculateActionInterface`
    - `Sylius\MolliePlugin\Resolver\Address\ApplePayAddressResolver`
    - `Sylius\MolliePlugin\Resolver\Address\ApplePayAddressResolverInterface`
+   - `Sylius\MolliePlugin\Order\ShipmentUnitCloner`
+   - `Sylius\MolliePlugin\Order\ShipmentUnitClonerInterface`
 
 1. Namespace changes:
 
