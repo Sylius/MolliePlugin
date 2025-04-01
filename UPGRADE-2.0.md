@@ -517,6 +517,7 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\Validator\ApplePayDirect\ApplePayAddressValidatorInterface`                     | `Sylius\MolliePlugin\ApplePay\Validator\ApplePayAddressValidatorInterface`                    |
 | `Sylius\MolliePlugin\Order\OrderPaymentRefund`                                                       | `Sylius\MolliePlugin\Refund\Handler\OrderPaymentRefund`                                       |
 | `Sylius\MolliePlugin\Order\OrderPaymentRefundInterface`                                              | `Sylius\MolliePlugin\Refund\Handler\OrderPaymentRefundInterface`                              |
+| `Sylius\MolliePlugin\Order\AdjustmentInterface`                                                      | `Sylius\MolliePlugin\Model\AdjustmentInterface`                                               |
 
 1. The `Sylius\MolliePlugin\Documentation\DocumentationLinks` class and the related service alias `sylius_mollie.documentation.documentation_links` have been removed.
 

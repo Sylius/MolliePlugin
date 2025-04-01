@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Order;
 
-use Sylius\Component\Core\Model\AdjustmentInterface as BaseAdjustmentInterface;
+use Sylius\Component\Core\Model\AdjustmentInterface;
 
 interface AdjustmentClonerInterface
 {
-    public function clone(BaseAdjustmentInterface $adjustment): BaseAdjustmentInterface;
+    public function clone(AdjustmentInterface $adjustment): AdjustmentInterface;
 }

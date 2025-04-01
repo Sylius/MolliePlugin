@@ -1,8 +1,8 @@
 {% import "@SyliusShop/Common/Macro/money.html.twig" as money %}
 
-{% set orderPromotionAdjustmentPercentage = constant('Sylius\\MolliePlugin\\Order\\AdjustmentInterface::PERCENTAGE_ADJUSTMENT') %}
-{% set orderPromotionAdjustmentFixAmount =  constant('Sylius\\MolliePlugin\\Order\\AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT') %}
-{% set orderPromotionAdjustmentFixAmountAndPercentage = constant('Sylius\\MolliePlugin\\Order\\AdjustmentInterface::PERCENTAGE_AND_AMOUNT_ADJUSTMENT') %}
+{% set orderPromotionAdjustmentPercentage = constant('Sylius\\MolliePlugin\\Model\\AdjustmentInterface::PERCENTAGE_ADJUSTMENT') %}
+{% set orderPromotionAdjustmentFixAmount =  constant('Sylius\\MolliePlugin\\Model\\AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT') %}
+{% set orderPromotionAdjustmentFixAmountAndPercentage = constant('Sylius\\MolliePlugin\\Model\\AdjustmentInterface::PERCENTAGE_AND_AMOUNT_ADJUSTMENT') %}
 
 {% set orderSurchargePercentage = sylius_aggregate_adjustments(order.adjustmentsRecursively(orderPromotionAdjustmentPercentage)) %}
 {% set orderSurchargeFixAmount = sylius_aggregate_adjustments(order.adjustmentsRecursively(orderPromotionAdjustmentFixAmount)) %}

@@ -16,8 +16,8 @@ namespace Sylius\MolliePlugin\Calculator\PaymentFee;
 use Sylius\Component\Order\Factory\AdjustmentFactoryInterface;
 use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
+use Sylius\MolliePlugin\Model\AdjustmentInterface;
 use Sylius\MolliePlugin\Model\PaymentSurchargeFeeType;
-use Sylius\MolliePlugin\Order\AdjustmentInterface;
 use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
 use Webmozart\Assert\Assert;
 

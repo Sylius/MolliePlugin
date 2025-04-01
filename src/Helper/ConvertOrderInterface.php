@@ -15,7 +15,7 @@ namespace Sylius\MolliePlugin\Helper;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
-use Sylius\MolliePlugin\Order\AdjustmentInterface;
+use Sylius\MolliePlugin\Model\AdjustmentInterface;
 
 interface ConvertOrderInterface
 {

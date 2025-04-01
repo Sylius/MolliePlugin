@@ -22,6 +22,7 @@ use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Generator\RandomnessGeneratorInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Model\AdjustmentInterface;
 use Webmozart\Assert\Assert;
 
 final class SubscriptionOrderCloner implements SubscriptionOrderClonerInterface

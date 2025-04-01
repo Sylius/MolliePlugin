@@ -18,7 +18,7 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Order\Factory\AdjustmentFactoryInterface;
 use Sylius\Component\Order\Model\OrderItemUnitInterface;
-use Sylius\MolliePlugin\Order\AdjustmentInterface;
+use Sylius\MolliePlugin\Model\AdjustmentInterface;
 
 final class UnitsVouchersApplicator implements UnitsVouchersApplicatorInterface
 {
