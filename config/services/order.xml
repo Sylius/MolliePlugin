@@ -17,7 +17,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <services>
-        <service id="sylius_mollie.order.order_payment_refund" class="Sylius\MolliePlugin\Order\OrderPaymentRefund">
+        <service id="sylius_mollie.order.order_payment_refund" class="Sylius\MolliePlugin\Refund\Handler\OrderPaymentRefund">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
             <argument type="service" id="payum"/>

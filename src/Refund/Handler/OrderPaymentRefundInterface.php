@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Order;
+namespace Sylius\MolliePlugin\Refund\Handler;
 
 use Sylius\RefundPlugin\Event\UnitsRefunded;
 

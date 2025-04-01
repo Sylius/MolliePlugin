@@ -504,6 +504,8 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\Resolver\ApplePayDirect\ApplePayDirectPaymentTypeResolverInterface`             | `Sylius\MolliePlugin\ApplePay\Resolver\ApplePayDirectPaymentTypeResolverInterface`            |
 | `Sylius\MolliePlugin\Validator\ApplePayDirect\ApplePayAddressValidator`                              | `Sylius\MolliePlugin\ApplePay\Validator\ApplePayAddressValidator`                             |
 | `Sylius\MolliePlugin\Validator\ApplePayDirect\ApplePayAddressValidatorInterface`                     | `Sylius\MolliePlugin\ApplePay\Validator\ApplePayAddressValidatorInterface`                    |
+| `Sylius\MolliePlugin\Order\OrderPaymentRefund`                                                       | `Sylius\MolliePlugin\Refund\Handler\OrderPaymentRefund`                                       |
+| `Sylius\MolliePlugin\Order\OrderPaymentRefundInterface`                                              | `Sylius\MolliePlugin\Refund\Handler\OrderPaymentRefundInterface`                              |
 
 1. The `Sylius\MolliePlugin\Documentation\DocumentationLinks` class and the related service alias `sylius_mollie.documentation.documentation_links` have been removed.
 

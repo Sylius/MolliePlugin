@@ -15,7 +15,7 @@ namespace Sylius\MolliePlugin\EventListener;
 
 use Sylius\MolliePlugin\Exceptions\InvalidRefundAmountException;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Order\OrderPaymentRefundInterface;
+use Sylius\MolliePlugin\Refund\Handler\OrderPaymentRefundInterface;
 use Sylius\RefundPlugin\Event\UnitsRefunded;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 
