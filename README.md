@@ -21,7 +21,7 @@
 ## Table of Contents
 
 * [Overview](#overview)
-* [We are here to help](#we-are-here-to-help)
+* [Demo](#mollie-plugin-demo)
 * [Installation](#installation)
   * [Requirements](#requirements)
   * [Usage](#usage)
@@ -48,6 +48,22 @@
 > Our mission is to create a greater playing field for everyone. By offering convenient, safe world-wide payment solutions we remove barriers so you could focus on growing your business.
 
 Mollie provides a powerful API allowing webshop and app developers to implement over 20 payment methods with ease. Their services are fast, reliable, and constantly innovating the European payments landscape.
+
+---
+
+## Demo
+
+You can quickly test the plugin using Docker. Just run:
+
+```bash
+docker run -p 8080:80 -p 8025:8025 ghcr.io/sylius/mollieplugin:1.0
+```
+
+If you'd like to run it in development mode (with debug tools enabled), use:
+
+```bash
+docker run -p 8080:80 -p 8025:8025 -e APP_ENV=dev -e APP_DEBUG=1 ghcr.io/sylius/mollieplugin:1.0
+```
 
 ---
 
