@@ -1,62 +1,7 @@
-<p align="center">
-    <a href="https://sylius.com" target="_blank">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://media.sylius.com/sylius-logo-800-dark.png">
-          <source media="(prefers-color-scheme: light)" srcset="https://media.sylius.com/sylius-logo-800.png">
-          <img alt="Sylius Logo." src="https://media.sylius.com/sylius-logo-800.png">
-        </picture>
-    </a>
-</p>
+## Legacy installation (without Symfony Flex)
 
-<h1 align="center">Mollie Payments Plugin</h1>
-
-<p align="center"><a href="https://sylius.com/plugins/" target="_blank"><img src="https://sylius.com/assets/badge-official-sylius-plugin.png" width="200"></a></p>
-
-<p align="center">This plugin provides seamless Mollie integration for Sylius stores.</p>
-
-<p align="center">Accept payments through over 20 different methods with Mollie – trusted by over 70,000 businesses in Europe.</p>
-
----
-
-## Table of Contents
-
-* [Overview](#overview)
-* [We are here to help](#we-are-here-to-help)
-* [Installation](#installation)
-  * [Requirements](#requirements)
-  * [Usage](#usage)
-  * [Customization](#customization)
-  * [Testing](#testing)
-  * [Recurring subscription (internal CRON)](doc/recurring.md)
-  * [Frontend part](#frontend)
-* [Recurring payments](doc/recurring.md)
-* [Community](#community)
-* [Additional Sylius resources for developers](#additional-resources-for-developers)
-* [License](#license)
-* [Contact](#contact)
-
----
-
-## Overview
-
-![Screenshot showing payment methods show in shop](doc/payment_methods_shop.png)
-![Screenshot showing payment methods show in admin](doc/payment_methods_admin.png)
-![Screenshot showing payment method config in admin](doc/payment_method_config.png)
-
-[Mollie](https://www.mollie.com/) is one of the most advanced and developer-friendly payment gateways in Europe. This plugin integrates Mollie into Sylius and is officially certified by Mollie.
-
-> Our mission is to create a greater playing field for everyone. By offering convenient, safe world-wide payment solutions we remove barriers so you could focus on growing your business.
-
-Mollie provides a powerful API allowing webshop and app developers to implement over 20 payment methods with ease. Their services are fast, reliable, and constantly innovating the European payments landscape.
-
----
-
-## Installation
-
-#### Beware!
-
-This installation instruction assumes that you're using Symfony Flex. If you don't, take a look at the
-[legacy installation instruction](doc/legacy_installation.md). However, we strongly encourage you to use
+This installation instruction assumes that you're not using Symfony Flex. If you do, take a look at the
+[README](../README.md). We strongly encourage you to use
 Symfony Flex, it's much quicker!
 
 #### 1. Ensure that you have `wkhtmltopdf` installed, and that you have the proper path to it set in the .env file (`WKHTMLTOPDF_PATH` and `WKHTMLTOIMAGE_PATH` variables)(Visit [RefundPlugin](https://github.com/Sylius/RefundPlugin) for more information).
@@ -192,6 +137,7 @@ class Product extends BaseProduct implements ProductInterface
     }
 }
 
+
 ```
 
 Ensure that the Product resource is overridden in the Sylius configuration file:
@@ -259,7 +205,41 @@ sylius_product:
                     model: App\Entity\Product\ProductVariant
 ```
 
-#### 7. Add image directory parameter in `config/packages/_sylius.yaml`:
+#### 7. Ensure that the plugin dependency is added to your `config/bundles.php` file:
+
+```php
+# config/bundles.php
+
+return [
+    ...
+    SyliusMolliePlugin\SyliusMolliePlugin::class => ['all' => true],
+];
+```
+
+#### 8. Import required config in your `config/packages/_sylius.yaml` file:
+
+```yaml
+# config/packages/_sylius.yaml
+
+imports:
+    ...
+    - { resource: "@SyliusMolliePlugin/Resources/config/config.yaml" }
+```
+
+#### 9. Add state machine configuration in `config/packages/_sylius.yaml`:
+
+```yaml
+# config/packages/_sylius.yaml
+
+winzou_state_machine:
+  sylius_order_checkout:
+    transitions:
+      complete:
+        from: [cart, addressed, shipping_selected, shipping_skipped, payment_selected, payment_skipped]
+        to: completed
+```
+
+#### 10. Add image directory parameter in `config/packages/_sylius.yaml`:
 
 ```yaml
 # config/packages/_sylius.yaml
@@ -268,14 +248,22 @@ sylius_product:
        images_dir: "/media/image/"
 ```
 
-#### 8. Update your database
+#### 11. Import the routing in your `config/routes.yaml` file:
 
-After running all the above-mentioned commands, run migrate command
+```yaml
+# config/routes.yaml
+
+sylius_mollie_plugin:
+    resource: "@SyliusMolliePlugin/Resources/config/routing.yaml"
+```
+
+#### 12. Update your database
+
 ```
 bin/console doctrine:migrations:migrate
 ```
 
-#### 9. Copy Sylius templates overridden in plugin to your templates directory (e.g templates/bundles/):
+#### 13. Copy Sylius templates overridden in plugin to your templates directory (e.g templates/bundles/):
 **Note:** Some directories may already exist in your project
 
 ```
@@ -287,13 +275,19 @@ mkdir -p templates/bundles/SyliusRefundPlugin/
 **Note:** Ba aware that the following commands will override your existing templates!
 
 ```
-cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusAdminBundle/* templates/bundles/SyliusAdminBundle/
-cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusShopBundle/* templates/bundles/SyliusShopBundle/
-cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusUiBundle/* templates/bundles/SyliusUiBundle/
-cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusRefundPlugin/* templates/bundles/SyliusRefundPlugin/
+cp -R vendor/sylius/mollie-plugin/templates/bundles/SyliusAdminBundle/* templates/bundles/SyliusAdminBundle/
+cp -R vendor/sylius/mollie-plugin/templates/bundles/SyliusShopBundle/* templates/bundles/SyliusShopBundle/
+cp -R vendor/sylius/mollie-plugin/templates/bundles/SyliusUiBundle/* templates/bundles/SyliusUiBundle/
+cp -R vendor/sylius/mollie-plugin/templates/bundles/SyliusRefundPlugin/* templates/bundles/SyliusRefundPlugin/
 ```
 
-#### 10. Install assets:
+#### 14. Add the payment link cronjob:
+
+```shell script
+* * * * * /usr/bin/php /path/to/bin/console mollie:send-payment-link
+```
+
+#### 15. Install assets:
 
 ```bash
 bin/console assets:install
@@ -301,13 +295,7 @@ bin/console assets:install
 
 **Note:** If you are running it on production, add the `-e prod` flag to this command.
 
-#### 11. Add the payment link cronjob:
-
-```shell script
-* * * * * /usr/bin/php /path/to/bin/console mollie:send-payment-link
-```
-
-#### 12. Download the [domain validation file](https://www.mollie.com/.well-known/apple-developer-merchantid-domain-association) and place it on your server at:
+#### 16. Download the [domain validation file](https://www.mollie.com/.well-known/apple-developer-merchantid-domain-association) and place it on your server at:
 `public/.well-known/apple-developer-merchantid-domain-association`
 
 ## Frontend Asset Management
@@ -315,25 +303,23 @@ bin/console assets:install
 ### 1. Without Webpack
 
 #### Option A: Using Installed Public Assets
-
 1. Install assets:
    ```bash
    bin/console assets:install
    ```
 
 2. Import in Twig templates:
+   ```twig
+   {{ asset('public/bundles/syliusmollieplugin/mollie/admin.css') }}
+   {{ asset('public/bundles/syliusmollieplugin/mollie/admin.js') }}
+   {{ asset('public/bundles/syliusmollieplugin/mollie/shop.css') }}
+   {{ asset('public/bundles/syliusmollieplugin/mollie/shop.js') }}
+   ```
 
- ```twig
- {{ asset('public/bundles/syliusmollieplugin/mollie/admin.css') }}
- {{ asset('public/bundles/syliusmollieplugin/mollie/admin.js') }}
- {{ asset('public/bundles/syliusmollieplugin/mollie/shop.css') }}
- {{ asset('public/bundles/syliusmollieplugin/mollie/shop.js') }}
- ```
-
- File locations:
- ```
- public/bundles/syliusmollieplugin/mollie/[file]
- ```
+   File locations:
+   ```
+   public/bundles/syliusmollieplugin/mollie/[file]
+   ```
 
 #### Option B: Directly from Vendor
 Import directly from vendor files:
@@ -385,7 +371,7 @@ vendor/sylius/mollie-plugin/src/Resources/public/mollie/shop.js
 Ensure the following Twig includes are added to your templates:
 
 1. Shop Templates
-**`src/Resources/views/Shop/_javascripts.html.twig`**:
+   **`src/Resources/views/Shop/_javascripts.html.twig`**:
 ```twig
 <script src="https://js.mollie.com/v1/mollie.js"></script>
 {{ encore_entry_script_tags('shop-entry', null, 'mollie-shop') }}
@@ -399,7 +385,7 @@ Ensure the following Twig includes are added to your templates:
 ```
 
 1. Admin Templates
-**`src/Resources/views/Admin/_javascripts.html.twig`**:
+   **`src/Resources/views/Admin/_javascripts.html.twig`**:
 ```twig
 {{ encore_entry_script_tags('admin-entry', null, 'mollie-admin') }}
 {{ encore_entry_script_tags('plugin-admin-entry', null, 'mollie-admin') }}
@@ -439,7 +425,7 @@ for production:
    php bin/console cache:clear
    ```
 
-## ⚠️ SyliusRefundPlugin Troubleshooting
+### ⚠️ SyliusRefundPlugin Troubleshooting
 
 If you encounter an error related to duplicate transitions in the `sylius_refund_refund_payment` state machine (e.g. multiple `"complete"` transitions from `"new"` state),  
 you should **remove the following file** from your project:

@@ -26,3 +26,8 @@
 
 1. The override of `sylius_refund_refund_units` route has been removed, as its controller does not exist. 
    The route itself is still present with its initial logic from the Sylius Refund Plugin.
+
+1. The methods `getSubscription` and `setSubsscription` have been removed from `Sylius\MolliePlugin\Entity\OrderInterface` and `Sylius\MolliePlugin\Entity\RecurringOrderTrait`.
+   There was an incorrect relationship between the `Order` and `MollieSubscription` entities. The `Order` entity had a many-to-one relationship to `MollieSubscription` entity,
+   while the `MollieSubscription` entity had a many-to-many relationship with the `Order` entity. Now, only a unidirectional many-to-many relationship remains
+   between the `MollieSubscription` and `Order` entities.

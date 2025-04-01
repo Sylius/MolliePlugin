@@ -13,9 +13,12 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\MolliePlugin\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\AdminUser as BaseAdminUser;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherAwareInterface;
 
+#[ORM\Entity]
+#[ORM\Table(name: 'sylius_admin_user')]
 class AdminUser extends BaseAdminUser implements PasswordHasherAwareInterface
 {
     public function getPasswordHasherName(): ?string

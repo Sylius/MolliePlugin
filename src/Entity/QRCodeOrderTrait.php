@@ -13,9 +13,13 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /** @mixin OrderInterface */
 trait QRCodeOrderTrait
 {
+    /** @ORM\Column(type="text", name="qr_code", length=1500, nullable=true) */
+    #[ORM\Column(name: 'qr_code', type: 'text', length: 1500, nullable: true)]
     protected ?string $qrCode = null;
 
     public function getQrCode(): ?string
