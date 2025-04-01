@@ -17,8 +17,8 @@ use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Shipping\Model\ShippingMethodInterface;
-use Sylius\MolliePlugin\Order\ShipmentCloner;
-use Sylius\MolliePlugin\Order\ShipmentClonerInterface;
+use Sylius\MolliePlugin\Cloner\ShipmentCloner;
+use Sylius\MolliePlugin\Cloner\ShipmentClonerInterface;
 
 final class ShipmentClonerTest extends TestCase
 {

@@ -518,6 +518,14 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\Order\OrderPaymentRefund`                                                       | `Sylius\MolliePlugin\Refund\Handler\OrderPaymentRefund`                                       |
 | `Sylius\MolliePlugin\Order\OrderPaymentRefundInterface`                                              | `Sylius\MolliePlugin\Refund\Handler\OrderPaymentRefundInterface`                              |
 | `Sylius\MolliePlugin\Order\AdjustmentInterface`                                                      | `Sylius\MolliePlugin\Model\AdjustmentInterface`                                               |
+| `Sylius\MolliePlugin\Order\AdjustmentCloner`                                                         | `Sylius\MolliePlugin\Cloner\AdjustmentCloner`                                                 |
+| `Sylius\MolliePlugin\Order\AdjustmentClonerInterface`                                                | `Sylius\MolliePlugin\Cloner\AdjustmentClonerInterface`                                        |
+| `Sylius\MolliePlugin\Order\OrderItemCloner`                                                          | `Sylius\MolliePlugin\Cloner\OrderItemCloner`                                                  |
+| `Sylius\MolliePlugin\Order\OrderItemClonerInterface`                                                 | `Sylius\MolliePlugin\Cloner\OrderItemClonerInterface`                                         |
+| `Sylius\MolliePlugin\Order\ShipmentCloner`                                                           | `Sylius\MolliePlugin\Cloner\ShipmentCloner`                                                   |
+| `Sylius\MolliePlugin\Order\ShipmentClonerInterface`                                                  | `Sylius\MolliePlugin\Cloner\ShipmentClonerInterface`                                          |
+| `Sylius\MolliePlugin\Order\SubscriptionOrderCloner`                                                  | `Sylius\MolliePlugin\Cloner\SubscriptionOrderCloner`                                          |
+| `Sylius\MolliePlugin\Order\SubscriptionOrderClonerInterface`                                         | `Sylius\MolliePlugin\Cloner\SubscriptionOrderClonerInterface`                                 |
 
 1. The `Sylius\MolliePlugin\Documentation\DocumentationLinks` class and the related service alias `sylius_mollie.documentation.documentation_links` have been removed.
 

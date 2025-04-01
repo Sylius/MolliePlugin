@@ -25,24 +25,24 @@
         </service>
         <service id="Sylius\MolliePlugin\Refund\Handler\OrderPaymentRefundInterface" alias="sylius_mollie.order.order_payment_refund" />
 
-        <service id="sylius_mollie.order.order_item_cloner" class="Sylius\MolliePlugin\Order\OrderItemCloner">
+        <service id="sylius_mollie.order.order_item_cloner" class="Sylius\MolliePlugin\Cloner\OrderItemCloner">
             <argument type="service" id="sylius.factory.order_item"/>
             <argument type="service" id="sylius.factory.order_item_unit"/>
         </service>
         <service id="Sylius\MolliePlugin\Order\OrderItemClonerInterface" alias="sylius_mollie.order.order_item_cloner" />
 
-        <service id="sylius_mollie.order.adjustment_cloner" class="Sylius\MolliePlugin\Order\AdjustmentCloner">
+        <service id="sylius_mollie.order.adjustment_cloner" class="Sylius\MolliePlugin\Cloner\AdjustmentCloner">
             <argument type="service" id="sylius.factory.adjustment"/>
         </service>
         <service id="Sylius\MolliePlugin\Order\AdjustmentClonerInterface" alias="sylius_mollie.order.adjustment_cloner" />
 
-        <service id="sylius_mollie.order.shipment_cloner" class="Sylius\MolliePlugin\Order\ShipmentCloner">
+        <service id="sylius_mollie.order.shipment_cloner" class="Sylius\MolliePlugin\Cloner\ShipmentCloner">
             <argument type="service" id="sylius.factory.shipment"/>
             <argument type="service" id="sylius_mollie.order.shipment_unit_cloner"/>
         </service>
         <service id="Sylius\MolliePlugin\Order\ShipmentClonerInterface" alias="sylius_mollie.order.shipment_cloner" />
 
-        <service id="sylius_mollie.order.subscription_order_cloner" class="Sylius\MolliePlugin\Order\SubscriptionOrderCloner">
+        <service id="sylius_mollie.order.subscription_order_cloner" class="Sylius\MolliePlugin\Cloner\SubscriptionOrderCloner">
             <argument type="service" id="sylius_mollie.order.order_item_cloner"/>
             <argument type="service" id="sylius.factory.order"/>
             <argument type="service" id="sylius.random_generator"/>

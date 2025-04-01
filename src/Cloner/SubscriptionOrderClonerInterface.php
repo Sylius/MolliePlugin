@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Order;
+namespace Sylius\MolliePlugin\Cloner;
 
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;

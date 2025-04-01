@@ -22,11 +22,11 @@ use Sylius\Component\Core\OrderShippingStates;
 use Sylius\Component\Order\Model\OrderInterface as SyliusOrderInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface as LegacyFactoryInterface;
 use Sylius\Component\Resource\Generator\RandomnessGeneratorInterface;
-use Sylius\MolliePlugin\Order\AdjustmentClonerInterface;
-use Sylius\MolliePlugin\Order\OrderItemClonerInterface;
-use Sylius\MolliePlugin\Order\ShipmentClonerInterface;
-use Sylius\MolliePlugin\Order\SubscriptionOrderCloner;
-use Sylius\MolliePlugin\Order\SubscriptionOrderClonerInterface;
+use Sylius\MolliePlugin\Cloner\AdjustmentClonerInterface;
+use Sylius\MolliePlugin\Cloner\OrderItemClonerInterface;
+use Sylius\MolliePlugin\Cloner\ShipmentClonerInterface;
+use Sylius\MolliePlugin\Cloner\SubscriptionOrderCloner;
+use Sylius\MolliePlugin\Cloner\SubscriptionOrderClonerInterface;
 use Sylius\Resource\Factory\FactoryInterface;
 
 final class SubscriptionOrderClonerTest extends TestCase

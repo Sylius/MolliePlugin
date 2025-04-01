@@ -16,8 +16,8 @@ namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Order;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
-use Sylius\MolliePlugin\Order\AdjustmentCloner;
-use Sylius\MolliePlugin\Order\AdjustmentClonerInterface;
+use Sylius\MolliePlugin\Cloner\AdjustmentCloner;
+use Sylius\MolliePlugin\Cloner\AdjustmentClonerInterface;
 
 final class AdjustmentClonerTest extends TestCase
 {

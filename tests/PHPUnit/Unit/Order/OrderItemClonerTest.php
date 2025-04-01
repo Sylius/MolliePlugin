@@ -21,8 +21,8 @@ use Sylius\Component\Order\Factory\OrderItemUnitFactoryInterface;
 use Sylius\Component\Order\Model\OrderItemUnitInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Model\VersionedInterface;
-use Sylius\MolliePlugin\Order\OrderItemCloner;
-use Sylius\MolliePlugin\Order\OrderItemClonerInterface;
+use Sylius\MolliePlugin\Cloner\OrderItemCloner;
+use Sylius\MolliePlugin\Cloner\OrderItemClonerInterface;
 
 final class OrderItemClonerTest extends TestCase
 {
