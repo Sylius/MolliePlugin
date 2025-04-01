@@ -11,12 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Provider\Form;
+namespace Sylius\MolliePlugin\Payum\Checker;
 
-use Symfony\Component\Form\FormInterface;
+use Payum\Core\Model\GatewayConfigInterface;
 
-interface ResolverGroupProviderInterface
+interface MollieGatewayFactoryCheckerInterface
 {
-    /** @return string[] */
-    public function provide(FormInterface $form): array;
+    public function isMollieGateway(GatewayConfigInterface $gateway): bool;
 }

@@ -19,7 +19,7 @@
 	<services>
 		<service
 				id="sylius_mollie.generator.subscription_schedule"
-				class="Sylius\MolliePlugin\Generator\SubscriptionScheduleGenerator"
+				class="Sylius\MolliePlugin\Subscription\Generator\SubscriptionScheduleGenerator"
 				public="true"
 		>
 			<argument type="service" id="sylius_mollie.factory.date_period"/>

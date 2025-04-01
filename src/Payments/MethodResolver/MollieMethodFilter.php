@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Payments\MethodResolver;
 
 use Sylius\Component\Core\Model\PaymentMethodInterface;
-use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
-use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
 use Webmozart\Assert\Assert;
 
 final class MollieMethodFilter implements MollieMethodFilterInterface

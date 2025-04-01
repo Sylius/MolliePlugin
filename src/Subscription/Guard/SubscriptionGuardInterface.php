@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\PaymentProcessing;
+namespace Sylius\MolliePlugin\Subscription\Guard;
 
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 
-interface CancelRecurringSubscriptionProcessorInterface
+interface SubscriptionGuardInterface
 {
-    public function process(MollieSubscriptionInterface $subscription): void;
+    public function isCompletable(MollieSubscriptionInterface $subscription): bool;
 }

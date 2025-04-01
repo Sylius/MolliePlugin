@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Guard;
+namespace Sylius\MolliePlugin\Subscription\Guard;
 
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionScheduleInterface;

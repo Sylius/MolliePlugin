@@ -15,7 +15,7 @@ namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Factory;
 
 use Payum\Core\GatewayFactory;
 use PHPUnit\Framework\TestCase;
-use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
 
 final class MollieSubscriptionGatewayFactoryTest extends TestCase
 {

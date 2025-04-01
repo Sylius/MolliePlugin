@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Checker\Gateway;
+namespace Sylius\MolliePlugin\Payum\Checker;
 
 use Payum\Core\Model\GatewayConfigInterface;
-use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
-use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
 
 final class MollieGatewayFactoryChecker implements MollieGatewayFactoryCheckerInterface
 {

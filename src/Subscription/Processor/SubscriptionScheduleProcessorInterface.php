@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Processor;
+namespace Sylius\MolliePlugin\Subscription\Processor;
 
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 

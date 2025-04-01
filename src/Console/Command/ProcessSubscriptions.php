@@ -14,10 +14,10 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Console\Command;
 
 use SM\Factory\Factory;
-use Sylius\MolliePlugin\Processor\SubscriptionProcessorInterface;
 use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
 use Sylius\MolliePlugin\StateMachine\MollieSubscriptionPaymentProcessingTransitions;
 use Sylius\MolliePlugin\StateMachine\MollieSubscriptionProcessingTransitions;
+use Sylius\MolliePlugin\Subscription\Processor\SubscriptionProcessorInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

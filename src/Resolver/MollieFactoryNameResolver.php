@@ -16,8 +16,8 @@ namespace Sylius\MolliePlugin\Resolver;
 use Sylius\Component\Order\Context\CartContextInterface;
 use Sylius\Component\Order\Context\CartNotFoundException;
 use Sylius\MolliePlugin\Entity\OrderInterface;
-use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
-use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
 use Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
 
 final class MollieFactoryNameResolver implements MollieFactoryNameResolverInterface

@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\PaymentProcessing;
+namespace Sylius\MolliePlugin\Subscription\Processor;
 
 use Payum\Core\Payum;
 use Sylius\Component\Core\Model\PaymentInterface;

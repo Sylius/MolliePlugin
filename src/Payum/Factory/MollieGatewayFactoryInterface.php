@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Factory;
+namespace Sylius\MolliePlugin\Payum\Factory;
 
 interface MollieGatewayFactoryInterface
 {
