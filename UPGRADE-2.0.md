@@ -131,6 +131,7 @@
 
    The `::provide` method of `ValidationGroupsResolverInterface` has been renamed to `::resolve`.
    The `::prepare` method of `PaymentLinkEmailManagerInterface` has been renamed to `::send`.
+   The `::createFromRequest(Request $request)` method of `ChangePositionPaymentMethodCreatorInterface` has been refactored into `::update(array $positions)`.
 
 1. The entity `Sylius\MolliePlugin\Entity\OnboardingWizardStatus` along with its resource configuration and related classes have been removed.
    The onboarding status itself has been moved to a field `bool $mollieOnboardingCompleted = false` within the  
@@ -545,6 +546,8 @@ The following service IDs have been renamed:
 | `Sylius\MolliePlugin\Helper\ConvertRefundDataInterface`                                              | `Sylius\MolliePlugin\Refund\Converter\RefundDataConverterInterface`                           |
 | `Sylius\MolliePlugin\Parser\Response\GuzzleNegativeResponseParser`                                   | `Sylius\MolliePlugin\Client\Parser\ApiExceptionParser`                                        |
 | `Sylius\MolliePlugin\Parser\Response\GuzzleNegativeResponseParserInterface`                          | `Sylius\MolliePlugin\Client\Parser\ApiExceptionParserInterface`                               |
+| `Sylius\MolliePlugin\Creator\ChangePositionPaymentMethodCreator`                                     | `Sylius\MolliePlugin\Updater\MolliePaymentMethodPositionUpdater`                              |
+| `Sylius\MolliePlugin\Creator\ChangePositionPaymentMethodCreatorInterface`                            | `Sylius\MolliePlugin\Updater\MolliePaymentMethodPositionUpdaterInterface`                     |
 
 1. The `Sylius\MolliePlugin\Documentation\DocumentationLinks` class and the related service alias `sylius_mollie.documentation.documentation_links` have been removed.
 
