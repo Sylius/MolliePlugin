@@ -1,0 +1,14 @@
+sylius_mollie_plugin_qr_code:
+    path: /create-payment
+    defaults:
+        _controller: sylius_mollie.controller.shop.qr_code::createPayment
+
+sylius_mollie_plugin_get_qr_code:
+    path: /get-code
+    defaults:
+        _controller: sylius_mollie.controller.shop.qr_code::fetchQrCodeFromOrder
+
+sylius_mollie_plugin_remove_qr_code:
+    path: /remove-code
+    defaults:
+        _controller: sylius_mollie.controller.shop.qr_code::removeQrCodeFromOrder

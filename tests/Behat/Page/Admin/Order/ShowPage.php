@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Behat\Page\Admin\Order;
+namespace Tests\Sylius\MolliePlugin\Behat\Page\Admin\Order;
 
 use Behat\Mink\Element\NodeElement;
 use PHPUnit\Framework\Assert;

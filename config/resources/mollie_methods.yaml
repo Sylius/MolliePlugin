@@ -1,0 +1,11 @@
+sylius_resource:
+    resources:
+        sylius_mollie.mollie_gateway_config:
+            driver: doctrine/orm
+            classes:
+                model: Sylius\MolliePlugin\Entity\MollieGatewayConfig
+                repository: Sylius\MolliePlugin\Repository\MollieGatewayConfigRepository
+            translation:
+                classes:
+                    model: Sylius\MolliePlugin\Entity\MollieGatewayConfigTranslation
+                    interface: Sylius\MolliePlugin\Entity\MollieGatewayConfigTranslationInterface

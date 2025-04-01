@@ -30,8 +30,8 @@ default:
                 - sylius.behat.context.setup.user
                 - sylius.behat.context.setup.zone
 
-                - sylius_mollie_plugin.behat.context.setup.mollie
-                - sylius_mollie_plugin.context.setup.subscription
+                - sylius_mollie.behat.context.setup.mollie
+                - sylius_mollie.behat.context.setup.subscription
 
                 - sylius.behat.context.ui.channel
                 - sylius.behat.context.ui.shop.account
@@ -43,6 +43,6 @@ default:
                 - sylius.behat.context.ui.shop.checkout.complete
                 - sylius.behat.context.ui.shop.currency
 
-                - sylius_mollie_plugin.behat.context.ui.shop.account
+                - sylius_mollie.behat.context.ui.shop.account
             filters:
-                tags: "@cancelling_mollie_subscription && @ui"
+                tags: "@cancelling_mollie_subscription&&@ui"

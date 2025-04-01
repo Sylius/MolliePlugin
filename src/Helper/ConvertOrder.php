@@ -11,76 +11,44 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Helper;
+namespace Sylius\MolliePlugin\Helper;
 
 use Mollie\Api\Types\PaymentMethod;
-use Sylius\Component\Addressing\Model\ZoneInterface;
-use Sylius\Component\Core\Model\ImageInterface;
-use Sylius\Component\Core\Model\Scope;
-use Sylius\Component\Core\Model\ShippingMethodInterface;
-use Sylius\Component\Taxation\Model\TaxRateInterface;
-use SyliusMolliePlugin\Calculator\CalculateTaxAmountInterface;
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
-use SyliusMolliePlugin\Payments\PaymentTerms\Options;
-use SyliusMolliePlugin\Resolver\MealVoucherResolverInterface;
 use Sylius\Component\Addressing\Matcher\ZoneMatcherInterface;
+use Sylius\Component\Addressing\Model\ZoneInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItem;
+use Sylius\Component\Core\Model\Scope;
 use Sylius\Component\Core\Model\ShipmentInterface;
+use Sylius\Component\Core\Model\ShippingMethodInterface;
 use Sylius\Component\Customer\Model\CustomerInterface;
 use Sylius\Component\Order\Model\Adjustment;
+use Sylius\Component\Taxation\Model\TaxRateInterface;
 use Sylius\Component\Taxation\Resolver\TaxRateResolverInterface;
+use Sylius\MolliePlugin\Calculator\CalculateTaxAmountInterface;
+use Sylius\MolliePlugin\DTO\MolliePayment\Amount;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Model\PaymentSurchargeFeeType;
+use Sylius\MolliePlugin\Resolver\MealVoucherResolverInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Webmozart\Assert\Assert;
 
+/** @phpstan-import-type AmountArray from Amount */
 final class ConvertOrder implements ConvertOrderInterface
 {
-    /** @var OrderInterface */
-    private $order;
+    private OrderInterface $order;
 
-    /** @var ZoneInterface */
-    private $zone;
+    private ZoneInterface $zone;
 
-    /** @var IntToStringConverterInterface */
-    private $intToStringConverter;
-
-    /** @var CalculateTaxAmountInterface */
-    private $calculateTaxAmount;
-
-    /** @var MealVoucherResolverInterface */
-    private $mealVoucherResolver;
-
-    /** @var TaxRateResolverInterface */
-    private $taxRateResolver;
-
-    /** @var ZoneMatcherInterface */
-    private $zoneMatcher;
-
-    /** @var RequestStack */
-    private $requestStack;
-
-    public function __construct(
-        IntToStringConverterInterface $intToStringConverter,
-        CalculateTaxAmountInterface $calculateTaxAmount,
-        MealVoucherResolverInterface $mealVoucherResolver,
-        TaxRateResolverInterface $taxRateResolver,
-        ZoneMatcherInterface $zoneMatcher,
-        RequestStack $requestStack
-    )
+    public function __construct(private readonly IntToStringConverterInterface $intToStringConverter, private readonly CalculateTaxAmountInterface $calculateTaxAmount, private readonly MealVoucherResolverInterface $mealVoucherResolver, private readonly TaxRateResolverInterface $taxRateResolver, private readonly ZoneMatcherInterface $zoneMatcher, private readonly RequestStack $requestStack)
     {
-        $this->intToStringConverter = $intToStringConverter;
-        $this->calculateTaxAmount = $calculateTaxAmount;
-        $this->mealVoucherResolver = $mealVoucherResolver;
-        $this->taxRateResolver = $taxRateResolver;
-        $this->zoneMatcher = $zoneMatcher;
-        $this->requestStack = $requestStack;
     }
 
     public function convert(
         OrderInterface $order,
         array $details,
         int $divisor,
-        MollieGatewayConfigInterface $method
+        MollieGatewayConfigInterface $method,
     ): array {
         $this->order = $order;
 
@@ -98,7 +66,7 @@ final class ConvertOrder implements ConvertOrderInterface
         $amount = $this->intToStringConverter->convertIntToString($order->getTotal(), $divisor);
 
         $details['amount']['value'] = $amount;
-        $details['orderNumber'] = (string)$order->getNumber();
+        $details['orderNumber'] = (string) $order->getNumber();
         $details['shippingAddress'] = $this->createShippingAddress($customer);
         $details['billingAddress'] = $this->createBillingAddress($customer, $method->getMethodId());
         $details['lines'] = $this->createLines($divisor, $method);
@@ -107,6 +75,18 @@ final class ConvertOrder implements ConvertOrderInterface
         return $details;
     }
 
+    /**
+     * @return array{
+     *     streetAndNumber: string,
+     *     postalCode: string,
+     *     city: string,
+     *     country: string,
+     *     givenName: string,
+     *     familyName: string,
+     *     organizationName: string,
+     *     email: string,
+     * }
+     */
     private function createShippingAddress(CustomerInterface $customer): array
     {
         $shippingAddress = $this->order->getShippingAddress();
@@ -125,6 +105,19 @@ final class ConvertOrder implements ConvertOrderInterface
         ];
     }
 
+    /**
+     * @return array{
+     *     streetAndNumber: string,
+     *     postalCode: string,
+     *     city: string,
+     *     country: string,
+     *     givenName: string,
+     *     familyName: string,
+     *     organizationName: string,
+     *     email: string,
+     *     phone?: string,
+     * }
+     */
     private function createBillingAddress(CustomerInterface $customer, string $methodId): array
     {
         $billingAddress = $this->order->getBillingAddress();
@@ -139,7 +132,7 @@ final class ConvertOrder implements ConvertOrderInterface
             'givenName' => $billingAddress->getFirstName(),
             'familyName' => $billingAddress->getLastName(),
             'organizationName' => $billingAddress->getCompany(),
-            'email' => $customer->getEmail()
+            'email' => $customer->getEmail(),
         ];
 
         if ($methodId === PaymentMethod::BANCOMATPAY && null !== $billingAddress->getPhoneNumber()) {
@@ -149,6 +142,21 @@ final class ConvertOrder implements ConvertOrderInterface
         return $address;
     }
 
+    /**
+     * @return array<array-key, array{
+     *     category?: string,
+     *     type: string,
+     *     name: string,
+     *     quantity: int,
+     *     vatRate: string,
+     *     unitPrice: AmountArray,
+     *     totalAmount: AmountArray,
+     *     vatAmount: AmountArray,
+     *     imageUrl?: string,
+     *     discountAmount?: AmountArray,
+     *     metadata?: array{item_id: int},
+     * }>
+     */
     private function createLines(int $divisor, MollieGatewayConfigInterface $method): array
     {
         $details = [];
@@ -161,7 +169,7 @@ final class ConvertOrder implements ConvertOrderInterface
                 'type' => 'physical',
                 'name' => $item->getProductName(),
                 'quantity' => $item->getQuantity(),
-                'vatRate' => null === $taxRate ? '0.00' : (string)$taxRate->getAmountAsPercentage(),
+                'vatRate' => null === $taxRate ? '0.00' : (string) $taxRate->getAmountAsPercentage(),
                 'unitPrice' => [
                     'currency' => $this->order->getCurrencyCode(),
                     'value' => $this->intToStringConverter->convertIntToString($this->getUnitPriceWithTax($item, $taxRate), $divisor),
@@ -189,7 +197,7 @@ final class ConvertOrder implements ConvertOrderInterface
 
         /** @var Adjustment $adjustment */
         foreach ($this->order->getAdjustments() as $adjustment) {
-            if (false !== array_search($adjustment->getType(), Options::getAvailablePaymentSurchargeFeeType(), true)) {
+            if (in_array($adjustment->getType(), PaymentSurchargeFeeType::getAllAvailable(), true)) {
                 $details[] = $this->createAdjustments($adjustment, $divisor);
             }
         }
@@ -199,10 +207,6 @@ final class ConvertOrder implements ConvertOrderInterface
 
     /**
      * Fetches product image url
-     *
-     * @param OrderItem $item
-     *
-     * @return string
      */
     private function getImageUrl(OrderItem $item): string
     {
@@ -210,9 +214,7 @@ final class ConvertOrder implements ConvertOrderInterface
         $imagePaths = [];
 
         foreach ($images as $key => $image) {
-            if ($image instanceof ImageInterface) {
-                $imagePaths[] = $image->getPath();
-            }
+            $imagePaths[] = $image->getPath();
         }
 
         if (!empty($imagePaths) && isset($imagePaths[0])) {
@@ -223,14 +225,22 @@ final class ConvertOrder implements ConvertOrderInterface
         return '';
     }
 
-    /**
-     * @return string
-     */
     private function fetchBaseShopUrl(): string
     {
         return $this->requestStack->getCurrentRequest()->getSchemeAndHttpHost();
     }
 
+    /**
+     * @return array{
+     *     type: string,
+     *     name: string,
+     *     quantity: int,
+     *     vatRate: string,
+     *     unitPrice: AmountArray,
+     *     totalAmount: AmountArray,
+     *     vatAmount: AmountArray,
+     * }
+     */
     private function createAdjustments(Adjustment $adjustment, int $divisor): array
     {
         return [
@@ -253,6 +263,17 @@ final class ConvertOrder implements ConvertOrderInterface
         ];
     }
 
+    /**
+     * @return array<array-key, array{
+     *     type: string,
+     *     name: string,
+     *     quantity: int,
+     *     vatRate: string,
+     *     unitPrice: AmountArray,
+     *     totalAmount: AmountArray,
+     *     vatAmount: AmountArray,
+     * }>
+     */
     private function createShippingFee(int $divisor): array
     {
         $details = [];
@@ -268,7 +289,7 @@ final class ConvertOrder implements ConvertOrderInterface
                 'type' => self::SHIPPING_TYPE,
                 'name' => self::SHIPPING_FEE,
                 'quantity' => 1,
-                'vatRate' => null === $taxRate ? '0.00' : (string)$taxRate->getAmountAsPercentage(),
+                'vatRate' => null === $taxRate ? '0.00' : (string) $taxRate->getAmountAsPercentage(),
                 'unitPrice' => [
                     'currency' => $this->order->getCurrencyCode(),
                     'value' => $this->intToStringConverter->convertIntToString($this->order->getShippingTotal(), $divisor),
@@ -297,7 +318,7 @@ final class ConvertOrder implements ConvertOrderInterface
             return $item->getUnitPrice();
         }
 
-        return (int)round($item->getUnitPrice() + ($item->getTaxTotal() / $item->getQuantity()));
+        return (int) round($item->getUnitPrice() + ($item->getTaxTotal() / $item->getQuantity()));
     }
 
     private function getItemDiscountAmount(OrderItem $item): int

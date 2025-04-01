@@ -11,9 +11,8 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Entity;
+namespace Sylius\MolliePlugin\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -21,7 +20,7 @@ use Doctrine\ORM\Mapping as ORM;
 trait GatewayConfigTrait
 {
     /**
-     * @var ArrayCollection
+     * @var Collection<MollieGatewayConfigInterface>
      * @ORM\OneToMany(
      *     targetEntity="SyliusMolliePlugin\Entity\MollieGatewayConfig",
      *     mappedBy="gateway",
@@ -35,7 +34,7 @@ trait GatewayConfigTrait
         cascade: ["all"],
         orphanRemoval: true
     )]
-    protected $mollieGatewayConfig;
+    protected Collection $mollieGatewayConfig;
 
     public function getMollieGatewayConfig(): ?Collection
     {
@@ -49,9 +48,7 @@ trait GatewayConfigTrait
 
     public function getMethodByName(string $methodName): ?MollieGatewayConfigInterface
     {
-        $method = $this->mollieGatewayConfig->filter(function (MollieGatewayConfigInterface $mollieGatewayConfig) use ($methodName) {
-            return $mollieGatewayConfig->getMethodId() === $methodName;
-        });
+        $method = $this->mollieGatewayConfig->filter(fn (MollieGatewayConfigInterface $mollieGatewayConfig) => $mollieGatewayConfig->getMethodId() === $methodName);
 
         return $method->isEmpty() ? null : $method->first();
     }

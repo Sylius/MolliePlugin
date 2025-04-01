@@ -11,18 +11,15 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Entity;
+namespace Sylius\MolliePlugin\Entity;
 
-class ProductType implements ProductTypeInterface
+class ProductType implements ProductTypeInterface, \Stringable
 {
-    /** @var int|null */
-    protected $id;
+    protected ?int $id = null;
 
-    /** @var string|null */
-    protected $name;
+    protected ?string $name = null;
 
-    /** @var MollieGatewayConfigInterface|null */
-    protected $mollieGatewayConfig;
+    protected ?MollieGatewayConfigInterface $mollieGatewayConfig = null;
 
     public function __toString(): string
     {

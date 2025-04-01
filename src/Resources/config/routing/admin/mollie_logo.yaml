@@ -1,5 +1,0 @@
-mollie_admin_delete_logo:
-  path: /payment-methods/delete/logo/
-  methods: [DELETE]
-  defaults:
-    _controller: sylius_mollie_plugin.controller.action.admin.delete_payment_method_image

@@ -11,11 +11,12 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver\Address;
+namespace Sylius\MolliePlugin\Resolver\Address;
 
 use Sylius\Component\Core\Model\AddressInterface;
 
 interface AddressResolverInterface
 {
+    /** @param array<string, mixed> $applePayDirectAddress */
     public function resolve(array $applePayDirectAddress): AddressInterface;
 }

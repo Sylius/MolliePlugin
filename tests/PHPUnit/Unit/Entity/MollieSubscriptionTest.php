@@ -11,15 +11,15 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Entity;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Entity\MollieSubscription;
-use SyliusMolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscription;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
 
 final class MollieSubscriptionTest extends TestCase
 {
@@ -30,36 +30,36 @@ final class MollieSubscriptionTest extends TestCase
         $this->mollieSubscription = new MollieSubscription();
     }
 
-    function testImplementsSubscriptionInterface(): void
+    public function testImplementsSubscriptionInterface(): void
     {
         $this->assertInstanceOf(MollieSubscriptionInterface::class, $this->mollieSubscription);
     }
 
-    function testHasNullIdByDefault(): void
+    public function testHasNullIdByDefault(): void
     {
         $this->assertNull($this->mollieSubscription->getId());
     }
 
-    function testGetsOrder(): void
+    public function testGetsOrder(): void
     {
         $orderMock = $this->createMock(OrderInterface::class);
         $this->mollieSubscription->addOrder($orderMock);
         $this->assertEquals(new ArrayCollection([$orderMock]), $this->mollieSubscription->getOrders());
     }
 
-    function testGetsState(): void
+    public function testGetsState(): void
     {
         $this->mollieSubscription->setState('active');
         $this->assertSame('active', $this->mollieSubscription->getState());
     }
 
-    function testGetsPaymentState(): void
+    public function testGetsPaymentState(): void
     {
         $this->mollieSubscription->setPaymentState('active');
         $this->assertSame('active', $this->mollieSubscription->getPaymentState());
     }
 
-    function testGetsLastOrder(): void
+    public function testGetsLastOrder(): void
     {
         $order1Mock = $this->createMock(OrderInterface::class);
         $order2Mock = $this->createMock(OrderInterface::class);
@@ -69,19 +69,19 @@ final class MollieSubscriptionTest extends TestCase
         $this->assertInstanceOf(OrderInterface::class, $this->mollieSubscription->getLastOrder());
     }
 
-    function testHasZeroRecentFailedPaymentsCountByDefault(): void
+    public function testHasZeroRecentFailedPaymentsCountByDefault(): void
     {
         $this->assertSame(0, $this->mollieSubscription->getRecentFailedPaymentsCount());
     }
 
-    function testIncrementFailedPaymentCounter(): void
+    public function testIncrementFailedPaymentCounter(): void
     {
         $this->assertSame(0, $this->mollieSubscription->getRecentFailedPaymentsCount());
         $this->mollieSubscription->incrementFailedPaymentCounter();
         $this->assertSame(1, $this->mollieSubscription->getRecentFailedPaymentsCount());
     }
 
-    function testResetFailedPaymentCount(): void
+    public function testResetFailedPaymentCount(): void
     {
         $this->assertSame(0, $this->mollieSubscription->getRecentFailedPaymentsCount());
         $this->mollieSubscription->incrementFailedPaymentCounter();
@@ -90,20 +90,20 @@ final class MollieSubscriptionTest extends TestCase
         $this->assertSame(0, $this->mollieSubscription->getRecentFailedPaymentsCount());
     }
 
-    function testGetsProcessingState(): void
+    public function testGetsProcessingState(): void
     {
         $this->mollieSubscription->setProcessingState('closed');
         $this->assertSame('closed', $this->mollieSubscription->getProcessingState());
     }
 
-    function testGetsOrderItem(): void
+    public function testGetsOrderItem(): void
     {
         $orderItemMock = $this->createMock(OrderItemInterface::class);
         $this->mollieSubscription->setOrderItem($orderItemMock);
         $this->assertSame($orderItemMock, $this->mollieSubscription->getOrderItem());
     }
 
-    function testGetsFirstOrder(): void
+    public function testGetsFirstOrder(): void
     {
         $orderItemMock = $this->createMock(OrderItemInterface::class);
         $orderMock = $this->createMock(OrderInterface::class);
@@ -112,14 +112,14 @@ final class MollieSubscriptionTest extends TestCase
         $this->assertSame($orderMock, $this->mollieSubscription->getFirstOrder());
     }
 
-    function testGetsCustomer(): void
+    public function testGetsCustomer(): void
     {
         $customerMock = $this->createMock(CustomerInterface::class);
         $this->mollieSubscription->setCustomer($customerMock);
         $this->assertSame($customerMock, $this->mollieSubscription->getCustomer());
     }
 
-    function testGetsStartedAt(): void
+    public function testGetsStartedAt(): void
     {
         $timeMock = new \DateTime('2099-12-12');
         $this->mollieSubscription->setStartedAt($timeMock);

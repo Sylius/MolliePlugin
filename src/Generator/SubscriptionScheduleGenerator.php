@@ -11,24 +11,16 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Generator;
+namespace Sylius\MolliePlugin\Generator;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Factory\DatePeriodFactoryInterface;
-use SyliusMolliePlugin\Factory\MollieSubscriptionScheduleFactoryInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Factory\DatePeriodFactoryInterface;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionScheduleFactoryInterface;
 
 final class SubscriptionScheduleGenerator implements SubscriptionScheduleGeneratorInterface
 {
-    private DatePeriodFactoryInterface $datePeriodFactory;
-
-    private MollieSubscriptionScheduleFactoryInterface $scheduleFactory;
-
-    public function __construct(
-        DatePeriodFactoryInterface $datePeriodFactory,
-        MollieSubscriptionScheduleFactoryInterface $scheduleFactory
-    ) {
-        $this->datePeriodFactory = $datePeriodFactory;
-        $this->scheduleFactory = $scheduleFactory;
+    public function __construct(private readonly DatePeriodFactoryInterface $datePeriodFactory, private readonly MollieSubscriptionScheduleFactoryInterface $scheduleFactory)
+    {
     }
 
     public function generate(MollieSubscriptionInterface $subscription): array
@@ -44,7 +36,7 @@ final class SubscriptionScheduleGenerator implements SubscriptionScheduleGenerat
         $datePeriods = $this->datePeriodFactory->createForSubscriptionConfiguration(
             $startedAt,
             $configuration->getNumberOfRepetitions(),
-            $configuration->getInterval()
+            $configuration->getInterval(),
         );
 
         $schedules = [];
@@ -53,7 +45,7 @@ final class SubscriptionScheduleGenerator implements SubscriptionScheduleGenerat
                 $subscription,
                 $date,
                 $index,
-                0 === $index ? $startedAt : null
+                0 === $index ? $startedAt : null,
             );
         }
 

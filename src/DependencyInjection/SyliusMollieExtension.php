@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\DependencyInjection;
+namespace Sylius\MolliePlugin\DependencyInjection;
 
 use SyliusLabs\DoctrineMigrationsExtraBundle\DependencyInjection\Configuration;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -25,9 +25,8 @@ final class SyliusMollieExtension extends Extension implements PrependExtensionI
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $config = $this->processConfiguration($this->getConfiguration([], $container), $configs);
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-
+        $this->processConfiguration($this->getConfiguration([], $container), $configs);
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
         $loader->load('services.xml');
     }
 
@@ -40,17 +39,18 @@ final class SyliusMollieExtension extends Extension implements PrependExtensionI
         $doctrineConfig = $container->getExtensionConfig('doctrine_migrations');
         $container->prependExtensionConfig('doctrine_migrations', [
             'migrations_paths' => \array_merge(\array_pop($doctrineConfig)['migrations_paths'] ?? [], [
-                'SyliusMolliePlugin\Migrations' => __DIR__ . '/../Migrations',
+                'Sylius\MolliePlugin\Migrations' => __DIR__ . '/../Migrations',
             ]),
         ]);
 
         $container->prependExtensionConfig('sylius_labs_doctrine_migrations_extra', [
             'migrations' => [
-                'SyliusMolliePlugin\Migrations' => ['Sylius\Bundle\CoreBundle\Migrations'],
+                'Sylius\MolliePlugin\Migrations' => ['Sylius\Bundle\CoreBundle\Migrations'],
             ],
         ]);
     }
 
+    /** @param array<mixed> $config */
     public function getConfiguration(array $config, ContainerBuilder $container): ConfigurationInterface
     {
         return new Configuration();

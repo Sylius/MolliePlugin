@@ -11,13 +11,13 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Factory;
+namespace Sylius\MolliePlugin\Factory;
 
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Form\Type\MollieGatewayConfigurationType;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayFactory;
 use Sylius\Bundle\CoreBundle\Application\Kernel;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType;
 
 final class MollieSubscriptionGatewayFactory extends GatewayFactory
 {
@@ -32,7 +32,7 @@ final class MollieSubscriptionGatewayFactory extends GatewayFactory
         $config->defaults([
             'payum.factory_name' => self::FACTORY_NAME,
             'payum.factory_title' => 'Mollie subscription',
-            'payum.http_client' => '@sylius_mollie_plugin.mollie_api_client',
+            'payum.http_client' => '@sylius_mollie.mollie_api_client',
         ]);
 
         if (false === (bool) $config['payum.api']) {

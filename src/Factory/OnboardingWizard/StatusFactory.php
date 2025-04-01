@@ -11,20 +11,16 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Factory\OnboardingWizard;
+namespace Sylius\MolliePlugin\Factory\OnboardingWizard;
 
-use SyliusMolliePlugin\Entity\OnboardingWizardStatusInterface;
 use Sylius\Component\Core\Model\AdminUserInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
+use Sylius\MolliePlugin\Entity\OnboardingWizardStatusInterface;
 
 final class StatusFactory implements StatusFactoryInterface
 {
-    /** @var FactoryInterface */
-    private $factory;
-
-    public function __construct(FactoryInterface $factory)
+    public function __construct(private readonly FactoryInterface $factory)
     {
-        $this->factory = $factory;
     }
 
     public function createNew(): OnboardingWizardStatusInterface

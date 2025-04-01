@@ -11,14 +11,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Entity;
+namespace Tests\Sylius\MolliePlugin\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\ProductVariant as BaseProductVariant;
 use Sylius\Component\Product\Model\ProductVariantTranslation;
 use Sylius\Component\Product\Model\ProductVariantTranslationInterface;
-use SyliusMolliePlugin\Entity\ProductVariantInterface;
-use SyliusMolliePlugin\Entity\RecurringProductVariantTrait;
+use Sylius\MolliePlugin\Entity\ProductVariantInterface;
+use Sylius\MolliePlugin\Entity\RecurringProductVariantTrait;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'sylius_product_variant')]

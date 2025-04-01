@@ -11,16 +11,15 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Payments\MethodResolver;
+namespace Sylius\MolliePlugin\Payments\MethodResolver;
 
-use SyliusMolliePlugin\Factory\MollieGatewayFactory;
-use SyliusMolliePlugin\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Factory\MollieSubscriptionGatewayFactory;
 use Webmozart\Assert\Assert;
 
 final class MollieMethodFilter implements MollieMethodFilterInterface
 {
-    /** @return PaymentMethodInterface[] */
     public function nonRecurringFilter(array $paymentMethods): array
     {
         $filteredMethods = [];
@@ -35,7 +34,6 @@ final class MollieMethodFilter implements MollieMethodFilterInterface
         return $filteredMethods;
     }
 
-    /** @return PaymentMethodInterface[] */
     public function recurringFilter(array $paymentMethods): array
     {
         $filteredMethods = [];

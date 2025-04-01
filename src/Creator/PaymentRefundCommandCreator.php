@@ -11,59 +11,25 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Creator;
+namespace Sylius\MolliePlugin\Creator;
 
-use SyliusMolliePlugin\Exceptions\OfflineRefundPaymentMethodNotFound;
-use SyliusMolliePlugin\Provider\Divisor\DivisorProviderInterface;
-use SyliusMolliePlugin\Refund\Units\PaymentUnitsItemRefundInterface;
-use SyliusMolliePlugin\Refund\Units\ShipmentUnitRefundInterface;
 use Mollie\Api\Resources\Payment;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Order\Factory\AdjustmentFactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Exceptions\OfflineRefundPaymentMethodNotFound;
+use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Refund\Units\PaymentUnitsItemRefundInterface;
+use Sylius\MolliePlugin\Refund\Units\ShipmentUnitRefundInterface;
 use Sylius\RefundPlugin\Command\RefundUnits;
+use Sylius\RefundPlugin\Entity\RefundInterface;
 use Sylius\RefundPlugin\Provider\RefundPaymentMethodsProviderInterface;
 use Webmozart\Assert\Assert;
 
 final class PaymentRefundCommandCreator implements PaymentRefundCommandCreatorInterface
 {
-    /** @var RepositoryInterface */
-    private $orderRepository;
-
-    /** @var RepositoryInterface */
-    private $refundUnitsRepository;
-
-    /** @var PaymentUnitsItemRefundInterface */
-    private $itemRefund;
-
-    /** @var ShipmentUnitRefundInterface */
-    private $shipmentRefund;
-
-    /** @var AdjustmentFactoryInterface */
-    private $adjustmentFactory;
-
-    /** @var RefundPaymentMethodsProviderInterface */
-    private $refundPaymentMethodProvider;
-
-    /** @var DivisorProviderInterface */
-    private $divisorProvider;
-
-    public function __construct(
-        RepositoryInterface $orderRepository,
-        RepositoryInterface $refundUnitsRepository,
-        PaymentUnitsItemRefundInterface $itemRefund,
-        ShipmentUnitRefundInterface $shipmentRefund,
-        AdjustmentFactoryInterface $adjustmentFactory,
-        RefundPaymentMethodsProviderInterface $refundPaymentMethodProvider,
-        DivisorProviderInterface $divisorProvider
-    ) {
-        $this->orderRepository = $orderRepository;
-        $this->refundUnitsRepository = $refundUnitsRepository;
-        $this->itemRefund = $itemRefund;
-        $this->shipmentRefund = $shipmentRefund;
-        $this->adjustmentFactory = $adjustmentFactory;
-        $this->refundPaymentMethodProvider = $refundPaymentMethodProvider;
-        $this->divisorProvider = $divisorProvider;
+    public function __construct(private readonly RepositoryInterface $orderRepository, private readonly RepositoryInterface $refundUnitsRepository, private readonly PaymentUnitsItemRefundInterface $itemRefund, private readonly ShipmentUnitRefundInterface $shipmentRefund, private readonly AdjustmentFactoryInterface $adjustmentFactory, private readonly RefundPaymentMethodsProviderInterface $refundPaymentMethodProvider, private readonly DivisorProviderInterface $divisorProvider)
+    {
     }
 
     public function fromPayment(Payment $payment): RefundUnits
@@ -74,6 +40,7 @@ final class PaymentRefundCommandCreator implements PaymentRefundCommandCreatorIn
         $order = $this->orderRepository->findOneBy(['id' => $orderId]);
         Assert::notNull($order, sprintf('Cannot find order id with id %s', $orderId));
 
+        /** @var RefundInterface[] $allRefunded */
         $allRefunded = $this->refundUnitsRepository->findBy(['order' => $order->getId()]);
 
         $refunded = $this->getSumOfAmountExistingRefunds($allRefunded);
@@ -87,7 +54,7 @@ final class PaymentRefundCommandCreator implements PaymentRefundCommandCreatorIn
 
         if (0 === count($refundMethods)) {
             throw new OfflineRefundPaymentMethodNotFound(
-                sprintf('Not found offline payment method on this channel with code :%s', $order->getChannel()->getCode())
+                sprintf('Not found offline payment method on this channel with code :%s', $order->getChannel()->getCode()),
             );
         }
 
@@ -98,9 +65,10 @@ final class PaymentRefundCommandCreator implements PaymentRefundCommandCreatorIn
 
         Assert::notNull($order->getNumber());
 
-        return new RefundUnits($order->getNumber(), $orderItemUnitRefund, $shipmentRefund, $refundMethod->getId(), '');
+        return new RefundUnits($order->getNumber(), array_merge($orderItemUnitRefund, $shipmentRefund), $refundMethod->getId(), '');
     }
 
+    /** @param RefundInterface[] $refundedUnits */
     private function getSumOfAmountExistingRefunds(array $refundedUnits): int
     {
         $sum = 0;

@@ -11,10 +11,20 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Payments\Methods;
+namespace Sylius\MolliePlugin\Payments\Methods;
 
-use SyliusMolliePlugin\Entity\ProductTypeInterface;
+use Sylius\MolliePlugin\DTO\MolliePayment\Amount;
+use Sylius\MolliePlugin\Entity\ProductTypeInterface;
 
+/**
+ * @phpstan-type ImageArray = array{
+ *     svg: string,
+ *     size1x?: string,
+ *     size2x?: string,
+ * }
+ *
+ * @phpstan-import-type AmountArray from Amount
+ */
 interface MethodInterface
 {
     public function getName(): ?string;
@@ -29,32 +39,42 @@ interface MethodInterface
 
     public function disable(): void;
 
+    /** @return ImageArray */
     public function getImage(): array;
 
+    /** @param ImageArray $image */
     public function setImage(array $image): void;
 
+    /** @return AmountArray */
     public function getMinimumAmount(): array;
 
+    /** @param AmountArray $minimumAmount */
     public function setMinimumAmount(array $minimumAmount): void;
 
+    /** @return AmountArray */
     public function getMaximumAmount(): array;
 
+    /** @param AmountArray $maximumAmount */
     public function setMaximumAmount(array $maximumAmount): void;
 
     public function getPaymentType(): string;
 
     public function setPaymentType(string $paymentType): void;
 
+    /** @return string[] */
     public function getCountry(): array;
 
+    /** @param string[] $country */
     public function setCountry(array $country): void;
 
     public function isCanRefunded(): bool;
 
     public function setCanRefunded(bool $canRefunded): void;
 
+    /** @return array<string, mixed> */
     public function getIssuers(): array;
 
+    /** @param array<string, mixed> $issuers */
     public function setIssuers(array $issuers): void;
 
     public function getDefaultCategory(): ?ProductTypeInterface;

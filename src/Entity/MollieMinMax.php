@@ -11,23 +11,19 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Entity;
+namespace Sylius\MolliePlugin\Entity;
 
 use Sylius\Component\Resource\Model\ResourceInterface;
 
 class MollieMinMax implements ResourceInterface, MollieMinMaxInterface
 {
-    /** @var int|null */
-    protected $id;
+    protected ?int $id = null;
 
-    /** @var float|null */
-    protected $minimumAmount;
+    protected ?float $minimumAmount = null;
 
-    /** @var float|null */
-    protected $maximumAmount;
+    protected ?float $maximumAmount = null;
 
-    /** @var MollieGatewayConfigInterface|null */
-    protected $mollieGatewayConfig;
+    protected ?MollieGatewayConfigInterface $mollieGatewayConfig = null;
 
     public function getId(): ?int
     {
@@ -63,5 +59,4 @@ class MollieMinMax implements ResourceInterface, MollieMinMaxInterface
     {
         $this->mollieGatewayConfig = $mollieGatewayConfig;
     }
-
 }

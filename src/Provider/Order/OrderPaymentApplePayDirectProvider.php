@@ -11,14 +11,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Provider\Order;
+namespace Sylius\MolliePlugin\Provider\Order;
 
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Factory\MollieGatewayFactory;
 use Payum\Core\Payum;
 use SM\Factory\FactoryInterface as StateMachineFactoryInterface;
-use Sylius\AdminOrderCreationPlugin\Provider\PaymentTokenProviderInterface;
+use Sylius\AdminOrderCreationPlugin\Provider\PaymentTokenProviderInterface as OrderCreationPaymentTokenProviderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Payment\Exception\NotProvidedOrderPaymentException;
@@ -27,42 +24,22 @@ use Sylius\Component\Payment\Factory\PaymentFactoryInterface;
 use Sylius\Component\Payment\PaymentTransitions;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\Component\Resource\StateMachine\StateMachineInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Payum\Provider\PaymentTokenProviderInterface;
 use Webmozart\Assert\Assert;
 
 final class OrderPaymentApplePayDirectProvider implements OrderPaymentApplePayDirectProviderInterface
 {
-    /** @var PaymentFactoryInterface */
-    private $paymentFactory;
-
-    /** @var StateMachineFactoryInterface */
-    private $stateMachineFactory;
-
-    /** @var RepositoryInterface */
-    private $paymentMethodRepository;
-
-    /** @var RepositoryInterface */
-    private $gatewayConfigRepository;
-
-    /** @var PaymentTokenProviderInterface */
-    private $paymentTokenProvider;
-
-    /** @var Payum */
-    private $payum;
-
     public function __construct(
-        PaymentFactoryInterface $paymentFactory,
-        StateMachineFactoryInterface $stateMachineFactory,
-        RepositoryInterface $paymentMethodRepository,
-        RepositoryInterface $gatewayConfigRepository,
-        PaymentTokenProviderInterface $paymentTokenProvider,
-        Payum $payum
+        private readonly PaymentFactoryInterface $paymentFactory,
+        private readonly StateMachineFactoryInterface $stateMachineFactory,
+        private readonly RepositoryInterface $paymentMethodRepository,
+        private readonly RepositoryInterface $gatewayConfigRepository,
+        private readonly OrderCreationPaymentTokenProviderInterface|PaymentTokenProviderInterface $paymentTokenProvider,
+        private readonly Payum $payum,
     ) {
-        $this->paymentFactory = $paymentFactory;
-        $this->stateMachineFactory = $stateMachineFactory;
-        $this->paymentMethodRepository = $paymentMethodRepository;
-        $this->gatewayConfigRepository = $gatewayConfigRepository;
-        $this->paymentTokenProvider = $paymentTokenProvider;
-        $this->payum = $payum;
     }
 
     public function provideOrderPayment(OrderInterface $order, string $targetState): ?PaymentInterface
@@ -144,7 +121,7 @@ final class OrderPaymentApplePayDirectProvider implements OrderPaymentApplePayDi
             ]);
 
             return $paymentMethod;
-        } catch (UnresolvedDefaultPaymentMethodException $exception) {
+        } catch (UnresolvedDefaultPaymentMethodException) {
             return null;
         }
     }

@@ -11,12 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Form\Type;
+namespace Sylius\MolliePlugin\Form\Type;
 
-use SyliusMolliePlugin\Entity\PaymentSurchargeFee;
-use SyliusMolliePlugin\Payments\PaymentTerms\Options;
+use Sylius\MolliePlugin\Entity\PaymentSurchargeFee;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,10 +25,7 @@ final class PaymentSurchargeFeeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('type', ChoiceType::class, [
-                'label' => 'sylius_mollie_plugin.ui.payment_fee_type',
-                'choices' => ['sylius_mollie_plugin.ui.no_fee' => 'no_fee'] + Options::getAvailablePaymentSurchargeFeeType(),
-            ])
+            ->add('type', PaymentSurchargeFeeTypeChoiceType::class)
             ->add('fixedAmount', NumberType::class, [
                 'label' => 'sylius_mollie_plugin.ui.fix_amount_surcharge',
                 'attr' => ['class' => 'mollie-payment_fee-fixedAmount'],

@@ -9,7 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace SyliusMolliePlugin\Validator\Constraints;
+declare(strict_types=1);
+
+namespace Sylius\MolliePlugin\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
