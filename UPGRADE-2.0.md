@@ -526,6 +526,10 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\Order\ShipmentClonerInterface`                                                  | `Sylius\MolliePlugin\Cloner\ShipmentClonerInterface`                                          |
 | `Sylius\MolliePlugin\Order\SubscriptionOrderCloner`                                                  | `Sylius\MolliePlugin\Cloner\SubscriptionOrderCloner`                                          |
 | `Sylius\MolliePlugin\Order\SubscriptionOrderClonerInterface`                                         | `Sylius\MolliePlugin\Cloner\SubscriptionOrderClonerInterface`                                 |
+| `Sylius\MolliePlugin\Creator\OrderRefundCommandCreator`                                              | `Sylius\MolliePlugin\Refund\Creator\OrderRefundCommandCreator`                                |
+| `Sylius\MolliePlugin\Creator\OrderRefundCommandCreatorInterface`                                     | `Sylius\MolliePlugin\Refund\Creator\OrderRefundCommandCreatorInterface`                       |
+| `Sylius\MolliePlugin\Creator\PaymentRefundCommandCreator`                                            | `Sylius\MolliePlugin\Refund\Creator\PaymentRefundCommandCreator`                              |
+| `Sylius\MolliePlugin\Creator\PaymentRefundCommandCreatorInterface`                                   | `Sylius\MolliePlugin\Refund\Creator\PaymentRefundCommandCreatorInterface`                     |
 
 1. The `Sylius\MolliePlugin\Documentation\DocumentationLinks` class and the related service alias `sylius_mollie.documentation.documentation_links` have been removed.
 

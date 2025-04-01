@@ -16,7 +16,7 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius_mollie.creator.payment_refund_command" class="Sylius\MolliePlugin\Creator\PaymentRefundCommandCreator">
+        <service id="sylius_mollie.creator.payment_refund_command" class="Sylius\MolliePlugin\Refund\Creator\PaymentRefundCommandCreator">
             <argument type="service" id="sylius.repository.order" />
             <argument type="service" id="sylius_refund.repository.refund" />
             <argument type="service" id="sylius_mollie.refund.units.payment_units_item" />
@@ -27,7 +27,7 @@
         </service>
         <service id="Sylius\MolliePlugin\Creator\PaymentRefundCommandCreatorInterface" alias="sylius_mollie.creator.payment_refund_command" />
 
-        <service id="sylius_mollie.creator.order_refund_command" class="Sylius\MolliePlugin\Creator\OrderRefundCommandCreator">
+        <service id="sylius_mollie.creator.order_refund_command" class="Sylius\MolliePlugin\Refund\Creator\OrderRefundCommandCreator">
             <argument type="service" id="sylius.repository.order" />
             <argument type="service" id="sylius_mollie.refund.units.units_item_order" />
             <argument type="service" id="sylius_mollie.refund.units.units_shipment_order" />

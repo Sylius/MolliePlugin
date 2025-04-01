@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Creator;
+namespace Sylius\MolliePlugin\Refund\Creator;
 
-use Mollie\Api\Resources\Payment;
+use Mollie\Api\Resources\Order;
 use Sylius\RefundPlugin\Command\RefundUnits;
 
-interface PaymentRefundCommandCreatorInterface
+interface OrderRefundCommandCreatorInterface
 {
-    public function fromPayment(Payment $payment): RefundUnits;
+    public function fromOrder(Order $order): RefundUnits;
 }

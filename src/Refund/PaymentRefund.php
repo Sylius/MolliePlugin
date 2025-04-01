@@ -14,9 +14,9 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Refund;
 
 use Mollie\Api\Resources\Payment;
-use Sylius\MolliePlugin\Creator\PaymentRefundCommandCreatorInterface;
 use Sylius\MolliePlugin\Exceptions\InvalidRefundAmountException;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Refund\Creator\PaymentRefundCommandCreatorInterface;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\MessageBusInterface;
 
