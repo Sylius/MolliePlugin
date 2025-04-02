@@ -6,7 +6,7 @@
 
 {% set orderPromotionAdjustment = constant('Sylius\\Component\\Core\\Model\\AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT') %}
 {% set orderPromotions = sylius_aggregate_adjustments(order.adjustmentsRecursively(orderPromotionAdjustment)) %}
-{% set unitPromotionAdjustmentVoucher = constant('Sylius\\MolliePlugin\\Payments\\Methods\\MealVoucher::MEAL_VOUCHERS') %}
+{% set unitPromotionAdjustmentVoucher = constant('Sylius\\MolliePlugin\\Model\\PaymentMethod\\MealVoucher::MEAL_VOUCHERS') %}
 
 <tr>
     <th colspan="4" class="right aligned" id="subtotal" {{ sylius_test_html_attribute('subtotal') }}>

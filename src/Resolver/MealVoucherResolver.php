@@ -16,7 +16,7 @@ namespace Sylius\MolliePlugin\Resolver;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\ProductInterface;
-use Sylius\MolliePlugin\Payments\Methods\MealVoucher;
+use Sylius\MolliePlugin\Model\PaymentMethod\MealVoucher;
 use Webmozart\Assert\Assert;
 
 final class MealVoucherResolver implements MealVoucherResolverInterface

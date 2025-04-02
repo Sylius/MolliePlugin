@@ -23,7 +23,7 @@ use Payum\Core\GatewayAwareTrait;
 use Payum\Core\Request\GetStatusInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Payments\Methods\MealVoucher;
+use Sylius\MolliePlugin\Model\PaymentMethod\MealVoucher;
 use Sylius\MolliePlugin\Refund\Checker\MollieOrderRefundCheckerInterface;
 use Sylius\MolliePlugin\Refund\OrderRefundInterface;
 use Sylius\MolliePlugin\Refund\PaymentRefundInterface;

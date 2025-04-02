@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Entity;
 
 use Sylius\Component\Resource\Model\TranslatableInterface;
-use Sylius\MolliePlugin\Payments\Methods\MethodInterface;
+use Sylius\MolliePlugin\Model\PaymentMethod\MethodInterface;
 
 interface MollieGatewayConfigInterface extends MethodInterface, TranslatableInterface
 {

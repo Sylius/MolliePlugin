@@ -556,6 +556,39 @@ The following service IDs have been renamed:
 | `Sylius\MolliePlugin\DTO\MolliePayment\Amount`                                                       | `Sylius\MolliePlugin\Model\DTO\MolliePayment\Amount`                                          |
 | `Sylius\MolliePlugin\DTO\MolliePayment\Metadata`                                                     | `Sylius\MolliePlugin\Model\DTO\MolliePayment\Metadata`                                        |
 | `Sylius\MolliePlugin\DTO\MolliePayment\MolliePayment`                                                | `Sylius\MolliePlugin\Model\DTO\MolliePayment\MolliePayment`                                   |
+| `Sylius\MolliePlugin\Payments\Methods\AbstractMethod`                                                | `Sylius\MolliePlugin\Model\PaymentMethod\AbstractMethod`                                      |
+| `Sylius\MolliePlugin\Payments\Methods\Alma`                                                          | `Sylius\MolliePlugin\Model\PaymentMethod\Alma`                                                |
+| `Sylius\MolliePlugin\Payments\Methods\ApplePay`                                                      | `Sylius\MolliePlugin\Model\PaymentMethod\ApplePay`                                            |
+| `Sylius\MolliePlugin\Payments\Methods\Bancomatpay`                                                   | `Sylius\MolliePlugin\Model\PaymentMethod\Bancomatpay`                                         |
+| `Sylius\MolliePlugin\Payments\Methods\Bancontact`                                                    | `Sylius\MolliePlugin\Model\PaymentMethod\Bancontact`                                          |
+| `Sylius\MolliePlugin\Payments\Methods\BankTransfer`                                                  | `Sylius\MolliePlugin\Model\PaymentMethod\BankTransfer`                                        |
+| `Sylius\MolliePlugin\Payments\Methods\Belfius`                                                       | `Sylius\MolliePlugin\Model\PaymentMethod\Belfius`                                             |
+| `Sylius\MolliePlugin\Payments\Methods\Billie`                                                        | `Sylius\MolliePlugin\Model\PaymentMethod\Billie`                                              |
+| `Sylius\MolliePlugin\Payments\Methods\Blik`                                                          | `Sylius\MolliePlugin\Model\PaymentMethod\Blik`                                                |
+| `Sylius\MolliePlugin\Payments\Methods\ConfigTrait`                                                   | `Sylius\MolliePlugin\Model\PaymentMethod\ConfigTrait`                                         |
+| `Sylius\MolliePlugin\Payments\Methods\CreditCard`                                                    | `Sylius\MolliePlugin\Model\PaymentMethod\CreditCard`                                          |
+| `Sylius\MolliePlugin\Payments\Methods\DirectDebit`                                                   | `Sylius\MolliePlugin\Model\PaymentMethod\DirectDebit`                                         |
+| `Sylius\MolliePlugin\Payments\Methods\Eps`                                                           | `Sylius\MolliePlugin\Model\PaymentMethod\Eps`                                                 |
+| `Sylius\MolliePlugin\Payments\Methods\GiftCard`                                                      | `Sylius\MolliePlugin\Model\PaymentMethod\GiftCard`                                            |
+| `Sylius\MolliePlugin\Payments\Methods\Giropay`                                                       | `Sylius\MolliePlugin\Model\PaymentMethod\Giropay`                                             |
+| `Sylius\MolliePlugin\Payments\Methods\Ideal`                                                         | `Sylius\MolliePlugin\Model\PaymentMethod\Ideal`                                               |
+| `Sylius\MolliePlugin\Payments\Methods\In3`                                                           | `Sylius\MolliePlugin\Model\PaymentMethod\In3`                                                 |
+| `Sylius\MolliePlugin\Payments\Methods\Kbc`                                                           | `Sylius\MolliePlugin\Model\PaymentMethod\Kbc`                                                 |
+| `Sylius\MolliePlugin\Payments\Methods\KlarnaOne`                                                     | `Sylius\MolliePlugin\Model\PaymentMethod\KlarnaOne`                                           |
+| `Sylius\MolliePlugin\Payments\Methods\KlarnaPayNow`                                                  | `Sylius\MolliePlugin\Model\PaymentMethod\KlarnaPayNow`                                        |
+| `Sylius\MolliePlugin\Payments\Methods\Klarnapaylater`                                                | `Sylius\MolliePlugin\Model\PaymentMethod\Klarnapaylater`                                      |
+| `Sylius\MolliePlugin\Payments\Methods\Klarnasliceit`                                                 | `Sylius\MolliePlugin\Model\PaymentMethod\Klarnasliceit`                                       |
+| `Sylius\MolliePlugin\Payments\Methods\MealVoucher`                                                   | `Sylius\MolliePlugin\Model\PaymentMethod\MealVoucher`                                         |
+| `Sylius\MolliePlugin\Payments\Methods\MethodInterface`                                               | `Sylius\MolliePlugin\Model\PaymentMethod\MethodInterface`                                     |
+| `Sylius\MolliePlugin\Payments\Methods\MyBank`                                                        | `Sylius\MolliePlugin\Model\PaymentMethod\MyBank`                                              |
+| `Sylius\MolliePlugin\Payments\Methods\PayPal`                                                        | `Sylius\MolliePlugin\Model\PaymentMethod\PayPal`                                              |
+| `Sylius\MolliePlugin\Payments\Methods\Payconiq`                                                      | `Sylius\MolliePlugin\Model\PaymentMethod\Payconiq`                                            |
+| `Sylius\MolliePlugin\Payments\Methods\Przelewy24`                                                    | `Sylius\MolliePlugin\Model\PaymentMethod\Przelewy24`                                          |
+| `Sylius\MolliePlugin\Payments\Methods\Riverty`                                                       | `Sylius\MolliePlugin\Model\PaymentMethod\Riverty`                                             |
+| `Sylius\MolliePlugin\Payments\Methods\Satispay`                                                      | `Sylius\MolliePlugin\Model\PaymentMethod\Satispay`                                            |
+| `Sylius\MolliePlugin\Payments\Methods\SofortBanking`                                                 | `Sylius\MolliePlugin\Model\PaymentMethod\SofortBanking`                                       |
+| `Sylius\MolliePlugin\Payments\Methods\Trustly`                                                       | `Sylius\MolliePlugin\Model\PaymentMethod\Trustly`                                             |
+| `Sylius\MolliePlugin\Payments\Methods\Twint`                                                         | `Sylius\MolliePlugin\Model\PaymentMethod\Twint`                                               |
 
 1. The `Sylius\MolliePlugin\Documentation\DocumentationLinks` class and the related service alias `sylius_mollie.documentation.documentation_links` have been removed.
 

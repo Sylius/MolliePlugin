@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Payments;
 
 use Mollie\Api\Resources\Method;
-use Sylius\MolliePlugin\Payments\Methods\AbstractMethod;
+use Sylius\MolliePlugin\Model\PaymentMethod\AbstractMethod;
 
 final class Methods implements MethodsInterface
 {

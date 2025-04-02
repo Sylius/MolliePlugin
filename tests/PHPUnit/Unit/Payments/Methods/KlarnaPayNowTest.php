@@ -15,7 +15,7 @@ namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Payments\Methods;
 
 use Mollie\Api\Types\PaymentMethod;
 use PHPUnit\Framework\TestCase;
-use Sylius\MolliePlugin\Payments\Methods\KlarnaPayNow;
+use Sylius\MolliePlugin\Model\PaymentMethod\KlarnaPayNow;
 use Sylius\MolliePlugin\Payments\PaymentType;
 
 final class KlarnaPayNowTest extends TestCase
