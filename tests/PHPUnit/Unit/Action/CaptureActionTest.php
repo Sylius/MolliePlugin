@@ -34,7 +34,7 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\OrderInterface;
-use Sylius\MolliePlugin\Payments\PaymentType;
+use Sylius\MolliePlugin\Model\ApiType;
 use Sylius\MolliePlugin\Payum\Action\CaptureAction;
 use Sylius\MolliePlugin\Payum\Request\CreateCustomer;
 use Sylius\MolliePlugin\Payum\Request\CreateOrder;
@@ -183,7 +183,7 @@ final class CaptureActionTest extends TestCase
                 'cancel_token' => [
                     'cancel_hash',
                 ],
-                'methodType' => PaymentType::ORDER_API,
+                'methodType' => ApiType::ORDER_API,
                 'order_id' => 'test_order_id',
             ],
             'webhookUrl' => 'url',
@@ -256,7 +256,7 @@ final class CaptureActionTest extends TestCase
         $details = new ArrayObject([
             'metadata' => [
                 'refund_token' => ['refund_token_hash'],
-                'methodType' => PaymentType::ORDER_API,
+                'methodType' => ApiType::ORDER_API,
                 'molliePaymentMethods' => null,
             ],
             'methodType',
@@ -306,7 +306,7 @@ final class CaptureActionTest extends TestCase
         $details = new ArrayObject([
             'metadata' => [
                 'refund_token' => ['refund_token_hash'],
-                'methodType' => PaymentType::PAYMENT_API,
+                'methodType' => ApiType::PAYMENT_API,
                 'molliePaymentMethods' => 'not_klarna_scenario',
             ],
             'methodType',
@@ -356,7 +356,7 @@ final class CaptureActionTest extends TestCase
         $details = new ArrayObject([
             'metadata' => [
                 'refund_token' => ['refund_token_hash'],
-                'methodType' => PaymentType::PAYMENT_API,
+                'methodType' => ApiType::PAYMENT_API,
                 'molliePaymentMethods' => 'klarnapaynow',
             ],
             'methodType',

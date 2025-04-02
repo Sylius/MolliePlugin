@@ -22,7 +22,7 @@ use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Converter\OrderConverterInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
-use Sylius\MolliePlugin\Payments\PaymentType;
+use Sylius\MolliePlugin\Model\ApiType;
 use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
 use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
 use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
@@ -58,7 +58,7 @@ final class ApplePayDirectApiOrderPaymentResolver implements ApplePayDirectApiOr
             'customer_id' => null !== $customer ? $customer->getId() : null,
             'molliePaymentMethods' => PaymentMethod::APPLEPAY,
             'refund_token' => $refundToken,
-            'methodType' => PaymentType::ORDER_API,
+            'methodType' => ApiType::ORDER_API,
         ];
 
         try {

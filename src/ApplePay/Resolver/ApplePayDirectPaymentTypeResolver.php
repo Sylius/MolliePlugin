@@ -17,7 +17,7 @@ use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\MolliePlugin\Converter\IntToStringConverterInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
-use Sylius\MolliePlugin\Payments\PaymentType;
+use Sylius\MolliePlugin\Model\ApiType;
 
 final class ApplePayDirectPaymentTypeResolver implements ApplePayDirectPaymentTypeResolverInterface
 {
@@ -48,7 +48,7 @@ final class ApplePayDirectPaymentTypeResolver implements ApplePayDirectPaymentTy
         $details['applePayDirectToken'] = json_encode($applePayDirectToken);
         $details['backurl'] = $payment->getDetails()['backurl'];
 
-        if (PaymentType::ORDER_API_VALUE === $mollieGatewayConfig->getPaymentType()) {
+        if (ApiType::ORDER_API_VALUE === $mollieGatewayConfig->getPaymentType()) {
             $this->createPaymentOrder($order, $mollieGatewayConfig, $details);
 
             return;

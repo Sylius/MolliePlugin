@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Payments;
+namespace Sylius\MolliePlugin\Model;
 
-final class PaymentType
+final class ApiType
 {
     public const ORDER_API = 'Orders API';
 

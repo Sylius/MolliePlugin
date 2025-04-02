@@ -18,7 +18,7 @@ use Sylius\Bundle\PayumBundle\Provider\PaymentDescriptionProviderInterface as Ba
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
-use Sylius\MolliePlugin\Payments\PaymentType;
+use Sylius\MolliePlugin\Model\ApiType;
 use Webmozart\Assert\Assert;
 
 final class PaymentDescriptionProvider implements PaymentDescriptionProviderInterface
@@ -33,7 +33,7 @@ final class PaymentDescriptionProvider implements PaymentDescriptionProviderInte
         MollieGatewayConfigInterface $methodConfig,
         OrderInterface $order,
     ): string {
-        $paymentMethodType = array_search($methodConfig->getPaymentType(), PaymentType::getAllAvailable(), true);
+        $paymentMethodType = array_search($methodConfig->getPaymentType(), ApiType::getAllAvailable(), true);
         $description = $methodConfig->getPaymentDescription();
 
         if (PaymentMethod::PAYPAL === $methodConfig->getMethodId()) {
@@ -42,7 +42,7 @@ final class PaymentDescriptionProvider implements PaymentDescriptionProviderInte
             return sprintf('Order %s', $order->getNumber());
         }
 
-        if (PaymentType::PAYMENT_API === $paymentMethodType &&
+        if (ApiType::PAYMENT_API === $paymentMethodType &&
             isset($description) &&
             '' !== $description
         ) {

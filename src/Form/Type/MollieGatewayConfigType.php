@@ -20,8 +20,8 @@ use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigTranslationInterface;
 use Sylius\MolliePlugin\Entity\ProductType;
 use Sylius\MolliePlugin\Form\Type\Translation\MollieGatewayConfigTranslationType;
+use Sylius\MolliePlugin\Model\ApiType;
 use Sylius\MolliePlugin\Model\ApiTypeRestrictedPaymentMethods;
-use Sylius\MolliePlugin\Payments\PaymentType;
 use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Validator\Constraints\PaymentSurchargeType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -128,7 +128,7 @@ final class MollieGatewayConfigType extends AbstractResourceType
                 if (MollieSubscriptionGatewayFactory::FACTORY_NAME === $factoryName) {
                     $form->remove('paymentType');
                     $form->add('paymentType', PaymentTypeChoiceType::class, [
-                        'empty_data' => PaymentType::PAYMENT_API_VALUE,
+                        'empty_data' => ApiType::PAYMENT_API_VALUE,
                         'attr' => [
                             'disabled' => 'disabled',
                         ],
@@ -164,11 +164,11 @@ final class MollieGatewayConfigType extends AbstractResourceType
                 $data = $event->getData();
 
                 if (in_array($object->getMethodId(), ApiTypeRestrictedPaymentMethods::onlyOrderApi(), true)) {
-                    $data['paymentType'] = PaymentType::ORDER_API_VALUE;
+                    $data['paymentType'] = ApiType::ORDER_API_VALUE;
                 }
 
                 if (in_array($object->getMethodId(), ApiTypeRestrictedPaymentMethods::onlyPaymentApi(), true)) {
-                    $data['paymentType'] = PaymentType::PAYMENT_API_VALUE;
+                    $data['paymentType'] = ApiType::PAYMENT_API_VALUE;
                 }
 
                 $event->setData($data);
