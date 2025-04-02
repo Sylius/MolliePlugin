@@ -300,101 +300,26 @@ bin/console assets:install
 
 ## Frontend Asset Management
 
-### 1. Without Webpack
+1. Import the plugin's assets into your application's entrypoint files:
 
-#### Option A: Using Installed Public Assets
+```javascript
+// assets/admin/entry.js
+
+import '../../vendor/sylius/mollie-plugin/src/Resources/assets/admin/entry.js'
+```
+
+and:
+
+```javascript
+// assets/shop/entry.js
+
+import '../../vendor/sylius/mollie-plugin/src/Resources/assets/shop/entry.js'
+```
+
 1. Install assets:
-   ```bash
-   bin/console assets:install
-   ```
 
-2. Import in Twig templates:
-   ```twig
-   {{ asset('public/bundles/syliusmollieplugin/mollie/admin.css') }}
-   {{ asset('public/bundles/syliusmollieplugin/mollie/admin.js') }}
-   {{ asset('public/bundles/syliusmollieplugin/mollie/shop.css') }}
-   {{ asset('public/bundles/syliusmollieplugin/mollie/shop.js') }}
-   ```
-
-   File locations:
-   ```
-   public/bundles/syliusmollieplugin/mollie/[file]
-   ```
-
-#### Option B: Directly from Vendor
-Import directly from vendor files:
-```
-vendor/sylius/mollie-plugin/src/Resources/public/mollie/admin.css
-vendor/sylius/mollie-plugin/src/Resources/public/mollie/admin.js
-vendor/sylius/mollie-plugin/src/Resources/public/mollie/shop.css
-vendor/sylius/mollie-plugin/src/Resources/public/mollie/shop.js
-```
-
-### 2. With Webpack
-
-#### Prerequisites
-
-1. Install required bundle:
-   ```bash
-   composer require symfony/webpack-encore-bundle
-   ```
-
-2. Configuration (`config/packages/webpack_encore.yaml`):
-   ```yaml
-   webpack_encore:
-       output_path: "%kernel.project_dir%/public/build"
-       builds:
-           mollie-admin: "%kernel.project_dir%/public/build/admin"
-           mollie-shop: "%kernel.project_dir%/public/build/shop"
-       script_attributes:
-           defer: false
-
-   framework:
-       assets:
-           json_manifest_path: '%kernel.project_dir%/public/build/admin/manifest.json'
-   ```
-
-3. Webpack configuration (`webpack.config.js`):
-   ```js
-   Encore.addEntry(
-       'mollie-shop-entry',
-       path.resolve(__dirname, 'vendor/sylius/mollie-plugin/src/Resources/assets/shop/entry.js')
-   )
-
-   Encore.addEntry(
-       'mollie-admin-entry',
-       path.resolve(__dirname, 'vendor/sylius/mollie-plugin/src/Resources/assets/admin/entry.js')
-   )
-   ```
-
-#### Twig Templates Configuration
-Ensure the following Twig includes are added to your templates:
-
-1. Shop Templates
-   **`templates/bundles/SyliusShopBundle/_scripts.html.twig`**:
-```twig
-<script src="https://js.mollie.com/v1/mollie.js"></script>
-{{ encore_entry_script_tags('shop-entry', null, 'mollie-shop') }}
-{{ encore_entry_script_tags('plugin-shop-entry', null, 'mollie-shop') }}
-```
-
-**`templates/bundles/SyliusShopBundle/_styles.html.twig`**:
-```twig
-{{ encore_entry_link_tags('shop-entry', null, 'mollie-shop') }}
-{{ encore_entry_link_tags('plugin-shop-entry', null, 'mollie-shop') }}
-```
-
-1. Admin Templates
-   **`templates/bundles/SyliusAdminBundle/_scripts.html.twig`**:
-```twig
-{{ encore_entry_script_tags('admin-entry', null, 'mollie-admin') }}
-{{ encore_entry_script_tags('plugin-admin-entry', null, 'mollie-admin') }}
-```
-
-**`templates/bundles/SyliusAdminBundle/_styles.html.twig`**:
-```twig
-{{ encore_entry_link_tags('admin-entry', null, 'mollie-admin') }}
-{{ encore_entry_link_tags('plugin-admin-entry', null, 'mollie-admin') }}
+```bash
+bin/console assets:install
 ```
 
 #### Installation & Build Process
@@ -414,7 +339,7 @@ otherwise Node version 14 should be used.
    yarn add --dev @babel/core@7.16.0 @babel/register@7.16.0 @babel/plugin-proposal-object-rest-spread@7.16.5 @symfony/webpack-encore@1.5.0
    ```
 
-2. Build assets:
+1. Build assets:
 
 for development:
    ```bash
@@ -430,10 +355,16 @@ for production:
    yarn encore production
    ```
 
-3. Clear cache:
+1. Clear cache:
    ```bash
    php bin/console cache:clear
    ```
+
+1. [Optional] Load fixtures:
+
+ ```bash
+ bin/console sylius:fixtures:load
+ ```
 
 ### ⚠️ SyliusRefundPlugin Troubleshooting
 
