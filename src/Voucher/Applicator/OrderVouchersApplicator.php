@@ -18,8 +18,10 @@ use Sylius\Component\Core\Model\OrderInterface;
 
 final class OrderVouchersApplicator implements OrderVouchersApplicatorInterface
 {
-    public function __construct(private readonly ProportionalIntegerDistributorInterface $proportionalIntegerDistributor, private readonly UnitsVouchersApplicatorInterface $unitsPromotionAdjustmentsApplicator)
-    {
+    public function __construct(
+        private readonly ProportionalIntegerDistributorInterface $proportionalIntegerDistributor,
+        private readonly UnitsVouchersApplicatorInterface $unitsVouchersApplicator,
+    ) {
     }
 
     public function distribute(OrderInterface $order, int $amount): void
@@ -39,7 +41,7 @@ final class OrderVouchersApplicator implements OrderVouchersApplicatorInterface
         }
 
         $splitPromotion = $this->proportionalIntegerDistributor->distribute($itemsTotals, $promotionAmount);
-        $this->unitsPromotionAdjustmentsApplicator->apply($order, $splitPromotion);
+        $this->unitsVouchersApplicator->apply($order, $splitPromotion);
     }
 
     private function calculateAdjustmentAmount(int $promotionSubjectTotal, int $targetPromotionAmount): int

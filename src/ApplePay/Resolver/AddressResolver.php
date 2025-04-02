@@ -21,8 +21,12 @@ use Sylius\MolliePlugin\ApplePay\Validator\ApplePayAddressValidatorInterface;
 
 final class AddressResolver implements AddressResolverInterface
 {
-    public function __construct(private readonly ApplePayAddressValidatorInterface $addressValidator, private readonly RepositoryInterface $customerRepository, private readonly FactoryInterface $addressFactory, private readonly FactoryInterface $customerFactory)
-    {
+    public function __construct(
+        private readonly ApplePayAddressValidatorInterface $addressValidator,
+        private readonly RepositoryInterface $customerRepository,
+        private readonly FactoryInterface $addressFactory,
+        private readonly FactoryInterface $customerFactory,
+    ) {
     }
 
     public function resolve(array $applePayDirectAddress): AddressInterface

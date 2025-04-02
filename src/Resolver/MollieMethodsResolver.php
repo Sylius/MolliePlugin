@@ -26,8 +26,12 @@ use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
 
 final class MollieMethodsResolver implements MollieMethodsResolverInterface
 {
-    public function __construct(private readonly MollieLoggerActionInterface $loggerAction, private readonly MollieApiClient $mollieApiClient, private readonly RepositoryInterface $gatewayConfigRepository, private readonly MollieMethodsCreatorInterface $mollieMethodsCreator)
-    {
+    public function __construct(
+        private readonly MollieLoggerActionInterface $loggerAction,
+        private readonly MollieApiClient $mollieApiClient,
+        private readonly RepositoryInterface $gatewayConfigRepository,
+        private readonly MollieMethodsCreatorInterface $mollieMethodsCreator,
+    ) {
     }
 
     public function create(): void

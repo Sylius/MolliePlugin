@@ -28,8 +28,13 @@ use Sylius\MolliePlugin\Resolver\PaymentlinkResolverInterface;
 
 final class AbandonedPaymentLinkCreator implements AbandonedPaymentLinkCreatorInterface
 {
-    public function __construct(private readonly PaymentlinkResolverInterface $paymentLinkResolver, private readonly OrderRepositoryInterface $orderRepository, private readonly PaymentLinkEmailManagerInterface $paymentLinkEmailManager, private readonly PaymentMethodRepositoryInterface $paymentMethodRepository, private readonly ChannelContextInterface $channelContext)
-    {
+    public function __construct(
+        private readonly PaymentlinkResolverInterface $paymentLinkResolver,
+        private readonly OrderRepositoryInterface $orderRepository,
+        private readonly PaymentLinkEmailManagerInterface $paymentLinkEmailManager,
+        private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+        private readonly ChannelContextInterface $channelContext,
+    ) {
     }
 
     public function create(): void

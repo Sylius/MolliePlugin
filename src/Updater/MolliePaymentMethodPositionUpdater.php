@@ -19,8 +19,10 @@ use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 
 final class MolliePaymentMethodPositionUpdater implements MolliePaymentMethodPositionUpdaterInterface
 {
-    public function __construct(private readonly RepositoryInterface $mollieGatewayRepository, private readonly EntityManagerInterface $mollieGatewayEntityManager)
-    {
+    public function __construct(
+        private readonly RepositoryInterface $mollieGatewayRepository,
+        private readonly EntityManagerInterface $mollieGatewayEntityManager,
+    ) {
     }
 
     public function update(array $positions): void

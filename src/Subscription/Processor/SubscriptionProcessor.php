@@ -32,8 +32,14 @@ final class SubscriptionProcessor implements SubscriptionProcessorInterface
 {
     use GatewayAwareTrait;
 
-    public function __construct(private SubscriptionOrderClonerInterface $orderCloner, private PaymentFactoryInterface $paymentFactory, private OrderRepositoryInterface $orderRepository, private PaymentDetailsFactoryInterface $paymentDetailsFactory, private MollieSubscriptionRepositoryInterface $subscriptionRepository, private Payum $paymentRegistry)
-    {
+    public function __construct(
+        private SubscriptionOrderClonerInterface $orderCloner,
+        private PaymentFactoryInterface $paymentFactory,
+        private OrderRepositoryInterface $orderRepository,
+        private PaymentDetailsFactoryInterface $paymentDetailsFactory,
+        private MollieSubscriptionRepositoryInterface $subscriptionRepository,
+        private Payum $paymentRegistry,
+    ) {
     }
 
     public function processNextSubscriptionPayment(MollieSubscriptionInterface $subscription): void

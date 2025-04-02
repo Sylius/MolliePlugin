@@ -20,8 +20,10 @@ use Sylius\Component\Resource\Factory\FactoryInterface;
 
 final class OrderItemCloner implements OrderItemClonerInterface
 {
-    public function __construct(private readonly FactoryInterface $orderItemFactory, private readonly OrderItemUnitFactoryInterface $orderItemUnitFactory)
-    {
+    public function __construct(
+        private readonly FactoryInterface $orderItemFactory,
+        private readonly OrderItemUnitFactoryInterface $orderItemUnitFactory,
+    ) {
     }
 
     public function clone(

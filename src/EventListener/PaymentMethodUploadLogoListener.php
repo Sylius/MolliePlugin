@@ -23,8 +23,10 @@ use Webmozart\Assert\Assert;
 
 final class PaymentMethodUploadLogoListener
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly PaymentMethodLogoUploaderInterface $logoUploader)
-    {
+    public function __construct(
+        private readonly EntityManagerInterface $entityManager,
+        private readonly PaymentMethodLogoUploaderInterface $logoUploader,
+    ) {
     }
 
     public function uploadLogo(GenericEvent $event): void

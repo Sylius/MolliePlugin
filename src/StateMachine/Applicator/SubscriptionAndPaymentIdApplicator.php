@@ -25,8 +25,12 @@ use Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransitionInterface;
 
 final class SubscriptionAndPaymentIdApplicator implements SubscriptionAndPaymentIdApplicatorInterface
 {
-    public function __construct(private readonly MollieApiClient $mollieApiClient, private readonly StateMachineTransitionInterface $stateMachineTransition, private readonly PaymentStateMachineTransitionInterface $paymentStateMachineTransition, private readonly ProcessingStateMachineTransitionInterface $processingStateMachineTransition)
-    {
+    public function __construct(
+        private readonly MollieApiClient $mollieApiClient,
+        private readonly StateMachineTransitionInterface $stateMachineTransition,
+        private readonly PaymentStateMachineTransitionInterface $paymentStateMachineTransition,
+        private readonly ProcessingStateMachineTransitionInterface $processingStateMachineTransition,
+    ) {
     }
 
     public function execute(
@@ -55,8 +59,7 @@ final class SubscriptionAndPaymentIdApplicator implements SubscriptionAndPayment
                 $this->stateMachineTransition->apply(
                     $subscription,
                     MollieSubscriptionTransitions::TRANSITION_PROCESS,
-                )
-                ;
+                );
 
                 break;
             case PaymentStatus::STATUS_PAID:

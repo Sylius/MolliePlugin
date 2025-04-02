@@ -26,8 +26,13 @@ use Webmozart\Assert\Assert;
 
 final class MollieApiClientKeyResolver implements MollieApiClientKeyResolverInterface
 {
-    public function __construct(private readonly MollieApiClient $mollieApiClient, private readonly MollieLoggerActionInterface $loggerAction, private readonly PaymentMethodRepositoryInterface $paymentMethodRepository, private readonly ChannelContextInterface $channelContext, private readonly MollieFactoryNameResolverInterface $factoryNameResolver)
-    {
+    public function __construct(
+        private readonly MollieApiClient $mollieApiClient,
+        private readonly MollieLoggerActionInterface $loggerAction,
+        private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+        private readonly ChannelContextInterface $channelContext,
+        private readonly MollieFactoryNameResolverInterface $factoryNameResolver,
+    ) {
     }
 
     public function getClientWithKey(?OrderInterface $order = null): MollieApiClient

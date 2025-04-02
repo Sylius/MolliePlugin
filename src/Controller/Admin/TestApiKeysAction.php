@@ -20,8 +20,10 @@ use Twig\Environment;
 
 final class TestApiKeysAction
 {
-    public function __construct(private readonly ApiKeysTestResolverInterface $apiKeysTestResolver, private readonly Environment $twig)
-    {
+    public function __construct(
+        private readonly ApiKeysTestResolverInterface $apiKeysTestResolver,
+        private readonly Environment $twig,
+    ) {
     }
 
     public function __invoke(Request $request): Response
