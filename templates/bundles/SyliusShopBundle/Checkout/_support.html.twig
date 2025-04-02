@@ -1,10 +1,10 @@
 {% if true == mollie_render_apple_pay_direct() %}
-    {% include '@SyliusShop/Checkout/SelectPayment/_applePayButton.html.twig' %}
+    {% include '@SyliusMolliePlugin/Shop/Checkout/SelectPayment/_applePayButton.html.twig' %}
 {% endif %}
 
 <h2 class="ui center aligned icon header">
     <i class="circular phone icon"></i>
-    +48 123 456 789
+        {{ order.channel.contactPhoneNumber }}
     <span class="sub header">
         {{ 'sylius.ui.need_assistance'|trans }} {{ 'sylius.ui.call_us'|trans }}
     </span>
