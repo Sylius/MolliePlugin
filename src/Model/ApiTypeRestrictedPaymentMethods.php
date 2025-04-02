@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Payments;
+namespace Sylius\MolliePlugin\Model;
 
 use Mollie\Api\Types\PaymentMethod;
 use Sylius\MolliePlugin\Model\PaymentMethod\MealVoucher;

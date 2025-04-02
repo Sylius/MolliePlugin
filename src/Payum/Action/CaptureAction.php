@@ -29,7 +29,7 @@ use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
-use Sylius\MolliePlugin\Payments\ApiTypeRestrictedPaymentMethods;
+use Sylius\MolliePlugin\Model\ApiTypeRestrictedPaymentMethods;
 use Sylius\MolliePlugin\Payments\PaymentType;
 use Sylius\MolliePlugin\Payum\Request\CreateCustomer;
 use Sylius\MolliePlugin\Payum\Request\CreateOrder;

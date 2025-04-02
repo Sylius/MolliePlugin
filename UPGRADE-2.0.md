@@ -589,6 +589,7 @@ The following service IDs have been renamed:
 | `Sylius\MolliePlugin\Payments\Methods\SofortBanking`                                                 | `Sylius\MolliePlugin\Model\PaymentMethod\SofortBanking`                                       |
 | `Sylius\MolliePlugin\Payments\Methods\Trustly`                                                       | `Sylius\MolliePlugin\Model\PaymentMethod\Trustly`                                             |
 | `Sylius\MolliePlugin\Payments\Methods\Twint`                                                         | `Sylius\MolliePlugin\Model\PaymentMethod\Twint`                                               |
+| `Sylius\MolliePlugin\Payments\ApiTypeRestrictedPaymentMethods`                                       | `Sylius\MolliePlugin\Model\ApiTypeRestrictedPaymentMethods`                                   |
 
 1. The `Sylius\MolliePlugin\Documentation\DocumentationLinks` class and the related service alias `sylius_mollie.documentation.documentation_links` have been removed.
 

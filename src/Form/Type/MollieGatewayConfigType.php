@@ -20,7 +20,7 @@ use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigTranslationInterface;
 use Sylius\MolliePlugin\Entity\ProductType;
 use Sylius\MolliePlugin\Form\Type\Translation\MollieGatewayConfigTranslationType;
-use Sylius\MolliePlugin\Payments\ApiTypeRestrictedPaymentMethods;
+use Sylius\MolliePlugin\Model\ApiTypeRestrictedPaymentMethods;
 use Sylius\MolliePlugin\Payments\PaymentType;
 use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Validator\Constraints\PaymentSurchargeType;
