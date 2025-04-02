@@ -272,7 +272,7 @@ mkdir -p templates/bundles/SyliusShopBundle/
 mkdir -p templates/bundles/SyliusUiBundle/
 mkdir -p templates/bundles/SyliusRefundPlugin/
 ```
-**Note:** Ba aware that the following commands will override your existing templates!
+**Note:** Be aware that the following commands will override your existing templates!
 
 ```
 cp -R vendor/sylius/mollie-plugin/templates/bundles/SyliusAdminBundle/* templates/bundles/SyliusAdminBundle/
@@ -371,33 +371,43 @@ vendor/sylius/mollie-plugin/src/Resources/public/mollie/shop.js
 Ensure the following Twig includes are added to your templates:
 
 1. Shop Templates
-   **`src/Resources/views/Shop/_javascripts.html.twig`**:
+   **`templates/bundles/SyliusShopBundle/_scripts.html.twig`**:
 ```twig
 <script src="https://js.mollie.com/v1/mollie.js"></script>
 {{ encore_entry_script_tags('shop-entry', null, 'mollie-shop') }}
 {{ encore_entry_script_tags('plugin-shop-entry', null, 'mollie-shop') }}
 ```
 
-**`src/Resources/views/Shop/_stylesheets.html.twig`**:
+**`templates/bundles/SyliusShopBundle/_styles.html.twig`**:
 ```twig
 {{ encore_entry_link_tags('shop-entry', null, 'mollie-shop') }}
 {{ encore_entry_link_tags('plugin-shop-entry', null, 'mollie-shop') }}
 ```
 
 1. Admin Templates
-   **`src/Resources/views/Admin/_javascripts.html.twig`**:
+   **`templates/bundles/SyliusAdminBundle/_scripts.html.twig`**:
 ```twig
 {{ encore_entry_script_tags('admin-entry', null, 'mollie-admin') }}
 {{ encore_entry_script_tags('plugin-admin-entry', null, 'mollie-admin') }}
 ```
 
-**`src/Resources/views/Admin/_stylesheets.html.twig`**:
+**`templates/bundles/SyliusAdminBundle/_styles.html.twig`**:
 ```twig
 {{ encore_entry_link_tags('admin-entry', null, 'mollie-admin') }}
 {{ encore_entry_link_tags('plugin-admin-entry', null, 'mollie-admin') }}
 ```
 
 #### Installation & Build Process
+
+1. If you are using Sylius version <= 1.11 ensure that Node version 12 is currently used:
+
+```bash
+nvm install 12
+nvm use 12
+```
+
+otherwise Node version 14 should be used.
+
 1. Install dependencies:
    ```bash
    yarn add @babel/preset-env bazinga-translator intl-messageformat lodash.get node-sass@4.14.1 shepherd.js@11.0 webpack-notifier
@@ -410,14 +420,14 @@ for development:
    ```bash
    yarn install
    yarn build
-   yarn yarn encore dev
+   yarn encore dev
    ```
 
 for production:
    ```bash
    yarn install
    yarn build
-   yarn yarn encore production
+   yarn encore production
    ```
 
 3. Clear cache:
