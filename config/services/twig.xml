@@ -32,7 +32,6 @@
         </service>
 
         <service id="sylius_mollie.twig.extension.customer_credit_cards" class="Sylius\MolliePlugin\Twig\Extension\CustomerCreditCards">
-            <argument type="service" id="sylius_mollie.mollie_api_client"/>
             <argument type="service" id="sylius_mollie.repository.mollie_customer"/>
             <argument type="service" id="sylius.context.customer"/>
             <tag name="twig.extension" />

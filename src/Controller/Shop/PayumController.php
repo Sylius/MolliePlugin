@@ -19,11 +19,9 @@ use Payum\Core\Payum;
 use Payum\Core\Security\GenericTokenFactoryInterface;
 use Payum\Core\Security\TokenInterface;
 use SM\Factory\FactoryInterface;
-use Sylius\Bundle\ResourceBundle\Controller\RequestConfigurationFactoryInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Order\Repository\OrderRepositoryInterface;
-use Sylius\Component\Resource\Metadata\MetadataInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,8 +38,6 @@ final class PayumController
     public function __construct(
         private readonly Payum $payum,
         private readonly OrderRepositoryInterface $orderRepository,
-        private readonly MetadataInterface $orderMetadata,
-        private readonly RequestConfigurationFactoryInterface $requestConfigurationFactory,
         private readonly RouterInterface $router,
         private readonly FactoryInterface $stateMachineFactory,
         private readonly EntityManagerInterface $entityManager,
