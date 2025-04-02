@@ -14,7 +14,7 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="sylius_mollie.payments.method_resolver.mollie_method_filter" class="Sylius\MolliePlugin\Payments\MethodResolver\MollieMethodFilter" />
-        <service id="Sylius\MolliePlugin\Payments\MethodResolver\MollieMethodFilterInterface" alias="sylius_mollie.payments.method_resolver.mollie_method_filter" />
+        <service id="sylius_mollie.payments.method_resolver.mollie_method_filter" class="Sylius\MolliePlugin\Filter\MollieMethodFilter" />
+        <service id="Sylius\MolliePlugin\Filter\MollieMethodFilterInterface" alias="sylius_mollie.payments.method_resolver.mollie_method_filter" />
     </services>
 </container>

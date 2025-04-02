@@ -23,7 +23,7 @@ use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
-use Sylius\MolliePlugin\Payments\MethodResolver\MollieMethodFilterInterface;
+use Sylius\MolliePlugin\Filter\MollieMethodFilterInterface;
 use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
 use Sylius\MolliePlugin\Resolver\MollieFactoryNameResolverInterface;
 use Sylius\MolliePlugin\Resolver\PaymentMethodResolver;

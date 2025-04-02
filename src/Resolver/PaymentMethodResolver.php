@@ -19,7 +19,7 @@ use Sylius\Component\Payment\Model\PaymentInterface;
 use Sylius\Component\Payment\Model\PaymentMethodInterface;
 use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
-use Sylius\MolliePlugin\Payments\MethodResolver\MollieMethodFilterInterface;
+use Sylius\MolliePlugin\Filter\MollieMethodFilterInterface;
 use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
 use Webmozart\Assert\Assert;
