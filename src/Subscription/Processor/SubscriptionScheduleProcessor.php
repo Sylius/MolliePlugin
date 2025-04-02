@@ -21,8 +21,10 @@ use Webmozart\Assert\Assert;
 
 final class SubscriptionScheduleProcessor implements SubscriptionScheduleProcessorInterface
 {
-    public function __construct(private readonly RepositoryInterface $scheduleRepository, private readonly SubscriptionScheduleGeneratorInterface $scheduleGenerator)
-    {
+    public function __construct(
+        private readonly RepositoryInterface $scheduleRepository,
+        private readonly SubscriptionScheduleGeneratorInterface $scheduleGenerator,
+    ) {
     }
 
     public function process(MollieSubscriptionInterface $subscription): void

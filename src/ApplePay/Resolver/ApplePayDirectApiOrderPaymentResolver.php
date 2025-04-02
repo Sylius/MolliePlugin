@@ -29,8 +29,14 @@ use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
 
 final class ApplePayDirectApiOrderPaymentResolver implements ApplePayDirectApiOrderPaymentResolverInterface
 {
-    public function __construct(private readonly MollieApiClient $mollieApiClient, private readonly MollieApiClientKeyResolverInterface $apiClientKeyResolver, private readonly OrderConverterInterface $convertOrder, private readonly OrderPaymentApplePayDirectProvider $paymentApplePayDirectProvider, private readonly PaymentLocaleResolverInterface $paymentLocaleResolver, private readonly DivisorProviderInterface $divisorProvider)
-    {
+    public function __construct(
+        private readonly MollieApiClient $mollieApiClient,
+        private readonly MollieApiClientKeyResolverInterface $apiClientKeyResolver,
+        private readonly OrderConverterInterface $orderConverter,
+        private readonly OrderPaymentApplePayDirectProvider $paymentApplePayDirectProvider,
+        private readonly PaymentLocaleResolverInterface $paymentLocaleResolver,
+        private readonly DivisorProviderInterface $divisorProvider,
+    ) {
     }
 
     public function resolve(
@@ -39,7 +45,7 @@ final class ApplePayDirectApiOrderPaymentResolver implements ApplePayDirectApiOr
         array $details,
     ): void {
         $this->apiClientKeyResolver->getClientWithKey();
-        $details = $this->convertOrder->convert($order, $details, $this->divisorProvider->getDivisor(), $mollieGatewayConfig);
+        $details = $this->orderConverter->convert($order, $details, $this->divisorProvider->getDivisor(), $mollieGatewayConfig);
         $customer = $order->getCustomer();
 
         $orderExpiredTime = $mollieGatewayConfig->getOrderExpirationDays();

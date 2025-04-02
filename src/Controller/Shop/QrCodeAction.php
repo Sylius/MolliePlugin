@@ -35,11 +35,16 @@ final class QrCodeAction
 {
     private const PAYMENT_API = 'Payments API';
 
-    /**
-     * QrCodeAction constructor
-     */
-    public function __construct(private readonly MollieLoggerActionInterface $loggerAction, private readonly CartContextInterface $cartContext, private readonly MollieApiClient $mollieApiClient, private readonly MollieApiClientKeyResolverInterface $apiClientKeyResolver, private readonly OrderRepositoryInterface $orderRepository, private readonly UrlGeneratorInterface $urlGenerator, private readonly RepositoryInterface $methodRepository, private readonly IntToStringConverterInterface $intToStringConverter)
-    {
+    public function __construct(
+        private readonly MollieLoggerActionInterface $loggerAction,
+        private readonly CartContextInterface $cartContext,
+        private readonly MollieApiClient $mollieApiClient,
+        private readonly MollieApiClientKeyResolverInterface $apiClientKeyResolver,
+        private readonly OrderRepositoryInterface $orderRepository,
+        private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly RepositoryInterface $methodRepository,
+        private readonly IntToStringConverterInterface $intToStringConverter,
+    ) {
     }
 
     public function createPayment(Request $request): Response
@@ -107,8 +112,11 @@ final class QrCodeAction
         return new JsonResponse(['status' => Response::HTTP_OK]);
     }
 
-    private function setQrCodeOnOrder(OrderInterface $order, ?string $qrCode = null, bool $shouldDeletePaymentId = false): void
-    {
+    private function setQrCodeOnOrder(
+        OrderInterface $order,
+        ?string $qrCode = null,
+        bool $shouldDeletePaymentId = false,
+    ): void {
         try {
             $order->setQrCode($qrCode);
             if ($shouldDeletePaymentId) {

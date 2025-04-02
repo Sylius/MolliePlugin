@@ -25,8 +25,11 @@ use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
 
 final class ApplePayDirectApiPaymentResolver implements ApplePayDirectApiPaymentResolverInterface
 {
-    public function __construct(private readonly MollieApiClient $mollieApiClient, private readonly MollieApiClientKeyResolverInterface $apiClientKeyResolver, private readonly OrderPaymentApplePayDirectProvider $paymentApplePayDirectProvider)
-    {
+    public function __construct(
+        private readonly MollieApiClient $mollieApiClient,
+        private readonly MollieApiClientKeyResolverInterface $apiClientKeyResolver,
+        private readonly OrderPaymentApplePayDirectProvider $paymentApplePayDirectProvider,
+    ) {
     }
 
     public function resolve(OrderInterface $order, array $details): void

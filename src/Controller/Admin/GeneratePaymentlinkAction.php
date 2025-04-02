@@ -31,8 +31,16 @@ use Twig\Environment;
 
 final class GeneratePaymentlinkAction
 {
-    public function __construct(private readonly OrderRepositoryInterface $orderRepository, private readonly Environment $twig, private readonly RequestStack $requestStack, private readonly UrlGeneratorInterface $router, private readonly FormFactoryInterface $formFactory, private readonly MollieApiClient $mollieApiClient, private readonly PaymentlinkResolverInterface $paymentlinkResolver, private readonly MollieLoggerActionInterface $loggerAction)
-    {
+    public function __construct(
+        private readonly OrderRepositoryInterface $orderRepository,
+        private readonly Environment $twig,
+        private readonly RequestStack $requestStack,
+        private readonly UrlGeneratorInterface $router,
+        private readonly FormFactoryInterface $formFactory,
+        private readonly MollieApiClient $mollieApiClient,
+        private readonly PaymentlinkResolverInterface $paymentlinkResolver,
+        private readonly MollieLoggerActionInterface $loggerAction,
+    ) {
     }
 
     public function __invoke(Request $request): Response

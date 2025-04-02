@@ -20,8 +20,10 @@ use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
 
 final class SubscriptionPaymentProcessor implements SubscriptionPaymentProcessorInterface
 {
-    public function __construct(private readonly MollieSubscriptionRepositoryInterface $subscriptionRepository, private readonly Payum $payum)
-    {
+    public function __construct(
+        private readonly MollieSubscriptionRepositoryInterface $subscriptionRepository,
+        private readonly Payum $payum,
+    ) {
     }
 
     public function processSuccess(PaymentInterface $payment): void

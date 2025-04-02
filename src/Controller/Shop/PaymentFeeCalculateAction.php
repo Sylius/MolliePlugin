@@ -40,7 +40,7 @@ final class PaymentFeeCalculateAction
         private readonly CartContextInterface $cartContext,
         private readonly RepositoryInterface $methodRepository,
         private readonly AdjustmentsAggregatorInterface $adjustmentsAggregator,
-        private readonly PriceToAmountConverterInterface $convertPriceToAmount,
+        private readonly PriceToAmountConverterInterface $priceToAmountConverter,
         private readonly Environment $twig,
     ) {
     }
@@ -67,10 +67,10 @@ final class PaymentFeeCalculateAction
             'view' => $this->twig->render(
                 'SyliusMolliePlugin:Shop/PaymentMollie:_paymentFeeTableTr.html.twig',
                 [
-                    'paymentFee' => $this->convertPriceToAmount->convert(reset($paymentFee)),
+                    'paymentFee' => $this->priceToAmountConverter->convert(reset($paymentFee)),
                 ],
             ),
-            'orderTotal' => $this->convertPriceToAmount->convert($order->getTotal()),
+            'orderTotal' => $this->priceToAmountConverter->convert($order->getTotal()),
         ]);
     }
 

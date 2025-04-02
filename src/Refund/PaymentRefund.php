@@ -22,8 +22,11 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 final class PaymentRefund implements PaymentRefundInterface
 {
-    public function __construct(private readonly MessageBusInterface $commandBus, private readonly PaymentRefundCommandCreatorInterface $commandCreator, private readonly MollieLoggerActionInterface $loggerAction)
-    {
+    public function __construct(
+        private readonly MessageBusInterface $commandBus,
+        private readonly PaymentRefundCommandCreatorInterface $commandCreator,
+        private readonly MollieLoggerActionInterface $loggerAction,
+    ) {
     }
 
     public function refund(Payment $payment): void

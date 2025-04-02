@@ -24,8 +24,11 @@ use Webmozart\Assert\Assert;
 
 final class RefundPaymentGeneratedAutoCompleteListener
 {
-    public function __construct(private readonly EntityRepository $refundPaymentRepository, private readonly RefundPaymentCompletedStateApplierInterface $refundPaymentCompletedStateApplier, private readonly PaymentMethodRepositoryInterface $paymentMethodRepository)
-    {
+    public function __construct(
+        private readonly EntityRepository $refundPaymentRepository,
+        private readonly RefundPaymentCompletedStateApplierInterface $refundPaymentCompletedStateApplier,
+        private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+    ) {
     }
 
     public function __invoke(RefundPaymentGenerated $refundPaymentGenerated): void

@@ -37,7 +37,7 @@ final class ConvertMollieSubscriptionPaymentAction extends BaseApiAwareAction im
     use GatewayAwareTrait;
 
     public function __construct(
-        private PaymentDescriptionProviderInterface $paymentDescription,
+        private PaymentDescriptionProviderInterface $paymentDescriptionProvider,
         private RepositoryInterface $mollieMethodsRepository,
         private OrderConverterInterface $orderConverter,
         private CustomerContextInterface $customerContext,

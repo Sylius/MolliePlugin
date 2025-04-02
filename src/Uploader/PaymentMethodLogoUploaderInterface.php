@@ -17,7 +17,7 @@ use Doctrine\Common\Collections\Collection;
 
 interface PaymentMethodLogoUploaderInterface
 {
-    public function upload(Collection $productBrochure): void;
+    public function upload(Collection $mollieGatewayConfigs): void;
 
     public function remove(string $path): bool;
 }

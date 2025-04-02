@@ -26,8 +26,11 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 final class PaymentMethodCheckoutValidator extends ConstraintValidator
 {
-    public function __construct(private readonly PaymentCheckoutOrderResolverInterface $paymentCheckoutOrderResolver, private readonly RequestStack $requestStack, private readonly MollieGatewayFactoryCheckerInterface $mollieGatewayFactoryChecker)
-    {
+    public function __construct(
+        private readonly PaymentCheckoutOrderResolverInterface $paymentCheckoutOrderResolver,
+        private readonly RequestStack $requestStack,
+        private readonly MollieGatewayFactoryCheckerInterface $mollieGatewayFactoryChecker,
+    ) {
     }
 
     public function validate(mixed $value, Constraint $constraint): void

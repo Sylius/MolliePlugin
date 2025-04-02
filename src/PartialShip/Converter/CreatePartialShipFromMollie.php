@@ -23,8 +23,11 @@ use Sylius\MolliePlugin\PartialShip\Resolver\FromMollieToSyliusResolverInterface
 
 final class CreatePartialShipFromMollie implements CreatePartialShipFromMollieInterface
 {
-    public function __construct(private readonly ShipmentFactoryInterface $shipmentFactory, private readonly RepositoryInterface $orderRepository, private readonly FromMollieToSyliusResolverInterface $fromMollieToSyliusResolver)
-    {
+    public function __construct(
+        private readonly ShipmentFactoryInterface $shipmentFactory,
+        private readonly RepositoryInterface $orderRepository,
+        private readonly FromMollieToSyliusResolverInterface $fromMollieToSyliusResolver,
+    ) {
     }
 
     public function create(OrderInterface $order, Order $mollieOrder): OrderInterface
@@ -37,7 +40,9 @@ final class CreatePartialShipFromMollie implements CreatePartialShipFromMollieIn
 
         /** @var Collection $shipments */
         $shipments = $order->getShipments();
-        $shipmentsToRemove = $shipments->filter(static fn (ShipmentInterface $shipment): bool => ShipmentInterface::STATE_READY === $shipment->getState() && $shipment->getUnits()->isEmpty());
+        $shipmentsToRemove = $shipments->filter(static fn (
+            ShipmentInterface $shipment,
+        ): bool => ShipmentInterface::STATE_READY === $shipment->getState() && $shipment->getUnits()->isEmpty());
 
         foreach ($shipmentsToRemove as $shipmentToRemove) {
             $order->removeShipment($shipmentToRemove);

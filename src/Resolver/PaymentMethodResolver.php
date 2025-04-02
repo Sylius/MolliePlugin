@@ -26,8 +26,13 @@ use Webmozart\Assert\Assert;
 
 final class PaymentMethodResolver implements PaymentMethodsResolverInterface
 {
-    public function __construct(private readonly PaymentMethodsResolverInterface $decoratedService, private readonly PaymentMethodRepositoryInterface $paymentMethodRepository, private readonly MollieFactoryNameResolverInterface $factoryNameResolver, private readonly MollieMethodFilterInterface $mollieMethodFilter, private readonly EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        private readonly PaymentMethodsResolverInterface $decoratedResolver,
+        private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+        private readonly MollieFactoryNameResolverInterface $factoryNameResolver,
+        private readonly MollieMethodFilterInterface $mollieMethodFilter,
+        private readonly EntityManagerInterface $entityManager,
+    ) {
     }
 
     public function getSupportedMethods(PaymentInterface $subject): array
@@ -51,7 +56,7 @@ final class PaymentMethodResolver implements PaymentMethodsResolverInterface
             return [$method];
         }
 
-        $parentMethods = $this->decoratedService->getSupportedMethods($subject);
+        $parentMethods = $this->decoratedResolver->getSupportedMethods($subject);
         $parentMethods = $this->filterMethodsByChannel($parentMethods, $channel->getId());
 
         if (false === $order->hasRecurringContents()) {

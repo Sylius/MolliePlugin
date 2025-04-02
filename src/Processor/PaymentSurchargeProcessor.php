@@ -24,7 +24,7 @@ use Webmozart\Assert\Assert;
 
 final class PaymentSurchargeProcessor implements PaymentSurchargeProcessorInterface
 {
-    public function __construct(private readonly PaymentSurchargeCalculatorInterface $calculate)
+    public function __construct(private readonly PaymentSurchargeCalculatorInterface $calculator)
     {
     }
 
@@ -55,11 +55,13 @@ final class PaymentSurchargeProcessor implements PaymentSurchargeProcessorInterf
             return;
         }
 
-        $this->calculate->calculate($order, $paymentSurcharge);
+        $this->calculator->calculate($order, $paymentSurcharge);
     }
 
-    private function getMolliePaymentSurcharge(PaymentMethodInterface $paymentMethod, ?string $molliePaymentMethod = null): ?MollieGatewayConfig
-    {
+    private function getMolliePaymentSurcharge(
+        PaymentMethodInterface $paymentMethod,
+        ?string $molliePaymentMethod = null,
+    ): ?MollieGatewayConfig {
         /** @var GatewayConfigInterface $gatewayConfig */
         $gatewayConfig = $paymentMethod->getGatewayConfig();
         /** @var Collection $configMethods */
