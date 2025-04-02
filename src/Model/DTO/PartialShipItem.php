@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\DTO;
+namespace Sylius\MolliePlugin\Model\DTO;
 
 final class PartialShipItem
 {

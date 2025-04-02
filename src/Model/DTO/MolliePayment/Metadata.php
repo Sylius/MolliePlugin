@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\DTO\MolliePayment;
+namespace Sylius\MolliePlugin\Model\DTO\MolliePayment;
 
 /**
  * @phpstan-type MetadataArray array{

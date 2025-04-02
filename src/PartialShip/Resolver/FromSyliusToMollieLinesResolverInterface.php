@@ -15,7 +15,7 @@ namespace Sylius\MolliePlugin\PartialShip\Resolver;
 
 use Doctrine\Common\Collections\Collection;
 use Mollie\Api\Resources\Order;
-use Sylius\MolliePlugin\DTO\PartialShipItems;
+use Sylius\MolliePlugin\Model\DTO\PartialShipItems;
 
 interface FromSyliusToMollieLinesResolverInterface
 {

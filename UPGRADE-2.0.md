@@ -548,6 +548,14 @@ The following service IDs have been renamed:
 | `Sylius\MolliePlugin\Parser\Response\GuzzleNegativeResponseParserInterface`                          | `Sylius\MolliePlugin\Client\Parser\ApiExceptionParserInterface`                               |
 | `Sylius\MolliePlugin\Creator\ChangePositionPaymentMethodCreator`                                     | `Sylius\MolliePlugin\Updater\MolliePaymentMethodPositionUpdater`                              |
 | `Sylius\MolliePlugin\Creator\ChangePositionPaymentMethodCreatorInterface`                            | `Sylius\MolliePlugin\Updater\MolliePaymentMethodPositionUpdaterInterface`                     |
+| `Sylius\MolliePlugin\DTO\ApiKeyTest`                                                                 | `Sylius\MolliePlugin\Model\DTO\ApiKeyTest`                                                    |
+| `Sylius\MolliePlugin\DTO\PartialRefundItem`                                                          | `Sylius\MolliePlugin\Model\DTO\PartialRefundItem`                                             |
+| `Sylius\MolliePlugin\DTO\PartialRefundItems`                                                         | `Sylius\MolliePlugin\Model\DTO\PartialRefundItems`                                            |
+| `Sylius\MolliePlugin\DTO\PartialShipItem`                                                            | `Sylius\MolliePlugin\Model\DTO\PartialShipItem`                                               |
+| `Sylius\MolliePlugin\DTO\PartialShipItems`                                                           | `Sylius\MolliePlugin\Model\DTO\PartialShipItems`                                              |
+| `Sylius\MolliePlugin\DTO\MolliePayment\Amount`                                                       | `Sylius\MolliePlugin\Model\DTO\MolliePayment\Amount`                                          |
+| `Sylius\MolliePlugin\DTO\MolliePayment\Metadata`                                                     | `Sylius\MolliePlugin\Model\DTO\MolliePayment\Metadata`                                        |
+| `Sylius\MolliePlugin\DTO\MolliePayment\MolliePayment`                                                | `Sylius\MolliePlugin\Model\DTO\MolliePayment\MolliePayment`                                   |
 
 1. The `Sylius\MolliePlugin\Documentation\DocumentationLinks` class and the related service alias `sylius_mollie.documentation.documentation_links` have been removed.
 

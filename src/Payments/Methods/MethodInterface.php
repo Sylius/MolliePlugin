@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Payments\Methods;
 
-use Sylius\MolliePlugin\DTO\MolliePayment\Amount;
 use Sylius\MolliePlugin\Entity\ProductTypeInterface;
+use Sylius\MolliePlugin\Model\DTO\MolliePayment\Amount;
 
 /**
  * @phpstan-type ImageArray = array{

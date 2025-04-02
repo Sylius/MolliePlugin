@@ -16,7 +16,7 @@ namespace Sylius\MolliePlugin\Refund\Units;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemUnitInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\MolliePlugin\DTO\PartialRefundItems;
+use Sylius\MolliePlugin\Model\DTO\PartialRefundItems;
 use Sylius\RefundPlugin\Model\OrderItemUnitRefund;
 use Sylius\RefundPlugin\Model\RefundType;
 use Sylius\RefundPlugin\Model\UnitRefundInterface;

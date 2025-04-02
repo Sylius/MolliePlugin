@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Refund\Converter;
 
-use Sylius\MolliePlugin\DTO\MolliePayment\Amount;
+use Sylius\MolliePlugin\Model\DTO\MolliePayment\Amount;
 
 /**
  * @phpstan-import-type AmountArray from Amount

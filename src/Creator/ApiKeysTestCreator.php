@@ -16,8 +16,8 @@ namespace Sylius\MolliePlugin\Creator;
 use Mollie\Api\Resources\Method;
 use Mollie\Api\Resources\MethodCollection;
 use Sylius\MolliePlugin\Client\MollieApiClient;
-use Sylius\MolliePlugin\DTO\ApiKeyTest;
 use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType;
+use Sylius\MolliePlugin\Model\DTO\ApiKeyTest;
 use Sylius\MolliePlugin\Resolver\MollieMethodsResolverInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
