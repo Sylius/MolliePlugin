@@ -1,10 +1,15 @@
 #!/bin/bash
 set -e
 
-echo "🚀 composer install..."
+echo "🚀 Update .env file..."
+sed -i "s|^APP_ENV=.*|APP_ENV=${APP_ENV:-prod}|" /var/www/tests/Application/.env
+sed -i "s|^APP_DEBUG=.*|APP_DEBUG=${APP_DEBUG:-0}|" /var/www/tests/Application/.env
+echo "SYLIUS_FIXTURES_HOSTNAME=${SYLIUS_FIXTURES_HOSTNAME:-127.0.0.1}" >> /var/www/tests/Application/.env
+
+echo "🚀 Composer install..."
 composer install --no-interaction
 
-echo "🚀 start services..."
+echo "🚀 Start services..."
 service nginx start
 service php8.1-fpm start
 service mariadb start
