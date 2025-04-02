@@ -25,8 +25,8 @@ use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Factory\MethodsFactoryInterface;
 use Sylius\MolliePlugin\Factory\MollieGatewayConfigFactoryInterface;
 use Sylius\MolliePlugin\Model\PaymentMethod\MethodInterface;
-use Sylius\MolliePlugin\Payments\MethodsInterface;
 use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Registry\PaymentMethodRegistryInterface;
 
 final class MollieMethodsCreatorTest extends TestCase
 {
@@ -53,7 +53,7 @@ final class MollieMethodsCreatorTest extends TestCase
 
     public function testCreatesMethodsWhenAllMollieMethodsAreEmpty(): void
     {
-        $methodsMock = $this->createMock(MethodsInterface::class);
+        $methodsMock = $this->createMock(PaymentMethodRegistryInterface::class);
         $methodMock = $this->createMock(MethodInterface::class);
         $methodCollectionMock = $this->createMock(MethodCollection::class);
         $gatewayConfigMock = $this->createMock(GatewayConfigInterface::class);
@@ -76,7 +76,7 @@ final class MollieMethodsCreatorTest extends TestCase
 
     public function testCreatesMethodsWhenAllMollieMethodsAreUnsupported(): void
     {
-        $methodsMock = $this->createMock(MethodsInterface::class);
+        $methodsMock = $this->createMock(PaymentMethodRegistryInterface::class);
         $methodMock = $this->createMock(MethodInterface::class);
         $methodCollectionMock = $this->createMock(MethodCollection::class);
         $gatewayConfigMock = $this->createMock(GatewayConfigInterface::class);
@@ -103,7 +103,7 @@ final class MollieMethodsCreatorTest extends TestCase
 
     public function testCreatesMethodsWhenAllMollieMethodsAreNotUnsupportedAndFactoryNameIsNotSubscriptionAndSupportedIsFalseAndInitialIsTrue(): void
     {
-        $methodsMock = $this->createMock(MethodsInterface::class);
+        $methodsMock = $this->createMock(PaymentMethodRegistryInterface::class);
         $methodMock = $this->createMock(MethodInterface::class);
         $methodCollectionMock = $this->createMock(MethodCollection::class);
         $gatewayConfigMock = $this->createMock(GatewayConfigInterface::class);
@@ -131,7 +131,7 @@ final class MollieMethodsCreatorTest extends TestCase
 
     public function testCreatesMethodsWhenAllMollieMethodsAreSupportedAndFactoryNameIsNotSubscriptionAndBothSupportedAndInitialAreFalse(): void
     {
-        $methodsMock = $this->createMock(MethodsInterface::class);
+        $methodsMock = $this->createMock(PaymentMethodRegistryInterface::class);
         $methodMock = $this->createMock(MethodInterface::class);
         $methodCollectionMock = $this->createMock(MethodCollection::class);
         $gatewayConfigMock = $this->createMock(GatewayConfigInterface::class);
@@ -159,7 +159,7 @@ final class MollieMethodsCreatorTest extends TestCase
 
     public function testCreatesMethodsWhenAllMollieMethodsAreSupportedAndFactoryNameIsNotSubscriptionAndSupportedIsTrueAndInitialIsFalse(): void
     {
-        $methodsMock = $this->createMock(MethodsInterface::class);
+        $methodsMock = $this->createMock(PaymentMethodRegistryInterface::class);
         $methodMock = $this->createMock(MethodInterface::class);
         $methodCollectionMock = $this->createMock(MethodCollection::class);
         $gatewayConfigMock = $this->createMock(GatewayConfigInterface::class);
@@ -187,7 +187,7 @@ final class MollieMethodsCreatorTest extends TestCase
 
     public function testCreatesMethodsWhenAllMollieMethodsAreSupportedAndFactoryNameIsSubscriptionAndSupportedIsFalseAndInitialIsTrue(): void
     {
-        $methodsMock = $this->createMock(MethodsInterface::class);
+        $methodsMock = $this->createMock(PaymentMethodRegistryInterface::class);
         $methodMock = $this->createMock(MethodInterface::class);
         $methodCollectionMock = $this->createMock(MethodCollection::class);
         $gatewayConfigMock = $this->createMock(GatewayConfigInterface::class);
@@ -215,7 +215,7 @@ final class MollieMethodsCreatorTest extends TestCase
 
     public function testCreatesMethodsWhenAllMollieMethodsAreSupportedAndFactoryNameIsSubscriptionAndBothSupportedAndInitialAreFalse(): void
     {
-        $methodsMock = $this->createMock(MethodsInterface::class);
+        $methodsMock = $this->createMock(PaymentMethodRegistryInterface::class);
         $methodMock = $this->createMock(MethodInterface::class);
         $methodCollectionMock = $this->createMock(MethodCollection::class);
         $gatewayConfigMock = $this->createMock(GatewayConfigInterface::class);
@@ -243,7 +243,7 @@ final class MollieMethodsCreatorTest extends TestCase
 
     public function testCreatesMethodsWhenAllMollieMethodsAreSupportedAndFactoryNameIsSubscriptionAndSupportedIsTrueAndInitialIsFalse(): void
     {
-        $methodsMock = $this->createMock(MethodsInterface::class);
+        $methodsMock = $this->createMock(PaymentMethodRegistryInterface::class);
         $methodMock = $this->createMock(MethodInterface::class);
         $methodCollectionMock = $this->createMock(MethodCollection::class);
         $gatewayConfigMock = $this->createMock(GatewayConfigInterface::class);

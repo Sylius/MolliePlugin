@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Payments;
+namespace Sylius\MolliePlugin\Registry;
 
 use Mollie\Api\Resources\Method;
 use Sylius\MolliePlugin\Model\PaymentMethod\AbstractMethod;
 
-final class Methods implements MethodsInterface
+final class PaymentMethodRegistry implements PaymentMethodRegistryInterface
 {
     /** @var AbstractMethod[] */
     private array $methods;

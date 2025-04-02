@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Payments;
+namespace Sylius\MolliePlugin\Registry;
 
 use Mollie\Api\Resources\Method;
 use Mollie\Api\Types\PaymentMethod;
@@ -46,7 +46,7 @@ use Sylius\MolliePlugin\Model\PaymentMethod\SofortBanking;
 use Sylius\MolliePlugin\Model\PaymentMethod\Trustly;
 use Sylius\MolliePlugin\Model\PaymentMethod\Twint;
 
-interface MethodsInterface
+interface PaymentMethodRegistryInterface
 {
     /** @var array<string, class-string> */
     public const GATEWAYS = [

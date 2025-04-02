@@ -591,6 +591,8 @@ The following service IDs have been renamed:
 | `Sylius\MolliePlugin\Payments\Methods\Twint`                                                         | `Sylius\MolliePlugin\Model\PaymentMethod\Twint`                                               |
 | `Sylius\MolliePlugin\Payments\ApiTypeRestrictedPaymentMethods`                                       | `Sylius\MolliePlugin\Model\ApiTypeRestrictedPaymentMethods`                                   |
 | `Sylius\MolliePlugin\Payments\PaymentType`                                                           | `Sylius\MolliePlugin\Model\ApiType`                                                           |
+| `Sylius\MolliePlugin\Payments\Methods`                                                               | `Sylius\MolliePlugin\Registry\PaymentMethodRegistry`                                          |
+| `Sylius\MolliePlugin\Payments\MethodsInterface`                                                      | `Sylius\MolliePlugin\Registry\PaymentMethodRegistryInterface`                                 |
 
 1. The `Sylius\MolliePlugin\Documentation\DocumentationLinks` class and the related service alias `sylius_mollie.documentation.documentation_links` have been removed.
 
