@@ -593,6 +593,7 @@ The following service IDs have been renamed:
 | `Sylius\MolliePlugin\Payments\PaymentType`                                                           | `Sylius\MolliePlugin\Model\ApiType`                                                           |
 | `Sylius\MolliePlugin\Payments\Methods`                                                               | `Sylius\MolliePlugin\Registry\PaymentMethodRegistry`                                          |
 | `Sylius\MolliePlugin\Payments\MethodsInterface`                                                      | `Sylius\MolliePlugin\Registry\PaymentMethodRegistryInterface`                                 |
+| `Sylius\MolliePlugin\Payments\MethodResolver\MolliePaymentMethodResolver`                            | `Sylius\MolliePlugin\Resolver\PaymentMethodResolver`                                          |
 
 1. The `Sylius\MolliePlugin\Documentation\DocumentationLinks` class and the related service alias `sylius_mollie.documentation.documentation_links` have been removed.
 

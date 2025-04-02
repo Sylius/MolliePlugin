@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Payments\MethodResolver;
+namespace Sylius\MolliePlugin\Resolver;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Component\Core\Model\PaymentInterface as CorePaymentInterface;
@@ -19,12 +19,12 @@ use Sylius\Component\Payment\Model\PaymentInterface;
 use Sylius\Component\Payment\Model\PaymentMethodInterface;
 use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Payments\MethodResolver\MollieMethodFilterInterface;
 use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
-use Sylius\MolliePlugin\Resolver\MollieFactoryNameResolverInterface;
 use Webmozart\Assert\Assert;
 
-final class MolliePaymentMethodResolver implements PaymentMethodsResolverInterface
+final class PaymentMethodResolver implements PaymentMethodsResolverInterface
 {
     public function __construct(private readonly PaymentMethodsResolverInterface $decoratedService, private readonly PaymentMethodRepositoryInterface $paymentMethodRepository, private readonly MollieFactoryNameResolverInterface $factoryNameResolver, private readonly MollieMethodFilterInterface $mollieMethodFilter, private readonly EntityManagerInterface $entityManager)
     {
