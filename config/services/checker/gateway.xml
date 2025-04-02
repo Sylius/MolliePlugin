@@ -15,7 +15,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="sylius_mollie.checker.gateway.mollie_gateway_factory" class="Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryChecker" public="true">
-        </service>
+        <service id="sylius_mollie.checker.gateway.mollie_gateway_factory" class="Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryChecker" public="true" />
+        <service id="Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryCheckerInterface" alias="sylius_mollie.checker.gateway.mollie_gateway_factory" />
     </services>
 </container>

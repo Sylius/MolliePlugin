@@ -19,5 +19,6 @@
                 class="Sylius\MolliePlugin\Repository\CreditMemoRepository"
                 parent="sylius_refund.repository.credit_memo"
         />
+        <service id="Sylius\MolliePlugin\Repository\CreditMemoRepositoryInterface" alias="sylius_mollie.repository.credit_memo"/>
     </services>
 </container>

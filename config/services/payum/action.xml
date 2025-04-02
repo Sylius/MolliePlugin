@@ -40,7 +40,7 @@
         <service id="sylius_mollie.payum.action.notify" class="Sylius\MolliePlugin\Payum\Action\NotifyAction">
             <argument type="service" id="sylius_mollie.get_http_request"/>
             <argument type="service" id="sylius_mollie.repository.mollie_subscription"/>
-            <argument type="service" id="sylius_mollie.action.state_machine.order_set_status"/>
+            <argument type="service" id="sylius_mollie.payum.action.state_machine.order_set_status"/>
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
             <tag name="payum.action" factory="mollie" alias="payum.action.notify"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.notify_subscription"/>

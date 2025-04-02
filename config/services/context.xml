@@ -21,5 +21,6 @@
         >
             <argument type="service" id="security.token_storage"/>
         </service>
+        <service id="Sylius\MolliePlugin\Context\AdminUserContextInterface" alias="sylius_mollie.context.admin.admin_user"/>
     </services>
 </container>

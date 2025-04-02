@@ -25,6 +25,7 @@
             <argument>%sylius_mollie.twig.functions%</argument>
             <argument type="service" id="translator"/>
         </service>
+        <service id="Sylius\MolliePlugin\Twig\Parser\ContentParserInterface" alias="sylius_mollie.twig.parser.content" />
 
         <service id="sylius_mollie.twig.extension.mollie_plugin_latest_version" class="Sylius\MolliePlugin\Twig\Extension\MolliePluginLatestVersion">
             <tag name="twig.extension" />

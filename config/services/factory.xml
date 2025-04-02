@@ -24,6 +24,7 @@
             <argument type="service" id=".inner"/>
             <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
         </service>
+        <service id="Sylius\MolliePlugin\Factory\MollieGatewayConfigFactoryInterface" alias="sylius_mollie.custom_factory.mollie_gateway_config" />
 
         <service
                 id="sylius_mollie.custom_factory.mollie_logger"
@@ -32,6 +33,7 @@
         >
             <argument type="service" id=".inner"/>
         </service>
+        <service id="Sylius\MolliePlugin\Factory\MollieLoggerFactoryInterface" alias="sylius_mollie.custom_factory.mollie_logger" />
 
         <service id="sylius_mollie.factory.shipment" class="Sylius\MolliePlugin\PartialShip\Factory\ShipmentFactory">
             <argument type="service" id="sylius.factory.shipment" />
@@ -44,6 +46,7 @@
         >
             <argument type="service" id=".inner"/>
         </service>
+        <service id="Sylius\MolliePlugin\Factory\OnboardingWizard\StatusFactoryInterface" alias="sylius_mollie.custom_factory.onboarding_wizard.status" />
 
         <service
                 id="sylius_mollie.custom_factory.mollie_subscription"
@@ -53,6 +56,7 @@
             <argument type="service" id=".inner"/>
             <argument type="service" id="router"/>
         </service>
+        <service id="Sylius\MolliePlugin\Factory\MollieSubscriptionFactoryInterface" alias="sylius_mollie.custom_factory.mollie_subscription" />
 
         <service
                 id="sylius_mollie.custom_factory.mollie_subscription_schedule"
@@ -61,13 +65,18 @@
         >
             <argument type="service" id=".inner"/>
         </service>
+        <service id="Sylius\MolliePlugin\Factory\MollieSubscriptionScheduleFactoryInterface" alias="sylius_mollie.custom_factory.mollie_subscription_schedule" />
 
         <service id="sylius_mollie.factory.methods" class="Sylius\MolliePlugin\Factory\MethodsFactory"/>
+        <service id="Sylius\MolliePlugin\Factory\MethodsFactoryInterface" alias="sylius_mollie.factory.methods"/>
 
         <service id="sylius_mollie.factory.date_period" class="Sylius\MolliePlugin\Factory\DatePeriodFactory"/>
+        <service id="Sylius\MolliePlugin\Factory\DatePeriodFactoryInterface" alias="sylius_mollie.factory.date_period"/>
 
         <service id="sylius_mollie.factory.payment_details" class="Sylius\MolliePlugin\Factory\PaymentDetailsFactory"/>
+        <service id="Sylius\MolliePlugin\Factory\PaymentDetailsFactoryInterface" alias="sylius_mollie.factory.payment_details"/>
 
         <service id="sylius_mollie.factory.api_customer" class="Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactory"/>
+        <service id="Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactoryInterface" alias="sylius_mollie.factory.api_customer"/>
     </services>
 </container>

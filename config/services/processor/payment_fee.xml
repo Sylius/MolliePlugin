@@ -21,5 +21,6 @@
         >
             <argument type="service" id="sylius_mollie.payment_fee.calculator.composite"/>
         </service>
+        <service id="Sylius\MolliePlugin\Processor\PaymentSurchargeProcessorInterface" alias="sylius_mollie.processor.payment_surcharge"/>
     </services>
 </container>

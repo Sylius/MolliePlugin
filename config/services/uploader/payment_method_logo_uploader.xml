@@ -22,5 +22,6 @@
                 </service>
             </argument>
         </service>
+        <service id="Sylius\MolliePlugin\Uploader\PaymentMethodLogoUploaderInterface" alias="sylius_mollie.uploader.payment_method_logo" />
     </services>
 </container>

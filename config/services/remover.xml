@@ -19,5 +19,6 @@
                 class="Sylius\MolliePlugin\PartialShip\Remover\OldShipmentItemsRemover"
                 public="true"
         />
+        <service id="Sylius\MolliePlugin\PartialShip\Remover\OldShipmentItemsRemoverInterface" alias="sylius_mollie.remover.partial_ship.old_shipment_items" />
     </services>
 </container>
