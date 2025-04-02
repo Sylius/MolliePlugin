@@ -16,14 +16,10 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
-    <imports>
-        <import resource="services/**/*.xml" />
-    </imports>
-
     <services>
-        <service id="sylius_mollie.mollie_payment" class="Sylius\MolliePlugin\Api\MolliePaymentConfigurationProvider">
-            <argument type="service" id="router" />
-            <tag name="sylius.api.payment_method_handler" />
+        <service id="sylius_mollie.checker.apple_pay.apple_pay_enabled" class="Sylius\MolliePlugin\ApplePay\Checker\ApplePayEnabledChecker" public="true">
+            <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
         </service>
+        <service id="Sylius\MolliePlugin\ApplePay\Checker\ApplePayEnabledCheckerInterface" alias="sylius_mollie.checker.apple_pay.apple_pay_enabled"/>
     </services>
 </container>

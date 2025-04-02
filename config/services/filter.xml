@@ -16,14 +16,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
-    <imports>
-        <import resource="services/**/*.xml" />
-    </imports>
-
     <services>
-        <service id="sylius_mollie.mollie_payment" class="Sylius\MolliePlugin\Api\MolliePaymentConfigurationProvider">
-            <argument type="service" id="router" />
-            <tag name="sylius.api.payment_method_handler" />
-        </service>
+        <service id="sylius_mollie.payments.method_resolver.mollie_method_filter" class="Sylius\MolliePlugin\Filter\MollieMethodFilter" />
+        <service id="Sylius\MolliePlugin\Filter\MollieMethodFilterInterface" alias="sylius_mollie.payments.method_resolver.mollie_method_filter" />
     </services>
 </container>

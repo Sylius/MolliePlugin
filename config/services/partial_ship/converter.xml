@@ -19,10 +19,11 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius_mollie.creator.change_position_payment_method" class="Sylius\MolliePlugin\Updater\MolliePaymentMethodPositionUpdater">
-            <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
-            <argument type="service" id="doctrine.orm.entity_manager"/>
+        <service id="sylius_mollie.partial_ship.create_partial_ship_from_mollie" class="Sylius\MolliePlugin\PartialShip\Converter\CreatePartialShipFromMollie">
+            <argument type="service" id="sylius_mollie.factory.shipment"/>
+            <argument type="service" id="sylius.repository.order"/>
+            <argument type="service" id="sylius_mollie.resolver.partial_ship.from_mollie_to_sylius"/>
         </service>
-        <service id="Sylius\MolliePlugin\Updater\MolliePaymentMethodPositionUpdaterInterface" alias="sylius_mollie.creator.change_position_payment_method" />
+        <service id="Sylius\MolliePlugin\PartialShip\Converter\CreatePartialShipFromMollieInterface" alias="sylius_mollie.partial_ship.create_partial_ship_from_mollie" />
     </services>
 </container>

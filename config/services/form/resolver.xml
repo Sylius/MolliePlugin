@@ -16,14 +16,10 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
-    <imports>
-        <import resource="services/**/*.xml" />
-    </imports>
-
     <services>
-        <service id="sylius_mollie.mollie_payment" class="Sylius\MolliePlugin\Api\MolliePaymentConfigurationProvider">
-            <argument type="service" id="router" />
-            <tag name="sylius.api.payment_method_handler" />
-        </service>
+        <defaults public="true" />
+
+        <service id="sylius_mollie.provider.form.resolver_group" class="Sylius\MolliePlugin\Form\Resolver\ProductVariantValidationGroupsResolver"/>
+        <service id="Sylius\MolliePlugin\Form\Resolver\ValidationGroupsResolverInterface" alias="sylius_mollie.provider.form.resolver_group" />
     </services>
 </container>
