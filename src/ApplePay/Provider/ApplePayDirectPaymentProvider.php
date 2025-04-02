@@ -11,15 +11,15 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Provider\Apple;
+namespace Sylius\MolliePlugin\ApplePay\Provider;
 
 use Doctrine\Common\Collections\Collection;
 use Mollie\Api\Types\PaymentMethod;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\MolliePlugin\ApplePay\Resolver\ApplePayDirectPaymentTypeResolverInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
-use Sylius\MolliePlugin\Resolver\ApplePayDirect\ApplePayDirectPaymentTypeResolverInterface;
 use Webmozart\Assert\Assert;
 
 final class ApplePayDirectPaymentProvider implements ApplePayDirectPaymentProviderInterface

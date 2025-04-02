@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Provider\Order;
+namespace Sylius\MolliePlugin\ApplePay\Provider;
 
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;

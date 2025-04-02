@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Validator\ApplePayDirect;
+namespace Sylius\MolliePlugin\ApplePay\Validator;
 
 use Webmozart\Assert\Assert;
 

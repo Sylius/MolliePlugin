@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Checker\ApplePay;
+namespace Sylius\MolliePlugin\ApplePay\Checker;
 
 use Mollie\Api\Types\PaymentMethod;
 use Sylius\Component\Resource\Repository\RepositoryInterface;

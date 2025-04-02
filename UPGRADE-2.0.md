@@ -103,6 +103,21 @@
     )
     ```
 
+   The constructor of `Sylius\MolliePlugin\ApplePay\Provider\ApplePayDirectProvider` has been changed:
+   
+   ```diff
+   use Sylius\MolliePlugin\ApplePay\Resolver\AddressResolverInterface;
+
+   public function __construct(
+   -   ApplePayAddressResolverInterface $applePayAddressResolver,
+   +   AddressResolverInterface $applePayAddressResolver,
+   -   MollieApiClient $mollieApiClient,
+       OrderPaymentApplePayDirectProviderInterface $paymentApplePayDirectProvider,
+       CustomerProviderInterface|OrderCreationCustomerProviderInterface $customerProvider,
+       ApplePayDirectPaymentProviderInterface $applePayDirectPaymentProvider,
+   )
+   ```
+
 1. Method signature changes:
 
    The `::provide` method of `ValidationGroupsResolverInterface` has been renamed to `::resolve`.
@@ -335,6 +350,8 @@ The following service IDs have been removed:
    - `Sylius\MolliePlugin\Request\StateMachine\SetStatusOrder`
    - `Sylius\MolliePlugin\Controller\Action\Admin\MollieSubscriptionController`
    - `Sylius\MolliePlugin\Controller\Action\Shop\PaymentFeeCalculateActionInterface`
+   - `Sylius\MolliePlugin\Resolver\Address\ApplePayAddressResolver`
+   - `Sylius\MolliePlugin\Resolver\Address\ApplePayAddressResolverInterface`
 
 1. Namespace changes:
 
@@ -469,6 +486,24 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\Resolver\PartialShip\FromSyliusToMollieLinesResolverInterface`                  | `Sylius\MolliePlugin\PartialShip\Resolver\FromSyliusToMollieLinesResolverInterface`           |
 | `Sylius\MolliePlugin\Factory\ApiCustomerFactory`                                                     | `Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactory`                                     |
 | `Sylius\MolliePlugin\Factory\ApiCustomerFactoryInterface`                                            | `Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactoryInterface`                            |
+| `Sylius\MolliePlugin\Checker\ApplePay\ApplePayEnabledChecker`                                        | `Sylius\MolliePlugin\ApplePay\Checker\ApplePayEnabledChecker`                                 |
+| `Sylius\MolliePlugin\Checker\ApplePay\ApplePayEnabledCheckerInterface`                               | `Sylius\MolliePlugin\ApplePay\Checker\ApplePayEnabledCheckerInterface`                        |
+| `Sylius\MolliePlugin\Provider\Apple\ApplePayDirectPaymentProvider`                                   | `Sylius\MolliePlugin\ApplePay\Provider\ApplePayDirectPaymentProvider`                         |
+| `Sylius\MolliePlugin\Provider\Apple\ApplePayDirectPaymentProviderInterface`                          | `Sylius\MolliePlugin\ApplePay\Provider\ApplePayDirectPaymentProviderInterface`                |
+| `Sylius\MolliePlugin\Provider\Apple\ApplePayDirectProvider`                                          | `Sylius\MolliePlugin\ApplePay\Provider\ApplePayDirectProvider`                                |
+| `Sylius\MolliePlugin\Provider\Apple\ApplePayDirectProviderInterface`                                 | `Sylius\MolliePlugin\ApplePay\Provider\ApplePayDirectProviderInterface`                       |
+| `Sylius\MolliePlugin\Provider\Order\OrderPaymentApplePayDirectProvider`                              | `Sylius\MolliePlugin\ApplePay\Provider\OrderPaymentApplePayDirectProvider`                    |
+| `Sylius\MolliePlugin\Provider\Order\OrderPaymentApplePayDirectProviderInterface`                     | `Sylius\MolliePlugin\ApplePay\Provider\OrderPaymentApplePayDirectProviderInterface`           |
+| `Sylius\MolliePlugin\Resolver\Address\AddressResolver`                                               | `Sylius\MolliePlugin\ApplePay\Resolver\AddressResolver`                                       |
+| `Sylius\MolliePlugin\Resolver\Address\AddressResolverInterface`                                      | `Sylius\MolliePlugin\ApplePay\Resolver\AddressResolverInterface`                              |
+| `Sylius\MolliePlugin\Resolver\ApplePayDirect\ApplePayDirectApiOrderPaymentResolver`                  | `Sylius\MolliePlugin\ApplePay\Resolver\ApplePayDirectApiOrderPaymentResolver`                 |
+| `Sylius\MolliePlugin\Resolver\ApplePayDirect\ApplePayDirectApiOrderPaymentResolverInterface`         | `Sylius\MolliePlugin\ApplePay\Resolver\ApplePayDirectApiOrderPaymentResolverInterface`        |
+| `Sylius\MolliePlugin\Resolver\ApplePayDirect\ApplePayDirectApiPaymentResolver`                       | `Sylius\MolliePlugin\ApplePay\Resolver\ApplePayDirectApiPaymentResolver`                      |
+| `Sylius\MolliePlugin\Resolver\ApplePayDirect\ApplePayDirectApiPaymentResolverInterface`              | `Sylius\MolliePlugin\ApplePay\Resolver\ApplePayDirectApiPaymentResolverInterface`             |
+| `Sylius\MolliePlugin\Resolver\ApplePayDirect\ApplePayDirectPaymentTypeResolver`                      | `Sylius\MolliePlugin\ApplePay\Resolver\ApplePayDirectPaymentTypeResolver`                     |
+| `Sylius\MolliePlugin\Resolver\ApplePayDirect\ApplePayDirectPaymentTypeResolverInterface`             | `Sylius\MolliePlugin\ApplePay\Resolver\ApplePayDirectPaymentTypeResolverInterface`            |
+| `Sylius\MolliePlugin\Validator\ApplePayDirect\ApplePayAddressValidator`                              | `Sylius\MolliePlugin\ApplePay\Validator\ApplePayAddressValidator`                             |
+| `Sylius\MolliePlugin\Validator\ApplePayDirect\ApplePayAddressValidatorInterface`                     | `Sylius\MolliePlugin\ApplePay\Validator\ApplePayAddressValidatorInterface`                    |
 
 1. The `Sylius\MolliePlugin\Documentation\DocumentationLinks` class and the related service alias `sylius_mollie.documentation.documentation_links` have been removed.
 

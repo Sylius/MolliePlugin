@@ -23,8 +23,8 @@
             <tag name="validator.constraint_validator" alias="channels"/>
         </service>
 
-        <service id="sylius_mollie.validator.apple_pay_direct.apple_pay_address" class="Sylius\MolliePlugin\Validator\ApplePayDirect\ApplePayAddressValidator" />
-        <service id="Sylius\MolliePlugin\Validator\ApplePayDirect\ApplePayAddressValidatorInterface" alias="sylius_mollie.validator.apple_pay_direct.apple_pay_address" />
+        <service id="sylius_mollie.validator.apple_pay_direct.apple_pay_address" class="Sylius\MolliePlugin\ApplePay\Validator\ApplePayAddressValidator" />
+        <service id="Sylius\MolliePlugin\ApplePay\Validator\ApplePayAddressValidatorInterface" alias="sylius_mollie.validator.apple_pay_direct.apple_pay_address" />
 
         <service id="sylius_mollie.validator.apple_pay_direct.payment_method_checkout" class="Sylius\MolliePlugin\Validator\Constraints\PaymentMethodCheckoutValidator">
             <argument type="service" id="sylius_mollie.resolver.order.payment_checkout_order"/>

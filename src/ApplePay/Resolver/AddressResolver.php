@@ -11,13 +11,13 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Resolver\Address;
+namespace Sylius\MolliePlugin\ApplePay\Resolver;
 
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\MolliePlugin\Validator\ApplePayDirect\ApplePayAddressValidatorInterface;
+use Sylius\MolliePlugin\ApplePay\Validator\ApplePayAddressValidatorInterface;
 
 final class AddressResolver implements AddressResolverInterface
 {
