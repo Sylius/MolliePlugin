@@ -111,7 +111,7 @@ jobs:
 
             -   name: Install AdminOrderCreation plugin
                 if: matrix.admin_order_creation == 'yes'
-                run: composer require "sylius/admin-order-creation-plugin:~0.14.0 || ~0.15.0" --no-update --no-scripts --no-interaction
+                run: composer require "sylius/admin-order-creation-plugin:~0.14.0 || ~0.15.0 || ~0.16.0" --no-update --no-scripts --no-interaction
 
             -   name: Install PHP dependencies
                 run: composer install --no-interaction
