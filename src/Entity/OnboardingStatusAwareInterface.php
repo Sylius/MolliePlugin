@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Creator\OnboardingWizard;
+namespace Sylius\MolliePlugin\Entity;
 
-use Sylius\MolliePlugin\Entity\OnboardingWizardStatusInterface;
-
-interface StatusCreatorInterface
+interface OnboardingStatusAwareInterface
 {
-    public function create(): OnboardingWizardStatusInterface;
+    public function isMollieOnboardingCompleted(): bool;
+
+    public function setMollieOnboardingCompleted(bool $completed): void;
 }

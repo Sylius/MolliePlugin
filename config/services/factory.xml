@@ -40,15 +40,6 @@
         </service>
 
         <service
-                id="sylius_mollie.custom_factory.onboarding_wizard.status"
-                class="Sylius\MolliePlugin\Factory\OnboardingWizard\StatusFactory"
-                decorates="sylius_mollie.factory.onboarding_wizard_status"
-        >
-            <argument type="service" id=".inner"/>
-        </service>
-        <service id="Sylius\MolliePlugin\Factory\OnboardingWizard\StatusFactoryInterface" alias="sylius_mollie.custom_factory.onboarding_wizard.status" />
-
-        <service
                 id="sylius_mollie.custom_factory.mollie_subscription"
                 class="Sylius\MolliePlugin\Factory\MollieSubscriptionFactory"
                 decorates="sylius_mollie.factory.mollie_subscription"

@@ -62,12 +62,5 @@
             <argument type="service" id="doctrine.orm.entity_manager"/>
         </service>
         <service id="Sylius\MolliePlugin\Creator\ChangePositionPaymentMethodCreatorInterface" alias="sylius_mollie.creator.change_position_payment_method" />
-
-        <service id="sylius_mollie.creator.onboarding_wizard.status" class="Sylius\MolliePlugin\Creator\OnboardingWizard\StatusCreator">
-            <argument type="service" id="doctrine.orm.entity_manager"/>
-            <argument type="service" id="sylius_mollie.context.admin.admin_user"/>
-            <argument type="service" id="sylius_mollie.resolver.onboarding_wizard.status"/>
-        </service>
-        <service id="Sylius\MolliePlugin\Creator\OnboardingWizard\StatusCreatorInterface" alias="sylius_mollie.creator.onboarding_wizard.status" />
     </services>
 </container>
