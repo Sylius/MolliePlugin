@@ -22,6 +22,7 @@ use Sylius\MolliePlugin\Converter\IntToStringConverterInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Model\ApiType;
 use Sylius\MolliePlugin\Model\DTO\MolliePayment\Amount;
 use Sylius\MolliePlugin\Model\DTO\MolliePayment\Metadata;
 use Sylius\MolliePlugin\Model\DTO\MolliePayment\MolliePayment;
@@ -33,8 +34,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class QrCodeAction
 {
-    private const PAYMENT_API = 'Payments API';
-
     public function __construct(
         private readonly MollieLoggerActionInterface $loggerAction,
         private readonly CartContextInterface $cartContext,
@@ -163,7 +162,7 @@ final class QrCodeAction
             null,
             null,
             $request->get('issuer') ?? '',
-            self::PAYMENT_API,
+            ApiType::PAYMENT_API,
         );
         $molliePayment->setMetadata($metadata);
         $molliePayment->setCustomerId(null);

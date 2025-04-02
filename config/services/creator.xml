@@ -21,7 +21,6 @@
             <argument type="service" id="sylius_refund.repository.refund" />
             <argument type="service" id="sylius_mollie.refund.units.payment_units_item" />
             <argument type="service" id="sylius_mollie.refund.units.shipment_unit" />
-            <argument type="service" id="sylius.factory.adjustment"/>
             <argument type="service" id="Sylius\RefundPlugin\Provider\RefundPaymentMethodsProviderInterface" />
             <argument type="service" id="sylius_mollie.provider.divisor"/>
         </service>
@@ -38,7 +37,6 @@
         <service id="sylius_mollie.creator.abandoned_payment_link" class="Sylius\MolliePlugin\Creator\AbandonedPaymentLinkCreator">
             <argument type="service" id="sylius_mollie.resolver.paymentlink" />
             <argument type="service" id="sylius.repository.order" />
-            <argument type="service" id="sylius_mollie.preparer.payment_link_email"/>
             <argument type="service" id="sylius.repository.payment_method"/>
             <argument type="service" id="sylius.context.channel"/>
         </service>

@@ -15,7 +15,6 @@ namespace Sylius\MolliePlugin\Controller\Admin;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\TemplateMollieEmailInterface;
 use Sylius\MolliePlugin\Form\Type\PaymentlinkType;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
@@ -37,7 +36,6 @@ final class GeneratePaymentlinkAction
         private readonly RequestStack $requestStack,
         private readonly UrlGeneratorInterface $router,
         private readonly FormFactoryInterface $formFactory,
-        private readonly MollieApiClient $mollieApiClient,
         private readonly PaymentlinkResolverInterface $paymentlinkResolver,
         private readonly MollieLoggerActionInterface $loggerAction,
     ) {

@@ -15,7 +15,6 @@ namespace Sylius\MolliePlugin\Refund\Creator;
 
 use Mollie\Api\Resources\Payment;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Order\Factory\AdjustmentFactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Exceptions\OfflineRefundPaymentMethodNotFound;
 use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
@@ -33,7 +32,6 @@ final class PaymentRefundCommandCreator implements PaymentRefundCommandCreatorIn
         private readonly RepositoryInterface $refundUnitsRepository,
         private readonly PaymentUnitsItemRefundInterface $itemRefund,
         private readonly ShipmentUnitRefundInterface $shipmentRefund,
-        private readonly AdjustmentFactoryInterface $adjustmentFactory,
         private readonly RefundPaymentMethodsProviderInterface $refundPaymentMethodProvider,
         private readonly DivisorProviderInterface $divisorProvider,
     ) {

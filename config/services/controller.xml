@@ -66,13 +66,6 @@
         <service id="sylius_mollie.controller.shop.payum_controller" class="Sylius\MolliePlugin\Controller\Shop\PayumController">
             <argument type="service" id="payum" />
             <argument type="service" id="sylius.repository.order" />
-            <argument type="service">
-                <service class="Sylius\Component\Resource\Metadata\MetadataInterface">
-                    <factory service="sylius.resource_registry" method="get" />
-                    <argument type="string">sylius.order</argument>
-                </service>
-            </argument>
-            <argument type="service" id="sylius.resource_controller.request_configuration_factory" />
             <argument type="service" id="router" />
             <argument type="service" id="SM\Factory\Factory"/>
             <argument type="service" id="doctrine.orm.default_entity_manager"/>
@@ -97,7 +90,6 @@
             <argument type="service" id="request_stack" />
             <argument type="service" id="router" />
             <argument type="service" id="form.factory"/>
-            <argument type="service" id="sylius_mollie.mollie_api_client"/>
             <argument type="service" id="sylius_mollie.resolver.paymentlink"/>
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
         </service>
