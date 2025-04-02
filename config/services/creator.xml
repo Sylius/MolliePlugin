@@ -25,7 +25,7 @@
             <argument type="service" id="Sylius\RefundPlugin\Provider\RefundPaymentMethodsProviderInterface" />
             <argument type="service" id="sylius_mollie.provider.divisor"/>
         </service>
-        <service id="Sylius\MolliePlugin\Creator\PaymentRefundCommandCreatorInterface" alias="sylius_mollie.creator.payment_refund_command" />
+        <service id="Sylius\MolliePlugin\Refund\Creator\PaymentRefundCommandCreatorInterface" alias="sylius_mollie.creator.payment_refund_command" />
 
         <service id="sylius_mollie.creator.order_refund_command" class="Sylius\MolliePlugin\Refund\Creator\OrderRefundCommandCreator">
             <argument type="service" id="sylius.repository.order" />
@@ -33,7 +33,7 @@
             <argument type="service" id="sylius_mollie.refund.units.units_shipment_order" />
             <argument type="service" id="Sylius\RefundPlugin\Provider\RefundPaymentMethodsProviderInterface" />
         </service>
-        <service id="Sylius\MolliePlugin\Creator\OrderRefundCommandCreatorInterface" alias="sylius_mollie.creator.order_refund_command" />
+        <service id="Sylius\MolliePlugin\Refund\Creator\OrderRefundCommandCreatorInterface" alias="sylius_mollie.creator.order_refund_command" />
 
         <service id="sylius_mollie.creator.abandoned_payment_link" class="Sylius\MolliePlugin\Creator\AbandonedPaymentLinkCreator">
             <argument type="service" id="sylius_mollie.resolver.paymentlink" />
