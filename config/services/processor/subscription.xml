@@ -25,12 +25,12 @@
 			<argument type="service" id="payum"/>
 			<argument type="service" id="sylius.repository.gateway_config"/>
 		</service>
-		<service id="Sylius\MolliePlugin\Processor\SubscriptionProcessorInterface" alias="sylius_mollie.processor.subscription_payment"/>
+		<service id="Sylius\MolliePlugin\Subscription\Processor\SubscriptionProcessorInterface" alias="sylius_mollie.processor.subscription_payment"/>
 
 		<service id="sylius_mollie.processor.subscription_schedule" class="Sylius\MolliePlugin\Subscription\Processor\SubscriptionScheduleProcessor">
 			<argument type="service" id="sylius_mollie.repository.mollie_subscription_schedule"/>
 			<argument type="service" id="sylius_mollie.generator.subscription_schedule"/>
 		</service>
-		<service id="Sylius\MolliePlugin\Processor\SubscriptionScheduleProcessorInterface" alias="sylius_mollie.processor.subscription_schedule"/>
+		<service id="Sylius\MolliePlugin\Subscription\Processor\SubscriptionScheduleProcessorInterface" alias="sylius_mollie.processor.subscription_schedule"/>
 	</services>
 </container>

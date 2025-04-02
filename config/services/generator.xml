@@ -25,6 +25,6 @@
 			<argument type="service" id="sylius_mollie.factory.date_period"/>
 			<argument type="service" id="sylius_mollie.custom_factory.mollie_subscription_schedule"/>
 		</service>
-		<service id="Sylius\MolliePlugin\Generator\SubscriptionScheduleGeneratorInterface" alias="sylius_mollie.generator.subscription_schedule"/>
+		<service id="Sylius\MolliePlugin\Subscription\Generator\SubscriptionScheduleGeneratorInterface" alias="sylius_mollie.generator.subscription_schedule"/>
 	</services>
 </container>

@@ -22,6 +22,6 @@
         <argument type="service" id="sylius_mollie.repository.template_mollie_email_translation"/>
         <argument type="service" id="sylius_mollie.email_sender.payment_link"/>
     </service>
-    <service id="Sylius\MolliePlugin\Preparer\PaymentLinkEmailPreparerInterface" alias="sylius_mollie.preparer.payment_link_email" />
+    <service id="Sylius\MolliePlugin\Mailer\Manager\PaymentLinkEmailManagerInterface" alias="sylius_mollie.preparer.payment_link_email" />
 </services>
 </container>

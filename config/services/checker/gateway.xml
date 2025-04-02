@@ -16,6 +16,6 @@
 
     <services>
         <service id="sylius_mollie.checker.gateway.mollie_gateway_factory" class="Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryChecker" public="true" />
-        <service id="Sylius\MolliePlugin\Checker\Gateway\MollieGatewayFactoryCheckerInterface" alias="sylius_mollie.checker.gateway.mollie_gateway_factory" />
+        <service id="Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryCheckerInterface" alias="sylius_mollie.checker.gateway.mollie_gateway_factory" />
     </services>
 </container>

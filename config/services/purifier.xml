@@ -19,14 +19,14 @@
         <service id="sylius_mollie.purifier.partial_ship.order_shipment" class="Sylius\MolliePlugin\PartialShip\Purifier\OrderShipmentPurifier">
             <argument type="service" id="sylius_mollie.purifier.partial_ship.order_mollie_partial_ship"/>
         </service>
-        <service id="Sylius\MolliePlugin\Purifier\PartialShip\OrderShipmentPurifierInterface" alias="sylius_mollie.purifier.partial_ship.order_shipment" />
+        <service id="Sylius\MolliePlugin\PartialShip\Purifier\OrderShipmentPurifierInterface" alias="sylius_mollie.purifier.partial_ship.order_shipment" />
 
         <service id="sylius_mollie.purifier.partial_ship.order_mollie_partial_ship" class="Sylius\MolliePlugin\PartialShip\OrderMolliePartialShip">
             <argument type="service" id="sylius_mollie.mollie_api_client"/>
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
             <argument type="service" id="sylius_mollie.resolver.partial_ship.from_sylius_to_mollie_lines"/>
         </service>
-        <service id="Sylius\MolliePlugin\Purifier\PartialShip\OrderMolliePartialShipInterface" alias="sylius_mollie.purifier.partial_ship.order_mollie_partial_ship" />
+        <service id="Sylius\MolliePlugin\PartialShip\OrderMolliePartialShipInterface" alias="sylius_mollie.purifier.partial_ship.order_mollie_partial_ship" />
 
         <service id="sylius_mollie.purifier.mollie_payment_method" class="Sylius\MolliePlugin\Purifier\MolliePaymentMethodPurifier">
             <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>

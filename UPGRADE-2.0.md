@@ -301,6 +301,8 @@ The following service IDs have been removed:
 | `sylius_mollie_plugin.behat.context.ui.admin.managing_orders`                                             | `sylius_mollie.behat.context.ui.admin.managing_orders`                                |
 | `sylius_mollie_plugin.command_bus`                                                                        | `sylius_mollie.command_bus`                                                           |
 
+1. Autowiring support has been added.
+
 1. Removed classes:
    - `Sylius\MolliePlugin\Action\CaptureActionInterface`
    - `Sylius\MolliePlugin\Action\StatusActionInterface`
@@ -452,113 +454,6 @@ If you were previously injecting or using the `DocumentationLinks` service, plea
 Make sure to register the theme in your template using:
 
 - `{% form_theme form '@SyliusMolliePlugin/Admin/PaymentMethod/_mollie_gateway_help_theme.html.twig' %}`
-
-1. Introduced service aliases to establish autowiring:
-
-| Service ID                                                                                           | Alias                                                                                 |
-|------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
-| `Sylius\MolliePlugin\Checker\ApplePay\ApplePayEnabledCheckerInterface`                               | `sylius_mollie.checker.apple_pay.apple_pay_enabled`                                   |
-| `Sylius\MolliePlugin\Voucher\Applicator\UnitsVouchersApplicatorInterface`                            | `sylius_mollie.applicator.units_promotion_adjustments`                                |
-| `Sylius\MolliePlugin\Calculator\CalculateTaxAmountInterface`                                         | `sylius_mollie.calculator.calculate_tax_amount`                                       |
-| `Sylius\MolliePlugin\Context\AdminUserContextInterface`                                              | `sylius_mollie.context.admin.admin_user`                                              |
-| `Sylius\MolliePlugin\Creator\PaymentRefundCommandCreatorInterface`                                   | `sylius_mollie.creator.payment_refund_command`                                        |
-| `Sylius\MolliePlugin\Creator\OrderRefundCommandCreatorInterface`                                     | `sylius_mollie.creator.order_refund_command`                                          |
-| `Sylius\MolliePlugin\Creator\AbandonedPaymentLinkCreatorInterface`                                   | `sylius_mollie.creator.abandoned_payment_link`                                        |
-| `Sylius\MolliePlugin\Creator\MollieMethodsCreatorInterface`                                          | `sylius_mollie.creator.mollie_methods`                                                |
-| `Sylius\MolliePlugin\Creator\ApiKeysTestCreatorInterface`                                            | `sylius_mollie.creator.api_keys_test`                                                 |
-| `Sylius\MolliePlugin\Creator\ChangePositionPaymentMethodCreatorInterface`                            | `sylius_mollie.creator.change_position_payment_method`                                |
-| `Sylius\MolliePlugin\Creator\OnboardingWizard\StatusCreatorInterface`                                | `sylius_mollie.creator.onboarding_wizard.status`                                      |
-| `Sylius\MolliePlugin\Repository\CreditMemoRepositoryInterface`                                       | `sylius_mollie.repository.credit_memo`                                                |
-| `Sylius\MolliePlugin\Voucher\Applicator\OrderVouchersApplicatorInterface`                            | `sylius_mollie.applicator.order.order_vouchers`                                       |
-| `Sylius\MolliePlugin\Factory\MollieGatewayConfigFactoryInterface`                                    | `sylius_mollie.custom_factory.mollie_gateway_config`                                  |
-| `Sylius\MolliePlugin\Factory\MollieLoggerFactoryInterface`                                           | `sylius_mollie.custom_factory.mollie_logger`                                          |
-| `Sylius\MolliePlugin\Factory\OnboardingWizard\StatusFactoryInterface`                                | `sylius_mollie.custom_factory.onboarding_wizard.status`                               |
-| `Sylius\MolliePlugin\Factory\MollieSubscriptionFactoryInterface`                                     | `sylius_mollie.custom_factory.mollie_subscription`                                    |
-| `Sylius\MolliePlugin\Factory\MollieSubscriptionScheduleFactoryInterface`                             | `sylius_mollie.custom_factory.mollie_subscription_schedule`                           |
-| `Sylius\MolliePlugin\Factory\MethodsFactoryInterface`                                                | `sylius_mollie.factory.methods`                                                       |
-| `Sylius\MolliePlugin\Factory\DatePeriodFactoryInterface`                                             | `sylius_mollie.factory.date_period`                                                   |
-| `Sylius\MolliePlugin\Factory\PaymentDetailsFactoryInterface`                                         | `sylius_mollie.factory.payment_details`                                               |
-| `Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactoryInterface`                                   | `sylius_mollie.factory.api_customer`                                                  |
-| `Sylius\MolliePlugin\Checker\Gateway\MollieGatewayFactoryCheckerInterface`                           | `sylius_mollie.checker.gateway.mollie_gateway_factory`                                |
-| `Sylius\MolliePlugin\Generator\SubscriptionScheduleGeneratorInterface`                               | `sylius_mollie.generator.subscription_schedule`                                       |
-| `Sylius\MolliePlugin\Guard\SubscriptionGuardInterface`                                               | `sylius_mollie.guard.subscription`                                                    |
-| `Sylius\MolliePlugin\Helper\IntToStringConverterInterface`                                           | `sylius_mollie.helper.int_to_string`                                                  |
-| `Sylius\MolliePlugin\Helper\ConvertOrderInterface`                                                   | `sylius_mollie.helper.convert_order`                                                  |
-| `Sylius\MolliePlugin\Helper\ConvertRefundDataInterface`                                              | `sylius_mollie.helper.convert_refund_data`                                            |
-| `Sylius\MolliePlugin\Helper\PaymentDescriptionInterface`                                             | `sylius_mollie.helper.payment_description`                                            |
-| `Sylius\MolliePlugin\Payments\MethodsInterface`                                                      | `sylius_mollie.payments.methods`                                                      |
-| `Sylius\MolliePlugin\Payments\MethodResolver\MollieMethodFilterInterface`                            | `sylius_mollie.payments.method_resolver.mollie_method_filter`                         |
-| `Sylius\MolliePlugin\Logger\MollieLoggerActionInterface`                                             | `sylius_mollie.logger.mollie_logger_action`                                           |
-| `Sylius\MolliePlugin\Order\OrderPaymentRefundInterface`                                              | `sylius_mollie.order.order_payment_refund`                                            |
-| `Sylius\MolliePlugin\Order\OrderItemClonerInterface`                                                 | `sylius_mollie.order.order_item_cloner`                                               |
-| `Sylius\MolliePlugin\Order\AdjustmentClonerInterface`                                                | `sylius_mollie.order.adjustment_cloner`                                               |
-| `Sylius\MolliePlugin\Order\ShipmentClonerInterface`                                                  | `sylius_mollie.order.shipment_cloner`                                                 |
-| `Sylius\MolliePlugin\Order\ShipmentUnitClonerInterface`                                              | `sylius_mollie.order.shipment_unit_cloner`                                            |
-| `Sylius\MolliePlugin\Order\SubscriptionOrderClonerInterface`                                         | `sylius_mollie.order.subscription_order_cloner`                                       |
-| `Sylius\MolliePlugin\Parser\Response\GuzzleNegativeResponseParserInterface`                          | `sylius_mollie.parser.guzzle_negative_response`                                       |
-| `Sylius\MolliePlugin\PartialShip\CreatePartialShipFromMollieInterface`                               | `sylius_mollie.partial_ship.create_partial_ship_from_mollie`                          |
-| `Sylius\MolliePlugin\Processor\PaymentSurchargeProcessorInterface`                                   | `sylius_mollie.processor.payment_surcharge`                                           |
-| `Sylius\MolliePlugin\EmailSender\PaymentLinkEmailSenderInterface`                                    | `sylius_mollie.email_sender.payment_link`                                             |
-| `Sylius\MolliePlugin\Uploader\PaymentMethodLogoUploaderInterface`                                    | `sylius_mollie.uploader.payment_method_logo`                                          |
-| `Sylius\MolliePlugin\PaymentProcessing\CancelRecurringSubscriptionProcessorInterface`                | `sylius_mollie.payment_processor.cancel_recurring_subscription`                       |
-| `Sylius\MolliePlugin\PaymentProcessing\SubscriptionPaymentProcessorInterface`                        | `sylius_mollie.payment_processor.subscription_payment`                                |
-| `Sylius\MolliePlugin\Preparer\PaymentLinkEmailPreparerInterface`                                     | `sylius_mollie.preparer.payment_link_email`                                           |
-| `Sylius\MolliePlugin\Provider\Apple\ApplePayDirectProviderInterface`                                 | `sylius_mollie.provider.apple.apple_pay_direct`                                       |
-| `Sylius\MolliePlugin\Provider\Order\OrderPaymentApplePayDirectProviderInterface`                     | `sylius_mollie.provider.order.order_payment_apple_pay_direct`                         |
-| `Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface`                                      | `sylius_mollie.provider.divisor`                                                      |
-| `Sylius\MolliePlugin\Provider\Apple\ApplePayDirectPaymentProviderInterface`                          | `sylius_mollie.provider.apple.apple_pay_direct_payment`                               |
-| `Sylius\MolliePlugin\Provider\Form\ResolverGroupProviderInterface`                                   | `sylius_mollie.provider.form.resolver_group`                                          |
-| `Sylius\MolliePlugin\Provider\PaymentToken\PaymentTokenProviderInterface`                            | `sylius_mollie.provider.payment_token`                                                |
-| `Sylius\MolliePlugin\Provider\Customer\CustomerProviderInterface`                                    | `sylius_mollie.provider.customer`                                                     |
-| `Sylius\MolliePlugin\Purifier\PartialShip\OrderShipmentPurifierInterface`                            | `sylius_mollie.purifier.partial_ship.order_shipment`                                  |
-| `Sylius\MolliePlugin\Purifier\PartialShip\OrderMolliePartialShipInterface`                           | `sylius_mollie.purifier.partial_ship.order_mollie_partial_ship`                       |
-| `Sylius\MolliePlugin\Purifier\MolliePaymentMethodPurifierInterface`                                  | `sylius_mollie.purifier.mollie_payment_method`                                        |
-| `Sylius\MolliePlugin\Refund\Checker\DuplicateRefundTheSameAmountCheckerInterface`                    | `sylius_mollie.checker.refund.duplicate_refund_the_same_amount`                       |
-| `Sylius\MolliePlugin\Checker\Refund\MollieOrderRefundCheckerInterface `                              | `sylius_mollie.checker.refund.mollie_order_refund`                                    |
-| `Sylius\MolliePlugin\Refund\PaymentRefundInterface`                                                  | `sylius_mollie.refund.payment`                                                        |
-| `Sylius\MolliePlugin\Refund\Units\ShipmentUnitRefundInterface`                                       | `sylius_mollie.refund.units.shipment_unit`                                            |
-| `Sylius\MolliePlugin\Refund\Units\PaymentUnitsItemRefundInterface`                                   | `sylius_mollie.refund.units.payment_units_item`                                       |
-| `Sylius\MolliePlugin\Refund\OrderRefundInterface`                                                    | `sylius_mollie.refund.order`                                                          |
-| `Sylius\MolliePlugin\Refund\Units\UnitsItemOrderRefundInterface`                                     | `sylius_mollie.refund.units.units_item_order`                                         |
-| `Sylius\MolliePlugin\Refund\Units\UnitsShipmentOrderRefundInterface`                                 | `sylius_mollie.refund.units.units_shipment_order`                                     |
-| `Sylius\MolliePlugin\Refund\Generator\PaymentNewUnitRefundGeneratorInterface`                        | `sylius_mollie.refund_generator.payment_new_unit`                                     |
-| `Sylius\MolliePlugin\Refund\Generator\PaymentRefundedGeneratorInterface`                             | `sylius_mollie.refunded_generator.payment`                                            |
-| `Sylius\MolliePlugin\Refund\Calculator\PaymentRefundCalculatorInterface`                             | `sylius_mollie.calculator.refund.payment`                                             |
-| `Sylius\MolliePlugin\Remover\PartialShip\OldShipmentItemsRemoverInterface`                           | `sylius_mollie.remover.partial_ship.old_shipment_items`                               |
-| `Sylius\MolliePlugin\Resolver\MolliePaymentsMethodResolverInterface`                                 | `sylius_mollie.resolver.payment_methods`                                              |
-| `Sylius\MolliePlugin\Resolver\MolliePaymentMethodImageResolverInterface`                             | `sylius_mollie.resolver.payment_methods_image`                                        |
-| `Sylius\MolliePlugin\Resolver\PaymentMethodConfigResolverInterface`                                  | `sylius_mollie.resolver.payment_config`                                               |
-| `Sylius\MolliePlugin\Resolver\PartialShip\FromSyliusToMollieLinesResolverInterface`                  | `sylius_mollie.resolver.partial_ship.from_sylius_to_mollie_lines`                     |
-| `Sylius\MolliePlugin\Resolver\PartialShip\FromMollieToSyliusResolverInterface`                       | `sylius_mollie.resolver.partial_ship.from_mollie_to_sylius`                           |
-| `Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface`                                        | `sylius_mollie.resolver.payment_locale`                                               |
-| `Sylius\MolliePlugin\Resolver\PaymentlinkResolverInterface`                                          | `sylius_mollie.resolver.paymentlink`                                                  |
-| `Sylius\MolliePlugin\Resolver\MollieCountriesRestrictionResolverInterface`                           | `sylius_mollie.resolver.mollie_countries_restriction`                                 |
-| `Sylius\MolliePlugin\Resolver\MollieFactoryNameResolverInterface`                                    | `sylius_mollie.resolver.mollie_factory_name`                                          |
-| `Sylius\MolliePlugin\Resolver\MealVoucherResolverInterface`                                          | `sylius_mollie.resolver.meal_voucher`                                                 |
-| `Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface`                                   | `sylius_mollie.resolver.mollie_api_client_key`                                        |
-| `Sylius\MolliePlugin\Resolver\Address\AddressResolverInterface`                                      | `sylius_mollie.resolver.address`                                                      |
-| `Sylius\MolliePlugin\Resolver\Address\ApplePayAddressResolverInterface`                              | `sylius_mollie.resolver.address.apple_pay_address`                                    |
-| `Sylius\MolliePlugin\Resolver\ApplePayDirect\ApplePayDirectApiOrderPaymentResolverInterface`         | `sylius_mollie.resolver.apple_pay_direct.apple_pay_direct_api_order_payment`          |
-| `Sylius\MolliePlugin\Resolver\ApplePayDirect\ApplePayDirectApiPaymentResolverInterface`              | `sylius_mollie.resolver.apple_pay_direct.apple_pay_direct_api_payment`                |
-| `Sylius\MolliePlugin\Resolver\ApplePayDirect\ApplePayDirectPaymentTypeResolverInterface`             | `sylius_mollie.resolver.apple_pay_direct.apple_pay_direct_payment_type`               |
-| `Sylius\MolliePlugin\Resolver\ApiKeysTestResolverInterface`                                          | `sylius_mollie.resolver.api_keys_test`                                                |
-| `Sylius\MolliePlugin\Resolver\Order\PaymentCheckoutOrderResolverInterface`                           | `sylius_mollie.resolver.order.payment_checkout_order`                                 |
-| `Sylius\MolliePlugin\Resolver\MollieMethodsResolverInterface`                                        | `sylius_mollie.resolver.mollie_methods`                                               |
-| `Sylius\MolliePlugin\Resolver\MollieAllowedMethodsResolverInterface`                                 | `sylius_mollie.resolver.mollie_allowed_methods`                                       |
-| `Sylius\MolliePlugin\Resolver\OnboardingWizard\StatusResolverInterface`                              | `sylius_mollie.resolver.onboarding_wizard.status`                                     |
-| `Sylius\MolliePlugin\Processor\SubscriptionProcessorInterface`                                       | `sylius_mollie.processor.subscription_payment`                                        |
-| `Sylius\MolliePlugin\Processor\SubscriptionScheduleProcessorInterface`                               | `sylius_mollie.processor.subscription_schedule`                                       |
-| `Sylius\MolliePlugin\Twig\Parser\ContentParserInterface`                                             | `sylius_mollie.twig.parser.content`                                                   |
-| `Sylius\MolliePlugin\Voucher\Updater\OrderVoucherAdjustmentUpdaterInterface`                         | `sylius_mollie.updater.order.order_voucher_adjustment`                                |
-| `Sylius\MolliePlugin\Validator\ApplePayDirect\ApplePayAddressValidatorInterface`                     | `sylius_mollie.validator.apple_pay_direct.apple_pay_address`                          |
-| `Sylius\RefundPlugin\Validator\RefundUnitsCommandValidatorInterface`                                 | `sylius_mollie.validator.refund.refund_units_command`                                 |
-| `Sylius\MolliePlugin\Voucher\Checker\ProductVoucherTypeCheckerInterface`                             | `sylius_mollie.checker.voucher.product_voucher_type`                                  |
-| `Sylius\MolliePlugin\Action\StateMachine\Applicator\SubscriptionAndPaymentIdApplicatorInterface`     | `sylius_mollie.payum.action.state_machine.applicator.subscription_and_payment_id`     |
-| `Sylius\MolliePlugin\Action\StateMachine\Applicator\SubscriptionAndSyliusPaymentApplicatorInterface` | `sylius_mollie.payum.action.state_machine.applicator.subscription_and_sylius_payment` |
-| `Sylius\MolliePlugin\Action\StateMachine\Transition\PaymentStateMachineTransitionInterface`          | `sylius_mollie.payum.action.state_machine.transition.payment`                         |
-| `Sylius\MolliePlugin\Action\StateMachine\Transition\ProcessingStateMachineTransitionInterface`       | `sylius_mollie.payum.action.state_machine.transition.subscription_processing`         |
-| `Sylius\MolliePlugin\Action\StateMachine\Transition\StateMachineTransitionInterface`                 | `sylius_mollie.payum.action.state_machine.transition.subscription`                    |
-| `Sylius\MolliePlugin\Action\StateMachine\SetStatusOrderActionInterface`                              | `sylius_mollie.payum.action.state_machine.order_set_status`                           |
 
 1. Replaced parameters:
 

@@ -44,7 +44,7 @@
         <service id="Sylius\MolliePlugin\Provider\Apple\ApplePayDirectPaymentProviderInterface" alias="sylius_mollie.provider.apple.apple_pay_direct_payment" />
 
         <service id="sylius_mollie.provider.form.resolver_group" class="Sylius\MolliePlugin\Form\Resolver\ProductVariantValidationGroupsResolver"/>
-        <service id="Sylius\MolliePlugin\Provider\Form\ResolverGroupProviderInterface" alias="sylius_mollie.provider.form.resolver_group" />
+        <service id="Sylius\MolliePlugin\Form\Resolver\ValidationGroupsResolverInterface" alias="sylius_mollie.provider.form.resolver_group" />
 
         <service id="sylius_mollie.provider.payment_token" class="Sylius\MolliePlugin\Payum\Provider\PaymentTokenProvider">
             <argument type="service" id="payum" />

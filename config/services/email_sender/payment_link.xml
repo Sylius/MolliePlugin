@@ -18,6 +18,6 @@
             <argument type="service" id="sylius.email_sender"/>
             <argument type="service" id="sylius_mollie.twig.parser.content"/>
         </service>
-        <service id="Sylius\MolliePlugin\EmailSender\PaymentLinkEmailSenderInterface" alias="sylius_mollie.email_sender.payment_link"/>
+        <service id="Sylius\MolliePlugin\Mailer\Sender\PaymentLinkEmailSenderInterface" alias="sylius_mollie.email_sender.payment_link"/>
     </services>
 </container>
