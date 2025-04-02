@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Exceptions;
+namespace Sylius\MolliePlugin\Exceptions;
 
 final class InvalidRefundAmountException extends \Exception
 {

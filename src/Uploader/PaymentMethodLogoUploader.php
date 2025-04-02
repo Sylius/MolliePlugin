@@ -11,22 +11,18 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Uploader;
+namespace Sylius\MolliePlugin\Uploader;
 
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
 use Doctrine\Common\Collections\Collection;
 use Gaufrette\Filesystem;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Webmozart\Assert\Assert;
 
 final class PaymentMethodLogoUploader implements PaymentMethodLogoUploaderInterface
 {
-    /** @var Filesystem */
-    private $filesystem;
-
-    public function __construct(Filesystem $filesystem)
+    public function __construct(private readonly Filesystem $filesystem)
     {
-        $this->filesystem = $filesystem;
     }
 
     public function upload(Collection $mollieGatewayConfigs): void
@@ -77,7 +73,7 @@ final class PaymentMethodLogoUploader implements PaymentMethodLogoUploaderInterf
 
         $this->filesystem->write(
             $customizeImage->getPath(),
-            $fileContent
+            $fileContent,
         );
     }
 
@@ -88,7 +84,7 @@ final class PaymentMethodLogoUploader implements PaymentMethodLogoUploaderInterf
 
     private function isAdBlockingProne(string $path): bool
     {
-        return false !== strpos($path, 'ad');
+        return str_contains($path, 'ad');
     }
 
     private function expandPath(string $path): string
@@ -97,7 +93,7 @@ final class PaymentMethodLogoUploader implements PaymentMethodLogoUploaderInterf
             '%s/%s/%s',
             substr($path, 0, 2),
             substr($path, 2, 2),
-            substr($path, 4)
+            substr($path, 4),
         );
     }
 }

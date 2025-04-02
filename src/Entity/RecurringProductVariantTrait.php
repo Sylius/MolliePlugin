@@ -11,32 +11,23 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Entity;
+namespace Sylius\MolliePlugin\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /** @mixin ProductVariantInterface */
 trait RecurringProductVariantTrait
 {
-    /**
-     * @var bool
-     * @ORM\Column(type="boolean", name="recurring", nullable="false", options={"default":0})
-     */
-    #[ORM\Column(name: "recurring", type: "boolean", nullable: false, options: ['default' => 0])]
+    /** @ORM\Column(type="boolean", name="recurring", nullable="false", options={"default":0}) */
+    #[ORM\Column(name: 'recurring', type: 'boolean', nullable: false, options: ['default' => 0])]
     private bool $recurring = false;
 
-    /**
-     * @var ?int
-     * @ORM\Column(type="integer", name="recurring_times", nullable="true")
-     */
-    #[ORM\Column(name: "recurring_times", type: "integer", nullable: true)]
+    /** @ORM\Column(type="integer", name="recurring_times", nullable="true") */
+    #[ORM\Column(name: 'recurring_times', type: 'integer', nullable: true)]
     private ?int $times = null;
 
-    /**
-     * @var ?string
-     * @ORM\Column(type="string", name="recurring_interval", nullable="true")
-     */
-    #[ORM\Column(name: "recurring_interval", type: "string", nullable: true)]
+    /** @ORM\Column(type="string", name="recurring_interval", nullable="true") */
+    #[ORM\Column(name: 'recurring_interval', type: 'string', nullable: true)]
     private ?string $interval = null;
 
     public function isRecurring(): bool

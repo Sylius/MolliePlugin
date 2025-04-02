@@ -11,16 +11,16 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Validator\Constraints;
+namespace Sylius\MolliePlugin\Validator\Constraints;
 
-use SyliusMolliePlugin\Exceptions\MissingFieldException;
+use Sylius\MolliePlugin\Exceptions\MissingFieldException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 final class LiveApiKeyIsNotBlankValidator extends ConstraintValidator
 {
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof LiveApiKeyIsNotBlank) {
             throw new UnexpectedTypeException($constraint, LiveApiKeyIsNotBlank::class);

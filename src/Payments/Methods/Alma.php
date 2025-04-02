@@ -9,9 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace SyliusMolliePlugin\Payments\Methods;
+declare(strict_types=1);
+
+namespace Sylius\MolliePlugin\Payments\Methods;
 
 use Mollie\Api\Types\PaymentMethod;
+use Sylius\MolliePlugin\Payments\PaymentType;
 
 final class Alma extends AbstractMethod
 {
@@ -22,6 +25,6 @@ final class Alma extends AbstractMethod
 
     public function getPaymentType(): string
     {
-        return self::PAYMENT_API;
+        return PaymentType::PAYMENT_API_VALUE;
     }
 }

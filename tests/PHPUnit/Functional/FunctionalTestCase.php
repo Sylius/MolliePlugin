@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Functional;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Functional;
 
 use ApiTestCase\JsonApiTestCase;
 

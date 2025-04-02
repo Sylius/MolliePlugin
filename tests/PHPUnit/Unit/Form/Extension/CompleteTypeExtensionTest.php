@@ -11,18 +11,18 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Form\Extension;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Form\Extension;
 
-use SyliusMolliePlugin\Form\Extension\CompleteTypeExtension;
-use SyliusMolliePlugin\Form\Type\DirectDebitType;
-use Symfony\Component\Form\AbstractTypeExtension;
-use Symfony\Component\Validator\Constraints\Valid;
-use Symfony\Component\Form\FormBuilderInterface;
+use Payum\Core\Model\GatewayConfigInterface;
+use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
-use Payum\Core\Model\GatewayConfigInterface;
-use PHPUnit\Framework\TestCase;
+use Sylius\MolliePlugin\Form\Extension\CompleteTypeExtension;
+use Sylius\MolliePlugin\Form\Type\DirectDebitType;
+use Symfony\Component\Form\AbstractTypeExtension;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Valid;
 
 final class CompleteTypeExtensionTest extends TestCase
 {
@@ -33,13 +33,13 @@ final class CompleteTypeExtensionTest extends TestCase
         $this->completeTypeExtension = new CompleteTypeExtension();
     }
 
-    function testInitializable(): void
+    public function testInitializable(): void
     {
         $this->assertInstanceOf(CompleteTypeExtension::class, $this->completeTypeExtension);
         $this->assertInstanceOf(AbstractTypeExtension::class, $this->completeTypeExtension);
     }
 
-    function testBuildsForm(): void
+    public function testBuildsForm(): void
     {
         $builderMock = $this->createMock(FormBuilderInterface::class);
         $orderMock = $this->createMock(OrderInterface::class);
@@ -90,7 +90,7 @@ final class CompleteTypeExtensionTest extends TestCase
                     'constraints' => [
                         new Valid(),
                     ],
-                ]
+                ],
             )
         ;
 

@@ -11,26 +11,18 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver\OnboardingWizard;
+namespace Sylius\MolliePlugin\Resolver\OnboardingWizard;
 
-use SyliusMolliePlugin\Entity\OnboardingWizardStatus;
-use SyliusMolliePlugin\Entity\OnboardingWizardStatusInterface;
-use SyliusMolliePlugin\Factory\OnboardingWizard\StatusFactoryInterface;
 use Sylius\Component\Core\Model\AdminUserInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Entity\OnboardingWizardStatus;
+use Sylius\MolliePlugin\Entity\OnboardingWizardStatusInterface;
+use Sylius\MolliePlugin\Factory\OnboardingWizard\StatusFactoryInterface;
 
 final class StatusResolver implements StatusResolverInterface
 {
-    /** @var RepositoryInterface */
-    private $statusRepository;
-
-    /** @var StatusFactoryInterface */
-    private $statusFactory;
-
-    public function __construct(RepositoryInterface $statusRepository, StatusFactoryInterface $statusFactory)
+    public function __construct(private readonly RepositoryInterface $statusRepository, private readonly StatusFactoryInterface $statusFactory)
     {
-        $this->statusRepository = $statusRepository;
-        $this->statusFactory = $statusFactory;
     }
 
     public function resolve(AdminUserInterface $adminUser): OnboardingWizardStatusInterface

@@ -11,29 +11,23 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Entity;
+namespace Sylius\MolliePlugin\Entity;
 
 use Sylius\Component\Resource\Model\ResourceInterface;
 
 class PaymentSurchargeFee implements ResourceInterface, PaymentSurchargeFeeInterface
 {
-    /** @var int|null */
-    protected $id;
+    protected ?int $id = null;
 
-    /** @var string|null */
-    protected $type;
+    protected ?string $type = null;
 
-    /** @var float|null */
-    protected $fixedAmount;
+    protected ?float $fixedAmount = null;
 
-    /** @var float|null */
-    protected $percentage;
+    protected ?float $percentage = null;
 
-    /** @var float|null */
-    protected $surchargeLimit;
+    protected ?float $surchargeLimit = null;
 
-    /** @var MollieGatewayConfigInterface|null */
-    protected $mollieGatewayConfig;
+    protected ?MollieGatewayConfigInterface $mollieGatewayConfig = null;
 
     public function getId(): ?int
     {

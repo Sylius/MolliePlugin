@@ -11,18 +11,15 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\DTO;
+namespace Sylius\MolliePlugin\DTO;
 
 final class PartialShipItem
 {
-    /** @var int */
-    private $id;
+    private int $id;
 
-    /** @var string */
-    private $lineId;
+    private string $lineId;
 
-    /** @var int */
-    private $quantity;
+    private int $quantity;
 
     public function getId(): int
     {

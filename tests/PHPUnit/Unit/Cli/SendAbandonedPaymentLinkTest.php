@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Cli;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Cli;
 
 use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Cli\SendAbandonedPaymentLink;
-use SyliusMolliePlugin\Creator\AbandonedPaymentLinkCreatorInterface;
+use Sylius\MolliePlugin\Console\Command\SendAbandonedPaymentLink;
+use Sylius\MolliePlugin\Creator\AbandonedPaymentLinkCreatorInterface;
 use Symfony\Component\Console\Command\Command;
 
 final class SendAbandonedPaymentLinkTest extends TestCase
@@ -30,7 +30,7 @@ final class SendAbandonedPaymentLinkTest extends TestCase
         $this->sendAbandonedPaymentLink = new SendAbandonedPaymentLink($this->abandonedPaymentLinkCreatorMock);
     }
 
-    function testExtendsCommand(): void
+    public function testExtendsCommand(): void
     {
         $this->assertInstanceOf(Command::class, $this->sendAbandonedPaymentLink);
     }

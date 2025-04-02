@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults public="true" />
+
+        <service id="sylius_mollie.payum.action.state_machine.status_recurring_subscription" class="Sylius\MolliePlugin\Payum\Action\Subscription\StatusRecurringSubscriptionAction">
+            <argument type="service" id="sylius_mollie.manager.mollie_subscription"/>
+            <argument type="service" id="sylius_mollie.payum.action.state_machine.applicator.subscription_and_payment_id"/>
+            <argument type="service" id="sylius_mollie.payum.action.state_machine.applicator.subscription_and_sylius_payment"/>
+            <argument type="service" id="sylius_mollie.payum.action.state_machine.transition.state_machine_transition"/>
+            <tag name="payum.action" factory="mollie_subscription" alias="payum.action.state_machine.status_recurring_subscription"/>
+        </service>
+
+        <service id="sylius_mollie.payum.action.state_machine.applicator.subscription_and_payment_id" class="Sylius\MolliePlugin\StateMachine\Applicator\SubscriptionAndPaymentIdApplicator">
+            <argument type="service" id="sylius_mollie.mollie_api_client"/>
+            <argument type="service" id="sylius_mollie.payum.action.state_machine.transition.state_machine_transition"/>
+            <argument type="service" id="sylius_mollie.payum.action.state_machine.transition.payment"/>
+            <argument type="service" id="sylius_mollie.payum.action.state_machine.transition.processing_state_machine_transition"/>
+        </service>
+
+        <service id="sylius_mollie.payum.action.state_machine.applicator.subscription_and_sylius_payment" class="Sylius\MolliePlugin\StateMachine\Applicator\SubscriptionAndSyliusPaymentApplicator">
+            <argument type="service" id="sylius_mollie.payum.action.state_machine.transition.state_machine_transition"/>
+            <argument type="service" id="sylius_mollie.payum.action.state_machine.transition.payment"/>
+            <argument type="service" id="sylius_mollie.payum.action.state_machine.transition.processing_state_machine_transition"/>
+        </service>
+
+        <service id="sylius_mollie.payum.action.state_machine.transition.payment" class="Sylius\MolliePlugin\StateMachine\Transition\PaymentStateMachineTransition">
+            <argument type="service" id="sm.factory"/>
+        </service>
+
+        <service id="sylius_mollie.payum.action.state_machine.transition.processing_state_machine_transition" class="Sylius\MolliePlugin\StateMachine\Transition\ProcessingStateMachineTransition">
+            <argument type="service" id="sm.factory"/>
+        </service>
+
+        <service id="sylius_mollie.payum.action.state_machine.transition.state_machine_transition" class="Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransition">
+            <argument type="service" id="sm.factory"/>
+        </service>
+
+        <service id="sylius_mollie.action.state_machine.order_set_status" class="Sylius\MolliePlugin\StateMachine\Applicator\MollieOrderStatesApplicator">
+            <argument type="service" id="sm.factory"/>
+            <argument type="service" id="sylius.repository.order"/>
+            <argument type="service" id="sylius_mollie.partial_ship.create_partial_ship_from_mollie"/>
+        </service>
+    </services>
+</container>

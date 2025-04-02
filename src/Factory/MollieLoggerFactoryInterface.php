@@ -11,16 +11,16 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Factory;
+namespace Sylius\MolliePlugin\Factory;
 
-use SyliusMolliePlugin\Entity\MollieLoggerInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
+use Sylius\MolliePlugin\Entity\MollieLoggerInterface;
 
 interface MollieLoggerFactoryInterface extends FactoryInterface
 {
     public function create(
         string $message,
         int $logLevel,
-        int $errorCode
+        int $errorCode,
     ): MollieLoggerInterface;
 }

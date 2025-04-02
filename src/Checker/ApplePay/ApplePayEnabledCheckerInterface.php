@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Checker\ApplePay;
+namespace Sylius\MolliePlugin\Checker\ApplePay;
 
 interface ApplePayEnabledCheckerInterface
 {

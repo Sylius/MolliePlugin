@@ -11,42 +11,23 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Payments\MethodResolver;
+namespace Sylius\MolliePlugin\Payments\MethodResolver;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Factory\MollieSubscriptionGatewayFactory;
-use SyliusMolliePlugin\Repository\PaymentMethodRepositoryInterface;
-use SyliusMolliePlugin\Resolver\MollieFactoryNameResolverInterface;
 use Sylius\Component\Core\Model\PaymentInterface as CorePaymentInterface;
 use Sylius\Component\Payment\Model\PaymentInterface;
+use Sylius\Component\Payment\Model\PaymentMethodInterface;
 use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
+use Sylius\MolliePlugin\Resolver\MollieFactoryNameResolverInterface;
 use Webmozart\Assert\Assert;
 
 final class MolliePaymentMethodResolver implements PaymentMethodsResolverInterface
 {
-    private PaymentMethodsResolverInterface $decoratedService;
-
-    private PaymentMethodRepositoryInterface $paymentMethodRepository;
-
-    private MollieFactoryNameResolverInterface $factoryNameResolver;
-
-    private MollieMethodFilterInterface $mollieMethodFilter;
-
-    private EntityManagerInterface $entityManager;
-
-    public function __construct(
-        PaymentMethodsResolverInterface $decoratedService,
-        PaymentMethodRepositoryInterface $paymentMethodRepository,
-        MollieFactoryNameResolverInterface $factoryNameResolver,
-        MollieMethodFilterInterface $mollieMethodFilter,
-        EntityManagerInterface $entityManager
-    ) {
-        $this->decoratedService = $decoratedService;
-        $this->paymentMethodRepository = $paymentMethodRepository;
-        $this->factoryNameResolver = $factoryNameResolver;
-        $this->mollieMethodFilter = $mollieMethodFilter;
-        $this->entityManager = $entityManager;
+    public function __construct(private readonly PaymentMethodsResolverInterface $decoratedService, private readonly PaymentMethodRepositoryInterface $paymentMethodRepository, private readonly MollieFactoryNameResolverInterface $factoryNameResolver, private readonly MollieMethodFilterInterface $mollieMethodFilter, private readonly EntityManagerInterface $entityManager)
+    {
     }
 
     public function getSupportedMethods(PaymentInterface $subject): array
@@ -63,7 +44,7 @@ final class MolliePaymentMethodResolver implements PaymentMethodsResolverInterfa
         Assert::notNull($channel);
         $method = $this->paymentMethodRepository->findOneByChannelAndGatewayFactoryName(
             $channel,
-            $factoryName
+            $factoryName,
         );
 
         if (null !== $method && MollieSubscriptionGatewayFactory::FACTORY_NAME === $factoryName) {
@@ -94,10 +75,15 @@ final class MolliePaymentMethodResolver implements PaymentMethodsResolverInterfa
 
         Assert::notNull($subject->getOrder());
 
-        return $order->hasRecurringContents() || $order->hasNonRecurringContents()
-            && null !== $subject->getOrder()->getChannel();
+        return $order->hasRecurringContents() || $order->hasNonRecurringContents() &&
+            null !== $subject->getOrder()->getChannel();
     }
 
+    /**
+     * @param PaymentMethodInterface[] $methods
+     *
+     * @return PaymentMethodInterface[]
+     */
     private function filterMethodsByChannel(array $methods, int $channelId): array
     {
         $filteredMethods = [];
@@ -128,10 +114,9 @@ final class MolliePaymentMethodResolver implements PaymentMethodsResolverInterfa
     }
 
     /**
-     * Sorts payment methods by their position before returning the result
-     * @param array $methods
+     * @param PaymentMethodInterface[] $methods
      *
-     * @return array
+     * @return PaymentMethodInterface[]
      */
     private function sortMethodsByPosition(array $methods): array
     {

@@ -11,15 +11,15 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Order;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Order;
 
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Shipping\Model\ShippingMethodInterface;
-use SyliusMolliePlugin\Order\ShipmentCloner;
-use SyliusMolliePlugin\Order\ShipmentClonerInterface;
-use SyliusMolliePlugin\Order\ShipmentUnitClonerInterface;
+use Sylius\MolliePlugin\Order\ShipmentCloner;
+use Sylius\MolliePlugin\Order\ShipmentClonerInterface;
+use Sylius\MolliePlugin\Order\ShipmentUnitClonerInterface;
 
 final class ShipmentClonerTest extends TestCase
 {

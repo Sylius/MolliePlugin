@@ -31,7 +31,7 @@ default:
                 - sylius.behat.context.setup.zone
                 - sylius.behat.context.setup.admin_security
 
-                - sylius_mollie_plugin.behat.context.setup.mollie
+                - sylius_mollie.behat.context.setup.mollie
 
                 - sylius.behat.context.ui.paypal
                 - sylius.behat.context.ui.shop.cart
@@ -43,11 +43,11 @@ default:
                 - sylius.behat.context.ui.shop.checkout.shipping
                 - sylius.behat.context.ui.shop.checkout.thank_you
 
-                - sylius_mollie_plugin.behat.context.ui.shop.checkout
-                - sylius_mollie_plugin.behat.context.setup.product
+                - sylius_mollie.behat.context.ui.shop.checkout
+                - sylius_mollie.behat.context.setup.product
                 - sylius.behat.context.ui.admin.managing_orders
-                - sylius_mollie_plugin.behat.context.ui.admin.order
-                - sylius_mollie_plugin.behat.context.ui.shop.product
+                - sylius_mollie.behat.context.ui.admin.order
+                - sylius_mollie.behat.context.ui.shop.product
                 - Behat\MinkExtension\Context\MinkContext
             filters:
-                tags: "@paying_with_mollie_for_order && @ui"
+                tags: "@paying_with_mollie_for_order&&@ui"

@@ -11,27 +11,17 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Creator;
+namespace Sylius\MolliePlugin\Creator;
 
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 final class ChangePositionPaymentMethodCreator implements ChangePositionPaymentMethodCreatorInterface
 {
-    /** @var RepositoryInterface */
-    private $mollieGatewayRepository;
-
-    /** @var EntityManagerInterface */
-    private $mollieGatewayEntityManager;
-
-    public function __construct(
-        RepositoryInterface $mollieGatewayRepository,
-        EntityManagerInterface $mollieGatewayObjectManager
-    ) {
-        $this->mollieGatewayRepository = $mollieGatewayRepository;
-        $this->mollieGatewayEntityManager = $mollieGatewayObjectManager;
+    public function __construct(private readonly RepositoryInterface $mollieGatewayRepository, private readonly EntityManagerInterface $mollieGatewayEntityManager)
+    {
     }
 
     public function createFromRequest(Request $request): void
@@ -43,9 +33,8 @@ final class ChangePositionPaymentMethodCreator implements ChangePositionPaymentM
                 'methodId' => $position['name'],
                 'id' => $position['identifier'],
             ]);
-            if ($method instanceof MollieGatewayConfigInterface && isset($position['id'])) {
+            if ($method instanceof MollieGatewayConfigInterface) {
                 $method->setPosition((int) $position['id']);
-
                 $this->mollieGatewayEntityManager->persist($method);
             }
         }
@@ -53,10 +42,24 @@ final class ChangePositionPaymentMethodCreator implements ChangePositionPaymentM
         $this->mollieGatewayEntityManager->flush();
     }
 
+    /**
+     * @param array<int, array{
+     *     name: string,
+     *     identifier: int|string,
+     *     id?: string|null
+     * }> $positions
+     *
+     * @return array<int, array{
+     *     name: string,
+     *     identifier: int|string,
+     *     id: string
+     * }>
+     */
     private function emptyPositionFilter(array $positions): array
     {
-        return array_filter($positions, function (array $position): bool {
-            return isset($position['id']) && '' !== $position['id'];
-        });
+        return array_filter(
+            $positions,
+            static fn (array $position): bool => isset($position['id']) && '' !== $position['id'],
+        );
     }
 }

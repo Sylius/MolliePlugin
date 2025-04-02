@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Action;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Action;
 
 use ArrayObject;
 use Payum\Core\GatewayInterface;
@@ -23,17 +23,17 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Customer\Context\CustomerContextInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use SyliusMolliePlugin\Action\ConvertMolliePaymentAction;
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
-use SyliusMolliePlugin\Factory\ApiCustomerFactoryInterface;
-use SyliusMolliePlugin\Helper\ConvertOrderInterface;
-use SyliusMolliePlugin\Helper\IntToStringConverterInterface;
-use SyliusMolliePlugin\Helper\PaymentDescriptionInterface;
-use SyliusMolliePlugin\Provider\Divisor\DivisorProviderInterface;
-use SyliusMolliePlugin\Request\Api\CreateCustomer;
-use SyliusMolliePlugin\Resolver\PaymentLocaleResolverInterface;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
+use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
+use Sylius\MolliePlugin\Helper\PaymentDescriptionInterface;
+use Sylius\MolliePlugin\Payum\Action\ConvertMolliePaymentAction;
+use Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactoryInterface;
+use Sylius\MolliePlugin\Payum\Request\CreateCustomer;
+use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 final class ConvertMolliePaymentActionTest extends TestCase
@@ -50,7 +50,7 @@ final class ConvertMolliePaymentActionTest extends TestCase
 
     private PaymentLocaleResolverInterface $paymentLocaleResolverMock;
 
-    private ApiCustomerFactoryInterface $apiCustomerFactoryMock;
+    private CreateCustomerFactoryInterface $createCustomerFactoryMock;
 
     private ConvertMolliePaymentAction $convertMolliePaymentAction;
 
@@ -62,7 +62,7 @@ final class ConvertMolliePaymentActionTest extends TestCase
         $this->orderConverterMock = $this->createMock(ConvertOrderInterface::class);
         $this->customerContextMock = $this->createMock(CustomerContextInterface::class);
         $this->paymentLocaleResolverMock = $this->createMock(PaymentLocaleResolverInterface::class);
-        $this->apiCustomerFactoryMock = $this->createMock(ApiCustomerFactoryInterface::class);
+        $this->createCustomerFactoryMock = $this->createMock(CreateCustomerFactoryInterface::class);
         $this->intToStringConverterMock = $this->createMock(IntToStringConverterInterface::class);
         $this->divisorProviderMock = $this->createMock(DivisorProviderInterface::class);
         $this->convertMolliePaymentAction =
@@ -72,14 +72,14 @@ final class ConvertMolliePaymentActionTest extends TestCase
                 $this->orderConverterMock,
                 $this->customerContextMock,
                 $this->paymentLocaleResolverMock,
-                $this->apiCustomerFactoryMock,
+                $this->createCustomerFactoryMock,
                 $this->intToStringConverterMock,
                 $this->divisorProviderMock,
             )
         ;
     }
 
-    function testExecutesWhenMetadataAndSingleClickAreEnabled(): void
+    public function testExecutesWhenMetadataAndSingleClickAreEnabled(): void
     {
         $inputDetails = [
             'amount' => [
@@ -93,10 +93,10 @@ final class ConvertMolliePaymentActionTest extends TestCase
                 'molliePaymentMethods' => 'ideal',
                 'cartToken' => 'carttoken',
                 'saveCardInfo' => null,
-                'useSavedCards' => null
+                'useSavedCards' => null,
             ],
             'full_name' => 'Jan Kowalski',
-            'email' => 'shop@example.com'
+            'email' => 'shop@example.com',
         ];
         $paymentMock = $this->createMock(PaymentInterface::class);
         $requestMock = new Convert($paymentMock, 'array');
@@ -112,7 +112,7 @@ final class ConvertMolliePaymentActionTest extends TestCase
         $paymentMock->method('getDetails')->willReturn($inputDetails);
 
         $mollieApiClientMock->expects($this->once())->method('isRecurringSubscription')->willReturn(false);
-        $this->apiCustomerFactoryMock->expects($this->once())->method('createNew')->willReturn($mollieCustomerMock);
+        $this->createCustomerFactoryMock->expects($this->once())->method('createNew')->willReturn($mollieCustomerMock);
         $this->convertMolliePaymentAction->setApi($mollieApiClientMock);
         $this->convertMolliePaymentAction->setGateway($gatewayMock);
         $customerMock->expects($this->once())->method('getFullName')->willReturn('Jan Kowalski');
@@ -132,11 +132,11 @@ final class ConvertMolliePaymentActionTest extends TestCase
             'single_click_enabled' => true,
         ]);
 
-        $this->apiCustomerFactoryMock->expects($this->once())->method('createNew')->with($inputDetails)->willReturn($mollieCustomerMock);
+        $this->createCustomerFactoryMock->expects($this->once())->method('createNew')->with($inputDetails)->willReturn($mollieCustomerMock);
         $mollieCustomerMock->expects($this->once())->method('getModel')->willReturn(new ArrayObject(
             [
-                'customer_mollie_id' => 15
-            ]
+                'customer_mollie_id' => 15,
+            ],
         ));
 
         $this->convertMolliePaymentAction->execute($requestMock);
@@ -144,10 +144,9 @@ final class ConvertMolliePaymentActionTest extends TestCase
         $inputDetails['metadata']['methodType'] = 'Payments API';
         $inputDetails['customerId'] = 15;
         $this->assertSame($inputDetails, $requestMock->getResult());
-
     }
 
-    function testExecutesWithNoMetadataAndRecurringSubscriptionSetToFalse(): void
+    public function testExecutesWithNoMetadataAndRecurringSubscriptionSetToFalse(): void
     {
         $inputDetails = [
             'amount' => [
@@ -162,11 +161,11 @@ final class ConvertMolliePaymentActionTest extends TestCase
                 'cartToken' => 'token',
                 'saveCardInfo' => null,
                 'useSavedCards' => null,
-                'methodType' => 'Payments API'
+                'methodType' => 'Payments API',
             ],
             'full_name' => 'Jan Kowalski',
             'email' => 'shop@example.com',
-            'customerId' => null
+            'customerId' => null,
         ];
 
         $paymentMock = $this->createMock(PaymentInterface::class);
@@ -193,7 +192,7 @@ final class ConvertMolliePaymentActionTest extends TestCase
         $this->paymentDescriptionProviderMock->expects($this->once())->method('getPaymentDescription')->with($paymentMock, $methodMock, $orderMock)->willReturn('description');
         $paymentMock->expects($this->once())->method('getDetails')->willReturn([
             'molliePaymentMethods' => 15,
-            'cartToken' => 'token'
+            'cartToken' => 'token',
         ]);
         $this->mollieMethodsRepositoryMock->expects($this->once())->method('findOneBy')->with(['methodId' => 15])->willReturn($methodMock);
         $methodMock->expects($this->once())->method('getPaymentType')->willReturn('payment_type');
@@ -204,7 +203,7 @@ final class ConvertMolliePaymentActionTest extends TestCase
         $this->assertSame($inputDetails, $requestMock->getResult());
     }
 
-    function testExecutesWithNoMetadataAndRecurringSubscriptionSetToFalseButWithPaymentLocale(): void
+    public function testExecutesWithNoMetadataAndRecurringSubscriptionSetToFalseButWithPaymentLocale(): void
     {
         $inputDetails = [
             'amount' => [
@@ -219,12 +218,12 @@ final class ConvertMolliePaymentActionTest extends TestCase
                 'cartToken' => 'token',
                 'saveCardInfo' => null,
                 'useSavedCards' => null,
-                'methodType' => 'Payments API'
+                'methodType' => 'Payments API',
             ],
             'full_name' => 'Jan Kowalski',
             'email' => 'shop@example.com',
             'customerId' => null,
-            'locale' => 'payment_locale'
+            'locale' => 'payment_locale',
         ];
 
         $paymentMock = $this->createMock(PaymentInterface::class);
@@ -251,7 +250,7 @@ final class ConvertMolliePaymentActionTest extends TestCase
         $this->paymentDescriptionProviderMock->expects($this->once())->method('getPaymentDescription')->with($paymentMock, $methodMock, $orderMock)->willReturn('description');
         $paymentMock->expects($this->once())->method('getDetails')->willReturn([
             'molliePaymentMethods' => 15,
-            'cartToken' => 'token'
+            'cartToken' => 'token',
         ]);
         $this->mollieMethodsRepositoryMock->expects($this->once())->method('findOneBy')->with(['methodId' => 15])->willReturn($methodMock);
         $methodMock->expects($this->once())->method('getPaymentType')->willReturn('payment_type');
@@ -263,7 +262,7 @@ final class ConvertMolliePaymentActionTest extends TestCase
         $this->assertSame($inputDetails, $requestMock->getResult());
     }
 
-    function testExecutesWithNoMetadataAndRecurringSubscriptionSetToFalseButWithPaymentLocaleAndOrderApi(): void
+    public function testExecutesWithNoMetadataAndRecurringSubscriptionSetToFalseButWithPaymentLocaleAndOrderApi(): void
     {
         $inputDetails = [
             'amount' => [
@@ -278,7 +277,7 @@ final class ConvertMolliePaymentActionTest extends TestCase
                 'cartToken' => 'token',
                 'methodType' => 'Orders API',
                 'saveCardInfo' => null,
-                'useSavedCards' => null
+                'useSavedCards' => null,
             ],
             'full_name' => 'Jan Kowalski',
             'email' => 'shop@example.com',
@@ -312,7 +311,7 @@ final class ConvertMolliePaymentActionTest extends TestCase
         $paymentMock->method('getCurrencyCode')->willReturn('EUR');
         $paymentMock->expects($this->once())->method('getDetails')->willReturn([
             'molliePaymentMethods' => 15,
-            'cartToken' => 'token'
+            'cartToken' => 'token',
         ]);
         $orderMock->expects($this->once())->method('getId')->willReturn(1);
         $orderMock->method('getLocaleCode')->willReturn('pl_PL');
@@ -327,7 +326,7 @@ final class ConvertMolliePaymentActionTest extends TestCase
         $this->assertSame($inputDetails, $requestMock->getResult());
     }
 
-    function testSupportsOnlyConvertRequestWithGetSourceAsInstanceOfPaymentInterfaceAndGetToEqualsArray(): void
+    public function testSupportsOnlyConvertRequestWithGetSourceAsInstanceOfPaymentInterfaceAndGetToEqualsArray(): void
     {
         $requestMock = $this->createMock(Convert::class);
         $paymentMock = $this->createMock(PaymentInterface::class);

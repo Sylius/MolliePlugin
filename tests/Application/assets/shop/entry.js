@@ -1,1 +1,1 @@
-import '../../../../src/Resources/assets/shop/entry';
+import '../../../../assets/shop/entry';

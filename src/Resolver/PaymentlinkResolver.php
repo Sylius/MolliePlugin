@@ -11,38 +11,39 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver;
+namespace Sylius\MolliePlugin\Resolver;
 
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Entity\MollieGatewayConfig;
-use SyliusMolliePlugin\Factory\MollieGatewayFactory;
-use SyliusMolliePlugin\Factory\MollieSubscriptionGatewayFactory;
-use SyliusMolliePlugin\Form\Type\MollieGatewayConfigurationType;
-use SyliusMolliePlugin\Helper\IntToStringConverterInterface;
-use SyliusMolliePlugin\Preparer\PaymentLinkEmailPreparerInterface;
 use Liip\ImagineBundle\Exception\Config\Filter\NotFoundException;
-use Sylius\AdminOrderCreationPlugin\Provider\PaymentTokenProviderInterface;
+use Sylius\AdminOrderCreationPlugin\Provider\PaymentTokenProviderInterface as OrderCreationPaymentTokenProviderInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
+use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType;
+use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
+use Sylius\MolliePlugin\Mailer\Manager\PaymentLinkEmailManagerInterface;
+use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Payum\Provider\PaymentTokenProviderInterface;
 use Webmozart\Assert\Assert;
 
 final class PaymentlinkResolver implements PaymentlinkResolverInterface
 {
     public function __construct(
-        private MollieApiClient $mollieApiClient,
-        private IntToStringConverterInterface $intToStringConverter,
-        private RepositoryInterface $orderRepository,
-        private PaymentLinkEmailPreparerInterface $emailPreparer,
-        private PaymentTokenProviderInterface $paymentTokenProvider
+        private readonly MollieApiClient $mollieApiClient,
+        private readonly IntToStringConverterInterface $intToStringConverter,
+        private readonly RepositoryInterface $orderRepository,
+        private readonly PaymentLinkEmailManagerInterface $paymentLinkEmailManager,
+        private readonly OrderCreationPaymentTokenProviderInterface|PaymentTokenProviderInterface $paymentTokenProvider,
     ) {
     }
 
     public function resolve(
         OrderInterface $order,
         array $data,
-        string $templateName
+        string $templateName,
     ): string {
         $methodsArray = [];
         $methods = $data['methods'] ?? $data['methods'] = [];
@@ -56,10 +57,10 @@ final class PaymentlinkResolver implements PaymentlinkResolverInterface
 
         Assert::notNull($paymentMethod->getGatewayConfig());
         if (false === in_array(
-                $paymentMethod->getGatewayConfig()->getFactoryName(),
-                [MollieGatewayFactory::FACTORY_NAME, MollieSubscriptionGatewayFactory::FACTORY_NAME],
-                true
-            )) {
+            $paymentMethod->getGatewayConfig()->getFactoryName(),
+            [MollieGatewayFactory::FACTORY_NAME, MollieSubscriptionGatewayFactory::FACTORY_NAME],
+            true,
+        )) {
             throw new NotFoundException('No method mollie found in order');
         }
 
@@ -84,7 +85,7 @@ final class PaymentlinkResolver implements PaymentlinkResolverInterface
         try {
             $token = $this->paymentTokenProvider->getPaymentToken($syliusPayment);
             $redirectURL = $token->getTargetUrl();
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             $redirectURL = $details['backurl'];
         }
 
@@ -118,14 +119,21 @@ final class PaymentlinkResolver implements PaymentlinkResolverInterface
 
         $this->orderRepository->add($order);
 
-        $this->emailPreparer->prepare($order, $templateName);
+        $this->paymentLinkEmailManager->send($order, $templateName);
 
         return $payment->_links->checkout->href;
     }
 
+    /**
+     * @param array{
+     *    environment?: bool,
+     *    api_key_live?: mixed,
+     *    api_key_test?: mixed
+     * } $config
+     */
     private function getModus(array $config): string
     {
-        if ($config['environment']) {
+        if (true === $config['environment']) {
             return $config[MollieGatewayConfigurationType::API_KEY_LIVE];
         }
 
