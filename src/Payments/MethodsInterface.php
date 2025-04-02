@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Payments;
 
 use Mollie\Api\Resources\Method;
+use Mollie\Api\Types\PaymentMethod;
 use Sylius\MolliePlugin\Payments\Methods\Alma;
 use Sylius\MolliePlugin\Payments\Methods\ApplePay;
 use Sylius\MolliePlugin\Payments\Methods\Bancomatpay;
@@ -47,36 +48,37 @@ use Sylius\MolliePlugin\Payments\Methods\Twint;
 
 interface MethodsInterface
 {
+    /** @var array<string, class-string> */
     public const GATEWAYS = [
-        Alma::class,
-        ApplePay::class,
-        Bancontact::class,
-        BankTransfer::class,
-        Belfius::class,
-        CreditCard::class,
-        Eps::class,
-        GiftCard::class,
-        Ideal::class,
-        Kbc::class,
-        KlarnaOne::class,
-        Klarnapaylater::class,
-        Klarnasliceit::class,
-        KlarnaPayNow::class,
-        MyBank::class,
-        PayPal::class,
-        Przelewy24::class,
-        SofortBanking::class,
-        MealVoucher::class,
-        DirectDebit::class,
-        In3::class,
-        Billie::class,
-        Twint::class,
-        Blik::class,
-        Riverty::class,
-        Trustly::class,
-        Bancomatpay::class,
-        Payconiq::class,
-        Satispay::class,
+        PaymentMethod::ALMA => Alma::class,
+        PaymentMethod::APPLEPAY => ApplePay::class,
+        PaymentMethod::BANCONTACT => Bancontact::class,
+        PaymentMethod::BANKTRANSFER => BankTransfer::class,
+        PaymentMethod::BELFIUS => Belfius::class,
+        PaymentMethod::CREDITCARD => CreditCard::class,
+        PaymentMethod::EPS => Eps::class,
+        PaymentMethod::GIFTCARD => GiftCard::class,
+        PaymentMethod::IDEAL => Ideal::class,
+        PaymentMethod::KBC => Kbc::class,
+        PaymentMethod::KLARNA_ONE => KlarnaOne::class,
+        PaymentMethod::KLARNA_PAY_LATER => Klarnapaylater::class,
+        PaymentMethod::KLARNA_SLICE_IT => Klarnasliceit::class,
+        PaymentMethod::KLARNA_PAY_NOW => KlarnaPayNow::class,
+        PaymentMethod::MYBANK => MyBank::class,
+        PaymentMethod::PAYPAL => PayPal::class,
+        PaymentMethod::PRZELEWY24 => Przelewy24::class,
+        PaymentMethod::SOFORT => SofortBanking::class,
+        MealVoucher::MEAL_VOUCHERS => MealVoucher::class,
+        PaymentMethod::DIRECTDEBIT => DirectDebit::class,
+        PaymentMethod::IN3 => In3::class,
+        PaymentMethod::BILLIE => Billie::class,
+        PaymentMethod::TWINT => Twint::class,
+        PaymentMethod::BLIK => Blik::class,
+        PaymentMethod::RIVERTY => Riverty::class,
+        PaymentMethod::TRUSTLY => Trustly::class,
+        PaymentMethod::BANCOMATPAY => Bancomatpay::class,
+        PaymentMethod::PAYCONIQ => Payconiq::class,
+        PaymentMethod::SATISPAY => Satispay::class,
     ];
 
     /** @return MethodInterface[] */

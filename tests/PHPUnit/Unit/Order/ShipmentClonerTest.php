@@ -17,23 +17,20 @@ use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Shipping\Model\ShippingMethodInterface;
-use Sylius\MolliePlugin\Order\ShipmentCloner;
-use Sylius\MolliePlugin\Order\ShipmentClonerInterface;
-use Sylius\MolliePlugin\Order\ShipmentUnitClonerInterface;
+use Sylius\MolliePlugin\Cloner\ShipmentCloner;
+use Sylius\MolliePlugin\Cloner\ShipmentClonerInterface;
 
 final class ShipmentClonerTest extends TestCase
 {
     private FactoryInterface $shipmentFactoryMock;
-
-    private ShipmentUnitClonerInterface $shipmentUnitClonerMock;
 
     private ShipmentCloner $shipmentCloner;
 
     protected function setUp(): void
     {
         $this->shipmentFactoryMock = $this->createMock(FactoryInterface::class);
-        $this->shipmentUnitClonerMock = $this->createMock(ShipmentUnitClonerInterface::class);
-        $this->shipmentCloner = new ShipmentCloner($this->shipmentFactoryMock, $this->shipmentUnitClonerMock);
+
+        $this->shipmentCloner = new ShipmentCloner($this->shipmentFactoryMock);
     }
 
     public function testImplementShipmentClonerInterface(): void

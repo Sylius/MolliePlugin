@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Order;
+namespace Sylius\MolliePlugin\Cloner;
 
-use Sylius\Component\Shipping\Model\ShipmentUnitInterface;
+use Sylius\Component\Core\Model\AdjustmentInterface;
 
-interface ShipmentUnitClonerInterface
+interface AdjustmentClonerInterface
 {
-    public function clone(ShipmentUnitInterface $unit): ShipmentUnitInterface;
+    public function clone(AdjustmentInterface $adjustment): AdjustmentInterface;
 }

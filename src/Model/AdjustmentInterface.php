@@ -11,10 +11,9 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Order;
+namespace Sylius\MolliePlugin\Model;
 
 use Sylius\Component\Core\Model\AdjustmentInterface as BaseAdjustmentInterface;
-use Sylius\MolliePlugin\Model\PaymentSurchargeFeeType;
 
 interface AdjustmentInterface extends BaseAdjustmentInterface
 {

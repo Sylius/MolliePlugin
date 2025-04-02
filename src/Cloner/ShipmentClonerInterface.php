@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Order;
+namespace Sylius\MolliePlugin\Cloner;
 
-use Sylius\RefundPlugin\Event\UnitsRefunded;
+use Sylius\Component\Core\Model\ShipmentInterface;
 
-interface OrderPaymentRefundInterface
+interface ShipmentClonerInterface
 {
-    public function refund(UnitsRefunded $unitsRefunded): void;
+    public function clone(ShipmentInterface $shipment): ShipmentInterface;
 }

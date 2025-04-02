@@ -11,11 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Order;
+namespace Sylius\MolliePlugin\Refund\Creator;
 
-use Sylius\Component\Core\Model\AdjustmentInterface as BaseAdjustmentInterface;
+use Mollie\Api\Resources\Payment;
+use Sylius\RefundPlugin\Command\RefundUnits;
 
-interface AdjustmentClonerInterface
+interface PaymentRefundCommandCreatorInterface
 {
-    public function clone(BaseAdjustmentInterface $adjustment): BaseAdjustmentInterface;
+    public function fromPayment(Payment $payment): RefundUnits;
 }

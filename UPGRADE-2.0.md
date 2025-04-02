@@ -118,6 +118,15 @@
    )
    ```
 
+   The constructor of `Sylius\MolliePlugin\Order\ShipmentCloner` has been changed:
+   
+   ```diff
+   public function __construct(
+       FactoryInterface $shipmentFactory,
+   -   ShipmentUnitClonerInterface $shipmentUnitCloner,
+   )
+   ```
+
 1. Method signature changes:
 
    The `::provide` method of `ValidationGroupsResolverInterface` has been renamed to `::resolve`.
@@ -352,6 +361,8 @@ The following service IDs have been removed:
    - `Sylius\MolliePlugin\Controller\Action\Shop\PaymentFeeCalculateActionInterface`
    - `Sylius\MolliePlugin\Resolver\Address\ApplePayAddressResolver`
    - `Sylius\MolliePlugin\Resolver\Address\ApplePayAddressResolverInterface`
+   - `Sylius\MolliePlugin\Order\ShipmentUnitCloner`
+   - `Sylius\MolliePlugin\Order\ShipmentUnitClonerInterface`
 
 1. Namespace changes:
 
@@ -504,6 +515,21 @@ The following service IDs have been removed:
 | `Sylius\MolliePlugin\Resolver\ApplePayDirect\ApplePayDirectPaymentTypeResolverInterface`             | `Sylius\MolliePlugin\ApplePay\Resolver\ApplePayDirectPaymentTypeResolverInterface`            |
 | `Sylius\MolliePlugin\Validator\ApplePayDirect\ApplePayAddressValidator`                              | `Sylius\MolliePlugin\ApplePay\Validator\ApplePayAddressValidator`                             |
 | `Sylius\MolliePlugin\Validator\ApplePayDirect\ApplePayAddressValidatorInterface`                     | `Sylius\MolliePlugin\ApplePay\Validator\ApplePayAddressValidatorInterface`                    |
+| `Sylius\MolliePlugin\Order\OrderPaymentRefund`                                                       | `Sylius\MolliePlugin\Refund\Handler\OrderPaymentRefund`                                       |
+| `Sylius\MolliePlugin\Order\OrderPaymentRefundInterface`                                              | `Sylius\MolliePlugin\Refund\Handler\OrderPaymentRefundInterface`                              |
+| `Sylius\MolliePlugin\Order\AdjustmentInterface`                                                      | `Sylius\MolliePlugin\Model\AdjustmentInterface`                                               |
+| `Sylius\MolliePlugin\Order\AdjustmentCloner`                                                         | `Sylius\MolliePlugin\Cloner\AdjustmentCloner`                                                 |
+| `Sylius\MolliePlugin\Order\AdjustmentClonerInterface`                                                | `Sylius\MolliePlugin\Cloner\AdjustmentClonerInterface`                                        |
+| `Sylius\MolliePlugin\Order\OrderItemCloner`                                                          | `Sylius\MolliePlugin\Cloner\OrderItemCloner`                                                  |
+| `Sylius\MolliePlugin\Order\OrderItemClonerInterface`                                                 | `Sylius\MolliePlugin\Cloner\OrderItemClonerInterface`                                         |
+| `Sylius\MolliePlugin\Order\ShipmentCloner`                                                           | `Sylius\MolliePlugin\Cloner\ShipmentCloner`                                                   |
+| `Sylius\MolliePlugin\Order\ShipmentClonerInterface`                                                  | `Sylius\MolliePlugin\Cloner\ShipmentClonerInterface`                                          |
+| `Sylius\MolliePlugin\Order\SubscriptionOrderCloner`                                                  | `Sylius\MolliePlugin\Cloner\SubscriptionOrderCloner`                                          |
+| `Sylius\MolliePlugin\Order\SubscriptionOrderClonerInterface`                                         | `Sylius\MolliePlugin\Cloner\SubscriptionOrderClonerInterface`                                 |
+| `Sylius\MolliePlugin\Creator\OrderRefundCommandCreator`                                              | `Sylius\MolliePlugin\Refund\Creator\OrderRefundCommandCreator`                                |
+| `Sylius\MolliePlugin\Creator\OrderRefundCommandCreatorInterface`                                     | `Sylius\MolliePlugin\Refund\Creator\OrderRefundCommandCreatorInterface`                       |
+| `Sylius\MolliePlugin\Creator\PaymentRefundCommandCreator`                                            | `Sylius\MolliePlugin\Refund\Creator\PaymentRefundCommandCreator`                              |
+| `Sylius\MolliePlugin\Creator\PaymentRefundCommandCreatorInterface`                                   | `Sylius\MolliePlugin\Refund\Creator\PaymentRefundCommandCreatorInterface`                     |
 
 1. The `Sylius\MolliePlugin\Documentation\DocumentationLinks` class and the related service alias `sylius_mollie.documentation.documentation_links` have been removed.
 

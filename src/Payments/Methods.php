@@ -23,22 +23,23 @@ final class Methods implements MethodsInterface
 
     public function add(Method $mollieMethod): void
     {
-        foreach (self::GATEWAYS as $gateway) {
-            $payment = new $gateway();
-
-            if ($mollieMethod->id === $payment->getMethodId()) {
-                $payment->setName($mollieMethod->description);
-                $payment->setMinimumAmount((array) $mollieMethod->minimumAmount);
-                $payment->setMaximumAmount((array) $mollieMethod->maximumAmount);
-                $payment->setImage((array) $mollieMethod->image);
-
-                /** @var array<array-key, mixed>|null $issuers */
-                $issuers = $mollieMethod->issuers;
-                $payment->setIssuers((array) $issuers);
-
-                $this->methods[] = $payment;
-            }
+        $gateway = self::GATEWAYS[$mollieMethod->id] ?? null;
+        if (null === $gateway) {
+            return;
         }
+
+        $payment = new $gateway();
+
+        $payment->setName($mollieMethod->description);
+        $payment->setMinimumAmount((array) $mollieMethod->minimumAmount);
+        $payment->setMaximumAmount((array) $mollieMethod->maximumAmount);
+        $payment->setImage((array) $mollieMethod->image);
+
+        /** @var array<array-key, mixed>|null $issuers */
+        $issuers = $mollieMethod->issuers;
+        $payment->setIssuers((array) $issuers);
+
+        $this->methods[] = $payment;
     }
 
     public function getAllEnabled(): array
