@@ -5,6 +5,7 @@ imports:
     - { resource: "@SyliusMolliePlugin/Resources/config/grids.yaml" }
     - { resource: "@SyliusMolliePlugin/Resources/config/email.yaml" }
     - { resource: "@SyliusMolliePlugin/Resources/config/ui.yaml" }
+    - { resource: "@SyliusMolliePlugin/Resources/config/fixtures.yaml" }
 
 twig:
     globals:
