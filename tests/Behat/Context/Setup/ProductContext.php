@@ -23,7 +23,7 @@ use Sylius\Component\Core\Model\ChannelPricingInterface;
 use Sylius\Component\Product\Model\ProductInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Entity\ProductVariantInterface;
-use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
 
 final class ProductContext extends RawMinkContext implements Context
 {

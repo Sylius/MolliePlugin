@@ -11,11 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Helper;
+namespace Sylius\MolliePlugin\Refund\Converter;
 
+use Sylius\MolliePlugin\Converter\IntToStringConverterInterface;
 use Sylius\RefundPlugin\Model\UnitRefundInterface;
 
-final class ConvertRefundData implements ConvertRefundDataInterface
+final class RefundDataConverter implements RefundDataConverterInterface
 {
     public function __construct(private readonly IntToStringConverterInterface $intToStringConverter)
     {

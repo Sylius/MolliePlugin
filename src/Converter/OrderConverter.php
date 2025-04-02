@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Helper;
+namespace Sylius\MolliePlugin\Converter;
 
 use Mollie\Api\Types\PaymentMethod;
 use Sylius\Component\Addressing\Matcher\ZoneMatcherInterface;
@@ -34,7 +34,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Webmozart\Assert\Assert;
 
 /** @phpstan-import-type AmountArray from Amount */
-final class ConvertOrder implements ConvertOrderInterface
+final class OrderConverter implements OrderConverterInterface
 {
     private OrderInterface $order;
 

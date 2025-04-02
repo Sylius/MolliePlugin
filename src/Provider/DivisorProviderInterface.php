@@ -11,11 +11,13 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Parser\Response;
+namespace Sylius\MolliePlugin\Provider;
 
-use Mollie\Api\Exceptions\ApiException;
+use Payum\Core\Request\GetCurrency;
 
-interface GuzzleNegativeResponseParserInterface
+interface DivisorProviderInterface
 {
-    public function parse(ApiException $exception): string;
+    public function getDivisor(): int;
+
+    public function getDivisorForCurrency(GetCurrency $currency): int;
 }

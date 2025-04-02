@@ -57,10 +57,10 @@
         </service>
         <service id="Sylius\MolliePlugin\Creator\ApiKeysTestCreatorInterface" alias="sylius_mollie.creator.api_keys_test" />
 
-        <service id="sylius_mollie.creator.change_position_payment_method" class="Sylius\MolliePlugin\Creator\ChangePositionPaymentMethodCreator">
+        <service id="sylius_mollie.creator.change_position_payment_method" class="Sylius\MolliePlugin\Updater\MolliePaymentMethodPositionUpdater">
             <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
             <argument type="service" id="doctrine.orm.entity_manager"/>
         </service>
-        <service id="Sylius\MolliePlugin\Creator\ChangePositionPaymentMethodCreatorInterface" alias="sylius_mollie.creator.change_position_payment_method" />
+        <service id="Sylius\MolliePlugin\Updater\MolliePaymentMethodPositionUpdaterInterface" alias="sylius_mollie.creator.change_position_payment_method" />
     </services>
 </container>

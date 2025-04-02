@@ -11,11 +11,9 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Provider\Customer;
+namespace Sylius\MolliePlugin\Converter;
 
-use Sylius\Component\Core\Model\CustomerInterface;
-
-interface CustomerProviderInterface
+interface PriceToAmountConverterInterface
 {
-    public function provideNewCustomer(string $email): CustomerInterface;
+    public function convert(int $price): string;
 }

@@ -24,13 +24,13 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Customer\Context\CustomerContextInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Converter\IntToStringConverterInterface;
+use Sylius\MolliePlugin\Converter\OrderConverterInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
-use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
-use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
-use Sylius\MolliePlugin\Helper\PaymentDescriptionInterface;
 use Sylius\MolliePlugin\Payments\PaymentType;
 use Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactoryInterface;
-use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
+use Sylius\MolliePlugin\Provider\PaymentDescriptionProviderInterface;
 use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
 use Webmozart\Assert\Assert;
 
@@ -39,9 +39,9 @@ final class ConvertMolliePaymentAction extends BaseApiAwareAction implements Gat
     use GatewayAwareTrait;
 
     public function __construct(
-        private PaymentDescriptionInterface $paymentDescription,
+        private PaymentDescriptionProviderInterface $paymentDescription,
         private RepositoryInterface $mollieMethodsRepository,
-        private ConvertOrderInterface $orderConverter,
+        private OrderConverterInterface $orderConverter,
         private CustomerContextInterface $customerContext,
         private PaymentLocaleResolverInterface $paymentLocaleResolver,
         private CreateCustomerFactoryInterface $createCustomerFactory,

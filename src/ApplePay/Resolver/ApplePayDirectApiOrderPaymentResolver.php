@@ -19,17 +19,17 @@ use Mollie\Api\Types\PaymentMethod;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\MolliePlugin\ApplePay\Provider\OrderPaymentApplePayDirectProvider;
 use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Converter\OrderConverterInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
-use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
 use Sylius\MolliePlugin\Payments\PaymentType;
-use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
 use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
 use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
 
 final class ApplePayDirectApiOrderPaymentResolver implements ApplePayDirectApiOrderPaymentResolverInterface
 {
-    public function __construct(private readonly MollieApiClient $mollieApiClient, private readonly MollieApiClientKeyResolverInterface $apiClientKeyResolver, private readonly ConvertOrderInterface $convertOrder, private readonly OrderPaymentApplePayDirectProvider $paymentApplePayDirectProvider, private readonly PaymentLocaleResolverInterface $paymentLocaleResolver, private readonly DivisorProviderInterface $divisorProvider)
+    public function __construct(private readonly MollieApiClient $mollieApiClient, private readonly MollieApiClientKeyResolverInterface $apiClientKeyResolver, private readonly OrderConverterInterface $convertOrder, private readonly OrderPaymentApplePayDirectProvider $paymentApplePayDirectProvider, private readonly PaymentLocaleResolverInterface $paymentLocaleResolver, private readonly DivisorProviderInterface $divisorProvider)
     {
     }
 

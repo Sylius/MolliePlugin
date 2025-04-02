@@ -11,13 +11,13 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Helper;
+namespace Sylius\MolliePlugin\Converter;
 
 use Sylius\Bundle\MoneyBundle\Templating\Helper\FormatMoneyHelper;
 use Sylius\Component\Currency\Context\CurrencyContextInterface;
 use Sylius\Component\Locale\Context\LocaleContextInterface;
 
-final class ConvertPriceToAmount
+final class PriceToAmountConverter implements PriceToAmountConverterInterface
 {
     public function __construct(private readonly CurrencyContextInterface $currencyContext, private readonly LocaleContextInterface $localeContext, private readonly FormatMoneyHelper $formatMoneyHelper)
     {

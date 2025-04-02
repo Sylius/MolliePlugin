@@ -18,7 +18,7 @@ use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Model\AdjustmentInterface;
 use Sylius\MolliePlugin\Model\PaymentSurchargeFeeType;
-use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
 use Webmozart\Assert\Assert;
 
 final class FixedAmountCalculator implements PaymentSurchargeCalculatorInterface

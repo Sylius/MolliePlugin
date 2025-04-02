@@ -24,27 +24,27 @@ use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Customer\Context\CustomerContextInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Converter\IntToStringConverterInterface;
+use Sylius\MolliePlugin\Converter\OrderConverterInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
-use Sylius\MolliePlugin\Helper\ConvertOrderInterface;
-use Sylius\MolliePlugin\Helper\IntToStringConverterInterface;
-use Sylius\MolliePlugin\Helper\PaymentDescriptionInterface;
 use Sylius\MolliePlugin\Payum\Action\ConvertMolliePaymentAction;
 use Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactoryInterface;
 use Sylius\MolliePlugin\Payum\Request\CreateCustomer;
-use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
+use Sylius\MolliePlugin\Provider\PaymentDescriptionProviderInterface;
 use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 final class ConvertMolliePaymentActionTest extends TestCase
 {
-    private PaymentDescriptionInterface $paymentDescriptionProviderMock;
+    private PaymentDescriptionProviderInterface $paymentDescriptionProviderMock;
 
     private SessionInterface $sessionMock;
 
     private RepositoryInterface $mollieMethodsRepositoryMock;
 
-    private ConvertOrderInterface $orderConverterMock;
+    private OrderConverterInterface $orderConverterMock;
 
     private CustomerContextInterface $customerContextMock;
 
@@ -56,10 +56,10 @@ final class ConvertMolliePaymentActionTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->paymentDescriptionProviderMock = $this->createMock(PaymentDescriptionInterface::class);
+        $this->paymentDescriptionProviderMock = $this->createMock(PaymentDescriptionProviderInterface::class);
         $this->sessionMock = $this->createMock(SessionInterface::class);
         $this->mollieMethodsRepositoryMock = $this->createMock(RepositoryInterface::class);
-        $this->orderConverterMock = $this->createMock(ConvertOrderInterface::class);
+        $this->orderConverterMock = $this->createMock(OrderConverterInterface::class);
         $this->customerContextMock = $this->createMock(CustomerContextInterface::class);
         $this->paymentLocaleResolverMock = $this->createMock(PaymentLocaleResolverInterface::class);
         $this->createCustomerFactoryMock = $this->createMock(CreateCustomerFactoryInterface::class);

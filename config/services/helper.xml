@@ -16,12 +16,12 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius_mollie.helper.int_to_string" class="Sylius\MolliePlugin\Helper\IntToStringConverter">
+        <service id="sylius_mollie.helper.int_to_string" class="Sylius\MolliePlugin\Converter\IntToStringConverter">
             <argument type="service" id="sylius_mollie.provider.divisor"/>
         </service>
-        <service id="Sylius\MolliePlugin\Helper\IntToStringConverterInterface" alias="sylius_mollie.helper.int_to_string" />
+        <service id="Sylius\MolliePlugin\Converter\IntToStringConverterInterface" alias="sylius_mollie.helper.int_to_string" />
 
-        <service id="sylius_mollie.helper.convert_order" class="Sylius\MolliePlugin\Helper\ConvertOrder">
+        <service id="sylius_mollie.helper.convert_order" class="Sylius\MolliePlugin\Converter\OrderConverter">
             <argument type="service" id="sylius_mollie.helper.int_to_string"/>
             <argument type="service" id="sylius_mollie.calculator.calculate_tax_amount"/>
             <argument type="service" id="sylius_mollie.resolver.meal_voucher"/>
@@ -29,22 +29,22 @@
             <argument type="service" id="sylius.zone_matcher"/>
             <argument type="service" id="request_stack"/>
         </service>
-        <service id="Sylius\MolliePlugin\Helper\ConvertOrderInterface" alias="sylius_mollie.helper.convert_order" />
+        <service id="Sylius\MolliePlugin\Converter\OrderConverterInterface" alias="sylius_mollie.helper.convert_order" />
 
-        <service id="sylius_mollie.helper.convert_price_to_amount" class="Sylius\MolliePlugin\Helper\ConvertPriceToAmount">
+        <service id="sylius_mollie.helper.convert_price_to_amount" class="Sylius\MolliePlugin\Converter\PriceToAmountConverter">
             <argument type="service" id="sylius.context.currency"/>
             <argument type="service" id="sylius.context.locale"/>
             <argument type="service" id="sylius.templating.helper.format_money"/>
         </service>
 
-        <service id="sylius_mollie.helper.convert_refund_data" class="Sylius\MolliePlugin\Helper\ConvertRefundData">
+        <service id="sylius_mollie.helper.convert_refund_data" class="Sylius\MolliePlugin\Refund\Converter\RefundDataConverter">
             <argument type="service" id="sylius_mollie.helper.int_to_string"/>
         </service>
-        <service id="Sylius\MolliePlugin\Helper\ConvertRefundDataInterface" alias="sylius_mollie.helper.convert_refund_data" />
+        <service id="Sylius\MolliePlugin\Refund\Converter\RefundDataConverterInterface" alias="sylius_mollie.helper.convert_refund_data" />
 
-        <service id="sylius_mollie.helper.payment_description" class="Sylius\MolliePlugin\Helper\PaymentDescription">
+        <service id="sylius_mollie.helper.payment_description" class="Sylius\MolliePlugin\Provider\PaymentDescriptionProvider">
             <argument type="service" id="sylius.payment_description_provider"/>
         </service>
-        <service id="Sylius\MolliePlugin\Helper\PaymentDescriptionInterface" alias="sylius_mollie.helper.payment_description" />
+        <service id="Sylius\MolliePlugin\Provider\PaymentDescriptionProviderInterface" alias="sylius_mollie.helper.payment_description" />
     </services>
 </container>

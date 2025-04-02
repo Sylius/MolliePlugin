@@ -16,7 +16,7 @@ namespace Sylius\MolliePlugin\Voucher\Updater;
 use Mollie\Api\Resources\Payment;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
 use Sylius\MolliePlugin\Voucher\Applicator\OrderVouchersApplicatorInterface;
 
 final class OrderVoucherAdjustmentUpdater implements OrderVoucherAdjustmentUpdaterInterface

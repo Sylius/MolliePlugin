@@ -11,14 +11,14 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Helper;
+namespace Sylius\MolliePlugin\Refund\Converter;
 
 use Sylius\MolliePlugin\DTO\MolliePayment\Amount;
 
 /**
  * @phpstan-import-type AmountArray from Amount
  */
-interface ConvertRefundDataInterface
+interface RefundDataConverterInterface
 {
     /**
      * @param array<array-key, mixed> $data

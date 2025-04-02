@@ -131,6 +131,7 @@
 
    The `::provide` method of `ValidationGroupsResolverInterface` has been renamed to `::resolve`.
    The `::prepare` method of `PaymentLinkEmailManagerInterface` has been renamed to `::send`.
+   The `::createFromRequest(Request $request)` method of `ChangePositionPaymentMethodCreatorInterface` has been refactored into `::update(array $positions)`.
 
 1. The entity `Sylius\MolliePlugin\Entity\OnboardingWizardStatus` along with its resource configuration and related classes have been removed.
    The onboarding status itself has been moved to a field `bool $mollieOnboardingCompleted = false` within the  
@@ -530,6 +531,23 @@ The following service IDs have been renamed:
 | `Sylius\MolliePlugin\Creator\OrderRefundCommandCreatorInterface`                                     | `Sylius\MolliePlugin\Refund\Creator\OrderRefundCommandCreatorInterface`                       |
 | `Sylius\MolliePlugin\Creator\PaymentRefundCommandCreator`                                            | `Sylius\MolliePlugin\Refund\Creator\PaymentRefundCommandCreator`                              |
 | `Sylius\MolliePlugin\Creator\PaymentRefundCommandCreatorInterface`                                   | `Sylius\MolliePlugin\Refund\Creator\PaymentRefundCommandCreatorInterface`                     |
+| `Sylius\MolliePlugin\Helper\PaymentDescription`                                                      | `Sylius\MolliePlugin\Provider\PaymentDescriptionProvider`                                     |
+| `Sylius\MolliePlugin\Helper\PaymentDescriptionInterface`                                             | `Sylius\MolliePlugin\Provider\PaymentDescriptionProviderInterface`                            |
+| `Sylius\MolliePlugin\Provider\Customer\CustomerProvider`                                             | `Sylius\MolliePlugin\Provider\CustomerProvider`                                               |
+| `Sylius\MolliePlugin\Provider\Customer\CustomerProviderInterface`                                    | `Sylius\MolliePlugin\Provider\CustomerProviderInterface`                                      |
+| `Sylius\MolliePlugin\Provider\Divisor\DivisorProvider`                                               | `Sylius\MolliePlugin\Provider\DivisorProvider`                                                |
+| `Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface`                                      | `Sylius\MolliePlugin\Provider\DivisorProviderInterface`                                       |
+| `Sylius\MolliePlugin\Helper\IntToStringConverter`                                                    | `Sylius\MolliePlugin\Converter\IntToStringConverter`                                          |
+| `Sylius\MolliePlugin\Helper\IntToStringConverterInterface`                                           | `Sylius\MolliePlugin\Converter\IntToStringConverterInterface`                                 |
+| `Sylius\MolliePlugin\Helper\ConvertOrder`                                                            | `Sylius\MolliePlugin\Converter\OrderConverter`                                                |
+| `Sylius\MolliePlugin\Helper\ConvertOrderInterface`                                                   | `Sylius\MolliePlugin\Converter\OrderConverterInterface`                                       |
+| `Sylius\MolliePlugin\Helper\ConvertPriceToAmount`                                                    | `Sylius\MolliePlugin\Converter\PriceToAmountConverter`                                        |
+| `Sylius\MolliePlugin\Helper\ConvertRefundData`                                                       | `Sylius\MolliePlugin\Refund\Converter\RefundDataConverter`                                    |
+| `Sylius\MolliePlugin\Helper\ConvertRefundDataInterface`                                              | `Sylius\MolliePlugin\Refund\Converter\RefundDataConverterInterface`                           |
+| `Sylius\MolliePlugin\Parser\Response\GuzzleNegativeResponseParser`                                   | `Sylius\MolliePlugin\Client\Parser\ApiExceptionParser`                                        |
+| `Sylius\MolliePlugin\Parser\Response\GuzzleNegativeResponseParserInterface`                          | `Sylius\MolliePlugin\Client\Parser\ApiExceptionParserInterface`                               |
+| `Sylius\MolliePlugin\Creator\ChangePositionPaymentMethodCreator`                                     | `Sylius\MolliePlugin\Updater\MolliePaymentMethodPositionUpdater`                              |
+| `Sylius\MolliePlugin\Creator\ChangePositionPaymentMethodCreatorInterface`                            | `Sylius\MolliePlugin\Updater\MolliePaymentMethodPositionUpdaterInterface`                     |
 
 1. The `Sylius\MolliePlugin\Documentation\DocumentationLinks` class and the related service alias `sylius_mollie.documentation.documentation_links` have been removed.
 

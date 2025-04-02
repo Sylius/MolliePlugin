@@ -17,8 +17,8 @@ use Mollie\Api\Exceptions\ApiException;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayAwareInterface;
 use Payum\Core\GatewayAwareTrait;
+use Sylius\MolliePlugin\Client\Parser\ApiExceptionParserInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Parser\Response\GuzzleNegativeResponseParserInterface;
 use Sylius\MolliePlugin\Payum\Request\CreateSepaMandate;
 use Sylius\MolliePlugin\Payum\Request\Subscription\CreateOnDemandSubscriptionPayment;
 
@@ -28,7 +28,7 @@ final class CreateOnDemandPaymentAction extends BaseApiAwareAction implements Ga
 
     public function __construct(
         private MollieLoggerActionInterface $loggerAction,
-        private GuzzleNegativeResponseParserInterface $guzzleNegativeResponseParser,
+        private ApiExceptionParserInterface $apiExceptionParser,
     ) {
     }
 
@@ -52,7 +52,7 @@ final class CreateOnDemandPaymentAction extends BaseApiAwareAction implements Ga
             /** @throws ApiException|\Exception */
             $payment = $this->mollieApiClient->payments->create($paymentSettings);
         } catch (ApiException $e) {
-            $message = $this->guzzleNegativeResponseParser->parse($e);
+            $message = $this->apiExceptionParser->parse($e);
             $this->loggerAction->addNegativeLog(sprintf('Error with create payment with: %s', $e->getMessage()));
 
             if ('' === $message) {

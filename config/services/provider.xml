@@ -34,8 +34,8 @@
         </service>
         <service id="Sylius\MolliePlugin\ApplePay\Provider\OrderPaymentApplePayDirectProviderInterface" alias="sylius_mollie.provider.order.order_payment_apple_pay_direct" />
 
-        <service id="sylius_mollie.provider.divisor" class="Sylius\MolliePlugin\Provider\Divisor\DivisorProvider"/>
-        <service id="Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface" alias="sylius_mollie.provider.divisor" />
+        <service id="sylius_mollie.provider.divisor" class="Sylius\MolliePlugin\Provider\DivisorProvider"/>
+        <service id="Sylius\MolliePlugin\Provider\DivisorProviderInterface" alias="sylius_mollie.provider.divisor" />
 
         <service id="sylius_mollie.provider.apple.apple_pay_direct_payment" class="Sylius\MolliePlugin\ApplePay\Provider\ApplePayDirectPaymentProvider">
             <argument type="service" id="sylius_mollie.resolver.apple_pay_direct.apple_pay_direct_payment_type"/>
@@ -51,10 +51,10 @@
         </service>
         <service id="Sylius\MolliePlugin\Payum\Provider\PaymentTokenProviderInterface" alias="sylius_mollie.provider.payment_token" />
 
-        <service id="sylius_mollie.provider.customer" class="Sylius\MolliePlugin\Provider\Customer\CustomerProvider">
+        <service id="sylius_mollie.provider.customer" class="Sylius\MolliePlugin\Provider\CustomerProvider">
             <argument type="service" id="sylius.repository.customer" />
             <argument type="service" id="sylius.factory.customer"/>
         </service>
-        <service id="Sylius\MolliePlugin\Provider\Customer\CustomerProviderInterface" alias="sylius_mollie.provider.customer" />
+        <service id="Sylius\MolliePlugin\Provider\CustomerProviderInterface" alias="sylius_mollie.provider.customer" />
     </services>
 </container>

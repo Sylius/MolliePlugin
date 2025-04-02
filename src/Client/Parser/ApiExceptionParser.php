@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Parser\Response;
+namespace Sylius\MolliePlugin\Client\Parser;
 
 use Mollie\Api\Exceptions\ApiException;
 use Webmozart\Assert\Assert;
 
-final class GuzzleNegativeResponseParser implements GuzzleNegativeResponseParserInterface
+final class ApiExceptionParser implements ApiExceptionParserInterface
 {
     public function parse(ApiException $exception): string
     {

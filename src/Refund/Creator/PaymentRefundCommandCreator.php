@@ -18,7 +18,7 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Order\Factory\AdjustmentFactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Exceptions\OfflineRefundPaymentMethodNotFound;
-use Sylius\MolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
 use Sylius\MolliePlugin\Refund\Units\PaymentUnitsItemRefundInterface;
 use Sylius\MolliePlugin\Refund\Units\ShipmentUnitRefundInterface;
 use Sylius\RefundPlugin\Command\RefundUnits;

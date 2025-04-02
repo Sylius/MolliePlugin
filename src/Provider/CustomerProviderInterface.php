@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Creator;
+namespace Sylius\MolliePlugin\Provider;
 
-use Symfony\Component\HttpFoundation\Request;
+use Sylius\Component\Core\Model\CustomerInterface;
 
-interface ChangePositionPaymentMethodCreatorInterface
+interface CustomerProviderInterface
 {
-    public function createFromRequest(Request $request): void;
+    public function provideNewCustomer(string $email): CustomerInterface;
 }

@@ -19,8 +19,8 @@ use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayAwareTrait;
 use Payum\Core\Reply\HttpRedirect;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
+use Sylius\MolliePlugin\Client\Parser\ApiExceptionParserInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Parser\Response\GuzzleNegativeResponseParserInterface;
 use Sylius\MolliePlugin\Payum\Request\CreatePayment;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -32,7 +32,7 @@ final class CreatePaymentAction extends BaseApiAwareAction
 
     public function __construct(
         private MollieLoggerActionInterface $loggerAction,
-        private GuzzleNegativeResponseParserInterface $guzzleNegativeResponseParser,
+        private ApiExceptionParserInterface $apiExceptionParser,
         private RequestStack $requestStack,
         private EntityRepository $customerRepository,
     ) {
@@ -86,7 +86,7 @@ final class CreatePaymentAction extends BaseApiAwareAction
                 }
             }
         } catch (ApiException $e) {
-            $message = $this->guzzleNegativeResponseParser->parse($e);
+            $message = $this->apiExceptionParser->parse($e);
             $this->loggerAction->addNegativeLog(sprintf('Error with create payment with: %s', $e->getMessage()));
 
             if ('' === $message) {
