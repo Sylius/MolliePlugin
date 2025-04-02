@@ -132,9 +132,9 @@
 
 1. Removed Service IDs
 
-The following service IDs have been removed:
+The following service IDs have been renamed:
 
-| Removed Service ID                                                                                        | Use Instead                                                                           |
+| Old Service ID                                                                                            | Use Instead                                                                           |
 |-----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
 | `sylius_mollie_plugin.checker.apple_pay.apple_pay_enabled_checker`                                        | `sylius_mollie.checker.apple_pay.apple_pay_enabled`                                   |
 | `sylius_mollie_plugin.applicator.units_promotion_adjustments_applicator`                                  | `sylius_mollie.applicator.units_promotion_adjustments`                                |
