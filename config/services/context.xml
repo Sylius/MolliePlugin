@@ -18,12 +18,12 @@
 >
     <services>
         <service
-            id="sylius_mollie.context.admin.admin_user"
+            id="sylius_mollie.context.admin_user"
             class="Sylius\MolliePlugin\Context\AdminUserContext"
             public="true"
         >
             <argument type="service" id="security.token_storage"/>
         </service>
-        <service id="Sylius\MolliePlugin\Context\AdminUserContextInterface" alias="sylius_mollie.context.admin.admin_user"/>
+        <service id="Sylius\MolliePlugin\Context\AdminUserContextInterface" alias="sylius_mollie.context.admin_user"/>
     </services>
 </container>

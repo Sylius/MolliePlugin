@@ -217,7 +217,7 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.cli.send_abandoned_payment_link`                                                    | `sylius_mollie.console.command.send_abandoned_payment_link`                           |
 | `sylius_mollie_plugin.cli.subscription.begin_processing`                                                  | `sylius_mollie.console.command.subscription.begin_processing`                         |
 | `sylius_mollie_plugin.cli.subscription.process`                                                           | `sylius_mollie.console.command.subscription.process`                                  |
-| `sylius_mollie_plugin.context.admin.admin_user_context`                                                   | `sylius_mollie.context.admin.admin_user`                                              |
+| `sylius_mollie_plugin.context.admin.admin_user_context`                                                   | `sylius_mollie.context.admin_user`                                              |
 | `sylius_mollie_plugin.controller.action.admin.refund`                                                     | `sylius_mollie.controller.admin.refund`                                               |
 | `sylius_mollie_plugin.controller.action.admin.methods`                                                    | `sylius_mollie.controller.admin.methods`                                              |
 | `sylius_mollie_plugin.controller.action.admin.delete_payment_method_image`                                | `sylius_mollie.controller.admin.delete_payment_method_image`                          |

@@ -125,11 +125,11 @@
         </service>
 
         <service id="sylius_mollie.controller.onboarding_wizard.status" class="Sylius\MolliePlugin\Controller\Admin\OnboardingWizard\StatusAction">
-            <argument type="service" id="sylius_mollie.context.admin.admin_user"/>
+            <argument type="service" id="sylius_mollie.context.admin_user"/>
         </service>
 
         <service id="sylius_mollie.controller.onboarding_wizard.completed" class="Sylius\MolliePlugin\Controller\Admin\OnboardingWizard\CompletedAction">
-            <argument type="service" id="sylius_mollie.context.admin.admin_user" />
+            <argument type="service" id="sylius_mollie.context.admin_user" />
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
     </services>
