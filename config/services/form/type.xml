@@ -39,11 +39,11 @@
         </service>
 
         <service id="sylius_mollie.form.type.mollie_interval" class="Sylius\MolliePlugin\Form\Type\MollieIntervalType">
-            <argument type="service" id="sylius_mollie.form.transformer.mollie_interval"/>
+            <argument type="service" id="sylius_mollie.form.type.data_transformer.mollie_interval"/>
             <tag name="form.type"/>
         </service>
 
-        <service id="sylius_mollie.form.extension.mollie_gateway_config" class="Sylius\MolliePlugin\Form\Type\MollieGatewayConfigType">
+        <service id="sylius_mollie.form.type.mollie_gateway_config" class="Sylius\MolliePlugin\Form\Type\MollieGatewayConfigType">
             <argument>%sylius_mollie.model.mollie_gateway_config.class%</argument>
             <argument>%sylius_mollie.form.type.mollie_gateway_config.validation_groups%</argument>
             <argument>%sylius_locale.locale%</argument>
@@ -64,6 +64,10 @@
         <service id="sylius_mollie.form.type.partial_ship.partial_ship" class="Sylius\MolliePlugin\Form\Type\PartialShip\PartialShipType">
             <argument>%sylius.model.shipment.class%</argument>
             <argument>%sylius_mollie.form.type.partial_shipment.validation_groups%</argument>
+            <tag name="form.type" />
+        </service>
+
+        <service id="sylius_mollie.form.type.partial_ship.shipping_units_choice" class="Sylius\MolliePlugin\Form\Type\PartialShip\ShippingUnitsChoiceType">
             <tag name="form.type" />
         </service>
 

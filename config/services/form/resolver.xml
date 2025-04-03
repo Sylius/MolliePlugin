@@ -19,7 +19,7 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius_mollie.provider.form.resolver_group" class="Sylius\MolliePlugin\Form\Resolver\ProductVariantValidationGroupsResolver"/>
-        <service id="Sylius\MolliePlugin\Form\Resolver\ValidationGroupsResolverInterface" alias="sylius_mollie.provider.form.resolver_group" />
+        <service id="sylius_mollie.form.resolver.product_variant_validation_groups" class="Sylius\MolliePlugin\Form\Resolver\ProductVariantValidationGroupsResolver"/>
+        <service id="Sylius\MolliePlugin\Form\Resolver\ValidationGroupsResolverInterface" alias="sylius_mollie.form.resolver.product_variant_validation_groups" />
     </services>
 </container>

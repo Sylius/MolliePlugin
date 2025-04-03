@@ -22,7 +22,7 @@
         </service>
 
         <service id="sylius_mollie.form.extension.type.product_variant_recurring" class="Sylius\MolliePlugin\Form\Extension\ProductVariantRecurringExtension">
-            <argument type="service" id="sylius_mollie.provider.form.resolver_group"/>
+            <argument type="service" id="sylius_mollie.form.resolver.product_variant_validation_groups"/>
             <tag name="form.type_extension" extended_type="Sylius\Bundle\ProductBundle\Form\Type\ProductVariantType"/>
         </service>
 
@@ -30,11 +30,11 @@
             <tag name="form.type_extension" extended_type="Sylius\Bundle\CoreBundle\Form\Type\Checkout\PaymentType"/>
         </service>
 
-        <service id="sylius_mollie.form.extension.payment_method_type" class="Sylius\MolliePlugin\Form\Extension\GatewayConfigTypeExtension">
+        <service id="sylius_mollie.form.extension.type.gateway_config" class="Sylius\MolliePlugin\Form\Extension\GatewayConfigTypeExtension">
             <tag name="form.type_extension" extended_type="Sylius\Bundle\PayumBundle\Form\Type\GatewayConfigType"/>
         </service>
 
-        <service id="sylius_mollie.form.extension.product_type" class="Sylius\MolliePlugin\Form\Extension\ProductTypeExtension">
+        <service id="sylius_mollie.form.extension.type.product_type" class="Sylius\MolliePlugin\Form\Extension\ProductTypeExtension">
             <tag name="form.type_extension" extended_type="Sylius\Bundle\ProductBundle\Form\Type\ProductType"/>
         </service>
     </services>
