@@ -19,9 +19,9 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius_mollie.helper.convert_refund_data" class="Sylius\MolliePlugin\Refund\Converter\RefundDataConverter">
+        <service id="sylius_mollie.refund.converter.refund_data" class="Sylius\MolliePlugin\Refund\Converter\RefundDataConverter">
             <argument type="service" id="sylius_mollie.helper.int_to_string"/>
         </service>
-        <service id="Sylius\MolliePlugin\Refund\Converter\RefundDataConverterInterface" alias="sylius_mollie.helper.convert_refund_data" />
+        <service id="Sylius\MolliePlugin\Refund\Converter\RefundDataConverterInterface" alias="sylius_mollie.refund.converter.refund_data" />
     </services>
 </container>

@@ -33,7 +33,7 @@
         </service>
 
         <service id="sylius_mollie.listener.payment_partial" class="Sylius\MolliePlugin\EventListener\PaymentPartialEventListener">
-            <argument type="service" id="sylius_mollie.order.order_payment_refund"/>
+            <argument type="service" id="sylius_mollie.refund.handler.order_payment_refund"/>
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
             <tag name="messenger.message_handler" priority="1" />
         </service>

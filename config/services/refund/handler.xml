@@ -17,12 +17,12 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <services>
-        <service id="sylius_mollie.order.order_payment_refund" class="Sylius\MolliePlugin\Refund\Handler\OrderPaymentRefund">
+        <service id="sylius_mollie.refund.handler.order_payment_refund" class="Sylius\MolliePlugin\Refund\Handler\OrderPaymentRefund">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
             <argument type="service" id="payum"/>
             <argument type="service" id="Sylius\RefundPlugin\Filter\UnitRefundFilterInterface"/>
         </service>
-        <service id="Sylius\MolliePlugin\Refund\Handler\OrderPaymentRefundInterface" alias="sylius_mollie.order.order_payment_refund" />
+        <service id="Sylius\MolliePlugin\Refund\Handler\OrderPaymentRefundInterface" alias="sylius_mollie.refund.handler.order_payment_refund" />
     </services>
 </container>

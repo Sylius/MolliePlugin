@@ -23,14 +23,14 @@
 
         <service id="sylius_mollie.payum.action.refund.refund" class="Sylius\MolliePlugin\Payum\Action\Refund\RefundAction">
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
-            <argument type="service" id="sylius_mollie.helper.convert_refund_data"/>
+            <argument type="service" id="sylius_mollie.refund.converter.refund_data"/>
             <tag name="payum.action" factory="mollie" alias="payum.action.refund"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.refund_subscription"/>
         </service>
 
         <service id="sylius_mollie.payum.action.refund.refund.refund_order" class="Sylius\MolliePlugin\Payum\Action\Refund\RefundOrderAction">
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
-            <argument type="service" id="sylius_mollie.helper.convert_refund_data"/>
+            <argument type="service" id="sylius_mollie.refund.converter.refund_data"/>
             <tag name="payum.action" factory="mollie" alias="payum.action.refund_order"/>
         </service>
 
@@ -56,7 +56,7 @@
             <argument type="service" id="sylius_mollie.refund.order"/>
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
             <argument type="service" id="sylius_mollie.updater.order.order_voucher_adjustment"/>
-            <argument type="service" id="sylius_mollie.checker.refund.mollie_order_refund"/>
+            <argument type="service" id="sylius_mollie.refund.checker.mollie_order_refund"/>
             <tag name="payum.action" factory="mollie" alias="payum.action.status"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.status_subscription"/>
         </service>

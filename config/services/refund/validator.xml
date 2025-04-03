@@ -20,13 +20,13 @@
         <defaults public="true" />
 
         <service
-            id="sylius_mollie.validator.refund.refund_units_command"
+            id="sylius_mollie.refund.validator.refund_units_command"
             class="Sylius\MolliePlugin\Refund\Validator\RefundUnitsCommandValidator"
             decorates="Sylius\RefundPlugin\Validator\RefundUnitsCommandValidator"
         >
             <argument type="service" id="Sylius\RefundPlugin\Checker\OrderRefundingAvailabilityChecker"/>
             <argument type="service" id="Sylius\RefundPlugin\Validator\RefundAmountValidator" />
-            <argument type="service" id="sylius_mollie.checker.refund.duplicate_refund_the_same_amount"/>
+            <argument type="service" id="sylius_mollie.refund.checker.duplicate_refund_the_same_amount"/>
         </service>
     </services>
 </container>
