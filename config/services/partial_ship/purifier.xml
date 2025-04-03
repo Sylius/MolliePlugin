@@ -19,9 +19,9 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius_mollie.purifier.mollie_payment_method" class="Sylius\MolliePlugin\Purifier\MolliePaymentMethodPurifier">
-            <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
+        <service id="sylius_mollie.partial_ship.purifier.order_shipment" class="Sylius\MolliePlugin\PartialShip\Purifier\OrderShipmentPurifier">
+            <argument type="service" id="sylius_mollie.partial_ship.order_mollie_partial_ship"/>
         </service>
-        <service id="Sylius\MolliePlugin\Purifier\MolliePaymentMethodPurifierInterface" alias="sylius_mollie.purifier.mollie_payment_method" />
+        <service id="Sylius\MolliePlugin\PartialShip\Purifier\OrderShipmentPurifierInterface" alias="sylius_mollie.partial_ship.purifier.order_shipment" />
     </services>
 </container>

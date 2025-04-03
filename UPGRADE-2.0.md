@@ -350,8 +350,8 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.provider.divisor.divisor_provider`                                                  | `sylius_mollie.provider.divisor`                                                      |
 | `sylius_mollie_plugin.provider.apple.apple_pay_direct_payment_provider`                                   | `sylius_mollie.apple_pay.provider.apple_pay_direct_payment`                           |
 | `bit_bag.sylius_mollie_plugin.form.extension.resolver_group_provider`                                     | `sylius_mollie.form.resolver.product_variant_validation_groups`                       |
-| `sylius_mollie_plugin.purifier.partial_ship.order_shipment_purifier`                                      | `sylius_mollie.purifier.partial_ship.order_shipment`                                  |
-| `sylius_mollie_plugin.purifier.partial_ship.order_mollie_partial_ship`                                    | `sylius_mollie.purifier.partial_ship.order_mollie_partial_ship`                       |
+| `sylius_mollie_plugin.purifier.partial_ship.order_shipment_purifier`                                      | `sylius_mollie.partial_ship.purifier.order_shipment`                                  |
+| `sylius_mollie_plugin.purifier.partial_ship.order_mollie_partial_ship`                                    | `sylius_mollie.partial_ship.order_mollie_partial_ship`                                |
 | `sylius_mollie_plugin.purifier.mollie_payment_method_purifier`                                            | `sylius_mollie.purifier.mollie_payment_method`                                        |
 | `sylius_mollie_plugin.checker.refund.duplicate_refund_the_same_amount_checker`                            | `sylius_mollie.refund.checker.duplicate_refund_the_same_amount`                       |
 | `sylius_mollie_plugin.checker.refund.mollie_order_refund_checker`                                         | `sylius_mollie.refund.checker.mollie_order_refund`                                    |

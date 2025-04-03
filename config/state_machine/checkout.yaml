@@ -15,7 +15,7 @@ winzou_state_machine:
       before:
         mollie_purify_empty_ready_shipments:
           on: ["ship", "create_and_ship"]
-          do: ["@sylius_mollie.purifier.partial_ship.order_shipment", "purify"]
+          do: ["@sylius_mollie.partial_ship.purifier.order_shipment", "purify"]
           args: ["object.getOrder()"]
       after:
         sylius_resolve_state:
