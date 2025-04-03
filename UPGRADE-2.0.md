@@ -238,7 +238,7 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.controller.onboarding_wizard.completed`                                             | `sylius_mollie.controller.onboarding_wizard.completed`                                |
 | `sylius_mollie_plugin.action.create_payment`                                                              | `sylius_mollie.payum.action.api.create_payment`                                       |
 | `sylius_mollie_plugin.action.create_order`                                                                | `sylius_mollie.payum.action.api.create_order`                                         |
-| `sylius_mollie_plugin.action.mollie_payment`                                                              | `sylius_mollie.mollie_payment`                                                        |
+| `sylius_mollie_plugin.action.mollie_payment`                                                              | `sylius_mollie.api.configuration_payment_provider.mollie`                             |
 | `sylius_mollie_plugin.action.api.create_on_demand_payment_action`                                         | `sylius_mollie.payum.action.api.create_on_demand_payment`                             |
 | `sylius_mollie_plugin.action.api.create_on_demand_subscription_action`                                    | `sylius_mollie.payum.action.api.create_on_demand_subscription`                        |
 | `sylius_mollie_plugin.action.create_internal_subscription`                                                | `sylius_mollie.payum.action.api.create_internal_subscription`                         |

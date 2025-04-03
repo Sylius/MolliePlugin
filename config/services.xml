@@ -21,8 +21,12 @@
     </imports>
 
     <services>
-        <service id="sylius_mollie.mollie_payment" class="Sylius\MolliePlugin\Api\MolliePaymentConfigurationProvider">
+        <service
+            id="sylius_mollie.api.configuration_payment_provider.mollie"
+            class="Sylius\MolliePlugin\Api\MolliePaymentConfigurationProvider"
+        >
             <argument type="service" id="router" />
+
             <tag name="sylius.api.payment_method_handler" />
         </service>
     </services>
