@@ -127,6 +127,71 @@
    )
    ```
 
+   The constructor of `Sylius\MolliePlugin\Controller\Admin\GeneratePaymentlinkAction` has been changed:
+   
+   ```diff
+   public function __construct(
+       OrderRepositoryInterface $orderRepository,
+       Environment $twig,
+       RequestStack $requestStack,
+       UrlGeneratorInterface $router,
+       FormFactoryInterface $formFactory,
+   -   MollieApiClient $mollieApiClient,
+       PaymentlinkResolverInterface $paymentlinkResolver,
+       MollieLoggerActionInterface $loggerAction,
+   )
+   ```
+
+   The constructor of `Sylius\MolliePlugin\Controller\Shop\PayumController` has been changed:
+   
+   ```diff
+   public function __construct(
+       Payum $payum,
+       OrderRepositoryInterface $orderRepository,
+   -   MetadataInterface $orderMetadata,
+   -   RequestConfigurationFactoryInterface $requestConfigurationFactory,
+       RouterInterface $router,
+       FactoryInterface $stateMachineFactory,
+       EntityManagerInterface $entityManager,
+   )
+   ```
+
+   The constructor of `Sylius\MolliePlugin\Creator\AbandonedPaymentLinkCreator` has been changed:
+   
+   ```diff
+   public function __construct(
+       PaymentlinkResolverInterface $paymentLinkResolver,
+       OrderRepositoryInterface $orderRepository,
+   -   PaymentLinkEmailManagerInterface $paymentLinkEmailManager,
+       PaymentMethodRepositoryInterface $paymentMethodRepository,
+       ChannelContextInterface $channelContext,
+   )
+   ```
+
+   The constructor of `Sylius\MolliePlugin\Refund\Creator\PaymentRefundCommandCreator` has been changed:
+   
+   ```diff
+   public function __construct(
+       RepositoryInterface $orderRepository,
+       RepositoryInterface $refundUnitsRepository,
+       PaymentUnitsItemRefundInterface $itemRefund,
+       ShipmentUnitRefundInterface $shipmentRefund,
+   -   AdjustmentFactoryInterface $adjustmentFactory,
+       RefundPaymentMethodsProviderInterface $refundPaymentMethodProvider,
+       DivisorProviderInterface $divisorProvider,
+   )
+   ```
+
+   The constructor of `Sylius\MolliePlugin\Twig\Extension\CustomerCreditCards` has been changed:
+   
+   ```diff
+   public function __construct(
+   -   MollieApiClient $apiClient,
+       EntityRepository $customerRepository,
+       CustomerContextInterface $customerContext,
+   )
+   ```
+
 1. Method signature changes:
 
    The `::provide` method of `ValidationGroupsResolverInterface` has been renamed to `::resolve`.

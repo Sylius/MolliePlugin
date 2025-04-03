@@ -27,8 +27,13 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 final class MethodsAction
 {
-    public function __construct(private readonly MollieLoggerActionInterface $loggerAction, private readonly RequestStack $requestStack, private readonly MollieMethodsResolverInterface $mollieMethodsResolver, private readonly MolliePaymentMethodPurifierInterface $methodPurifier, private readonly EntityRepository $gatewayConfigRepository)
-    {
+    public function __construct(
+        private readonly MollieLoggerActionInterface $loggerAction,
+        private readonly RequestStack $requestStack,
+        private readonly MollieMethodsResolverInterface $mollieMethodsResolver,
+        private readonly MolliePaymentMethodPurifierInterface $methodPurifier,
+        private readonly EntityRepository $gatewayConfigRepository,
+    ) {
     }
 
     public function __invoke(int $id, Request $request): Response

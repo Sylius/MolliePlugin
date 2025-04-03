@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Controller\Shop;
 
+use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Resources\Payment;
 use Mollie\Api\Types\PaymentStatus;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
@@ -27,16 +28,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PaymentWebhookController
 {
-    /**
-     * PaymentWebhookController constructor
-     */
-    public function __construct(private readonly MollieApiClient $mollieApiClient, private readonly MollieApiClientKeyResolverInterface $apiClientKeyResolver, private readonly OrderRepositoryInterface $orderRepository, private readonly PaymentRepositoryInterface $paymentRepository)
-    {
+    public function __construct(
+        private readonly MollieApiClient $mollieApiClient,
+        private readonly MollieApiClientKeyResolverInterface $apiClientKeyResolver,
+        private readonly OrderRepositoryInterface $orderRepository,
+        private readonly PaymentRepositoryInterface $paymentRepository,
+    ) {
     }
 
-    /**
-     * @throws \Mollie\Api\Exceptions\ApiException
-     */
+    /** @throws ApiException */
     public function __invoke(Request $request): Response
     {
         $this->mollieApiClient->setApiKey($this->apiClientKeyResolver->getClientWithKey()->getApiKey());

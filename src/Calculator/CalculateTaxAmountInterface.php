@@ -15,5 +15,5 @@ namespace Sylius\MolliePlugin\Calculator;
 
 interface CalculateTaxAmountInterface
 {
-    public function calculate(float $taxRateAmount, int $shippingAmount): string;
+    public function calculate(float $taxRateAmount, int $amount): string;
 }

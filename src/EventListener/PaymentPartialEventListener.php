@@ -21,8 +21,10 @@ use Symfony\Component\Messenger\Exception\HandlerFailedException;
 
 final class PaymentPartialEventListener
 {
-    public function __construct(private readonly OrderPaymentRefundInterface $orderPaymentRefund, private readonly MollieLoggerActionInterface $loggerAction)
-    {
+    public function __construct(
+        private readonly OrderPaymentRefundInterface $orderPaymentRefund,
+        private readonly MollieLoggerActionInterface $loggerAction,
+    ) {
     }
 
     public function __invoke(UnitsRefunded $unitRefunded): void

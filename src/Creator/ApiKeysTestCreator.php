@@ -23,8 +23,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class ApiKeysTestCreator implements ApiKeysTestCreatorInterface
 {
-    public function __construct(private readonly MollieApiClient $mollieApiClient, private readonly TranslatorInterface $translator)
-    {
+    public function __construct(
+        private readonly MollieApiClient $mollieApiClient,
+        private readonly TranslatorInterface $translator,
+    ) {
     }
 
     public function create(string $keyType, ?string $key = null): ApiKeyTest

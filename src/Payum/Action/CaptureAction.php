@@ -51,8 +51,11 @@ final class CaptureAction extends BaseApiAwareAction implements GenericTokenFact
 
     private ?GenericTokenFactoryInterface $tokenFactory = null;
 
-    public function __construct(private OrderRepositoryInterface $orderRepository, private MollieApiClientKeyResolverInterface $apiClientKeyResolver, private PaymentRepositoryInterface $paymentRepository)
-    {
+    public function __construct(
+        private OrderRepositoryInterface $orderRepository,
+        private MollieApiClientKeyResolverInterface $apiClientKeyResolver,
+        private PaymentRepositoryInterface $paymentRepository,
+    ) {
     }
 
     public function setGenericTokenFactory(?GenericTokenFactoryInterface $genericTokenFactory = null): void

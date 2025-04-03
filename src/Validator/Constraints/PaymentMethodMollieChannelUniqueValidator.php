@@ -28,8 +28,10 @@ use Webmozart\Assert\Assert;
 
 final class PaymentMethodMollieChannelUniqueValidator extends ConstraintValidatorAlias
 {
-    public function __construct(private readonly PaymentMethodRepositoryInterface $paymentMethodRepository, private readonly TranslatorInterface $translator)
-    {
+    public function __construct(
+        private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+        private readonly TranslatorInterface $translator,
+    ) {
     }
 
     public function validate(mixed $value, Constraint $constraint): void
@@ -58,7 +60,6 @@ final class PaymentMethodMollieChannelUniqueValidator extends ConstraintValidato
             MollieGatewayFactory::FACTORY_NAME => [],
         ];
 
-        /** @var PaymentMethodInterface $method */
         foreach ($molliePaymentMethods as $method) {
             Assert::notNull($method->getGatewayConfig());
             $separatedMethods[$method->getGatewayConfig()->getFactoryName()][] = $method;
@@ -77,8 +78,7 @@ final class PaymentMethodMollieChannelUniqueValidator extends ConstraintValidato
                     '{channels}' => $this->getChannelsNameByChannels($alreadyUsedChannels),
                 ]);
 
-                $this->context->buildViolation($translation)->atPath('channels')->addViolation()
-                ;
+                $this->context->buildViolation($translation)->atPath('channels')->addViolation();
             }
         }
     }

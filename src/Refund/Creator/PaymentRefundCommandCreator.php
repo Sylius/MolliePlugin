@@ -15,7 +15,6 @@ namespace Sylius\MolliePlugin\Refund\Creator;
 
 use Mollie\Api\Resources\Payment;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Order\Factory\AdjustmentFactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Exceptions\OfflineRefundPaymentMethodNotFound;
 use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
@@ -28,8 +27,14 @@ use Webmozart\Assert\Assert;
 
 final class PaymentRefundCommandCreator implements PaymentRefundCommandCreatorInterface
 {
-    public function __construct(private readonly RepositoryInterface $orderRepository, private readonly RepositoryInterface $refundUnitsRepository, private readonly PaymentUnitsItemRefundInterface $itemRefund, private readonly ShipmentUnitRefundInterface $shipmentRefund, private readonly AdjustmentFactoryInterface $adjustmentFactory, private readonly RefundPaymentMethodsProviderInterface $refundPaymentMethodProvider, private readonly DivisorProviderInterface $divisorProvider)
-    {
+    public function __construct(
+        private readonly RepositoryInterface $orderRepository,
+        private readonly RepositoryInterface $refundUnitsRepository,
+        private readonly PaymentUnitsItemRefundInterface $itemRefund,
+        private readonly ShipmentUnitRefundInterface $shipmentRefund,
+        private readonly RefundPaymentMethodsProviderInterface $refundPaymentMethodProvider,
+        private readonly DivisorProviderInterface $divisorProvider,
+    ) {
     }
 
     public function fromPayment(Payment $payment): RefundUnits
@@ -54,7 +59,10 @@ final class PaymentRefundCommandCreator implements PaymentRefundCommandCreatorIn
 
         if (0 === count($refundMethods)) {
             throw new OfflineRefundPaymentMethodNotFound(
-                sprintf('Not found offline payment method on this channel with code :%s', $order->getChannel()->getCode()),
+                sprintf(
+                    'Not found offline payment method on this channel with code :%s',
+                    $order->getChannel()->getCode(),
+                ),
             );
         }
 
@@ -65,7 +73,12 @@ final class PaymentRefundCommandCreator implements PaymentRefundCommandCreatorIn
 
         Assert::notNull($order->getNumber());
 
-        return new RefundUnits($order->getNumber(), array_merge($orderItemUnitRefund, $shipmentRefund), $refundMethod->getId(), '');
+        return new RefundUnits(
+            $order->getNumber(),
+            array_merge($orderItemUnitRefund, $shipmentRefund),
+            $refundMethod->getId(),
+            '',
+        );
     }
 
     /** @param RefundInterface[] $refundedUnits */

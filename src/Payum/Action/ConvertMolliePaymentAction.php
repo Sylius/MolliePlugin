@@ -39,7 +39,7 @@ final class ConvertMolliePaymentAction extends BaseApiAwareAction implements Gat
     use GatewayAwareTrait;
 
     public function __construct(
-        private PaymentDescriptionProviderInterface $paymentDescription,
+        private PaymentDescriptionProviderInterface $paymentDescriptionProvider,
         private RepositoryInterface $mollieMethodsRepository,
         private OrderConverterInterface $orderConverter,
         private CustomerContextInterface $customerContext,
@@ -94,7 +94,7 @@ final class ConvertMolliePaymentAction extends BaseApiAwareAction implements Gat
                 'value' => "$amount",
                 'currency' => $currency->code,
             ],
-            'description' => $this->paymentDescription->getPaymentDescription($payment, $method, $order),
+            'description' => $this->paymentDescriptionProvider->getPaymentDescription($payment, $method, $order),
             'metadata' => [
                 'order_id' => $order->getId(),
                 'customer_id' => $customer->getId() ?? null,

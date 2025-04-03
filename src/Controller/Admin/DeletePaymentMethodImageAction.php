@@ -25,8 +25,12 @@ use Webmozart\Assert\Assert;
 
 final class DeletePaymentMethodImageAction
 {
-    public function __construct(private readonly PaymentMethodLogoUploaderInterface $logoUploader, private readonly RepositoryInterface $logoRepository, private readonly EntityManagerInterface $entityManager, private readonly MollieLoggerActionInterface $loggerAction)
-    {
+    public function __construct(
+        private readonly PaymentMethodLogoUploaderInterface $logoUploader,
+        private readonly RepositoryInterface $logoRepository,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly MollieLoggerActionInterface $loggerAction,
+    ) {
     }
 
     public function __invoke(Request $request): Response
