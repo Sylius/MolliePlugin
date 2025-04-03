@@ -276,8 +276,8 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.event_listener.`                                                                    | `sylius_mollie.listener.checkout_order_colliding_products`                            |
 | `sylius_mollie_plugin.custom_factory.mollie_gateway_config`                                               | `sylius_mollie.custom_factory.mollie_gateway_config`                                  |
 | `sylius_mollie_plugin.factory.mollie_logger_factory`                                                      | `sylius_mollie.custom_factory.mollie_logger`                                          |
-| `sylius_mollie_plugin.factory.shipment_factory`                                                           | `sylius_mollie.factory.shipment`                                                      |
-| `bit_bag.sylius_mollie_plugin.factory.shipment_factory`                                                   | `sylius_mollie.factory.shipment`                                                      |
+| `sylius_mollie_plugin.factory.shipment_factory`                                                           | `sylius_mollie.partial_ship.factory.shipment`                                                      |
+| `bit_bag.sylius_mollie_plugin.factory.shipment_factory`                                                   | `sylius_mollie.partial_ship.factory.shipment`                                                      |
 | `sylius_mollie_plugin.factory.onboarding_wizard.status_factory`                                           | `sylius_mollie.custom_factory.onboarding_wizard.status`                               |
 | `sylius_mollie_plugin.custom_factory.mollie_subscription`                                                 | `sylius_mollie.custom_factory.mollie_subscription`                                    |
 | `sylius_mollie_plugin.custom_factory.mollie_subscription_schedule`                                        | `sylius_mollie.custom_factory.mollie_subscription_schedule`                           |
@@ -333,7 +333,7 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.order.shipment_unit_cloner`                                                         | `sylius_mollie.order.shipment_unit_cloner`                                            |
 | `sylius_mollie_plugin.order.order_cloner`                                                                 | `sylius_mollie.order.subscription_order_cloner`                                       |
 | `sylius_mollie_plugin.parser.response.guzzle_negative_response_parser`                                    | `sylius_mollie.parser.guzzle_negative_response`                                       |
-| `sylius_mollie_plugin.partial_ship.create_partial_ship_from_mollie`                                       | `sylius_mollie.partial_ship.create_partial_ship_from_mollie`                          |
+| `sylius_mollie_plugin.partial_ship.create_partial_ship_from_mollie`                                       | `sylius_mollie.partial_ship.converter.create_partial_ship_from_mollie`                          |
 | `sylius_mollie_plugin.processor.payment_surcharge_processor`                                              | `sylius_mollie.processor.payment_surcharge`                                           |
 | `sylius_mollie_plugin.payment_surcharge.types.fix_amount`                                                 | `sylius_mollie.payment_fee.calculator.fixed_amount`                                   |
 | `sylius_mollie_plugin.payment_surcharge.types.fix_amount_and_percentage`                                  | `sylius_mollie.payment_fee.calculator.fixed_amount_and_percentage`                    |
@@ -363,12 +363,12 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.refund.generator.payment_new_unit_refund_generator`                                 | `sylius_mollie.refund_generator.payment_new_unit`                                     |
 | `sylius_mollie_plugin.refund.generator.payment_refunded_generator`                                        | `sylius_mollie.refunded_generator.payment`                                            |
 | `sylius_mollie_plugin.calculator.refund.payment_refund_calculator`                                        | `sylius_mollie.calculator.refund.payment`                                             |
-| `sylius_mollie_plugin.remover.partial_ship.old_shipment_items_remover`                                    | `sylius_mollie.remover.partial_ship.old_shipment_items`                               |
+| `sylius_mollie_plugin.remover.partial_ship.old_shipment_items_remover`                                    | `sylius_mollie.partial_ship.remover.old_shipment_items`                               |
 | `sylius_mollie_plugin.resolver.payment_methods`                                                           | `sylius_mollie.resolver.payment_methods`                                              |
 | `sylius_mollie_plugin.resolver.payment_methods_image`                                                     | `sylius_mollie.resolver.payment_methods_image`                                        |
 | `sylius_mollie_plugin.resolver.payment_config`                                                            | `sylius_mollie.resolver.payment_config`                                               |
-| `sylius_mollie_plugin.resolver.partial_ship.from_sylius_to_mollie_lines_resolver`                         | `sylius_mollie.resolver.partial_ship.from_sylius_to_mollie_lines`                     |
-| `sylius_mollie_plugin.resolver.partial_ship.from_mollie_to_sylius_resolver`                               | `sylius_mollie.resolver.partial_ship.from_mollie_to_sylius`                           |
+| `sylius_mollie_plugin.resolver.partial_ship.from_sylius_to_mollie_lines_resolver`                         | `sylius_mollie.partial_ship.resolver.from_sylius_to_mollie_lines`                     |
+| `sylius_mollie_plugin.resolver.partial_ship.from_mollie_to_sylius_resolver`                               | `sylius_mollie.partial_ship.resolver.from_mollie_to_sylius`                           |
 | `sylius_mollie_plugin.resolver.payment_locale_resolver`                                                   | `sylius_mollie.resolver.payment_locale`                                               |
 | `sylius_mollie_plugin.resolver.mollie_countries_restriction_resolver`                                     | `sylius_mollie.resolver.mollie_countries_restriction`                                 |
 | `sylius_mollie_plugin.resolver.mollie_factory_name`                                                       | `sylius_mollie.resolver.mollie_factory_name`                                          |
