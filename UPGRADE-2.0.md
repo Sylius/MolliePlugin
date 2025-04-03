@@ -65,7 +65,7 @@
 
     ```diff
     - <service id="sylius_mollie_plugin.distributor.order.order_voucher_distributor" class="Sylius\MolliePlugin\Distributor\Order\OrderVoucherDistributor">
-    + <service id="sylius_mollie.applicator.order.order_vouchers" class="Sylius\MolliePlugin\Voucher\Applicator\OrderVouchersApplicator">
+    + <service id="sylius_mollie.voucher.applicator.order_vouchers" class="Sylius\MolliePlugin\Voucher\Applicator\OrderVouchersApplicator">
     ```
 
 1. Constructor changes
@@ -212,7 +212,7 @@ The following service IDs have been renamed:
 | Old Service ID                                                                                            | Use Instead                                                                           |
 |-----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
 | `sylius_mollie_plugin.checker.apple_pay.apple_pay_enabled_checker`                                        | `sylius_mollie.apple_pay.checker.apple_pay_enabled`                                   |
-| `sylius_mollie_plugin.applicator.units_promotion_adjustments_applicator`                                  | `sylius_mollie.applicator.units_promotion_adjustments`                                |
+| `sylius_mollie_plugin.applicator.units_promotion_adjustments_applicator`                                  | `sylius_mollie.voucher.applicator.units_promotion_adjustments`                        |
 | `sylius_mollie_plugin.calculator.calculate`                                                               | `sylius_mollie.calculator.calculate_tax_amount`                                       |
 | `sylius_mollie_plugin.cli.send_abandoned_payment_link`                                                    | `sylius_mollie.console.command.send_abandoned_payment_link`                           |
 | `sylius_mollie_plugin.cli.subscription.begin_processing`                                                  | `sylius_mollie.console.command.subscription.begin_processing`                         |
@@ -266,7 +266,7 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.creator.change_position_payment_method_creator`                                     | `sylius_mollie.creator.change_position_payment_method`                                |
 | `sylius_mollie_plugin.creator.onboarding_wizard.status_creator`                                           | `sylius_mollie.creator.onboarding_wizard.status`                                      |
 | `sylius_mollie_plugin.repository.credit_memo_repository`                                                  | `sylius_mollie.repository.credit_memo`                                                |
-| `sylius_mollie_plugin.distributor.order.order_voucher_distributor`                                        | `sylius_mollie.applicator.order.order_vouchers`                                       |
+| `sylius_mollie_plugin.distributor.order.order_voucher_distributor`                                        | `sylius_mollie.voucher.applicator.order_vouchers`                                     |
 | `sylius_mollie_plugin.documentation.documentation_links`                                                  | `sylius_mollie.documentation.documentation_links`                                     |
 | `sylius_mollie_plugin.event_listener.shipment_ship_event_listener`                                        | `sylius_mollie.listener.shipment_ship`                                                |
 | `sylius_mollie_plugin.event_listener.payment_method_logo_upload_listener`                                 | `sylius_mollie.listener.payment_method_logo_upload`                                   |
@@ -391,14 +391,14 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.twig.extension.customer_credit_cards`                                               | `sylius_mollie.twig.extension.customer_credit_cards`                                  |
 | `sylius_mollie_plugin.twig.extension.apple_pay_direct_enabled`                                            | `sylius_mollie.twig.extension.apple_pay_direct_enabled`                               |
 | `sylius_mollie_plugin.twig.extension.divisor_provider`                                                    | `sylius_mollie.twig.extension.divisor_provider`                                       |
-| `sylius_mollie_plugin.updater.order.order_voucher_adjustment_updater`                                     | `sylius_mollie.updater.order.order_voucher_adjustment`                                |
+| `sylius_mollie_plugin.updater.order.order_voucher_adjustment_updater`                                     | `sylius_mollie.voucher.updater.order_voucher_adjustment`                              |
 | `sylius_mollie_plugin.validator.constraits.payment_surcharge_type_validator`                              | `sylius_mollie.validator.payment_surcharge_type`                                      |
 | `sylius_mollie_plugin.validator.apple_pay_direct.apple_pay_address_validator`                             | `sylius_mollie.apple_pay.validator.apple_pay_address`                                 |
 | `sylius_mollie_plugin.validator.apple_pay_direct.payment_method_checkout_validator`                       | `sylius_mollie.validator.apple_pay_direct.payment_method_checkout`                    |
 | `sylius_mollie_plugin.validator.constraints.payment_method_mollie_channel_unique_validator`               | `sylius_mollie.validator.payment_method_mollie_channel_unique`                        |
 | `sylius_mollie_plugin.validator.refund.refund_units_command_validator`                                    | `sylius_mollie.refund.validator.refund_units_command`                                 |
 | `sylius_mollie_plugin.checker.version.mollie_plugin_latest_version_checker`                               | `sylius_mollie.checker.version.mollie_plugin_latest_version`                          |
-| `sylius_mollie_plugin.checker.voucher.product_voucher_type_checker`                                       | `sylius_mollie.checker.voucher.product_voucher_type`                                  |
+| `sylius_mollie_plugin.checker.voucher.product_voucher_type_checker`                                       | `sylius_mollie.voucher.checker.product_voucher_type`                                  |
 | `sylius_mollie_plugin.page.shop.account.order.index`                                                      | `sylius_mollie.behat.page.shop.account.order.index`                                   |
 | `sylius_mollie_plugin.page.shop.checkout.complete`                                                        | `sylius_mollie.behat.page.shop.checkout.complete`                                     |
 | `sylius_mollie_plugin.page.admin.order_index`                                                             | `sylius_mollie.behat.page.admin.order_index`                                          |

@@ -18,14 +18,14 @@
 >
     <services>
         <service
-            id="sylius_mollie.updater.order.order_voucher_adjustment"
+            id="sylius_mollie.voucher.updater.order_voucher_adjustment"
             class="Sylius\MolliePlugin\Voucher\Updater\OrderVoucherAdjustmentUpdater"
             public="true"
         >
             <argument type="service" id="sylius.repository.order"/>
-            <argument type="service" id="sylius_mollie.applicator.order.order_vouchers"/>
+            <argument type="service" id="sylius_mollie.voucher.applicator.order_vouchers"/>
             <argument type="service" id="sylius_mollie.provider.divisor"/>
         </service>
-        <service id="Sylius\MolliePlugin\Voucher\Updater\OrderVoucherAdjustmentUpdaterInterface" alias="sylius_mollie.updater.order.order_voucher_adjustment" />
+        <service id="Sylius\MolliePlugin\Voucher\Updater\OrderVoucherAdjustmentUpdaterInterface" alias="sylius_mollie.voucher.updater.order_voucher_adjustment" />
     </services>
 </container>
