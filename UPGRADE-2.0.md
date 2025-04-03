@@ -27,7 +27,7 @@
     - method `::canCalculate` has been renamed to `::supports`
     - method `::calculate` does not have a return value anymore
 
-   The previous service `sylius_mollie_plugin.payment_surcharge.calculate` has been refactored into `sylius_mollie.payment_fee.calculator.composite` which also implements the new `PaymentSurchargeCalculatorInterface`. Instead of static dependency to a few calculators, it's now a composite consisting of all calculators tagged with `sylius_mollie.payment_fee.calculator`.
+   The previous service `sylius_mollie_plugin.payment_surcharge.calculate` has been refactored into `sylius_mollie.calculator.payment_fee.composite` which also implements the new `PaymentSurchargeCalculatorInterface`. Instead of static dependency to a few calculators, it's now a composite consisting of all calculators tagged with `sylius_mollie.payment_fee.calculator`.
 
 1. The methods `getSubscription` and `setSubsscription` have been removed from `Sylius\MolliePlugin\Entity\OrderInterface` and `Sylius\MolliePlugin\Entity\RecurringOrderTrait`.
    There was an incorrect relationship between the `Order` and `MollieSubscription` entities. The `Order` entity had a many-to-one relationship to `MollieSubscription` entity,
@@ -335,10 +335,10 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.parser.response.guzzle_negative_response_parser`                                    | `sylius_mollie.parser.guzzle_negative_response`                                       |
 | `sylius_mollie_plugin.partial_ship.create_partial_ship_from_mollie`                                       | `sylius_mollie.partial_ship.converter.create_partial_ship_from_mollie`                |
 | `sylius_mollie_plugin.processor.payment_surcharge_processor`                                              | `sylius_mollie.processor.payment_surcharge`                                           |
-| `sylius_mollie_plugin.payment_surcharge.types.fix_amount`                                                 | `sylius_mollie.payment_fee.calculator.fixed_amount`                                   |
-| `sylius_mollie_plugin.payment_surcharge.types.fix_amount_and_percentage`                                  | `sylius_mollie.payment_fee.calculator.fixed_amount_and_percentage`                    |
-| `sylius_mollie_plugin.payment_surcharge.types.percentage`                                                 | `sylius_mollie.payment_fee.calculator.percentage`                                     |
-| `sylius_mollie_plugin.payment_surcharge.calculate`                                                        | `sylius_mollie.payment_fee.calculator.composite`                                      |
+| `sylius_mollie_plugin.payment_surcharge.types.fix_amount`                                                 | `sylius_mollie.calculator.payment_fee.fixed_amount`                                   |
+| `sylius_mollie_plugin.payment_surcharge.types.fix_amount_and_percentage`                                  | `sylius_mollie.calculator.payment_fee.fixed_amount_and_percentage`                    |
+| `sylius_mollie_plugin.payment_surcharge.types.percentage`                                                 | `sylius_mollie.calculator.payment_fee.percentage`                                     |
+| `sylius_mollie_plugin.payment_surcharge.calculate`                                                        | `sylius_mollie.calculator.payment_fee.composite`                                      |
 | `sylius_mollie_plugin.email_sender.payment_link_email_sender`                                             | `sylius_mollie.mailer.sender.payment_link`                                            |
 | `sylius_mollie_plugin.uploader.payment_method_logo_uploader`                                              | `sylius_mollie.uploader.payment_method_logo`                                          |
 | `sylius_mollie_plugin.payment_processing.cancel_recurring_subscription`                                   | `sylius_mollie.subscription.processor.cancel_recurring_subscription`                  |
