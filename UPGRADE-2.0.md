@@ -316,7 +316,7 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.payments.order_converter`                                                           | `sylius_mollie.converter.order`                                                       |
 | `sylius_mollie_plugin.helper.convert_price_to_amount`                                                     | `sylius_mollie.converter.price_to_amount`                                             |
 | `sylius_mollie_plugin.helper.convert_refund_data`                                                         | `sylius_mollie.refund.converter.refund_data`                                          |
-| `sylius_mollie_plugin.helper.payment_description`                                                         | `sylius_mollie.helper.payment_description`                                            |
+| `sylius_mollie_plugin.helper.payment_description`                                                         | `sylius_mollie.provider.payment_description`                                          |
 | `sylius_mollie_plugin.menu.mollie_menu_listener`                                                          | `sylius_mollie.menu_listener.mollie`                                                  |
 | `sylius_mollie_plugin.menu.order_show_menu_listener`                                                      | `sylius_mollie.menu_listener.admin_order_show`                                        |
 | `sylius_mollie_plugin.menu.mollie_email_template_menu_listener`                                           | `sylius_mollie.menu_listener.mollie_email_template`                                   |

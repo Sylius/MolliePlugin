@@ -62,7 +62,7 @@
         </service>
 
         <service id="sylius_mollie.payum.action.convert_mollie_payment" class="Sylius\MolliePlugin\Payum\Action\ConvertMolliePaymentAction">
-            <argument type="service" id="sylius_mollie.helper.payment_description"/>
+            <argument type="service" id="sylius_mollie.provider.payment_description"/>
             <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
             <argument type="service" id="sylius_mollie.converter.order"/>
             <argument type="service" id="sylius.context.customer"/>
@@ -74,7 +74,7 @@
         </service>
 
         <service id="sylius_mollie.payum.action.subscription.convert_mollie_subscription_payment" class="Sylius\MolliePlugin\Payum\Action\Subscription\ConvertMollieSubscriptionPaymentAction">
-            <argument type="service" id="sylius_mollie.helper.payment_description"/>
+            <argument type="service" id="sylius_mollie.provider.payment_description"/>
             <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
             <argument type="service" id="sylius_mollie.converter.order"/>
             <argument type="service" id="sylius.context.customer"/>

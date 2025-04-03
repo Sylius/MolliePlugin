@@ -28,9 +28,9 @@
         </service>
         <service id="Sylius\MolliePlugin\Provider\CustomerProviderInterface" alias="sylius_mollie.provider.customer" />
 
-        <service id="sylius_mollie.helper.payment_description" class="Sylius\MolliePlugin\Provider\PaymentDescriptionProvider">
+        <service id="sylius_mollie.provider.payment_description" class="Sylius\MolliePlugin\Provider\PaymentDescriptionProvider">
             <argument type="service" id="sylius.payment_description_provider"/>
         </service>
-        <service id="Sylius\MolliePlugin\Provider\PaymentDescriptionProviderInterface" alias="sylius_mollie.helper.payment_description" />
+        <service id="Sylius\MolliePlugin\Provider\PaymentDescriptionProviderInterface" alias="sylius_mollie.provider.payment_description" />
     </services>
 </container>
