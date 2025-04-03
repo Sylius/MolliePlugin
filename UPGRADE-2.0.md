@@ -217,7 +217,7 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.cli.send_abandoned_payment_link`                                                    | `sylius_mollie.console.command.send_abandoned_payment_link`                           |
 | `sylius_mollie_plugin.cli.subscription.begin_processing`                                                  | `sylius_mollie.console.command.subscription.begin_processing`                         |
 | `sylius_mollie_plugin.cli.subscription.process`                                                           | `sylius_mollie.console.command.subscription.process`                                  |
-| `sylius_mollie_plugin.context.admin.admin_user_context`                                                   | `sylius_mollie.context.admin_user`                                              |
+| `sylius_mollie_plugin.context.admin.admin_user_context`                                                   | `sylius_mollie.context.admin_user`                                                    |
 | `sylius_mollie_plugin.controller.action.admin.refund`                                                     | `sylius_mollie.controller.admin.refund`                                               |
 | `sylius_mollie_plugin.controller.action.admin.methods`                                                    | `sylius_mollie.controller.admin.methods`                                              |
 | `sylius_mollie_plugin.controller.action.admin.delete_payment_method_image`                                | `sylius_mollie.controller.admin.delete_payment_method_image`                          |
@@ -234,8 +234,8 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.controller.action.admin.mollie_subscription_controller`                             | `sylius_mollie.controller.admin.mollie_subscription`                                  |
 | `sylius_mollie_plugin.controller.action.admin.test_api_keys_action`                                       | `sylius_mollie.controller.admin.test_api_keys`                                        |
 | `sylius_mollie_plugin.controller.action.admin.change_position_payment_method_action`                      | `sylius_mollie.controller.admin.change_position_payment_method`                       |
-| `sylius_mollie_plugin.controller.onboarding_wizard.status`                                                | `sylius_mollie.controller.onboarding_wizard.status`                                   |
-| `sylius_mollie_plugin.controller.onboarding_wizard.completed`                                             | `sylius_mollie.controller.onboarding_wizard.completed`                                |
+| `sylius_mollie_plugin.controller.onboarding_wizard.status`                                                | `sylius_mollie.controller.admin.onboarding_wizard.status`                             |
+| `sylius_mollie_plugin.controller.onboarding_wizard.completed`                                             | `sylius_mollie.controller.admin.onboarding_wizard.completed`                          |
 | `sylius_mollie_plugin.action.create_payment`                                                              | `sylius_mollie.payum.action.create_payment`                                           |
 | `sylius_mollie_plugin.action.create_order`                                                                | `sylius_mollie.payum.action.create_order`                                             |
 | `sylius_mollie_plugin.action.mollie_payment`                                                              | `sylius_mollie.api.configuration_payment_provider.mollie`                             |
@@ -327,11 +327,11 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.get_http_request`                                                                   | `sylius_mollie.payum.get_http_request`                                                |
 | `sylius_mollie_plugin.logger.mollie_logger_action`                                                        | `sylius_mollie.logger.mollie_logger_action`                                           |
 | `sylius_mollie_plugin.order.order_payment_refund`                                                         | `sylius_mollie.refund.handler.order_payment_refund`                                   |
-| `sylius_mollie_plugin.order.order_item_cloner`                                                            | `sylius_mollie.cloner.order_item_cloner`                                               |
-| `sylius_mollie_plugin.order.adjustment_cloner`                                                            | `sylius_mollie.cloner.adjustment_cloner`                                               |
-| `sylius_mollie_plugin.order.shipment_cloner`                                                              | `sylius_mollie.cloner.shipment_cloner`                                                 |
+| `sylius_mollie_plugin.order.order_item_cloner`                                                            | `sylius_mollie.cloner.order_item_cloner`                                              |
+| `sylius_mollie_plugin.order.adjustment_cloner`                                                            | `sylius_mollie.cloner.adjustment_cloner`                                              |
+| `sylius_mollie_plugin.order.shipment_cloner`                                                              | `sylius_mollie.cloner.shipment_cloner`                                                |
 | `sylius_mollie_plugin.order.shipment_unit_cloner`                                                         | `sylius_mollie.order.shipment_unit_cloner`                                            |
-| `sylius_mollie_plugin.order.order_cloner`                                                                 | `sylius_mollie.cloner.subscription_order_cloner`                                       |
+| `sylius_mollie_plugin.order.order_cloner`                                                                 | `sylius_mollie.cloner.subscription_order_cloner`                                      |
 | `sylius_mollie_plugin.parser.response.guzzle_negative_response_parser`                                    | `sylius_mollie.client.parser.api_exception`                                           |
 | `sylius_mollie_plugin.partial_ship.create_partial_ship_from_mollie`                                       | `sylius_mollie.partial_ship.converter.create_partial_ship_from_mollie`                |
 | `sylius_mollie_plugin.processor.payment_surcharge_processor`                                              | `sylius_mollie.processor.payment_surcharge`                                           |
