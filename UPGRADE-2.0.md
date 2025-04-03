@@ -322,7 +322,7 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.menu.mollie_email_template_menu_listener`                                           | `sylius_mollie.menu_listener.mollie_email_template`                                   |
 | `sylius_mollie_plugin.menu.mollie_recurring_menu_listener`                                                | `sylius_mollie.menu_listener.mollie_recurring`                                        |
 | `sylius_mollie_plugin.payments.methods`                                                                   | `sylius_mollie.payments.methods`                                                      |
-| `bit_bag.sylius_mollie_plugin.payments.method_resolver.mollie_method_filter`                              | `sylius_mollie.payments.method_resolver.mollie_method_filter`                         |
+| `bit_bag.sylius_mollie_plugin.payments.method_resolver.mollie_method_filter`                              | `sylius_mollie.filter.mollie_method_filter`                                           |
 | `sylius_mollie_plugin.mollie_api_client`                                                                  | `sylius_mollie.client.mollie_api`                                                     |
 | `sylius_mollie_plugin.get_http_request`                                                                   | `sylius_mollie.payum.get_http_request`                                                |
 | `sylius_mollie_plugin.logger.mollie_logger_action`                                                        | `sylius_mollie.logger.mollie_logger_action`                                           |
