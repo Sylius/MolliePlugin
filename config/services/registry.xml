@@ -17,7 +17,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <services>
-        <service id="sylius_mollie.payments.methods" class="Sylius\MolliePlugin\Registry\PaymentMethodRegistry" public="true" />
-        <service id="Sylius\MolliePlugin\Registry\PaymentMethodRegistryInterface" alias="sylius_mollie.payments.methods" />
+        <service id="sylius_mollie.registry.payment_method" class="Sylius\MolliePlugin\Registry\PaymentMethodRegistry" public="true" />
+        <service id="Sylius\MolliePlugin\Registry\PaymentMethodRegistryInterface" alias="sylius_mollie.registry.payment_method" />
     </services>
 </container>
