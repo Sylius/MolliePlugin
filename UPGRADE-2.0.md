@@ -211,7 +211,7 @@ The following service IDs have been renamed:
 
 | Old Service ID                                                                                            | Use Instead                                                                           |
 |-----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
-| `sylius_mollie_plugin.checker.apple_pay.apple_pay_enabled_checker`                                        | `sylius_mollie.checker.apple_pay.apple_pay_enabled`                                   |
+| `sylius_mollie_plugin.checker.apple_pay.apple_pay_enabled_checker`                                        | `sylius_mollie.apple_pay.checker.apple_pay_enabled`                                   |
 | `sylius_mollie_plugin.applicator.units_promotion_adjustments_applicator`                                  | `sylius_mollie.applicator.units_promotion_adjustments`                                |
 | `sylius_mollie_plugin.calculator.calculate`                                                               | `sylius_mollie.calculator.calculate_tax_amount`                                       |
 | `sylius_mollie_plugin.cli.send_abandoned_payment_link`                                                    | `sylius_mollie.console.command.send_abandoned_payment_link`                           |
@@ -345,10 +345,10 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.payment_processing.subscription_payment_processor`                                  | `sylius_mollie.payment_processor.subscription_payment`                                |
 | `sylius_mollie_plugin.payment_resolver.mollie_payment_method`                                             | `sylius_mollie.payment_methods_resolver.mollie_payment`                               |
 | `sylius_mollie_plugin.preparer.payment_link_email_preparer`                                               | `sylius_mollie.preparer.payment_link_email`                                           |
-| `sylius_mollie_plugin.provider.apple.apple_pay_direct_provider`                                           | `sylius_mollie.provider.apple.apple_pay_direct`                                       |
-| `sylius_mollie_plugin.provider.order.order_payment_apple_pay_direct_provider`                             | `sylius_mollie.provider.order.order_payment_apple_pay_direct`                         |
+| `sylius_mollie_plugin.provider.apple.apple_pay_direct_provider`                                           | `sylius_mollie.apple_pay.provider.apple_pay_direct`                                   |
+| `sylius_mollie_plugin.provider.order.order_payment_apple_pay_direct_provider`                             | `sylius_mollie.apple_pay.provider.order_payment_apple_pay_direct`                     |
 | `sylius_mollie_plugin.provider.divisor.divisor_provider`                                                  | `sylius_mollie.provider.divisor`                                                      |
-| `sylius_mollie_plugin.provider.apple.apple_pay_direct_payment_provider`                                   | `sylius_mollie.provider.apple.apple_pay_direct_payment`                               |
+| `sylius_mollie_plugin.provider.apple.apple_pay_direct_payment_provider`                                   | `sylius_mollie.apple_pay.provider.apple_pay_direct_payment`                           |
 | `bit_bag.sylius_mollie_plugin.form.extension.resolver_group_provider`                                     | `sylius_mollie.provider.form.resolver_group`                                          |
 | `sylius_mollie_plugin.purifier.partial_ship.order_shipment_purifier`                                      | `sylius_mollie.purifier.partial_ship.order_shipment`                                  |
 | `sylius_mollie_plugin.purifier.partial_ship.order_mollie_partial_ship`                                    | `sylius_mollie.purifier.partial_ship.order_mollie_partial_ship`                       |
@@ -374,11 +374,11 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.resolver.mollie_factory_name`                                                       | `sylius_mollie.resolver.mollie_factory_name`                                          |
 | `sylius_mollie_plugin.resolver.meal_voucher_resolver`                                                     | `sylius_mollie.resolver.meal_voucher`                                                 |
 | `sylius_mollie_plugin.resolver.mollie_api_client_key_resolver`                                            | `sylius_mollie.resolver.mollie_api_client_key`                                        |
-| `sylius_mollie_plugin.resolver.address.address_resolver`                                                  | `sylius_mollie.resolver.address`                                                      |
-| `sylius_mollie_plugin.resolver.address.apple_pay_address_resolver`                                        | `sylius_mollie.resolver.address.apple_pay_address`                                    |
-| `sylius_mollie_plugin.resolver.apple_pay_direct.apple_pay_direct_api_order_payment_resolver`              | `sylius_mollie.resolver.apple_pay_direct.apple_pay_direct_api_order_payment`          |
-| `sylius_mollie_plugin.resolver.apple_pay_direct.apple_pay_direct_api_payment_resolver`                    | `sylius_mollie.resolver.apple_pay_direct.apple_pay_direct_api_payment`                |
-| `sylius_mollie_plugin.resolver.apple_pay_direct.apple_pay_direct_payment_type_resolver`                   | `sylius_mollie.resolver.apple_pay_direct.apple_pay_direct_payment_type`               |
+| `sylius_mollie_plugin.resolver.address.address_resolver`                                                  | `sylius_mollie.apple_pay.resolver.address`                                            |
+| `sylius_mollie_plugin.resolver.address.apple_pay_address_resolver`                                        | `sylius_mollie.apple_pay.resolver.address.apple_pay_address`                          |
+| `sylius_mollie_plugin.resolver.apple_pay_direct.apple_pay_direct_api_order_payment_resolver`              | `sylius_mollie.apple_pay.resolver.apple_pay_direct_api_order_payment`                 |
+| `sylius_mollie_plugin.resolver.apple_pay_direct.apple_pay_direct_api_payment_resolver`                    | `sylius_mollie.apple_pay.resolver.apple_pay_direct_api_payment`                       |
+| `sylius_mollie_plugin.resolver.apple_pay_direct.apple_pay_direct_payment_type_resolver`                   | `sylius_mollie.apple_pay.resolver.apple_pay_direct_payment_type`                      |
 | `sylius_mollie_plugin.resolver.api_keys_test_resolver`                                                    | `sylius_mollie.resolver.api_keys_test`                                                |
 | `sylius_mollie_plugin.resolver.order.payment_checkout_order_resolver`                                     | `sylius_mollie.resolver.order.payment_checkout_order`                                 |
 | `sylius_mollie_plugin.creator.mollie_methods_resolver`                                                    | `sylius_mollie.resolver.mollie_methods`                                               |
@@ -393,7 +393,7 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.twig.extension.divisor_provider`                                                    | `sylius_mollie.twig.extension.divisor_provider`                                       |
 | `sylius_mollie_plugin.updater.order.order_voucher_adjustment_updater`                                     | `sylius_mollie.updater.order.order_voucher_adjustment`                                |
 | `sylius_mollie_plugin.validator.constraits.payment_surcharge_type_validator`                              | `sylius_mollie.validator.payment_surcharge_type`                                      |
-| `sylius_mollie_plugin.validator.apple_pay_direct.apple_pay_address_validator`                             | `sylius_mollie.validator.apple_pay_direct.apple_pay_address`                          |
+| `sylius_mollie_plugin.validator.apple_pay_direct.apple_pay_address_validator`                             | `sylius_mollie.apple_pay.validator.apple_pay_address`                                 |
 | `sylius_mollie_plugin.validator.apple_pay_direct.payment_method_checkout_validator`                       | `sylius_mollie.validator.apple_pay_direct.payment_method_checkout`                    |
 | `sylius_mollie_plugin.validator.constraints.payment_method_mollie_channel_unique_validator`               | `sylius_mollie.validator.payment_method_mollie_channel_unique`                        |
 | `sylius_mollie_plugin.validator.refund.refund_units_command_validator`                                    | `sylius_mollie.validator.refund.refund_units_command`                                 |

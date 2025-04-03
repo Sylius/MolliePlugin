@@ -101,7 +101,7 @@
         <service id="sylius_mollie.controller.shop.apple_pay_validation" class="Sylius\MolliePlugin\Controller\Shop\ApplePayValidationAction">
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
             <argument type="service" id="sylius_mollie.resolver.mollie_api_client_key"/>
-            <argument type="service" id="sylius_mollie.checker.apple_pay.apple_pay_enabled"/>
+            <argument type="service" id="sylius_mollie.apple_pay.checker.apple_pay_enabled"/>
         </service>
 
         <service

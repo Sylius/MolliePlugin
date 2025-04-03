@@ -19,7 +19,7 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius_mollie.validator.apple_pay_direct.apple_pay_address" class="Sylius\MolliePlugin\ApplePay\Validator\ApplePayAddressValidator" />
-        <service id="Sylius\MolliePlugin\ApplePay\Validator\ApplePayAddressValidatorInterface" alias="sylius_mollie.validator.apple_pay_direct.apple_pay_address" />
+        <service id="sylius_mollie.apple_pay.validator.apple_pay_address" class="Sylius\MolliePlugin\ApplePay\Validator\ApplePayAddressValidator" />
+        <service id="Sylius\MolliePlugin\ApplePay\Validator\ApplePayAddressValidatorInterface" alias="sylius_mollie.apple_pay.validator.apple_pay_address" />
     </services>
 </container>

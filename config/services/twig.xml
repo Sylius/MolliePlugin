@@ -41,7 +41,7 @@
         </service>
 
         <service id="sylius_mollie.twig.extension.apple_pay_direct_enabled" class="Sylius\MolliePlugin\Twig\Extension\ApplePayDirectEnabled">
-            <argument type="service" id="sylius_mollie.checker.apple_pay.apple_pay_enabled"/>
+            <argument type="service" id="sylius_mollie.apple_pay.checker.apple_pay_enabled"/>
             <tag name="twig.extension" />
         </service>
 

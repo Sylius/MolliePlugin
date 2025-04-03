@@ -19,15 +19,15 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius_mollie.provider.apple.apple_pay_direct" class="Sylius\MolliePlugin\ApplePay\Provider\ApplePayDirectProvider">
-            <argument type="service" id="sylius_mollie.resolver.address"/>
-            <argument type="service" id="sylius_mollie.provider.order.order_payment_apple_pay_direct"/>
+        <service id="sylius_mollie.apple_pay.provider.apple_pay_direct" class="Sylius\MolliePlugin\ApplePay\Provider\ApplePayDirectProvider">
+            <argument type="service" id="sylius_mollie.apple_pay.resolver.address"/>
+            <argument type="service" id="sylius_mollie.apple_pay.provider.order_payment_apple_pay_direct"/>
             <argument type="service" id="sylius_mollie.provider.customer"/>
-            <argument type="service" id="sylius_mollie.provider.apple.apple_pay_direct_payment"/>
+            <argument type="service" id="sylius_mollie.apple_pay.provider.apple_pay_direct_payment"/>
         </service>
-        <service id="Sylius\MolliePlugin\ApplePay\Provider\ApplePayDirectProviderInterface" alias="sylius_mollie.provider.apple.apple_pay_direct" />
+        <service id="Sylius\MolliePlugin\ApplePay\Provider\ApplePayDirectProviderInterface" alias="sylius_mollie.apple_pay.provider.apple_pay_direct" />
 
-        <service id="sylius_mollie.provider.order.order_payment_apple_pay_direct" class="Sylius\MolliePlugin\ApplePay\Provider\OrderPaymentApplePayDirectProvider">
+        <service id="sylius_mollie.apple_pay.provider.order_payment_apple_pay_direct" class="Sylius\MolliePlugin\ApplePay\Provider\OrderPaymentApplePayDirectProvider">
             <argument type="service" id="sylius.custom_factory.payment"/>
             <argument type="service" id="sm.factory"/>
             <argument type="service" id="sylius.repository.payment_method"/>
@@ -35,11 +35,11 @@
             <argument type="service" id="sylius_mollie.provider.payment_token"/>
             <argument type="service" id="payum"/>
         </service>
-        <service id="Sylius\MolliePlugin\ApplePay\Provider\OrderPaymentApplePayDirectProviderInterface" alias="sylius_mollie.provider.order.order_payment_apple_pay_direct" />
+        <service id="Sylius\MolliePlugin\ApplePay\Provider\OrderPaymentApplePayDirectProviderInterface" alias="sylius_mollie.apple_pay.provider.order_payment_apple_pay_direct" />
 
-        <service id="sylius_mollie.provider.apple.apple_pay_direct_payment" class="Sylius\MolliePlugin\ApplePay\Provider\ApplePayDirectPaymentProvider">
-            <argument type="service" id="sylius_mollie.resolver.apple_pay_direct.apple_pay_direct_payment_type"/>
+        <service id="sylius_mollie.apple_pay.provider.apple_pay_direct_payment" class="Sylius\MolliePlugin\ApplePay\Provider\ApplePayDirectPaymentProvider">
+            <argument type="service" id="sylius_mollie.apple_pay.resolver.apple_pay_direct_payment_type"/>
         </service>
-        <service id="Sylius\MolliePlugin\ApplePay\Provider\ApplePayDirectPaymentProviderInterface" alias="sylius_mollie.provider.apple.apple_pay_direct_payment" />
+        <service id="Sylius\MolliePlugin\ApplePay\Provider\ApplePayDirectPaymentProviderInterface" alias="sylius_mollie.apple_pay.provider.apple_pay_direct_payment" />
     </services>
 </container>
