@@ -24,7 +24,7 @@
             <argument type="service" id="sylius.context.cart"/>
             <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
             <argument type="service" id="sylius.adjustments_aggregator" />
-            <argument type="service" id="sylius_mollie.helper.convert_price_to_amount" />
+            <argument type="service" id="sylius_mollie.converter.price_to_amount" />
             <argument type="service" id="twig"/>
         </service>
 
@@ -36,7 +36,7 @@
             <argument type="service" id="sylius.repository.order" />
             <argument type="service" id="router" />
             <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
-            <argument type="service" id="sylius_mollie.helper.int_to_string"/>
+            <argument type="service" id="sylius_mollie.converter.int_to_string"/>
         </service>
 
         <service id="sylius_mollie.controller.shop.credit_card_translation" class="Sylius\MolliePlugin\Controller\Shop\CreditCardTranslationController">

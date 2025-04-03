@@ -64,11 +64,11 @@
         <service id="sylius_mollie.payum.action.convert_mollie_payment" class="Sylius\MolliePlugin\Payum\Action\ConvertMolliePaymentAction">
             <argument type="service" id="sylius_mollie.helper.payment_description"/>
             <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
-            <argument type="service" id="sylius_mollie.helper.convert_order"/>
+            <argument type="service" id="sylius_mollie.converter.order"/>
             <argument type="service" id="sylius.context.customer"/>
             <argument type="service" id="sylius_mollie.resolver.payment_locale"/>
             <argument type="service" id="sylius_mollie.payum.factory.create_customer"/>
-            <argument type="service" id="sylius_mollie.helper.int_to_string"/>
+            <argument type="service" id="sylius_mollie.converter.int_to_string"/>
             <argument type="service" id="sylius_mollie.provider.divisor"/>
             <tag name="payum.action" factory="mollie" alias="payum.action.convert_mollie_payment"/>
         </service>
@@ -76,10 +76,10 @@
         <service id="sylius_mollie.payum.action.subscription.convert_mollie_subscription_payment" class="Sylius\MolliePlugin\Payum\Action\Subscription\ConvertMollieSubscriptionPaymentAction">
             <argument type="service" id="sylius_mollie.helper.payment_description"/>
             <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
-            <argument type="service" id="sylius_mollie.helper.convert_order"/>
+            <argument type="service" id="sylius_mollie.converter.order"/>
             <argument type="service" id="sylius.context.customer"/>
             <argument type="service" id="sylius_mollie.resolver.payment_locale"/>
-            <argument type="service" id="sylius_mollie.helper.int_to_string"/>
+            <argument type="service" id="sylius_mollie.converter.int_to_string"/>
             <argument type="service" id="sylius_mollie.provider.divisor"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.convert_mollie_subscription_payment"/>
         </service>

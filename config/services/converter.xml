@@ -19,26 +19,26 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius_mollie.helper.int_to_string" class="Sylius\MolliePlugin\Converter\IntToStringConverter">
+        <service id="sylius_mollie.converter.int_to_string" class="Sylius\MolliePlugin\Converter\IntToStringConverter">
             <argument type="service" id="sylius_mollie.provider.divisor"/>
         </service>
-        <service id="Sylius\MolliePlugin\Converter\IntToStringConverterInterface" alias="sylius_mollie.helper.int_to_string" />
+        <service id="Sylius\MolliePlugin\Converter\IntToStringConverterInterface" alias="sylius_mollie.converter.int_to_string" />
 
-        <service id="sylius_mollie.helper.convert_order" class="Sylius\MolliePlugin\Converter\OrderConverter">
-            <argument type="service" id="sylius_mollie.helper.int_to_string"/>
+        <service id="sylius_mollie.converter.order" class="Sylius\MolliePlugin\Converter\OrderConverter">
+            <argument type="service" id="sylius_mollie.converter.int_to_string"/>
             <argument type="service" id="sylius_mollie.calculator.calculate_tax_amount"/>
             <argument type="service" id="sylius_mollie.resolver.meal_voucher"/>
             <argument type="service" id="sylius.tax_rate_resolver"/>
             <argument type="service" id="sylius.zone_matcher"/>
             <argument type="service" id="request_stack"/>
         </service>
-        <service id="Sylius\MolliePlugin\Converter\OrderConverterInterface" alias="sylius_mollie.helper.convert_order" />
+        <service id="Sylius\MolliePlugin\Converter\OrderConverterInterface" alias="sylius_mollie.converter.order" />
 
-        <service id="sylius_mollie.helper.convert_price_to_amount" class="Sylius\MolliePlugin\Converter\PriceToAmountConverter">
+        <service id="sylius_mollie.converter.price_to_amount" class="Sylius\MolliePlugin\Converter\PriceToAmountConverter">
             <argument type="service" id="sylius.context.currency"/>
             <argument type="service" id="sylius.context.locale"/>
             <argument type="service" id="sylius.templating.helper.format_money"/>
         </service>
-        <service id="Sylius\MolliePlugin\Converter\PriceToAmountConverterInterface" alias="sylius_mollie.helper.convert_price_to_amount" />
+        <service id="Sylius\MolliePlugin\Converter\PriceToAmountConverterInterface" alias="sylius_mollie.converter.price_to_amount" />
     </services>
 </container>

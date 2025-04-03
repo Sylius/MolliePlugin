@@ -312,9 +312,9 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.gateway_factory.mollie_subscription`                                                | `sylius_mollie.payum.gateway_factory.builder.mollie_subscription`                     |
 | `sylius_mollie_plugin.generator.subscription_schedule_generator`                                          | `sylius_mollie.subscription.generator.subscription_schedule`                          |
 | `sylius_mollie_plugin.guard.subscription`                                                                 | `sylius_mollie.subscription.guard.subscription`                                       |
-| `sylius_mollie_plugin.helper.int_to_string`                                                               | `sylius_mollie.helper.int_to_string`                                                  |
-| `sylius_mollie_plugin.payments.order_converter`                                                           | `sylius_mollie.helper.convert_order`                                                  |
-| `sylius_mollie_plugin.helper.convert_price_to_amount`                                                     | `sylius_mollie.helper.convert_price_to_amount`                                        |
+| `sylius_mollie_plugin.helper.int_to_string`                                                               | `sylius_mollie.converter.int_to_string`                                               |
+| `sylius_mollie_plugin.payments.order_converter`                                                           | `sylius_mollie.converter.order`                                                       |
+| `sylius_mollie_plugin.helper.convert_price_to_amount`                                                     | `sylius_mollie.converter.price_to_amount`                                             |
 | `sylius_mollie_plugin.helper.convert_refund_data`                                                         | `sylius_mollie.refund.converter.refund_data`                                          |
 | `sylius_mollie_plugin.helper.payment_description`                                                         | `sylius_mollie.helper.payment_description`                                            |
 | `sylius_mollie_plugin.menu.mollie_menu_listener`                                                          | `sylius_mollie.menu_listener.mollie`                                                  |

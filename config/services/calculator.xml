@@ -22,7 +22,7 @@
             class="Sylius\MolliePlugin\Calculator\CalculateTaxAmount"
             public="true"
         >
-            <argument type="service" id="sylius_mollie.helper.int_to_string"/>
+            <argument type="service" id="sylius_mollie.converter.int_to_string"/>
         </service>
         <service id="Sylius\MolliePlugin\Calculator\CalculateTaxAmountInterface" alias="sylius_mollie.calculator.calculate_tax_amount"/>
 
