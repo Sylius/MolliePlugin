@@ -31,7 +31,7 @@
         <service id="sylius_mollie.console.command.subscription.process" class="Sylius\MolliePlugin\Console\Command\ProcessSubscriptions">
             <argument type="service" id="sylius_mollie.repository.mollie_subscription"/>
             <argument type="service" id="sm.factory"/>
-            <argument type="service" id="sylius_mollie.processor.subscription_payment"/>
+            <argument type="service" id="sylius_mollie.subscription.processor.subscription"/>
             <argument type="service" id="router"/>
             <tag name="console.command"/>
         </service>

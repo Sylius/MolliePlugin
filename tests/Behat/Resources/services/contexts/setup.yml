@@ -31,7 +31,7 @@ services:
             - "@doctrine.orm.default_entity_manager"
             - "@sylius_mollie.factory.mollie_subscription"
             - "@sylius.behat.shared_storage"
-            - "@sylius_mollie.processor.subscription_schedule"
+            - "@sylius_mollie.subscription.processor.subscription_schedule"
             - "@sylius_mollie.mollie_api_client"
 
     sylius_mollie.behat.context.setup.product:

@@ -19,7 +19,7 @@
 	<services>
 		<defaults public="true" />
 
-		<service id="sylius_mollie.processor.subscription_payment" class="Sylius\MolliePlugin\Subscription\Processor\SubscriptionProcessor">
+		<service id="sylius_mollie.subscription.processor.subscription" class="Sylius\MolliePlugin\Subscription\Processor\SubscriptionProcessor">
 			<argument type="service" id="sylius_mollie.order.subscription_order_cloner"/>
 			<argument type="service" id="sylius.custom_factory.payment"/>
 			<argument type="service" id="sylius.repository.order"/>
@@ -28,23 +28,23 @@
 			<argument type="service" id="payum"/>
 			<argument type="service" id="sylius.repository.gateway_config"/>
 		</service>
-		<service id="Sylius\MolliePlugin\Subscription\Processor\SubscriptionProcessorInterface" alias="sylius_mollie.processor.subscription_payment"/>
+		<service id="Sylius\MolliePlugin\Subscription\Processor\SubscriptionProcessorInterface" alias="sylius_mollie.subscription.processor.subscription"/>
 
-		<service id="sylius_mollie.processor.subscription_schedule" class="Sylius\MolliePlugin\Subscription\Processor\SubscriptionScheduleProcessor">
+		<service id="sylius_mollie.subscription.processor.subscription_schedule" class="Sylius\MolliePlugin\Subscription\Processor\SubscriptionScheduleProcessor">
 			<argument type="service" id="sylius_mollie.repository.mollie_subscription_schedule"/>
-			<argument type="service" id="sylius_mollie.generator.subscription_schedule"/>
+			<argument type="service" id="sylius_mollie.subscription.generator.subscription_schedule"/>
 		</service>
-		<service id="Sylius\MolliePlugin\Subscription\Processor\SubscriptionScheduleProcessorInterface" alias="sylius_mollie.processor.subscription_schedule"/>
+		<service id="Sylius\MolliePlugin\Subscription\Processor\SubscriptionScheduleProcessorInterface" alias="sylius_mollie.subscription.processor.subscription_schedule"/>
 
-		<service id="sylius_mollie.payment_processor.cancel_recurring_subscription" class="Sylius\MolliePlugin\Subscription\Processor\CancelRecurringSubscriptionProcessor">
+		<service id="sylius_mollie.subscription.processor.cancel_recurring_subscription" class="Sylius\MolliePlugin\Subscription\Processor\CancelRecurringSubscriptionProcessor">
 			<argument type="service" id="payum"/>
 		</service>
-		<service id="Sylius\MolliePlugin\Subscription\Processor\CancelRecurringSubscriptionProcessorInterface" alias="sylius_mollie.payment_processor.cancel_recurring_subscription" />
+		<service id="Sylius\MolliePlugin\Subscription\Processor\CancelRecurringSubscriptionProcessorInterface" alias="sylius_mollie.subscription.processor.cancel_recurring_subscription" />
 
-		<service id="sylius_mollie.payment_processor.subscription_payment" class="Sylius\MolliePlugin\Subscription\Processor\SubscriptionPaymentProcessor">
+		<service id="sylius_mollie.subscription.processor.subscription_payment" class="Sylius\MolliePlugin\Subscription\Processor\SubscriptionPaymentProcessor">
 			<argument type="service" id="sylius_mollie.repository.mollie_subscription"/>
 			<argument type="service" id="payum"/>
 		</service>
-		<service id="Sylius\MolliePlugin\Subscription\Processor\SubscriptionPaymentProcessorInterface" alias="sylius_mollie.payment_processor.subscription_payment" />
+		<service id="Sylius\MolliePlugin\Subscription\Processor\SubscriptionPaymentProcessorInterface" alias="sylius_mollie.subscription.processor.subscription_payment" />
 	</services>
 </container>

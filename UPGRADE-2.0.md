@@ -310,8 +310,8 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.factory.mollie_subscription_gateway_factory`                                        | `sylius_mollie.payum.gateway_factory.mollie_subscription_gateway`                     |
 | `sylius_mollie_plugin.gateway_factory.mollie`                                                             | `sylius_mollie.payum.gateway_factory.builder.mollie`                                  |
 | `sylius_mollie_plugin.gateway_factory.mollie_subscription`                                                | `sylius_mollie.payum.gateway_factory.builder.mollie_subscription`                     |
-| `sylius_mollie_plugin.generator.subscription_schedule_generator`                                          | `sylius_mollie.generator.subscription_schedule`                                       |
-| `sylius_mollie_plugin.guard.subscription`                                                                 | `sylius_mollie.guard.subscription`                                                    |
+| `sylius_mollie_plugin.generator.subscription_schedule_generator`                                          | `sylius_mollie.subscription.generator.subscription_schedule`                          |
+| `sylius_mollie_plugin.guard.subscription`                                                                 | `sylius_mollie.subscription.guard.subscription`                                       |
 | `sylius_mollie_plugin.helper.int_to_string`                                                               | `sylius_mollie.helper.int_to_string`                                                  |
 | `sylius_mollie_plugin.payments.order_converter`                                                           | `sylius_mollie.helper.convert_order`                                                  |
 | `sylius_mollie_plugin.helper.convert_price_to_amount`                                                     | `sylius_mollie.helper.convert_price_to_amount`                                        |
@@ -341,8 +341,8 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.payment_surcharge.calculate`                                                        | `sylius_mollie.payment_fee.calculator.composite`                                      |
 | `sylius_mollie_plugin.email_sender.payment_link_email_sender`                                             | `sylius_mollie.mailer.sender.payment_link`                                            |
 | `sylius_mollie_plugin.uploader.payment_method_logo_uploader`                                              | `sylius_mollie.uploader.payment_method_logo`                                          |
-| `sylius_mollie_plugin.payment_processing.cancel_recurring_subscription`                                   | `sylius_mollie.payment_processor.cancel_recurring_subscription`                       |
-| `sylius_mollie_plugin.payment_processing.subscription_payment_processor`                                  | `sylius_mollie.payment_processor.subscription_payment`                                |
+| `sylius_mollie_plugin.payment_processing.cancel_recurring_subscription`                                   | `sylius_mollie.subscription.processor.cancel_recurring_subscription`                  |
+| `sylius_mollie_plugin.payment_processing.subscription_payment_processor`                                  | `sylius_mollie.subscription.processor.subscription_payment`                           |
 | `sylius_mollie_plugin.payment_resolver.mollie_payment_method`                                             | `sylius_mollie.payment_methods_resolver.mollie_payment`                               |
 | `sylius_mollie_plugin.preparer.payment_link_email_preparer`                                               | `sylius_mollie.mailer.manager.payment_link_email`                                     |
 | `sylius_mollie_plugin.provider.apple.apple_pay_direct_provider`                                           | `sylius_mollie.apple_pay.provider.apple_pay_direct`                                   |
@@ -384,8 +384,8 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.creator.mollie_methods_resolver`                                                    | `sylius_mollie.resolver.mollie_methods`                                               |
 | `sylius_mollie_plugin.resolver.mollie_allowed_methods_resolver`                                           | `sylius_mollie.resolver.mollie_allowed_methods`                                       |
 | `sylius_mollie_plugin.resolver.onboarding_wizard.status_resolver`                                         | `sylius_mollie.resolver.onboarding_wizard.status`                                     |
-| `sylius_mollie_plugin.processor.subscription_payment_processor`                                           | `sylius_mollie.processor.subscription_payment`                                        |
-| `sylius_mollie_plugin.processor.subscription_schedule_processor`                                          | `sylius_mollie.processor.subscription_schedule`                                       |
+| `sylius_mollie_plugin.processor.subscription_payment_processor`                                           | `sylius_mollie.subscription.processor.subscription`                                   |
+| `sylius_mollie_plugin.processor.subscription_schedule_processor`                                          | `sylius_mollie.subscription.processor.subscription_schedule`                          |
 | `sylius_mollie_plugin.twig.parser.content_parser`                                                         | `sylius_mollie.twig.parser.content`                                                   |
 | `sylius_mollie_plugin.twig.extension.mollie_plugin_latest_version`                                        | `sylius_mollie.twig.extension.mollie_plugin_latest_version`                           |
 | `sylius_mollie_plugin.twig.extension.customer_credit_cards`                                               | `sylius_mollie.twig.extension.customer_credit_cards`                                  |
