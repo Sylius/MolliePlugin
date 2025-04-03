@@ -20,12 +20,12 @@
         <defaults public="true" />
 
         <service
-            id="sylius_mollie.preparer.payment_link_email"
+            id="sylius_mollie.mailer.manager.payment_link_email"
             class="Sylius\MolliePlugin\Mailer\Manager\PaymentLinkEmailManager"
         >
             <argument type="service" id="sylius_mollie.repository.template_mollie_email_translation" />
-            <argument type="service" id="sylius_mollie.email_sender.payment_link" />
+            <argument type="service" id="sylius_mollie.mailer.sender.payment_link" />
         </service>
-        <service id="Sylius\MolliePlugin\Mailer\Manager\PaymentLinkEmailManagerInterface" alias="sylius_mollie.preparer.payment_link_email" />
+        <service id="Sylius\MolliePlugin\Mailer\Manager\PaymentLinkEmailManagerInterface" alias="sylius_mollie.mailer.manager.payment_link_email" />
     </services>
 </container>

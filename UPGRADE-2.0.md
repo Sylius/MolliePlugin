@@ -339,12 +339,12 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.payment_surcharge.types.fix_amount_and_percentage`                                  | `sylius_mollie.payment_fee.calculator.fixed_amount_and_percentage`                    |
 | `sylius_mollie_plugin.payment_surcharge.types.percentage`                                                 | `sylius_mollie.payment_fee.calculator.percentage`                                     |
 | `sylius_mollie_plugin.payment_surcharge.calculate`                                                        | `sylius_mollie.payment_fee.calculator.composite`                                      |
-| `sylius_mollie_plugin.email_sender.payment_link_email_sender`                                             | `sylius_mollie.email_sender.payment_link`                                             |
+| `sylius_mollie_plugin.email_sender.payment_link_email_sender`                                             | `sylius_mollie.mailer.sender.payment_link`                                            |
 | `sylius_mollie_plugin.uploader.payment_method_logo_uploader`                                              | `sylius_mollie.uploader.payment_method_logo`                                          |
 | `sylius_mollie_plugin.payment_processing.cancel_recurring_subscription`                                   | `sylius_mollie.payment_processor.cancel_recurring_subscription`                       |
 | `sylius_mollie_plugin.payment_processing.subscription_payment_processor`                                  | `sylius_mollie.payment_processor.subscription_payment`                                |
 | `sylius_mollie_plugin.payment_resolver.mollie_payment_method`                                             | `sylius_mollie.payment_methods_resolver.mollie_payment`                               |
-| `sylius_mollie_plugin.preparer.payment_link_email_preparer`                                               | `sylius_mollie.preparer.payment_link_email`                                           |
+| `sylius_mollie_plugin.preparer.payment_link_email_preparer`                                               | `sylius_mollie.mailer.manager.payment_link_email`                                     |
 | `sylius_mollie_plugin.provider.apple.apple_pay_direct_provider`                                           | `sylius_mollie.apple_pay.provider.apple_pay_direct`                                   |
 | `sylius_mollie_plugin.provider.order.order_payment_apple_pay_direct_provider`                             | `sylius_mollie.apple_pay.provider.order_payment_apple_pay_direct`                     |
 | `sylius_mollie_plugin.provider.divisor.divisor_provider`                                                  | `sylius_mollie.provider.divisor`                                                      |
