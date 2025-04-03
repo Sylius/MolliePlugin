@@ -27,7 +27,7 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Converter\IntToStringConverterInterface;
 use Sylius\MolliePlugin\Converter\OrderConverterInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
-use Sylius\MolliePlugin\Payments\PaymentType;
+use Sylius\MolliePlugin\Model\ApiType;
 use Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactoryInterface;
 use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
 use Sylius\MolliePlugin\Provider\PaymentDescriptionProviderInterface;
@@ -139,16 +139,16 @@ final class ConvertMolliePaymentAction extends BaseApiAwareAction implements Gat
 
         if (false === $this->mollieApiClient->isRecurringSubscription()) {
             $details['customerId'] = $model['customer_mollie_id'] ?? null;
-            $details['metadata']['methodType'] = PaymentType::PAYMENT_API;
+            $details['metadata']['methodType'] = ApiType::PAYMENT_API;
 
             if (null !== ($paymentLocale = $this->paymentLocaleResolver->resolveFromOrder($order))) {
                 $details['locale'] = $paymentLocale;
             }
 
-            if (PaymentType::ORDER_API === array_search($method->getPaymentType(), PaymentType::getAllAvailable(), true)) {
+            if (ApiType::ORDER_API === array_search($method->getPaymentType(), ApiType::getAllAvailable(), true)) {
                 unset($details['customerId']);
 
-                $details['metadata']['methodType'] = PaymentType::ORDER_API;
+                $details['metadata']['methodType'] = ApiType::ORDER_API;
                 $details = $this->orderConverter->convert($order, $details, $divisor, $method);
             }
         }

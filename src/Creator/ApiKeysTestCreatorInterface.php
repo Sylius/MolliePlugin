@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Creator;
 
-use Sylius\MolliePlugin\DTO\ApiKeyTest;
+use Sylius\MolliePlugin\Model\DTO\ApiKeyTest;
 
 interface ApiKeysTestCreatorInterface
 {

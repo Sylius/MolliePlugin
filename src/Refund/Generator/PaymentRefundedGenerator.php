@@ -15,8 +15,8 @@ namespace Sylius\MolliePlugin\Refund\Generator;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\MolliePlugin\DTO\PartialRefundItem;
-use Sylius\MolliePlugin\DTO\PartialRefundItems;
+use Sylius\MolliePlugin\Model\DTO\PartialRefundItem;
+use Sylius\MolliePlugin\Model\DTO\PartialRefundItems;
 use Sylius\RefundPlugin\Entity\RefundInterface;
 use Sylius\RefundPlugin\Model\RefundType;
 

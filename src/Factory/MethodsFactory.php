@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Factory;
 
-use Sylius\MolliePlugin\Payments\Methods;
-use Sylius\MolliePlugin\Payments\MethodsInterface;
+use Sylius\MolliePlugin\Registry\PaymentMethodRegistry;
+use Sylius\MolliePlugin\Registry\PaymentMethodRegistryInterface;
 
 final class MethodsFactory implements MethodsFactoryInterface
 {
-    public function createNew(): MethodsInterface
+    public function createNew(): PaymentMethodRegistryInterface
     {
-        return new Methods();
+        return new PaymentMethodRegistry();
     }
 }

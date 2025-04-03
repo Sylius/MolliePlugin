@@ -16,7 +16,7 @@ namespace Sylius\MolliePlugin\Factory;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
-use Sylius\MolliePlugin\Payments\Methods\MethodInterface;
+use Sylius\MolliePlugin\Model\PaymentMethod\MethodInterface;
 
 interface MollieGatewayConfigFactoryInterface extends FactoryInterface
 {

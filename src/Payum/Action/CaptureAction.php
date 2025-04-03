@@ -29,8 +29,8 @@ use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
-use Sylius\MolliePlugin\Payments\ApiTypeRestrictedPaymentMethods;
-use Sylius\MolliePlugin\Payments\PaymentType;
+use Sylius\MolliePlugin\Model\ApiType;
+use Sylius\MolliePlugin\Model\ApiTypeRestrictedPaymentMethods;
 use Sylius\MolliePlugin\Payum\Request\CreateCustomer;
 use Sylius\MolliePlugin\Payum\Request\CreateOrder;
 use Sylius\MolliePlugin\Payum\Request\CreatePayment;
@@ -128,31 +128,31 @@ final class CaptureAction extends BaseApiAwareAction implements GenericTokenFact
                 $this->gateway->execute(new CreateOnDemandSubscriptionPayment($details));
             }
         } else {
-            if (isset($details['metadata']['methodType']) && PaymentType::PAYMENT_API === $details['metadata']['methodType']) {
+            if (isset($details['metadata']['methodType']) && ApiType::PAYMENT_API === $details['metadata']['methodType']) {
                 if (in_array($details['metadata']['molliePaymentMethods'], ApiTypeRestrictedPaymentMethods::onlyOrderApi(), true)) {
                     throw new InvalidArgumentException(sprintf(
                         'Method %s is not allowed to use %s',
                         $details['metadata']['molliePaymentMethods'],
-                        PaymentType::PAYMENT_API,
+                        ApiType::PAYMENT_API,
                     ));
                 }
 
                 $this->gateway->execute(new CreatePayment($details));
             }
 
-            if (isset($details['metadata']['methodType']) && PaymentType::ORDER_API === $details['metadata']['methodType']) {
+            if (isset($details['metadata']['methodType']) && ApiType::ORDER_API === $details['metadata']['methodType']) {
                 if (in_array($details['metadata']['molliePaymentMethods'], ApiTypeRestrictedPaymentMethods::onlyPaymentApi(), true)) {
                     throw new InvalidArgumentException(sprintf(
                         'Method %s is not allowed to use %s',
                         $details['metadata']['molliePaymentMethods'],
-                        PaymentType::ORDER_API,
+                        ApiType::ORDER_API,
                     ));
                 }
 
                 $this->gateway->execute(new CreateOrder($details));
             }
 
-            if (isset($details['metadata']['methodType']) && PaymentType::ORDER_API === $details['metadata']['methodType']) {
+            if (isset($details['metadata']['methodType']) && ApiType::ORDER_API === $details['metadata']['methodType']) {
                 $this->gateway->execute(new CreateOrder($details));
             }
         }

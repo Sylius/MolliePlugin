@@ -15,8 +15,8 @@ namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Payments\Methods;
 
 use Mollie\Api\Types\PaymentMethod;
 use PHPUnit\Framework\TestCase;
-use Sylius\MolliePlugin\Payments\Methods\DirectDebit;
-use Sylius\MolliePlugin\Payments\PaymentType;
+use Sylius\MolliePlugin\Model\ApiType;
+use Sylius\MolliePlugin\Model\PaymentMethod\DirectDebit;
 
 final class DirectDebitTest extends TestCase
 {
@@ -34,6 +34,6 @@ final class DirectDebitTest extends TestCase
 
     public function testGetsPaymentType(): void
     {
-        $this->assertSame(PaymentType::PAYMENT_API_VALUE, $this->directDebit->getPaymentType());
+        $this->assertSame(ApiType::PAYMENT_API_VALUE, $this->directDebit->getPaymentType());
     }
 }

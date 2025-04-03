@@ -23,10 +23,10 @@ use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
-use Sylius\MolliePlugin\Payments\MethodResolver\MollieMethodFilterInterface;
-use Sylius\MolliePlugin\Payments\MethodResolver\MolliePaymentMethodResolver;
+use Sylius\MolliePlugin\Filter\MollieMethodFilterInterface;
 use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
 use Sylius\MolliePlugin\Resolver\MollieFactoryNameResolverInterface;
+use Sylius\MolliePlugin\Resolver\PaymentMethodResolver;
 
 final class MolliePaymentMethodResolverTest extends TestCase
 {
@@ -40,7 +40,7 @@ final class MolliePaymentMethodResolverTest extends TestCase
 
     private EntityManagerInterface $entityManagerMock;
 
-    private MolliePaymentMethodResolver $molliePaymentMethodResolver;
+    private PaymentMethodResolver $molliePaymentMethodResolver;
 
     protected function setUp(): void
     {
@@ -50,7 +50,7 @@ final class MolliePaymentMethodResolverTest extends TestCase
         $this->mollieMethodFilterMock = $this->createMock(MollieMethodFilterInterface::class);
         $this->entityManagerMock = $this->createMock(EntityManagerInterface::class);
 
-        $this->molliePaymentMethodResolver = new MolliePaymentMethodResolver(
+        $this->molliePaymentMethodResolver = new PaymentMethodResolver(
             $this->decoratedServiceMock,
             $this->paymentMethodRepositoryMock,
             $this->factoryNameResolverMock,

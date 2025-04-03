@@ -17,8 +17,8 @@ use Mollie\Api\Resources\Order;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\MolliePlugin\DTO\PartialShipItem;
-use Sylius\MolliePlugin\DTO\PartialShipItems;
+use Sylius\MolliePlugin\Model\DTO\PartialShipItem;
+use Sylius\MolliePlugin\Model\DTO\PartialShipItems;
 use Sylius\MolliePlugin\PartialShip\Remover\OldShipmentItemsRemoverInterface;
 
 final class FromMollieToSyliusResolver implements FromMollieToSyliusResolverInterface

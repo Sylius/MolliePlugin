@@ -16,7 +16,7 @@ namespace Sylius\MolliePlugin\Entity;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\Resource\Model\TranslatableTrait;
 use Sylius\Component\Resource\Model\TranslationInterface;
-use Sylius\MolliePlugin\Payments\Methods\AbstractMethod;
+use Sylius\MolliePlugin\Model\PaymentMethod\AbstractMethod;
 
 class MollieGatewayConfig extends AbstractMethod implements ResourceInterface, MollieGatewayConfigInterface, \Stringable
 {

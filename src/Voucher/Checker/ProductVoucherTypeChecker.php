@@ -18,7 +18,7 @@ use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\ProductInterface;
 use Sylius\MolliePlugin\Entity\ProductType;
-use Sylius\MolliePlugin\Payments\Methods\MealVoucher;
+use Sylius\MolliePlugin\Model\PaymentMethod\MealVoucher;
 use Sylius\MolliePlugin\Repository\MollieGatewayConfigRepository;
 use Webmozart\Assert\Assert;
 

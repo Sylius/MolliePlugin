@@ -16,8 +16,8 @@ namespace Sylius\MolliePlugin\PartialShip\Resolver;
 use Doctrine\Common\Collections\Collection;
 use Mollie\Api\Resources\Order;
 use Sylius\Component\Core\Model\OrderItemUnitInterface;
-use Sylius\MolliePlugin\DTO\PartialShipItem;
-use Sylius\MolliePlugin\DTO\PartialShipItems;
+use Sylius\MolliePlugin\Model\DTO\PartialShipItem;
+use Sylius\MolliePlugin\Model\DTO\PartialShipItems;
 use Webmozart\Assert\Assert;
 
 final class FromSyliusToMollieLinesResolver implements FromSyliusToMollieLinesResolverInterface

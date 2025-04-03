@@ -16,7 +16,7 @@ namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Factory;
 use PHPUnit\Framework\TestCase;
 use Sylius\MolliePlugin\Factory\MethodsFactory;
 use Sylius\MolliePlugin\Factory\MethodsFactoryInterface;
-use Sylius\MolliePlugin\Payments\MethodsInterface;
+use Sylius\MolliePlugin\Registry\PaymentMethodRegistryInterface;
 
 final class MethodsFactoryTest extends TestCase
 {
@@ -35,6 +35,6 @@ final class MethodsFactoryTest extends TestCase
     public function testCreatesNewMethod(): void
     {
         $method = $this->methodsFactory->createNew();
-        $this->assertInstanceOf(MethodsInterface::class, $method);
+        $this->assertInstanceOf(PaymentMethodRegistryInterface::class, $method);
     }
 }
