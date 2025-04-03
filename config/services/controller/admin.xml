@@ -64,7 +64,7 @@
         </service>
 
         <service id="sylius_mollie.controller.admin.change_position_payment_method" class="Sylius\MolliePlugin\Controller\Admin\ChangePositionPaymentMethodAction">
-            <argument type="service" id="sylius_mollie.creator.change_position_payment_method"/>
+            <argument type="service" id="sylius_mollie.updater.mollie_payment_method_position"/>
         </service>
 
         <service id="sylius_mollie.controller.admin.onboarding_wizard.status" class="Sylius\MolliePlugin\Controller\Admin\OnboardingWizard\StatusAction">

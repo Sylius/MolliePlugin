@@ -263,7 +263,7 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.creator.abandoned_payment_link_creator`                                             | `sylius_mollie.creator.abandoned_payment_link`                                |
 | `bit_bag.sylius_mollie_plugin.creator.mollie_methods_creator`                                             | `sylius_mollie.creator.mollie_methods`                                        |
 | `sylius_mollie_plugin.creator.api_keys_test_creator`                                                      | `sylius_mollie.creator.api_keys_test`                                         |
-| `sylius_mollie_plugin.creator.change_position_payment_method_creator`                                     | `sylius_mollie.creator.change_position_payment_method`                        |
+| `sylius_mollie_plugin.creator.change_position_payment_method_creator`                                     | `sylius_mollie.updater.mollie_payment_method_position`                        |
 | `sylius_mollie_plugin.creator.onboarding_wizard.status_creator`                                           | `sylius_mollie.creator.onboarding_wizard.status`                              |
 | `sylius_mollie_plugin.repository.credit_memo_repository`                                                  | `sylius_mollie.repository.credit_memo`                                        |
 | `sylius_mollie_plugin.distributor.order.order_voucher_distributor`                                        | `sylius_mollie.voucher.applicator.order_vouchers`                             |

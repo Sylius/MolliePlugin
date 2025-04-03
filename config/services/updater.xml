@@ -19,10 +19,10 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius_mollie.creator.change_position_payment_method" class="Sylius\MolliePlugin\Updater\MolliePaymentMethodPositionUpdater">
+        <service id="sylius_mollie.updater.mollie_payment_method_position" class="Sylius\MolliePlugin\Updater\MolliePaymentMethodPositionUpdater">
             <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
             <argument type="service" id="doctrine.orm.entity_manager"/>
         </service>
-        <service id="Sylius\MolliePlugin\Updater\MolliePaymentMethodPositionUpdaterInterface" alias="sylius_mollie.creator.change_position_payment_method" />
+        <service id="Sylius\MolliePlugin\Updater\MolliePaymentMethodPositionUpdaterInterface" alias="sylius_mollie.updater.mollie_payment_method_position" />
     </services>
 </container>
