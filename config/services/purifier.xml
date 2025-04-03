@@ -25,7 +25,7 @@
         <service id="Sylius\MolliePlugin\PartialShip\Purifier\OrderShipmentPurifierInterface" alias="sylius_mollie.purifier.partial_ship.order_shipment" />
 
         <service id="sylius_mollie.purifier.partial_ship.order_mollie_partial_ship" class="Sylius\MolliePlugin\PartialShip\OrderMolliePartialShip">
-            <argument type="service" id="sylius_mollie.mollie_api_client"/>
+            <argument type="service" id="sylius_mollie.client.mollie_api"/>
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
             <argument type="service" id="sylius_mollie.partial_ship.resolver.from_sylius_to_mollie_lines"/>
         </service>

@@ -86,7 +86,7 @@
 
         <service id="sylius_mollie.payum.action.create_payment" class="Sylius\MolliePlugin\Payum\Action\CreatePaymentAction">
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
-            <argument type="service" id="sylius_mollie.parser.guzzle_negative_response"/>
+            <argument type="service" id="sylius_mollie.client.parser.api_exception"/>
             <argument type="service" id="request_stack"/>
             <argument type="service" id="sylius_mollie.repository.mollie_customer"/>
             <tag name="payum.action" factory="mollie" alias="payum.action.create_payment"/>
@@ -101,13 +101,13 @@
 
         <service id="sylius_mollie.payum.action.create_on_demand_payment" class="Sylius\MolliePlugin\Payum\Action\CreateOnDemandPaymentAction">
             <argument id="sylius_mollie.logger.mollie_logger_action" type="service"/>
-            <argument id="sylius_mollie.parser.guzzle_negative_response" type="service"/>
+            <argument id="sylius_mollie.client.parser.api_exception" type="service"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.create_on_demand_payment_action"/>
         </service>
 
         <service id="sylius_mollie.payum.action.subscription.create_on_demand_subscription" class="Sylius\MolliePlugin\Payum\Action\Subscription\CreateOnDemandSubscriptionAction">
             <argument id="sylius_mollie.logger.mollie_logger_action" type="service"/>
-            <argument id="sylius_mollie.parser.guzzle_negative_response" type="service"/>
+            <argument id="sylius_mollie.client.parser.api_exception" type="service"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.create_on_demand_subscription_action"/>
         </service>
 

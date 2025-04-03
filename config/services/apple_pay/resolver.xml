@@ -28,7 +28,7 @@
         <service id="Sylius\MolliePlugin\ApplePay\Resolver\AddressResolverInterface" alias="sylius_mollie.apple_pay.resolver.address" />
 
         <service id="sylius_mollie.apple_pay.resolver.apple_pay_direct_api_order_payment" class="Sylius\MolliePlugin\ApplePay\Resolver\ApplePayDirectApiOrderPaymentResolver">
-            <argument type="service" id="sylius_mollie.mollie_api_client"/>
+            <argument type="service" id="sylius_mollie.client.mollie_api"/>
             <argument type="service" id="sylius_mollie.resolver.mollie_api_client_key"/>
             <argument type="service" id="sylius_mollie.helper.convert_order"/>
             <argument type="service" id="sylius_mollie.apple_pay.provider.order_payment_apple_pay_direct"/>
@@ -38,7 +38,7 @@
         <service id="Sylius\MolliePlugin\ApplePay\Resolver\ApplePayDirectApiOrderPaymentResolverInterface" alias="sylius_mollie.apple_pay.resolver.apple_pay_direct_api_order_payment" />
 
         <service id="sylius_mollie.apple_pay.resolver.apple_pay_direct_api_payment" class="Sylius\MolliePlugin\ApplePay\Resolver\ApplePayDirectApiPaymentResolver">
-            <argument type="service" id="sylius_mollie.mollie_api_client"/>
+            <argument type="service" id="sylius_mollie.client.mollie_api"/>
             <argument type="service" id="sylius_mollie.resolver.mollie_api_client_key"/>
             <argument type="service" id="sylius_mollie.apple_pay.provider.order_payment_apple_pay_direct"/>
         </service>

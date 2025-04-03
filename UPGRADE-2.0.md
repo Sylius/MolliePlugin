@@ -323,7 +323,7 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.menu.mollie_recurring_menu_listener`                                                | `sylius_mollie.menu_listener.mollie_recurring`                                        |
 | `sylius_mollie_plugin.payments.methods`                                                                   | `sylius_mollie.payments.methods`                                                      |
 | `bit_bag.sylius_mollie_plugin.payments.method_resolver.mollie_method_filter`                              | `sylius_mollie.payments.method_resolver.mollie_method_filter`                         |
-| `sylius_mollie_plugin.mollie_api_client`                                                                  | `sylius_mollie.mollie_api_client`                                                     |
+| `sylius_mollie_plugin.mollie_api_client`                                                                  | `sylius_mollie.client.mollie_api`                                                     |
 | `sylius_mollie_plugin.get_http_request`                                                                   | `sylius_mollie.payum.get_http_request`                                                |
 | `sylius_mollie_plugin.logger.mollie_logger_action`                                                        | `sylius_mollie.logger.mollie_logger_action`                                           |
 | `sylius_mollie_plugin.order.order_payment_refund`                                                         | `sylius_mollie.refund.handler.order_payment_refund`                                   |
@@ -332,7 +332,7 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.order.shipment_cloner`                                                              | `sylius_mollie.order.shipment_cloner`                                                 |
 | `sylius_mollie_plugin.order.shipment_unit_cloner`                                                         | `sylius_mollie.order.shipment_unit_cloner`                                            |
 | `sylius_mollie_plugin.order.order_cloner`                                                                 | `sylius_mollie.order.subscription_order_cloner`                                       |
-| `sylius_mollie_plugin.parser.response.guzzle_negative_response_parser`                                    | `sylius_mollie.parser.guzzle_negative_response`                                       |
+| `sylius_mollie_plugin.parser.response.guzzle_negative_response_parser`                                    | `sylius_mollie.client.parser.api_exception`                                           |
 | `sylius_mollie_plugin.partial_ship.create_partial_ship_from_mollie`                                       | `sylius_mollie.partial_ship.converter.create_partial_ship_from_mollie`                |
 | `sylius_mollie_plugin.processor.payment_surcharge_processor`                                              | `sylius_mollie.processor.payment_surcharge`                                           |
 | `sylius_mollie_plugin.payment_surcharge.types.fix_amount`                                                 | `sylius_mollie.calculator.payment_fee.fixed_amount`                                   |

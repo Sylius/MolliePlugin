@@ -46,7 +46,7 @@
         <service id="Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface" alias="sylius_mollie.resolver.payment_locale" />
 
         <service id="sylius_mollie.resolver.paymentlink" class="Sylius\MolliePlugin\Resolver\PaymentlinkResolver">
-            <argument type="service" id="sylius_mollie.mollie_api_client"/>
+            <argument type="service" id="sylius_mollie.client.mollie_api"/>
             <argument type="service" id="sylius_mollie.helper.int_to_string"/>
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius_mollie.mailer.manager.payment_link_email"/>
@@ -68,7 +68,7 @@
         <service id="Sylius\MolliePlugin\Resolver\MealVoucherResolverInterface" alias="sylius_mollie.resolver.meal_voucher" />
 
         <service id="sylius_mollie.resolver.mollie_api_client_key" class="Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolver">
-            <argument type="service" id="sylius_mollie.mollie_api_client"/>
+            <argument type="service" id="sylius_mollie.client.mollie_api"/>
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
             <argument type="service" id="sylius.repository.payment_method"/>
             <argument type="service" id="sylius.context.channel"/>
@@ -90,7 +90,7 @@
 
         <service id="sylius_mollie.resolver.mollie_methods" class="Sylius\MolliePlugin\Resolver\MollieMethodsResolver">
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
-            <argument type="service" id="sylius_mollie.mollie_api_client"/>
+            <argument type="service" id="sylius_mollie.client.mollie_api"/>
             <argument type="service" id="sylius.repository.gateway_config"/>
             <argument type="service" id="sylius_mollie.creator.mollie_methods"/>
         </service>

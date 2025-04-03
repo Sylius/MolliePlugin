@@ -19,9 +19,9 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius_mollie.mollie_api_client" class="Sylius\MolliePlugin\Client\MollieApiClient" />
+        <service id="sylius_mollie.client.mollie_api" class="Sylius\MolliePlugin\Client\MollieApiClient" />
 
-        <service id="sylius_mollie.parser.guzzle_negative_response" class="Sylius\MolliePlugin\Client\Parser\ApiExceptionParser" public="true"/>
-        <service id="Sylius\MolliePlugin\Client\Parser\ApiExceptionParserInterface" alias="sylius_mollie.parser.guzzle_negative_response" />
+        <service id="sylius_mollie.client.parser.api_exception" class="Sylius\MolliePlugin\Client\Parser\ApiExceptionParser" public="true"/>
+        <service id="Sylius\MolliePlugin\Client\Parser\ApiExceptionParserInterface" alias="sylius_mollie.client.parser.api_exception" />
     </services>
 </container>
