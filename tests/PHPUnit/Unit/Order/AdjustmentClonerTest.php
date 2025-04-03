@@ -11,14 +11,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Order;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Order;
 
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
-use SyliusMolliePlugin\Order\AdjustmentCloner;
-use SyliusMolliePlugin\Order\AdjustmentClonerInterface;
+use Sylius\MolliePlugin\Cloner\AdjustmentCloner;
+use Sylius\MolliePlugin\Cloner\AdjustmentClonerInterface;
 
 final class AdjustmentClonerTest extends TestCase
 {

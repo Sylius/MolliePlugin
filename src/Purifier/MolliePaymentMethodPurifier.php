@@ -11,20 +11,16 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Purifier;
+namespace Sylius\MolliePlugin\Purifier;
 
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
-use SyliusMolliePlugin\Resolver\MollieMethodsResolverInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Resolver\MollieMethodsResolverInterface;
 
 final class MolliePaymentMethodPurifier implements MolliePaymentMethodPurifierInterface
 {
-    /** @var RepositoryInterface */
-    private $repository;
-
-    public function __construct(RepositoryInterface $repository)
+    public function __construct(private readonly RepositoryInterface $repository)
     {
-        $this->repository = $repository;
     }
 
     public function removeAllNoLongerSupportedMethods(): void
@@ -39,7 +35,6 @@ final class MolliePaymentMethodPurifier implements MolliePaymentMethodPurifierIn
         $methodConfig = $this->repository->findOneBy(['methodId' => $methodId]);
 
         if ($methodConfig instanceof MollieGatewayConfigInterface) {
-            /** @phpstan-ignore-next-line Ecs yields about doc comment in wrong place */
             $this->repository->remove($methodConfig);
         }
     }

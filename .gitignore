@@ -13,8 +13,11 @@
 !/etc/build/.gitkeep
 
 /tests/Application/yarn.lock
+/npm-debug.log
+/yarn-error.log
 
 /public
 /.phpunit.result.cache
 /behat.yml
 /phpunit.xml
+/phpstan.neon

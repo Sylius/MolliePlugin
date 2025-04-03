@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Form\Transformer;
+namespace Sylius\MolliePlugin\Form\Transformer;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionConfigurationInterface;
 use Symfony\Component\Form\DataTransformerInterface;
 
 final class MollieIntervalTransformer implements DataTransformerInterface
@@ -30,10 +30,10 @@ final class MollieIntervalTransformer implements DataTransformerInterface
         preg_match(
             sprintf(
                 '/^(?<amount>\d{1,})\s(?<step>%s)$/',
-                implode('|', MollieSubscriptionConfigurationInterface::SUPPORTED_INTERVAL_STEPS)
+                implode('|', MollieSubscriptionConfigurationInterface::SUPPORTED_INTERVAL_STEPS),
             ),
             $value,
-            $matches
+            $matches,
         );
 
         return $matches;

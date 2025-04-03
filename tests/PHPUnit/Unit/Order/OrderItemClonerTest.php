@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Order;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Order;
 
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -21,8 +21,8 @@ use Sylius\Component\Order\Factory\OrderItemUnitFactoryInterface;
 use Sylius\Component\Order\Model\OrderItemUnitInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Model\VersionedInterface;
-use SyliusMolliePlugin\Order\OrderItemCloner;
-use SyliusMolliePlugin\Order\OrderItemClonerInterface;
+use Sylius\MolliePlugin\Cloner\OrderItemCloner;
+use Sylius\MolliePlugin\Cloner\OrderItemClonerInterface;
 
 final class OrderItemClonerTest extends TestCase
 {

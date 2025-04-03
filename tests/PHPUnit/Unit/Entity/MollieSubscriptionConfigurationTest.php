@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Entity;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Entity;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Entity\MollieSubscriptionConfiguration;
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionConfiguration;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 
 final class MollieSubscriptionConfigurationTest extends TestCase
 {
@@ -30,59 +30,59 @@ final class MollieSubscriptionConfigurationTest extends TestCase
         $this->mollieSubscriptionConfiguration = new MollieSubscriptionConfiguration($this->subscriptionMock);
     }
 
-    function testImplementInterface(): void
+    public function testImplementInterface(): void
     {
         $this->assertInstanceOf(MollieSubscriptionInterface::class, $this->subscriptionMock);
     }
 
-    function testHasNullIdByDefault(): void
+    public function testHasNullIdByDefault(): void
     {
         $this->assertNull($this->mollieSubscriptionConfiguration->getId());
     }
 
-    function testGetsHostName(): void
+    public function testGetsHostName(): void
     {
         $this->mollieSubscriptionConfiguration->setHostName('test_host');
         $this->assertSame('test_host', $this->mollieSubscriptionConfiguration->getHostName());
     }
 
-    function testGetsPort(): void
+    public function testGetsPort(): void
     {
         $this->mollieSubscriptionConfiguration->setPort(3308);
         $this->assertSame(3308, $this->mollieSubscriptionConfiguration->getPort());
     }
 
-    function testGetsSubscriptionId(): void
+    public function testGetsSubscriptionId(): void
     {
         $this->mollieSubscriptionConfiguration->setSubscriptionId('id_1');
         $this->assertSame('id_1', $this->mollieSubscriptionConfiguration->getSubscriptionId());
     }
 
-    function testGetsCustomerId(): void
+    public function testGetsCustomerId(): void
     {
         $this->mollieSubscriptionConfiguration->setCustomerId('id_1');
         $this->assertSame('id_1', $this->mollieSubscriptionConfiguration->getCustomerId());
     }
 
-    function testGetsMandateId(): void
+    public function testGetsMandateId(): void
     {
         $this->mollieSubscriptionConfiguration->setMandateId('id_1');
         $this->assertSame('id_1', $this->mollieSubscriptionConfiguration->getMandateId());
     }
 
-    function testGetsInterval(): void
+    public function testGetsInterval(): void
     {
         $this->mollieSubscriptionConfiguration->setInterval('60');
         $this->assertSame('60', $this->mollieSubscriptionConfiguration->getInterval());
     }
 
-    function testGetsNumberOfRepetitions(): void
+    public function testGetsNumberOfRepetitions(): void
     {
         $this->mollieSubscriptionConfiguration->setNumberOfRepetitions(69);
         $this->assertSame(69, $this->mollieSubscriptionConfiguration->getNumberOfRepetitions());
     }
 
-    function testGetsPaymentDetailsConfiguration(): void
+    public function testGetsPaymentDetailsConfiguration(): void
     {
         $this->mollieSubscriptionConfiguration->setPaymentDetailsConfiguration([
             'id' => 1,

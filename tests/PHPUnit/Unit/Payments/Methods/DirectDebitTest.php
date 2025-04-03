@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Payments\Methods;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Payments\Methods;
 
 use Mollie\Api\Types\PaymentMethod;
 use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Payments\Methods\AbstractMethod;
-use SyliusMolliePlugin\Payments\Methods\DirectDebit;
+use Sylius\MolliePlugin\Model\ApiType;
+use Sylius\MolliePlugin\Model\PaymentMethod\DirectDebit;
 
 final class DirectDebitTest extends TestCase
 {
@@ -26,13 +26,14 @@ final class DirectDebitTest extends TestCase
     {
         $this->directDebit = new DirectDebit();
     }
-    function testGetsMethodId(): void
+
+    public function testGetsMethodId(): void
     {
         $this->assertSame(PaymentMethod::DIRECTDEBIT, $this->directDebit->getMethodId());
     }
 
-    function testGetsPaymentType(): void
+    public function testGetsPaymentType(): void
     {
-        $this->assertSame(AbstractMethod::PAYMENT_API, $this->directDebit->getPaymentType());
+        $this->assertSame(ApiType::PAYMENT_API_VALUE, $this->directDebit->getPaymentType());
     }
 }

@@ -273,7 +273,45 @@ sylius_product:
                     model: App\Entity\Product\ProductVariant
 ```
 
-#### 7. Add image directory parameter in `config/packages/_sylius.yaml`:
+### 7. Update the AdminUser entity class with the following code:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Entity\User;
+
+use Doctrine\ORM\Mapping as ORM;
+use Sylius\Component\Core\Model\AdminUser as BaseAdminUser;
+use Sylius\MolliePlugin\Entity\OnboardingStatusAwareInterface;
+use Sylius\MolliePlugin\Entity\OnboardingStatusAwareTrait;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="sylius_admin_user")
+ */
+#[ORM\Entity]
+#[ORM\Table(name: 'sylius_admin_user')]
+class AdminUser extends BaseAdminUser implements OnboardingStatusAwareInterface
+{
+    use OnboardingStatusAwareTrait;
+}
+
+```
+
+Ensure that the AdminUser resource is overridden in the Sylius configuration file:
+
+```yaml
+sylius_user:
+    resources:
+        admin:
+            user:
+                classes:
+                    model: App\Entity\User\AdminUser
+```
+
+#### 8. Add image directory parameter in `config/packages/_sylius.yaml`:
 
 ```yaml
 # config/packages/_sylius.yaml
@@ -282,14 +320,14 @@ sylius_product:
        images_dir: "/media/image/"
 ```
 
-#### 8. Update your database
+#### 9. Update your database
 
 After running all the above-mentioned commands, run migrate command
 ```
 bin/console doctrine:migrations:migrate
 ```
 
-#### 9. Copy Sylius templates overridden in plugin to your templates directory (e.g templates/bundles/):
+#### 10. Copy Sylius templates overridden in plugin to your templates directory (e.g templates/bundles/):
 **Note:** Some directories may already exist in your project
 
 ```
@@ -307,7 +345,7 @@ cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusUiBu
 cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusRefundPlugin/* templates/bundles/SyliusRefundPlugin/
 ```
 
-#### 10. Install assets:
+#### 11. Install assets:
 
 ```bash
 bin/console assets:install
@@ -315,13 +353,13 @@ bin/console assets:install
 
 **Note:** If you are running it on production, add the `-e prod` flag to this command.
 
-#### 11. Add the payment link cronjob:
+#### 12. Add the payment link cronjob:
 
 ```shell script
 * * * * * /usr/bin/php /path/to/bin/console mollie:send-payment-link
 ```
 
-#### 12. Download the [domain validation file](https://www.mollie.com/.well-known/apple-developer-merchantid-domain-association) and place it on your server at:
+#### 13. Download the [domain validation file](https://www.mollie.com/.well-known/apple-developer-merchantid-domain-association) and place it on your server at:
 `public/.well-known/apple-developer-merchantid-domain-association`
 
 ## Frontend Asset Management

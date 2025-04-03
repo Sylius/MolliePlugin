@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Repository;
+namespace Sylius\MolliePlugin\Repository;
 
 use Sylius\Bundle\CoreBundle\Doctrine\ORM\OrderRepository as BaseOrderRepository;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -33,6 +33,6 @@ final class OrderRepository extends BaseOrderRepository implements OrderReposito
             ->setMaxResults(20)
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 }

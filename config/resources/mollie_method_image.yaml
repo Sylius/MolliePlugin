@@ -1,0 +1,5 @@
+sylius_resource:
+    resources:
+        sylius_mollie.mollie_method_image:
+            classes:
+                model: Sylius\MolliePlugin\Entity\MollieMethodImage

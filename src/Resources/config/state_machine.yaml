@@ -1,5 +1,0 @@
-imports:
-    - { resource: "@SyliusMolliePlugin/Resources/config/state_machine/checkout.yaml" }
-    - { resource: "@SyliusMolliePlugin/Resources/config/state_machine/mollie_subscription.yaml" }
-    - { resource: "@SyliusMolliePlugin/Resources/config/state_machine/mollie_subscription_manual.yaml" }
-    - { resource: "@SyliusMolliePlugin/Resources/config/state_machine/payment_mollie_subscription.yaml" }

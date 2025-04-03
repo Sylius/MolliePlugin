@@ -11,70 +11,54 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Entity;
+namespace Sylius\MolliePlugin\Entity;
 
-use SyliusMolliePlugin\Payments\Methods\AbstractMethod;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\Resource\Model\TranslatableTrait;
 use Sylius\Component\Resource\Model\TranslationInterface;
+use Sylius\MolliePlugin\Model\PaymentMethod\AbstractMethod;
 
-class MollieGatewayConfig extends AbstractMethod implements ResourceInterface, MollieGatewayConfigInterface
+class MollieGatewayConfig extends AbstractMethod implements ResourceInterface, MollieGatewayConfigInterface, \Stringable
 {
     use TranslatableTrait {
         __construct as private initializeTranslationsCollection;
-
         getTranslation as private doGetTranslation;
     }
 
-    /** @var int */
-    protected $id;
+    protected int $id;
 
-    /** @var string|null */
-    protected $methodId;
+    protected ?string $methodId = null;
 
-    /** @var GatewayConfigInterface */
-    protected $gateway;
+    protected GatewayConfigInterface $gateway;
 
-    /** @var PaymentSurchargeFeeInterface|null */
-    protected $paymentSurchargeFee;
+    protected ?PaymentSurchargeFeeInterface $paymentSurchargeFee = null;
 
-    /** @var MollieMinMaxInterface|null */
-    protected $amountLimits;
+    protected ?MollieMinMaxInterface $amountLimits = null;
 
-    /** @var MollieMethodImageInterface|null */
-    protected $customizeMethodImage;
+    protected ?MollieMethodImageInterface $customizeMethodImage = null;
 
-    /** @var array|null */
-    protected $countryLevel;
+    /** @var array<array-key, mixed>|null */
+    protected ?array $countryLevel = null;
 
-    /** @var array|null */
-    protected $countryLevelAllowed;
+    /** @var array<array-key, mixed>|null */
+    protected ?array $countryLevelAllowed = null;
 
-    /** @var array|null */
-    protected $countryLevelExcluded;
+    /** @var array<array-key, mixed>|null */
+    protected ?array $countryLevelExcluded = null;
 
-    /** @var int|null */
-    protected $orderExpiration = 28;
+    protected ?int $orderExpirationDays = 28;
 
-    /** @var string|null */
-    protected $paymentDescription;
+    protected ?string $paymentDescription = null;
 
-    /** @var bool|null */
-    protected $loggerEnabled;
+    protected ?bool $loggerEnabled = null;
 
-    /** @var int|null */
-    protected $loggerLevel;
+    protected ?int $loggerLevel = null;
 
-    /** @var string|null */
-    protected $countryRestriction;
+    protected ?string $countryRestriction = null;
 
-    /** @var int|null */
-    protected $position;
+    protected ?int $position = null;
 
-    /**
-     * @var bool|null
-     */
-    protected $qrCodeEnabled;
+    protected ?bool $qrCodeEnabled = null;
 
     public function __construct()
     {
@@ -136,14 +120,14 @@ class MollieGatewayConfig extends AbstractMethod implements ResourceInterface, M
         $this->countryLevel = $countryLevel;
     }
 
-    public function getOrderExpiration(): ?int
+    public function getOrderExpirationDays(): ?int
     {
-        return $this->orderExpiration;
+        return $this->orderExpirationDays;
     }
 
-    public function setOrderExpiration(?int $orderExpiration): void
+    public function setOrderExpirationDays(?int $orderExpirationDays): void
     {
-        $this->orderExpiration = $orderExpiration;
+        $this->orderExpirationDays = $orderExpirationDays;
     }
 
     public function getPaymentDescription(): ?string

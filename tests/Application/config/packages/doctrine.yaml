@@ -21,4 +21,4 @@ doctrine:
                 is_bundle: false
                 type: attribute
                 dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'Tests\SyliusMolliePlugin\Entity'
+                prefix: 'Tests\Sylius\MolliePlugin\Entity'

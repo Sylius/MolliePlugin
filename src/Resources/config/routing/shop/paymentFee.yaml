@@ -1,4 +1,0 @@
-sylius_mollie_plugin_payment_fee_calculate:
-  path: /payment-fee-calculate/{methodId}
-  defaults:
-    _controller: sylius_mollie_plugin.controller.action.shop.payment_fee_calculate_action

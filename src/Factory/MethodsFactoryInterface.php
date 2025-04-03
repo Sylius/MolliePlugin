@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Factory;
+namespace Sylius\MolliePlugin\Factory;
 
-use SyliusMolliePlugin\Payments\MethodsInterface;
+use Sylius\MolliePlugin\Registry\PaymentMethodRegistryInterface;
 
 interface MethodsFactoryInterface
 {
-    public function createNew(): MethodsInterface;
+    public function createNew(): PaymentMethodRegistryInterface;
 }

@@ -1,0 +1,11 @@
+imports:
+    - { resource: "resources/**/*.yaml" }
+    - { resource: "state_machine/**/*.yaml" }
+    - { resource: "grids/**/*.yaml" }
+    - { resource: "email/**/*.yaml" }
+    - { resource: "ui/**/*.yaml" }
+    - { resource: "fixtures/**/*.yaml" }
+
+twig:
+    globals:
+        subscription_mollie_repository: "@sylius_mollie.repository.mollie_subscription"

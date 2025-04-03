@@ -11,11 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Behat\Context\Setup;
+namespace Tests\Sylius\MolliePlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
 use Behat\MinkExtension\Context\RawMinkContext;
-use SyliusMolliePlugin\Entity\ProductVariantInterface;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\Bundle\CoreBundle\Doctrine\ORM\ProductRepository;
 use Sylius\Bundle\CoreBundle\Doctrine\ORM\ProductVariantRepository;
@@ -23,30 +22,27 @@ use Sylius\Component\Core\Formatter\StringInflector;
 use Sylius\Component\Core\Model\ChannelPricingInterface;
 use Sylius\Component\Product\Model\ProductInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use SyliusMolliePlugin\Provider\Divisor\DivisorProviderInterface;
+use Sylius\MolliePlugin\Entity\ProductVariantInterface;
+use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
 
 final class ProductContext extends RawMinkContext implements Context
 {
-    /** @var SharedStorageInterface */
-    private $sharedStorage;
+    private SharedStorageInterface $sharedStorage;
 
-    /** @var ProductRepository */
-    private $productRepository;
+    private ProductRepository $productRepository;
 
-    /** @var ProductVariantRepository */
-    private $productVariantRepository;
+    private ProductVariantRepository $productVariantRepository;
 
     private RepositoryInterface $channelPricingRepository;
 
-    /** @var DivisorProviderInterface */
-    private $divisorProvider;
+    private DivisorProviderInterface $divisorProvider;
 
     public function __construct(
         SharedStorageInterface $sharedStorage,
         ProductRepository $productRepository,
         ProductVariantRepository $productVariantRepository,
         RepositoryInterface $channelPricingRepository,
-        DivisorProviderInterface $divisorProvider
+        DivisorProviderInterface $divisorProvider,
     ) {
         $this->sharedStorage = $sharedStorage;
         $this->productRepository = $productRepository;

@@ -47,7 +47,7 @@ Sylius\Component\Core\Model\Adjustment:
         type: 'shipping'
         amount: 0
 
-Tests\SyliusMolliePlugin\Entity\Order:
+Tests\Sylius\MolliePlugin\Entity\Order:
     order:
         customer: "@customer"
         currency_code: "EUR"
@@ -88,11 +88,11 @@ Sylius\Component\Core\Model\PaymentMethod:
         currentLocale: "en_GB"
         channels: ["@channel"]
 
-Tests\SyliusMolliePlugin\Entity\GatewayConfig:
+Tests\Sylius\MolliePlugin\Entity\GatewayConfig:
     mollie_gateway:
         gatewayName: "mollie_default"
         factoryName: "mollie"
-        config: {"components": false, "profile_id": "pfl_aa", "environment": null, "loggerLevel": 0, "api_key_live": null, "api_key_test": "test_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "abandoned_hours": 1, "payum.http_client": "\\@sylius_mollie_plugin.mollie_api_client", "single_click_enabled": false, "abandoned_email_enabled": true}
+        config: {"components": false, "profile_id": "pfl_aa", "environment": null, "loggerLevel": 0, "api_key_live": null, "api_key_test": "test_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "abandoned_hours": 1, "payum.http_client": "\\@sylius_mollie.mollie_api_client", "single_click_enabled": false, "abandoned_email_enabled": true}
 
 Sylius\Component\Payment\Model\PaymentMethodTranslation:
     mollie_translation:
@@ -102,7 +102,7 @@ Sylius\Component\Payment\Model\PaymentMethodTranslation:
         instructions: "Please put the money in the bag!"
         translatable: "@mollie"
 
-Tests\SyliusMolliePlugin\Entity\Product:
+Tests\Sylius\MolliePlugin\Entity\Product:
     cap_product:
         code: "CAP_CODE"
         createdAt: "<date_create('2019-02-01 03:00:00')>"
@@ -119,7 +119,7 @@ Sylius\Component\Core\Model\ProductTranslation:
         description: "WINDPROOF INSULATED CAP."
         translatable: "@cap_product"
 
-Tests\SyliusMolliePlugin\Entity\ProductVariant:
+Tests\Sylius\MolliePlugin\Entity\ProductVariant:
     cap_variant:
         code: "RANDOM_CAP_CODE"
         product: "@cap_product"
@@ -159,7 +159,7 @@ Sylius\Bundle\PayumBundle\Model\PaymentSecurityToken:
         targetUrl: 'http://127.0.0.1/admin/admin/payment/refund/789def'
         gatewayName: 'mollie_default'
 
-SyliusMolliePlugin\Entity\MollieGatewayConfig:
+Sylius\MolliePlugin\Entity\MollieGatewayConfig:
     mollie_configuration:
         gateway: '@mollie_gateway'
         methodId: 'creditcard'

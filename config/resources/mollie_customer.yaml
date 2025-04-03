@@ -1,0 +1,7 @@
+sylius_resource:
+    resources:
+        sylius_mollie.mollie_customer:
+            driver: doctrine/orm
+            classes:
+                model: Sylius\MolliePlugin\Entity\MollieCustomer
+                interface: Sylius\MolliePlugin\Entity\MollieCustomerInterface

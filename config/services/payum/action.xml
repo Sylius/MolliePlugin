@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults public="true" />
+
+        <service id="sylius_mollie.payum.action.refund" class="Sylius\MolliePlugin\Payum\Action\Refund\RefundAction">
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
+            <argument type="service" id="sylius_mollie.helper.convert_refund_data"/>
+            <tag name="payum.action" factory="mollie" alias="payum.action.refund"/>
+            <tag name="payum.action" factory="mollie_subscription" alias="payum.action.refund_subscription"/>
+        </service>
+
+        <service id="sylius_mollie.payum.action.refund_order" class="Sylius\MolliePlugin\Payum\Action\Refund\RefundOrderAction">
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
+            <argument type="service" id="sylius_mollie.helper.convert_refund_data"/>
+            <tag name="payum.action" factory="mollie" alias="payum.action.refund_order"/>
+        </service>
+
+        <service id="sylius_mollie.payum.action.capture" class="Sylius\MolliePlugin\Payum\Action\CaptureAction">
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="sylius_mollie.resolver.mollie_api_client_key"/>
+            <argument type="service" id="sylius.repository.payment" />
+            <tag name="payum.action" factory="mollie" alias="payum.action.capture"/>
+            <tag name="payum.action" factory="mollie_subscription" alias="payum.action.capture_subscription"/>
+        </service>
+
+        <service id="sylius_mollie.payum.action.notify" class="Sylius\MolliePlugin\Payum\Action\NotifyAction">
+            <argument type="service" id="sylius_mollie.get_http_request"/>
+            <argument type="service" id="sylius_mollie.repository.mollie_subscription"/>
+            <argument type="service" id="sylius_mollie.payum.action.state_machine.order_set_status"/>
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
+            <tag name="payum.action" factory="mollie" alias="payum.action.notify"/>
+            <tag name="payum.action" factory="mollie_subscription" alias="payum.action.notify_subscription"/>
+        </service>
+
+        <service id="sylius_mollie.payum.action.status" class="Sylius\MolliePlugin\Payum\Action\StatusAction">
+            <argument type="service" id="sylius_mollie.refund.payment"/>
+            <argument type="service" id="sylius_mollie.refund.order"/>
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
+            <argument type="service" id="sylius_mollie.updater.order.order_voucher_adjustment"/>
+            <argument type="service" id="sylius_mollie.checker.refund.mollie_order_refund"/>
+            <tag name="payum.action" factory="mollie" alias="payum.action.status"/>
+            <tag name="payum.action" factory="mollie_subscription" alias="payum.action.status_subscription"/>
+        </service>
+    </services>
+</container>
