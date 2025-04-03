@@ -45,7 +45,7 @@
         <service id="sylius_mollie.payum.action.notify" class="Sylius\MolliePlugin\Payum\Action\NotifyAction">
             <argument type="service" id="sylius_mollie.payum.get_http_request"/>
             <argument type="service" id="sylius_mollie.repository.mollie_subscription"/>
-            <argument type="service" id="sylius_mollie.payum.action.state_machine.order_set_status"/>
+            <argument type="service" id="sylius_mollie.state_machine.order_set_status"/>
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
             <tag name="payum.action" factory="mollie" alias="payum.action.notify"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.notify_subscription"/>
@@ -132,9 +132,9 @@
 
         <service id="sylius_mollie.payum.action.subscription.status_recurring_subscription" class="Sylius\MolliePlugin\Payum\Action\Subscription\StatusRecurringSubscriptionAction">
             <argument type="service" id="sylius_mollie.manager.mollie_subscription"/>
-            <argument type="service" id="sylius_mollie.payum.action.state_machine.applicator.subscription_and_payment_id"/>
-            <argument type="service" id="sylius_mollie.payum.action.state_machine.applicator.subscription_and_sylius_payment"/>
-            <argument type="service" id="sylius_mollie.payum.action.state_machine.transition.subscription"/>
+            <argument type="service" id="sylius_mollie.state_machine.applicator.subscription_and_payment_id"/>
+            <argument type="service" id="sylius_mollie.state_machine.applicator.subscription_and_sylius_payment"/>
+            <argument type="service" id="sylius_mollie.state_machine.transition.subscription"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.state_machine.status_recurring_subscription"/>
         </service>
     </services>
