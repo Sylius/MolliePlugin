@@ -19,24 +19,24 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius_mollie.gateway_factory.mollie_gateway" class="Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory" />
+        <service id="sylius_mollie.payum.gateway_factory.mollie_gateway" class="Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory" />
 
-        <service id="sylius_mollie.gateway_factory.mollie_subscription_gateway" class="Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory" />
+        <service id="sylius_mollie.payum.gateway_factory.mollie_subscription_gateway" class="Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory" />
 
         <service id="sylius_mollie.payum.gateway_factory.builder.mollie" class="Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder">
-            <argument type="service" id="sylius_mollie.gateway_factory.mollie_gateway"/>
+            <argument type="service" id="sylius_mollie.payum.gateway_factory.mollie_gateway"/>
             <tag name="payum.gateway_factory_builder" factory="mollie"/>
         </service>
 
         <service id="sylius_mollie.payum.gateway_factory.builder.mollie_subscription" class="Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder">
-            <argument type="service" id="sylius_mollie.gateway_factory.mollie_subscription_gateway"/>
+            <argument type="service" id="sylius_mollie.payum.gateway_factory.mollie_subscription_gateway"/>
             <tag name="payum.gateway_factory_builder" factory="mollie_subscription"/>
         </service>
 
-        <service id="sylius_mollie.factory.api_customer" class="Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactory"/>
-        <service id="Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactoryInterface" alias="sylius_mollie.factory.api_customer"/>
+        <service id="sylius_mollie.payum.factory.create_customer" class="Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactory"/>
+        <service id="Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactoryInterface" alias="sylius_mollie.payum.factory.create_customer"/>
 
-        <service id="sylius_mollie.checker.gateway.mollie_gateway_factory" class="Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryChecker" public="true" />
-        <service id="Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryCheckerInterface" alias="sylius_mollie.checker.gateway.mollie_gateway_factory" />
+        <service id="sylius_mollie.payum.checker.mollie_gateway_factory" class="Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryChecker" public="true" />
+        <service id="Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryCheckerInterface" alias="sylius_mollie.payum.checker.mollie_gateway_factory" />
     </services>
 </container>

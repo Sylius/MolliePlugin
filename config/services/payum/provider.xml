@@ -19,10 +19,10 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius_mollie.provider.payment_token" class="Sylius\MolliePlugin\Payum\Provider\PaymentTokenProvider">
+        <service id="sylius_mollie.payum.provider.payment_token" class="Sylius\MolliePlugin\Payum\Provider\PaymentTokenProvider">
             <argument type="service" id="payum" />
             <argument type="string">sylius_shop_order_after_pay</argument>
         </service>
-        <service id="Sylius\MolliePlugin\Payum\Provider\PaymentTokenProviderInterface" alias="sylius_mollie.provider.payment_token" />
+        <service id="Sylius\MolliePlugin\Payum\Provider\PaymentTokenProviderInterface" alias="sylius_mollie.payum.provider.payment_token" />
     </services>
 </container>

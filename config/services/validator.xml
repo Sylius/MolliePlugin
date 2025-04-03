@@ -26,7 +26,7 @@
         <service id="sylius_mollie.validator.apple_pay_direct.payment_method_checkout" class="Sylius\MolliePlugin\Validator\Constraints\PaymentMethodCheckoutValidator">
             <argument type="service" id="sylius_mollie.resolver.order.payment_checkout_order"/>
             <argument type="service" id="request_stack"/>
-            <argument type="service" id="sylius_mollie.checker.gateway.mollie_gateway_factory"/>
+            <argument type="service" id="sylius_mollie.payum.checker.mollie_gateway_factory"/>
             <tag name="validator.constraint_validator"/>
         </service>
 

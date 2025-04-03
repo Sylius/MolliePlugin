@@ -21,7 +21,7 @@ services:
             - "@doctrine.orm.default_entity_manager"
             - "@sm.factory"
             - "@payum"
-            - "@sylius_mollie.checker.gateway.mollie_gateway_factory"
+            - "@sylius_mollie.payum.checker.mollie_gateway_factory"
             - '@sylius_mollie.provider.divisor'
 
     sylius_mollie.behat.context.setup.subscription:

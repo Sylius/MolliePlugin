@@ -30,7 +30,7 @@ final class AdminOrderCreationCompatibilityPass implements CompilerPassInterface
             ;
 
             $container->setDefinition(
-                'sylius_mollie.provider.payment_token',
+                'sylius_mollie.payum.provider.payment_token',
                 $adminOrderCreationPaymentTokenProviderDefinition,
             );
         }

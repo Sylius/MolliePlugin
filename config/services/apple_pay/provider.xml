@@ -32,7 +32,7 @@
             <argument type="service" id="sm.factory"/>
             <argument type="service" id="sylius.repository.payment_method"/>
             <argument type="service" id="sylius.repository.gateway_config"/>
-            <argument type="service" id="sylius_mollie.provider.payment_token"/>
+            <argument type="service" id="sylius_mollie.payum.provider.payment_token"/>
             <argument type="service" id="payum"/>
         </service>
         <service id="Sylius\MolliePlugin\ApplePay\Provider\OrderPaymentApplePayDirectProviderInterface" alias="sylius_mollie.apple_pay.provider.order_payment_apple_pay_direct" />
