@@ -4,6 +4,7 @@ imports:
     - { resource: "grids/**/*.yaml" }
     - { resource: "email/**/*.yaml" }
     - { resource: "ui/**/*.yaml" }
+    - { resource: "fixtures/**/*.yaml" }
 
 twig:
     globals:

@@ -115,7 +115,6 @@ declare(strict_types=1);
 namespace App\Entity\Product;
 
 use Doctrine\ORM\Mapping as ORM;
-use Sylius\Component\Core\Model\ProductTranslation;
 use Sylius\Component\Core\Model\ProductTranslationInterface;
 use SyliusMolliePlugin\Entity\ProductInterface;
 use SyliusMolliePlugin\Entity\ProductTrait;
@@ -164,7 +163,6 @@ namespace App\Entity\Product;
 
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\ProductVariant as BaseProductVariant;
-use Sylius\Component\Product\Model\ProductVariantTranslation;
 use Sylius\Component\Product\Model\ProductVariantTranslationInterface;
 use SyliusMolliePlugin\Entity\ProductVariantInterface;
 use SyliusMolliePlugin\Entity\RecurringProductVariantTrait;
@@ -302,69 +300,70 @@ bin/console assets:install
 
 1. Import the plugin's assets into your application's entrypoint files:
 
-```javascript
-// assets/admin/entry.js
+    ```javascript
+    // assets/admin/entry.js
+    
+    import '../../vendor/sylius/mollie-plugin/src/Resources/assets/admin/entry.js'
+    ```
 
-import '../../vendor/sylius/mollie-plugin/src/Resources/assets/admin/entry.js'
-```
+    and:
 
-and:
-
-```javascript
-// assets/shop/entry.js
-
-import '../../vendor/sylius/mollie-plugin/src/Resources/assets/shop/entry.js'
-```
+    ```javascript
+    // assets/shop/entry.js
+    
+    import '../../vendor/sylius/mollie-plugin/src/Resources/assets/shop/entry.js'
+    ```
 
 1. Install assets:
 
-```bash
-bin/console assets:install
-```
+    ```bash
+    bin/console assets:install
+    ```
 
 #### Installation & Build Process
 
 1. If you are using Sylius version <= 1.11 ensure that Node version 12 is currently used:
 
-```bash
-nvm install 12
-nvm use 12
-```
+    ```bash
+    nvm install 12
+    nvm use 12
+    ```
 
-otherwise Node version 14 should be used.
+    otherwise Node version 14 should be used.
 
 1. Install dependencies:
-   ```bash
-   yarn add @babel/preset-env bazinga-translator intl-messageformat lodash.get node-sass@4.14.1 shepherd.js@11.0 webpack-notifier
-   yarn add --dev @babel/core@7.16.0 @babel/register@7.16.0 @babel/plugin-proposal-object-rest-spread@7.16.5 @symfony/webpack-encore@1.5.0
-   ```
+    ```bash
+    yarn add @babel/preset-env bazinga-translator intl-messageformat lodash.get node-sass@4.14.1 shepherd.js@11.0 webpack-notifier
+    yarn add --dev @babel/core@7.16.0 @babel/register@7.16.0 @babel/plugin-proposal-object-rest-spread@7.16.5 @symfony/webpack-encore@1.5.0
+    ```
 
 1. Build assets:
 
-for development:
-   ```bash
-   yarn install
-   yarn build
-   yarn encore dev
-   ```
+    for development:
+    ```bash
+    yarn install
+    yarn build
+    yarn encore dev
+    ```
 
-for production:
-   ```bash
-   yarn install
-   yarn build
-   yarn encore production
-   ```
+    for production:
+    ```bash
+    yarn install
+    yarn build
+    yarn encore production
+    ```
 
 1. Clear cache:
-   ```bash
-   php bin/console cache:clear
-   ```
+
+    ```bash
+    php bin/console cache:clear
+    ```
 
 1. [Optional] Load fixtures:
 
- ```bash
- bin/console sylius:fixtures:load
- ```
+    ```bash
+    bin/console sylius:fixtures:load
+    ```
 
 ### ⚠️ SyliusRefundPlugin Troubleshooting
 
