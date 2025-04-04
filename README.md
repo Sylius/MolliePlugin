@@ -23,17 +23,10 @@
 * [Overview](#overview)
 * [Demo](#mollie-plugin-demo)
 * [Installation](#installation)
-  * [Requirements](#requirements)
   * [Usage](#usage)
-  * [Customization](#customization)
-  * [Testing](#testing)
   * [Recurring subscription (internal CRON)](doc/recurring.md)
-  * [Frontend part](#frontend)
 * [Recurring payments](doc/recurring.md)
 * [Community](#community)
-* [Additional Sylius resources for developers](#additional-resources-for-developers)
-* [License](#license)
-* [Contact](#contact)
 
 ---
 
@@ -325,22 +318,6 @@ bin/console assets:install
 `public/.well-known/apple-developer-merchantid-domain-association`
 
 ## Frontend Asset Management
-
-1. Import the plugin's assets into your application's entrypoint files:
-
-    ```javascript
-    // assets/admin/entry.js
-    
-    import '../../vendor/sylius/mollie-plugin/src/Resources/assets/admin/entry.js'
-    ```
-
-   and:
-
-    ```javascript
-    // assets/shop/entry.js
-    
-    import '../../vendor/sylius/mollie-plugin/src/Resources/assets/shop/entry.js'
-    ```
 
 1. Install assets:
 
