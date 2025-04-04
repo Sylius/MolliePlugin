@@ -36,6 +36,7 @@
             <argument type="service" id="sylius.context.locale"/>
             <argument type="service" id="sylius.templating.helper.format_money"/>
         </service>
+        <service id="Sylius\MolliePlugin\Converter\PriceToAmountConverterInterface" alias="sylius_mollie.helper.convert_price_to_amount" />
 
         <service id="sylius_mollie.helper.convert_refund_data" class="Sylius\MolliePlugin\Refund\Converter\RefundDataConverter">
             <argument type="service" id="sylius_mollie.helper.int_to_string"/>

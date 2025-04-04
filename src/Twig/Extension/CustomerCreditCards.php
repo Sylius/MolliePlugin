@@ -16,7 +16,6 @@ namespace Sylius\MolliePlugin\Twig\Extension;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\Component\Customer\Context\CustomerContextInterface;
 use Sylius\Component\Customer\Model\CustomerInterface;
-use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\MollieCustomerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -24,7 +23,6 @@ use Twig\TwigFunction;
 class CustomerCreditCards extends AbstractExtension
 {
     public function __construct(
-        private readonly MollieApiClient $apiClient,
         private readonly EntityRepository $customerRepository,
         private readonly CustomerContextInterface $customerContext,
     ) {

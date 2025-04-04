@@ -24,8 +24,11 @@ use Sylius\MolliePlugin\Resolver\MollieMethodsResolverInterface;
 
 final class MollieMethodsCreator implements MollieMethodsCreatorInterface
 {
-    public function __construct(private readonly MethodsFactoryInterface $methodsFactory, private readonly EntityManagerInterface $entityManager, private readonly MollieGatewayConfigFactoryInterface $factory)
-    {
+    public function __construct(
+        private readonly MethodsFactoryInterface $methodsFactory,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly MollieGatewayConfigFactoryInterface $factory,
+    ) {
     }
 
     public function createMethods(MethodCollection $allMollieMethods, GatewayConfigInterface $gateway): void

@@ -27,8 +27,13 @@ use Webmozart\Assert\Assert;
 
 final class SubscriptionOrderCloner implements SubscriptionOrderClonerInterface
 {
-    public function __construct(private readonly OrderItemClonerInterface $orderItemCloner, private readonly FactoryInterface $orderFactory, private readonly RandomnessGeneratorInterface $generator, private readonly AdjustmentClonerInterface $adjustmentCloner, private readonly ShipmentClonerInterface $shipmentCloner)
-    {
+    public function __construct(
+        private readonly OrderItemClonerInterface $orderItemCloner,
+        private readonly FactoryInterface $orderFactory,
+        private readonly RandomnessGeneratorInterface $randomnessGenerator,
+        private readonly AdjustmentClonerInterface $adjustmentCloner,
+        private readonly ShipmentClonerInterface $shipmentCloner,
+    ) {
     }
 
     public function clone(
@@ -67,7 +72,7 @@ final class SubscriptionOrderCloner implements SubscriptionOrderClonerInterface
         $clonedOrder->setShippingAddress(clone $order->getShippingAddress());
         $clonedOrder->setBillingAddress(clone $order->getBillingAddress());
         $clonedOrder->setShippingState(OrderShippingStates::STATE_READY);
-        $clonedOrder->setTokenValue($this->generator->generateUriSafeString(10));
+        $clonedOrder->setTokenValue($this->randomnessGenerator->generateUriSafeString(10));
 
         $clonedItem = $this->orderItemCloner->clone($orderItem, $clonedOrder);
         $clonedOrder->addItem($clonedItem);

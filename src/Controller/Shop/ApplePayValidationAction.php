@@ -23,8 +23,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class ApplePayValidationAction
 {
-    public function __construct(private readonly MollieLoggerActionInterface $loggerAction, private readonly MollieApiClientKeyResolverInterface $apiClientKeyResolver, private readonly ApplePayEnabledCheckerInterface $applePayEnabledChecker)
-    {
+    public function __construct(
+        private readonly MollieLoggerActionInterface $loggerAction,
+        private readonly MollieApiClientKeyResolverInterface $apiClientKeyResolver,
+        private readonly ApplePayEnabledCheckerInterface $applePayEnabledChecker,
+    ) {
     }
 
     public function __invoke(Request $request): Response

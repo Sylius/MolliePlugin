@@ -21,12 +21,16 @@ use Sylius\MolliePlugin\Model\PaymentMethod\MethodInterface;
 
 final class MollieGatewayConfigFactory implements MollieGatewayConfigFactoryInterface
 {
-    public function __construct(private readonly FactoryInterface $mollieGatewayConfigFactory, private readonly RepositoryInterface $repository)
-    {
+    public function __construct(
+        private readonly FactoryInterface $mollieGatewayConfigFactory,
+        private readonly RepositoryInterface $repository,
+    ) {
     }
 
-    private function createNewOrUpdate(MethodInterface $method, GatewayConfigInterface $gateway): MollieGatewayConfigInterface
-    {
+    private function createNewOrUpdate(
+        MethodInterface $method,
+        GatewayConfigInterface $gateway,
+    ): MollieGatewayConfigInterface {
         /** @var ?MollieGatewayConfigInterface $methodExist */
         $methodExist = $this->repository->findOneBy([
             /** @phpstan-ignore-next-line Not every class which implements MethodInterface returns the same type */

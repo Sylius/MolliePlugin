@@ -15,7 +15,6 @@ namespace Sylius\MolliePlugin\Controller\Admin;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\TemplateMollieEmailInterface;
 use Sylius\MolliePlugin\Form\Type\PaymentlinkType;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
@@ -31,8 +30,15 @@ use Twig\Environment;
 
 final class GeneratePaymentlinkAction
 {
-    public function __construct(private readonly OrderRepositoryInterface $orderRepository, private readonly Environment $twig, private readonly RequestStack $requestStack, private readonly UrlGeneratorInterface $router, private readonly FormFactoryInterface $formFactory, private readonly MollieApiClient $mollieApiClient, private readonly PaymentlinkResolverInterface $paymentlinkResolver, private readonly MollieLoggerActionInterface $loggerAction)
-    {
+    public function __construct(
+        private readonly OrderRepositoryInterface $orderRepository,
+        private readonly Environment $twig,
+        private readonly RequestStack $requestStack,
+        private readonly UrlGeneratorInterface $router,
+        private readonly FormFactoryInterface $formFactory,
+        private readonly PaymentlinkResolverInterface $paymentlinkResolver,
+        private readonly MollieLoggerActionInterface $loggerAction,
+    ) {
     }
 
     public function __invoke(Request $request): Response

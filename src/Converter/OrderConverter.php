@@ -40,8 +40,14 @@ final class OrderConverter implements OrderConverterInterface
 
     private ZoneInterface $zone;
 
-    public function __construct(private readonly IntToStringConverterInterface $intToStringConverter, private readonly CalculateTaxAmountInterface $calculateTaxAmount, private readonly MealVoucherResolverInterface $mealVoucherResolver, private readonly TaxRateResolverInterface $taxRateResolver, private readonly ZoneMatcherInterface $zoneMatcher, private readonly RequestStack $requestStack)
-    {
+    public function __construct(
+        private readonly IntToStringConverterInterface $intToStringConverter,
+        private readonly CalculateTaxAmountInterface $calculateTaxAmount,
+        private readonly MealVoucherResolverInterface $mealVoucherResolver,
+        private readonly TaxRateResolverInterface $taxRateResolver,
+        private readonly ZoneMatcherInterface $zoneMatcher,
+        private readonly RequestStack $requestStack,
+    ) {
     }
 
     public function convert(

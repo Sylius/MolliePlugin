@@ -31,7 +31,7 @@ final class RefundAction extends BaseRefundAction implements GatewayAwareInterfa
 
     public function __construct(
         private MollieLoggerActionInterface $loggerAction,
-        private RefundDataConverterInterface $convertOrderRefundData,
+        private RefundDataConverterInterface $refundDataConverter,
     ) {
     }
 
@@ -51,7 +51,7 @@ final class RefundAction extends BaseRefundAction implements GatewayAwareInterfa
         $currencyCode = $payment->getCurrencyCode();
         Assert::notNull($currencyCode);
 
-        $refundData = $this->convertOrderRefundData->convert($details['metadata']['refund'], $currencyCode);
+        $refundData = $this->refundDataConverter->convert($details['metadata']['refund'], $currencyCode);
 
         try {
             $molliePayment = $this->mollieApiClient->payments->get($details['payment_mollie_id']);

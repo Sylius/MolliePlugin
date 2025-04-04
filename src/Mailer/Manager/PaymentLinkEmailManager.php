@@ -21,8 +21,10 @@ use Sylius\MolliePlugin\Repository\TemplateMollieEmailTranslationRepositoryInter
 
 final class PaymentLinkEmailManager implements PaymentLinkEmailManagerInterface
 {
-    public function __construct(private readonly TemplateMollieEmailTranslationRepositoryInterface $templateRepository, private readonly PaymentLinkEmailSenderInterface $emailSender)
-    {
+    public function __construct(
+        private readonly TemplateMollieEmailTranslationRepositoryInterface $templateRepository,
+        private readonly PaymentLinkEmailSenderInterface $emailSender,
+    ) {
     }
 
     public function send(OrderInterface $order, string $templateName): void

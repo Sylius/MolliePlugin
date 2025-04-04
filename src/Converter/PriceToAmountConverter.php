@@ -19,8 +19,11 @@ use Sylius\Component\Locale\Context\LocaleContextInterface;
 
 final class PriceToAmountConverter implements PriceToAmountConverterInterface
 {
-    public function __construct(private readonly CurrencyContextInterface $currencyContext, private readonly LocaleContextInterface $localeContext, private readonly FormatMoneyHelper $formatMoneyHelper)
-    {
+    public function __construct(
+        private readonly CurrencyContextInterface $currencyContext,
+        private readonly LocaleContextInterface $localeContext,
+        private readonly FormatMoneyHelper $formatMoneyHelper,
+    ) {
     }
 
     public function convert(int $price): string

@@ -21,8 +21,11 @@ use Sylius\MolliePlugin\Model\ApiType;
 
 final class ApplePayDirectPaymentTypeResolver implements ApplePayDirectPaymentTypeResolverInterface
 {
-    public function __construct(private readonly ApplePayDirectApiPaymentResolverInterface $apiPaymentResolver, private readonly ApplePayDirectApiOrderPaymentResolverInterface $apiOrderPaymentResolver, private readonly IntToStringConverterInterface $intToStringConverter)
-    {
+    public function __construct(
+        private readonly ApplePayDirectApiPaymentResolverInterface $apiPaymentResolver,
+        private readonly ApplePayDirectApiOrderPaymentResolverInterface $apiOrderPaymentResolver,
+        private readonly IntToStringConverterInterface $intToStringConverter,
+    ) {
     }
 
     public function resolve(

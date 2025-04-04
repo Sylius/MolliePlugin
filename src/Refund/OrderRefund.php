@@ -22,8 +22,11 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 final class OrderRefund implements OrderRefundInterface
 {
-    public function __construct(private readonly MessageBusInterface $commandBus, private readonly OrderRefundCommandCreatorInterface $commandCreator, private readonly MollieLoggerActionInterface $loggerAction)
-    {
+    public function __construct(
+        private readonly MessageBusInterface $commandBus,
+        private readonly OrderRefundCommandCreatorInterface $commandCreator,
+        private readonly MollieLoggerActionInterface $loggerAction,
+    ) {
     }
 
     public function refund(Order $order): void

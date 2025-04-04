@@ -23,8 +23,11 @@ use Sylius\MolliePlugin\Model\DTO\MolliePayment\Amount;
  */
 final class MollieAllowedMethodsResolver implements MollieAllowedMethodsResolverInterface
 {
-    public function __construct(private readonly MollieApiClientKeyResolverInterface $mollieApiClientKeyResolver, private readonly PaymentLocaleResolverInterface $paymentLocaleResolver, private readonly IntToStringConverterInterface $intToStringConverter)
-    {
+    public function __construct(
+        private readonly MollieApiClientKeyResolverInterface $mollieApiClientKeyResolver,
+        private readonly PaymentLocaleResolverInterface $paymentLocaleResolver,
+        private readonly IntToStringConverterInterface $intToStringConverter,
+    ) {
     }
 
     public function resolve(OrderInterface $order): array

@@ -22,8 +22,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class MollieLoggerAction implements MollieLoggerActionInterface
 {
-    public function __construct(private readonly MollieLoggerFactoryInterface $loggerFactory, private readonly RepositoryInterface $repository, private readonly RepositoryInterface $gatewayRepository, private readonly MollieFactoryNameResolverInterface $mollieFactoryNameResolver)
-    {
+    public function __construct(
+        private readonly MollieLoggerFactoryInterface $loggerFactory,
+        private readonly RepositoryInterface $repository,
+        private readonly RepositoryInterface $gatewayRepository,
+        private readonly MollieFactoryNameResolverInterface $mollieFactoryNameResolver,
+    ) {
     }
 
     public function addLog(

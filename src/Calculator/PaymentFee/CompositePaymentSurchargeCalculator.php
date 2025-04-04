@@ -20,9 +20,7 @@ use Sylius\MolliePlugin\Model\PaymentSurchargeFeeType;
 
 final class CompositePaymentSurchargeCalculator implements PaymentSurchargeCalculatorInterface
 {
-    /**
-     * @param PaymentSurchargeCalculatorInterface[] $calculators
-     */
+    /** @param PaymentSurchargeCalculatorInterface[] $calculators */
     public function __construct(private readonly iterable $calculators)
     {
     }

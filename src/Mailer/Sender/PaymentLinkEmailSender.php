@@ -24,12 +24,16 @@ use Webmozart\Assert\Assert;
 
 final class PaymentLinkEmailSender implements PaymentLinkEmailSenderInterface
 {
-    public function __construct(private readonly SenderInterface $emailSender, private readonly ContentParserInterface $contentParser)
-    {
+    public function __construct(
+        private readonly SenderInterface $emailSender,
+        private readonly ContentParserInterface $contentParser,
+    ) {
     }
 
-    public function sendConfirmationEmail(OrderInterface $order, TemplateMollieEmailTranslationInterface $template): void
-    {
+    public function sendConfirmationEmail(
+        OrderInterface $order,
+        TemplateMollieEmailTranslationInterface $template,
+    ): void {
         /** @var PaymentInterface|null $payment */
         $payment = $order->getPayments()->last();
 

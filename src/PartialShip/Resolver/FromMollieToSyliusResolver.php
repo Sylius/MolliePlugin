@@ -23,8 +23,10 @@ use Sylius\MolliePlugin\PartialShip\Remover\OldShipmentItemsRemoverInterface;
 
 final class FromMollieToSyliusResolver implements FromMollieToSyliusResolverInterface
 {
-    public function __construct(private readonly RepositoryInterface $unitsItemRepository, private readonly OldShipmentItemsRemoverInterface $shipmentItemsRemover)
-    {
+    public function __construct(
+        private readonly RepositoryInterface $unitsItemRepository,
+        private readonly OldShipmentItemsRemoverInterface $shipmentItemsRemover,
+    ) {
     }
 
     public function resolve(OrderInterface $order, Order $mollieOrder): OrderInterface
