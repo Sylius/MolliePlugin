@@ -4,10 +4,10 @@ sylius_mollie_plugin:
     cancelled: 'Das Abonnement wurde gekündigt.'
   admin:
     shipment:
-      successfuly_split_and_sent: 'Die Sendung wurde erfolgreich aufgeteilt und gesendet'
+      successfully_split_and_sent: 'Die Sendung wurde erfolgreich aufgeteilt und gesendet'
     success_got_methods: 'Methoden erfolgreich aktualisiert'
     payment_link:
-      successfuly_generated: 'Zahlungslink erfolgreich generiert'
+      successfully_generated: 'Zahlungslink erfolgreich generiert'
   credit_cart_error:
     invalid_card_number: 'Ungültige Kartennummer'
     invalid_cvv: 'Ungültiger Kartenprüfziffer'
