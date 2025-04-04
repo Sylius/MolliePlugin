@@ -28,7 +28,7 @@ final class AdminOrderShowMenuListener
         PaymentInterface::STATE_FAILED,
     ];
 
-    public function addPaymentlinkButton(OrderShowMenuBuilderEvent $event): void
+    public function addPaymentLinkButton(OrderShowMenuBuilderEvent $event): void
     {
         $menu = $event->getMenu();
         $order = $event->getOrder();
@@ -48,12 +48,12 @@ final class AdminOrderShowMenuListener
             MollieGatewayFactory::FACTORY_NAME === $paymentMethod->getGatewayConfig()->getFactoryName()
         ) {
             $menu
-            ->addChild('paymentlink', [
-                'route' => 'sylius_mollie_plugin_paymentlink',
+            ->addChild('payment_link', [
+                'route' => 'sylius_mollie_plugin_payment_link',
                 'routeParameters' => ['orderNumber' => $order->getNumber()],
             ])
             ->setAttribute('type', 'transition')
-            ->setLabel('sylius_mollie_plugin.ui.paymentlink_generate')
+            ->setLabel('sylius_mollie_plugin.ui.payment_link_generate')
             ->setLabelAttribute('icon', 'link all')
             ->setLabelAttribute('color', 'blue');
         }

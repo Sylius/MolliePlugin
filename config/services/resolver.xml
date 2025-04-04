@@ -45,14 +45,14 @@
         <service id="sylius_mollie.resolver.payment_locale" class="Sylius\MolliePlugin\Resolver\PaymentLocaleResolver"/>
         <service id="Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface" alias="sylius_mollie.resolver.payment_locale" />
 
-        <service id="sylius_mollie.resolver.paymentlink" class="Sylius\MolliePlugin\Resolver\PaymentlinkResolver">
+        <service id="sylius_mollie.resolver.payment_link" class="Sylius\MolliePlugin\Resolver\PaymentLinkResolver">
             <argument type="service" id="sylius_mollie.client.mollie_api"/>
             <argument type="service" id="sylius_mollie.converter.int_to_string"/>
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius_mollie.mailer.manager.payment_link_email"/>
             <argument type="service" id="sylius_mollie.payum.provider.payment_token" />
         </service>
-        <service id="Sylius\MolliePlugin\Resolver\PaymentlinkResolverInterface" alias="sylius_mollie.resolver.paymentlink" />
+        <service id="Sylius\MolliePlugin\Resolver\PaymentLinkResolverInterface" alias="sylius_mollie.resolver.payment_link" />
 
         <service id="sylius_mollie.resolver.mollie_countries_restriction" class="Sylius\MolliePlugin\Resolver\MollieCountriesRestrictionResolver">
             <argument type="service" id="sylius_mollie.resolver.payment_methods_image"/>

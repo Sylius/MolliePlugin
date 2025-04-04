@@ -127,7 +127,7 @@
    )
    ```
 
-   The constructor of `Sylius\MolliePlugin\Controller\Admin\GeneratePaymentlinkAction` has been changed:
+   The constructor of `Sylius\MolliePlugin\Controller\Admin\GeneratePaymentLinkAction` has been changed:
    
    ```diff
    public function __construct(
@@ -137,7 +137,7 @@
        UrlGeneratorInterface $router,
        FormFactoryInterface $formFactory,
    -   MollieApiClient $mollieApiClient,
-       PaymentlinkResolverInterface $paymentlinkResolver,
+       PaymentLinkResolverInterface $paymentLinkResolver,
        MollieLoggerActionInterface $loggerAction,
    )
    ```
@@ -160,7 +160,7 @@
    
    ```diff
    public function __construct(
-       PaymentlinkResolverInterface $paymentLinkResolver,
+       PaymentLinkResolverInterface $paymentLinkResolver,
        OrderRepositoryInterface $orderRepository,
    -   PaymentLinkEmailManagerInterface $paymentLinkEmailManager,
        PaymentMethodRepositoryInterface $paymentMethodRepository,
@@ -228,7 +228,7 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.controller.action.shop.payum_controller`                                            | `sylius_mollie.controller.shop.payum_controller`                              |
 | `sylius_mollie_plugin.controller.action.shop.payment_webhook_controller`                                  | `sylius_mollie.controller.shop.payment_webhook`                               |
 | `sylius_mollie_plugin.controller.action.shop.page_redirect_controller`                                    | `sylius_mollie.controller.shop.page_redirect`                                 |
-| `sylius_mollie_plugin.controller.action.admin.generate_paymentlink_action`                                | `sylius_mollie.controller.admin.generate_paymentlink`                         |
+| `sylius_mollie_plugin.controller.action.admin.generate_paymentlink_action`                                | `sylius_mollie.controller.admin.generate_payment_link`                         |
 | `sylius_mollie_plugin.controller.action.shop.apple_pay_validation_action`                                 | `sylius_mollie.controller.shop.apple_pay_validation`                          |
 | `sylius_mollie_plugin.controller.action.shop.order_controller`                                            | `sylius_mollie.controller.shop.order`                                         |
 | `sylius_mollie_plugin.controller.action.admin.mollie_subscription_controller`                             | `sylius_mollie.controller.admin.mollie_subscription`                          |
@@ -505,7 +505,7 @@ The following service IDs have been renamed:
 | `Sylius\MolliePlugin\Controller\Action\Admin\OnboardingWizard\StatusAction`                          | `Sylius\MolliePlugin\Controller\Admin\OnboardingWizard\StatusAction`                          |
 | `Sylius\MolliePlugin\Controller\Action\Admin\ChangePositionPaymentMethodAction`                      | `Sylius\MolliePlugin\Controller\Admin\ChangePositionPaymentMethodAction`                      |
 | `Sylius\MolliePlugin\Controller\Action\Admin\DeletePaymentMethodImage`                               | `Sylius\MolliePlugin\Controller\Admin\DeletedPaymentMethodImageAction`                        |
-| `Sylius\MolliePlugin\Controller\Action\Admin\GeneratePaymentlinkAction`                              | `Sylius\MolliePlugin\Controller\Admin\GeneratePaymentlinkAction`                              |
+| `Sylius\MolliePlugin\Controller\Action\Admin\GeneratePaymentlinkAction`                              | `Sylius\MolliePlugin\Controller\Admin\GeneratePaymentLinkAction`                              |
 | `Sylius\MolliePlugin\Controller\Action\Admin\MethodsAction`                                          | `Sylius\MolliePlugin\Controller\Admin\MethodsAction`                                          |
 | `Sylius\MolliePlugin\Controller\Action\Admin\Refund`                                                 | `Sylius\MolliePlugin\Controller\Admin\RefundAction`                                           |
 | `Sylius\MolliePlugin\Controller\Action\Admin\TestApiKeysAction`                                      | `Sylius\MolliePlugin\Controller\Admin\TestApiKeysAction`                                      |

@@ -18,7 +18,7 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\MolliePlugin\Entity\TemplateMollieEmailInterface;
 use Sylius\MolliePlugin\Form\Type\PaymentlinkType;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Resolver\PaymentlinkResolverInterface;
+use Sylius\MolliePlugin\Resolver\PaymentLinkResolverInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +28,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 
-final class GeneratePaymentlinkAction
+final class GeneratePaymentLinkAction
 {
     public function __construct(
         private readonly OrderRepositoryInterface $orderRepository,
@@ -36,7 +36,7 @@ final class GeneratePaymentlinkAction
         private readonly RequestStack $requestStack,
         private readonly UrlGeneratorInterface $router,
         private readonly FormFactoryInterface $formFactory,
-        private readonly PaymentlinkResolverInterface $paymentlinkResolver,
+        private readonly PaymentLinkResolverInterface $paymentLinkResolver,
         private readonly MollieLoggerActionInterface $loggerAction,
     ) {
     }
@@ -54,9 +54,9 @@ final class GeneratePaymentlinkAction
             $session = $this->requestStack->getSession();
 
             try {
-                $paymentlink = $this->paymentlinkResolver->resolve($order, $form->getData(), TemplateMollieEmailInterface::PAYMENT_LINK);
+                $paymentLink = $this->paymentLinkResolver->resolve($order, $form->getData(), TemplateMollieEmailInterface::PAYMENT_LINK);
 
-                $session->getFlashBag()->add('success', $paymentlink);
+                $session->getFlashBag()->add('success', $paymentLink);
 
                 $this->loggerAction->addLog(sprintf('Created payment link to order with id = %s', $order->getId()));
 

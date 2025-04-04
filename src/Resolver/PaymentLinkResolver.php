@@ -29,7 +29,7 @@ use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Payum\Provider\PaymentTokenProviderInterface;
 use Webmozart\Assert\Assert;
 
-final class PaymentlinkResolver implements PaymentlinkResolverInterface
+final class PaymentLinkResolver implements PaymentLinkResolverInterface
 {
     public function __construct(
         private readonly MollieApiClient $mollieApiClient,

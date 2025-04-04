@@ -23,12 +23,12 @@ use Sylius\MolliePlugin\Entity\TemplateMollieEmailInterface;
 use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
 use Sylius\MolliePlugin\Repository\OrderRepositoryInterface;
 use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
-use Sylius\MolliePlugin\Resolver\PaymentlinkResolverInterface;
+use Sylius\MolliePlugin\Resolver\PaymentLinkResolverInterface;
 
 final class AbandonedPaymentLinkCreator implements AbandonedPaymentLinkCreatorInterface
 {
     public function __construct(
-        private readonly PaymentlinkResolverInterface $paymentLinkResolver,
+        private readonly PaymentLinkResolverInterface $paymentLinkResolver,
         private readonly OrderRepositoryInterface $orderRepository,
         private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
         private readonly ChannelContextInterface $channelContext,

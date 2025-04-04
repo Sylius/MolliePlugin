@@ -16,7 +16,7 @@ namespace Sylius\MolliePlugin\Resolver;
 use Mollie\Api\Types\PaymentMethod;
 use Sylius\Component\Core\Model\OrderInterface;
 
-interface PaymentlinkResolverInterface
+interface PaymentLinkResolverInterface
 {
     public const NO_AVAILABLE_METHODS = [
         PaymentMethod::KLARNA_PAY_LATER,
