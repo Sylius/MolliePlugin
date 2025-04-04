@@ -4,10 +4,10 @@ sylius_mollie_plugin:
         cancelled: 'Subscription has been cancelled.'
     admin:
         shipment:
-            successfuly_split_and_sent: 'Shipment has been successfully split and sent'
+            successfully_split_and_sent: 'Shipment has been successfully split and sent'
         success_got_methods: "Methods was successfully updated"
-        paymentlink:
-            successfuly_generated: 'Paymentlink successfully generated'
+        payment_link:
+            successfully_generated: 'Payment link successfully generated'
     credit_cart_error:
         invalid_card_number: 'Invalid card number'
         invalid_cvv: 'Invalid cvv'

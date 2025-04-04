@@ -33,8 +33,8 @@ final class TemplateMollieEmailType extends AbstractType
             ->add('type', ChoiceType::class, [
                 'label' => 'sylius_mollie_plugin.ui.template_type',
                 'choices' => [
-                    'sylius_mollie_plugin.ui.paymentlink' => TemplateMollieEmailInterface::PAYMENT_LINK,
-                    'sylius_mollie_plugin.ui.paymentlinkAbandoned' => TemplateMollieEmailInterface::PAYMENT_LINK_ABANDONED,
+                    'sylius_mollie_plugin.ui.payment_link' => TemplateMollieEmailInterface::PAYMENT_LINK,
+                    'sylius_mollie_plugin.ui.payment_link_abandoned' => TemplateMollieEmailInterface::PAYMENT_LINK_ABANDONED,
                 ],
             ])
             ->add('styleCss', TextareaType::class, [

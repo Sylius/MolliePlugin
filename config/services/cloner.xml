@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <services>
+        <service id="sylius_mollie.cloner.order_item" class="Sylius\MolliePlugin\Cloner\OrderItemCloner">
+            <argument type="service" id="sylius.factory.order_item"/>
+            <argument type="service" id="sylius.factory.order_item_unit"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Cloner\OrderItemClonerInterface" alias="sylius_mollie.cloner.order_item" />
+
+        <service id="sylius_mollie.cloner.adjustment" class="Sylius\MolliePlugin\Cloner\AdjustmentCloner">
+            <argument type="service" id="sylius.factory.adjustment"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Cloner\AdjustmentClonerInterface" alias="sylius_mollie.cloner.adjustment" />
+
+        <service id="sylius_mollie.cloner.shipment" class="Sylius\MolliePlugin\Cloner\ShipmentCloner">
+            <argument type="service" id="sylius.factory.shipment"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Cloner\ShipmentClonerInterface" alias="sylius_mollie.cloner.shipment" />
+
+        <service id="sylius_mollie.cloner.subscription_order" class="Sylius\MolliePlugin\Cloner\SubscriptionOrderCloner">
+            <argument type="service" id="sylius_mollie.cloner.order_item"/>
+            <argument type="service" id="sylius.factory.order"/>
+            <argument type="service" id="sylius.random_generator"/>
+            <argument type="service" id="sylius_mollie.cloner.adjustment"/>
+            <argument type="service" id="sylius_mollie.cloner.shipment"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Cloner\SubscriptionOrderClonerInterface" alias="sylius_mollie.cloner.subscription_order" />
+    </services>
+</container>

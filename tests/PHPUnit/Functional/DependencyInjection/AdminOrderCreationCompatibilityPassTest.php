@@ -20,7 +20,7 @@ use Symfony\Component\DependencyInjection\Definition;
 
 final class AdminOrderCreationCompatibilityPassTest extends AbstractCompilerPassTestCase
 {
-    private const INTERNAL_PAYMENT_TOKEN_PROVIDER_ID = 'sylius_mollie.provider.payment_token';
+    private const INTERNAL_PAYMENT_TOKEN_PROVIDER_ID = 'sylius_mollie.payum.provider.payment_token';
 
     private const PLUGIN_PAYMENT_TOKEN_PROVIDER_ID = 'Sylius\AdminOrderCreationPlugin\Provider\PaymentTokenProvider';
 

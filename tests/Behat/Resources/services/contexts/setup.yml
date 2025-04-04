@@ -21,7 +21,7 @@ services:
             - "@doctrine.orm.default_entity_manager"
             - "@sm.factory"
             - "@payum"
-            - "@sylius_mollie.checker.gateway.mollie_gateway_factory"
+            - "@sylius_mollie.payum.checker.mollie_gateway_factory"
             - '@sylius_mollie.provider.divisor'
 
     sylius_mollie.behat.context.setup.subscription:
@@ -31,8 +31,8 @@ services:
             - "@doctrine.orm.default_entity_manager"
             - "@sylius_mollie.factory.mollie_subscription"
             - "@sylius.behat.shared_storage"
-            - "@sylius_mollie.processor.subscription_schedule"
-            - "@sylius_mollie.mollie_api_client"
+            - "@sylius_mollie.subscription.processor.subscription_schedule"
+            - "@sylius_mollie.client.mollie_api"
 
     sylius_mollie.behat.context.setup.product:
         class: Tests\Sylius\MolliePlugin\Behat\Context\Setup\ProductContext

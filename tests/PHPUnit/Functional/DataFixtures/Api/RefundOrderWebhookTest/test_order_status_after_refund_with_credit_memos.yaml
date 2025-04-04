@@ -92,7 +92,7 @@ Tests\Sylius\MolliePlugin\Entity\GatewayConfig:
     mollie_gateway:
         gatewayName: "mollie_default"
         factoryName: "mollie"
-        config: {"components": false, "profile_id": "pfl_aa", "environment": null, "loggerLevel": 0, "api_key_live": null, "api_key_test": "test_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "abandoned_hours": 1, "payum.http_client": "\\@sylius_mollie.mollie_api_client", "single_click_enabled": false, "abandoned_email_enabled": true}
+        config: {"components": false, "profile_id": "pfl_aa", "environment": null, "loggerLevel": 0, "api_key_live": null, "api_key_test": "test_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "abandoned_hours": 1, "payum.http_client": "\\@sylius_mollie.client.mollie_api", "single_click_enabled": false, "abandoned_email_enabled": true}
 
 Sylius\Component\Payment\Model\PaymentMethodTranslation:
     mollie_translation:

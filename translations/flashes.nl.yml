@@ -4,10 +4,10 @@ sylius_mollie_plugin:
     cancelled: 'Abonnement is opgezegd.'
   admin:
     shipment:
-      successfuly_split_and_sent: 'Verzending is succesvol gesplitst en verzonden'
+      successfully_split_and_sent: 'Verzending is succesvol gesplitst en verzonden'
     success_got_methods: 'Methodes zijn succesvol bijgewerkt'
-    paymentlink:
-      successfuly_generated: 'Betaallink succesvol aangemaakt'
+    payment_link:
+      successfully_generated: 'Betaallink succesvol aangemaakt'
   credit_cart_error:
     invalid_card_number: 'Ongeldig kaartnummer'
     invalid_cvv: 'Ongeldige cvv'

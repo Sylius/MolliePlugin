@@ -52,7 +52,7 @@ final class RefundOrderWebhookTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->mollieApiClient = self::getContainer()->get('sylius_mollie.mollie_api_client');
+        $this->mollieApiClient = self::getContainer()->get('sylius_mollie.client.mollie_api');
         $this->mollieApiClient->setApiEndpoint('http://localhost:8217');
         $this->securityTokenRepository = self::getContainer()->get('sylius.repository.payment_security_token');
         $this->orderRepository = self::getContainer()->get('sylius.repository.order');

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <services>
+        <defaults public="true" />
+
+        <service id="sylius_mollie.controller.shop.payment_fee_calculate" class="Sylius\MolliePlugin\Controller\Shop\PaymentFeeCalculateAction">
+            <argument type="service" id="sylius_mollie.calculator.payment_fee.composite"/>
+            <argument type="service" id="sylius.context.cart"/>
+            <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
+            <argument type="service" id="sylius.adjustments_aggregator" />
+            <argument type="service" id="sylius_mollie.converter.price_to_amount" />
+            <argument type="service" id="twig"/>
+        </service>
+
+        <service id="sylius_mollie.controller.shop.qr_code" class="Sylius\MolliePlugin\Controller\Shop\QrCodeAction">
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
+            <argument type="service" id="sylius.context.cart"/>
+            <argument type="service" id="sylius_mollie.client.mollie_api"/>
+            <argument type="service" id="sylius_mollie.resolver.mollie_api_client_key"/>
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="router" />
+            <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
+            <argument type="service" id="sylius_mollie.converter.int_to_string"/>
+        </service>
+
+        <service id="sylius_mollie.controller.shop.credit_card_translation" class="Sylius\MolliePlugin\Controller\Shop\CreditCardTranslationController">
+            <argument type="service" id="translator"/>
+        </service>
+
+        <service id="sylius_mollie.controller.shop.payum" class="Sylius\MolliePlugin\Controller\Shop\PayumController">
+            <argument type="service" id="payum" />
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="router" />
+            <argument type="service" id="SM\Factory\Factory"/>
+            <argument type="service" id="doctrine.orm.default_entity_manager"/>
+        </service>
+
+        <service id="sylius_mollie.controller.shop.payment_webhook" class="Sylius\MolliePlugin\Controller\Shop\PaymentWebhookController">
+            <argument type="service" id="sylius_mollie.client.mollie_api"/>
+            <argument type="service" id="sylius_mollie.resolver.mollie_api_client_key"/>
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="sylius.repository.payment" />
+            <argument type="service" id="SM\Factory\Factory"/>
+        </service>
+
+        <service id="sylius_mollie.controller.shop.page_redirect" class="Sylius\MolliePlugin\Controller\Shop\PageRedirectController">
+            <argument type="service" id="router" />
+            <argument type="service" id="sylius.repository.order" />
+        </service>
+
+        <service id="sylius_mollie.controller.shop.apple_pay_validation" class="Sylius\MolliePlugin\Controller\Shop\ApplePayValidationAction">
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
+            <argument type="service" id="sylius_mollie.resolver.mollie_api_client_key"/>
+            <argument type="service" id="sylius_mollie.apple_pay.checker.apple_pay_enabled"/>
+        </service>
+
+        <service
+            id="sylius_mollie.controller.shop.order"
+            class="Sylius\MolliePlugin\Controller\Shop\OrderController"
+            parent="sylius.controller.order"
+        />
+    </services>
+</container>

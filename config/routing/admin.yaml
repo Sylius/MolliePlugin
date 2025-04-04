@@ -14,7 +14,7 @@ mollie_partial_ship:
     resource: "admin/partial_ship.yaml"
 
 mollie_payment_link:
-    resource: "admin/paymentlink.yaml"
+    resource: "admin/payment_link.yaml"
 
 mollie_email_template:
     resource: "admin/mollie_email_template.yaml"

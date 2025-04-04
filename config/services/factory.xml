@@ -11,15 +11,18 @@
 
 -->
 
-<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
     <services>
         <defaults public="true" />
 
         <service
-                id="sylius_mollie.custom_factory.mollie_gateway_config"
-                class="Sylius\MolliePlugin\Factory\MollieGatewayConfigFactory"
-                decorates="sylius_mollie.factory.mollie_gateway_config"
+            id="sylius_mollie.custom_factory.mollie_gateway_config"
+            class="Sylius\MolliePlugin\Factory\MollieGatewayConfigFactory"
+            decorates="sylius_mollie.factory.mollie_gateway_config"
         >
             <argument type="service" id=".inner"/>
             <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
@@ -27,23 +30,18 @@
         <service id="Sylius\MolliePlugin\Factory\MollieGatewayConfigFactoryInterface" alias="sylius_mollie.custom_factory.mollie_gateway_config" />
 
         <service
-                id="sylius_mollie.custom_factory.mollie_logger"
-                class="Sylius\MolliePlugin\Factory\MollieLoggerFactory"
-                decorates="sylius_mollie.factory.mollie_logger"
+            id="sylius_mollie.custom_factory.mollie_logger"
+            class="Sylius\MolliePlugin\Factory\MollieLoggerFactory"
+            decorates="sylius_mollie.factory.mollie_logger"
         >
             <argument type="service" id=".inner"/>
         </service>
         <service id="Sylius\MolliePlugin\Factory\MollieLoggerFactoryInterface" alias="sylius_mollie.custom_factory.mollie_logger" />
 
-        <service id="sylius_mollie.factory.shipment" class="Sylius\MolliePlugin\PartialShip\Factory\ShipmentFactory">
-            <argument type="service" id="sylius.factory.shipment" />
-        </service>
-        <service id="Sylius\MolliePlugin\PartialShip\Factory\ShipmentFactoryInterface" alias="sylius_mollie.factory.shipment" />
-
         <service
-                id="sylius_mollie.custom_factory.mollie_subscription"
-                class="Sylius\MolliePlugin\Factory\MollieSubscriptionFactory"
-                decorates="sylius_mollie.factory.mollie_subscription"
+            id="sylius_mollie.custom_factory.mollie_subscription"
+            class="Sylius\MolliePlugin\Factory\MollieSubscriptionFactory"
+            decorates="sylius_mollie.factory.mollie_subscription"
         >
             <argument type="service" id=".inner"/>
             <argument type="service" id="router"/>
@@ -51,9 +49,9 @@
         <service id="Sylius\MolliePlugin\Factory\MollieSubscriptionFactoryInterface" alias="sylius_mollie.custom_factory.mollie_subscription" />
 
         <service
-                id="sylius_mollie.custom_factory.mollie_subscription_schedule"
-                class="Sylius\MolliePlugin\Factory\MollieSubscriptionScheduleFactory"
-                decorates="sylius_mollie.factory.mollie_subscription_schedule"
+            id="sylius_mollie.custom_factory.mollie_subscription_schedule"
+            class="Sylius\MolliePlugin\Factory\MollieSubscriptionScheduleFactory"
+            decorates="sylius_mollie.factory.mollie_subscription_schedule"
         >
             <argument type="service" id=".inner"/>
         </service>
@@ -67,8 +65,5 @@
 
         <service id="sylius_mollie.factory.payment_details" class="Sylius\MolliePlugin\Factory\PaymentDetailsFactory"/>
         <service id="Sylius\MolliePlugin\Factory\PaymentDetailsFactoryInterface" alias="sylius_mollie.factory.payment_details"/>
-
-        <service id="sylius_mollie.factory.api_customer" class="Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactory"/>
-        <service id="Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactoryInterface" alias="sylius_mollie.factory.api_customer"/>
     </services>
 </container>

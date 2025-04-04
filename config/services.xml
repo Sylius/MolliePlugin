@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
 <container
     xmlns="http://symfony.com/schema/dic/services"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -10,8 +21,12 @@
     </imports>
 
     <services>
-        <service id="sylius_mollie.mollie_payment" class="Sylius\MolliePlugin\Api\MolliePaymentConfigurationProvider">
+        <service
+            id="sylius_mollie.api.payment_configuration_provider.mollie"
+            class="Sylius\MolliePlugin\Api\MolliePaymentConfigurationProvider"
+        >
             <argument type="service" id="router" />
+
             <tag name="sylius.api.payment_method_handler" />
         </service>
     </services>

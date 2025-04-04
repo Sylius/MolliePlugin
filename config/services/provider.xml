@@ -11,50 +11,26 @@
 
 -->
 
-<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
     <services>
         <defaults public="true" />
 
-        <service id="sylius_mollie.provider.apple.apple_pay_direct" class="Sylius\MolliePlugin\ApplePay\Provider\ApplePayDirectProvider">
-            <argument type="service" id="sylius_mollie.resolver.address"/>
-            <argument type="service" id="sylius_mollie.provider.order.order_payment_apple_pay_direct"/>
-            <argument type="service" id="sylius_mollie.provider.customer"/>
-            <argument type="service" id="sylius_mollie.provider.apple.apple_pay_direct_payment"/>
-        </service>
-        <service id="Sylius\MolliePlugin\ApplePay\Provider\ApplePayDirectProviderInterface" alias="sylius_mollie.provider.apple.apple_pay_direct" />
-
-        <service id="sylius_mollie.provider.order.order_payment_apple_pay_direct" class="Sylius\MolliePlugin\ApplePay\Provider\OrderPaymentApplePayDirectProvider">
-            <argument type="service" id="sylius.custom_factory.payment"/>
-            <argument type="service" id="sm.factory"/>
-            <argument type="service" id="sylius.repository.payment_method"/>
-            <argument type="service" id="sylius.repository.gateway_config"/>
-            <argument type="service" id="sylius_mollie.provider.payment_token"/>
-            <argument type="service" id="payum"/>
-        </service>
-        <service id="Sylius\MolliePlugin\ApplePay\Provider\OrderPaymentApplePayDirectProviderInterface" alias="sylius_mollie.provider.order.order_payment_apple_pay_direct" />
-
         <service id="sylius_mollie.provider.divisor" class="Sylius\MolliePlugin\Provider\DivisorProvider"/>
         <service id="Sylius\MolliePlugin\Provider\DivisorProviderInterface" alias="sylius_mollie.provider.divisor" />
-
-        <service id="sylius_mollie.provider.apple.apple_pay_direct_payment" class="Sylius\MolliePlugin\ApplePay\Provider\ApplePayDirectPaymentProvider">
-            <argument type="service" id="sylius_mollie.resolver.apple_pay_direct.apple_pay_direct_payment_type"/>
-        </service>
-        <service id="Sylius\MolliePlugin\ApplePay\Provider\ApplePayDirectPaymentProviderInterface" alias="sylius_mollie.provider.apple.apple_pay_direct_payment" />
-
-        <service id="sylius_mollie.provider.form.resolver_group" class="Sylius\MolliePlugin\Form\Resolver\ProductVariantValidationGroupsResolver"/>
-        <service id="Sylius\MolliePlugin\Form\Resolver\ValidationGroupsResolverInterface" alias="sylius_mollie.provider.form.resolver_group" />
-
-        <service id="sylius_mollie.provider.payment_token" class="Sylius\MolliePlugin\Payum\Provider\PaymentTokenProvider">
-            <argument type="service" id="payum" />
-            <argument type="string">sylius_shop_order_after_pay</argument>
-        </service>
-        <service id="Sylius\MolliePlugin\Payum\Provider\PaymentTokenProviderInterface" alias="sylius_mollie.provider.payment_token" />
 
         <service id="sylius_mollie.provider.customer" class="Sylius\MolliePlugin\Provider\CustomerProvider">
             <argument type="service" id="sylius.repository.customer" />
             <argument type="service" id="sylius.factory.customer"/>
         </service>
         <service id="Sylius\MolliePlugin\Provider\CustomerProviderInterface" alias="sylius_mollie.provider.customer" />
+
+        <service id="sylius_mollie.provider.payment_description" class="Sylius\MolliePlugin\Provider\PaymentDescriptionProvider">
+            <argument type="service" id="sylius.payment_description_provider"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Provider\PaymentDescriptionProviderInterface" alias="sylius_mollie.provider.payment_description" />
     </services>
 </container>

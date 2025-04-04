@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <services>
+        <defaults public="true" />
+
+        <service id="sylius_mollie.refund.payment" class="Sylius\MolliePlugin\Refund\PaymentRefund">
+            <argument type="service" id="sylius_mollie.command_bus" />
+            <argument type="service" id="sylius_mollie.refund.creator.payment_refund_command" />
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Refund\PaymentRefundInterface" alias="sylius_mollie.refund.payment" />
+
+        <service id="sylius_mollie.refund.units.shipment_unit" class="Sylius\MolliePlugin\Refund\Units\ShipmentUnitRefund" />
+        <service id="Sylius\MolliePlugin\Refund\Units\ShipmentUnitRefundInterface" alias="sylius_mollie.refund.units.shipment_unit" />
+
+        <service id="sylius_mollie.refund.units.payment_units_item" class="Sylius\MolliePlugin\Refund\Units\PaymentUnitsItemRefund">
+            <argument type="service" id="sylius_mollie.refund.generator.payment" />
+            <argument type="service" id="sylius_mollie.refund_generator.payment_new_unit" />
+            <argument type="service" id="sylius_mollie.refund.calculator.payment" />
+        </service>
+        <service id="Sylius\MolliePlugin\Refund\Units\PaymentUnitsItemRefundInterface" alias="sylius_mollie.refund.units.payment_units_item" />
+
+        <service id="sylius_mollie.refund.order" class="Sylius\MolliePlugin\Refund\OrderRefund">
+            <argument type="service" id="sylius.command_bus" />
+            <argument type="service" id="sylius_mollie.refund.creator.order_refund_command" />
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Refund\OrderRefundInterface" alias="sylius_mollie.refund.order" />
+
+        <service id="sylius_mollie.refund.units.units_item_order" class="Sylius\MolliePlugin\Refund\Units\UnitsItemOrderRefund">
+            <argument type="service" id="sylius_refund.repository.refund" />
+        </service>
+        <service id="Sylius\MolliePlugin\Refund\Units\UnitsItemOrderRefundInterface" alias="sylius_mollie.refund.units.units_item_order" />
+
+        <service id="sylius_mollie.refund.units.units_shipment_order" class="Sylius\MolliePlugin\Refund\Units\UnitsShipmentOrderRefund">
+            <argument type="service" id="sylius_refund.repository.refund" />
+        </service>
+        <service id="Sylius\MolliePlugin\Refund\Units\UnitsShipmentOrderRefundInterface" alias="sylius_mollie.refund.units.units_shipment_order" />
+
+        <service id="sylius_mollie.refund_generator.payment_new_unit" class="Sylius\MolliePlugin\Refund\Generator\PaymentNewUnitRefundGenerator" />
+        <service id="Sylius\MolliePlugin\Refund\Generator\PaymentNewUnitRefundGeneratorInterface" alias="sylius_mollie.refund_generator.payment_new_unit" />
+
+        <service id="sylius_mollie.refund.generator.payment" class="Sylius\MolliePlugin\Refund\Generator\PaymentRefundedGenerator">
+            <argument type="service" id="sylius_refund.repository.refund" />
+        </service>
+        <service id="Sylius\MolliePlugin\Refund\Generator\PaymentRefundedGeneratorInterface" alias="sylius_mollie.refund.generator.payment" />
+
+        <service id="sylius_mollie.refund.calculator.payment" class="Sylius\MolliePlugin\Refund\Calculator\PaymentRefundCalculator" />
+        <service id="Sylius\MolliePlugin\Refund\Calculator\PaymentRefundCalculatorInterface" alias="sylius_mollie.refund.calculator.payment" />
+    </services>
+</container>
