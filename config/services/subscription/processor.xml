@@ -20,7 +20,7 @@
 		<defaults public="true" />
 
 		<service id="sylius_mollie.subscription.processor.subscription" class="Sylius\MolliePlugin\Subscription\Processor\SubscriptionProcessor">
-			<argument type="service" id="sylius_mollie.cloner.subscription_order_cloner"/>
+			<argument type="service" id="sylius_mollie.cloner.subscription_order"/>
 			<argument type="service" id="sylius.custom_factory.payment"/>
 			<argument type="service" id="sylius.repository.order"/>
 			<argument type="service" id="sylius_mollie.factory.payment_details"/>
