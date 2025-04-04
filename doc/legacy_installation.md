@@ -303,7 +303,7 @@ bin/console assets:install
     ```javascript
     // assets/admin/entry.js
     
-    import '../../vendor/sylius/mollie-plugin/src/Resources/assets/admin/entry.js'
+    import '../../vendor/sylius/mollie-plugin/src/Resources/assets/admin/entry';
     ```
 
     and:
@@ -311,7 +311,7 @@ bin/console assets:install
     ```javascript
     // assets/shop/entry.js
     
-    import '../../vendor/sylius/mollie-plugin/src/Resources/assets/shop/entry.js'
+    import '../../vendor/sylius/mollie-plugin/src/Resources/assets/shop/entry';
     ```
 
 1. Install assets:
