@@ -225,10 +225,10 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.sylius_mollie_plugin.controller.action.shop.payment_fee_calculate_action`           | `sylius_mollie.controller.shop.payment_fee_calculate`                         |
 | `sylius_mollie_plugin.controller.action.shop.credit_card_translation_controller`                          | `sylius_mollie.controller.shop.credit_card_translation`                       |
 | `sylius_mollie_plugin.controller.action.shop.qr_code_action`                                              | `sylius_mollie.controller.shop.qr_code`                                       |
-| `sylius_mollie_plugin.controller.action.shop.payum_controller`                                            | `sylius_mollie.controller.shop.payum_controller`                              |
+| `sylius_mollie_plugin.controller.action.shop.payum_controller`                                            | `sylius_mollie.controller.shop.payum`                                         |
 | `sylius_mollie_plugin.controller.action.shop.payment_webhook_controller`                                  | `sylius_mollie.controller.shop.payment_webhook`                               |
 | `sylius_mollie_plugin.controller.action.shop.page_redirect_controller`                                    | `sylius_mollie.controller.shop.page_redirect`                                 |
-| `sylius_mollie_plugin.controller.action.admin.generate_paymentlink_action`                                | `sylius_mollie.controller.admin.generate_payment_link`                         |
+| `sylius_mollie_plugin.controller.action.admin.generate_paymentlink_action`                                | `sylius_mollie.controller.admin.generate_payment_link`                        |
 | `sylius_mollie_plugin.controller.action.shop.apple_pay_validation_action`                                 | `sylius_mollie.controller.shop.apple_pay_validation`                          |
 | `sylius_mollie_plugin.controller.action.shop.order_controller`                                            | `sylius_mollie.controller.shop.order`                                         |
 | `sylius_mollie_plugin.controller.action.admin.mollie_subscription_controller`                             | `sylius_mollie.controller.admin.mollie_subscription`                          |
@@ -238,7 +238,7 @@ The following service IDs have been renamed:
 | `sylius_mollie_plugin.controller.onboarding_wizard.completed`                                             | `sylius_mollie.controller.admin.onboarding_wizard.completed`                  |
 | `sylius_mollie_plugin.action.create_payment`                                                              | `sylius_mollie.payum.action.create_payment`                                   |
 | `sylius_mollie_plugin.action.create_order`                                                                | `sylius_mollie.payum.action.create_order`                                     |
-| `sylius_mollie_plugin.action.mollie_payment`                                                              | `sylius_mollie.api.configuration_payment_provider.mollie`                     |
+| `sylius_mollie_plugin.action.mollie_payment`                                                              | `sylius_mollie.api.payment_configuration_provider.mollie`                     |
 | `sylius_mollie_plugin.action.api.create_on_demand_payment_action`                                         | `sylius_mollie.payum.action.create_on_demand_payment`                         |
 | `sylius_mollie_plugin.action.api.create_on_demand_subscription_action`                                    | `sylius_mollie.payum.action.subscription.create_on_demand_subscription`       |
 | `sylius_mollie_plugin.action.create_internal_subscription`                                                | `sylius_mollie.payum.action.subscription.create_internal_subscription`        |

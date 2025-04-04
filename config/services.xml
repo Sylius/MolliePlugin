@@ -22,7 +22,7 @@
 
     <services>
         <service
-            id="sylius_mollie.api.configuration_payment_provider.mollie"
+            id="sylius_mollie.api.payment_configuration_provider.mollie"
             class="Sylius\MolliePlugin\Api\MolliePaymentConfigurationProvider"
         >
             <argument type="service" id="router" />
