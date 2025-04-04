@@ -19,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
 trait ProductTrait
 {
     /**
-     * @ORM\ManyToOne(targetEntity="SyliusMolliePlugin\Entity\ProductType")
+     * @ORM\ManyToOne(targetEntity="Sylius\MolliePlugin\Entity\ProductType")
      *
      * @ORM\JoinColumn(name="product_type_id", referencedColumnName="id", onDelete="SET NULL")
      */
