@@ -23,17 +23,10 @@
 * [Overview](#overview)
 * [Demo](#mollie-plugin-demo)
 * [Installation](#installation)
-  * [Requirements](#requirements)
   * [Usage](#usage)
-  * [Customization](#customization)
-  * [Testing](#testing)
   * [Recurring subscription (internal CRON)](doc/recurring.md)
-  * [Frontend part](#frontend)
 * [Recurring payments](doc/recurring.md)
 * [Community](#community)
-* [Additional Sylius resources for developers](#additional-resources-for-developers)
-* [License](#license)
-* [Contact](#contact)
 
 ---
 
@@ -93,8 +86,8 @@ declare(strict_types=1);
 namespace App\Entity\Payment;
 
 use Doctrine\ORM\Mapping as ORM;
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Entity\GatewayConfigTrait;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sylius\Bundle\PayumBundle\Model\GatewayConfig as BaseGatewayConfig;
 
@@ -141,11 +134,11 @@ namespace App\Entity\Order;
 
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\Order as BaseOrder;
-use SyliusMolliePlugin\Entity\AbandonedEmailOrderTrait;
-use SyliusMolliePlugin\Entity\MolliePaymentIdOrderTrait;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Entity\QRCodeOrderTrait;
-use SyliusMolliePlugin\Entity\RecurringOrderTrait;
+use Sylius\MolliePlugin\Entity\AbandonedEmailOrderTrait;
+use Sylius\MolliePlugin\Entity\MolliePaymentIdOrderTrait;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Entity\QRCodeOrderTrait;
+use Sylius\MolliePlugin\Entity\RecurringOrderTrait;
 
 /**
  * @ORM\Entity
@@ -187,8 +180,8 @@ namespace App\Entity\Product;
 
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\ProductTranslationInterface;
-use SyliusMolliePlugin\Entity\ProductInterface;
-use SyliusMolliePlugin\Entity\ProductTrait;
+use Sylius\MolliePlugin\Entity\ProductInterface;
+use Sylius\MolliePlugin\Entity\ProductTrait;
 use Sylius\Component\Core\Model\Product as BaseProduct;
 
 /**
@@ -234,8 +227,8 @@ namespace App\Entity\Product;
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\ProductVariant as BaseProductVariant;
 use Sylius\Component\Product\Model\ProductVariantTranslationInterface;
-use SyliusMolliePlugin\Entity\ProductVariantInterface;
-use SyliusMolliePlugin\Entity\RecurringProductVariantTrait;
+use Sylius\MolliePlugin\Entity\ProductVariantInterface;
+use Sylius\MolliePlugin\Entity\RecurringProductVariantTrait;
 
 /**
  * @ORM\Entity
@@ -364,22 +357,6 @@ bin/console assets:install
 
 ## Frontend Asset Management
 
-1. Import the plugin's assets into your application's entrypoint files:
-
-    ```javascript
-    // assets/admin/entry.js
-    
-    import '../../vendor/sylius/mollie-plugin/src/Resources/assets/admin/entry.js'
-    ```
-
-   and:
-
-    ```javascript
-    // assets/shop/entry.js
-    
-    import '../../vendor/sylius/mollie-plugin/src/Resources/assets/shop/entry.js'
-    ```
-
 1. Install assets:
 
     ```bash
@@ -388,14 +365,12 @@ bin/console assets:install
 
 #### Installation & Build Process
 
-1. If you are using Sylius version <= 1.11 ensure that Node version 12 is currently used:
+1. Ensure that Node version 14 is currently used:
 
     ```bash
-    nvm install 12
-    nvm use 12
+    nvm install 14
+    nvm use 14
     ```
-
-   otherwise Node version 14 should be used.
 
 1. Install dependencies:
     ```bash
