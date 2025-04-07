@@ -66,3 +66,6 @@ jobs:
                   file: .docker/Dockerfile
                   push: true
                   tags: ${{ steps.meta.outputs.tags }}
+                  platforms: linux/amd64,linux/arm64
+                  provenance: false
+                  sbom: false
