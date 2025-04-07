@@ -1,0 +1,4 @@
+sylius_mollie_plugin_onboarding_wizard_completed:
+    path: /onboarding-wizard/completed
+    controller: sylius_mollie.controller.admin.onboarding_wizard.completed
+    methods: [POST]

@@ -11,45 +11,29 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Logger;
+namespace Sylius\MolliePlugin\Logger;
 
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Factory\MollieLoggerFactoryInterface;
-use SyliusMolliePlugin\Resolver\MollieFactoryNameResolverInterface;
 use Sylius\Component\Order\Context\CartNotFoundException;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Factory\MollieLoggerFactoryInterface;
+use Sylius\MolliePlugin\Resolver\MollieFactoryNameResolverInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 final class MollieLoggerAction implements MollieLoggerActionInterface
 {
-    /** @var MollieLoggerFactoryInterface */
-    private $loggerFactory;
-
-    /** @var RepositoryInterface */
-    private $repository;
-
-    /** @var RepositoryInterface */
-    private $gatewayRepository;
-
-    /** @var MollieFactoryNameResolverInterface */
-    private $mollieFactoryNameResolver;
-
     public function __construct(
-        MollieLoggerFactoryInterface $loggerFactory,
-        RepositoryInterface $repository,
-        RepositoryInterface $gatewayRepository,
-        MollieFactoryNameResolverInterface $mollieFactoryNameResolver
+        private readonly MollieLoggerFactoryInterface $loggerFactory,
+        private readonly RepositoryInterface $repository,
+        private readonly RepositoryInterface $gatewayRepository,
+        private readonly MollieFactoryNameResolverInterface $mollieFactoryNameResolver,
     ) {
-        $this->loggerFactory = $loggerFactory;
-        $this->repository = $repository;
-        $this->gatewayRepository = $gatewayRepository;
-        $this->mollieFactoryNameResolver = $mollieFactoryNameResolver;
     }
 
     public function addLog(
         string $message,
-        int $logLevel = self::NOTICE,
-        int $errorCode = Response::HTTP_OK
+        int $logLevel = LoggerLevel::NOTICE,
+        int $errorCode = Response::HTTP_OK,
     ): void {
         if (false === $this->canSaveLog($logLevel)) {
             return;
@@ -61,8 +45,8 @@ final class MollieLoggerAction implements MollieLoggerActionInterface
 
     public function addNegativeLog(
         string $message,
-        int $logLevel = self::ERROR,
-        int $errorCode = Response::HTTP_INTERNAL_SERVER_ERROR
+        int $logLevel = LoggerLevel::ERROR,
+        int $errorCode = Response::HTTP_INTERNAL_SERVER_ERROR,
     ): void {
         if (false === $this->canSaveLog($logLevel)) {
             return;
@@ -85,16 +69,16 @@ final class MollieLoggerAction implements MollieLoggerActionInterface
 
             $level = $gatewayConfig->getConfig()['loggerLevel'];
 
-            if (MollieLoggerActionInterface::LOG_EVERYTHING === $level) {
+            if (LoggerLevel::LOG_EVERYTHING === $level) {
                 return true;
             }
 
-            if (MollieLoggerActionInterface::LOG_ERRORS === $level && self::ERROR === $logLevel) {
+            if (LoggerLevel::LOG_ERRORS === $level && LoggerLevel::ERROR === $logLevel) {
                 return true;
             }
 
             return false;
-        } catch (CartNotFoundException $e) {
+        } catch (CartNotFoundException) {
             // As we cannot determine cart context (CLI context), we agree to store logs
 
             return true;

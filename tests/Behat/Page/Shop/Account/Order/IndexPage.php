@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Behat\Page\Shop\Account\Order;
+namespace Tests\Sylius\MolliePlugin\Behat\Page\Shop\Account\Order;
 
 use Sylius\Behat\Page\Shop\Account\Order\IndexPage as BaseIndexPage;
 

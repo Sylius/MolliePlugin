@@ -11,50 +11,28 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Creator;
+namespace Sylius\MolliePlugin\Creator;
 
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Entity\TemplateMollieEmailInterface;
-use SyliusMolliePlugin\Factory\MollieGatewayFactory;
-use SyliusMolliePlugin\Preparer\PaymentLinkEmailPreparerInterface;
-use SyliusMolliePlugin\Repository\OrderRepositoryInterface;
-use SyliusMolliePlugin\Repository\PaymentMethodRepositoryInterface;
-use SyliusMolliePlugin\Resolver\PaymentlinkResolverInterface;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Entity\TemplateMollieEmailInterface;
+use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Repository\OrderRepositoryInterface;
+use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
+use Sylius\MolliePlugin\Resolver\PaymentLinkResolverInterface;
 
 final class AbandonedPaymentLinkCreator implements AbandonedPaymentLinkCreatorInterface
 {
-    /** @var PaymentlinkResolverInterface */
-    private $paymentLinkResolver;
-
-    /** @var OrderRepositoryInterface */
-    private $orderRepository;
-
-    /** @var PaymentLinkEmailPreparerInterface */
-    private $emailPreparer;
-
-    /** @var PaymentMethodRepositoryInterface */
-    private $paymentMethodRepository;
-
-    /** @var ChannelContextInterface */
-    private $channelContext;
-
     public function __construct(
-        PaymentlinkResolverInterface $paymentLinkResolver,
-        OrderRepositoryInterface $orderRepository,
-        PaymentLinkEmailPreparerInterface $emailPreparer,
-        PaymentMethodRepositoryInterface $paymentMethodRepository,
-        ChannelContextInterface $channelContext
+        private readonly PaymentLinkResolverInterface $paymentLinkResolver,
+        private readonly OrderRepositoryInterface $orderRepository,
+        private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+        private readonly ChannelContextInterface $channelContext,
     ) {
-        $this->paymentLinkResolver = $paymentLinkResolver;
-        $this->orderRepository = $orderRepository;
-        $this->emailPreparer = $emailPreparer;
-        $this->paymentMethodRepository = $paymentMethodRepository;
-        $this->channelContext = $channelContext;
     }
 
     public function create(): void
@@ -63,22 +41,19 @@ final class AbandonedPaymentLinkCreator implements AbandonedPaymentLinkCreatorIn
         $channel = $this->channelContext->getChannel();
         $paymentMethod = $this->paymentMethodRepository->findOneByChannelAndGatewayFactoryName(
             $channel,
-            MollieGatewayFactory::FACTORY_NAME
+            MollieGatewayFactory::FACTORY_NAME,
         );
-
         if (null === $paymentMethod) {
             return;
         }
 
         /** @var ?GatewayConfigInterface $gateway */
         $gateway = $paymentMethod->getGatewayConfig();
-
         if (null === $gateway) {
             return;
         }
 
         $abandonedEnabled = $gateway->getConfig()['abandoned_email_enabled'] ?? false;
-
         if (false === $abandonedEnabled) {
             return;
         }

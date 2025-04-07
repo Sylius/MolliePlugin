@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <services>
+        <defaults public="true" />
+
+        <service id="sylius_mollie.creator.abandoned_payment_link" class="Sylius\MolliePlugin\Creator\AbandonedPaymentLinkCreator">
+            <argument type="service" id="sylius_mollie.resolver.payment_link" />
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="sylius.repository.payment_method"/>
+            <argument type="service" id="sylius.context.channel"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Creator\AbandonedPaymentLinkCreatorInterface" alias="sylius_mollie.creator.abandoned_payment_link" />
+
+        <service id="sylius_mollie.creator.mollie_methods" class="Sylius\MolliePlugin\Creator\MollieMethodsCreator">
+            <argument type="service" id="sylius_mollie.factory.methods" />
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
+            <argument type="service" id="sylius_mollie.custom_factory.mollie_gateway_config"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Creator\MollieMethodsCreatorInterface" alias="sylius_mollie.creator.mollie_methods" />
+
+        <service id="sylius_mollie.creator.api_keys_test" class="Sylius\MolliePlugin\Creator\ApiKeysTestCreator">
+            <argument type="service" id="sylius_mollie.client.mollie_api"/>
+            <argument type="service" id="translator"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Creator\ApiKeysTestCreatorInterface" alias="sylius_mollie.creator.api_keys_test" />
+    </services>
+</container>

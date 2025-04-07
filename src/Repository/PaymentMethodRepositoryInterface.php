@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Repository;
+namespace Sylius\MolliePlugin\Repository;
 
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
@@ -19,6 +19,7 @@ use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface as BasePay
 
 interface PaymentMethodRepositoryInterface extends BasePaymentMethodRepositoryInterface
 {
+    /** @return PaymentMethodInterface[] */
     public function findAllByFactoryNameAndCode(string $code): array;
 
     public function findOneByChannelAndGatewayFactoryName(ChannelInterface $channel, string $factoryName): ?PaymentMethodInterface;

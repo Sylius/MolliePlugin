@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <services>
+        <defaults public="true" />
+
+        <service id="sylius_mollie.payum.gateway_factory.mollie_gateway" class="Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory" />
+
+        <service id="sylius_mollie.payum.gateway_factory.mollie_subscription_gateway" class="Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory" />
+
+        <service id="sylius_mollie.payum.gateway_factory.builder.mollie" class="Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder">
+            <argument type="service" id="sylius_mollie.payum.gateway_factory.mollie_gateway"/>
+            <tag name="payum.gateway_factory_builder" factory="mollie"/>
+        </service>
+
+        <service id="sylius_mollie.payum.gateway_factory.builder.mollie_subscription" class="Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder">
+            <argument type="service" id="sylius_mollie.payum.gateway_factory.mollie_subscription_gateway"/>
+            <tag name="payum.gateway_factory_builder" factory="mollie_subscription"/>
+        </service>
+
+        <service id="sylius_mollie.payum.factory.create_customer" class="Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactory"/>
+        <service id="Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactoryInterface" alias="sylius_mollie.payum.factory.create_customer"/>
+
+        <service id="sylius_mollie.payum.checker.mollie_gateway_factory" class="Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryChecker" public="true" />
+        <service id="Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryCheckerInterface" alias="sylius_mollie.payum.checker.mollie_gateway_factory" />
+    </services>
+</container>

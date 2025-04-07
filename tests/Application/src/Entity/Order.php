@@ -11,15 +11,15 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Entity;
+namespace Tests\Sylius\MolliePlugin\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\Order as BaseOrder;
-use SyliusMolliePlugin\Entity\AbandonedEmailOrderTrait;
-use SyliusMolliePlugin\Entity\MolliePaymentIdOrderTrait;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Entity\QRCodeOrderTrait;
-use SyliusMolliePlugin\Entity\RecurringOrderTrait;
+use Sylius\MolliePlugin\Entity\AbandonedEmailOrderTrait;
+use Sylius\MolliePlugin\Entity\MolliePaymentIdOrderTrait;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Entity\QRCodeOrderTrait;
+use Sylius\MolliePlugin\Entity\RecurringOrderTrait;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'sylius_order')]

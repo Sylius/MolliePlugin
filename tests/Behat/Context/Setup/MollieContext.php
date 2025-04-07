@@ -11,38 +11,35 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Behat\Context\Setup;
+namespace Tests\Sylius\MolliePlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
-use SyliusMolliePlugin\Factory\MollieGatewayFactory;
-use SyliusMolliePlugin\Factory\MollieSubscriptionGatewayFactory;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Purifier\MolliePaymentMethodPurifierInterface;
-use SyliusMolliePlugin\Repository\MollieGatewayConfigRepositoryInterface;
-use SyliusMolliePlugin\Resolver\MollieMethodsResolverInterface;
 use Doctrine\ORM\EntityManager;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\Bundle\CoreBundle\Fixture\Factory\ExampleFactoryInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Logger\LoggerLevel;
+use Sylius\MolliePlugin\Model\CountriesRestriction;
+use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Purifier\MolliePaymentMethodPurifierInterface;
+use Sylius\MolliePlugin\Repository\MollieGatewayConfigRepositoryInterface;
+use Sylius\MolliePlugin\Resolver\MollieMethodsResolverInterface;
 use Webmozart\Assert\Assert;
 
 final class MollieContext implements Context
 {
-    /** @var SharedStorageInterface */
-    private $sharedStorage;
+    private SharedStorageInterface $sharedStorage;
 
-    /** @var PaymentMethodRepositoryInterface */
-    private $paymentMethodRepository;
+    private PaymentMethodRepositoryInterface $paymentMethodRepository;
 
-    /** @var ExampleFactoryInterface */
-    private $paymentMethodExampleFactory;
+    private ExampleFactoryInterface $paymentMethodExampleFactory;
 
-    /** @var EntityManager */
-    private $paymentMethodManager;
+    private EntityManager $paymentMethodManager;
 
     private string $mollieApiKeyTest;
 
@@ -66,7 +63,7 @@ final class MollieContext implements Context
         MollieMethodsResolverInterface $mollieMethodsResolver,
         MolliePaymentMethodPurifierInterface $molliePaymentMethodPurifier,
         RepositoryInterface $gatewayConfigRepository,
-        MollieGatewayConfigRepositoryInterface $mollieConfigurationRepository
+        MollieGatewayConfigRepositoryInterface $mollieConfigurationRepository,
     ) {
         $this->sharedStorage = $sharedStorage;
         $this->paymentMethodRepository = $paymentMethodRepository;
@@ -89,18 +86,18 @@ final class MollieContext implements Context
             $paymentMethodName,
             $paymentMethodCode,
             MollieGatewayFactory::FACTORY_NAME,
-            'Mollie'
+            'Mollie',
         );
 
         $gatewayConfig = $paymentMethod->getGatewayConfig();
         Assert::notNull($gatewayConfig);
         $gatewayConfig->setConfig([
             'api_key' => 'test',
-            'payum.http_client' => '@sylius_mollie_plugin.mollie_api_client',
+            'payum.http_client' => '@sylius_mollie.client.mollie_api',
             'api_key_test' => $this->mollieApiKeyTest,
             'profile_id' => $this->mollieProfileId,
             'environment' => null,
-            'loggerLevel' => MollieLoggerActionInterface::LOG_EVERYTHING,
+            'loggerLevel' => LoggerLevel::LOG_EVERYTHING,
         ]);
 
         $this->paymentMethodManager->flush();
@@ -132,18 +129,18 @@ final class MollieContext implements Context
             $paymentMethodName,
             $paymentMethodCode,
             MollieSubscriptionGatewayFactory::FACTORY_NAME,
-            'Mollie Subscription'
+            'Mollie Subscription',
         );
 
         $gatewayConfig = $paymentMethod->getGatewayConfig();
         Assert::notNull($gatewayConfig);
         $gatewayConfig->setConfig([
             'api_key' => 'test',
-            'payum.http_client' => '@sylius_mollie_plugin.mollie_api_client',
+            'payum.http_client' => '@sylius_mollie.client.mollie_api',
             'api_key_test' => $this->mollieApiKeyTest,
             'profile_id' => $this->mollieProfileId,
             'environment' => null,
-            'loggerLevel' => MollieLoggerActionInterface::LOG_EVERYTHING,
+            'loggerLevel' => LoggerLevel::LOG_EVERYTHING,
         ]);
 
         $this->paymentMethodManager->flush();
@@ -164,7 +161,7 @@ final class MollieContext implements Context
         foreach ($molliePaymentMethods as $molliePaymentMethod) {
             $molliePaymentMethod->enable();
             $molliePaymentMethod->setCountryRestriction(
-                MollieGatewayConfigInterface::ALL_COUNTRIES
+                CountriesRestriction::ALL,
             );
         }
     }
@@ -175,7 +172,7 @@ final class MollieContext implements Context
         string $factoryName,
         string $description = '',
         bool $addForCurrentChannel = true,
-        int $position = null
+        ?int $position = null,
     ): PaymentMethodInterface {
         /** @var PaymentMethodInterface $paymentMethod */
         $paymentMethod = $this->paymentMethodExampleFactory->create([

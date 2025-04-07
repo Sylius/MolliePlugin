@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Mailer;
+namespace Sylius\MolliePlugin\Mailer;
 
 final class Emails
 {

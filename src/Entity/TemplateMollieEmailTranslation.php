@@ -11,23 +11,19 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Entity;
+namespace Sylius\MolliePlugin\Entity;
 
 use Sylius\Component\Resource\Model\AbstractTranslation;
 
 class TemplateMollieEmailTranslation extends AbstractTranslation implements TemplateMollieEmailTranslationInterface
 {
-    /** @var int|null */
-    protected $id;
+    protected ?int $id = null;
 
-    /** @var string|null */
-    protected $name;
+    protected ?string $name = null;
 
-    /** @var string|null */
-    protected $subject;
+    protected ?string $subject = null;
 
-    /** @var string|null */
-    protected $content;
+    protected ?string $content = null;
 
     public function getId(): ?int
     {

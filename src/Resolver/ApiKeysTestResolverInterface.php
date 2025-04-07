@@ -11,11 +11,13 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver;
+namespace Sylius\MolliePlugin\Resolver;
 
+use Sylius\MolliePlugin\Model\DTO\ApiKeyTest;
 use Symfony\Component\HttpFoundation\Request;
 
 interface ApiKeysTestResolverInterface
 {
+    /** @return ApiKeyTest[] */
     public function fromRequest(Request $request): array;
 }

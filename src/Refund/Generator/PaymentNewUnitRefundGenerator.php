@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Refund\Generator;
+namespace Sylius\MolliePlugin\Refund\Generator;
 
-use SyliusMolliePlugin\DTO\PartialRefundItem;
-use SyliusMolliePlugin\DTO\PartialRefundItems;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\MolliePlugin\Model\DTO\PartialRefundItem;
+use Sylius\MolliePlugin\Model\DTO\PartialRefundItems;
 
 final class PaymentNewUnitRefundGenerator implements PaymentNewUnitRefundGeneratorInterface
 {

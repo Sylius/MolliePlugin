@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Form\Type\PartialShip;
+namespace Sylius\MolliePlugin\Form\Type\PartialShip;
 
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Sylius\Component\Core\Model\ShipmentInterface;

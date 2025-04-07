@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver;
+namespace Sylius\MolliePlugin\Resolver;
 
-use SyliusMolliePlugin\Factory\MollieGatewayFactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactoryInterface;
 
 final class PaymentLocaleResolver implements PaymentLocaleResolverInterface
 {

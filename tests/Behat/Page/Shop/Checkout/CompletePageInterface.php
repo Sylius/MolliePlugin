@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Behat\Page\Shop\Checkout;
+namespace Tests\Sylius\MolliePlugin\Behat\Page\Shop\Checkout;
 
 use Sylius\Behat\Page\Shop\Checkout\CompletePageInterface as BaseCompletePageInterface;
 

@@ -11,28 +11,28 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Factory;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Factory;
 
 use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Factory\ApiCustomerFactory;
-use SyliusMolliePlugin\Factory\ApiCustomerFactoryInterface;
-use SyliusMolliePlugin\Request\Api\CreateCustomer;
+use Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactory;
+use Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactoryInterface;
+use Sylius\MolliePlugin\Payum\Request\CreateCustomer;
 
 final class ApiCustomerFactoryTest extends TestCase
 {
-    private ApiCustomerFactory $apiCustomerFactory;
+    private CreateCustomerFactory $createCustomerFactory;
 
-    function setUp(): void
+    public function setUp(): void
     {
-        $this->apiCustomerFactory = new ApiCustomerFactory();
+        $this->createCustomerFactory = new CreateCustomerFactory();
     }
 
-    function testInitializable(): void
+    public function testInitializable(): void
     {
-        $this->assertInstanceOf(ApiCustomerFactoryInterface::class, $this->apiCustomerFactory);
+        $this->assertInstanceOf(CreateCustomerFactoryInterface::class, $this->createCustomerFactory);
     }
 
-    function testCreatesNewCreateCustomer(): void
+    public function testCreatesNewCreateCustomer(): void
     {
         $details = [
             'amount' => [
@@ -47,12 +47,12 @@ final class ApiCustomerFactoryTest extends TestCase
                 'cartToken' => 'carttoken',
                 'selected_issuer' => 'issuer',
                 'methodType' => 'ORDER_API',
-                'customer_mollie_id' => 15
+                'customer_mollie_id' => 15,
             ],
             'full_name' => 'Jan Kowalski',
-            'email' => 'shop@example.com'
+            'email' => 'shop@example.com',
         ];
 
-        $this->assertInstanceOf(CreateCustomer::class, $this->apiCustomerFactory->createNew($details));
+        $this->assertInstanceOf(CreateCustomer::class, $this->createCustomerFactory->createNew($details));
     }
 }

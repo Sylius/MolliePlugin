@@ -86,8 +86,8 @@ declare(strict_types=1);
 namespace App\Entity\Payment;
 
 use Doctrine\ORM\Mapping as ORM;
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Entity\GatewayConfigTrait;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sylius\Bundle\PayumBundle\Model\GatewayConfig as BaseGatewayConfig;
 
@@ -134,11 +134,11 @@ namespace App\Entity\Order;
 
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\Order as BaseOrder;
-use SyliusMolliePlugin\Entity\AbandonedEmailOrderTrait;
-use SyliusMolliePlugin\Entity\MolliePaymentIdOrderTrait;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Entity\QRCodeOrderTrait;
-use SyliusMolliePlugin\Entity\RecurringOrderTrait;
+use Sylius\MolliePlugin\Entity\AbandonedEmailOrderTrait;
+use Sylius\MolliePlugin\Entity\MolliePaymentIdOrderTrait;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Entity\QRCodeOrderTrait;
+use Sylius\MolliePlugin\Entity\RecurringOrderTrait;
 
 /**
  * @ORM\Entity
@@ -180,8 +180,8 @@ namespace App\Entity\Product;
 
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\ProductTranslationInterface;
-use SyliusMolliePlugin\Entity\ProductInterface;
-use SyliusMolliePlugin\Entity\ProductTrait;
+use Sylius\MolliePlugin\Entity\ProductInterface;
+use Sylius\MolliePlugin\Entity\ProductTrait;
 use Sylius\Component\Core\Model\Product as BaseProduct;
 
 /**
@@ -227,8 +227,8 @@ namespace App\Entity\Product;
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\ProductVariant as BaseProductVariant;
 use Sylius\Component\Product\Model\ProductVariantTranslationInterface;
-use SyliusMolliePlugin\Entity\ProductVariantInterface;
-use SyliusMolliePlugin\Entity\RecurringProductVariantTrait;
+use Sylius\MolliePlugin\Entity\ProductVariantInterface;
+use Sylius\MolliePlugin\Entity\RecurringProductVariantTrait;
 
 /**
  * @ORM\Entity
@@ -266,13 +266,42 @@ sylius_product:
                     model: App\Entity\Product\ProductVariant
 ```
 
-#### 7. Add image directory parameter in `config/packages/_sylius.yaml`:
+### 7. Update the AdminUser entity class with the following code:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Entity\User;
+
+use Doctrine\ORM\Mapping as ORM;
+use Sylius\Component\Core\Model\AdminUser as BaseAdminUser;
+use Sylius\MolliePlugin\Entity\OnboardingStatusAwareInterface;
+use Sylius\MolliePlugin\Entity\OnboardingStatusAwareTrait;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="sylius_admin_user")
+ */
+#[ORM\Entity]
+#[ORM\Table(name: 'sylius_admin_user')]
+class AdminUser extends BaseAdminUser implements OnboardingStatusAwareInterface
+{
+    use OnboardingStatusAwareTrait;
+}
+
+```
+
+Ensure that the AdminUser resource is overridden in the Sylius configuration file:
 
 ```yaml
-# config/packages/_sylius.yaml
-
-   parameters:
-       images_dir: "/media/image/"
+sylius_user:
+    resources:
+        admin:
+            user:
+                classes:
+                    model: App\Entity\User\AdminUser
 ```
 
 #### 8. Update your database
@@ -327,23 +356,7 @@ bin/console assets:install
 
 #### Installation & Build Process
 
-1. If you are using Sylius version <= 1.11 ensure that Node version 14 is currently used:
-
-    ```bash
-    nvm install 14
-    nvm use 14
-    ```
-    If you are using Sylius version >= 1.12 then Node version 18 is fully supported.
-
 1. Install dependencies:
-    
-    for Sylius <= 1.11:
-    ```bash
-    yarn add @babel/preset-env bazinga-translator intl-messageformat lodash.get node-sass@4.14.1 shepherd.js@11.0 webpack-notifier
-    yarn add --dev @babel/core@7.16.0 @babel/register@7.16.0 @babel/plugin-proposal-object-rest-spread@7.16.5 @symfony/webpack-encore@1.5.0
-    ```
-
-   for Sylius >= 1.12:
     ```bash
     yarn add bazinga-translator intl-messageformat lodash.get shepherd.js@11.0
     ```

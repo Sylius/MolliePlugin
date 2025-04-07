@@ -11,24 +11,24 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Functional\Api;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Functional\Api;
 
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Repository\OrderRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Payum\Core\Model\Identity;
 use Sylius\Component\Core\Model\Payment;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Repository\OrderRepositoryInterface;
 use Sylius\RefundPlugin\Entity\CreditMemoInterface;
 use Sylius\RefundPlugin\Entity\LineItemInterface;
 use Sylius\RefundPlugin\Entity\RefundInterface;
 use Sylius\RefundPlugin\Repository\CreditMemoRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Tests\SyliusMolliePlugin\PHPUnit\Functional\FunctionalTestCase;
+use Tests\Sylius\MolliePlugin\PHPUnit\Functional\FunctionalTestCase;
 
 final class RefundOrderWebhookTest extends FunctionalTestCase
 {
@@ -52,7 +52,7 @@ final class RefundOrderWebhookTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->mollieApiClient = self::getContainer()->get('sylius_mollie_plugin.mollie_api_client');
+        $this->mollieApiClient = self::getContainer()->get('sylius_mollie.client.mollie_api');
         $this->mollieApiClient->setApiEndpoint('http://localhost:8217');
         $this->securityTokenRepository = self::getContainer()->get('sylius.repository.payment_security_token');
         $this->orderRepository = self::getContainer()->get('sylius.repository.order');
@@ -64,15 +64,15 @@ final class RefundOrderWebhookTest extends FunctionalTestCase
     }
 
     /**
-      * The tested scenario:
-      *
-      * We simulate refunding all (to be honest only one existing) order items in order by
-      * calling the notify webhook (as Mollie does).
-      **/
+     * The tested scenario:
+     *
+     * We simulate refunding all (to be honest only one existing) order items in order by
+     * calling the notify webhook (as Mollie does).
+     **/
     public function test_order_status_after_refund_with_credit_memos(): void
     {
         $fixtures = $this->loadFixturesFromFiles([
-            'Api/RefundOrderWebhookTest/test_order_status_after_refund_with_credit_memos.yaml'
+            'Api/RefundOrderWebhookTest/test_order_status_after_refund_with_credit_memos.yaml',
         ]);
 
         /** @var PaymentInterface $payment */
@@ -97,7 +97,7 @@ final class RefundOrderWebhookTest extends FunctionalTestCase
             '/payment/notify/654fed',
             [],
             '',
-            ['id' => 'ord_' . $fixtures['order']->getId() . '-' . $fixtures['order_item']->getId()]
+            ['id' => 'ord_' . $fixtures['order']->getId() . '-' . $fixtures['order_item']->getId()],
         );
 
         $response = $this->client->getResponse();
@@ -156,9 +156,9 @@ final class RefundOrderWebhookTest extends FunctionalTestCase
         string $method,
         string $uri,
         array $server = [],
-        string $requestBody = null,
+        ?string $requestBody = null,
         array $parameters = [],
-        array $files = []
+        array $files = [],
     ): void {
         $this->client->request($method, $uri, $parameters, $files, $server, $requestBody);
     }

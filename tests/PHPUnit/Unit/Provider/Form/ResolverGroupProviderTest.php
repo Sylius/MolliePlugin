@@ -11,28 +11,30 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Provider\Form;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Provider\Form;
 
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\CustomerInterface;
-use SyliusMolliePlugin\Entity\ProductVariantInterface;
-use SyliusMolliePlugin\Provider\Form\ResolverGroupProvider;
-use SyliusMolliePlugin\Provider\Form\ResolverGroupProviderInterface;
+use Sylius\MolliePlugin\Entity\ProductVariantInterface;
+use Sylius\MolliePlugin\Form\Resolver\ProductVariantValidationGroupsResolver;
+use Sylius\MolliePlugin\Form\Resolver\ValidationGroupsResolverInterface;
 use Symfony\Component\Form\FormInterface;
 
 final class ResolverGroupProviderTest extends TestCase
 {
-    private ResolverGroupProvider $resolverGroupProvider;
+    private ProductVariantValidationGroupsResolver $productVariantValidationGroupsResolver;
 
     protected function setUp(): void
     {
-        $this->resolverGroupProvider = new ResolverGroupProvider();
+        $this->productVariantValidationGroupsResolver = new ProductVariantValidationGroupsResolver();
     }
 
-    public function testInitializable(): void
+    public function testItsAValidationGroupsResolver(): void
     {
-        $this->assertInstanceOf(ResolverGroupProvider::class, $this->resolverGroupProvider);
-        $this->assertInstanceOf(ResolverGroupProviderInterface::class, $this->resolverGroupProvider);
+        $this->assertInstanceOf(
+            ValidationGroupsResolverInterface::class,
+            $this->productVariantValidationGroupsResolver,
+        );
     }
 
     public function testProvidesWhenProductVariantIsRecurring(): void
@@ -45,8 +47,8 @@ final class ResolverGroupProviderTest extends TestCase
 
         $this->assertSame([
             'sylius',
-            'recurring_product_variant'
-        ], $this->resolverGroupProvider->provide($formMock));
+            'recurring_product_variant',
+        ], $this->productVariantValidationGroupsResolver->resolve($formMock));
     }
 
     public function testProvidesWhenProductVariantIsNotRecurring(): void
@@ -59,8 +61,8 @@ final class ResolverGroupProviderTest extends TestCase
 
         $this->assertSame([
             'sylius',
-            'non_recurring_product_variant'
-        ], $this->resolverGroupProvider->provide($formMock));
+            'non_recurring_product_variant',
+        ], $this->productVariantValidationGroupsResolver->resolve($formMock));
     }
 
     public function testProvidesWhenWrongTypeProvided(): void
@@ -70,7 +72,7 @@ final class ResolverGroupProviderTest extends TestCase
 
         $formMock->expects($this->once())->method('getData')->willReturn($dataMock);
 
-        $this->assertSame(['sylius'], $this->resolverGroupProvider->provide($formMock));
+        $this->assertSame(['sylius'], $this->productVariantValidationGroupsResolver->resolve($formMock));
     }
 
     public function testProvidesWhenNullDataProvided(): void
@@ -78,6 +80,6 @@ final class ResolverGroupProviderTest extends TestCase
         $formMock = $this->createMock(FormInterface::class);
         $formMock->expects($this->once())->method('getData')->willReturn(null);
 
-        $this->assertSame(['sylius'], $this->resolverGroupProvider->provide($formMock));
+        $this->assertSame(['sylius'], $this->productVariantValidationGroupsResolver->resolve($formMock));
     }
 }

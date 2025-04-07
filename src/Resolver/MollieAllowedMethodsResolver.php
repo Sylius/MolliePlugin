@@ -11,31 +11,23 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver;
+namespace Sylius\MolliePlugin\Resolver;
 
 use Mollie\Api\Resources\Method;
 use Sylius\Component\Core\Model\OrderInterface;
-use SyliusMolliePlugin\Helper\IntToStringConverterInterface;
+use Sylius\MolliePlugin\Converter\IntToStringConverterInterface;
+use Sylius\MolliePlugin\Model\DTO\MolliePayment\Amount;
 
+/**
+ * @phpstan-import-type AmountArray from Amount
+ */
 final class MollieAllowedMethodsResolver implements MollieAllowedMethodsResolverInterface
 {
-    /** @var MollieApiClientKeyResolverInterface */
-    private $mollieApiClientKeyResolver;
-
-    /** @var PaymentLocaleResolverInterface */
-    private $paymentLocaleResolver;
-
-    /** @var IntToStringConverterInterface */
-    private $intToStringConverter;
-
     public function __construct(
-        MollieApiClientKeyResolverInterface $mollieApiClientKeyResolver,
-        PaymentLocaleResolverInterface $paymentLocaleResolver,
-        IntToStringConverterInterface $intToStringConverter
+        private readonly MollieApiClientKeyResolverInterface $mollieApiClientKeyResolver,
+        private readonly PaymentLocaleResolverInterface $paymentLocaleResolver,
+        private readonly IntToStringConverterInterface $intToStringConverter,
     ) {
-        $this->mollieApiClientKeyResolver = $mollieApiClientKeyResolver;
-        $this->paymentLocaleResolver = $paymentLocaleResolver;
-        $this->intToStringConverter = $intToStringConverter;
     }
 
     public function resolve(OrderInterface $order): array
@@ -55,6 +47,13 @@ final class MollieAllowedMethodsResolver implements MollieAllowedMethodsResolver
         return $allowedMethodsIds;
     }
 
+    /**
+     * @return array{
+     *     amount: AmountArray,
+     *     billingCountry: string|null,
+     *     locale: string|null
+     * }
+     */
     private function createParametersByOrder(OrderInterface $order): array
     {
         $parameters = array_merge(
@@ -67,7 +66,7 @@ final class MollieAllowedMethodsResolver implements MollieAllowedMethodsResolver
                     ? $order->getBillingAddress()->getCountryCode()
                     : null,
             ],
-            MollieMethodsResolverInterface::PARAMETERS
+            MollieMethodsResolverInterface::PARAMETERS,
         );
 
         if (null !== ($paymentLocale = $this->paymentLocaleResolver->resolveFromOrder($order))) {

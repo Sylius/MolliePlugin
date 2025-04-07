@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <services>
+        <defaults public="true" />
+
+        <service id="sylius_mollie.apple_pay.resolver.address" class="Sylius\MolliePlugin\ApplePay\Resolver\AddressResolver" >
+            <argument type="service" id="sylius_mollie.apple_pay.validator.apple_pay_address"/>
+            <argument type="service" id="sylius.repository.customer"/>
+            <argument type="service" id="sylius.custom_factory.address"/>
+            <argument type="service" id="sylius.factory.customer"/>
+        </service>
+        <service id="Sylius\MolliePlugin\ApplePay\Resolver\AddressResolverInterface" alias="sylius_mollie.apple_pay.resolver.address" />
+
+        <service id="sylius_mollie.apple_pay.resolver.apple_pay_direct_api_order_payment" class="Sylius\MolliePlugin\ApplePay\Resolver\ApplePayDirectApiOrderPaymentResolver">
+            <argument type="service" id="sylius_mollie.client.mollie_api"/>
+            <argument type="service" id="sylius_mollie.resolver.mollie_api_client_key"/>
+            <argument type="service" id="sylius_mollie.converter.order"/>
+            <argument type="service" id="sylius_mollie.apple_pay.provider.order_payment_apple_pay_direct"/>
+            <argument type="service" id="sylius_mollie.resolver.payment_locale"/>
+            <argument type="service" id="sylius_mollie.provider.divisor"/>
+        </service>
+        <service id="Sylius\MolliePlugin\ApplePay\Resolver\ApplePayDirectApiOrderPaymentResolverInterface" alias="sylius_mollie.apple_pay.resolver.apple_pay_direct_api_order_payment" />
+
+        <service id="sylius_mollie.apple_pay.resolver.apple_pay_direct_api_payment" class="Sylius\MolliePlugin\ApplePay\Resolver\ApplePayDirectApiPaymentResolver">
+            <argument type="service" id="sylius_mollie.client.mollie_api"/>
+            <argument type="service" id="sylius_mollie.resolver.mollie_api_client_key"/>
+            <argument type="service" id="sylius_mollie.apple_pay.provider.order_payment_apple_pay_direct"/>
+        </service>
+        <service id="Sylius\MolliePlugin\ApplePay\Resolver\ApplePayDirectApiPaymentResolverInterface" alias="sylius_mollie.apple_pay.resolver.apple_pay_direct_api_payment" />
+
+        <service id="sylius_mollie.apple_pay.resolver.apple_pay_direct_payment_type" class="Sylius\MolliePlugin\ApplePay\Resolver\ApplePayDirectPaymentTypeResolver">
+            <argument type="service" id="sylius_mollie.apple_pay.resolver.apple_pay_direct_api_payment"/>
+            <argument type="service" id="sylius_mollie.apple_pay.resolver.apple_pay_direct_api_order_payment"/>
+            <argument type="service" id="sylius_mollie.converter.int_to_string"/>
+        </service>
+        <service id="Sylius\MolliePlugin\ApplePay\Resolver\ApplePayDirectPaymentTypeResolverInterface" alias="sylius_mollie.apple_pay.resolver.apple_pay_direct_payment_type" />
+    </services>
+</container>

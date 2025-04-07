@@ -1,5 +1,0 @@
-sylius_payment:
-  resources:
-    payment_method:
-      classes:
-        repository: SyliusMolliePlugin\Repository\PaymentMethodRepository

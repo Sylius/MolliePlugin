@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Exceptions;
+namespace Sylius\MolliePlugin\Exceptions;
 
 use Symfony\Component\Validator\Exception\ValidatorException;
 
