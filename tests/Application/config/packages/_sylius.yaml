@@ -10,7 +10,6 @@ imports:
 
 parameters:
     sylius_core.public_dir: '%kernel.project_dir%/public'
-    images_dir: "/media/image/"
 
 sylius_shop:
     product_grid:

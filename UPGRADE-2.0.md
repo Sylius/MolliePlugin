@@ -684,6 +684,7 @@ The following parameters have been replaced:
 | `sylius_mollie_plugin.form.type.mollie.validation_groups`                                | `sylius_mollie.form.type.mollie.validation_groups`                                |
 | `sylius_mollie_plugin.twig.functions`                                                    | `sylius_mollie.twig.functions`                                                    |
 | `sylius_mollie_plugin_render_email_template`                                             | `sylius_mollie_render_email_template`                                             |
+| `images_dir`                                                                             | `sylius_core.images_dir`                                                          |
 
 The following parameters have been removed:
 

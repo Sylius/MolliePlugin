@@ -1,5 +1,9 @@
 winzou_state_machine:
   sylius_order_checkout:
+    transitions:
+      complete:
+        from: [ cart, addressed, shipping_selected, shipping_skipped, payment_selected, payment_skipped ]
+        to: completed
     callbacks:
       after:
         sylius_mollie_plugin_payment_surcharge:
