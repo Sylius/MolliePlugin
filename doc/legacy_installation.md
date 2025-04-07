@@ -281,7 +281,7 @@ bin/console assets:install
     ```javascript
     // assets/admin/entrypoint.js
     
-    import '../../vendor/sylius/mollie-plugin/assets/admin/entry';
+    import '../../vendor/sylius/mollie-plugin/assets/admin/entrypoint';
     ```
 
     and:
@@ -289,7 +289,7 @@ bin/console assets:install
     ```javascript
     // assets/shop/entrypoint.js
     
-    import '../../vendor/sylius/mollie-plugin/assets/shop/entry';
+    import '../../vendor/sylius/mollie-plugin/assets/shop/entrypoint';
     ```
 
 1. Install assets:
