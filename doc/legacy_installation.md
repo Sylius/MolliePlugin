@@ -322,19 +322,25 @@ bin/console assets:install
 
 #### Installation & Build Process
 
-1. If you are using Sylius version <= 1.11 ensure that Node version 12 is currently used:
+1. If you are using Sylius version <= 1.11 ensure that Node version 14 is currently used:
 
     ```bash
-    nvm install 12
-    nvm use 12
+    nvm install 14
+    nvm use 14
     ```
-
-    otherwise Node version 14 should be used.
+   If you are using Sylius version >= 1.12 then Node version 18 is fully supported.
 
 1. Install dependencies:
+
+   for Sylius <= 1.11:
     ```bash
     yarn add @babel/preset-env bazinga-translator intl-messageformat lodash.get node-sass@4.14.1 shepherd.js@11.0 webpack-notifier
     yarn add --dev @babel/core@7.16.0 @babel/register@7.16.0 @babel/plugin-proposal-object-rest-spread@7.16.5 @symfony/webpack-encore@1.5.0
+    ```
+
+   for Sylius >= 1.12:
+    ```bash
+    yarn add bazinga-translator intl-messageformat lodash.get shepherd.js@11.0
     ```
 
 1. Build assets:
