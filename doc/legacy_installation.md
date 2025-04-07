@@ -224,29 +224,7 @@ imports:
     - { resource: "@SyliusMolliePlugin/config/config.yaml" }
 ```
 
-#### 9. Add state machine configuration in `config/packages/_sylius.yaml`:
-
-```yaml
-# config/packages/_sylius.yaml
-
-winzou_state_machine:
-  sylius_order_checkout:
-    transitions:
-      complete:
-        from: [cart, addressed, shipping_selected, shipping_skipped, payment_selected, payment_skipped]
-        to: completed
-```
-
-#### 10. Add image directory parameter in `config/packages/_sylius.yaml`:
-
-```yaml
-# config/packages/_sylius.yaml
-
-   parameters:
-       images_dir: "/media/image/"
-```
-
-#### 11. Import the routing in your `config/routes.yaml` file:
+#### 9. Import the routing in your `config/routes.yaml` file:
 
 ```yaml
 # config/routes.yaml
@@ -255,13 +233,13 @@ sylius_mollie_plugin:
     resource: "@SyliusMolliePlugin/config/routing.yaml"
 ```
 
-#### 12. Update your database
+#### 10. Update your database
 
 ```
 bin/console doctrine:migrations:migrate
 ```
 
-#### 13. Copy Sylius templates overridden in plugin to your templates directory (e.g templates/bundles/):
+#### 11. Copy Sylius templates overridden in plugin to your templates directory (e.g templates/bundles/):
 **Note:** Some directories may already exist in your project
 
 ```
@@ -279,13 +257,13 @@ cp -R vendor/sylius/mollie-plugin/templates/bundles/SyliusUiBundle/* templates/b
 cp -R vendor/sylius/mollie-plugin/templates/bundles/SyliusRefundPlugin/* templates/bundles/SyliusRefundPlugin/
 ```
 
-#### 14. Add the payment link cronjob:
+#### 12. Add the payment link cronjob:
 
 ```shell script
 * * * * * /usr/bin/php /path/to/bin/console mollie:send-payment-link
 ```
 
-#### 15. Install assets:
+#### 13. Install assets:
 
 ```bash
 bin/console assets:install
@@ -293,7 +271,7 @@ bin/console assets:install
 
 **Note:** If you are running it on production, add the `-e prod` flag to this command.
 
-#### 16. Download the [domain validation file](https://www.mollie.com/.well-known/apple-developer-merchantid-domain-association) and place it on your server at:
+#### 14. Download the [domain validation file](https://www.mollie.com/.well-known/apple-developer-merchantid-domain-association) and place it on your server at:
 `public/.well-known/apple-developer-merchantid-domain-association`
 
 ## Frontend Asset Management
@@ -322,18 +300,9 @@ bin/console assets:install
 
 #### Installation & Build Process
 
-1. Ensure that Node version 14 is currently used:
-
-    ```bash
-    nvm install 14
-    nvm use 14
-    ```
-
 1. Install dependencies:
-
     ```bash
-    yarn add @babel/preset-env bazinga-translator intl-messageformat lodash.get node-sass@4.14.1 shepherd.js@11.0 webpack-notifier
-    yarn add --dev @babel/core@7.16.0 @babel/register@7.16.0 @babel/plugin-proposal-object-rest-spread@7.16.5 @symfony/webpack-encore@1.5.0
+    yarn add bazinga-translator intl-messageformat lodash.get shepherd.js@11.0
     ```
 
 1. Build assets:
