@@ -712,3 +712,21 @@ The following parameters have been removed:
    ```bash
        bin/console doctrine:migrations:migrate --no-interaction
    ```
+
+1. Assets files have been reorganized and renamed, you need to update the following paths in your application:
+
+    ```diff
+    // assets/admin/entrypoint.js
+
+    -    import '../../vendor/sylius/mollie-plugin/src/Resources/assets/admin/entry';
+    +    import '../../vendor/sylius/mollie-plugin/assets/admin/entrypoint';
+    ```
+
+   and:
+
+    ```diff
+    // assets/shop/entrypoint.js
+
+    -    import '../../vendor/sylius/mollie-plugin/src/Resources/assets/shop/entry';
+    +    import '../../vendor/sylius/mollie-plugin/assets/shop/entrypoint';
+    ```
