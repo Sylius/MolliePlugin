@@ -86,8 +86,8 @@ declare(strict_types=1);
 namespace App\Entity\Payment;
 
 use Doctrine\ORM\Mapping as ORM;
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Entity\GatewayConfigTrait;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sylius\Bundle\PayumBundle\Model\GatewayConfig as BaseGatewayConfig;
 
@@ -134,11 +134,11 @@ namespace App\Entity\Order;
 
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\Order as BaseOrder;
-use SyliusMolliePlugin\Entity\AbandonedEmailOrderTrait;
-use SyliusMolliePlugin\Entity\MolliePaymentIdOrderTrait;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Entity\QRCodeOrderTrait;
-use SyliusMolliePlugin\Entity\RecurringOrderTrait;
+use Sylius\MolliePlugin\Entity\AbandonedEmailOrderTrait;
+use Sylius\MolliePlugin\Entity\MolliePaymentIdOrderTrait;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Entity\QRCodeOrderTrait;
+use Sylius\MolliePlugin\Entity\RecurringOrderTrait;
 
 /**
  * @ORM\Entity
@@ -180,8 +180,8 @@ namespace App\Entity\Product;
 
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\ProductTranslationInterface;
-use SyliusMolliePlugin\Entity\ProductInterface;
-use SyliusMolliePlugin\Entity\ProductTrait;
+use Sylius\MolliePlugin\Entity\ProductInterface;
+use Sylius\MolliePlugin\Entity\ProductTrait;
 use Sylius\Component\Core\Model\Product as BaseProduct;
 
 /**
@@ -227,8 +227,8 @@ namespace App\Entity\Product;
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\ProductVariant as BaseProductVariant;
 use Sylius\Component\Product\Model\ProductVariantTranslationInterface;
-use SyliusMolliePlugin\Entity\ProductVariantInterface;
-use SyliusMolliePlugin\Entity\RecurringProductVariantTrait;
+use Sylius\MolliePlugin\Entity\ProductVariantInterface;
+use Sylius\MolliePlugin\Entity\RecurringProductVariantTrait;
 
 /**
  * @ORM\Entity
@@ -304,23 +304,14 @@ sylius_user:
                     model: App\Entity\User\AdminUser
 ```
 
-#### 8. Add image directory parameter in `config/packages/_sylius.yaml`:
-
-```yaml
-# config/packages/_sylius.yaml
-
-   parameters:
-       images_dir: "/media/image/"
-```
-
-#### 9. Update your database
+#### 8. Update your database
 
 After running all the above-mentioned commands, run migrate command
 ```
 bin/console doctrine:migrations:migrate
 ```
 
-#### 10. Copy Sylius templates overridden in plugin to your templates directory (e.g templates/bundles/):
+#### 9. Copy Sylius templates overridden in plugin to your templates directory (e.g templates/bundles/):
 **Note:** Some directories may already exist in your project
 
 ```
@@ -338,7 +329,7 @@ cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusUiBu
 cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusRefundPlugin/* templates/bundles/SyliusRefundPlugin/
 ```
 
-#### 11. Install assets:
+#### 10. Install assets:
 
 ```bash
 bin/console assets:install
@@ -346,13 +337,13 @@ bin/console assets:install
 
 **Note:** If you are running it on production, add the `-e prod` flag to this command.
 
-#### 12. Add the payment link cronjob:
+#### 11. Add the payment link cronjob:
 
 ```shell script
 * * * * * /usr/bin/php /path/to/bin/console mollie:send-payment-link
 ```
 
-#### 13. Download the [domain validation file](https://www.mollie.com/.well-known/apple-developer-merchantid-domain-association) and place it on your server at:
+#### 12. Download the [domain validation file](https://www.mollie.com/.well-known/apple-developer-merchantid-domain-association) and place it on your server at:
 `public/.well-known/apple-developer-merchantid-domain-association`
 
 ## Frontend Asset Management
@@ -365,19 +356,9 @@ bin/console assets:install
 
 #### Installation & Build Process
 
-1. If you are using Sylius version <= 1.11 ensure that Node version 12 is currently used:
-
-    ```bash
-    nvm install 12
-    nvm use 12
-    ```
-
-   otherwise Node version 14 should be used.
-
 1. Install dependencies:
     ```bash
-    yarn add @babel/preset-env bazinga-translator intl-messageformat lodash.get node-sass@4.14.1 shepherd.js@11.0 webpack-notifier
-    yarn add --dev @babel/core@7.16.0 @babel/register@7.16.0 @babel/plugin-proposal-object-rest-spread@7.16.5 @symfony/webpack-encore@1.5.0
+    yarn add bazinga-translator intl-messageformat lodash.get shepherd.js@11.0
     ```
 
 1. Build assets:

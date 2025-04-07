@@ -23,7 +23,7 @@ trait GatewayConfigTrait
      * @var Collection<MollieGatewayConfigInterface>
      *
      * @ORM\OneToMany(
-     *     targetEntity="SyliusMolliePlugin\Entity\MollieGatewayConfig",
+     *     targetEntity="Sylius\MolliePlugin\Entity\MollieGatewayConfig",
      *     mappedBy="gateway",
      *     orphanRemoval=true,
      *     cascade={"all"}

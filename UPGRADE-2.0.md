@@ -34,7 +34,7 @@
    while the `MollieSubscription` entity had a many-to-many relationship with the `Order` entity. Now, only a unidirectional many-to-many relationship remains
    between the `MollieSubscription` and `Order` entities.
 
-1. Changes in `\Sylius\MolliePlugin\Entity\MollieCustomer`:
+1. Changes in `Sylius\MolliePlugin\Entity\MollieCustomer`:
    
    The `profileId` property has been marked as nullable:
 
@@ -673,7 +673,7 @@ Make sure to register the theme in your template using:
 
 - `{% form_theme form '@SyliusMolliePlugin/Admin/PaymentMethod/_mollie_gateway_help_theme.html.twig' %}`
 
-1. Replaced parameters:
+1. Modified parameters:
 
 The following parameters have been replaced:
 
@@ -688,6 +688,7 @@ The following parameters have been replaced:
 The following parameters have been removed:
 
 - `sylius_mollie_plugin.admin.version.uri`
+- `images_dir`
 
 1. Renamed resources:
 
