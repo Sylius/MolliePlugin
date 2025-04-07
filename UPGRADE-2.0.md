@@ -705,3 +705,10 @@ The following parameters have been removed:
 | `sylius_mollie_plugin.onboarding_wizard_status`     | `sylius_mollie.onboarding_wizard_status`     |
 | `sylius_mollie_plugin.payment_surcharge_fee`        | `sylius_mollie.payment_surcharge_fee`        |
 | `sylius_mollie_plugin.product_type`                 | `sylius_mollie.product_type`                 |
+
+1. Doctrine migrations have been regenerated, meaning all previous migration files have been removed and their content
+   is now in a single migration file. To apply the new migration and get rid of the old entries run migrations as usual:
+
+   ```bash
+       bin/console doctrine:migrations:migrate --no-interaction
+   ```
