@@ -23,10 +23,10 @@ final class CountriesRestrictionChoiceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'label' => 'sylius_mollie_plugin.ui.country_level_restriction',
+            'label' => 'sylius_mollie.ui.country_level_restriction',
             'choices' => [
-                'sylius_mollie_plugin.ui.all_countries' => CountriesRestriction::ALL,
-                'sylius_mollie_plugin.ui.selected_countries' => CountriesRestriction::SELECTED,
+                'sylius_mollie.ui.all_countries' => CountriesRestriction::ALL,
+                'sylius_mollie.ui.selected_countries' => CountriesRestriction::SELECTED,
             ],
         ]);
     }

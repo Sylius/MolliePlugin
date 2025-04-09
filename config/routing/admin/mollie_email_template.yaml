@@ -9,7 +9,7 @@ sylius_mollie_plugin_mollie_logger:
         grid: sylius_mollie_plugin_template_mollie_email
         vars:
             all:
-                subheader: sylius_mollie_plugin.ui.mollie_email_template
+                subheader: sylius_mollie.ui.mollie_email_template
                 templates:
                     form: "@SyliusMolliePlugin/Admin/TemplateMollieEmail/Crud/_form.html.twig"
             index:

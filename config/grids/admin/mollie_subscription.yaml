@@ -23,19 +23,19 @@ sylius_grid:
                     sortable: id
                 state:
                     type: twig
-                    label: sylius_mollie_plugin.ui.subscription.fields.state
+                    label: sylius_mollie.ui.subscription.fields.state
                     sortable: state
                     options:
                         template: "@SyliusMolliePlugin/Admin/MollieSubscription/Grid/Field/state.html.twig"
                 paymentState:
                     type: twig
-                    label: sylius_mollie_plugin.ui.subscription.fields.payment_state
+                    label: sylius_mollie.ui.subscription.fields.payment_state
                     sortable: paymentState
                     options:
                         template: "@SyliusMolliePlugin/Admin/MollieSubscription/Grid/Field/payment_state.html.twig"
                 orders:
                     type: twig
-                    label: sylius_mollie_plugin.ui.subscription.fields.orders
+                    label: sylius_mollie.ui.subscription.fields.orders
                     path: .
                     options:
                         template: "@SyliusMolliePlugin/Admin/MollieSubscription/Grid/Field/orders.html.twig"
@@ -48,30 +48,30 @@ sylius_grid:
                         format: 'Y-m-d H:i:s'
                 startedAt:
                     type: datetime
-                    label: sylius_mollie_plugin.ui.subscription.fields.started_at
+                    label: sylius_mollie.ui.subscription.fields.started_at
                     sortable: startedAt
                     options:
                         format: 'Y-m-d H:i:s'
                 recentFailedPaymentsCount:
                     type: string
                     sortable: recentFailedPaymentsCount
-                    label: sylius_mollie_plugin.ui.subscription.fields.recent_failed_payments_count
+                    label: sylius_mollie.ui.subscription.fields.recent_failed_payments_count
             filters:
                 createdAt:
                     type: date
-                    label: sylius_mollie_plugin.ui.subscription.grid.filters.created_at
+                    label: sylius_mollie.ui.subscription.grid.filters.created_at
                     options:
                         field: createdAt
                         label: test
                 startedAt:
                     type: date
-                    label: sylius_mollie_plugin.ui.subscription.grid.filters.started_at
+                    label: sylius_mollie.ui.subscription.grid.filters.started_at
                     options:
                         field: startedAt
                         label: test
                 state:
                     type: subscription_state
-                    label: sylius_mollie_plugin.ui.subscription.grid.filters.state
+                    label: sylius_mollie.ui.subscription.grid.filters.state
                     options:
                         field: state
                         label: test

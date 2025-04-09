@@ -68,7 +68,7 @@ final class CheckoutOrderCollidingProductsListenerTest extends TestCase
         $eventMock->expects($this->once())->method('getSubject')->willReturn($orderMock);
         $eventMock->setResponse(new RedirectResponse('/sylius_shop_cart_summary'));
 
-        $this->translatorMock->expects($this->once())->method('trans')->with('sylius_mollie_plugin.order_checkout.colliding_products')
+        $this->translatorMock->expects($this->once())->method('trans')->with('sylius_mollie.order_checkout.colliding_products')
             ->willReturn($message)
         ;
         $this->flashBagMock->expects($this->once())->method('add')->with('error', $message);

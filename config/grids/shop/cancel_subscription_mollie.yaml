@@ -8,7 +8,7 @@ sylius_grid:
         item:
           cancel_subscription_mollie:
             type: cancel_subscription_mollie
-            label: sylius_mollie_plugin.ui.cancel_subscription
+            label: sylius_mollie.ui.cancel_subscription
             options:
               link:
                 route: sylius_mollie_plugin_cancel_subscription_mollie

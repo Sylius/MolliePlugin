@@ -38,21 +38,21 @@ final class ProductVariantRecurringExtension extends AbstractTypeExtension
     {
         $builder
             ->add('recurring', CheckboxType::class, [
-                'label' => 'sylius_mollie_plugin.form.product_variant.recurring',
-                'help' => 'sylius_mollie_plugin.form.product_variant.recurring_help',
+                'label' => 'sylius_mollie.form.product_variant.recurring',
+                'help' => 'sylius_mollie.form.product_variant.recurring_help',
                 'required' => false,
                 'constraints' => [
                     new NotNull(),
                 ],
             ])
             ->add('times', NumberType::class, [
-                'label' => 'sylius_mollie_plugin.form.product_variant.times',
-                'help' => 'sylius_mollie_plugin.form.product_variant.times_help',
+                'label' => 'sylius_mollie.form.product_variant.times',
+                'help' => 'sylius_mollie.form.product_variant.times_help',
                 'required' => true,
                 'constraints' => [
                     new Range([
                         'min' => 2,
-                        'minMessage' => 'sylius_mollie_plugin.times.min_range',
+                        'minMessage' => 'sylius_mollie.times.min_range',
                         'groups' => ['recurring_product_variant'],
                     ]),
                     new NotBlank([
@@ -64,7 +64,7 @@ final class ProductVariantRecurringExtension extends AbstractTypeExtension
                 ],
             ])
             ->add('interval', MollieIntervalType::class, [
-                'label' => 'sylius_mollie_plugin.form.product_variant.interval_configuration.amount',
+                'label' => 'sylius_mollie.form.product_variant.interval_configuration.amount',
                 'required' => true,
                 'attr' => [
                     'class' => 'inline fields',
@@ -74,7 +74,7 @@ final class ProductVariantRecurringExtension extends AbstractTypeExtension
                         'groups' => ['recurring_product_variant'],
                     ]),
                     new NotBlank([
-                        'message' => 'sylius_mollie_plugin.interval.not_blank',
+                        'message' => 'sylius_mollie.interval.not_blank',
                         'groups' => ['recurring_product_variant'],
                     ]),
                 ],

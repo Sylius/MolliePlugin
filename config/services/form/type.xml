@@ -19,12 +19,12 @@
     <services>
         <service id="sylius_mollie.form.type.mollie_gateway_configuration" class="Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType">
             <argument type="service" id="sylius_mollie.client.mollie_api"/>
-            <tag name="sylius.gateway_configuration_type" type="mollie" label="sylius_mollie_plugin.ui.mollie_gateway_label"/>
+            <tag name="sylius.gateway_configuration_type" type="mollie" label="sylius_mollie.ui.mollie_gateway_label"/>
             <tag name="form.type"/>
         </service>
 
         <service id="sylius_mollie.form.type.mollie_subscription_gateway_configuration" class="Sylius\MolliePlugin\Form\Type\MollieSubscriptionGatewayConfigurationType">
-            <tag name="sylius.gateway_configuration_type" type="mollie_subscription" label="sylius_mollie_plugin.ui.mollie_subscription_gateway_label"/>
+            <tag name="sylius.gateway_configuration_type" type="mollie_subscription" label="sylius_mollie.ui.mollie_subscription_gateway_label"/>
             <tag name="form.type"/>
         </service>
 

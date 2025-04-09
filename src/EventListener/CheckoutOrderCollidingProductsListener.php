@@ -40,7 +40,7 @@ final class CheckoutOrderCollidingProductsListener
             $url = $this->router->generate('sylius_shop_cart_summary');
             $response = new RedirectResponse($url);
             $event->setResponse($response);
-            $message = $this->translator->trans('sylius_mollie_plugin.order_checkout.colliding_products');
+            $message = $this->translator->trans('sylius_mollie.order_checkout.colliding_products');
             $event->stop(
                 $message,
                 ResourceControllerEvent::TYPE_WARNING,

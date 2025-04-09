@@ -9,7 +9,7 @@ sylius_mollie_plugin_mollie_logger:
         grid: sylius_mollie_plugin_mollie_logger
         vars:
             all:
-                subheader: sylius_mollie_plugin.ui.logger_list
+                subheader: sylius_mollie.ui.logger_list
             index:
                 icon: 'tags'
     type: sylius.resource

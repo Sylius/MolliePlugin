@@ -38,21 +38,21 @@ final class ApiKeysTestCreator implements ApiKeysTestCreatorInterface
 
         if (null === $key || '' === (trim($key))) {
             $apiKeyTest->setStatus(self::ERROR_STATUS);
-            $apiKeyTest->setMessage($this->translator->trans('sylius_mollie_plugin.ui.insert_you_key_first'));
+            $apiKeyTest->setMessage($this->translator->trans('sylius_mollie.ui.insert_you_key_first'));
 
             return $apiKeyTest;
         }
 
         if (MollieGatewayConfigurationType::API_KEY_TEST === $apiKeyTest->getType() && !str_starts_with($key, self::TEST_PREFIX)) {
             $apiKeyTest->setStatus(self::ERROR_STATUS);
-            $apiKeyTest->setMessage($this->translator->trans('sylius_mollie_plugin.ui.api_key_start_with_api_key_test'));
+            $apiKeyTest->setMessage($this->translator->trans('sylius_mollie.ui.api_key_start_with_api_key_test'));
 
             return $apiKeyTest;
         }
 
         if (MollieGatewayConfigurationType::API_KEY_LIVE === $apiKeyTest->getType() && !str_starts_with($key, self::LIVE_PREFIX)) {
             $apiKeyTest->setStatus(self::ERROR_STATUS);
-            $apiKeyTest->setMessage($this->translator->trans('sylius_mollie_plugin.ui.api_key_start_with_api_key_live'));
+            $apiKeyTest->setMessage($this->translator->trans('sylius_mollie.ui.api_key_start_with_api_key_live'));
 
             return $apiKeyTest;
         }
@@ -78,7 +78,7 @@ final class ApiKeysTestCreator implements ApiKeysTestCreatorInterface
 
             if (0 === $exception->getCode()) {
                 $apiKeyTest->setMessage($this->translator->trans(
-                    \sprintf('sylius_mollie_plugin.ui.api_key_start_with_%s', $apiKeyTest->getType()),
+                    \sprintf('sylius_mollie.ui.api_key_start_with_%s', $apiKeyTest->getType()),
                 ));
 
                 return $apiKeyTest;

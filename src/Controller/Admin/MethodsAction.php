@@ -48,7 +48,7 @@ final class MethodsAction
             $this->mollieMethodsResolver->createForGateway($gateway);
 
             $this->methodPurifier->removeAllNoLongerSupportedMethods();
-            $session->getFlashBag()->add('success', 'sylius_mollie_plugin.admin.success_got_methods');
+            $session->getFlashBag()->add('success', 'sylius_mollie.admin.success_got_methods');
 
             return new Response('OK', Response::HTTP_OK);
         } catch (ApiException $e) {

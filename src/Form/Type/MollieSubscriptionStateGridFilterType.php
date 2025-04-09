@@ -37,7 +37,7 @@ final class MollieSubscriptionStateGridFilterType extends AbstractType
                     MollieSubscriptionInterface::STATE_COMPLETED,
                     MollieSubscriptionInterface::STATE_ABORTED,
                 ],
-                'choice_label' => fn (string $value): string => sprintf('sylius_mollie_plugin.ui.subscription.state.%s', $value),
+                'choice_label' => fn (string $value): string => sprintf('sylius_mollie.ui.subscription.state.%s', $value),
                 'expanded' => true,
                 'multiple' => true,
             ],

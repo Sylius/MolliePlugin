@@ -26,8 +26,8 @@ final class ProductTypeExtension extends AbstractTypeExtension
         $builder
             ->add('productType', EntityType::class, [
                 'class' => ProductType::class,
-                'label' => 'sylius_mollie_plugin.form.product_type',
-                'placeholder' => 'sylius_mollie_plugin.form.product_type_none',
+                'label' => 'sylius_mollie.form.product_type',
+                'placeholder' => 'sylius_mollie.form.product_type_none',
                 'empty_data' => null,
             ]);
     }

@@ -24,13 +24,13 @@ final class TemplateMollieEmailTranslationType extends AbstractResourceType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'sylius_mollie_plugin.ui.template_name',
+                'label' => 'sylius_mollie.ui.template_name',
             ])
             ->add('subject', TextType::class, [
-                'label' => 'sylius_mollie_plugin.ui.template_subject',
+                'label' => 'sylius_mollie.ui.template_subject',
             ])
             ->add('content', TextareaType::class, [
-                'label' => 'sylius_mollie_plugin.ui.template_content',
+                'label' => 'sylius_mollie.ui.template_content',
             ])
         ;
     }

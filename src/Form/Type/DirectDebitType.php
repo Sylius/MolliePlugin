@@ -32,24 +32,24 @@ final class DirectDebitType extends AbstractType
     {
         $builder
             ->add('consumerName', TextType::class, [
-                'label' => 'sylius_mollie_plugin.ui.consumer_name',
+                'label' => 'sylius_mollie.ui.consumer_name',
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'sylius_mollie_plugin.consumer_name.not_blank',
+                        'message' => 'sylius_mollie.consumer_name.not_blank',
                         'groups' => ['sylius'],
                     ]),
                 ],
                 'data' => $this->requestStack->getSession()->get('mollie_direct_debit_data')['consumerName'] ?? null,
             ])
             ->add('iban', TextType::class, [
-                'label' => 'sylius_mollie_plugin.ui.iban',
+                'label' => 'sylius_mollie.ui.iban',
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'sylius_mollie_plugin.iban.not_blank',
+                        'message' => 'sylius_mollie.iban.not_blank',
                         'groups' => ['sylius'],
                     ]),
                     new Iban([
-                        'message' => 'sylius_mollie_plugin.iban.incorrect',
+                        'message' => 'sylius_mollie.iban.incorrect',
                         'groups' => ['sylius'],
                     ]),
                 ],

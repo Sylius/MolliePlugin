@@ -74,7 +74,7 @@ final class PaymentMethodMollieChannelUniqueValidator extends ConstraintValidato
             }
 
             if ($this->isTheSameChannel($paymentMethod->getChannels(), $alreadyUsedChannels)) {
-                $translation = $this->translator->trans('sylius_mollie_plugin.form.channel_should_be_unique', [
+                $translation = $this->translator->trans('sylius_mollie.form.channel_should_be_unique', [
                     '{channels}' => $this->getChannelsNameByChannels($alreadyUsedChannels),
                 ]);
 

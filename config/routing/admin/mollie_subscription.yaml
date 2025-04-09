@@ -10,7 +10,7 @@ sylius_mollie_plugin_mollie_subscription:
         grid: sylius_mollie_plugin_mollie_subscription
         vars:
             all:
-                subheader: sylius_mollie_plugin.ui.subscription_list
+                subheader: sylius_mollie.ui.subscription_list
             index:
                 icon: 'tags'
     type: sylius.resource

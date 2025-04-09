@@ -16,29 +16,29 @@
     <h4 class="ui header">
         <div class="ui two column stackable grid js-onboardingWizard-load-methods">
             <div class="middle aligned column">
-                {{ 'sylius_mollie_plugin.ui.payment_mathod_conf_title'|trans }}
+                {{ 'sylius_mollie.ui.payment_mathod_conf_title'|trans }}
             </div>
         </div>
     </h4>
     <div class="ui mini message center float js-payment-method-not-loaded">
-        {{ 'sylius_mollie_plugin.ui.create_methods_before_loading'|trans|raw }}
+        {{ 'sylius_mollie.ui.create_methods_before_loading'|trans|raw }}
     </div>
 {% else %}
     <h4 class="ui header">
         <div class="ui two column stackable grid js-onboardingWizard-load-methods">
             <div class="middle aligned column">
-                {{ 'sylius_mollie_plugin.ui.payment_mathod_conf_title'|trans }}
+                {{ 'sylius_mollie.ui.payment_mathod_conf_title'|trans }}
             </div>
             <div class="right aligned column">
                 <div class="ui buttons js-header-btn">
                     <a href="#" id="get_methods" data-url="{{ path('mollie_admin_methods', {id: resource.gatewayConfig.id}) }}"
-                       class="ui button primary">{{ 'sylius_mollie_plugin.ui.load_methods_button'|trans }}</a>
+                       class="ui button primary">{{ 'sylius_mollie.ui.load_methods_button'|trans }}</a>
                 </div>
             </div>
         </div>
         <div class="sub header">
             <i class="info circle icon"></i>
-            {{ 'sylius_mollie_plugin.ui.you_can_sort_methods_via_drag_and_drop'|trans }}
+            {{ 'sylius_mollie.ui.you_can_sort_methods_via_drag_and_drop'|trans }}
         </div>
     </h4>
 
@@ -174,19 +174,19 @@
                         </div>
                     </div>
                     <h4 class="ui horizontal divider header">
-                        {{ 'sylius_mollie_plugin.ui.payment_fee'|trans }}
+                        {{ 'sylius_mollie.ui.payment_fee'|trans }}
                     </h4>
                     {{ form_row(methodForm.paymentSurchargeFee, { 'attr': { 'class': 'js-onboardingWizard-paymentFee' } }) }}
                     <h4 class="ui horizontal divider header">
-                        {{ 'sylius_mollie_plugin.ui.min_max'|trans }}
+                        {{ 'sylius_mollie.ui.min_max'|trans }}
                     </h4>
-                    <h5>{{ 'sylius_mollie_plugin.form.amount_limit_help'|trans }}</h5>
+                    <h5>{{ 'sylius_mollie.form.amount_limit_help'|trans }}</h5>
                     {{ form_row(methodForm.amountLimits, { 'attr': { 'class': 'js-onboardingWizard-minMax fields' } }) }}
                 </div>
             </div>
         {% else %}
             <div class="ui mini message center float js-payment-method-not-loaded">
-                {{ 'sylius_mollie_plugin.ui.no_methods_found_message'|trans }}
+                {{ 'sylius_mollie.ui.no_methods_found_message'|trans }}
             </div>
         {% endfor %}
     </div>

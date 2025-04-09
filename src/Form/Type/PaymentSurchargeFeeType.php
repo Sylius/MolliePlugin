@@ -27,32 +27,32 @@ final class PaymentSurchargeFeeType extends AbstractType
         $builder
             ->add('type', PaymentSurchargeFeeTypeChoiceType::class)
             ->add('fixedAmount', NumberType::class, [
-                'label' => 'sylius_mollie_plugin.ui.fix_amount_surcharge',
+                'label' => 'sylius_mollie.ui.fix_amount_surcharge',
                 'attr' => ['class' => 'mollie-payment_fee-fixedAmount'],
                 'constraints' => [
                     new GreaterThan([
                         'value' => 0,
-                        'message' => 'sylius_mollie_plugin.form.error.greater_than',
+                        'message' => 'sylius_mollie.form.error.greater_than',
                         'groups' => ['sylius'],
                     ]),
                 ],
             ])
             ->add('percentage', NumberType::class, [
-                'label' => 'sylius_mollie_plugin.ui.percentage_surcharge',
+                'label' => 'sylius_mollie.ui.percentage_surcharge',
                 'constraints' => [
                     new GreaterThan([
                         'value' => 0,
-                        'message' => 'sylius_mollie_plugin.form.error.greater_than',
+                        'message' => 'sylius_mollie.form.error.greater_than',
                         'groups' => ['sylius'],
                     ]),
                 ],
             ])
             ->add('surchargeLimit', NumberType::class, [
-                'label' => 'sylius_mollie_plugin.ui.surcharge_limit',
+                'label' => 'sylius_mollie.ui.surcharge_limit',
                 'constraints' => [
                     new GreaterThan([
                         'value' => 0,
-                        'message' => 'sylius_mollie_plugin.form.error.greater_than',
+                        'message' => 'sylius_mollie.form.error.greater_than',
                         'groups' => ['sylius'],
                     ]),
                 ],

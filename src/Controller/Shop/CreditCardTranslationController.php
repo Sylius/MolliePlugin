@@ -27,11 +27,11 @@ final class CreditCardTranslationController
     public function fetchTranslations(Request $request): JsonResponse
     {
         $response = [
-            'emptyCardHolder' => $this->translator->trans('sylius_mollie_plugin.ui.credit_card_validations.empty_card_holder'),
-            'emptyCardNumber' => $this->translator->trans('sylius_mollie_plugin.ui.credit_card_validations.empty_card_number'),
-            'emptyExpiryDate' => $this->translator->trans('sylius_mollie_plugin.ui.credit_card_validations.empty_expiry_date'),
-            'emptyVerificationCode' => $this->translator->trans('sylius_mollie_plugin.ui.credit_card_validations.empty_verification_code'),
-            'oneOrMoreInvalidFields' => $this->translator->trans('sylius_mollie_plugin.ui.credit_card_validations.one_or_more_invalid_fields'),
+            'emptyCardHolder' => $this->translator->trans('sylius_mollie.ui.credit_card_validations.empty_card_holder'),
+            'emptyCardNumber' => $this->translator->trans('sylius_mollie.ui.credit_card_validations.empty_card_number'),
+            'emptyExpiryDate' => $this->translator->trans('sylius_mollie.ui.credit_card_validations.empty_expiry_date'),
+            'emptyVerificationCode' => $this->translator->trans('sylius_mollie.ui.credit_card_validations.empty_verification_code'),
+            'oneOrMoreInvalidFields' => $this->translator->trans('sylius_mollie.ui.credit_card_validations.one_or_more_invalid_fields'),
         ];
 
         return new JsonResponse(['status' => Response::HTTP_OK, 'translations' => $response]);

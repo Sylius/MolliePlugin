@@ -18,5 +18,5 @@
 } %}
 <span class="ui label {{ state_to_colors_map[data] | default('grey') }}{% if attached is defined and attached == true %} top attached{% endif %}">
     <i class="icon {{ state_to_icons_map[data] | default('exclamation') }}"></i>
-    {{ ('sylius_mollie_plugin.ui.subscription.state.' ~ data) | trans }}
+    {{ ('sylius_mollie.ui.subscription.state.' ~ data) | trans }}
 </span>

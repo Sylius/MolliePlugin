@@ -23,7 +23,7 @@ final class ProductVariantRecurringOptionsListener
         $menu
             ->addChild('recurring')
             ->setAttribute('template', '@SyliusMolliePlugin/ProductVariant/Tab/_recurring.html.twig')
-            ->setLabel('sylius_mollie_plugin.ui.product_variant.tab.recurring')
+            ->setLabel('sylius_mollie.ui.product_variant.tab.recurring')
         ;
     }
 }

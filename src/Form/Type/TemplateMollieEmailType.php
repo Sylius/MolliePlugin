@@ -31,17 +31,17 @@ final class TemplateMollieEmailType extends AbstractType
     {
         $builder
             ->add('type', ChoiceType::class, [
-                'label' => 'sylius_mollie_plugin.ui.template_type',
+                'label' => 'sylius_mollie.ui.template_type',
                 'choices' => [
-                    'sylius_mollie_plugin.ui.payment_link' => TemplateMollieEmailInterface::PAYMENT_LINK,
-                    'sylius_mollie_plugin.ui.payment_link_abandoned' => TemplateMollieEmailInterface::PAYMENT_LINK_ABANDONED,
+                    'sylius_mollie.ui.payment_link' => TemplateMollieEmailInterface::PAYMENT_LINK,
+                    'sylius_mollie.ui.payment_link_abandoned' => TemplateMollieEmailInterface::PAYMENT_LINK_ABANDONED,
                 ],
             ])
             ->add('styleCss', TextareaType::class, [
-                'label' => 'sylius_mollie_plugin.ui.style_css',
+                'label' => 'sylius_mollie.ui.style_css',
             ])
             ->add('translations', ResourceTranslationsType::class, [
-                'label' => 'sylius_mollie_plugin.ui.template_contents',
+                'label' => 'sylius_mollie.ui.template_contents',
                 'entry_type' => TemplateMollieEmailTranslationType::class,
                 'validation_groups' => ['sylius'],
                 'constraints' => [

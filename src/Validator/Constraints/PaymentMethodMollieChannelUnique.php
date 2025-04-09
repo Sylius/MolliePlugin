@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraint;
 
 final class PaymentMethodMollieChannelUnique extends Constraint
 {
-    public string $message = 'sylius_mollie_plugin.form.error.channel_should_be_unique';
+    public string $message = 'sylius_mollie.form.error.channel_should_be_unique';
 
     public function validatedBy(): string
     {

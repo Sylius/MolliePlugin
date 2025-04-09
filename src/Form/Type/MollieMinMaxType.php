@@ -26,18 +26,18 @@ class MollieMinMaxType extends AbstractType
     {
         $builder
             ->add('minimumAmount', NumberType::class, [
-                'label' => 'sylius_mollie_plugin.ui.min_amount',
+                'label' => 'sylius_mollie.ui.min_amount',
                 'required' => false,
                 'constraints' => [
                     new GreaterThan([
                         'value' => 0,
-                        'message' => 'sylius_mollie_plugin.form.error.greater_than',
+                        'message' => 'sylius_mollie.form.error.greater_than',
                         'groups' => ['sylius'],
                     ]),
                 ],
             ])
             ->add('maximumAmount', NumberType::class, [
-                'label' => 'sylius_mollie_plugin.ui.max_amount',
+                'label' => 'sylius_mollie.ui.max_amount',
                 'required' => false,
             ]);
     }

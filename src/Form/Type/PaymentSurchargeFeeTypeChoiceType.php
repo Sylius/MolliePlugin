@@ -23,12 +23,12 @@ final class PaymentSurchargeFeeTypeChoiceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'label' => 'sylius_mollie_plugin.ui.payment_fee_type',
+            'label' => 'sylius_mollie.ui.payment_fee_type',
             'choices' => [
-                'sylius_mollie_plugin.ui.no_fee' => FeeType::NONE,
-                'sylius_mollie_plugin.ui.percentage_surcharge' => FeeType::PERCENTAGE,
-                'sylius_mollie_plugin.ui.fix_amount_surcharge' => FeeType::FIXED,
-                'sylius_mollie_plugin.ui.percentage_and_fix_amount_surcharge' => FeeType::FIXED_AND_PERCENTAGE,
+                'sylius_mollie.ui.no_fee' => FeeType::NONE,
+                'sylius_mollie.ui.percentage_surcharge' => FeeType::PERCENTAGE,
+                'sylius_mollie.ui.fix_amount_surcharge' => FeeType::FIXED,
+                'sylius_mollie.ui.percentage_and_fix_amount_surcharge' => FeeType::FIXED_AND_PERCENTAGE,
             ],
         ]);
     }
