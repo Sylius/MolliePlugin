@@ -20,7 +20,12 @@
                     {{ sylius_test_html_attribute('payment-method-payment-item') }}
             >
             <label for="choice-{{ keyChoice }}" class="online-payment__label">
-                <img class="online-payment__image" src="{{ choice.attr['image'] }}" alt="payment_image">
+                {% set image = choice.attr['image'] %}
+                {% if 'http:' not in image and 'https:' not in image %}
+                    {% set image = image|imagine_filter('sylius_original') %}
+                {% endif %}
+
+                <img class="online-payment__image" src="{{ image }}" alt="payment_image">
                 {{ choice.label }}
             </label>
 

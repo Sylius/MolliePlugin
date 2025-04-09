@@ -17,15 +17,11 @@ use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 
 final class MolliePaymentMethodImageResolver implements MolliePaymentMethodImageResolverInterface
 {
-    public function __construct(private readonly string $rootDir)
-    {
-    }
-
     public function resolve(MollieGatewayConfigInterface $paymentMethod): string
     {
-        if (null !== $paymentMethod->getCustomizeMethodImage() &&
-            null !== $paymentMethod->getCustomizeMethodImage()->getPath()) {
-            return sprintf('%s%s', $this->rootDir, $paymentMethod->getCustomizeMethodImage()->getPath());
+        $customImagePath = $paymentMethod->getCustomizeMethodImage()?->getPath();
+        if (null !== $customImagePath) {
+            return $customImagePath;
         }
 
         return $paymentMethod->getImage()['svg'];

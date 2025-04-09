@@ -32,9 +32,7 @@
         </service>
         <service id="Sylius\MolliePlugin\Resolver\MolliePaymentsMethodResolverInterface" alias="sylius_mollie.resolver.payment_methods" />
 
-        <service id="sylius_mollie.resolver.payment_methods_image" class="Sylius\MolliePlugin\Resolver\MolliePaymentMethodImageResolver">
-            <argument>%sylius_core.images_dir%</argument>
-        </service>
+        <service id="sylius_mollie.resolver.payment_methods_image" class="Sylius\MolliePlugin\Resolver\MolliePaymentMethodImageResolver" />
         <service id="Sylius\MolliePlugin\Resolver\MolliePaymentMethodImageResolverInterface" alias="sylius_mollie.resolver.payment_methods_image" />
 
         <service id="sylius_mollie.resolver.payment_config" class="Sylius\MolliePlugin\Resolver\PaymentMethodConfigResolver">
