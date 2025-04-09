@@ -51,7 +51,7 @@
         {% for name, methodForm in form.gatewayConfig.mollieGatewayConfig|sort((a, b) => a.vars.value.position <=> b.vars.value.position) %}
             {% set methodImage = methodForm.vars.value.image.svg %}
             {% if methodForm.vars.value.customizeMethodImage != null and methodForm.vars.value.customizeMethodImage.path != null %}
-                {% set methodImage = image_dir_global ~ methodForm.vars.value.customizeMethodImage.path %}
+                {% set methodImage = methodForm.vars.value.customizeMethodImage.path|imagine_filter('sylius_original') %}
             {% endif %}
             <div
                 class="draggable js-draggable"
