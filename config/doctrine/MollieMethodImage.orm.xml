@@ -10,8 +10,8 @@
         <id name="id" column="id" type="integer">
             <generator strategy="AUTO"/>
         </id>
-        <field name="name" nullable="true"/>
-        <field name="path" nullable="true"/>
+        <field name="name" column="name" nullable="true"/>
+        <field name="path" column="path" nullable="true"/>
         <one-to-one field="mollieGatewayConfig" target-entity="Sylius\MolliePlugin\Entity\MollieGatewayConfig" mapped-by="customizeMethodImage"/>
     </mapped-superclass>
 </doctrine-mapping>
