@@ -48,21 +48,24 @@ final class ProductVariantRecurringExtension extends AbstractTypeExtension
             ->add('times', NumberType::class, [
                 'label' => 'sylius_mollie_plugin.form.product_variant.times',
                 'help' => 'sylius_mollie_plugin.form.product_variant.times_help',
-                'required' => false,
+                'required' => true,
                 'constraints' => [
                     new Range([
                         'min' => 2,
                         'minMessage' => 'sylius_mollie_plugin.times.min_range',
                         'groups' => ['recurring_product_variant'],
                     ]),
+                    new NotBlank([
+                        'groups' => ['recurring_product_variant'],
+                    ]),
                     new IsNull([
-                        'groups' => 'non_recurring_product_variant',
+                        'groups' => ['non_recurring_product_variant'],
                     ]),
                 ],
             ])
             ->add('interval', MollieIntervalType::class, [
-                'label' => false,
-                'required' => false,
+                'label' => 'sylius_mollie_plugin.form.product_variant.interval_configuration.amount',
+                'required' => true,
                 'attr' => [
                     'class' => 'inline fields',
                 ],

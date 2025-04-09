@@ -33,6 +33,7 @@ final class MollieIntervalType extends AbstractType
     {
         $builder->add('amount', NumberType::class, [
             'error_bubbling' => false,
+            'required' => true,
             'constraints' => [
                 new NotBlank([
                     'groups' => ['recurring_product_variant'],
