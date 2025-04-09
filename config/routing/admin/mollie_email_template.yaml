@@ -9,9 +9,9 @@ sylius_mollie_plugin_mollie_logger:
         grid: sylius_mollie_plugin_template_mollie_email
         vars:
             all:
-                subheader: sylius_mollie.ui.mollie_email_template
+                subheader: sylius_mollie.ui.manage_email_templates
                 templates:
                     form: "@SyliusMolliePlugin/Admin/TemplateMollieEmail/Crud/_form.html.twig"
             index:
-                icon: 'email'
+                icon: 'mail'
     type: sylius.resource

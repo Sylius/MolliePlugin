@@ -5,6 +5,9 @@ app_admin_product_type:
         templates: "@SyliusAdmin\\Crud"
         except: ['show']
         grid: sylius_mollie_plugin_admin_product_type
+        vars:
+            all:
+                subheader: sylius_mollie.ui.manage_product_types
         redirect: index
         permission: true
     type: sylius.resource
