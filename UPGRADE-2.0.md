@@ -730,3 +730,5 @@ The following parameters have been removed:
     -    import '../../vendor/sylius/mollie-plugin/src/Resources/assets/shop/entry';
     +    import '../../vendor/sylius/mollie-plugin/assets/shop/entrypoint';
     ```
+
+1. The translation prefix has been changed from `sylius_mollie_plugin` to `sylius_mollie`.
