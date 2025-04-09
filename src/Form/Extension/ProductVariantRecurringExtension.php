@@ -55,8 +55,12 @@ final class ProductVariantRecurringExtension extends AbstractTypeExtension
                         'minMessage' => 'sylius_mollie_plugin.times.min_range',
                         'groups' => ['recurring_product_variant'],
                     ]),
+                    new NotBlank([
+                        'message' => 'sylius_mollie_plugin.times.not_blank',
+                        'groups' => ['recurring_product_variant'],
+                    ]),
                     new IsNull([
-                        'groups' => 'non_recurring_product_variant',
+                        'groups' => ['non_recurring_product_variant'],
                     ]),
                 ],
             ])
