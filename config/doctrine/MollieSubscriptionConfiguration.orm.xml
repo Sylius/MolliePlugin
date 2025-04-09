@@ -9,14 +9,14 @@
         <id name="id" column="id" type="integer">
             <generator strategy="AUTO"/>
         </id>
-        <field name="hostName" nullable="false" type="string"/>
-        <field name="port" nullable="true" type="integer"/>
-        <field name="subscriptionId" nullable="true" type="string"/>
-        <field name="mandateId" nullable="true" type="string"/>
-        <field name="customerId" nullable="true" type="string" column="mollie_customer_id"/>
-        <field name="numberOfRepetitions" nullable="false" type="integer"/>
-        <field name="paymentDetailsConfiguration" nullable="false" type="array"/>
-        <field name="interval" nullable="false" type="string" column="`interval`"/>
+        <field name="hostName" column="host_name" nullable="false" type="string"/>
+        <field name="port" column="port" nullable="true" type="integer"/>
+        <field name="subscriptionId" column="subscription_id" nullable="true" type="string"/>
+        <field name="mandateId" column="mandate_id" nullable="true" type="string"/>
+        <field name="customerId" column="mollie_customer_id" nullable="true" type="string"/>
+        <field name="numberOfRepetitions" column="number_of_repetitions" nullable="false" type="integer"/>
+        <field name="paymentDetailsConfiguration" column="payment_details_configuration" nullable="false" type="array"/>
+        <field name="interval" column="`interval`" nullable="false" type="string"/>
 
         <one-to-one field="subscription" mapped-by="subscriptionConfiguration" target-entity="Sylius\MolliePlugin\Entity\MollieSubscription"/>
     </entity>

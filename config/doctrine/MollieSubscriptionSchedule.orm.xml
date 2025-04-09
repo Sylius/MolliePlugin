@@ -9,12 +9,12 @@
         <id name="id" column="id" type="integer">
             <generator strategy="AUTO"/>
         </id>
-        <field name="scheduledDate" nullable="false" type="datetime"/>
-        <field name="fulfilledDate" nullable="true" type="datetime"/>
-        <field name="scheduleIndex" nullable="false" type="integer"/>
+        <field name="scheduledDate" column="scheduled_date" nullable="false" type="datetime"/>
+        <field name="fulfilledDate" column="fulfilled_date" nullable="true" type="datetime"/>
+        <field name="scheduleIndex" column="schedule_index" nullable="false" type="integer"/>
 
         <many-to-one field="mollieSubscription" target-entity="Sylius\MolliePlugin\Entity\MollieSubscriptionInterface" inversed-by="schedules">
-            <join-column referenced-column-name="id"/>
+            <join-column name="mollie_subscription_id" referenced-column-name="id"/>
         </many-to-one>
     </mapped-superclass>
 </doctrine-mapping>
