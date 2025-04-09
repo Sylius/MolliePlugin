@@ -192,6 +192,8 @@
    )
    ```
 
+   The constructor of `Sylius\MolliePlugin\Resolver\MolliePaymentMethodImageResolver` has been removed.
+
 1. Method signature changes:
 
    The `::provide` method of `ValidationGroupsResolverInterface` has been renamed to `::resolve`.
