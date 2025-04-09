@@ -27,7 +27,7 @@ final class LoggerLevelChoiceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'label' => 'sylius_mollie_plugin.ui.debug_level_log',
+            'label' => 'sylius_mollie.ui.debug_level_log',
             'log_type' => self::TYPE_DEBUG,
             'choices' => self::getDebugChoices(),
         ]);
@@ -52,8 +52,8 @@ final class LoggerLevelChoiceType extends AbstractType
     private static function getLogChoices(): array
     {
         return [
-            'sylius_mollie_plugin.ui.info' => LoggerLevel::LOG_ERRORS,
-            'sylius_mollie_plugin.ui.errors' => LoggerLevel::LOG_EVERYTHING,
+            'sylius_mollie.ui.info' => LoggerLevel::LOG_ERRORS,
+            'sylius_mollie.ui.errors' => LoggerLevel::LOG_EVERYTHING,
         ];
     }
 
@@ -61,9 +61,9 @@ final class LoggerLevelChoiceType extends AbstractType
     private static function getDebugChoices(): array
     {
         return [
-            'sylius_mollie_plugin.ui.nothing_log' => LoggerLevel::LOG_DISABLED,
-            'sylius_mollie_plugin.ui.errors' => LoggerLevel::LOG_ERRORS,
-            'sylius_mollie_plugin.ui.everything' => LoggerLevel::LOG_EVERYTHING,
+            'sylius_mollie.ui.nothing_log' => LoggerLevel::LOG_DISABLED,
+            'sylius_mollie.ui.errors' => LoggerLevel::LOG_ERRORS,
+            'sylius_mollie.ui.everything' => LoggerLevel::LOG_EVERYTHING,
         ];
     }
 }

@@ -29,12 +29,12 @@ final class PartialShipType extends AbstractResourceType
         $builder
             ->add('tracking', TextType::class, [
                 'required' => false,
-                'label' => 'sylius_mollie_plugin.form.shipment.tracking_code',
-                'attr' => ['placeholder' => 'sylius_mollie_plugin.form.shipment.tracking_code'],
+                'label' => 'sylius_mollie.form.shipment.tracking_code',
+                'attr' => ['placeholder' => 'sylius_mollie.form.shipment.tracking_code'],
             ])
             ->add('units', ShippingUnitsChoiceType::class, [
                 'choices' => $options['shipment']->getUnits(),
-                'label' => 'sylius_mollie_plugin.form.shipment.units',
+                'label' => 'sylius_mollie.form.shipment.units',
                 'multiple' => true,
                 'constraints' => [
                     new Count(['min' => 1, 'groups' => ['sylius']]),

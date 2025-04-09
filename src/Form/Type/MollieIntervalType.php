@@ -52,7 +52,7 @@ final class MollieIntervalType extends AbstractType
             'label' => false,
             'error_bubbling' => false,
             'choice_label' => fn (string $value): string => sprintf(
-                'sylius_mollie_plugin.form.product_variant.interval_configuration.steps.%s',
+                'sylius_mollie.form.product_variant.interval_configuration.steps.%s',
                 $value,
             ),
         ]);
@@ -63,7 +63,7 @@ final class MollieIntervalType extends AbstractType
     {
         $resolver->setDefaults([
             'compound' => true,
-            'label_format' => 'sylius_mollie_plugin.form.product_variant.interval_configuration.%name%',
+            'label_format' => 'sylius_mollie.form.product_variant.interval_configuration.%name%',
             'error_bubbling' => true,
         ]);
     }

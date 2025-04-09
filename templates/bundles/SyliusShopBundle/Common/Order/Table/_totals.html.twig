@@ -51,7 +51,7 @@
 {% if unitPromotionTotalVoucher %}
     <tr>
         <td colspan="4" id="voucher-total" class="right aligned" {{ sylius_test_html_attribute('voucher-total') }}>
-            {{ 'sylius_mollie_plugin.ui.voucher_promotion'|trans }}: {{ money.convertAndFormat(unitPromotionTotalVoucher)  }}
+            {{ 'sylius_mollie.ui.voucher_promotion'|trans }}: {{ money.convertAndFormat(unitPromotionTotalVoucher)  }}
         </td>
     </tr>
 {% endif %}

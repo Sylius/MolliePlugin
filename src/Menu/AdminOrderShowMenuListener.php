@@ -53,7 +53,7 @@ final class AdminOrderShowMenuListener
                 'routeParameters' => ['orderNumber' => $order->getNumber()],
             ])
             ->setAttribute('type', 'transition')
-            ->setLabel('sylius_mollie_plugin.ui.payment_link_generate')
+            ->setLabel('sylius_mollie.ui.payment_link_generate')
             ->setLabelAttribute('icon', 'link all')
             ->setLabelAttribute('color', 'blue');
         }

@@ -95,7 +95,7 @@ final class CreatePaymentAction extends BaseApiAwareAction
 
             $details['statusError'] = $message;
 
-            $message = \sprintf('%s%s', 'sylius_mollie_plugin.credit_cart_error.', $details['statusError']);
+            $message = \sprintf('%s%s', 'sylius_mollie.credit_cart_error.', $details['statusError']);
             /** @var Session $session */
             $session = $this->requestStack->getSession();
             $session->getFlashBag()->add('info', $message);

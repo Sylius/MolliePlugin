@@ -54,11 +54,11 @@ final class PaymentMethodCheckoutValidator extends ConstraintValidator
         $gateway = $paymentMethod->getGatewayConfig();
 
         if ($value === null && $this->mollieGatewayFactoryChecker->isMollieGateway($gateway)) {
-            $this->flashMessage($constraint, 'error', 'sylius_mollie_plugin.empty_payment_method_checkout');
+            $this->flashMessage($constraint, 'error', 'sylius_mollie.empty_payment_method_checkout');
         }
 
         if ($value === PaymentMethod::BILLIE && empty($order->getBillingAddress()->getCompany())) {
-            $this->flashMessage($constraint, 'error', 'sylius_mollie_plugin.billie.error.company_missing');
+            $this->flashMessage($constraint, 'error', 'sylius_mollie.billie.error.company_missing');
         }
 
         $customer = $order->getCustomer();
@@ -73,7 +73,7 @@ final class PaymentMethodCheckoutValidator extends ConstraintValidator
                 empty($order->getBillingAddress()->getLastName()) ||
                 empty($email)
             )) {
-            $this->flashMessage($constraint, 'error', 'sylius_mollie_plugin.billing_address.error.info_missing');
+            $this->flashMessage($constraint, 'error', 'sylius_mollie.billing_address.error.info_missing');
         }
     }
 

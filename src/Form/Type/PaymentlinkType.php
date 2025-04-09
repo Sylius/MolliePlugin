@@ -26,7 +26,7 @@ final class PaymentlinkType extends AbstractType
             ->add('methods', EntityType::class, [
                 'class' => MollieGatewayConfig::class,
                 'multiple' => true,
-                'label' => 'sylius_mollie_plugin.form.methods',
+                'label' => 'sylius_mollie.form.methods',
                 'required' => false,
             ])
         ;

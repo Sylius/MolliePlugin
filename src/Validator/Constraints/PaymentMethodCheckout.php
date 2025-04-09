@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraint;
 
 final class PaymentMethodCheckout extends Constraint
 {
-    public string $message = 'sylius_mollie_plugin.empty_payment_method_checkout';
+    public string $message = 'sylius_mollie.empty_payment_method_checkout';
 
     public function validatedBy(): string
     {

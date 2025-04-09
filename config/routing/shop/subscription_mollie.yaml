@@ -12,4 +12,4 @@ sylius_mollie_plugin_cancel_subscription_mollie:
                 graph: mollie_subscription_payment_graph_manual
                 transition: cancel
             redirect: referer
-            flash: sylius_mollie_plugin.subscription.cancelled
+            flash: sylius_mollie.subscription.cancelled

@@ -23,7 +23,7 @@ final class MollieGatewayConfigTranslationType extends AbstractResourceType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'sylius_mollie_plugin.ui.payment_name',
+                'label' => 'sylius_mollie.ui.payment_name',
             ])
         ;
     }

@@ -22,7 +22,7 @@ final class CustomizeMethodImageType extends AbstractResourceType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('file', FileType::class, [
-            'label' => 'sylius_mollie_plugin.ui.customize_image',
+            'label' => 'sylius_mollie.ui.customize_image',
             'required' => false,
         ]);
     }

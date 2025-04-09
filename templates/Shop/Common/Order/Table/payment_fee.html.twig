@@ -11,21 +11,21 @@
 {% if orderSurchargePercentage %}
     <tr>
         <td colspan="4" id="surcharge-total" class="right aligned">
-            {{ 'sylius_mollie_plugin.ui.payment_fee'|trans }}: {% for key, value in orderSurchargePercentage %}{{ key }} {{ money.convertAndFormat(value) }}{% endfor %}
+            {{ 'sylius_mollie.ui.payment_fee'|trans }}: {% for key, value in orderSurchargePercentage %}{{ key }} {{ money.convertAndFormat(value) }}{% endfor %}
         </td>
     </tr>
 {% endif %}
 {% if orderSurchargeFixAmount %}
     <tr>
         <td colspan="4" id="surcharge-total" class="right aligned">
-            {{ 'sylius_mollie_plugin.ui.payment_fee'|trans }}: {% for key, value in orderSurchargeFixAmount %}{{ key }} {{ money.convertAndFormat(value) }}{% endfor %}
+            {{ 'sylius_mollie.ui.payment_fee'|trans }}: {% for key, value in orderSurchargeFixAmount %}{{ key }} {{ money.convertAndFormat(value) }}{% endfor %}
         </td>
     </tr>
 {% endif %}
 {% if orderSurchargePercentageAndFixAmount %}
     <tr>
         <td colspan="4" id="surcharge-total" class="right aligned">
-            {{ 'sylius_mollie_plugin.ui.payment_fee'|trans }}: {% for key, value in orderSurchargePercentageAndFixAmount %}{{ key }} {{ money.convertAndFormat(value) }}{% endfor %}
+            {{ 'sylius_mollie.ui.payment_fee'|trans }}: {% for key, value in orderSurchargePercentageAndFixAmount %}{{ key }} {{ money.convertAndFormat(value) }}{% endfor %}
         </td>
     </tr>
 {% endif %}

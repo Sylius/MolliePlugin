@@ -14,7 +14,7 @@
 
     {{ buttons.default(
         path('mollie_admin_shipment_split', configuration.vars.route.parameters),
-        'sylius_mollie_plugin.ui.partially_ship'|trans,
+        'sylius_mollie.ui.partially_ship'|trans,
         'partial-shipment' ~ configuration.vars.route.parameters.id,
         'boxes'
     ) }}

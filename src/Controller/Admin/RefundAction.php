@@ -84,7 +84,7 @@ final class RefundAction
 
             /** @var Session $session */
             $session = $this->requestStack->getSession();
-            $session->getFlashBag()->add('info', 'sylius_mollie_plugin.ui.refunded_only_locally');
+            $session->getFlashBag()->add('info', 'sylius_mollie.ui.refunded_only_locally');
             $this->loggerAction->addLog(sprintf('Refunded only locally'));
 
             return $this->redirectToReferer($request);

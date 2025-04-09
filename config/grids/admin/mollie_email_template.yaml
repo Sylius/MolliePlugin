@@ -8,10 +8,10 @@ sylius_grid:
             fields:
                 name:
                     type: string
-                    label: sylius_mollie_plugin.ui.template_name
+                    label: sylius_mollie.ui.template_name
                 subject:
                     type: string
-                    label: sylius_mollie_plugin.ui.template_subject
+                    label: sylius_mollie.ui.template_subject
             actions:
                 main:
                     create:
@@ -24,7 +24,7 @@ sylius_grid:
             filters:
                 name:
                     type: string
-                    label: sylius_mollie_plugin.ui.search
+                    label: sylius_mollie.ui.search
                 subject:
                     type: string
-                    label: sylius_mollie_plugin.ui.level
+                    label: sylius_mollie.ui.level

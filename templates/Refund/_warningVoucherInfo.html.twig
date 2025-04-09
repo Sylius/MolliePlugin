@@ -4,9 +4,9 @@
     <div class="ui warning message">
         <i class="close icon"></i>
         <div class="header">
-            {{ 'sylius_mollie_plugin.ui.warning'|trans }}
+            {{ 'sylius_mollie.ui.warning'|trans }}
         </div>
-        {{ 'sylius_mollie_plugin.ui.warning_voucher_info'|trans }}
+        {{ 'sylius_mollie.ui.warning_voucher_info'|trans }}
         {{ money.format((order.getItemsTotal + order.getShippingTotal) - order_refunded_total(order.number), order.currencyCode) }}
     </div>
 {% endif %}

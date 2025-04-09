@@ -5,7 +5,7 @@
     <div class="ui input">
         {{ form_widget(field) }}
         <button id="{{ field.vars.name }}" type="button" class="ui button primary">
-            {{ 'sylius_mollie_plugin.ui.show_hide'|trans }}
+            {{ 'sylius_mollie.ui.show_hide'|trans }}
         </button>
     </div>
 
@@ -19,7 +19,7 @@
             type="button"
             data-url="{{ path('mollie_admin_test_api_keys') }}"
     >
-        {{ 'sylius_mollie_plugin.ui.test_api_keys'|trans }}
+        {{ 'sylius_mollie.ui.test_api_keys'|trans }}
     </button>
 </div>
 

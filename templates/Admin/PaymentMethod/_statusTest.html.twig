@@ -1,9 +1,9 @@
-{% set value = 'sylius_mollie_plugin.ui.' ~ test.type %}
+{% set value = 'sylius_mollie.ui.' ~ test.type %}
 
 {% if test.methods is not empty %}
     <i class="checkmark icon green"></i><strong>{{ value|trans }}:</strong>
-    {{ 'sylius_mollie_plugin.ui.success'|trans }}!
+    {{ 'sylius_mollie.ui.success'|trans }}!
 {% else %}
     <i class="x icon red"></i> <strong>{{ value|trans }}:</strong>
-    {{ 'sylius_mollie_plugin.ui.fail'|trans }}!
+    {{ 'sylius_mollie.ui.fail'|trans }}!
 {% endif %}

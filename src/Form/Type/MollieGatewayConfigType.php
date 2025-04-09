@@ -47,30 +47,30 @@ final class MollieGatewayConfigType extends AbstractResourceType
     {
         $builder
             ->add('enabled', CheckboxType::class, [
-                'label' => 'sylius_mollie_plugin.ui.enable',
+                'label' => 'sylius_mollie.ui.enable',
             ])
             ->add('applePayDirectButton', CheckboxType::class, [
-                'label' => 'sylius_mollie_plugin.ui.enabled_buy_now_button',
-                'help' => 'sylius_mollie_plugin.form.enabled_buy_now_button_help',
+                'label' => 'sylius_mollie.ui.enabled_buy_now_button',
+                'help' => 'sylius_mollie.form.enabled_buy_now_button_help',
             ])
             ->add('defaultCategory', EntityType::class, [
                 'class' => ProductType::class,
-                'label' => 'sylius_mollie_plugin.form.product_type_default',
-                'placeholder' => 'sylius_mollie_plugin.form.no_category',
+                'label' => 'sylius_mollie.form.product_type_default',
+                'placeholder' => 'sylius_mollie.form.no_category',
                 'empty_data' => null,
-                'help' => 'sylius_mollie_plugin.form.product_type_default_help',
+                'help' => 'sylius_mollie.form.product_type_default_help',
             ])
             ->add('translations', ResourceTranslationsType::class, [
-                'label' => 'sylius_mollie_plugin.ui.payment_name',
+                'label' => 'sylius_mollie.ui.payment_name',
                 'entry_type' => MollieGatewayConfigTranslationType::class,
             ])
             ->add('paymentType', PaymentTypeChoiceType::class)
             ->add('qrCodeEnabled', CheckboxType::class, [
-                'label' => 'sylius_mollie_plugin.ui.qr_code',
+                'label' => 'sylius_mollie.ui.qr_code',
             ])
             ->add('paymentDescription', TextType::class, [
-                'label' => 'sylius_mollie_plugin.form.payment_methods.payment_description',
-                'help' => 'sylius_mollie_plugin.form.payment_methods.payment_description_help',
+                'label' => 'sylius_mollie.form.payment_methods.payment_description',
+                'help' => 'sylius_mollie.form.payment_methods.payment_description_help',
                 'empty_data' => '{ordernumber}',
                 'attr' => [
                     'placeholder' => '{ordernumber}',
@@ -89,22 +89,22 @@ final class MollieGatewayConfigType extends AbstractResourceType
             ])
             ->add('country_restriction', CountriesRestrictionChoiceType::class)
             ->add('countryLevel_excluded', CountryType::class, [
-                'label' => 'sylius_mollie_plugin.ui.country_level_exclude',
+                'label' => 'sylius_mollie.ui.country_level_exclude',
                 'required' => false,
                 'multiple' => true,
             ])
             ->add('countryLevel_allowed', CountryType::class, [
-                'label' => 'sylius_mollie_plugin.ui.country_level_allow',
+                'label' => 'sylius_mollie.ui.country_level_allow',
                 'required' => false,
                 'multiple' => true,
             ])
             ->add('countryLevel', CountryType::class, [
-                'label' => 'sylius_mollie_plugin.ui.country_level_restriction',
+                'label' => 'sylius_mollie.ui.country_level_restriction',
                 'required' => false,
                 'multiple' => true,
             ])
             ->add('orderExpirationDays', ChoiceType::class, [
-                'label' => 'sylius_mollie_plugin.ui.order_expiration_days',
+                'label' => 'sylius_mollie.ui.order_expiration_days',
                 'required' => false,
                 'choices' => array_combine(
                     range(1, 100, 1),
@@ -112,7 +112,7 @@ final class MollieGatewayConfigType extends AbstractResourceType
                 ),
             ])
             ->add('loggerEnabled', CheckboxType::class, [
-                'label' => 'sylius_mollie_plugin.ui.debug_level_enabled',
+                'label' => 'sylius_mollie.ui.debug_level_enabled',
             ])
             ->add('loggerLevel', LoggerLevelChoiceType::class, [
                 'log_type' => LoggerLevelChoiceType::TYPE_DEBUG,
