@@ -257,6 +257,13 @@ cp -R vendor/sylius/mollie-plugin/templates/bundles/SyliusUiBundle/* templates/b
 cp -R vendor/sylius/mollie-plugin/templates/bundles/SyliusRefundPlugin/* templates/bundles/SyliusRefundPlugin/
 ```
 
+**Important:**
+Ensure the Mollie script is included at the top of your `templates/bundles/SyliusShopBundle/_scripts.html.twig` file:
+
+```html
+<script src="https://js.mollie.com/v1/mollie.js"></script>
+```
+
 #### 12. Add the payment link cronjob:
 
 ```shell script
