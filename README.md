@@ -336,8 +336,50 @@ bin/console assets:install
     If you are using Sylius version >= 1.12 then Node version 18 is fully supported.
 
 1. Install dependencies:
-    
+
     for Sylius <= 1.11:
+    ```bash
+    composer require symfony/webpack-encore-bundle
+    ```
+
+    add config to your webpack_encore.yaml file:
+    ```yaml
+    # config/packages/webpack_encore.yaml
+    webpack_encore:
+        output_path: "%kernel.project_dir%/public/build"
+        builds:
+            admin: "%kernel.project_dir%/public/build/admin"
+            shop: "%kernel.project_dir%/public/build/shop"
+        script_attributes:
+            defer: false
+    
+    framework:
+        assets:
+            json_manifest_path: '%kernel.project_dir%/public/build/admin/manifest.json'
+    ```
+    make sure your scripts and styles files look like this:
+    ```html
+    <!-- templates/bundles/SyliusAdminBundle/_scripts.html.twig -->
+
+    {{ encore_entry_script_tags('admin-entry', null, 'admin') }}
+    ```
+    ```html
+    <!-- templates/bundles/SyliusAdminBundle/_styles.html.twig -->
+
+    {{ encore_entry_link_tags('admin-entry', null, 'admin') }}
+    ```
+    ```html
+    <!-- templates/bundles/SyliusShopBundle/_scripts.html.twig -->
+    
+    <script src="https://js.mollie.com/v1/mollie.js"> </script>
+    {{ encore_entry_script_tags('shop-entry', null, 'shop') }}
+    ```
+    ```html
+    <!-- templates/bundles/SyliusShopBundle/_styles.html.twig -->
+
+    {{ encore_entry_link_tags('shop-entry', null, 'shop') }}
+    ```
+    and run:
     ```bash
     yarn add @babel/preset-env bazinga-translator intl-messageformat lodash.get node-sass@4.14.1 shepherd.js@11.0 webpack-notifier
     yarn add --dev @babel/core@7.16.0 @babel/register@7.16.0 @babel/plugin-proposal-object-rest-spread@7.16.5 @symfony/webpack-encore@1.5.0
