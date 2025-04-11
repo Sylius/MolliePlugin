@@ -49,13 +49,13 @@ Mollie provides a powerful API allowing webshop and app developers to implement 
 You can quickly test the plugin using Docker. Just run:
 
 ```bash
-docker run -p 8080:80 -p 8025:8025 ghcr.io/sylius/mollieplugin:1.0
+docker run -p 8080:80 -p 8025:8025 ghcr.io/sylius/mollieplugin:2.0
 ```
 
 If you'd like to run it in development mode (with debug tools enabled), use:
 
 ```bash
-docker run -p 8080:80 -p 8025:8025 -e APP_ENV=dev -e APP_DEBUG=1 ghcr.io/sylius/mollieplugin:1.0
+docker run -p 8080:80 -p 8025:8025 -e APP_ENV=dev -e APP_DEBUG=1 ghcr.io/sylius/mollieplugin:2.0
 ```
 
 ---

@@ -5,7 +5,6 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
-        "doctrine/persistence": "^3.4",
         "ext-json": "*",
         "league/flysystem-bundle": "^2.4",
         "mollie/mollie-api-php": "^2.73",
