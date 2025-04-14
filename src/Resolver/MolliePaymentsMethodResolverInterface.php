@@ -11,9 +11,19 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver;
+namespace Sylius\MolliePlugin\Resolver;
 
 interface MolliePaymentsMethodResolverInterface
 {
+    /**
+     * @return array{
+     *     data: array<string, string>,
+     *     image: array<string, string>,
+     *     issuers: array<string, mixed>|null,
+     *     paymentFee: array<string, mixed>
+     * }
+     *
+     * @see \Mollie\Api\Resources\Method
+     */
     public function resolve(): array;
 }

@@ -11,34 +11,22 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver\Order;
+namespace Sylius\MolliePlugin\Resolver\Order;
 
-use SyliusMolliePlugin\Entity\OrderInterface;
 use Sylius\Component\Order\Context\CartContextInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Webmozart\Assert\Assert;
 
 final class PaymentCheckoutOrderResolver implements PaymentCheckoutOrderResolverInterface
 {
-    /** @var RequestStack */
-    private $requestStack;
-
-    /** @var CartContextInterface */
-    private $cartContext;
-
-    /** @var RepositoryInterface */
-    private $orderRepository;
-
     public function __construct(
-        RequestStack $requestStack,
-        CartContextInterface $cartContext,
-        RepositoryInterface $orderRepository
+        private readonly RequestStack $requestStack,
+        private readonly CartContextInterface $cartContext,
+        private readonly RepositoryInterface $orderRepository,
     ) {
-        $this->requestStack = $requestStack;
-        $this->cartContext = $cartContext;
-        $this->orderRepository = $orderRepository;
     }
 
     public function resolve(): OrderInterface

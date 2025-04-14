@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Form\Type\Translation;
+namespace Sylius\MolliePlugin\Form\Type\Translation;
 
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -23,7 +23,7 @@ final class MollieGatewayConfigTranslationType extends AbstractResourceType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'sylius_mollie_plugin.ui.payment_name',
+                'label' => 'sylius_mollie.ui.payment_name',
             ])
         ;
     }

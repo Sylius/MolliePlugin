@@ -1,0 +1,5 @@
+sylius_mailer:
+    emails:
+        payment_link:
+            subject: sylius_mollie.ui.emails.payment_link
+            template: "@SyliusMolliePlugin/Admin/Email/paymentLinkConfirmation.html.twig"

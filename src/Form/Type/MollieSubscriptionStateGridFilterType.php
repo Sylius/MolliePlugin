@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Form\Type;
+namespace Sylius\MolliePlugin\Form\Type;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -37,12 +37,10 @@ final class MollieSubscriptionStateGridFilterType extends AbstractType
                     MollieSubscriptionInterface::STATE_COMPLETED,
                     MollieSubscriptionInterface::STATE_ABORTED,
                 ],
-                'choice_label' => function (string $value): string {
-                    return sprintf('sylius_mollie_plugin.ui.subscription.state.%s', $value);
-                },
+                'choice_label' => fn (string $value): string => sprintf('sylius_mollie.ui.subscription.state.%s', $value),
                 'expanded' => true,
                 'multiple' => true,
-            ]
+            ],
         );
     }
 

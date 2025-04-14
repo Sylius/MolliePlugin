@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Behat\Context\Ui\Admin;
+namespace Tests\Sylius\MolliePlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
 use Sylius\Behat\Context\Ui\Admin\ManagingOrdersContext;
@@ -19,11 +19,10 @@ use Sylius\Component\Core\Model\OrderInterface;
 
 final class RefundContext implements Context
 {
-    /** @var ManagingOrdersContext */
-    private $managingOrdersContext;
+    private ManagingOrdersContext $managingOrdersContext;
 
     public function __construct(
-        ManagingOrdersContext $managingOrdersContext
+        ManagingOrdersContext $managingOrdersContext,
     ) {
         $this->managingOrdersContext = $managingOrdersContext;
     }

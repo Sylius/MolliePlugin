@@ -1,0 +1,26 @@
+sylius_mollie:
+    admin:
+        payment_link:
+            successfully_generated: 'Zahlungslink erfolgreich generiert'
+        shipment:
+            successfully_split_and_sent: 'Die Sendung wurde erfolgreich aufgeteilt und gesendet'
+        success_got_methods: 'Methoden erfolgreich aktualisiert'
+    billie.error:
+        company_missing: 'Die Angabe eines Firmennamens ist für die Zahlungsart Billie verpflichtend. Bitte geben Sie einen Firmennamen an oder wählen Sie eine andere Zahlungsart.'
+    billing_address.error:
+        info_missing: 'Bei Verwendung der Trustly-Zahlungsmethode sind Vorname, Nachname und E-Mail erforderlich. Bitte ergänzen Sie die fehlenden Daten oder wählen Sie eine andere Zahlungsart.'
+    credit_cart_error:
+        authentication_failed: 'Authentifizierung fehlgeschlagen'
+        card_expired: 'Karte abgelaufen'
+        empty_payment_method_checkout: 'Wählen Sie eine Mollie-Bezahlmethode'
+        inactive_card: 'Inaktive Karte'
+        insufficient_funds: 'Saldo nicht ausreichend'
+        invalid_card_holder_name: 'Ungültiger Karteninhaber'
+        invalid_card_number: 'Ungültige Kartennummer'
+        invalid_card_type: 'Ungültiger Kartentyp'
+        invalid_cvv: 'Ungültiger Kartenprüfziffer'
+        possible_fraud: 'Möglicher Betrug'
+        refused_by_issuer: 'Vom Anbieter abgelehnt'
+    refunded_only_locally: 'Die Rückzahlung ist nur lokal erfolgt'
+    subscription:
+        cancelled: 'Das Abonnement wurde gekündigt.'

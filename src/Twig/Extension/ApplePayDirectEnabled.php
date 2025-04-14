@@ -11,20 +11,16 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Twig\Extension;
+namespace Sylius\MolliePlugin\Twig\Extension;
 
-use SyliusMolliePlugin\Checker\ApplePay\ApplePayEnabledCheckerInterface;
+use Sylius\MolliePlugin\ApplePay\Checker\ApplePayEnabledCheckerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 final class ApplePayDirectEnabled extends AbstractExtension
 {
-    /** @var ApplePayEnabledCheckerInterface */
-    private $applePayEnabledChecker;
-
-    public function __construct(ApplePayEnabledCheckerInterface $applePayEnabledChecker)
+    public function __construct(private readonly ApplePayEnabledCheckerInterface $applePayEnabledChecker)
     {
-        $this->applePayEnabledChecker = $applePayEnabledChecker;
     }
 
     public function getFunctions(): array
@@ -33,7 +29,7 @@ final class ApplePayDirectEnabled extends AbstractExtension
             new TwigFunction(
                 'mollie_render_apple_pay_direct',
                 [$this->applePayEnabledChecker, 'isEnabled'],
-                ['is_safe' => ['html']]
+                ['is_safe' => ['html']],
             ),
         ];
     }

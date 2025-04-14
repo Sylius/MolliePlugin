@@ -3,5 +3,4 @@ imports:
     - suites/ui/paying_with_mollie_for_order.yml
     - suites/ui/refunding_mollie_payment.yml
     - suites/ui/cancelling_mollie_subscription.yml
-    - suites/ui/creating_mollie_subscription_through_admin.yml
     - suites/ui/create_scheduled_mollie_subscription_payment.yml

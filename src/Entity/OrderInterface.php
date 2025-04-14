@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Entity;
+namespace Sylius\MolliePlugin\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Core\Model\OrderInterface as BaseOrderInterface;
@@ -37,27 +37,11 @@ interface OrderInterface extends BaseOrderInterface
     /** @return Collection|OrderItemInterface[] */
     public function getNonRecurringItems(): Collection;
 
-    /**
-     * @return string|null
-     */
     public function getQrCode(): ?string;
 
-    /**
-     * @param string|null $qrCode
-     *
-     * @return void
-     */
     public function setQrCode(?string $qrCode): void;
 
-    /**
-     * @return string|null
-     */
     public function getMolliePaymentId(): ?string;
 
-    /**
-     * @param string|null $molliePaymentId
-     *
-     * @return void
-     */
     public function setMolliePaymentId(?string $molliePaymentId): void;
 }

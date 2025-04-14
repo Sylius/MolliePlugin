@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Creator;
+namespace Sylius\MolliePlugin\Creator;
 
-use SyliusMolliePlugin\DTO\ApiKeyTest;
+use Sylius\MolliePlugin\Model\DTO\ApiKeyTest;
 
 interface ApiKeysTestCreatorInterface
 {
@@ -29,5 +29,5 @@ interface ApiKeysTestCreatorInterface
     /** @var string */
     public const LIVE_PREFIX = 'live_';
 
-    public function create(string $keyType, string $key = null): ApiKeyTest;
+    public function create(string $keyType, ?string $key = null): ApiKeyTest;
 }

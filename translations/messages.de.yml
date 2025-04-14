@@ -1,0 +1,245 @@
+sylius_mollie:
+    form:
+        amount_limit_help: 'Please specify the minimum and maximum amount to be applied to the cart. If left blank, the default settings provided by Mollie will be utilized'
+        channel_should_be_unique: 'Mollie ist bereits als Bezahlmethode auf dem Kanal {channels} aktiviert. Mollie kann pro Kanal nur einmal konfiguriert werden.'
+        enabled_buy_now_button_help: 'Die Schaltfläche wird auf der Bezahlseite angezeigt'
+        expiration_date_time: 'Ablaufdatum und -zeit'
+        methods: 'Aktivierte Methoden wählen'
+        no_category: 'Keine Standardkategorie'
+        payment_methods:
+            payment_description: 'Beschreibung'
+            payment_description_help: |-
+                Die Beschreibung, die für diese Transaktionen zu verwenden ist. Diese Variablen sind verfügbar:
+                <strong>{ordernumber}:</strong> Die Auftragsnummer für diese Transaktion
+                <strong>{storename}:</strong> Der Name des Shops
+
+                (Hinweis: Dies funktioniert nur, wenn die Methode Zahlungs-API gewählt wurde)
+        product_type: 'Produkttyp (bei Mahlzeitgutscheinen erforderlich)'
+        product_type_default: 'Standard-Produktkategorie wählen'
+        product_type_default_help: 'Die hier gewählte Kategorie wird für alle Produkte in Ihrem Onlineshop verwendet'
+        product_type_none: 'Keine'
+        shipment:
+            units: 'Einheiten'
+            tracking_code: 'Sendungsnummer'
+    onboardingMollie:
+        btnBack: 'Zurück'
+        btnNext: 'Weiter'
+        create: 'Bevor Sie individuelle Zahlungsmethoden konfigurieren, klicken Sie auf „Erstellen“, um Mollie als Zahlungsmethode im Sylius-Adminbereich zu speichern.'
+        step_1:
+            title: 'Benötigen Sie Hilfe?'
+            text: |-
+                <p>Vielen Dank, dass Sie Mollie als Bezahlmethode installiert haben. Dieser Leitfaden führt Sie durch die Konfigurationsschritte.</p>
+            btnNext: 'Onboarding-Assistenten starten'
+            btnBack: 'Überspringen, ich kenne mich bereits aus'
+        step_2:
+            title: 'Mit Ihrem Mollie-Konto verbinden'
+            text: |-
+                <p>Um das Mollie-Plugin mit Ihrem Onlineshop zu synchronisieren, benötigen Sie Mollie-API-Schlüssel und eine Profil-ID.</p>
+            btnLogin: 'Anmelden'
+            btnRegister: 'Mollie-Konto erstellen'
+        step_3:
+            text: |-
+                <p>Nachdem Sie sich mit Mollie verbunden haben, konfigurieren wir im nächsten Schritt die Umgebung und die Zugangsdaten.</p>
+                <p>Die Standardumgebung des Plugins ist die Testumgebung.</p>
+                <p>Sie müssen die Konfiguration nur einmal durchführen, um auf TEST- und LIVE-Umgebung zugreifen zu können. Sie können bequem zwischen den beiden Umgebungen umschalten.</p>
+        step_4:
+            text: |-
+                <p>Vervollständigen Sie die Angaben und klicken Sie auf „API-Schlüssel testen“. Sie erhalten daraufhin sowohl für die LIVE- als auch für die TEST-Umgebung ein positives oder negatives Testergebnis.</p>
+        step_5:
+            text: |-
+                <p>Als nächstes nehmen wir die Schlüsseleinstellungen für den Bezahlbildschirm Ihres Onlineshops vor.</p>
+        step_6:
+            text: |-
+                <p>Aktivieren Sie Komponenten, um die notwendigen Felder für die Kreditkartendaten auf dem Bezahlbildschirm einzurichten.</p>
+                <p>Wenn Sie NEIN wählen, werden die Nutzer zur Bezahlseite von Mollie weitergeleitet.</p>
+                <p>Erfahren Sie <a href="https://www.mollie.com/en/news/post/better-checkout-flows-with-mollie-components" target="_blank">hier</a> mehr über die Mollie-Komponenten.</p>
+        step_7:
+            text: |-
+                <p>Wenn Sie Ein-Klick-Bezahlvorgänge aktivieren, werden die Bezahldaten Ihrer Kunden gespeichert, um weitere Zahlungen zu beschleunigen. Ihre Kunden müssen dann keine Anpassungen mehr vornehmen und können einfach und schnell bezahlen.</p>
+                <p>Erfahren Sie <a href="https://help.mollie.com/hc/en-us/articles/115000671249-What-are-single-click-payments-and-how-does-it-work-" target="_blank">hier</a> mehr über die Ein-Klick-Bezahlvorgänge.</p>
+        step_8:
+            text: |-
+                <p>Kommen wir nun zur Anpassung der Funktionen für individuelle Bezahlmethoden.</p>
+                <p>Wählen Sie zunächst die Schaltfläche „Methoden laden“. Hier werden nur die Methoden angezeigt, die Sie in Ihrem Mollie-Konto aktiviert haben.</p>
+                <p>Verwenden Sie dann die Auswahl „Aktivieren/deaktivieren“, um zu steuern, welche Methoden auf der Bezahlseite Ihres Onlineshops angezeigt werden.</p>
+                <p>Hinweis: Sie müssen Bezahlmethoden laden, um mit dem Onboarding fortzufahren.</p>
+        step_9:
+            text: |-
+                <p>Hier können Sie für jede Methode einen eigenen Titel eingeben – dieser wird auf der Bezahlseite Ihres Onlineshops angezeigt.</p>
+        step_10:
+            text: |-
+                <p>Versuchen Sie, ein eigenes Bild als Symbol für die Bezahlmethode hochzuladen. Dieses wird auf der Bezahlseite Ihres Onlineshops angezeigt.</p>
+        step_11:
+            text: |-
+                <p>Hier können Sie Filter für länderspezifische Bezahlmethoden einrichten – wenn Sie beispielsweise möchten, dass iDEAL nur Kunden in den Niederlanden angezeigt wird, wählen Sie unter „Länder auswählen“ die Niederlande aus.</p>
+        step_12:
+            text: |-
+                <p>Für jede Methode können Sie festlegen, welche Mollie-API für die Erstellung von Bezahlvorgängen verwendet wird. Klicken Sie <a href="https://docs.mollie.com/orders/why-use-orders" target="_blank">hier</a>, um mehr über die Unterschiede zwischen Orders API und Payments API zu erfahren.</p>
+        step_13:
+            1:
+                title: 'Payments API'
+                text: |-
+                    <p>Wenn Sie bei der Verwendung der Payments API weitere Details erfassen möchten, um Zahlungsvorgänge mit Kundenbestellungen zu verknüpfen, können Sie diese Werte hier eintragen. Achten Sie aber darauf, dass Sie die richtigen Tags aus dem Text unten verwende</p>
+            2:
+                title: 'Orders API'
+                text: |-
+                    <p>Mollie empfiehlt die Verwendung dieser API für Onlineshops, da damit Bestellungen („Orders“) erstellt werden können. Eine Bestellung enthält die personenbezogenen Daten der Kunden (z. B. Adressen) und die Produkte, die sie bestellt haben. Nach der Aufgabe einer Bestellung wird der dazugehörige Bezahlvorgang automatisch erstellt.</p>
+        step_14:
+            text: |-
+                <p>Falls Sie Gebühren an den Kunden übertragen, können Sie diese hier hinzufügen. Mehr Informationen zu Gebühren finden Sie <a href=""https://help.mollie.com/hc/en-us/articles/360012564454-Can-I-pass-over-the-costs-for-the-use-of-a-payment-method-to-my-customers-"" target=""_blank"">hier</a>.</p>
+        step_15:
+            text: |-
+                <p>Denken Sie daran, Ihre Einstellungen zu speichern.</p>
+        step_16:
+            title: 'Und schon sind Sie fertig!'
+            text: |-
+                <p>Jetzt können Sie testweise eine Kundenbestellung über Ihren Onlineshop ausführen.</p>
+            btnNext: 'Jetzt Mollie verwenden'
+        step_nav:
+            1: 'Einführung'
+            2: 'API-Einstellungen'
+            3: 'Einstellungen zum Onlineshop'
+            4: 'Einstellungen zum Zahlungsvorgang'
+        step_open: 'Offen'
+        step_quit:
+            cancel: 'Onboarding fortführen'
+            confirm: 'Onboarding-Assistenten verlassen'
+            title: 'Sind Sie sicher, dass Sie das Onboarding verlassen möchten?'
+    subscription:
+        cancel: 'Abonnement erfolgreich gekündigt.'
+    ui:
+        abandoned_description: 'Die Second Chance E-Mail Funktionalität ermöglicht es Kunden, eine unbezahlte Bestellung  über einen payment link direkt zu bezahlen.'
+        abandoned_email_enabled: 'Second Chance-Funktionalität'
+        abandoned_hours: 'Nach dieser Zeitspanne in Stunden wird die E-Mail an den Kunden versandt'
+        all_countries: 'Allen Ländern'
+        api_key_choice_live: 'Live'
+        api_key_choice_test: 'Test'
+        api_key_live: 'Live-API-Schlüssel'
+        api_key_start_with_api_key_live: 'Der API-Schlüssel muss mit live_ beginnen'
+        api_key_start_with_api_key_test: 'Der API-Schlüssel muss mit test_ beginnen'
+        api_key_test: 'Test-API-Schlüssel'
+        available_methods: 'Verfügbare Methoden'
+        buy_with_apple_pay: "Kaufen mit'"
+        cancel_subscription: 'Abonnement kündigen'
+        card_holder: 'Karteninhaber'
+        card_number: 'Kartennummer'
+        click: 'Klicken'
+        consumer_name: 'Kundenname'
+        contact_mollie: 'Mollie kontaktieren'
+        country_level_allow: 'Zahlungen aus ausgewählten Ländern erlauben'
+        country_level_exclude: 'Zahlungen aus ausgewählten Ländern ausschließen'
+        country_level_restriction: 'Beschränkung auf Länderebene'
+        country_restriction: 'Zahlung erlaubt aus'
+        create_methods_before_loading: 'Füllen Sie die verpflichtenden Felder aus und klicken Sie auf die Schaltfläche „Erstellen“, um Zahlungsmethoden zu konfigurieren.'
+        credit_card_validations:
+            empty_card_holder: "Karteninhaber/in muss ausgefüllt werden"
+            empty_card_number: "Kartennummer muss ausgefüllt werden"
+            empty_expiry_date: "Gültig bis muss ausgefüllt werden"
+            empty_verification_code: "Prüfungsscode muss ausgefüllt werden"
+            one_or_more_invalid_fields: "Ein oder mehrere Felder sind ungültig"
+        customize_image: 'Bild anpassen auswählen'
+        data_time: 'Datum'
+        debug_level: 'Debug-Ebene'
+        debug_level_enabled: 'Debugging aktiviert'
+        debug_level_log: 'Protokoll-Ebene'
+        developed_by: 'Entwickelt von'
+        edit_template_mollie_email: 'E-Mail-Vorlage anpassen'
+        emails:
+            payment_link: 'Dies ist Ihr Zahlungslink mit Auftragsnummer'
+        enable: 'Aktivieren'
+        enable_components: 'Mollie Components für Kreditkarten verwenden'
+        enabled_buy_now_button: 'Schaltfläche „Jetzt kaufen“ aktivieren'
+        enjoy_latest_version: 'um die neuesten Funktionen nutzen zu können.'
+        environment: 'Umgebung'
+        error: 'Fehler'
+        error_code: 'Code'
+        errors: 'Fehler'
+        everything: 'Alles'
+        expiry_date: 'Ablaufdatum'
+        fail: 'Fehlgeschlagen'
+        failed_with_test_api_key: 'Zugriff über Test-API-Schlüssel fehlgeschlagen'
+        find_you_api_key: |-
+            Test-API-Schlüssel *
+            Sie finden Ihren Test-API-Schlüssel in Ihrem
+        fix_amount_surcharge: 'Fester Betrag'
+        generate: 'Erstellen'
+        here: 'hier'
+        iban: 'IBAN'
+        info: 'Info'
+        inser_you_key_first: "Geben Sie zunächst Ihren Schlüssel ein"
+        interval: 'Intervall'
+        it_starts_with: 'Er beginnt mit Test oder Live.'
+        latest_version_info: 'Sie verwenden aktuell Version {old_version} dieses Plugins. Die neueste Version ist {latest_version}. Wir empfehlen Ihnen'
+        level: 'Ebene'
+        load_methods_button: 'Methoden laden'
+        log_link: 'Link zu Protokollen'
+        logger_list: 'Liste der Mollie-Protokolle'
+        max_amount: 'Maximum amount'
+        message: 'Nachricht'
+        min_amount: 'Minimum amount'
+        min_max: 'Amount limits'
+        mollie_components: 'Mollie Components'
+        mollie_email_template: 'Neue E-Mail-Vorlage erstellen'
+        mollie_gateway_label: 'Mollie'
+        mollie_loggers: 'Logger'
+        mollie_order_gateway_label: 'Mollie-Auftrag'
+        mollie_product_type: 'Produktart'
+        mollie_profile: 'Mollie-Profil'
+        mollie_profile_id: 'Mollie-Profil'
+        mollie_single_click: 'Ein-Klick-Zahlungen'
+        mollie_subscription_gateway_label: 'Mollie-Abonnement'
+        more_info_about_mollie: 'Mehr Informationen über Mollie'
+        new_template_mollie_email: 'Neue E-Mail-Vorlage erstellen'
+        no_fee: 'Keine Gebühr'
+        no_methods_found_message: 'Keine Methoden gefunden. Geben Sie Ihre Profil-ID und den API-Schlüssel ein und klicken Sie auf den Button "Methoden laden".'
+        nothing_log: 'Deaktiviert'
+        order_expiration_days: 'Tage, bis Auftrag verfällt'
+        partially_ship: 'Teillieferung'
+        payment_fee: 'Zahlungsgebühr'
+        payment_fee_type: 'Typ'
+        payment_link: 'Zahlungslink'
+        payment_link_abandoned: 'Zahlungslink verlassen'
+        payment_link_generate: 'Zahlungslink erstellen'
+        payment_link_generate_subtitle: 'Zahlungslink erstellen und an Kunden senden'
+        payment_mathod_conf_title: 'Zahlungsmethoden einstellen'
+        payment_method_id: 'ID Zahlungsmethode'
+        payment_methods_doc: 'um mehr über den Unterschied zwischen Zahlungs- und Auftrags-API zu erfahren.'
+        payment_name: 'Zahlungsbezeichnung'
+        payment_type: 'Zahlungstyp'
+        percentage_and_fix_amount_surcharge: 'Fester Betrag und Prozentsatz'
+        percentage_surcharge: 'Prozentsatz'
+        product_types: 'Produktarten'
+        profilie_id: 'Profil-ID'
+        qr_code: 'Turn on QR mode option on checkout.'
+        read_more_enable_components: 'Erfahren Sie mehr über %link% und wie sie die Conversion verbessern'
+        read_more_single_click_enabled: 'Erfahren Sie mehr über %link% und wie sie die Conversion verbessern'
+        refunded_only_locally: 'Die Rückzahlung ist nur lokal erfolgt'
+        restart_tour: 'Tour neu starten'
+        save_card: 'Save credit card for the future purchases'
+        search: 'Suche'
+        selected_countries: 'Ausgewählten Ländern'
+        show_hide: 'Anzeigen\Verbergen'
+        single_click_enabled: 'Ein-Klick-Zahlungen für Kreditkarten verwenden'
+        split_shipment: 'Lieferung teilen'
+        splitting_shipment_for_order: 'Lieferung für Auftrag #%number% teilen'
+        style_css: 'Style CSS'
+        success: 'Erfolgreich'
+        surcharge_limit: 'Aufschlagslimit'
+        surcharge_title: 'Aufschlag'
+        sylius_bundle: 'Zum Sylius-Paket'
+        template_content: 'Inhalt'
+        template_contents: 'Inhalte'
+        template_mollie_emails: 'E-Mail-Vorlage'
+        template_name: 'Name'
+        template_subject: 'Betreff'
+        template_type: 'Typ'
+        test_api_keys: 'API-Schlüssel testen'
+        times: 'Zeiten'
+        update: 'das Update durchzuführen'
+        use_saved_card: 'Use saved credit card information'
+        veryfication_code: 'Verifizierungscode'
+        voucher_promotion: 'Gutschein'
+        warning: 'Warnung'
+        warning_voucher_info: 'Diese Bestellung wurde (teilweise) mit einem Gutschein bezahlt. Die maximale Rückerstattungssumme ist: '
+        you_can_fin_info_about: 'Erfahren Sie mehr über uns auf'
+        you_can_sort_methods_via_drag_and_drop: 'Sie können die Bezahlmethoden über Drag & Drop sortieren'

@@ -1,0 +1,17 @@
+sylius_mollie_plugin_mollie_logger:
+    resource: |
+        alias: sylius_mollie.template_mollie_email
+        section: admin
+        path: /mollie/email-template
+        templates: "@SyliusAdmin\\Crud"
+        redirect: update
+        permission: true
+        grid: sylius_mollie_plugin_template_mollie_email
+        vars:
+            all:
+                subheader: sylius_mollie.ui.manage_email_templates
+                templates:
+                    form: "@SyliusMolliePlugin/Admin/TemplateMollieEmail/Crud/_form.html.twig"
+            index:
+                icon: 'mail'
+    type: sylius.resource

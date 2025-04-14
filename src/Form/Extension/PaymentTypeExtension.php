@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Form\Extension;
+namespace Sylius\MolliePlugin\Form\Extension;
 
-use SyliusMolliePlugin\Form\Type\PaymentMollieType;
 use Sylius\Bundle\CoreBundle\Form\Type\Checkout\PaymentType;
+use Sylius\MolliePlugin\Form\Type\PaymentMollieType;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Valid;

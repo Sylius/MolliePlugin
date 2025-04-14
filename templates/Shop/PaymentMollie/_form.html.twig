@@ -1,0 +1,37 @@
+<div class="ui stackable grid online-online-payment__container"
+     data-locale="{{ app.request.locale }}"
+     data-profile_id="{{ gatewayConfig.config['profile_id'] }}"
+     data-environment="{{ gatewayConfig.config['environment'] }}"
+     data-components="{{ gatewayConfig.config['components'] | default(false) }}"
+     data-removeQrCode="{{ path('sylius_mollie_plugin_remove_qr_code') }}"
+     data-fetchTranslations="{{ path('sylius_mollie_plugin_credit_card_translation') }}"
+>
+    {% for keyChoice, choice in methodMollie.vars.choices %}
+        <div class="online-payment__item online-payment__item--{{ choice.value }}" id="{{ choice.value }}"
+             data-feeurl="{{ path('sylius_mollie_plugin_payment_fee_calculate', {methodId: choice.value }) }}"
+        >
+            <input
+                    type="radio"
+                    value="{{ choice.value }}"
+                    id="choice-{{ keyChoice }}"
+                    name="{{ methodMollie.vars.full_name }}"
+                    class="online-payment__input"
+                    data-qrcode="{{ path('sylius_mollie_plugin_qr_code') }}"
+                    {{ sylius_test_html_attribute('payment-method-payment-item') }}
+            >
+            <label for="choice-{{ keyChoice }}" class="online-payment__label">
+                {% set image = choice.attr['image'] %}
+                {% if 'http:' not in image and 'https:' not in image %}
+                    {% set image = image|imagine_filter('sylius_original') %}
+                {% endif %}
+
+                <img class="online-payment__image" src="{{ image }}" alt="payment_image">
+                {{ choice.label }}
+            </label>
+
+            {% if choice.value == 'creditcard' and true == gatewayConfig.config['components'] | default(false) %}
+                {% include '@SyliusMolliePlugin/Shop/PaymentMollie/_creditCardForm.html.twig' %}
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>

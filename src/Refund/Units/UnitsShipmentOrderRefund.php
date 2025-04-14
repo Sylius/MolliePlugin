@@ -11,24 +11,20 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Refund\Units;
+namespace Sylius\MolliePlugin\Refund\Units;
 
-use SyliusMolliePlugin\Helper\ConvertOrderInterface;
 use Mollie\Api\Resources\Order;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Order\Model\Adjustment;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Converter\OrderConverterInterface;
 use Sylius\RefundPlugin\Model\RefundType;
 use Sylius\RefundPlugin\Model\ShipmentRefund;
 
 final class UnitsShipmentOrderRefund implements UnitsShipmentOrderRefundInterface
 {
-    /** @var RepositoryInterface */
-    private $refundUnitsRepository;
-
-    public function __construct(RepositoryInterface $refundUnitsRepository)
+    public function __construct(private readonly RepositoryInterface $refundUnitsRepository)
     {
-        $this->refundUnitsRepository = $refundUnitsRepository;
     }
 
     public function refund(Order $order, OrderInterface $syliusOrder): array
@@ -44,14 +40,14 @@ final class UnitsShipmentOrderRefund implements UnitsShipmentOrderRefundInterfac
                 throw new \InvalidArgumentException();
             }
 
-            if (ConvertOrderInterface::SHIPPING_TYPE === $line->type && 0 < $line->quantityRefunded) {
+            if (OrderConverterInterface::SHIPPING_TYPE === $line->type && 0 < $line->quantityRefunded) {
                 /** @var Adjustment $refundedShipment */
                 $refundedShipment = $syliusOrder->getAdjustments('shipping')->first();
 
                 return [
                     new ShipmentRefund(
                         $refundedShipment->getId(),
-                        $refundedShipment->getAmount()
+                        $refundedShipment->getAmount(),
                     ),
                 ];
             }

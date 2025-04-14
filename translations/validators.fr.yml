@@ -1,0 +1,28 @@
+sylius_mollie:
+    api_key:
+        invalid_live: "Clé API non valide. Une clé API doit commencer par «live_»."
+        invalid_test: "Clé API non valide. Une clé API doit commencer par «test_»."
+        min_length: "La clé API doit comporter au moins {{ limite }} caractères."
+        not_blank: "La clé API ne peut pas être vide."
+    channel:
+        required_currency: "La devise de référence du canal doit être {{ devises }}."
+    consumer_name:
+        not_blank: "Le nom du consommateur ne peut pas être vide."
+    form:
+        error:
+            greater_than: "La valeur doit être supérieure à zéro"
+            key_not_empty: "Selon l'environnement, la clé Mollie ne peut pas être vide"
+            max_greater_than_mollie_max: 'Maximum amount limit must be less than or equal to existing Mollie maximum amount limit %amount%'
+            min_greater_than_max: 'Maximum amount limit must be greater than or equal to minimum amount limit.'
+            min_less_than_mollie_min: 'Minimum amount limit must be greater than or equal to existing Mollie minimum amount limit %amount%'
+            payment_surcharge_not_empty: "La valeur ne peut pas être vide"
+    iban:
+        incorrect: "Numéro d'IBAN incorrect"
+        not_blank: "L'IBAN ne peut pas être vide."
+    interval:
+        invalid: "Format d'intervalle non valide. Valeurs possibles: ... mois ... semaines ... jours"
+        not_blank: "L'intervalle ne peut pas être vide."
+    payment_method:
+        not_blank: "La valeur ne peut pas être vide"
+    times:
+        min_range: "Les délais ne peuvent pas être inférieurs à {{ limite }}."

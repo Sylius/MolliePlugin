@@ -1,0 +1,43 @@
+sylius_grid:
+    grids:
+        sylius_mollie_plugin_mollie_logger:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: Sylius\MolliePlugin\Entity\MollieLogger
+            sorting:
+                dateTime: desc
+            fields:
+                level:
+                    type: twig
+                    label: sylius_mollie.ui.level
+                    sortable: ~
+                    options:
+                        template: "@SyliusMolliePlugin/Admin/Logger/_level.html.twig"
+                errorCode:
+                    type: string
+                    label: sylius_mollie.ui.error_code
+                    sortable: ~
+                message:
+                    type: string
+                    label: sylius_mollie.ui.message
+                    sortable: ~
+                dateTime:
+                    type: datetime
+                    label: sylius_mollie.ui.data_time
+                    sortable: ~
+                    options:
+                        format: 'Y-m-d H:i:s'
+            filters:
+                date:
+                    type: date
+                    label: sylius_mollie.ui.search
+                    options:
+                        field: dateTime
+                        label: test
+                level:
+                    type: log_level
+                    label: sylius_mollie.ui.level
+    templates:
+        filter:
+            log_level: "@SyliusMolliePlugin/Admin/Logger/Grid/_theme.html.twig"

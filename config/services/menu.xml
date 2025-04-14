@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <services>
+        <service id="sylius_mollie.menu_listener.mollie" class="Sylius\MolliePlugin\Menu\MollieMenuListener">
+            <tag name="kernel.event_listener" method="buildMenu" event="sylius.menu.admin.main" />
+        </service>
+
+        <service id="sylius_mollie.menu_listener.admin_order_show" class="Sylius\MolliePlugin\Menu\AdminOrderShowMenuListener">
+            <tag name="kernel.event_listener" event="sylius.menu.admin.order.show" method="addPaymentLinkButton" />
+            <tag name="kernel.event_listener" event="sylius.menu.admin.order.show" method="removeRefundsButton" priority="-100" />
+        </service>
+
+        <service id="sylius_mollie.menu_listener.mollie_email_template" class="Sylius\MolliePlugin\Menu\MollieEmailTemplateMenuListener">
+            <tag name="kernel.event_listener" event="sylius.menu.admin.main" method="buildMenu" />
+        </service>
+
+        <service id="sylius_mollie.menu_listener.mollie_recurring" class="Sylius\MolliePlugin\Menu\MollieRecurringMenuListener">
+            <tag name="kernel.event_listener" method="buildMenu" event="sylius.menu.admin.main" />
+        </service>
+    </services>
+</container>

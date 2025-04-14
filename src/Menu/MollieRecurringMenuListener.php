@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Menu;
+namespace Sylius\MolliePlugin\Menu;
 
 use Sylius\Bundle\UiBundle\Menu\Event\MenuBuilderEvent;
 
@@ -30,9 +30,9 @@ final class MollieRecurringMenuListener
 
         $menuItem
             ->addChild('mollie_subscriptions', [
-                'route' => 'sylius_mollie_plugin_admin_mollie_subscription_index',
+                'route' => 'sylius_mollie_admin_mollie_subscription_index',
             ])
-            ->setLabel('sylius_mollie_plugin.ui.mollie_subscriptions')
+            ->setLabel('sylius_mollie.ui.mollie_subscriptions')
             ->setLabelAttribute('icon', 'cart')
         ;
     }

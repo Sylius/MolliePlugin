@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <services>
+        <service id="sylius_mollie.form.type.mollie_gateway_configuration" class="Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType">
+            <argument type="service" id="sylius_mollie.client.mollie_api"/>
+            <tag name="sylius.gateway_configuration_type" type="mollie" label="sylius_mollie.ui.mollie_gateway_label"/>
+            <tag name="form.type"/>
+        </service>
+
+        <service id="sylius_mollie.form.type.mollie_subscription_gateway_configuration" class="Sylius\MolliePlugin\Form\Type\MollieSubscriptionGatewayConfigurationType">
+            <tag name="sylius.gateway_configuration_type" type="mollie_subscription" label="sylius_mollie.ui.mollie_subscription_gateway_label"/>
+            <tag name="form.type"/>
+        </service>
+
+        <service id="sylius_mollie.form.type.direct_debit" class="Sylius\MolliePlugin\Form\Type\DirectDebitType">
+            <argument type="service" id="request_stack"/>
+            <tag name="form.type"/>
+        </service>
+
+        <service id="sylius_mollie.form.type.mollie_payment" class="Sylius\MolliePlugin\Form\Type\PaymentMollieType">
+            <argument type="service" id="sylius_mollie.resolver.payment_methods"/>
+            <tag name="form.type"/>
+        </service>
+
+        <service id="sylius_mollie.form.type.mollie_interval" class="Sylius\MolliePlugin\Form\Type\MollieIntervalType">
+            <argument type="service" id="sylius_mollie.form.type.data_transformer.mollie_interval"/>
+            <tag name="form.type"/>
+        </service>
+
+        <service id="sylius_mollie.form.type.mollie_gateway_config" class="Sylius\MolliePlugin\Form\Type\MollieGatewayConfigType">
+            <argument>%sylius_mollie.model.mollie_gateway_config.class%</argument>
+            <argument>%sylius_mollie.form.type.mollie_gateway_config.validation_groups%</argument>
+            <argument>%sylius_locale.locale%</argument>
+            <tag name="form.type"/>
+        </service>
+
+        <service id="sylius_mollie.form.type.payment_surcharge_fee" class="Sylius\MolliePlugin\Form\Type\PaymentSurchargeFeeType">
+            <argument>%sylius_mollie.model.payment_surcharge_fee.class%</argument>
+            <argument>%sylius_mollie.form.type.payment_methods.payment_surcharge_fee.validation_groups%</argument>
+            <tag name="form.type"/>
+        </service>
+
+        <service id="sylius_mollie.form.type.customize_method_image" class="Sylius\MolliePlugin\Form\Type\CustomizeMethodImageType">
+            <argument>%sylius_mollie.model.mollie_method_image.class%</argument>
+            <tag name="form.type"/>
+        </service>
+
+        <service id="sylius_mollie.form.type.partial_ship.partial_ship" class="Sylius\MolliePlugin\Form\Type\PartialShip\PartialShipType">
+            <argument>%sylius.model.shipment.class%</argument>
+            <argument>%sylius_mollie.form.type.partial_shipment.validation_groups%</argument>
+            <tag name="form.type" />
+        </service>
+
+        <service id="sylius_mollie.form.type.partial_ship.shipping_units_choice" class="Sylius\MolliePlugin\Form\Type\PartialShip\ShippingUnitsChoiceType">
+            <tag name="form.type" />
+        </service>
+
+        <service id="sylius_mollie.form.type.product_type" class="Sylius\MolliePlugin\Form\Type\ProductTypeType">
+            <argument>%sylius_mollie.model.product_type.class%</argument>
+            <argument>%sylius_mollie.form.type.mollie.validation_groups%</argument>
+            <tag name="form.type" />
+        </service>
+
+        <service id="sylius_mollie.form.type.translation.block_translation" class="Sylius\MolliePlugin\Form\Type\Translation\TemplateMollieEmailTranslationType">
+            <argument>%sylius_mollie.model.template_mollie_email_translation.class%</argument>
+            <tag name="form.type" />
+        </service>
+
+        <service id="sylius_mollie.form.type.translation.payment_method_translation" class="Sylius\MolliePlugin\Form\Type\Translation\MollieGatewayConfigTranslationType">
+            <argument>%sylius_mollie.model.mollie_gateway_config_translation.class%</argument>
+            <tag name="form.type" />
+        </service>
+
+        <service id="sylius_mollie.form.type.countries_restriction_choice" class="Sylius\MolliePlugin\Form\Type\CountriesRestrictionChoiceType">
+            <tag name="form.type" />
+        </service>
+
+        <service id="sylius_mollie.form.type.payment_type_choice" class="Sylius\MolliePlugin\Form\Type\PaymentTypeChoiceType">
+            <tag name="form.type" />
+        </service>
+
+        <service id="sylius_mollie.form.type.payment_surcharge_type_choice" class="Sylius\MolliePlugin\Form\Type\PaymentSurchargeFeeTypeChoiceType">
+            <tag name="form.type" />
+        </service>
+
+        <service id="sylius_mollie.form.type.logger_level_choice" class="Sylius\MolliePlugin\Form\Type\LoggerLevelChoiceType">
+            <tag name="form.type" />
+        </service>
+    </services>
+</container>

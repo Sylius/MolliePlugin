@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Form\Extension;
+namespace Sylius\MolliePlugin\Form\Extension;
 
-use SyliusMolliePlugin\Form\Type\MollieIntervalType;
-use SyliusMolliePlugin\Provider\Form\ResolverGroupProviderInterface;
 use Sylius\Bundle\ProductBundle\Form\Type\ProductVariantType as ProductVariantFormType;
+use Sylius\MolliePlugin\Form\Resolver\ValidationGroupsResolverInterface;
+use Sylius\MolliePlugin\Form\Type\MollieIntervalType;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -30,42 +30,42 @@ use Symfony\Component\Validator\Constraints\Valid;
 
 final class ProductVariantRecurringExtension extends AbstractTypeExtension
 {
-    private ResolverGroupProviderInterface $groupProvider;
-
-    public function __construct(ResolverGroupProviderInterface $groupProvider)
+    public function __construct(private readonly ValidationGroupsResolverInterface $validationGroupsResolver)
     {
-        $this->groupProvider = $groupProvider;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('recurring', CheckboxType::class, [
-                'label' => 'sylius_mollie_plugin.form.product_variant.recurring',
-                'help' => 'sylius_mollie_plugin.form.product_variant.recurring_help',
+                'label' => 'sylius_mollie.form.product_variant.recurring',
+                'help' => 'sylius_mollie.form.product_variant.recurring_help',
                 'required' => false,
                 'constraints' => [
                     new NotNull(),
                 ],
             ])
             ->add('times', NumberType::class, [
-                'label' => 'sylius_mollie_plugin.form.product_variant.times',
-                'help' => 'sylius_mollie_plugin.form.product_variant.times_help',
-                'required' => false,
+                'label' => 'sylius_mollie.form.product_variant.times',
+                'help' => 'sylius_mollie.form.product_variant.times_help',
+                'required' => true,
                 'constraints' => [
                     new Range([
                         'min' => 2,
-                        'minMessage' => 'sylius_mollie_plugin.times.min_range',
+                        'minMessage' => 'sylius_mollie.times.min_range',
+                        'groups' => ['recurring_product_variant'],
+                    ]),
+                    new NotBlank([
                         'groups' => ['recurring_product_variant'],
                     ]),
                     new IsNull([
-                        'groups' => 'non_recurring_product_variant',
+                        'groups' => ['non_recurring_product_variant'],
                     ]),
                 ],
             ])
             ->add('interval', MollieIntervalType::class, [
-                'label' => false,
-                'required' => false,
+                'label' => 'sylius_mollie.form.product_variant.interval_configuration.amount',
+                'required' => true,
                 'attr' => [
                     'class' => 'inline fields',
                 ],
@@ -74,7 +74,7 @@ final class ProductVariantRecurringExtension extends AbstractTypeExtension
                         'groups' => ['recurring_product_variant'],
                     ]),
                     new NotBlank([
-                        'message' => 'sylius_mollie_plugin.interval.not_blank',
+                        'message' => 'sylius_mollie.interval.not_blank',
                         'groups' => ['recurring_product_variant'],
                     ]),
                 ],
@@ -89,8 +89,9 @@ final class ProductVariantRecurringExtension extends AbstractTypeExtension
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefault('validation_groups', function (FormInterface $form): array {
-            return $this->groupProvider->provide($form);
-        });
+        $resolver->setDefault(
+            'validation_groups',
+            fn (FormInterface $form): array => $this->validationGroupsResolver->resolve($form),
+        );
     }
 }

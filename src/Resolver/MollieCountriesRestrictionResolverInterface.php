@@ -11,15 +11,30 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver;
+namespace Sylius\MolliePlugin\Resolver;
 
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 
 interface MollieCountriesRestrictionResolverInterface
 {
+    /**
+     * @param array{
+     *     data: array<string, string>,
+     *     image: array<string, string>,
+     *     issuers: array<string, mixed>|null,
+     *     paymentFee: array<string, mixed>
+     * } $methods
+     *
+     * @return array{
+     *     data: array<string, string>,
+     *     image: array<string, string>,
+     *     issuers: array<string, mixed>|null,
+     *     paymentFee: array<string, mixed>
+     * }|null
+     */
     public function resolve(
         MollieGatewayConfigInterface $paymentMethod,
         array $methods,
-        string $countryCode
+        string $countryCode,
     ): ?array;
 }

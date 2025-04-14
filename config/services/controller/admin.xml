@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <services>
+        <defaults public="true" />
+
+        <service id="sylius_mollie.controller.admin.refund" class="Sylius\MolliePlugin\Controller\Admin\RefundAction">
+            <argument type="service" id="sylius.repository.payment"/>
+            <argument type="service" id="payum"/>
+            <argument type="service" id="request_stack"/>
+            <argument type="service" id="sm.factory"/>
+            <argument type="service" id="sylius.manager.payment"/>
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
+        </service>
+
+        <service id="sylius_mollie.controller.admin.methods" class="Sylius\MolliePlugin\Controller\Admin\MethodsAction">
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
+            <argument type="service" id="request_stack"/>
+            <argument type="service" id="sylius_mollie.resolver.mollie_methods"/>
+            <argument type="service" id="sylius_mollie.purifier.mollie_payment_method"/>
+            <argument type="service" id="sylius.repository.gateway_config"/>
+        </service>
+
+        <service id="sylius_mollie.controller.admin.delete_payment_method_image" class="Sylius\MolliePlugin\Controller\Admin\DeletePaymentMethodImageAction">
+            <argument type="service" id="sylius_mollie.uploader.payment_method_logo"/>
+            <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
+            <argument type="service" id="sylius.manager.gateway_config"/>
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
+        </service>
+
+        <service id="sylius_mollie.controller.admin.generate_payment_link" class="Sylius\MolliePlugin\Controller\Admin\GeneratePaymentLinkAction">
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="twig" />
+            <argument type="service" id="request_stack" />
+            <argument type="service" id="router" />
+            <argument type="service" id="form.factory"/>
+            <argument type="service" id="sylius_mollie.resolver.payment_link"/>
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
+        </service>
+
+        <service
+            id="sylius_mollie.controller.admin.mollie_subscription"
+            alias="sylius_mollie.controller.mollie_subscription"
+        />
+
+        <service id="sylius_mollie.controller.admin.test_api_keys" class="Sylius\MolliePlugin\Controller\Admin\TestApiKeysAction">
+            <argument type="service" id="sylius_mollie.resolver.api_keys_test"/>
+            <argument type="service" id="twig"/>
+        </service>
+
+        <service id="sylius_mollie.controller.admin.change_position_payment_method" class="Sylius\MolliePlugin\Controller\Admin\ChangePositionPaymentMethodAction">
+            <argument type="service" id="sylius_mollie.updater.mollie_payment_method_position"/>
+        </service>
+
+        <service id="sylius_mollie.controller.admin.onboarding_wizard.status" class="Sylius\MolliePlugin\Controller\Admin\OnboardingWizard\StatusAction">
+            <argument type="service" id="sylius_mollie.context.admin_user"/>
+        </service>
+
+        <service id="sylius_mollie.controller.admin.onboarding_wizard.completed" class="Sylius\MolliePlugin\Controller\Admin\OnboardingWizard\CompletedAction">
+            <argument type="service" id="sylius_mollie.context.admin_user" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+    </services>
+</container>

@@ -1,0 +1,9 @@
+{% extends '@SyliusAdmin/layout.html.twig' %}
+
+{% block title %}{{ 'sylius_mollie.ui.subscription.block_name'|trans ~' #'~ mollie_subscription.id }} {{ parent() }}{% endblock %}
+
+{% set customer = mollie_subscription.customer %}
+
+{% block content %}
+    {{ sylius_template_event('sylius_mollie_plugin_mollie.admin.mollie_subscription.show.content', _context) }}
+{% endblock %}

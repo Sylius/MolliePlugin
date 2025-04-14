@@ -1,0 +1,26 @@
+sylius_mollie:
+    admin:
+        payment_link:
+            successfully_generated: 'Betaallink succesvol aangemaakt'
+        shipment:
+            successfully_split_and_sent: 'Verzending is succesvol gesplitst en verzonden'
+        success_got_methods: 'Methodes zijn succesvol bijgewerkt'
+    billie.error:
+        company_missing: 'De bedrijfsnaam is vereist bij het gebruik van Billie. Geef de bedrijfsnaam op of kies voor een andere betaalmethode.'
+    billing_address.error:
+        error: 'Voornaam, achternaam en e-mailadres zijn vereist bij gebruik van de Trustly-betaalmethode. Voeg ontbrekende gegevens toe of kies een andere betaalmethode.'
+    credit_cart_error:
+        authentication_failed: 'Authenticatie mislukt'
+        card_expired: 'Pas verlopen'
+        empty_payment_method_checkout: 'Kies een van de Mollie-betalingsmethoden'
+        inactive_card: 'Kaart niet actief'
+        insufficient_funds: 'Onvoldoende saldo'
+        invalid_card_holder_name: 'Naam kaarthouder ongeldig'
+        invalid_card_number: 'Ongeldig kaartnummer'
+        invalid_card_type: 'Ongeldige kaarttype'
+        invalid_cvv: 'Ongeldige cvv'
+        possible_fraud: 'Mogelijke fraude'
+        refused_by_issuer: 'Geweigerd door issuer'
+    refunded_only_locally: 'De terugbetaling is alleen lokaal gedaan'
+    subscription:
+        cancelled: 'Abonnement is opgezegd.'

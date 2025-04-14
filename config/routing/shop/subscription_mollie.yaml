@@ -1,0 +1,15 @@
+sylius_mollie_plugin_cancel_subscription_mollie:
+    path: /account/order/{orderId}/subscription-mollie/cancel
+    methods: [PUT]
+    defaults:
+        _controller: sylius_mollie.controller.admin.mollie_subscription::applyStateMachineTransitionAction
+        _sylius:
+            repository:
+                method: findOneByOrderIdAsString
+                arguments:
+                  - $orderId
+            state_machine:
+                graph: mollie_subscription_payment_graph_manual
+                transition: cancel
+            redirect: referer
+            flash: sylius_mollie.subscription.cancelled

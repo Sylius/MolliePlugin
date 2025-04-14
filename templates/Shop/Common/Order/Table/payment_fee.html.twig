@@ -1,0 +1,31 @@
+{% import "@SyliusShop/Common/Macro/money.html.twig" as money %}
+
+{% set orderPromotionAdjustmentPercentage = constant('Sylius\\MolliePlugin\\Model\\AdjustmentInterface::PERCENTAGE_ADJUSTMENT') %}
+{% set orderPromotionAdjustmentFixAmount =  constant('Sylius\\MolliePlugin\\Model\\AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT') %}
+{% set orderPromotionAdjustmentFixAmountAndPercentage = constant('Sylius\\MolliePlugin\\Model\\AdjustmentInterface::PERCENTAGE_AND_AMOUNT_ADJUSTMENT') %}
+
+{% set orderSurchargePercentage = sylius_aggregate_adjustments(order.adjustmentsRecursively(orderPromotionAdjustmentPercentage)) %}
+{% set orderSurchargeFixAmount = sylius_aggregate_adjustments(order.adjustmentsRecursively(orderPromotionAdjustmentFixAmount)) %}
+{% set orderSurchargePercentageAndFixAmount = sylius_aggregate_adjustments(order.adjustmentsRecursively(orderPromotionAdjustmentFixAmountAndPercentage)) %}
+
+{% if orderSurchargePercentage %}
+    <tr>
+        <td colspan="4" id="surcharge-total" class="right aligned">
+            {{ 'sylius_mollie.ui.payment_fee'|trans }}: {% for key, value in orderSurchargePercentage %}{{ key }} {{ money.convertAndFormat(value) }}{% endfor %}
+        </td>
+    </tr>
+{% endif %}
+{% if orderSurchargeFixAmount %}
+    <tr>
+        <td colspan="4" id="surcharge-total" class="right aligned">
+            {{ 'sylius_mollie.ui.payment_fee'|trans }}: {% for key, value in orderSurchargeFixAmount %}{{ key }} {{ money.convertAndFormat(value) }}{% endfor %}
+        </td>
+    </tr>
+{% endif %}
+{% if orderSurchargePercentageAndFixAmount %}
+    <tr>
+        <td colspan="4" id="surcharge-total" class="right aligned">
+            {{ 'sylius_mollie.ui.payment_fee'|trans }}: {% for key, value in orderSurchargePercentageAndFixAmount %}{{ key }} {{ money.convertAndFormat(value) }}{% endfor %}
+        </td>
+    </tr>
+{% endif %}

@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Behat\Client;
+namespace Tests\Sylius\MolliePlugin\Behat\Client;
 
-use SyliusMolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Client\MollieApiClient;
 
 class TestMollieApiClient extends MollieApiClient
 {

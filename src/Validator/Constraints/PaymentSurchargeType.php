@@ -11,14 +11,13 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Validator\Constraints;
+namespace Sylius\MolliePlugin\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
 final class PaymentSurchargeType extends Constraint
 {
-    /** @var string */
-    public $message = 'sylius_mollie_plugin.form.error.payment_surcharge_not_empty';
+    public string $message = 'sylius_mollie.form.error.payment_surcharge_not_empty';
 
     public function validatedBy(): string
     {

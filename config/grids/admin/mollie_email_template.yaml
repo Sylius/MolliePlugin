@@ -1,0 +1,30 @@
+sylius_grid:
+    grids:
+        sylius_mollie_plugin_template_mollie_email:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: Sylius\MolliePlugin\Entity\TemplateMollieEmail
+            fields:
+                name:
+                    type: string
+                    label: sylius_mollie.ui.template_name
+                subject:
+                    type: string
+                    label: sylius_mollie.ui.template_subject
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete
+            filters:
+                name:
+                    type: string
+                    label: sylius_mollie.ui.search
+                subject:
+                    type: string
+                    label: sylius_mollie.ui.level

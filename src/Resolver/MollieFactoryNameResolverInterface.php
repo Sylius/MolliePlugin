@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver;
+namespace Sylius\MolliePlugin\Resolver;
 
-use SyliusMolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
 
 interface MollieFactoryNameResolverInterface
 {
-    public function resolve(OrderInterface $order = null): string;
+    public function resolve(?OrderInterface $order = null): string;
 }

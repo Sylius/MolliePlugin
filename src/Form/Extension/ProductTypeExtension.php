@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Form\Extension;
+namespace Sylius\MolliePlugin\Form\Extension;
 
-use SyliusMolliePlugin\Entity\ProductType;
 use Sylius\Bundle\ProductBundle\Form\Type\ProductType as ProductFormType;
+use Sylius\MolliePlugin\Entity\ProductType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,8 +26,8 @@ final class ProductTypeExtension extends AbstractTypeExtension
         $builder
             ->add('productType', EntityType::class, [
                 'class' => ProductType::class,
-                'label' => 'sylius_mollie_plugin.form.product_type',
-                'placeholder' => 'sylius_mollie_plugin.form.product_type_none',
+                'label' => 'sylius_mollie.form.product_type',
+                'placeholder' => 'sylius_mollie.form.product_type_none',
                 'empty_data' => null,
             ]);
     }

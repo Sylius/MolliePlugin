@@ -1,4 +1,0 @@
-sylius_mollie_plugin_payment_webhook:
-    path: /update-payment
-    defaults:
-        _controller: sylius_mollie_plugin.controller.action.shop.payment_webhook_controller

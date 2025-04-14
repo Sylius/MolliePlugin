@@ -1,41 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
-<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <imports>
+        <import resource="services/contexts.yml" />
+        <import resource="services/pages.yml" />
+    </imports>
+
     <services>
         <defaults public="true" />
-        <service id="sylius_mollie_plugin.mollie_api_client" class="Tests\SyliusMolliePlugin\Behat\Client\TestMollieApiClient">
-        </service>
 
-        <service id="Tests\Sylius\AdminOrderCreationPlugin\Behat\Page\Admin\NewOrderCustomerPage" parent="sylius.behat.symfony_page" public="true">
-            <argument type="service" id="Tests\Sylius\AdminOrderCreationPlugin\Behat\Service\AutoCompleteSelector"/>
-        </service>
-        <service id="Tests\Sylius\AdminOrderCreationPlugin\Behat\Page\Admin\OrderIndexPage" parent="sylius.behat.page.admin.order.index" public="true"/>
-        <service id="Tests\Sylius\AdminOrderCreationPlugin\Behat\Page\Admin\OrderShowPage" parent="sylius.behat.page.admin.order.show" public="true"/>
-        <service id="Tests\Sylius\AdminOrderCreationPlugin\Behat\Page\Admin\ReorderPage" parent="sylius.behat.symfony_page" public="true"/>
-        <service id="Tests\Sylius\AdminOrderCreationPlugin\Behat\Page\Admin\OrderPreviewPage" parent="sylius.behat.symfony_page" public="true"/>
-
-        <service id="Tests\Sylius\AdminOrderCreationPlugin\Behat\Context\Admin\ManagingOrdersContext">
-            <argument type="service" id="Tests\Sylius\AdminOrderCreationPlugin\Behat\Page\Admin\OrderIndexPage"/>
-            <argument type="service" id="Tests\Sylius\AdminOrderCreationPlugin\Behat\Page\Admin\NewOrderCustomerPage" />
-            <argument type="service" id="Tests\Sylius\AdminOrderCreationPlugin\Behat\Page\Admin\OrderPreviewPage" />
-            <argument type="service" id="Tests\Sylius\AdminOrderCreationPlugin\Behat\Page\Admin\OrderShowPage" />
-            <argument type="service" id="Tests\Sylius\AdminOrderCreationPlugin\Behat\Page\Admin\ReorderPage" />
-            <argument type="service" id="Tests\Sylius\AdminOrderCreationPlugin\Behat\Element\Admin\OrderCreateFormElement" />
-            <argument type="service" id="sylius.behat.notification_checker" />
-            <argument type="service" id="sylius.behat.email_checker" />
-            <argument type="service" id="sylius.address_comparator" />
-        </service>
-
-        <service id="Tests\Sylius\AdminOrderCreationPlugin\Behat\Service\AutoCompleteSelector" />
-
-        <service id="Tests\Sylius\AdminOrderCreationPlugin\Behat\Element\Element" abstract="true">
-            <argument type="service" id="behat.mink.default_session" />
-            <argument type="service" id="behat.mink.parameters" />
-        </service>
-
-        <service id="Tests\Sylius\AdminOrderCreationPlugin\Behat\Element\Admin\OrderCreateFormElement" parent="Tests\Sylius\AdminOrderCreationPlugin\Behat\Element\Element" public="true">
-            <argument type="service" id="Tests\Sylius\AdminOrderCreationPlugin\Behat\Service\AutoCompleteSelector" />
-        </service>
+        <service id="sylius_mollie.client.mollie_api" class="Tests\Sylius\MolliePlugin\Behat\Client\TestMollieApiClient" />
     </services>
 </container>

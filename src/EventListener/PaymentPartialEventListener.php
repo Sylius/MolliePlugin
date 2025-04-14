@@ -11,28 +11,20 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\EventListener;
+namespace Sylius\MolliePlugin\EventListener;
 
-use SyliusMolliePlugin\Exceptions\InvalidRefundAmountException;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Order\OrderPaymentRefundInterface;
+use Sylius\MolliePlugin\Exceptions\InvalidRefundAmountException;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Refund\Handler\OrderPaymentRefundInterface;
 use Sylius\RefundPlugin\Event\UnitsRefunded;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 
 final class PaymentPartialEventListener
 {
-    /** @var OrderPaymentRefundInterface */
-    private $orderPaymentRefund;
-
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
     public function __construct(
-        OrderPaymentRefundInterface $orderPaymentRefund,
-        MollieLoggerActionInterface $loggerAction
+        private readonly OrderPaymentRefundInterface $orderPaymentRefund,
+        private readonly MollieLoggerActionInterface $loggerAction,
     ) {
-        $this->orderPaymentRefund = $orderPaymentRefund;
-        $this->loggerAction = $loggerAction;
     }
 
     public function __invoke(UnitsRefunded $unitRefunded): void

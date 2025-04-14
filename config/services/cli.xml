@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <services>
+        <service id="sylius_mollie.console.command.send_abandoned_payment_link" class="Sylius\MolliePlugin\Console\Command\SendAbandonedPaymentLink">
+            <argument type="service" id="sylius_mollie.creator.abandoned_payment_link"/>
+            <tag name="console.command"/>
+        </service>
+
+        <service id="sylius_mollie.console.command.subscription.begin_processing" class="Sylius\MolliePlugin\Console\Command\BeginProcessingSubscriptions">
+            <argument type="service" id="sylius_mollie.repository.mollie_subscription"/>
+            <argument type="service" id="sm.factory"/>
+            <tag name="console.command"/>
+        </service>
+
+        <service id="sylius_mollie.console.command.subscription.process" class="Sylius\MolliePlugin\Console\Command\ProcessSubscriptions">
+            <argument type="service" id="sylius_mollie.repository.mollie_subscription"/>
+            <argument type="service" id="sm.factory"/>
+            <argument type="service" id="sylius_mollie.subscription.processor.subscription"/>
+            <argument type="service" id="router"/>
+            <tag name="console.command"/>
+        </service>
+    </services>
+</container>

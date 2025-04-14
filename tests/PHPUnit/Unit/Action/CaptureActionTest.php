@@ -11,19 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Action;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Action;
 
-use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Action\CaptureAction;
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Payments\PaymentTerms\Options;
-use SyliusMolliePlugin\Request\Api\CreateCustomer;
-use SyliusMolliePlugin\Request\Api\CreateInternalRecurring;
-use SyliusMolliePlugin\Request\Api\CreateOrder;
-use SyliusMolliePlugin\Request\Api\CreatePayment;
-use SyliusMolliePlugin\Request\Api\CreateSubscriptionPayment;
 use Mollie\Api\Endpoints\PaymentEndpoint;
+use Mollie\Api\Resources\Payment;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
@@ -36,12 +27,21 @@ use Payum\Core\Security\GenericTokenFactory;
 use Payum\Core\Security\GenericTokenFactoryAwareInterface;
 use Payum\Core\Security\TokenInterface;
 use Payum\Core\Storage\IdentityInterface;
+use PHPUnit\Framework\TestCase;
 use Psr\Log\InvalidArgumentException;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
-use SyliusMolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
-use Mollie\Api\Resources\Payment;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Model\ApiType;
+use Sylius\MolliePlugin\Payum\Action\CaptureAction;
+use Sylius\MolliePlugin\Payum\Request\CreateCustomer;
+use Sylius\MolliePlugin\Payum\Request\CreateOrder;
+use Sylius\MolliePlugin\Payum\Request\CreatePayment;
+use Sylius\MolliePlugin\Payum\Request\Subscription\CreateInternalRecurring;
+use Sylius\MolliePlugin\Payum\Request\Subscription\CreateSubscriptionPayment;
+use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
 
 final class CaptureActionTest extends TestCase
 {
@@ -70,7 +70,7 @@ final class CaptureActionTest extends TestCase
         $this->captureAction = new CaptureAction(
             $this->orderRepository,
             $this->apiClientKeyResolver,
-            $this->paymentRepository
+            $this->paymentRepository,
         );
 
         $this->gateway = $this->createMock(GatewayInterface::class);
@@ -178,12 +178,12 @@ final class CaptureActionTest extends TestCase
         $details = new ArrayObject([
             'sequenceType' => 'first',
             'metadata' => ['refund_token' => [
-                'refund_token_hash'
+                'refund_token_hash',
             ],
                 'cancel_token' => [
-                    'cancel_hash'
+                    'cancel_hash',
                 ],
-                'methodType' => Options::ORDER_API,
+                'methodType' => ApiType::ORDER_API,
                 'order_id' => 'test_order_id',
             ],
             'webhookUrl' => 'url',
@@ -256,7 +256,7 @@ final class CaptureActionTest extends TestCase
         $details = new ArrayObject([
             'metadata' => [
                 'refund_token' => ['refund_token_hash'],
-                'methodType' => Options::ORDER_API,
+                'methodType' => ApiType::ORDER_API,
                 'molliePaymentMethods' => null,
             ],
             'methodType',
@@ -306,7 +306,7 @@ final class CaptureActionTest extends TestCase
         $details = new ArrayObject([
             'metadata' => [
                 'refund_token' => ['refund_token_hash'],
-                'methodType' => Options::PAYMENT_API,
+                'methodType' => ApiType::PAYMENT_API,
                 'molliePaymentMethods' => 'not_klarna_scenario',
             ],
             'methodType',
@@ -356,7 +356,7 @@ final class CaptureActionTest extends TestCase
         $details = new ArrayObject([
             'metadata' => [
                 'refund_token' => ['refund_token_hash'],
-                'methodType' => Options::PAYMENT_API,
+                'methodType' => ApiType::PAYMENT_API,
                 'molliePaymentMethods' => 'klarnapaynow',
             ],
             'methodType',

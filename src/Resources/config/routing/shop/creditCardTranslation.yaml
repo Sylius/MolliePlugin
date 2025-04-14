@@ -1,4 +1,0 @@
-sylius_mollie_plugin_credit_card_translation:
-  path: /fetch-translations
-  defaults:
-    _controller: sylius_mollie_plugin.controller.action.shop.credit_card_translation_controller::fetchTranslations

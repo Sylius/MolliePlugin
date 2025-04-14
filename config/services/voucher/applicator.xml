@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <services>
+        <defaults public="true" />
+
+        <service
+            id="sylius_mollie.voucher.applicator.units_promotion_adjustments"
+            class="Sylius\MolliePlugin\Voucher\Applicator\UnitsVouchersApplicator"
+        >
+            <argument type="service" id="sylius.custom_factory.adjustment"/>
+            <argument type="service" id="sylius.integer_distributor"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Voucher\Applicator\UnitsVouchersApplicatorInterface" alias="sylius_mollie.voucher.applicator.units_promotion_adjustments"/>
+
+        <service
+            id="sylius_mollie.voucher.applicator.order_vouchers"
+            class="Sylius\MolliePlugin\Voucher\Applicator\OrderVouchersApplicator"
+        >
+            <argument type="service" id="sylius.proportional_integer_distributor"/>
+            <argument type="service" id="sylius_mollie.voucher.applicator.units_promotion_adjustments"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Voucher\Applicator\OrderVouchersApplicatorInterface" alias="sylius_mollie.voucher.applicator.order_vouchers" />
+    </services>
+</container>

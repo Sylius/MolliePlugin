@@ -11,17 +11,13 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Entity;
+namespace Sylius\MolliePlugin\Entity;
 
-use SyliusMolliePlugin\Payments\Methods\MethodInterface;
 use Sylius\Component\Resource\Model\TranslatableInterface;
+use Sylius\MolliePlugin\Model\PaymentMethod\MethodInterface;
 
 interface MollieGatewayConfigInterface extends MethodInterface, TranslatableInterface
 {
-    public const ALL_COUNTRIES = 'ALL_COUNTRIES';
-
-    public const SELECTED_COUNTRIES = 'SELECTED_COUNTRIES';
-
     public function getId(): int;
 
     public function getMethodId(): ?string;
@@ -40,13 +36,15 @@ interface MollieGatewayConfigInterface extends MethodInterface, TranslatableInte
 
     public function setCustomizeMethodImage(?MollieMethodImageInterface $customizeMethodImage): void;
 
+    /** @return array<array-key, mixed>|null */
     public function getCountryLevel(): ?array;
 
+    /** @param array<array-key, mixed> $countryLevel */
     public function setCountryLevel(?array $countryLevel): void;
 
-    public function getOrderExpiration(): ?int;
+    public function getOrderExpirationDays(): ?int;
 
-    public function setOrderExpiration(?int $orderExpiration): void;
+    public function setOrderExpirationDays(?int $orderExpirationDays): void;
 
     public function getPaymentDescription(): ?string;
 
@@ -60,12 +58,16 @@ interface MollieGatewayConfigInterface extends MethodInterface, TranslatableInte
 
     public function setLoggerLevel(?int $loggerLevel): void;
 
+    /** @return array<array-key, mixed>|null */
     public function getCountryLevelAllowed(): ?array;
 
+    /** @param array<array-key, mixed>|null $countryLevelAllowed */
     public function setCountryLevelAllowed(?array $countryLevelAllowed): void;
 
+    /** @return array<array-key, mixed>|null */
     public function getCountryLevelExcluded(): ?array;
 
+    /** @param array<array-key, mixed>|null $countryLevelExcluded */
     public function setCountryLevelExcluded(?array $countryLevelExcluded): void;
 
     public function getCountryRestriction(): ?string;
