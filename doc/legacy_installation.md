@@ -224,20 +224,7 @@ imports:
     - { resource: "@SyliusMolliePlugin/Resources/config/config.yaml" }
 ```
 
-#### 9. Add state machine configuration in `config/packages/_sylius.yaml`:
-
-```yaml
-# config/packages/_sylius.yaml
-
-winzou_state_machine:
-  sylius_order_checkout:
-    transitions:
-      complete:
-        from: [cart, addressed, shipping_selected, shipping_skipped, payment_selected, payment_skipped]
-        to: completed
-```
-
-#### 10. Add image directory parameter in `config/packages/_sylius.yaml`:
+#### 9. Add image directory parameter in `config/packages/_sylius.yaml`:
 
 ```yaml
 # config/packages/_sylius.yaml
@@ -246,7 +233,7 @@ winzou_state_machine:
        images_dir: "/media/image/"
 ```
 
-#### 11. Import the routing in your `config/routes.yaml` file:
+#### 10. Import the routing in your `config/routes.yaml` file:
 
 ```yaml
 # config/routes.yaml
@@ -255,13 +242,13 @@ sylius_mollie_plugin:
     resource: "@SyliusMolliePlugin/Resources/config/routing.yaml"
 ```
 
-#### 12. Update your database
+#### 11. Update your database
 
 ```
 bin/console doctrine:migrations:migrate
 ```
 
-#### 13. Copy Sylius templates overridden in plugin to your templates directory (e.g templates/bundles/):
+#### 12. Copy Sylius templates overridden in plugin to your templates directory (e.g templates/bundles/):
 **Note:** Some directories may already exist in your project
 
 ```
@@ -279,13 +266,13 @@ cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusUiBu
 cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusRefundPlugin/* templates/bundles/SyliusRefundPlugin/
 ```
 
-#### 14. Add the payment link cronjob:
+#### 13. Add the payment link cronjob:
 
 ```shell script
 * * * * * /usr/bin/php /path/to/bin/console mollie:send-payment-link
 ```
 
-#### 15. Install assets:
+#### 14. Install assets:
 
 ```bash
 bin/console assets:install
@@ -293,7 +280,7 @@ bin/console assets:install
 
 **Note:** If you are running it on production, add the `-e prod` flag to this command.
 
-#### 16. Download the [domain validation file](https://www.mollie.com/.well-known/apple-developer-merchantid-domain-association) and place it on your server at:
+#### 15. Download the [domain validation file](https://www.mollie.com/.well-known/apple-developer-merchantid-domain-association) and place it on your server at:
 `public/.well-known/apple-developer-merchantid-domain-association`
 
 ## Frontend Asset Management

@@ -17,13 +17,6 @@ sylius_shop:
     product_grid:
         include_all_descendants: true
 
-winzou_state_machine:
-    sylius_order_checkout:
-        transitions:
-            complete:
-                from: [cart, addressed, shipping_selected, shipping_skipped, payment_selected, payment_skipped]
-                to: completed
-
 sylius_refund:
     pdf_generator:
         enabled: false
