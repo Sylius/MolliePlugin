@@ -181,11 +181,6 @@ class ProductVariant extends BaseProductVariant implements ProductVariantInterfa
     {
         return new ProductVariantTranslation();
     }
-
-    public function getName(): ?string
-    {
-        return parent::getName() ?: $this->getProduct()->getName();
-    }
 }
 
 ```
