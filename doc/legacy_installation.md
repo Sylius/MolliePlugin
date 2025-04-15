@@ -230,7 +230,7 @@ imports:
 # config/routes.yaml
 
 sylius_mollie_plugin:
-    resource: "@SyliusMolliePlugin/config/routing.yaml"
+    resource: "@SyliusMolliePlugin/config/routes.yaml"
 ```
 
 #### 10. Update your database
