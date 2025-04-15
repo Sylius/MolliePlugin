@@ -123,8 +123,11 @@ final class PaymentMethodMollieChannelUniqueValidator extends ConstraintValidato
 
     private function isMolliePaymentMethod(PaymentMethodInterface $paymentMethod): bool
     {
-        /** @var GatewayConfigInterface $gateway */
+        /** @var GatewayConfigInterface|null $gateway */
         $gateway = $paymentMethod->getGatewayConfig();
+        if (null === $gateway) {
+            return false;
+        }
 
         return true === in_array(
             $gateway->getFactoryName(),
