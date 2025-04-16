@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\Factory;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\Factory;
 
 use Payum\Core\GatewayFactory;
 use PHPUnit\Framework\TestCase;
-use SyliusMolliePlugin\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
 
 final class MollieGatewayFactoryTest extends TestCase
 {
@@ -26,13 +26,13 @@ final class MollieGatewayFactoryTest extends TestCase
         $this->mollieGatewayFactory = new MollieGatewayFactory();
     }
 
-    function testInitializable(): void
+    public function testInitializable(): void
     {
         $this->assertInstanceOf(MollieGatewayFactory::class, $this->mollieGatewayFactory);
         $this->assertInstanceOf(GatewayFactory::class, $this->mollieGatewayFactory);
     }
 
-    function testPopulateConfigRun(): void
+    public function testPopulateConfigRun(): void
     {
         $result = $this->mollieGatewayFactory->createConfig([]);
 

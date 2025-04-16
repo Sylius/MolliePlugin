@@ -1,0 +1,4 @@
+sylius_mollie_plugin_onboarding_wizard_status:
+    path: /onboarding-wizard/status
+    controller: sylius_mollie.controller.admin.onboarding_wizard.status
+    methods: [GET]

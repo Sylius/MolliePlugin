@@ -11,29 +11,23 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Factory;
+namespace Sylius\MolliePlugin\Factory;
 
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Entity\ProductVariantInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Entity\ProductVariantInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Webmozart\Assert\Assert;
 
 final class MollieSubscriptionFactory implements MollieSubscriptionFactoryInterface
 {
-    private FactoryInterface $decoratedFactory;
-
-    private RouterInterface $router;
-
     public function __construct(
-        FactoryInterface $decoratedFactory,
-        RouterInterface $router
+        private readonly FactoryInterface $decoratedFactory,
+        private readonly RouterInterface $router,
     ) {
-        $this->decoratedFactory = $decoratedFactory;
-        $this->router = $router;
     }
 
     public function createNew(): MollieSubscriptionInterface
@@ -64,13 +58,13 @@ final class MollieSubscriptionFactory implements MollieSubscriptionFactoryInterf
         OrderInterface $order,
         OrderItemInterface $orderItem,
         array $paymentConfiguration = [],
-        string $mandateId = null
+        ?string $mandateId = null,
     ): MollieSubscriptionInterface {
         /** @var ProductVariantInterface|null $variant */
         $variant = $orderItem->getVariant();
         if (null === $variant) {
             throw new \InvalidArgumentException(
-                sprintf('Variant should be instance of "%s::class".', ProductVariantInterface::class)
+                sprintf('Variant should be instance of "%s::class".', ProductVariantInterface::class),
             );
         }
         $routerContext = $this->router->getContext();

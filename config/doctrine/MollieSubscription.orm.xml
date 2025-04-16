@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
+>
+    <mapped-superclass name="Sylius\MolliePlugin\Entity\MollieSubscription" table="mollie_subscription">
+        <id name="id" column="id" type="integer">
+            <generator strategy="AUTO"/>
+        </id>
+        <field name="state" column="state" nullable="false" type="string"/>
+        <field name="createdAt" column="created_at" nullable="false" type="datetime"/>
+        <field name="startedAt" column="started_at" nullable="true" type="datetime"/>
+        <field name="recentFailedPaymentsCount" column="recent_failed_payments_count" nullable="false" type="integer">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+        <field name="processingState" column="processing_state" nullable="false" type="string">
+            <options>
+                <option name="default">none</option>
+            </options>
+        </field>
+        <field name="paymentState" column="payment_state" nullable="false" type="string">
+            <options>
+                <option name="default">pending</option>
+            </options>
+        </field>
+
+        <one-to-one field="subscriptionConfiguration" inversed-by="subscription" target-entity="Sylius\MolliePlugin\Entity\MollieSubscriptionConfiguration">
+            <join-column  name="subscription_configuration_id" referenced-column-name="id"/>
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-one>
+        <many-to-many field="orders" target-entity="Sylius\Component\Order\Model\OrderInterface">
+            <join-table name="mollie_subscription_orders">
+                <join-columns>
+                    <join-column name="subscription_id" referenced-column-name="id"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="order_id" referenced-column-name="id"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+        <many-to-one field="customer" target-entity="Sylius\Component\Customer\Model\CustomerInterface">
+            <join-column referenced-column-name="id"/>
+        </many-to-one>
+        <many-to-one field="orderItem" target-entity="Sylius\Component\Order\Model\OrderItemInterface">
+            <join-column name="order_item_id" referenced-column-name="id"/>
+        </many-to-one>
+        <many-to-many field="payments" target-entity="Sylius\Component\Core\Model\PaymentInterface">
+            <join-table name="mollie_subscription_payments">
+                <join-columns>
+                    <join-column name="subscription_id" referenced-column-name="id"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="payment_id" referenced-column-name="id"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+        <one-to-many field="schedules" target-entity="Sylius\MolliePlugin\Entity\MollieSubscriptionScheduleInterface" mapped-by="mollieSubscription">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+            <order-by>
+                <order-by-field name="scheduleIndex" direction="ASC"/>
+            </order-by>
+        </one-to-many>
+    </mapped-superclass>
+</doctrine-mapping>

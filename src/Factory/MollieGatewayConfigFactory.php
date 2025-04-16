@@ -11,30 +11,26 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Factory;
+namespace Sylius\MolliePlugin\Factory;
 
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Entity\MollieGatewayConfigInterface;
-use SyliusMolliePlugin\Payments\Methods\MethodInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Model\PaymentMethod\MethodInterface;
 
 final class MollieGatewayConfigFactory implements MollieGatewayConfigFactoryInterface
 {
-    /** @var FactoryInterface */
-    private $mollieGatewayConfigFactory;
-
-    /** @var RepositoryInterface */
-    private $repository;
-
-    public function __construct(FactoryInterface $mollieGatewayConfigFactory, RepositoryInterface $repository)
-    {
-        $this->mollieGatewayConfigFactory = $mollieGatewayConfigFactory;
-        $this->repository = $repository;
+    public function __construct(
+        private readonly FactoryInterface $mollieGatewayConfigFactory,
+        private readonly RepositoryInterface $repository,
+    ) {
     }
 
-    private function createNewOrUpdate(MethodInterface $method, GatewayConfigInterface $gateway): MollieGatewayConfigInterface
-    {
+    private function createNewOrUpdate(
+        MethodInterface $method,
+        GatewayConfigInterface $gateway,
+    ): MollieGatewayConfigInterface {
         /** @var ?MollieGatewayConfigInterface $methodExist */
         $methodExist = $this->repository->findOneBy([
             /** @phpstan-ignore-next-line Not every class which implements MethodInterface returns the same type */
@@ -45,13 +41,13 @@ final class MollieGatewayConfigFactory implements MollieGatewayConfigFactoryInte
         /** @var MollieGatewayConfigInterface $gatewayConfig */
         $gatewayConfig = $this->mollieGatewayConfigFactory->createNew();
 
-        return null !== $methodExist ? $methodExist : $gatewayConfig;
+        return $methodExist ?? $gatewayConfig;
     }
 
     public function create(
         MethodInterface $method,
         GatewayConfigInterface $gateway,
-        int $key
+        int $key,
     ): MollieGatewayConfigInterface {
         $mollieGatewayConfig = $this->createNewOrUpdate($method, $gateway);
 

@@ -11,14 +11,13 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Validator\Constraints;
+namespace Sylius\MolliePlugin\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
 final class PaymentMethodCheckout extends Constraint
 {
-    /** @var string */
-    public $message = 'sylius_mollie_plugin.empty_payment_method_checkout';
+    public string $message = 'sylius_mollie.empty_payment_method_checkout';
 
     public function validatedBy(): string
     {

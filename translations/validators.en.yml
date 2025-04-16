@@ -1,0 +1,28 @@
+sylius_mollie:
+    api_key:
+        invalid_live: 'Invalid API key. An API key must start with "live_".'
+        invalid_test: 'Invalid API key. An API key must start with "test_".'
+        min_length: 'API key must be at least {{ limit }} characters long.'
+        not_blank: 'API key cannot be blank.'
+    channel:
+        required_currency: 'The base currency of the channel must be {{ currencies }}.'
+    consumer_name:
+        not_blank: 'Consumer name cannot be blank.'
+    form:
+        error:
+            greater_than: 'The value should be greater than zero'
+            key_not_empty: 'Depending on the environment, the mollie key cannot be empty'
+            max_greater_than_mollie_max: 'Maximum amount limit must be less than or equal to existing Mollie maximum amount limit %amount%'
+            min_greater_than_max: 'Maximum amount limit must be greater than or equal to minimum amount limit.'
+            min_less_than_mollie_min: 'Minimum amount limit must be greater than or equal to existing Mollie minimum amount limit %amount%'
+            payment_surcharge_not_empty: 'Value cannot be blank'
+    iban:
+        incorrect: 'Incorrect IBAN number.'
+        not_blank: 'IBAN cannot be blank.'
+    interval:
+        invalid: "Invalid interval format. Possible values: … months … weeks … days"
+        not_blank: 'Interval cannot be blank.'
+    payment_method:
+        not_blank: 'Value cannot be blank'
+    times:
+        min_range: 'Times cannot be lower than {{ limit }}.'

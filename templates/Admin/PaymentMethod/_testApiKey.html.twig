@@ -1,0 +1,15 @@
+{% set errorStatus = constant('Sylius\\MolliePlugin\\Creator\\ApiKeysTestCreatorInterface::ERROR_STATUS') %}
+
+<div class="ui segment">
+    {% include '@SyliusMolliePlugin/Admin/PaymentMethod/_statusTest.html.twig' %}
+
+    {% if test.status == errorStatus %}
+        {{ test.message }}
+    {% endif %}
+    <br>
+    <i class="cog icon green"></i>
+    {{ 'sylius_mollie.ui.available_methods'|trans }}:
+    {% for method in test.methods %}
+        {{ method.description }},
+    {% endfor %}
+</div>

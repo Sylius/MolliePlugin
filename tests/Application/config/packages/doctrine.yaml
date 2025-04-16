@@ -14,11 +14,10 @@ doctrine:
         url: '%env(resolve:DATABASE_URL)%'
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
-        naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
         mappings:
             App:
                 is_bundle: false
                 type: attribute
                 dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'Tests\SyliusMolliePlugin\Entity'
+                prefix: 'Tests\Sylius\MolliePlugin\Entity'

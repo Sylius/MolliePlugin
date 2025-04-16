@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <services>
+        <defaults public="true" />
+
+        <service id="sylius_mollie.resolver.payment_methods" class="Sylius\MolliePlugin\Resolver\MolliePaymentsMethodResolver">
+            <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
+            <argument type="service" id="sylius_mollie.resolver.mollie_countries_restriction"/>
+            <argument type="service" id="sylius_mollie.voucher.checker.product_voucher_type"/>
+            <argument type="service" id="sylius_mollie.resolver.order.payment_checkout_order"/>
+            <argument type="service" id="sylius.repository.payment_method"/>
+            <argument type="service" id="sylius_mollie.resolver.mollie_allowed_methods"/>
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
+            <argument type="service" id="sylius_mollie.resolver.mollie_factory_name"/>
+            <argument type="service" id="sylius_mollie.provider.divisor"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Resolver\MolliePaymentsMethodResolverInterface" alias="sylius_mollie.resolver.payment_methods" />
+
+        <service id="sylius_mollie.resolver.payment_methods_image" class="Sylius\MolliePlugin\Resolver\MolliePaymentMethodImageResolver" />
+        <service id="Sylius\MolliePlugin\Resolver\MolliePaymentMethodImageResolverInterface" alias="sylius_mollie.resolver.payment_methods_image" />
+
+        <service id="sylius_mollie.resolver.payment_config" class="Sylius\MolliePlugin\Resolver\PaymentMethodConfigResolver">
+            <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Resolver\PaymentMethodConfigResolverInterface" alias="sylius_mollie.resolver.payment_config" />
+
+        <service id="sylius_mollie.resolver.payment_locale" class="Sylius\MolliePlugin\Resolver\PaymentLocaleResolver"/>
+        <service id="Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface" alias="sylius_mollie.resolver.payment_locale" />
+
+        <service id="sylius_mollie.resolver.payment_link" class="Sylius\MolliePlugin\Resolver\PaymentLinkResolver">
+            <argument type="service" id="sylius_mollie.client.mollie_api"/>
+            <argument type="service" id="sylius_mollie.converter.int_to_string"/>
+            <argument type="service" id="sylius.repository.order"/>
+            <argument type="service" id="sylius_mollie.mailer.manager.payment_link_email"/>
+            <argument type="service" id="sylius_mollie.payum.provider.payment_token" />
+        </service>
+        <service id="Sylius\MolliePlugin\Resolver\PaymentLinkResolverInterface" alias="sylius_mollie.resolver.payment_link" />
+
+        <service id="sylius_mollie.resolver.mollie_countries_restriction" class="Sylius\MolliePlugin\Resolver\MollieCountriesRestrictionResolver">
+            <argument type="service" id="sylius_mollie.resolver.payment_methods_image"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Resolver\MollieCountriesRestrictionResolverInterface" alias="sylius_mollie.resolver.mollie_countries_restriction" />
+
+        <service id="sylius_mollie.resolver.mollie_factory_name" class="Sylius\MolliePlugin\Resolver\MollieFactoryNameResolver">
+            <argument type="service" id="sylius.context.cart"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Resolver\MollieFactoryNameResolverInterface" alias="sylius_mollie.resolver.mollie_factory_name" />
+
+        <service id="sylius_mollie.resolver.meal_voucher" class="Sylius\MolliePlugin\Resolver\MealVoucherResolver"/>
+        <service id="Sylius\MolliePlugin\Resolver\MealVoucherResolverInterface" alias="sylius_mollie.resolver.meal_voucher" />
+
+        <service id="sylius_mollie.resolver.mollie_api_client_key" class="Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolver">
+            <argument type="service" id="sylius_mollie.client.mollie_api"/>
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
+            <argument type="service" id="sylius.repository.payment_method"/>
+            <argument type="service" id="sylius.context.channel"/>
+            <argument type="service" id="sylius_mollie.resolver.mollie_factory_name"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface" alias="sylius_mollie.resolver.mollie_api_client_key" />
+
+        <service id="sylius_mollie.resolver.api_keys_test" class="Sylius\MolliePlugin\Resolver\ApiKeysTestResolver">
+            <argument type="service" id="sylius_mollie.creator.api_keys_test"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Resolver\ApiKeysTestResolverInterface" alias="sylius_mollie.resolver.api_keys_test" />
+
+        <service id="sylius_mollie.resolver.order.payment_checkout_order" class="Sylius\MolliePlugin\Resolver\Order\PaymentCheckoutOrderResolver">
+            <argument type="service" id="request_stack"/>
+            <argument type="service" id="sylius.context.cart"/>
+            <argument type="service" id="sylius.repository.order"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Resolver\Order\PaymentCheckoutOrderResolverInterface" alias="sylius_mollie.resolver.order.payment_checkout_order" />
+
+        <service id="sylius_mollie.resolver.mollie_methods" class="Sylius\MolliePlugin\Resolver\MollieMethodsResolver">
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
+            <argument type="service" id="sylius_mollie.client.mollie_api"/>
+            <argument type="service" id="sylius.repository.gateway_config"/>
+            <argument type="service" id="sylius_mollie.creator.mollie_methods"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Resolver\MollieMethodsResolverInterface" alias="sylius_mollie.resolver.mollie_methods" />
+
+        <service id="sylius_mollie.resolver.mollie_allowed_methods" class="Sylius\MolliePlugin\Resolver\MollieAllowedMethodsResolver">
+            <argument type="service" id="sylius_mollie.resolver.mollie_api_client_key"/>
+            <argument type="service" id="sylius_mollie.resolver.payment_locale"/>
+            <argument type="service" id="sylius_mollie.converter.int_to_string"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Resolver\MollieAllowedMethodsResolverInterface" alias="sylius_mollie.resolver.mollie_allowed_methods" />
+
+        <service
+            id="sylius_mollie.payment_methods_resolver.mollie_payment"
+            class="Sylius\MolliePlugin\Resolver\PaymentMethodResolver"
+            decorates="sylius.payment_methods_resolver.default"
+        >
+            <argument type="service" id=".inner" />
+            <argument type="service" id="sylius.repository.payment_method" />
+            <argument type="service" id="sylius_mollie.resolver.mollie_factory_name" />
+            <argument type="service" id="sylius_mollie.filter.mollie_method"/>
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <tag name="sylius.payment_method_resolver" type="mollie" label="Mollie" priority="2" />
+        </service>
+    </services>
+</container>

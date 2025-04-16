@@ -11,24 +11,19 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Entity;
+namespace Sylius\MolliePlugin\Entity;
 
 class MollieLogger implements MollieLoggerInterface
 {
-    /** @var int */
-    protected $id;
+    protected int $id;
 
-    /** @var int */
-    protected $level;
+    protected int $level;
 
-    /** @var int */
-    protected $errorCode;
+    protected int $errorCode;
 
-    /** @var string */
-    protected $message;
+    protected string $message;
 
-    /** @var \DateTime */
-    protected $dateTime;
+    protected \DateTime $dateTime;
 
     public function getId(): int
     {

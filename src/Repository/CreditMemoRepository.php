@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Repository;
+namespace Sylius\MolliePlugin\Repository;
 
 use Sylius\RefundPlugin\Doctrine\ORM\CreditMemoRepository as BaseCreditMemoRepository;
 
@@ -20,7 +20,7 @@ class CreditMemoRepository extends BaseCreditMemoRepository implements CreditMem
     public function findByOrderNumberAndDateTime(
         int $orderId,
         \DateTime $dateTime,
-        int $amount
+        int $amount,
     ): array {
         return $this->createQueryBuilder('o')
             ->andWhere('o.order = :orderId')

@@ -1,0 +1,26 @@
+sylius_mollie:
+    admin:
+        payment_link:
+            successfully_generated: "Lien de paiement créé avec succès"
+        shipment:
+            successfully_split_and_sent: "L'envoi a été correctement fractionné et expédié"
+        success_got_methods: "Les moyens ont été correctement mis à jour"
+    billie.error:
+        company_missing: "Le nom de l'entreprise est requis lorsque la méthode de paiement Billie est utilisée. Veuillez indiquer le nom de l'entreprise ou choisir une autre méthode de paiement"
+    billing_address.error:
+        info_missing: "Le prénom, le nom et l'e-mail sont requis lorsque le mode de paiement Trustly est utilisé. Veuillez ajouter les données manquantes ou choisir un autre mode de paiement."
+    credit_cart_error:
+        authentication_failed: "Échec de l'authentification"
+        card_expired: "Carte expirée"
+        empty_payment_method_checkout: 'Veuillez choisir une méthode de paiement Mollie'
+        inactive_card: "Carte inactive"
+        insufficient_funds: "Fonds insuffisants"
+        invalid_card_holder_name: "Nom du titulaire de la carte non valide"
+        invalid_card_number: "Numéro de carte non valide"
+        invalid_card_type: "Type de carte non valide"
+        invalid_cvv: "cvv non valide"
+        possible_fraud: "Risque de fraude"
+        refused_by_issuer: "Refusé par l'émetteur"
+    refunded_only_locally: "Le remboursement n'a été réalisé que localement"
+    subscription:
+        cancelled: "L'abonnement a été annulé."

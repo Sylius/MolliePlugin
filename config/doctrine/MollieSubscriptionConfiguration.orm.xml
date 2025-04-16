@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
+>
+    <entity name="Sylius\MolliePlugin\Entity\MollieSubscriptionConfiguration" table="mollie_subscription_configuration">
+        <id name="id" column="id" type="integer">
+            <generator strategy="AUTO"/>
+        </id>
+        <field name="hostName" column="host_name" nullable="false" type="string"/>
+        <field name="port" column="port" nullable="true" type="integer"/>
+        <field name="subscriptionId" column="subscription_id" nullable="true" type="string"/>
+        <field name="mandateId" column="mandate_id" nullable="true" type="string"/>
+        <field name="customerId" column="mollie_customer_id" nullable="true" type="string"/>
+        <field name="numberOfRepetitions" column="number_of_repetitions" nullable="false" type="integer"/>
+        <field name="paymentDetailsConfiguration" column="payment_details_configuration" nullable="false" type="array"/>
+        <field name="interval" column="`interval`" nullable="false" type="string"/>
+
+        <one-to-one field="subscription" mapped-by="subscriptionConfiguration" target-entity="Sylius\MolliePlugin\Entity\MollieSubscription"/>
+    </entity>
+</doctrine-mapping>

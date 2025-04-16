@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
+>
+    <mapped-superclass name="Sylius\MolliePlugin\Entity\MollieSubscriptionSchedule" table="mollie_subscription_schedule">
+        <id name="id" column="id" type="integer">
+            <generator strategy="AUTO"/>
+        </id>
+        <field name="scheduledDate" column="scheduled_date" nullable="false" type="datetime"/>
+        <field name="fulfilledDate" column="fulfilled_date" nullable="true" type="datetime"/>
+        <field name="scheduleIndex" column="schedule_index" nullable="false" type="integer"/>
+
+        <many-to-one field="mollieSubscription" target-entity="Sylius\MolliePlugin\Entity\MollieSubscriptionInterface" inversed-by="schedules">
+            <join-column name="mollie_subscription_id" referenced-column-name="id"/>
+        </many-to-one>
+    </mapped-superclass>
+</doctrine-mapping>

@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\PHPUnit\Unit\EventListener;
+namespace Tests\Sylius\MolliePlugin\PHPUnit\Unit\EventListener;
 
 use PHPUnit\Framework\TestCase;
 use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\EventListener\CheckoutOrderCollidingProductsListener;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\EventListener\CheckoutOrderCollidingProductsListener;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
@@ -50,12 +50,11 @@ final class CheckoutOrderCollidingProductsListenerTest extends TestCase
         $this->checkoutOrderCollidingProductsListener = new CheckoutOrderCollidingProductsListener(
             $this->routerMock,
             $this->translatorMock,
-            $requestStackMock
+            $requestStackMock,
         );
     }
 
-
-    function testExecuteOnUpdate(): void
+    public function testExecuteOnUpdate(): void
     {
         $eventMock = $this->createMock(ResourceControllerEvent::class);
         $orderMock = $this->createMock(OrderInterface::class);
@@ -69,7 +68,7 @@ final class CheckoutOrderCollidingProductsListenerTest extends TestCase
         $eventMock->expects($this->once())->method('getSubject')->willReturn($orderMock);
         $eventMock->setResponse(new RedirectResponse('/sylius_shop_cart_summary'));
 
-        $this->translatorMock->expects($this->once())->method('trans')->with('sylius_mollie_plugin.order_checkout.colliding_products')
+        $this->translatorMock->expects($this->once())->method('trans')->with('sylius_mollie.order_checkout.colliding_products')
             ->willReturn($message)
         ;
         $this->flashBagMock->expects($this->once())->method('add')->with('error', $message);

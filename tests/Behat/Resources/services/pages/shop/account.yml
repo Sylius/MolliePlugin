@@ -1,5 +1,5 @@
 services:
-    sylius_mollie_plugin.page.shop.account.order.index:
-         class: Tests\SyliusMolliePlugin\Behat\Page\Shop\Account\Order\IndexPage
+    sylius_mollie.behat.page.shop.account.order.index:
+         class: Tests\Sylius\MolliePlugin\Behat\Page\Shop\Account\Order\IndexPage
          parent: "sylius.behat.page.shop.account.order.index"
          public: false

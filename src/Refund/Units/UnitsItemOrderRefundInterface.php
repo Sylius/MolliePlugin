@@ -11,13 +11,15 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Refund\Units;
+namespace Sylius\MolliePlugin\Refund\Units;
 
-use SyliusMolliePlugin\DTO\PartialRefundItems;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\MolliePlugin\Model\DTO\PartialRefundItems;
+use Sylius\RefundPlugin\Model\UnitRefundInterface;
 
 interface UnitsItemOrderRefundInterface
 {
+    /** @return array<array-key, UnitRefundInterface> */
     public function refund(OrderInterface $order, PartialRefundItems $partialRefundItems): array;
 
     public function getActualRefundedQuantity(OrderInterface $order, int $itemId): int;

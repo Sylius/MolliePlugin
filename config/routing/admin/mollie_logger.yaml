@@ -1,0 +1,15 @@
+sylius_mollie_plugin_mollie_logger:
+    resource: |
+        alias: sylius_mollie.mollie_logger
+        section: admin
+        path: /mollie/logger
+        permission: true
+        templates: "@SyliusAdmin\\Crud"
+        redirect: update
+        grid: sylius_mollie_plugin_mollie_logger
+        vars:
+            all:
+                subheader: sylius_mollie.ui.logger_list
+            index:
+                icon: 'tags'
+    type: sylius.resource

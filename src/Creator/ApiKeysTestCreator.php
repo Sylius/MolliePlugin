@@ -11,56 +11,48 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Creator;
+namespace Sylius\MolliePlugin\Creator;
 
 use Mollie\Api\Resources\Method;
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\DTO\ApiKeyTest;
-use SyliusMolliePlugin\Form\Type\MollieGatewayConfigurationType;
-use SyliusMolliePlugin\Resolver\MollieMethodsResolverInterface;
 use Mollie\Api\Resources\MethodCollection;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType;
+use Sylius\MolliePlugin\Model\DTO\ApiKeyTest;
+use Sylius\MolliePlugin\Resolver\MollieMethodsResolverInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class ApiKeysTestCreator implements ApiKeysTestCreatorInterface
 {
-    /** @var MollieApiClient */
-    private $mollieApiClient;
-
-    /** @var TranslatorInterface */
-    private $translator;
-
     public function __construct(
-        MollieApiClient $mollieApiClient,
-        TranslatorInterface $translator
+        private readonly MollieApiClient $mollieApiClient,
+        private readonly TranslatorInterface $translator,
     ) {
-        $this->mollieApiClient = $mollieApiClient;
-        $this->translator = $translator;
     }
 
-    public function create(string $keyType, string $key = null): ApiKeyTest
+    public function create(string $keyType, ?string $key = null): ApiKeyTest
     {
         $apiKeyTest = new ApiKeyTest(
             $keyType,
-            null !== $key && '' !== $key
+            null !== $key && '' !== $key,
         );
 
         if (null === $key || '' === (trim($key))) {
             $apiKeyTest->setStatus(self::ERROR_STATUS);
-            $apiKeyTest->setMessage($this->translator->trans('sylius_mollie_plugin.ui.insert_you_key_first'));
+            $apiKeyTest->setMessage($this->translator->trans('sylius_mollie.ui.insert_you_key_first'));
 
             return $apiKeyTest;
         }
 
         if (MollieGatewayConfigurationType::API_KEY_TEST === $apiKeyTest->getType() && !str_starts_with($key, self::TEST_PREFIX)) {
             $apiKeyTest->setStatus(self::ERROR_STATUS);
-            $apiKeyTest->setMessage($this->translator->trans('sylius_mollie_plugin.ui.api_key_start_with_api_key_test'));
+            $apiKeyTest->setMessage($this->translator->trans('sylius_mollie.ui.api_key_start_with_api_key_test'));
 
             return $apiKeyTest;
         }
 
         if (MollieGatewayConfigurationType::API_KEY_LIVE === $apiKeyTest->getType() && !str_starts_with($key, self::LIVE_PREFIX)) {
             $apiKeyTest->setStatus(self::ERROR_STATUS);
-            $apiKeyTest->setMessage($this->translator->trans('sylius_mollie_plugin.ui.api_key_start_with_api_key_live'));
+            $apiKeyTest->setMessage($this->translator->trans('sylius_mollie.ui.api_key_start_with_api_key_live'));
 
             return $apiKeyTest;
         }
@@ -75,7 +67,7 @@ final class ApiKeysTestCreator implements ApiKeysTestCreatorInterface
 
             /** @var MethodCollection $methods */
             $methods = $client->methods->allAvailable(MollieMethodsResolverInterface::PARAMETERS_AVAILABLE);
-            $filteredMethods = array_filter($methods->getArrayCopy(), array($this, 'filterActiveMethods'));
+            $filteredMethods = array_filter($methods->getArrayCopy(), [$this, 'filterActiveMethods']);
             $methods->exchangeArray($filteredMethods);
 
             $apiKeyTest->setMethods($methods);
@@ -86,7 +78,7 @@ final class ApiKeysTestCreator implements ApiKeysTestCreatorInterface
 
             if (0 === $exception->getCode()) {
                 $apiKeyTest->setMessage($this->translator->trans(
-                    \sprintf('sylius_mollie_plugin.ui.api_key_start_with_%s', $apiKeyTest->getType())
+                    \sprintf('sylius_mollie.ui.api_key_start_with_%s', $apiKeyTest->getType()),
                 ));
 
                 return $apiKeyTest;

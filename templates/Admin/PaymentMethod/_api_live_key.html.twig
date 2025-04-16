@@ -1,0 +1,26 @@
+<div class="field">
+    <label for="sylius_payment_method_gatewayConfig_config_{{ field.vars.name }}" class="required">
+        {{ field.vars.label|trans|raw|nl2br }}
+    </label>
+    <div class="ui input">
+        {{ form_widget(field) }}
+        <button id="{{ field.vars.name }}" type="button" class="ui button primary">
+            {{ 'sylius_mollie.ui.show_hide'|trans }}
+        </button>
+    </div>
+
+    {{ form_help(field) }}
+    {{ form_errors(field) }}
+</div>
+
+<div class="field">
+    <button
+            class="ui blue button test-api-key-button dividing"
+            type="button"
+            data-url="{{ path('mollie_admin_test_api_keys') }}"
+    >
+        {{ 'sylius_mollie.ui.test_api_keys'|trans }}
+    </button>
+</div>
+
+<div class="ui test-api-key-div"></div>

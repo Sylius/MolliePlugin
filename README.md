@@ -49,13 +49,13 @@ Mollie provides a powerful API allowing webshop and app developers to implement 
 You can quickly test the plugin using Docker. Just run:
 
 ```bash
-docker run -p 8080:80 -p 8025:8025 ghcr.io/sylius/mollieplugin:1.0
+docker run -p 8080:80 -p 8025:8025 ghcr.io/sylius/mollieplugin:2.0
 ```
 
 If you'd like to run it in development mode (with debug tools enabled), use:
 
 ```bash
-docker run -p 8080:80 -p 8025:8025 -e APP_ENV=dev -e APP_DEBUG=1 ghcr.io/sylius/mollieplugin:1.0
+docker run -p 8080:80 -p 8025:8025 -e APP_ENV=dev -e APP_DEBUG=1 ghcr.io/sylius/mollieplugin:2.0
 ```
 
 ---
@@ -86,8 +86,8 @@ declare(strict_types=1);
 namespace App\Entity\Payment;
 
 use Doctrine\ORM\Mapping as ORM;
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Entity\GatewayConfigTrait;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sylius\Bundle\PayumBundle\Model\GatewayConfig as BaseGatewayConfig;
 
@@ -134,11 +134,11 @@ namespace App\Entity\Order;
 
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\Order as BaseOrder;
-use SyliusMolliePlugin\Entity\AbandonedEmailOrderTrait;
-use SyliusMolliePlugin\Entity\MolliePaymentIdOrderTrait;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Entity\QRCodeOrderTrait;
-use SyliusMolliePlugin\Entity\RecurringOrderTrait;
+use Sylius\MolliePlugin\Entity\AbandonedEmailOrderTrait;
+use Sylius\MolliePlugin\Entity\MolliePaymentIdOrderTrait;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Entity\QRCodeOrderTrait;
+use Sylius\MolliePlugin\Entity\RecurringOrderTrait;
 
 /**
  * @ORM\Entity
@@ -180,8 +180,8 @@ namespace App\Entity\Product;
 
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\ProductTranslationInterface;
-use SyliusMolliePlugin\Entity\ProductInterface;
-use SyliusMolliePlugin\Entity\ProductTrait;
+use Sylius\MolliePlugin\Entity\ProductInterface;
+use Sylius\MolliePlugin\Entity\ProductTrait;
 use Sylius\Component\Core\Model\Product as BaseProduct;
 
 /**
@@ -227,8 +227,8 @@ namespace App\Entity\Product;
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\ProductVariant as BaseProductVariant;
 use Sylius\Component\Product\Model\ProductVariantTranslationInterface;
-use SyliusMolliePlugin\Entity\ProductVariantInterface;
-use SyliusMolliePlugin\Entity\RecurringProductVariantTrait;
+use Sylius\MolliePlugin\Entity\ProductVariantInterface;
+use Sylius\MolliePlugin\Entity\RecurringProductVariantTrait;
 
 /**
  * @ORM\Entity
@@ -261,13 +261,42 @@ sylius_product:
                     model: App\Entity\Product\ProductVariant
 ```
 
-#### 7. Add image directory parameter in `config/packages/_sylius.yaml`:
+### 7. Update the AdminUser entity class with the following code:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Entity\User;
+
+use Doctrine\ORM\Mapping as ORM;
+use Sylius\Component\Core\Model\AdminUser as BaseAdminUser;
+use Sylius\MolliePlugin\Entity\OnboardingStatusAwareInterface;
+use Sylius\MolliePlugin\Entity\OnboardingStatusAwareTrait;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="sylius_admin_user")
+ */
+#[ORM\Entity]
+#[ORM\Table(name: 'sylius_admin_user')]
+class AdminUser extends BaseAdminUser implements OnboardingStatusAwareInterface
+{
+    use OnboardingStatusAwareTrait;
+}
+
+```
+
+Ensure that the AdminUser resource is overridden in the Sylius configuration file:
 
 ```yaml
-# config/packages/_sylius.yaml
-
-   parameters:
-       images_dir: "/media/image/"
+sylius_user:
+    resources:
+        admin:
+            user:
+                classes:
+                    model: App\Entity\User\AdminUser
 ```
 
 #### 8. Update your database
@@ -289,10 +318,17 @@ mkdir -p templates/bundles/SyliusRefundPlugin/
 **Note:** Be aware that the following commands will override your existing templates!
 
 ```
-cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusAdminBundle/* templates/bundles/SyliusAdminBundle/
-cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusShopBundle/* templates/bundles/SyliusShopBundle/
-cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusUiBundle/* templates/bundles/SyliusUiBundle/
-cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusRefundPlugin/* templates/bundles/SyliusRefundPlugin/
+cp -R vendor/sylius/mollie-plugin/templates/bundles/SyliusAdminBundle/* templates/bundles/SyliusAdminBundle/
+cp -R vendor/sylius/mollie-plugin/templates/bundles/SyliusShopBundle/* templates/bundles/SyliusShopBundle/
+cp -R vendor/sylius/mollie-plugin/templates/bundles/SyliusUiBundle/* templates/bundles/SyliusUiBundle/
+cp -R vendor/sylius/mollie-plugin/templates/bundles/SyliusRefundPlugin/* templates/bundles/SyliusRefundPlugin/
+```
+
+**Important:**
+Ensure the Mollie script is included at the top of your `templates/bundles/SyliusShopBundle/_scripts.html.twig` file:
+
+```html
+<script src="https://js.mollie.com/v1/mollie.js"></script>
 ```
 
 #### 10. Install assets:
@@ -322,65 +358,7 @@ bin/console assets:install
 
 #### Installation & Build Process
 
-1. If you are using Sylius version <= 1.11 ensure that Node version 14 is currently used:
-
-    ```bash
-    nvm install 14
-    nvm use 14
-    ```
-    If you are using Sylius version >= 1.12 then Node version 18 is fully supported.
-
 1. Install dependencies:
-
-    for Sylius <= 1.11:
-    ```bash
-    composer require symfony/webpack-encore-bundle
-    ```
-
-    add config to your webpack_encore.yaml file:
-    ```yaml
-    # config/packages/webpack_encore.yaml
-    webpack_encore:
-        output_path: "%kernel.project_dir%/public/build"
-        builds:
-            admin: "%kernel.project_dir%/public/build/admin"
-            shop: "%kernel.project_dir%/public/build/shop"
-        script_attributes:
-            defer: false
-    
-    framework:
-        assets:
-            json_manifest_path: '%kernel.project_dir%/public/build/admin/manifest.json'
-    ```
-    make sure your scripts and styles files look like this:
-    ```html
-    <!-- templates/bundles/SyliusAdminBundle/_scripts.html.twig -->
-
-    {{ encore_entry_script_tags('admin-entry', null, 'admin') }}
-    ```
-    ```html
-    <!-- templates/bundles/SyliusAdminBundle/_styles.html.twig -->
-
-    {{ encore_entry_link_tags('admin-entry', null, 'admin') }}
-    ```
-    ```html
-    <!-- templates/bundles/SyliusShopBundle/_scripts.html.twig -->
-    
-    <script src="https://js.mollie.com/v1/mollie.js"> </script>
-    {{ encore_entry_script_tags('shop-entry', null, 'shop') }}
-    ```
-    ```html
-    <!-- templates/bundles/SyliusShopBundle/_styles.html.twig -->
-
-    {{ encore_entry_link_tags('shop-entry', null, 'shop') }}
-    ```
-    and run:
-    ```bash
-    yarn add @babel/preset-env bazinga-translator intl-messageformat lodash.get node-sass@4.14.1 shepherd.js@11.0 webpack-notifier
-    yarn add --dev @babel/core@7.16.0 @babel/register@7.16.0 @babel/plugin-proposal-object-rest-spread@7.16.5 @symfony/webpack-encore@1.5.0
-    ```
-
-   for Sylius >= 1.12:
     ```bash
     yarn add bazinga-translator intl-messageformat lodash.get shepherd.js@11.0
     ```

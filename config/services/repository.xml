@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <services>
+        <service
+            id="sylius_mollie.repository.credit_memo"
+            class="Sylius\MolliePlugin\Repository\CreditMemoRepository"
+            parent="sylius_refund.repository.credit_memo"
+        />
+        <service id="Sylius\MolliePlugin\Repository\CreditMemoRepositoryInterface" alias="sylius_mollie.repository.credit_memo"/>
+    </services>
+</container>

@@ -1,0 +1,28 @@
+sylius_mollie:
+    api_key:
+        invalid_live: 'Ongeldigde API key. Een API key moet beginnen met "live_".'
+        invalid_test: 'Ongeldigde API key. Een API key moet beginnen met "test_".'
+        min_length: 'API key moet minimaal uit {{ limit }} karakters bestaan.'
+        not_blank: 'API key mag niet leeg zijn.'
+    channel:
+        required_currency: 'De basisvaluta van het kanaal moet {{currencies}} zijn.'
+    consumer_name:
+        not_blank: 'Consumentennaam mag niet leeg zijn.'
+    form:
+        error:
+            greater_than: 'De waarde moet groter zijn dan nul'
+            key_not_empty: 'Afhankelijk van de omgeving mag de Mollie key niet leeg zijn'
+            max_greater_than_mollie_max: 'Maximum amount limit must be less than or equal to existing Mollie maximum amount limit %amount%'
+            min_greater_than_max: 'Maximum amount limit must be greater than or equal to minimum amount limit.'
+            min_less_than_mollie_min: 'Minimum amount limit must be greater than or equal to existing Mollie minimum amount limit %amount%'
+            payment_surcharge_not_empty: 'Waarde mag niet leeg zijn'
+    iban:
+        incorrect: 'Onjuist IBAN-nummer'
+        not_blank: 'IBAN mag niet leeg zijn.'
+    interval:
+        invalid: '"Ongeldig intervalformaat. Mogelijke waarden: ... maanden ... weken ... dagen '
+        not_blank: 'Interval mag niet leeg zijn.'
+    payment_method:
+        not_blank: 'Waarde mag niet leeg zijn'
+    times:
+        min_range: 'Tijden kunnen niet lager zijn dan {{limit}}.'

@@ -1,0 +1,28 @@
+sylius_mollie:
+    admin:
+        payment_link:
+            successfully_generated: 'Payment link successfully generated'
+        shipment:
+            successfully_split_and_sent: 'Shipment has been successfully split and sent'
+        success_got_methods: "Methods was successfully updated"
+    billie.error:
+        company_missing: 'Company name is required when Billie payment method is used. Please set company name or choose another payment method'
+    billing_address.error:
+        info_missing: 'First name, last name and email are required when Trustly payment method is used. Please add the missing data or choose another payment method.'
+    credit_cart_error:
+        authentication_failed: 'Authentication failed'
+        card_expired: 'Card expired'
+        inactive_card: 'Inactive card'
+        insufficient_funds: 'Insufficient funds'
+        invalid_card_holder_name: 'Invalid card holder name'
+        invalid_card_number: 'Invalid card number'
+        invalid_card_type: 'Invalid card type'
+        invalid_cvv: 'Invalid cvv'
+        possible_fraud: 'Possible fraud'
+        refused_by_issuer: 'Refused by issuer'
+    empty_payment_method_checkout: 'Choose one of mollie payment method'
+    order_checkout:
+        colliding_products: 'There are mixed products (recurring and non-recurring) within your cart. Proceeding with mixed content is forbidden.'
+    refunded_only_locally: 'The payment refund was made only locally'
+    subscription:
+        cancelled: 'Subscription has been cancelled.'

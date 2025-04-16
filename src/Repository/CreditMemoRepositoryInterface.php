@@ -11,15 +11,17 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Repository;
+namespace Sylius\MolliePlugin\Repository;
 
+use Sylius\RefundPlugin\Entity\CreditMemoInterface;
 use Sylius\RefundPlugin\Repository\CreditMemoRepositoryInterface as BaseCreditMemoRepositoryInterface;
 
 interface CreditMemoRepositoryInterface extends BaseCreditMemoRepositoryInterface
 {
+    /** @return CreditMemoInterface[] */
     public function findByOrderNumberAndDateTime(
         int $orderId,
         \DateTime $dateTime,
-        int $amount
+        int $amount,
     ): array;
 }

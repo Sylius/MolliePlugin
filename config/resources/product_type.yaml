@@ -1,0 +1,8 @@
+sylius_resource:
+    resources:
+        sylius_mollie.product_type:
+            driver: doctrine/orm
+            classes:
+                model: Sylius\MolliePlugin\Entity\ProductType
+                interface: Sylius\MolliePlugin\Entity\ProductTypeInterface
+                form: Sylius\MolliePlugin\Form\Type\ProductTypeType

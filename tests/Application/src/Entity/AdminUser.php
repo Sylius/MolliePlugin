@@ -11,16 +11,20 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Entity;
+namespace Tests\Sylius\MolliePlugin\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\AdminUser as BaseAdminUser;
+use Sylius\MolliePlugin\Entity\OnboardingStatusAwareInterface;
+use Sylius\MolliePlugin\Entity\OnboardingStatusAwareTrait;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherAwareInterface;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'sylius_admin_user')]
-class AdminUser extends BaseAdminUser implements PasswordHasherAwareInterface
+class AdminUser extends BaseAdminUser implements PasswordHasherAwareInterface, OnboardingStatusAwareInterface
 {
+    use OnboardingStatusAwareTrait;
+
     public function getPasswordHasherName(): ?string
     {
         return $this->encoderName;

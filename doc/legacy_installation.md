@@ -22,8 +22,8 @@ declare(strict_types=1);
 namespace App\Entity\Payment;
 
 use Doctrine\ORM\Mapping as ORM;
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Entity\GatewayConfigTrait;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sylius\Bundle\PayumBundle\Model\GatewayConfig as BaseGatewayConfig;
 
@@ -70,11 +70,11 @@ namespace App\Entity\Order;
 
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\Order as BaseOrder;
-use SyliusMolliePlugin\Entity\AbandonedEmailOrderTrait;
-use SyliusMolliePlugin\Entity\MolliePaymentIdOrderTrait;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Entity\QRCodeOrderTrait;
-use SyliusMolliePlugin\Entity\RecurringOrderTrait;
+use Sylius\MolliePlugin\Entity\AbandonedEmailOrderTrait;
+use Sylius\MolliePlugin\Entity\MolliePaymentIdOrderTrait;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Entity\QRCodeOrderTrait;
+use Sylius\MolliePlugin\Entity\RecurringOrderTrait;
 
 /**
  * @ORM\Entity
@@ -116,8 +116,8 @@ namespace App\Entity\Product;
 
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\ProductTranslationInterface;
-use SyliusMolliePlugin\Entity\ProductInterface;
-use SyliusMolliePlugin\Entity\ProductTrait;
+use Sylius\MolliePlugin\Entity\ProductInterface;
+use Sylius\MolliePlugin\Entity\ProductTrait;
 use Sylius\Component\Core\Model\Product as BaseProduct;
 
 /**
@@ -164,8 +164,8 @@ namespace App\Entity\Product;
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\ProductVariant as BaseProductVariant;
 use Sylius\Component\Product\Model\ProductVariantTranslationInterface;
-use SyliusMolliePlugin\Entity\ProductVariantInterface;
-use SyliusMolliePlugin\Entity\RecurringProductVariantTrait;
+use Sylius\MolliePlugin\Entity\ProductVariantInterface;
+use Sylius\MolliePlugin\Entity\RecurringProductVariantTrait;
 
 /**
  * @ORM\Entity
@@ -205,7 +205,7 @@ sylius_product:
 
 return [
     ...
-    SyliusMolliePlugin\SyliusMolliePlugin::class => ['all' => true],
+    Sylius\MolliePlugin\SyliusMolliePlugin::class => ['all' => true],
 ];
 ```
 
@@ -216,34 +216,25 @@ return [
 
 imports:
     ...
-    - { resource: "@SyliusMolliePlugin/Resources/config/config.yaml" }
+    - { resource: "@SyliusMolliePlugin/config/config.yaml" }
 ```
 
-#### 9. Add image directory parameter in `config/packages/_sylius.yaml`:
-
-```yaml
-# config/packages/_sylius.yaml
-
-   parameters:
-       images_dir: "/media/image/"
-```
-
-#### 10. Import the routing in your `config/routes.yaml` file:
+#### 9. Import the routing in your `config/routes.yaml` file:
 
 ```yaml
 # config/routes.yaml
 
 sylius_mollie_plugin:
-    resource: "@SyliusMolliePlugin/Resources/config/routing.yaml"
+    resource: "@SyliusMolliePlugin/config/routes.yaml"
 ```
 
-#### 11. Update your database
+#### 10. Update your database
 
 ```
 bin/console doctrine:migrations:migrate
 ```
 
-#### 12. Copy Sylius templates overridden in plugin to your templates directory (e.g templates/bundles/):
+#### 11. Copy Sylius templates overridden in plugin to your templates directory (e.g templates/bundles/):
 **Note:** Some directories may already exist in your project
 
 ```
@@ -255,19 +246,26 @@ mkdir -p templates/bundles/SyliusRefundPlugin/
 **Note:** Be aware that the following commands will override your existing templates!
 
 ```
-cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusAdminBundle/* templates/bundles/SyliusAdminBundle/
-cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusShopBundle/* templates/bundles/SyliusShopBundle/
-cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusUiBundle/* templates/bundles/SyliusUiBundle/
-cp -R vendor/sylius/mollie-plugin/tests/Application/templates/bundles/SyliusRefundPlugin/* templates/bundles/SyliusRefundPlugin/
+cp -R vendor/sylius/mollie-plugin/templates/bundles/SyliusAdminBundle/* templates/bundles/SyliusAdminBundle/
+cp -R vendor/sylius/mollie-plugin/templates/bundles/SyliusShopBundle/* templates/bundles/SyliusShopBundle/
+cp -R vendor/sylius/mollie-plugin/templates/bundles/SyliusUiBundle/* templates/bundles/SyliusUiBundle/
+cp -R vendor/sylius/mollie-plugin/templates/bundles/SyliusRefundPlugin/* templates/bundles/SyliusRefundPlugin/
 ```
 
-#### 13. Add the payment link cronjob:
+**Important:**
+Ensure the Mollie script is included at the top of your `templates/bundles/SyliusShopBundle/_scripts.html.twig` file:
+
+```html
+<script src="https://js.mollie.com/v1/mollie.js"></script>
+```
+
+#### 12. Add the payment link cronjob:
 
 ```shell script
 * * * * * /usr/bin/php /path/to/bin/console mollie:send-payment-link
 ```
 
-#### 14. Install assets:
+#### 13. Install assets:
 
 ```bash
 bin/console assets:install
@@ -275,7 +273,7 @@ bin/console assets:install
 
 **Note:** If you are running it on production, add the `-e prod` flag to this command.
 
-#### 15. Download the [domain validation file](https://www.mollie.com/.well-known/apple-developer-merchantid-domain-association) and place it on your server at:
+#### 14. Download the [domain validation file](https://www.mollie.com/.well-known/apple-developer-merchantid-domain-association) and place it on your server at:
 `public/.well-known/apple-developer-merchantid-domain-association`
 
 ## Frontend Asset Management
@@ -283,17 +281,17 @@ bin/console assets:install
 1. Import the plugin's assets into your application's entrypoint files:
 
     ```javascript
-    // assets/admin/entry.js
+    // assets/admin/entrypoint.js
     
-    import '../../vendor/sylius/mollie-plugin/src/Resources/assets/admin/entry';
+    import '../../vendor/sylius/mollie-plugin/assets/admin/entrypoint';
     ```
 
     and:
 
     ```javascript
-    // assets/shop/entry.js
+    // assets/shop/entrypoint.js
     
-    import '../../vendor/sylius/mollie-plugin/src/Resources/assets/shop/entry';
+    import '../../vendor/sylius/mollie-plugin/assets/shop/entrypoint';
     ```
 
 1. Install assets:
@@ -304,65 +302,7 @@ bin/console assets:install
 
 #### Installation & Build Process
 
-1. If you are using Sylius version <= 1.11 ensure that Node version 14 is currently used:
-
-    ```bash
-    nvm install 14
-    nvm use 14
-    ```
-   If you are using Sylius version >= 1.12 then Node version 18 is fully supported.
-
 1. Install dependencies:
-
-   for Sylius <= 1.11:
-    ```bash
-    composer require symfony/webpack-encore-bundle
-    ```
-
-   add config to your webpack_encore.yaml file:
-    ```yaml
-    # config/packages/webpack_encore.yaml
-    webpack_encore:
-        output_path: "%kernel.project_dir%/public/build"
-        builds:
-            admin: "%kernel.project_dir%/public/build/admin"
-            shop: "%kernel.project_dir%/public/build/shop"
-        script_attributes:
-            defer: false
-    
-    framework:
-        assets:
-            json_manifest_path: '%kernel.project_dir%/public/build/admin/manifest.json'
-    ```
-    make sure your scripts and styles files look like this:
-    ```html
-    <!-- templates/bundles/SyliusAdminBundle/_scripts.html.twig -->
-
-    {{ encore_entry_script_tags('admin-entry', null, 'admin') }}
-    ```
-    ```html
-    <!-- templates/bundles/SyliusAdminBundle/_styles.html.twig -->
-
-    {{ encore_entry_link_tags('admin-entry', null, 'admin') }}
-    ```
-    ```html
-    <!-- templates/bundles/SyliusShopBundle/_scripts.html.twig -->
-    
-    <script src="https://js.mollie.com/v1/mollie.js"> </script>
-    {{ encore_entry_script_tags('shop-entry', null, 'shop') }}
-    ```
-    ```html
-    <!-- templates/bundles/SyliusShopBundle/_styles.html.twig -->
-
-    {{ encore_entry_link_tags('shop-entry', null, 'shop') }}
-    ```
-    and run:
-    ```bash
-    yarn add @babel/preset-env bazinga-translator intl-messageformat lodash.get node-sass@4.14.1 shepherd.js@11.0 webpack-notifier
-    yarn add --dev @babel/core@7.16.0 @babel/register@7.16.0 @babel/plugin-proposal-object-rest-spread@7.16.5 @symfony/webpack-encore@1.5.0
-    ```
-
-    for Sylius >= 1.12:
     ```bash
     yarn add bazinga-translator intl-messageformat lodash.get shepherd.js@11.0
     ```

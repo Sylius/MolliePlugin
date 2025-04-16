@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+>
+    <mapped-superclass name="Sylius\MolliePlugin\Entity\MollieMinMax" table="mollie_configuration_amount_limits">
+        <id name="id" type="integer">
+            <generator strategy="AUTO"/>
+        </id>
+        <field name="minimumAmount" column="min_amount" type="float" nullable="true" />
+        <field name="maximumAmount" column="max_amount" type="float" nullable="true" />
+        <one-to-one field="mollieGatewayConfig" target-entity="Sylius\MolliePlugin\Entity\MollieGatewayConfig" mapped-by="amountLimits"/>
+    </mapped-superclass>
+</doctrine-mapping>

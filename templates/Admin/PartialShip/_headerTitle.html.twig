@@ -1,0 +1,7 @@
+{% import '@SyliusUi/Macro/headers.html.twig' as headers %}
+
+{{ headers.default(
+    'sylius_mollie.ui.splitting_shipment_for_order'|trans({'%number%': shipment.order.number}),
+    configuration.vars.icon|default('plus'),
+    configuration.vars.subheader|default(null)|trans)
+}}

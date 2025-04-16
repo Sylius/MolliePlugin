@@ -11,34 +11,22 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Refund;
+namespace Sylius\MolliePlugin\Refund;
 
-use SyliusMolliePlugin\Creator\PaymentRefundCommandCreatorInterface;
-use SyliusMolliePlugin\Exceptions\InvalidRefundAmountException;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
 use Mollie\Api\Resources\Payment;
+use Sylius\MolliePlugin\Exceptions\InvalidRefundAmountException;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Refund\Creator\PaymentRefundCommandCreatorInterface;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 final class PaymentRefund implements PaymentRefundInterface
 {
-    /** @var MessageBusInterface */
-    private $commandBus;
-
-    /** @var PaymentRefundCommandCreatorInterface */
-    private $commandCreator;
-
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
     public function __construct(
-        MessageBusInterface $commandBus,
-        PaymentRefundCommandCreatorInterface $commandCreator,
-        MollieLoggerActionInterface $loggerAction
+        private readonly MessageBusInterface $commandBus,
+        private readonly PaymentRefundCommandCreatorInterface $commandCreator,
+        private readonly MollieLoggerActionInterface $loggerAction,
     ) {
-        $this->commandBus = $commandBus;
-        $this->commandCreator = $commandCreator;
-        $this->loggerAction = $loggerAction;
     }
 
     public function refund(Payment $payment): void
@@ -46,9 +34,7 @@ final class PaymentRefund implements PaymentRefundInterface
         try {
             $refundUnits = $this->commandCreator->fromPayment($payment);
             $this->commandBus->dispatch($refundUnits);
-        } catch (InvalidRefundAmountException $e) {
-            $this->loggerAction->addNegativeLog($e->getMessage());
-        } catch (HandlerFailedException $e) {
+        } catch (HandlerFailedException|InvalidRefundAmountException $e) {
             $this->loggerAction->addNegativeLog($e->getMessage());
         }
     }

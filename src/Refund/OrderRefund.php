@@ -11,34 +11,22 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Refund;
+namespace Sylius\MolliePlugin\Refund;
 
-use SyliusMolliePlugin\Creator\OrderRefundCommandCreatorInterface;
-use SyliusMolliePlugin\Exceptions\InvalidRefundAmountException;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
 use Mollie\Api\Resources\Order;
+use Sylius\MolliePlugin\Exceptions\InvalidRefundAmountException;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Refund\Creator\OrderRefundCommandCreatorInterface;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 final class OrderRefund implements OrderRefundInterface
 {
-    /** @var MessageBusInterface */
-    private $commandBus;
-
-    /** @var OrderRefundCommandCreatorInterface */
-    private $commandCreator;
-
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
     public function __construct(
-        MessageBusInterface $commandBus,
-        OrderRefundCommandCreatorInterface $commandCreator,
-        MollieLoggerActionInterface $loggerAction
+        private readonly MessageBusInterface $commandBus,
+        private readonly OrderRefundCommandCreatorInterface $commandCreator,
+        private readonly MollieLoggerActionInterface $loggerAction,
     ) {
-        $this->commandBus = $commandBus;
-        $this->commandCreator = $commandCreator;
-        $this->loggerAction = $loggerAction;
     }
 
     public function refund(Order $order): void
@@ -46,9 +34,7 @@ final class OrderRefund implements OrderRefundInterface
         try {
             $refundUnits = $this->commandCreator->fromOrder($order);
             $this->commandBus->dispatch($refundUnits);
-        } catch (InvalidRefundAmountException $e) {
-            $this->loggerAction->addNegativeLog($e->getMessage());
-        } catch (HandlerFailedException $e) {
+        } catch (HandlerFailedException|InvalidRefundAmountException $e) {
             $this->loggerAction->addNegativeLog($e->getMessage());
         }
     }

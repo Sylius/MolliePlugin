@@ -11,14 +11,14 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Validator\Constraints;
+namespace Sylius\MolliePlugin\Validator\Constraints;
 
 use Mollie\Api\Types\PaymentMethod;
-use SyliusMolliePlugin\Checker\Gateway\MollieGatewayFactoryCheckerInterface;
-use SyliusMolliePlugin\Resolver\Order\PaymentCheckoutOrderResolverInterface;
 use Payum\Core\Model\GatewayConfigInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryCheckerInterface;
+use Sylius\MolliePlugin\Resolver\Order\PaymentCheckoutOrderResolverInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Validator\Constraint;
@@ -26,30 +26,18 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 final class PaymentMethodCheckoutValidator extends ConstraintValidator
 {
-    /** @var RequestStack */
-    private $requestStack;
-
-    /** @var PaymentCheckoutOrderResolverInterface */
-    private $paymentCheckoutOrderResolver;
-
-    private MollieGatewayFactoryCheckerInterface $mollieGatewayFactoryChecker;
-
     public function __construct(
-        PaymentCheckoutOrderResolverInterface $paymentCheckoutOrderResolver,
-        RequestStack                          $requestStack,
-        MollieGatewayFactoryCheckerInterface  $mollieGatewayFactoryChecker
-    )
-    {
-        $this->requestStack = $requestStack;
-        $this->paymentCheckoutOrderResolver = $paymentCheckoutOrderResolver;
-        $this->mollieGatewayFactoryChecker = $mollieGatewayFactoryChecker;
+        private readonly PaymentCheckoutOrderResolverInterface $paymentCheckoutOrderResolver,
+        private readonly RequestStack $requestStack,
+        private readonly MollieGatewayFactoryCheckerInterface $mollieGatewayFactoryChecker,
+    ) {
     }
 
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         $order = $this->paymentCheckoutOrderResolver->resolve();
 
-        /** @var PaymentInterface|null|false $payment */
+        /** @var PaymentInterface|false|null $payment */
         $payment = $order->getPayments()->last();
 
         if (!$payment instanceof PaymentInterface) {
@@ -66,11 +54,11 @@ final class PaymentMethodCheckoutValidator extends ConstraintValidator
         $gateway = $paymentMethod->getGatewayConfig();
 
         if ($value === null && $this->mollieGatewayFactoryChecker->isMollieGateway($gateway)) {
-            $this->flashMessage($constraint, 'error', 'sylius_mollie_plugin.empty_payment_method_checkout');
+            $this->flashMessage($constraint, 'error', 'sylius_mollie.empty_payment_method_checkout');
         }
 
         if ($value === PaymentMethod::BILLIE && empty($order->getBillingAddress()->getCompany())) {
-            $this->flashMessage($constraint, 'error', 'sylius_mollie_plugin.billie.error.company_missing');
+            $this->flashMessage($constraint, 'error', 'sylius_mollie.billie.error.company_missing');
         }
 
         $customer = $order->getCustomer();
@@ -85,17 +73,11 @@ final class PaymentMethodCheckoutValidator extends ConstraintValidator
                 empty($order->getBillingAddress()->getLastName()) ||
                 empty($email)
             )) {
-            $this->flashMessage($constraint, 'error', 'sylius_mollie_plugin.billing_address.error.info_missing');
+            $this->flashMessage($constraint, 'error', 'sylius_mollie.billing_address.error.info_missing');
         }
     }
 
-    /**
-     * @param Constraint $constraint
-     * @param string $type
-     * @param string $messageKey
-     * @return void
-     */
-    private function flashMessage(Constraint $constraint, string $type, string $messageKey)
+    private function flashMessage(Constraint $constraint, string $type, string $messageKey): void
     {
         /** @var Session $session */
         $session = $this->requestStack->getSession();

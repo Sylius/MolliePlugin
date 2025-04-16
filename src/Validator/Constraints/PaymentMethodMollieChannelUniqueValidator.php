@@ -11,16 +11,16 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Validator\Constraints;
+namespace Sylius\MolliePlugin\Validator\Constraints;
 
-use SyliusMolliePlugin\Entity\GatewayConfigInterface;
-use SyliusMolliePlugin\Factory\MollieGatewayFactory;
-use SyliusMolliePlugin\Factory\MollieSubscriptionGatewayFactory;
-use SyliusMolliePlugin\Repository\PaymentMethodRepositoryInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator as ConstraintValidatorAlias;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -28,21 +28,13 @@ use Webmozart\Assert\Assert;
 
 final class PaymentMethodMollieChannelUniqueValidator extends ConstraintValidatorAlias
 {
-    /** @var PaymentMethodRepositoryInterface */
-    private $paymentMethodRepository;
-
-    /** @var TranslatorInterface */
-    private $translator;
-
     public function __construct(
-        PaymentMethodRepositoryInterface $paymentMethodRepository,
-        TranslatorInterface $translator
+        private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+        private readonly TranslatorInterface $translator,
     ) {
-        $this->paymentMethodRepository = $paymentMethodRepository;
-        $this->translator = $translator;
     }
 
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if ($value instanceof PaymentMethodInterface &&
             null !== $value->getCode() &&
@@ -68,7 +60,6 @@ final class PaymentMethodMollieChannelUniqueValidator extends ConstraintValidato
             MollieGatewayFactory::FACTORY_NAME => [],
         ];
 
-        /** @var PaymentMethodInterface $method */
         foreach ($molliePaymentMethods as $method) {
             Assert::notNull($method->getGatewayConfig());
             $separatedMethods[$method->getGatewayConfig()->getFactoryName()][] = $method;
@@ -83,21 +74,20 @@ final class PaymentMethodMollieChannelUniqueValidator extends ConstraintValidato
             }
 
             if ($this->isTheSameChannel($paymentMethod->getChannels(), $alreadyUsedChannels)) {
-                $translation = $this->translator->trans('sylius_mollie_plugin.form.channel_should_be_unique', [
+                $translation = $this->translator->trans('sylius_mollie.form.channel_should_be_unique', [
                     '{channels}' => $this->getChannelsNameByChannels($alreadyUsedChannels),
                 ]);
 
-                $this->context->buildViolation($translation)->atPath('channels')->addViolation()
-                ;
+                $this->context->buildViolation($translation)->atPath('channels')->addViolation();
             }
         }
     }
 
+    /** @param PaymentMethodInterface[] $molliePaymentMethods */
     private function getAlreadyUsedChannels(array $molliePaymentMethods): Collection
     {
         $alreadyUsedChannels = new ArrayCollection();
 
-        /** @var PaymentMethodInterface $molliePaymentMethod */
         foreach ($molliePaymentMethods as $molliePaymentMethod) {
             /** @var ChannelInterface $channel */
             foreach ($molliePaymentMethod->getChannels() as $channel) {
@@ -132,7 +122,7 @@ final class PaymentMethodMollieChannelUniqueValidator extends ConstraintValidato
         return true === in_array(
             $gateway->getFactoryName(),
             [MollieGatewayFactory::FACTORY_NAME, MollieSubscriptionGatewayFactory::FACTORY_NAME],
-            true
+            true,
         );
     }
 

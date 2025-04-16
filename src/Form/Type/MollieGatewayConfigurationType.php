@@ -11,12 +11,10 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Form\Type;
+namespace Sylius\MolliePlugin\Form\Type;
 
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Documentation\DocumentationLinksInterface;
-use SyliusMolliePlugin\Payments\PaymentTerms\Options;
-use SyliusMolliePlugin\Validator\Constraints\LiveApiKeyIsNotBlank;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Validator\Constraints\LiveApiKeyIsNotBlank;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -35,45 +33,37 @@ final class MollieGatewayConfigurationType extends AbstractType
 
     public const API_KEY_TEST = 'api_key_test';
 
-    /** @var DocumentationLinksInterface */
-    private $documentationLinks;
-    /** @var MollieApiClient */
-    private $apiClient;
-
-    public function __construct(DocumentationLinksInterface $documentationLinks, MollieApiClient $apiClient)
+    public function __construct(private readonly MollieApiClient $apiClient)
     {
-        $this->documentationLinks = $documentationLinks;
-        $this->apiClient = $apiClient;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('environment', ChoiceType::class, [
-                'label' => 'sylius_mollie_plugin.ui.environment',
+                'label' => 'sylius_mollie.ui.environment',
                 'choices' => [
-                    'sylius_mollie_plugin.ui.api_key_choice_test' => null,
-                    'sylius_mollie_plugin.ui.api_key_choice_live' => true,
+                    'sylius_mollie.ui.api_key_choice_test' => null,
+                    'sylius_mollie.ui.api_key_choice_live' => true,
                 ],
             ])
             ->add('profile_id', HiddenType::class, [
             ])
             ->add(self::API_KEY_TEST, PasswordType::class, [
                 'always_empty' => false,
-                'label' => $this->documentationLinks->getApiKeyDoc(),
-                'help' => ' ',
+                'label' => 'sylius_mollie.ui.api_key_test',
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'sylius_mollie_plugin.api_key.not_blank',
+                        'message' => 'sylius_mollie.api_key.not_blank',
                         'groups' => ['sylius'],
                     ]),
                     new Regex([
-                        'message' => 'sylius_mollie_plugin.api_key.invalid_test',
+                        'message' => 'sylius_mollie.api_key.invalid_test',
                         'groups' => ['sylius'],
                         'pattern' => '/^(test)_\w{0,}$/',
                     ]),
                     new Length([
-                        'minMessage' => 'sylius_mollie_plugin.api_key.min_length',
+                        'minMessage' => 'sylius_mollie.api_key.min_length',
                         'groups' => ['sylius'],
                         'min' => 35,
                     ]),
@@ -82,58 +72,55 @@ final class MollieGatewayConfigurationType extends AbstractType
             ->add(self::API_KEY_LIVE, PasswordType::class, [
                 'always_empty' => false,
                 'required' => true,
-                'label' => 'sylius_mollie_plugin.ui.api_key_live',
+                'label' => 'sylius_mollie.ui.api_key_live',
                 'constraints' => [
                     new Regex([
-                        'message' => 'sylius_mollie_plugin.api_key.invalid_live',
+                        'message' => 'sylius_mollie.api_key.invalid_live',
                         'groups' => ['sylius'],
                         'pattern' => '/^(live)_\w{0,}$/',
                     ]),
                     new Length([
-                        'minMessage' => 'sylius_mollie_plugin.api_key.min_length',
+                        'minMessage' => 'sylius_mollie.api_key.min_length',
                         'groups' => ['sylius'],
                         'min' => 35,
                     ]),
                 ],
             ])
             ->add('abandoned_email_enabled', CheckboxType::class, [
-                'label' => 'sylius_mollie_plugin.ui.abandoned_email_enabled',
-                'help' => 'sylius_mollie_plugin.ui.abandoned_description',
+                'label' => 'sylius_mollie.ui.abandoned_email_enabled',
+                'help' => 'sylius_mollie.ui.abandoned_description',
             ])
             ->add('abandoned_hours', ChoiceType::class, [
-                'label' => 'sylius_mollie_plugin.ui.abandoned_hours',
+                'label' => 'sylius_mollie.ui.abandoned_hours',
                 'choices' => array_combine(
                     range(1, 200, 1),
-                    range(1, 200, 1)
+                    range(1, 200, 1),
                 ),
             ])
-            ->add('loggerLevel', ChoiceType::class, [
-                'label' => 'sylius_mollie_plugin.ui.debug_level_log',
-                'choices' => Options::getDebugLevels(),
+            ->add('loggerLevel', LoggerLevelChoiceType::class, [
+                'log_type' => LoggerLevelChoiceType::TYPE_DEBUG,
             ])
             ->add('components', CheckboxType::class, [
-                'label' => 'sylius_mollie_plugin.ui.enable_components',
+                'label' => 'sylius_mollie.ui.enable_components',
                 'attr' => ['class' => 'mollie-components'],
-                'help' => $this->documentationLinks->getMollieComponentsDoc(),
                 'help_html' => true,
             ])
             ->add('single_click_enabled', CheckboxType::class, [
-                'label' => 'sylius_mollie_plugin.ui.single_click_enabled',
+                'label' => 'sylius_mollie.ui.single_click_enabled',
                 'attr' => ['class' => 'mollie-single-click-payment'],
-                'help' => $this->documentationLinks->getSingleClickDoc(),
                 'help_html' => true,
             ])
             ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
                 $data = $event->getData();
 
-                $data['payum.http_client'] = '@sylius_mollie_plugin.mollie_api_client';
+                $data['payum.http_client'] = '@sylius_mollie.client.mollie_api';
 
                 $event->setData($data);
             })
             ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
                 $data = $event->getData();
 
-                $apiKeyField = $data['environment'] ? MollieGatewayConfigurationType::API_KEY_LIVE : MollieGatewayConfigurationType::API_KEY_TEST;
+                $apiKeyField = ((bool) $data['environment']) ? MollieGatewayConfigurationType::API_KEY_LIVE : MollieGatewayConfigurationType::API_KEY_TEST;
 
                 $apiKey = $data[$apiKeyField] ?? '';
                 if (!preg_match('/^(test|live)_\w{26,}$/', $apiKey)) {

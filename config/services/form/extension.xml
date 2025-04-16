@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <services>
+        <service id="sylius_mollie.form.extension.type.complete" class="Sylius\MolliePlugin\Form\Extension\CompleteTypeExtension">
+            <tag name="form.type_extension" extended_type="Sylius\Bundle\CoreBundle\Form\Type\Checkout\CompleteType"/>
+        </service>
+
+        <service id="sylius_mollie.form.extension.type.product_variant_recurring" class="Sylius\MolliePlugin\Form\Extension\ProductVariantRecurringExtension">
+            <argument type="service" id="sylius_mollie.form.resolver.product_variant_validation_groups"/>
+            <tag name="form.type_extension" extended_type="Sylius\Bundle\ProductBundle\Form\Type\ProductVariantType"/>
+        </service>
+
+        <service id="sylius_mollie.form.extension.type.payment" class="Sylius\MolliePlugin\Form\Extension\PaymentTypeExtension">
+            <tag name="form.type_extension" extended_type="Sylius\Bundle\CoreBundle\Form\Type\Checkout\PaymentType"/>
+        </service>
+
+        <service id="sylius_mollie.form.extension.type.gateway_config" class="Sylius\MolliePlugin\Form\Extension\GatewayConfigTypeExtension">
+            <tag name="form.type_extension" extended_type="Sylius\Bundle\PayumBundle\Form\Type\GatewayConfigType"/>
+        </service>
+
+        <service id="sylius_mollie.form.extension.type.product_type" class="Sylius\MolliePlugin\Form\Extension\ProductTypeExtension">
+            <tag name="form.type_extension" extended_type="Sylius\Bundle\ProductBundle\Form\Type\ProductType"/>
+        </service>
+    </services>
+</container>

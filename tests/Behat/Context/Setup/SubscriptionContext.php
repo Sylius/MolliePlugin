@@ -11,28 +11,26 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Behat\Context\Setup;
+namespace Tests\Sylius\MolliePlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
-use SyliusMolliePlugin\Entity\MollieCustomer;
-use SyliusMolliePlugin\Entity\MollieSubscriptionInterface;
-use SyliusMolliePlugin\Entity\MollieSubscriptionScheduleInterface;
-use SyliusMolliePlugin\Processor\SubscriptionScheduleProcessorInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Order\Model\OrderItemInterface;
 use Sylius\Component\Payment\Model\PaymentInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
+use Sylius\MolliePlugin\Entity\MollieCustomer;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionScheduleInterface;
+use Sylius\MolliePlugin\Subscription\Processor\SubscriptionScheduleProcessorInterface;
 use Webmozart\Assert\Assert;
 
 final class SubscriptionContext implements Context
 {
-    /** @var EntityManagerInterface */
-    private $entityManagerSubscription;
+    private EntityManagerInterface $entityManagerSubscription;
 
-    /** @var FactoryInterface */
-    private $subscriptionFactory;
+    private FactoryInterface $subscriptionFactory;
 
     private SharedStorageInterface $sharedStorage;
 
@@ -44,7 +42,7 @@ final class SubscriptionContext implements Context
         EntityManagerInterface $entityManagerSubscription,
         FactoryInterface $subscriptionFactory,
         SharedStorageInterface $sharedStorage,
-        SubscriptionScheduleProcessorInterface $subscriptionScheduleProcessor
+        SubscriptionScheduleProcessorInterface $subscriptionScheduleProcessor,
     ) {
         $this->entityManagerSubscription = $entityManagerSubscription;
         $this->subscriptionFactory = $subscriptionFactory;

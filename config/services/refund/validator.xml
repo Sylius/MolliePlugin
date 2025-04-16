@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <services>
+        <defaults public="true" />
+
+        <service
+            id="sylius_mollie.refund.validator.refund_units_command"
+            class="Sylius\MolliePlugin\Refund\Validator\RefundUnitsCommandValidator"
+            decorates="Sylius\RefundPlugin\Validator\RefundUnitsCommandValidator"
+        >
+            <argument type="service" id="Sylius\RefundPlugin\Checker\OrderRefundingAvailabilityChecker"/>
+            <argument type="service" id="Sylius\RefundPlugin\Validator\RefundAmountValidator" />
+            <argument type="service" id="sylius_mollie.refund.checker.duplicate_refund_the_same_amount"/>
+        </service>
+    </services>
+</container>

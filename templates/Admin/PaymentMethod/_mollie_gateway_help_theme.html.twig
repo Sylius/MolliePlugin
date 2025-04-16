@@ -1,0 +1,37 @@
+{% extends '@SyliusUi/Form/theme.html.twig' %}
+
+{% block form_help %}
+    {% if help is empty and help is not same as(false) %}
+        {% set name = name ?? id|split('_')|last %}
+
+        {% if name == 'api_key_test' %}
+            <div class="ui pointing label">
+                {{ 'sylius_mollie.ui.read_more_test_api_key'|trans({
+                    '%link%': '<a target="_blank" href="https://www.mollie.com/dashboard/developers/api-keys">' ~ 'sylius_mollie.ui.mollie_profile'|trans ~ '</a>'
+                })|raw }}
+            </div>
+        {% elseif name == 'api_key_live' %}
+            <div class="ui pointing label">
+                {{ 'sylius_mollie.ui.read_more_live_api_key'|trans({
+                    '%link%': '<a target="_blank" href="https://www.mollie.com/dashboard/developers/api-keys">' ~ 'sylius_mollie.ui.mollie_profile'|trans ~ '</a>'
+                })|raw }}
+            </div>
+        {% elseif name == 'components' %}
+            <div class="ui pointing label">
+                {{ 'sylius_mollie.ui.read_more_enable_components'|trans({
+                    '%link%': '<a target="_blank" href="https://www.mollie.com/en/news/post/better-checkout-flows-with-mollie-components">' ~ 'sylius_mollie.ui.mollie_components'|trans ~ '</a>'
+                })|raw }}
+            </div>
+        {% elseif name == 'single_click_enabled' %}
+            <div class="ui pointing label">
+                {{ 'sylius_mollie.ui.read_more_single_click_enabled'|trans({
+                    '%link%': '<a target="_blank" href="https://help.mollie.com/hc/en-us/articles/115000671249-What-are-single-click-payments-and-how-does-it-work-">' ~ 'sylius_mollie.ui.mollie_single_click'|trans ~ '</a>'
+                })|raw }}
+            </div>
+        {% else %}
+            {{ parent() }}
+        {% endif %}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

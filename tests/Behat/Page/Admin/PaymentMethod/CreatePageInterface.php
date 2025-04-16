@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\SyliusMolliePlugin\Behat\Page\Admin\PaymentMethod;
+namespace Tests\Sylius\MolliePlugin\Behat\Page\Admin\PaymentMethod;
 
 use Sylius\Behat\Page\Admin\Crud\CreatePageInterface as BaseCreatePageInterface;
 

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <services>
+        <defaults public="true" />
+
+        <service
+            id="sylius_mollie.custom_factory.mollie_gateway_config"
+            class="Sylius\MolliePlugin\Factory\MollieGatewayConfigFactory"
+            decorates="sylius_mollie.factory.mollie_gateway_config"
+        >
+            <argument type="service" id=".inner"/>
+            <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Factory\MollieGatewayConfigFactoryInterface" alias="sylius_mollie.custom_factory.mollie_gateway_config" />
+
+        <service
+            id="sylius_mollie.custom_factory.mollie_logger"
+            class="Sylius\MolliePlugin\Factory\MollieLoggerFactory"
+            decorates="sylius_mollie.factory.mollie_logger"
+        >
+            <argument type="service" id=".inner"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Factory\MollieLoggerFactoryInterface" alias="sylius_mollie.custom_factory.mollie_logger" />
+
+        <service
+            id="sylius_mollie.custom_factory.mollie_subscription"
+            class="Sylius\MolliePlugin\Factory\MollieSubscriptionFactory"
+            decorates="sylius_mollie.factory.mollie_subscription"
+        >
+            <argument type="service" id=".inner"/>
+            <argument type="service" id="router"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Factory\MollieSubscriptionFactoryInterface" alias="sylius_mollie.custom_factory.mollie_subscription" />
+
+        <service
+            id="sylius_mollie.custom_factory.mollie_subscription_schedule"
+            class="Sylius\MolliePlugin\Factory\MollieSubscriptionScheduleFactory"
+            decorates="sylius_mollie.factory.mollie_subscription_schedule"
+        >
+            <argument type="service" id=".inner"/>
+        </service>
+        <service id="Sylius\MolliePlugin\Factory\MollieSubscriptionScheduleFactoryInterface" alias="sylius_mollie.custom_factory.mollie_subscription_schedule" />
+
+        <service id="sylius_mollie.factory.methods" class="Sylius\MolliePlugin\Factory\MethodsFactory"/>
+        <service id="Sylius\MolliePlugin\Factory\MethodsFactoryInterface" alias="sylius_mollie.factory.methods"/>
+
+        <service id="sylius_mollie.factory.date_period" class="Sylius\MolliePlugin\Factory\DatePeriodFactory"/>
+        <service id="Sylius\MolliePlugin\Factory\DatePeriodFactoryInterface" alias="sylius_mollie.factory.date_period"/>
+
+        <service id="sylius_mollie.factory.payment_details" class="Sylius\MolliePlugin\Factory\PaymentDetailsFactory"/>
+        <service id="Sylius\MolliePlugin\Factory\PaymentDetailsFactoryInterface" alias="sylius_mollie.factory.payment_details"/>
+    </services>
+</container>

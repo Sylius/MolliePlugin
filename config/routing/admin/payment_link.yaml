@@ -1,0 +1,5 @@
+sylius_mollie_plugin_payment_link:
+    path: /orders/{orderNumber}/payment-link
+    methods: [GET, PUT]
+    defaults:
+       _controller: sylius_mollie.controller.admin.generate_payment_link

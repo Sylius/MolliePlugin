@@ -11,58 +11,38 @@
 
 declare(strict_types=1);
 
-namespace SyliusMolliePlugin\Resolver;
+namespace Sylius\MolliePlugin\Resolver;
 
-use SyliusMolliePlugin\Client\MollieApiClient;
-use SyliusMolliePlugin\Entity\OrderInterface;
-use SyliusMolliePlugin\Form\Type\MollieGatewayConfigurationType;
-use SyliusMolliePlugin\Logger\MollieLoggerActionInterface;
-use SyliusMolliePlugin\Repository\PaymentMethodRepositoryInterface;
 use Mollie\Api\Exceptions\ApiException;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Resource\Exception\UpdateHandlingException;
+use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
 use Webmozart\Assert\Assert;
 
 final class MollieApiClientKeyResolver implements MollieApiClientKeyResolverInterface
 {
-    /** @var MollieApiClient */
-    private $mollieApiClient;
-
-    /** @var MollieLoggerActionInterface */
-    private $loggerAction;
-
-    /** @var PaymentMethodRepositoryInterface */
-    private $paymentMethodRepository;
-
-    /** @var ChannelContextInterface */
-    private $channelContext;
-
-    /** @var MollieFactoryNameResolverInterface */
-    private $factoryNameResolver;
-
     public function __construct(
-        MollieApiClient $mollieApiClient,
-        MollieLoggerActionInterface $loggerAction,
-        PaymentMethodRepositoryInterface $paymentMethodRepository,
-        ChannelContextInterface $channelContext,
-        MollieFactoryNameResolverInterface $factoryNameResolver
+        private readonly MollieApiClient $mollieApiClient,
+        private readonly MollieLoggerActionInterface $loggerAction,
+        private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+        private readonly ChannelContextInterface $channelContext,
+        private readonly MollieFactoryNameResolverInterface $factoryNameResolver,
     ) {
-        $this->mollieApiClient = $mollieApiClient;
-        $this->loggerAction = $loggerAction;
-        $this->paymentMethodRepository = $paymentMethodRepository;
-        $this->channelContext = $channelContext;
-        $this->factoryNameResolver = $factoryNameResolver;
     }
 
-    public function getClientWithKey(OrderInterface $order = null): MollieApiClient
+    public function getClientWithKey(?OrderInterface $order = null): MollieApiClient
     {
         /** @var ChannelInterface $channel */
         $channel = $this->channelContext->getChannel();
 
         $paymentMethod = $this->paymentMethodRepository->findOneByChannelAndGatewayFactoryName(
             $channel,
-            $this->factoryNameResolver->resolve($order)
+            $this->factoryNameResolver->resolve($order),
         );
 
         if (null === $paymentMethod) {
