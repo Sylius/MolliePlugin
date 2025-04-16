@@ -1,9 +1,9 @@
-mollie_admin:
-    resource: "routing/admin.yaml"
-    prefix: /admin
+sylius_mollie_admin:
+    resource: "routes/admin.yaml"
+    prefix: /%sylius_admin.path_name%
 
-mollie_shop:
-    resource: "routing/shop.yaml"
+sylius_mollie_shop:
+    resource: "routes/shop.yaml"
     prefix: /{_locale}
     requirements:
         _locale: ^[A-Za-z]{2,4}(_([A-Za-z]{4}|[0-9]{3}))?(_([A-Za-z]{2}|[0-9]{3}))?$
