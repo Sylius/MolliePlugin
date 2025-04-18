@@ -26,7 +26,8 @@ return static function (ECSConfig $config): void {
     $config->paths([
         'src',
         'tests/Behat',
-        'tests/PHPUnit',
+        'tests/Functional',
+        'tests/Unit',
         'tests/Application/src',
     ]);
     $config->skip([

@@ -150,10 +150,10 @@ jobs:
                 uses: mockoon/cli-action@v2
                 with:
                     version: "latest"
-                    data-file: tests/PHPUnit/Functional/Mockoon.json
+                    data-file: tests/Functional/Mockoon.json
                     port: 8217
 
-            -   name: Run Functional PHPUnit Tests
+            -   name: Run Functional Tests
                 run: vendor/bin/phpunit --colors=always --testsuite=functional
 
             -   name: Run Mockoon for Behat
