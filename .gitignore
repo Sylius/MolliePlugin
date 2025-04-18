@@ -3,7 +3,7 @@
 
 /vendor/
 /node_modules/
-/composer.lock
+composer.lock
 
 /src/Resources/public/mollie/manifest.json
 /src/Resources/public/mollie/mollie/admin.js.LICENSE.txt

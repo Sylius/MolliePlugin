@@ -9,10 +9,10 @@
 >
     <testsuites>
         <testsuite name="functional">
-            <directory>tests/PHPUnit/Functional</directory>
+            <directory>tests/Functional</directory>
         </testsuite>
         <testsuite name="unit">
-            <directory>tests/PHPUnit/Unit</directory>
+            <directory>tests/Unit</directory>
         </testsuite>
     </testsuites>
 
@@ -22,7 +22,7 @@
 
         <server name="APP_ENV" value="test" />
         <server name="KERNEL_CLASS" value="Tests\Sylius\MolliePlugin\Application\Kernel" />
-        <server name="EXPECTED_RESPONSE_DIR" value="tests/PHPUnit/Responses/json" />
+        <server name="EXPECTED_RESPONSE_DIR" value="tests/Responses/json" />
         <server name="IS_DOCTRINE_ORM_SUPPORTED" value="true" />
     </php>
 </phpunit>
