@@ -1,9 +1,9 @@
 imports:
     - { resource: "resources/**/*.yaml" }
-    - { resource: "state_machine/**/*.yaml" }
+#    - { resource: "state_machine/**/*.yaml" }
     - { resource: "grids/**/*.yaml" }
     - { resource: "email/**/*.yaml" }
-    - { resource: "ui/**/*.yaml" }
+#    - { resource: "ui/**/*.yaml" }
     - { resource: "fixtures/**/*.yaml" }
 
 twig:
