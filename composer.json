@@ -41,9 +41,6 @@
         "symfony/web-profiler-bundle": "^6.4 || ^7.1",
         "symfony/webpack-encore-bundle": "^2.2"
     },
-    "suggest": {
-        "sylius/admin-order-creation-plugin": "Allows to create orders in the admin panel."
-    },
     "scripts": {
         "analyse": [
             "@composer validate --strict",
