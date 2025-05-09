@@ -1,4 +1,5 @@
-$ = window.$;
+import $ from 'jquery';
+
 $(function () {
     const testApiKeyButton = document.getElementsByClassName(' test-api-key-button');
 

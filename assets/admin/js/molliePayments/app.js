@@ -1,4 +1,5 @@
-$ = window.$;
+import $ from 'jquery';
+
 $(function () {
     const mollieFormIncluded = document.getElementById('mollie-payment-form');
     const liveApiValue = '1';
@@ -23,7 +24,7 @@ $(function () {
         });
     });
 
-    $('.ui.dropdown').dropdown();
+    // $('.ui.dropdown').dropdown();
 
     $('.form_button--delete-img').each(function (index, value) {
         $(this).on('click', function () {
