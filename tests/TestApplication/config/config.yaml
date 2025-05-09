@@ -50,3 +50,10 @@ sylius_order:
         order:
             classes:
                 model: Tests\Sylius\MolliePlugin\Entity\Order
+
+sylius_user:
+    resources:
+        admin:
+            user:
+                classes:
+                    model: Tests\Sylius\MolliePlugin\Entity\AdminUser
