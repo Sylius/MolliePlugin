@@ -4,15 +4,12 @@ sylius_mollie_plugin_mollie_subscription:
         section: admin
         path: /mollie/subscription
         permission: true
-        templates: "@SyliusAdmin\\Crud"
+        templates: "@SyliusAdmin\\shared\\crud"
         only: ['index']
         redirect: update
         grid: sylius_mollie_plugin_mollie_subscription
         vars:
-            all:
-                subheader: sylius_mollie.ui.subscription_list
-            index:
-                icon: 'tags'
+            hook_prefix: 'sylius_mollie.admin.product_type'
     type: sylius.resource
 
 sylius_mollie_plugin_mollie_subscription_show:
