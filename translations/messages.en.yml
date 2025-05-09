@@ -177,6 +177,7 @@ sylius_mollie:
         sylius_bundle: 'Visit the Sylius bundle'
         template_content: 'Content'
         template_contents: 'Contents'
+        template_mollie_email: 'Email template'
         template_mollie_emails: 'Email templates'
         template_name: 'Name'
         template_subject: 'Subject'

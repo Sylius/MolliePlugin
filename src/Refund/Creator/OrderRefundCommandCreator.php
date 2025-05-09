@@ -69,8 +69,7 @@ final class OrderRefundCommandCreator implements OrderRefundCommandCreatorInterf
             }
         }
 
-        Assert::notNull($syliusOrder->getChannel());
-        $refundMethods = $this->refundPaymentMethodProvider->findForChannel($syliusOrder->getChannel());
+        $refundMethods = $this->refundPaymentMethodProvider->findForOrder($syliusOrder);
 
         if (0 === count($refundMethods)) {
             throw new OfflineRefundPaymentMethodNotFound(

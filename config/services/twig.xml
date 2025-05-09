@@ -49,5 +49,17 @@
             <argument type="service" id="sylius_mollie.provider.divisor"/>
             <tag name="twig.extension" />
         </service>
+
+        <service
+            id="sylius_mollie.twig.component.email_template.form"
+            class="Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponent"
+        >
+            <argument type="service" id="sylius_mollie.repository.template_mollie_email" />
+            <argument type="service" id="form.factory" />
+            <argument>%sylius_mollie.model.template_mollie_email.class%</argument>
+            <argument>Sylius\MolliePlugin\Form\Type\TemplateMollieEmailType</argument>
+
+            <tag name="sylius.live_component.admin" key="sylius_mollie:admin:email_template:form" />
+        </service>
     </services>
 </container>

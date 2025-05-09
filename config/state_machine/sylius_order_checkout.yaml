@@ -1,0 +1,8 @@
+winzou_state_machine:
+    sylius_order_checkout:
+        callbacks:
+            after:
+                sylius_mollie_plugin_payment_surcharge:
+                    on: ["select_payment"]
+                    do: ["@sylius_mollie.processor.payment_surcharge", "process"]
+                    args: ["object"]

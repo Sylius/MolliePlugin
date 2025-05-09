@@ -1,0 +1,52 @@
+imports:
+    - { resource: "@SyliusRefundPlugin/config/config.yaml" }
+    - { resource: "@SyliusMolliePlugin/config/config.yaml" }
+#    - { resource: "services_test.php" } # fix and enable when working on behat
+
+parameters:
+    sylius_cms_api_platform_mapping_path: '%kernel.project_dir%/../../../config/api_platform/'
+
+doctrine:
+    orm:
+        entity_managers:
+            default:
+                mappings:
+                    TestKit:
+                        is_bundle: false
+                        type: attribute
+                        dir: '%kernel.project_dir%/../../../tests/TestApplication/src/Entity'
+                        prefix: Tests\Sylius\MolliePlugin
+
+twig:
+    paths:
+        '%kernel.project_dir%/../../../tests/TestApplication/templates': ~
+
+sylius_ui:
+    twig_ux:
+        anonymous_component_template_prefixes:
+            'sylius_cms:shop': "@SyliusCmsPlugin/shop/shared/components"
+
+sylius_refund:
+    pdf_generator:
+        enabled: false
+
+sylius_payment:
+    resources:
+        gateway_config:
+            classes:
+                model: Tests\Sylius\MolliePlugin\Entity\GatewayConfig
+
+sylius_product:
+    resources:
+        product:
+            classes:
+                model: Tests\Sylius\MolliePlugin\Entity\Product
+        product_variant:
+            classes:
+                model: Tests\Sylius\MolliePlugin\Entity\ProductVariant
+
+sylius_order:
+    resources:
+        order:
+            classes:
+                model: Tests\Sylius\MolliePlugin\Entity\Order

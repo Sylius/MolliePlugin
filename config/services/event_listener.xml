@@ -44,7 +44,7 @@
 
         <service id="sylius_mollie.listener.refund_payment_generated_auto_complete" class="Sylius\MolliePlugin\EventListener\RefundPaymentGeneratedAutoCompleteListener">
             <argument type="service" id="sylius_refund.repository.refund_payment" />
-            <argument type="service" id="Sylius\RefundPlugin\StateResolver\RefundPaymentCompletedStateApplier"/>
+            <argument type="service" id="sylius_refund.state_resolver.refund_payment_completed_applier"/>
             <argument type="service" id="sylius.repository.payment_method"/>
             <tag name="messenger.message_handler" priority="10" />
         </service>

@@ -19,11 +19,9 @@ use Sylius\Abstraction\StateMachine\StateMachineInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\MolliePlugin\Payum\Action\BaseApiAwareAction;
 use Sylius\MolliePlugin\Payum\Request\Subscription\StatusRecurringSubscription;
-use Sylius\MolliePlugin\StateMachine\Applicator\StateMachineCompatibilityLayer;
 use Sylius\MolliePlugin\StateMachine\Applicator\SubscriptionAndPaymentIdApplicatorInterface;
 use Sylius\MolliePlugin\StateMachine\Applicator\SubscriptionAndSyliusPaymentApplicatorInterface;
 use Sylius\MolliePlugin\StateMachine\MollieSubscriptionTransitions;
-use Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransitionInterface;
 
 final class StatusRecurringSubscriptionAction extends BaseApiAwareAction
 {
@@ -31,19 +29,8 @@ final class StatusRecurringSubscriptionAction extends BaseApiAwareAction
         private readonly EntityManagerInterface $subscriptionManager,
         private readonly SubscriptionAndPaymentIdApplicatorInterface $subscriptionAndPaymentIdApplicator,
         private readonly SubscriptionAndSyliusPaymentApplicatorInterface $subscriptionAndSyliusPaymentApplicator,
-        private readonly StateMachineInterface|StateMachineTransitionInterface $stateMachineTransition,
+        private readonly StateMachineInterface $stateMachine,
     ) {
-        if ($this->stateMachineTransition instanceof StateMachineTransitionInterface) {
-            trigger_deprecation(
-                'sylius/mollie-plugin',
-                '2.2',
-                sprintf(
-                    'Passing an instance of "%s" as the fourth argument is deprecated. It will accept only instances of "%s" in MolliePlugin 3.0. The argument name will change from "stateMachineTransition" to "stateMachine".',
-                    StateMachineTransitionInterface::class,
-                    StateMachineInterface::class,
-                ),
-            );
-        }
     }
 
     /** @param StatusRecurringSubscription|mixed $request */
@@ -64,8 +51,8 @@ final class StatusRecurringSubscriptionAction extends BaseApiAwareAction
             $this->subscriptionAndSyliusPaymentApplicator->execute($subscription, $syliusPayment);
         }
 
-        $this->applySubscriptionStateMachine($subscription, MollieSubscriptionTransitions::TRANSITION_COMPLETE);
-        $this->applySubscriptionStateMachine($subscription, MollieSubscriptionTransitions::TRANSITION_ABORT);
+        $this->apply($subscription, MollieSubscriptionTransitions::TRANSITION_COMPLETE);
+        $this->apply($subscription, MollieSubscriptionTransitions::TRANSITION_ABORT);
 
         $this->subscriptionManager->persist($subscription);
         $this->subscriptionManager->flush();
@@ -78,12 +65,10 @@ final class StatusRecurringSubscriptionAction extends BaseApiAwareAction
             $request->getModel() instanceof MollieSubscriptionInterface;
     }
 
-    private function applySubscriptionStateMachine(MollieSubscriptionInterface $subscription, string $transition): void
+    private function apply(MollieSubscriptionInterface $subscription, string $transition): void
     {
-        if ($this->stateMachineTransition instanceof StateMachineInterface) {
-            StateMachineCompatibilityLayer::apply($this->stateMachineTransition, $subscription, MollieSubscriptionTransitions::GRAPH, $transition);
-        } else {
-            $this->stateMachineTransition->apply($subscription, $transition);
+        if ($this->stateMachine->can($subscription, MollieSubscriptionTransitions::GRAPH, $transition)) {
+            $this->stateMachine->apply($subscription, MollieSubscriptionTransitions::GRAPH, $transition);
         }
     }
 }

@@ -3,9 +3,20 @@ imports:
     - { resource: "state_machine/**/*.yaml" }
     - { resource: "grids/**/*.yaml" }
     - { resource: "email/**/*.yaml" }
-    - { resource: "ui/**/*.yaml" }
+#    - { resource: "ui/**/*.yaml" }
     - { resource: "fixtures/**/*.yaml" }
+    - { resource: "twig_hooks/**/*.yaml" }
 
 twig:
     globals:
         subscription_mollie_repository: "@sylius_mollie.repository.mollie_subscription"
+
+sylius_state_machine_abstraction:
+    graphs_to_adapters_mapping:
+        sylius_order_checkout: 'winzou_state_machine'
+        sylius_payment: 'winzou_state_machine'
+        sylius_shipment: 'winzou_state_machine'
+        mollie_subscription: 'winzou_state_machine'
+        mollie_subscription_manual: 'winzou_state_machine'
+        mollie_subscription_payment_state_graph: 'winzou_state_machine'
+        mollie_subscription_processing: 'winzou_state_machine'

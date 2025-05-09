@@ -28,12 +28,11 @@ return static function (ECSConfig $config): void {
         'tests/Behat',
         'tests/Functional',
         'tests/Unit',
-        'tests/Application/src',
+        'tests/TestApplication/src',
     ]);
     $config->skip([
         InlineDocCommentDeclarationSniff::class . '.MissingVariable',
         InlineDocCommentDeclarationSniff::class . '.NoAssignment',
-        VisibilityRequiredFixer::class => ['*Spec.php'],
         '**/var/*',
     ]);
     $config->ruleWithConfiguration(PhpdocSeparationFixer::class, ['groups' => [['Given', 'When', 'Then']]]);

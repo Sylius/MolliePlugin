@@ -27,7 +27,6 @@ Sylius\Component\Core\Model\Customer:
         email: "test@example.com"
         emailCanonical: "test@example.com"
 
-
 Sylius\Component\Core\Model\Address:
     customer_address:
         firstName: "Bruce"
@@ -108,7 +107,7 @@ Tests\Sylius\MolliePlugin\Entity\Product:
         createdAt: "<date_create('2019-02-01 03:00:00')>"
         channels: ["@channel"]
         currentLocale: "en_GB"
-        translations: ["@cap_product_translation"]
+#        translations: ["@cap_product_translation"]
         main_taxon: null
 
 Sylius\Component\Core\Model\ProductTranslation:
@@ -124,7 +123,7 @@ Tests\Sylius\MolliePlugin\Entity\ProductVariant:
         code: "RANDOM_CAP_CODE"
         product: "@cap_product"
         currentLocale: "en_US"
-        translations: ["@cap_variant_translation"]
+#        translations: ["@cap_variant_translation"]
         channelPricings:
             CHANNEL_CODE: "@channel_pricing"
         tracked: true

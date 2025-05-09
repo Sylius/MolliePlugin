@@ -15,14 +15,15 @@ namespace Tests\Sylius\MolliePlugin\Unit\Order;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Payum\Core\GatewayInterface;
-use Payum\Core\Model\GatewayConfigInterface;
 use Payum\Core\Payum;
 use Payum\Core\Request\Refund as RefundAction;
 use Payum\Core\Security\TokenInterface;
 use Payum\Core\Storage\StorageInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\Component\Payment\Model\GatewayConfigInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
@@ -39,13 +40,13 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class OrderPaymentRefundTest extends TestCase
 {
-    private RepositoryInterface $orderRepository;
+    private MockObject|RepositoryInterface $orderRepository;
 
-    private MollieLoggerActionInterface $loggerAction;
+    private MockObject|MollieLoggerActionInterface $loggerAction;
 
-    private Payum $payum;
+    private MockObject|Payum $payum;
 
-    private UnitRefundFilterInterface $unitRefundFilter;
+    private MockObject|UnitRefundFilterInterface $unitRefundFilter;
 
     private OrderPaymentRefund $orderPaymentRefund;
 
