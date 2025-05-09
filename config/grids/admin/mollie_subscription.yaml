@@ -77,4 +77,4 @@ sylius_grid:
                         label: test
     templates:
         filter:
-            subscription_state: "@SyliusMolliePlugin/Admin/Logger/Grid/_theme.html.twig"
+            subscription_state: "@SyliusMolliePlugin/admin/mollie_subscription/grid/filter/states.html.twig"
