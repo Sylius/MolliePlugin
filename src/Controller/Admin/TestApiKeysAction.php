@@ -31,7 +31,7 @@ final class TestApiKeysAction
         $data = $this->apiKeysTestResolver->fromRequest($request);
 
         return new Response($this->twig->render(
-            '@SyliusMolliePlugin/Admin/PaymentMethod/testApiKeys.html.twig',
+            '@SyliusMolliePlugin/admin/payment_method/test_api_keys.html.twig',
             [
                 'tests' => $data,
             ],

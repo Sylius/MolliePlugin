@@ -9,6 +9,7 @@ sylius_mollie:
         api_key_live: 'Live API Key'
         api_key_start_with_api_key_live: 'API key must start with live_'
         api_key_start_with_api_key_test: 'API key must start with test_'
+        no_api_key_provided: 'No API key provided'
         api_key_test: 'Test API Key'
         available_methods: 'Available methods'
         breadcrumbs:

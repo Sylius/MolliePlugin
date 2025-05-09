@@ -1,0 +1,6 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie':
+            mollie:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie.html.twig'
+                priority: 0

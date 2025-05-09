@@ -145,7 +145,6 @@ final class MollieGatewayConfigType extends AbstractResourceType
                 $form = $event->getForm();
                 /** @var MollieGatewayConfigInterface $object */
                 $object = $form->getData();
-                $data = $event->getData();
 
                 if (in_array($object->getMethodId(), ApiTypeRestrictedPaymentMethods::onlyOrderApi(), true)) {
                     $form->remove('paymentType');
@@ -155,8 +154,6 @@ final class MollieGatewayConfigType extends AbstractResourceType
                         ],
                     ]);
                 }
-
-                $event->setData($data);
             })
             ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
                 /** @var MollieGatewayConfigInterface $object */
