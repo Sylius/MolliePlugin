@@ -74,3 +74,5 @@
    -    private ?ProcessingStateMachineTransitionInterface $processingStateMachineTransition = null,
    )
    ```
+
+1. The `Sylius\MolliePlugin\EventListener\ProductVariantRecurringOptionsListener` has been removed and the functionality is now provided by twig hooks.
