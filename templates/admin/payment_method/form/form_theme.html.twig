@@ -1,0 +1,33 @@
+{% extends '@SyliusAdmin/shared/form_theme.html.twig' %}
+
+{% block _sylius_admin_payment_method_gatewayConfig_config_api_key_test_help %}
+    <div id="{{ id }}" class="form-text mb-0 help-text">
+        {{ 'sylius_mollie.ui.read_more_test_api_key'|trans({
+            '%link%': '<a target="_blank" href="https://www.mollie.com/dashboard/developers/api-keys">' ~ 'sylius_mollie.ui.mollie_profile'|trans ~ '</a>'
+        })|raw }}
+    </div>
+{% endblock %}
+
+{% block _sylius_admin_payment_method_gatewayConfig_config_api_key_live_help %}
+    <div id="{{ id }}" class="form-text mb-0 help-text">
+        {{ 'sylius_mollie.ui.read_more_live_api_key'|trans({
+            '%link%': '<a target="_blank" href="https://www.mollie.com/dashboard/developers/api-keys">' ~ 'sylius_mollie.ui.mollie_profile'|trans ~ '</a>'
+        })|raw }}
+    </div>
+{% endblock %}
+
+{% block _sylius_admin_payment_method_gatewayConfig_config_components_help %}
+    <div id="{{ id }}" class="form-text mb-0 help-text">
+        {{ 'sylius_mollie.ui.read_more_enable_components'|trans({
+            '%link%': '<a target="_blank" href="https://www.mollie.com/en/news/post/better-checkout-flows-with-mollie-components">' ~ 'sylius_mollie.ui.mollie_components'|trans ~ '</a>'
+        })|raw }}
+    </div>
+{% endblock %}
+
+{% block _sylius_admin_payment_method_gatewayConfig_config_single_click_enabled_help %}
+    <div id="{{ id }}" class="form-text mb-0 help-text">
+        {{ 'sylius_mollie.ui.read_more_single_click_enabled'|trans({
+            '%link%': '<a target="_blank" href="https://help.mollie.com/hc/en-us/articles/115000671249-What-are-single-click-payments-and-how-does-it-work-">' ~ 'sylius_mollie.ui.mollie_single_click'|trans ~ '</a>'
+        })|raw }}
+    </div>
+{% endblock %}

@@ -1,6 +1,31 @@
 sylius_twig_hooks:
     hooks:
         'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie':
+            credentials:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credentials.html.twig'
+                priority: 100
             mollie:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie.html.twig'
+                priority: 0
+
+        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie.credentials':
+            environment:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credentials/environment.html.twig'
+                priority: 400
+            test_credentials:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credentials/test_credentials.html.twig'
+                priority: 300
+            api_key_live:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credentials/api_key_live.html.twig'
+                priority: 200
+            test_api_keys_action:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credentials/test_api_keys_action.html.twig'
+                priority: 0
+
+        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie.credentials.test_credentials':
+            profile_id:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credentials/test_credentials/profile_id.html.twig'
+                priority: 100
+            api_key_test:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credentials/test_credentials/api_key_test.html.twig'
                 priority: 0

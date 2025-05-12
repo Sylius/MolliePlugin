@@ -4,16 +4,7 @@
 {% set gateway_configuration = form.gatewayConfig %}
 {% set general_config = gateway_configuration.config %}
 
-{{ form_row(general_config.environment, {'attr': {'class': 'js-onboardingWizard-environment'}}) }}
-
-<div class="two field js-onboardingWizard-profile-api">
-    <div class="js-two-fields-test">
-        {{ form_widget(general_config.profile_id) }}
-        {% include '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/general/api_key_test.html.twig' %}
-    </div>
-    {% include '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/general/api_key_live.html.twig' %}
-    {% include '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/general/test_api_keys.html.twig' %}
-</div>
+{% form_theme general_config '@SyliusMolliePlugin/admin/payment_method/form/form_theme.html.twig' %}
 
 {{ form_rest(general_config) }}
 
