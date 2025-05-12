@@ -7,6 +7,12 @@ sylius_twig_hooks:
             second_chance:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/second_chance.html.twig'
                 priority: 300
+            credit_cards_extra:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credit_cards_extra.html.twig'
+                priority: 200
+            log_level:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/log_level.html.twig'
+                priority: 100
             mollie:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie.html.twig'
                 priority: 0
@@ -39,4 +45,12 @@ sylius_twig_hooks:
                 priority: 100
             abandoned_hours:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/second_chance/abandoned_hours.html.twig'
+                priority: 0
+
+        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie.credit_cards_extra':
+            components:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credit_cards_extra/components.html.twig'
+                priority: 100
+            single_click:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credit_cards_extra/single_click.html.twig'
                 priority: 0
