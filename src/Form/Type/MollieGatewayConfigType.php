@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Form\Type;
 
-use Sylius\Bundle\ProductBundle\Form\Type\ProductType as ProductFormType;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Sylius\Bundle\ResourceBundle\Form\Type\ResourceTranslationsType;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
@@ -92,11 +91,13 @@ final class MollieGatewayConfigType extends AbstractResourceType
                 'label' => 'sylius_mollie.ui.country_level_exclude',
                 'required' => false,
                 'multiple' => true,
+                'autocomplete' => true,
             ])
             ->add('countryLevel_allowed', CountryType::class, [
                 'label' => 'sylius_mollie.ui.country_level_allow',
                 'required' => false,
                 'multiple' => true,
+                'autocomplete' => true,
             ])
             ->add('countryLevel', CountryType::class, [
                 'label' => 'sylius_mollie.ui.country_level_restriction',
@@ -175,11 +176,5 @@ final class MollieGatewayConfigType extends AbstractResourceType
     public function getBlockPrefix(): string
     {
         return 'mollie_payment_method';
-    }
-
-    /** @return array<array-key, class-string> */
-    public static function getExtendedTypes(): array
-    {
-        return [ProductFormType::class];
     }
 }
