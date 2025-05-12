@@ -13,8 +13,8 @@ sylius_twig_hooks:
             log_level:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/log_level.html.twig'
                 priority: 100
-            mollie:
-                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie.html.twig'
+            mollie_payment_methods:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods.html.twig'
                 priority: 0
 
         'sylius_admin.payment_method.create.content.form.sections.gateway_configuration.mollie.credentials':
@@ -53,4 +53,22 @@ sylius_twig_hooks:
                 priority: 100
             single_click:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credit_cards_extra/single_click.html.twig'
+                priority: 0
+
+        'sylius_admin.payment_method.create.content.form.sections.gateway_configuration.mollie.mollie_payment_methods':
+            header:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/header.html.twig'
+                priority: 100
+            body:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body.html.twig'
+                priority: 0
+
+        'sylius_admin.payment_method.create.content.form.sections.gateway_configuration.mollie.mollie_payment_methods.header':
+            title:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/header/title.html.twig'
+                priority: 0
+
+        'sylius_admin.payment_method.create.content.form.sections.gateway_configuration.mollie.mollie_payment_methods.body':
+            create_notice:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body/create_notice.html.twig'
                 priority: 0

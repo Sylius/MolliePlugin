@@ -11,7 +11,7 @@
 {% set riverty = constant('Mollie\\Api\\Types\\PaymentMethod::RIVERTY') %}
 {#{% import '@SyliusUi/Macro/flags.html.twig' as flags %}#}
 
-<div class="ui segment" id="mollie-payment-form" data-status="{{resource.id}}">
+{#<div class="ui segment" id="mollie-payment-form" data-status="{{resource.id}}">#}
 {% if resource.id is null %}
     <h4 class="ui header">
         <div class="ui two column stackable grid js-onboardingWizard-load-methods">
@@ -191,6 +191,6 @@
         {% endfor %}
     </div>
 {% endif %}
-</div>
+{#</div>#}
 
 
