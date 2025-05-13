@@ -1,15 +1,6 @@
 sylius_twig_hooks:
     hooks:
-        'sylius_refund.admin.order.refund.content':
-            flashes:
-                template: '@SyliusAdmin/shared/crud/common/content/flashes.html.twig'
-                priority: 300
-            header:
-                template: '@SyliusAdmin/shared/crud/common/content/header.html.twig'
-                priority: 200
-            voucher:
-                template: '@SyliusMolliePlugin/admin/order/refund/content/order_voucher_notice.html.twig'
-                priority: 100
-            sections:
-                template: '@SyliusRefundPlugin/admin/order/refund/content/sections.html.twig'
-                priority: 0
+        'sylius_refund.admin.order.refund.content.header':
+            voucher_notice:
+                template: '@SyliusMolliePlugin/admin/order/refund/content/header/voucher_notice.html.twig'
+                priority: -100
