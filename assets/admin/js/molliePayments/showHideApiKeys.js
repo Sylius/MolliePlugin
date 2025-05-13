@@ -5,26 +5,16 @@ $(function () {
     const liveApiKeyButton = document.getElementById('api_key_live');
 
     $(testApiKeyButton).on('click', function (event) {
-        const testApiKeyInput = document.getElementById('sylius_payment_method_gatewayConfig_config_api_key_test');
-
-        if (testApiKeyInput.type === 'password') {
-            testApiKeyInput.type = 'text';
-
-            return;
-        }
-
-        testApiKeyInput.type = 'password';
+        toggleVisibility(this);
     });
 
     $(liveApiKeyButton).on('click', function (event) {
-        const liveApiKeyInput = document.getElementById('sylius_payment_method_gatewayConfig_config_api_key_live');
-
-        if (liveApiKeyInput.type === 'password') {
-            liveApiKeyInput.type = 'text';
-
-            return;
-        }
-
-        liveApiKeyInput.type = 'password';
+        toggleVisibility(this);
     });
+
+    function toggleVisibility(button) {
+        const keyInput = document.getElementById(button.dataset.input);
+
+        keyInput.type = keyInput.type === 'password' ? 'text' : 'password';
+    }
 });
