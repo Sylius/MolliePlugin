@@ -134,10 +134,7 @@ jobs:
                 name: Prepare test application database
                 run: |
                     vendor/bin/console doctrine:database:create -vvv
-                    vendor/bin/console doctrine:schema:update -f -vvv -q
-
-# Regenerate migrations for Sylius 2.0
-#                    vendor/bin/console doctrine:migrations:migrate -n -vvv -q
+                    vendor/bin/console doctrine:migrations:migrate -n -vvv -q
 
             -
                 name: Validate database schema
@@ -153,10 +150,9 @@ jobs:
                 name: Prepare test application cache
                 run: vendor/bin/console cache:warmup -vvv
 
-# Uncomment when state machine abstraction is present
-#            -
-#                name: Load fixtures in test application
-#                run: vendor/bin/console sylius:fixtures:load -n
+            -
+                name: Load fixtures in test application
+                run: vendor/bin/console sylius:fixtures:load -n
 
             -
                 name: Validate composer.json
@@ -165,17 +161,17 @@ jobs:
             -
                 name: Validate container
                 run: vendor/bin/console lint:container
-#
-#            -   name: Run Mockoon CLI
-#                uses: mockoon/cli-action@v2
-#                with:
-#                    version: "latest"
-#                    data-file: tests/Functional/Mockoon.json
-#                    port: 8217
-#
-#            -   name: Run Functional Tests
-#                run: vendor/bin/phpunit --colors=always --testsuite=functional
-#
+
+            -   name: Run Mockoon CLI
+                uses: mockoon/cli-action@v2
+                with:
+                    version: "latest"
+                    data-file: tests/Functional/Mockoon.json
+                    port: 8217
+
+            -   name: Run Functional Tests
+                run: vendor/bin/phpunit --colors=always --testsuite=functional
+
 #            -   name: Run Mockoon for Behat
 #                shell: bash
 #                run: |
