@@ -1,6 +1,6 @@
 sylius_twig_hooks:
     hooks:
-        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie':
+        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie_subscription':
             credentials:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credentials.html.twig'
                 priority: 400
@@ -17,7 +17,7 @@ sylius_twig_hooks:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods.html.twig'
                 priority: 0
 
-        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie.credentials':
+        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie_subscription.credentials':
             environment:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credentials/environment.html.twig'
                 priority: 400
@@ -31,7 +31,7 @@ sylius_twig_hooks:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credentials/test_api_keys_action.html.twig'
                 priority: 0
 
-        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie.credentials.test_credentials':
+        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie_subscription.credentials.test_credentials':
             profile_id:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credentials/test_credentials/profile_id.html.twig'
                 priority: 100
@@ -39,7 +39,7 @@ sylius_twig_hooks:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credentials/test_credentials/api_key_test.html.twig'
                 priority: 0
 
-        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie.second_chance':
+        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie_subscription.second_chance':
             toggle:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/second_chance/toggle.html.twig'
                 priority: 100
@@ -47,7 +47,7 @@ sylius_twig_hooks:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/second_chance/abandoned_hours.html.twig'
                 priority: 0
 
-        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie.credit_cards_extra':
+        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie_subscription.credit_cards_extra':
             components:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credit_cards_extra/components.html.twig'
                 priority: 100
@@ -55,7 +55,7 @@ sylius_twig_hooks:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credit_cards_extra/single_click.html.twig'
                 priority: 0
 
-        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie.mollie_payment_methods':
+        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie_subscription.mollie_payment_methods':
             header:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/header.html.twig'
                 priority: 100
@@ -63,7 +63,7 @@ sylius_twig_hooks:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body.html.twig'
                 priority: 0
 
-        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie.mollie_payment_methods.header':
+        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie_subscription.mollie_payment_methods.header':
             title:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/header/title.html.twig'
                 priority: 200
@@ -74,17 +74,17 @@ sylius_twig_hooks:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/header/sorting_notice.html.twig'
                 priority: 0
 
-        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie.mollie_payment_methods.body':
+        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie_subscription.mollie_payment_methods.body':
             accordion:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body/accordion.html.twig'
                 priority: 0
 
-        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie.mollie_payment_methods.body.accordion':
+        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie_subscription.mollie_payment_methods.body.accordion':
             item:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body/accordion/item.html.twig'
                 priority: 0
 
-        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie.mollie_payment_methods.body.accordion.item':
+        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie_subscription.mollie_payment_methods.body.accordion.item':
             header:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body/accordion/item/header.html.twig'
                 priority: 100
@@ -92,12 +92,12 @@ sylius_twig_hooks:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body/accordion/item/body.html.twig'
                 priority: 0
 
-        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie.mollie_payment_methods.body.accordion.item.header':
+        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie_subscription.mollie_payment_methods.body.accordion.item.header':
             header:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body/accordion/item/header/header.html.twig'
                 priority: 0
 
-        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie.mollie_payment_methods.body.accordion.item.body':
+        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie_subscription.mollie_payment_methods.body.accordion.item.body':
             translations:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body/accordion/item/body/translations.html.twig'
                 priority: 1000
@@ -119,11 +119,11 @@ sylius_twig_hooks:
             payment_type:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body/accordion/item/body/payment_type.html.twig'
                 priority: 400
-            qr_code_enabled:
-                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body/accordion/item/body/qr_code_enabled.html.twig'
-                priority: 300
             payment_description:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body/accordion/item/body/payment_description.html.twig'
+                priority: 300
+            qr_code_enabled:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body/accordion/item/body/qr_code_enabled.html.twig'
                 priority: 200
             payment_fee:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body/accordion/item/body/payment_fee.html.twig'
@@ -132,7 +132,7 @@ sylius_twig_hooks:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body/accordion/item/body/amount_limits.html.twig'
                 priority: 0
 
-        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie.mollie_payment_methods.body.accordion.item.body.translations':
+        'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie_subscription.mollie_payment_methods.body.accordion.item.body.translations':
             name:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body/accordion/item/body/translations/name.html.twig'
                 priority: 0
