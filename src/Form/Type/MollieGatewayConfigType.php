@@ -70,6 +70,7 @@ final class MollieGatewayConfigType extends AbstractResourceType
             ->add('paymentDescription', TextType::class, [
                 'label' => 'sylius_mollie.form.payment_methods.payment_description',
                 'help' => 'sylius_mollie.form.payment_methods.payment_description_help',
+                'help_html' => true,
                 'empty_data' => '{ordernumber}',
                 'attr' => [
                     'placeholder' => '{ordernumber}',
@@ -82,6 +83,7 @@ final class MollieGatewayConfigType extends AbstractResourceType
             ->add('amountLimits', MollieMinMaxType::class, [
                 'label' => false,
                 'required' => false,
+                'help' => 'sylius_mollie.form.amount_limit_help',
             ])
             ->add('customizeMethodImage', CustomizeMethodImageType::class, [
                 'label' => false,
