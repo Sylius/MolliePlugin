@@ -27,6 +27,7 @@ final class PaymentTypeChoiceType extends AbstractType
             'choices' => ApiType::getAllAvailable(),
             'help' => 'sylius_mollie.ui.payment_methods_doc',
             'help_html' => true,
+            'placeholder' => false,
         ]);
     }
 

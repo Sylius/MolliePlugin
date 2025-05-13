@@ -104,8 +104,11 @@ sylius_twig_hooks:
                 priority: 0
 
         'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie.mollie_payment_methods.body.accordion.item.header':
-            header:
-                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body/accordion/item/header/header.html.twig'
+            accordion_button:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body/accordion/item/header/accordion_button.html.twig'
+                priority: 100
+            enabled:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body/accordion/item/header/enabled.html.twig'
                 priority: 0
 
         'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie.mollie_payment_methods.body.accordion.item.body':

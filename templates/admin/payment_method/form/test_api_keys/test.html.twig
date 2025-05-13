@@ -5,7 +5,7 @@
         <span class="mt-2">{{ test.message }}</span>
     {% endif %}
     {% if test.status == constant('Sylius\\MolliePlugin\\Creator\\ApiKeysTestCreatorInterface::OK_STATUS') %}
-        <span>
+        <span class="mt-2">
             {{ 'sylius_mollie.ui.available_methods'|trans }}:
             {% for method in test.methods %}
                 {{ method.description }},
