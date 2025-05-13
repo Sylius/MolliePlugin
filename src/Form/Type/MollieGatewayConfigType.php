@@ -93,13 +93,13 @@ final class MollieGatewayConfigType extends AbstractResourceType
                 'label' => 'sylius_mollie.ui.country_level_exclude',
                 'required' => false,
                 'multiple' => true,
-                'autocomplete' => true,
+//                'autocomplete' => true, TODO: drag-n-drop sorter breaks the controllers
             ])
             ->add('countryLevel_allowed', CountryType::class, [
                 'label' => 'sylius_mollie.ui.country_level_allow',
                 'required' => false,
                 'multiple' => true,
-                'autocomplete' => true,
+//                'autocomplete' => true,  TODO: drag-n-drop sorter breaks the controllers
             ])
             ->add('countryLevel', CountryType::class, [
                 'label' => 'sylius_mollie.ui.country_level_restriction',
@@ -152,6 +152,7 @@ final class MollieGatewayConfigType extends AbstractResourceType
                 if (in_array($object->getMethodId(), ApiTypeRestrictedPaymentMethods::onlyOrderApi(), true)) {
                     $form->remove('paymentType');
                     $form->add('paymentType', PaymentTypeChoiceType::class, [
+                        'empty_data' => ApiType::ORDER_API_VALUE,
                         'attr' => [
                             'disabled' => 'disabled',
                         ],
