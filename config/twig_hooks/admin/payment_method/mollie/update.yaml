@@ -1,12 +1,15 @@
 sylius_twig_hooks:
     hooks:
-        'sylius_admin.payment_method.update.content.header':
+        'sylius_admin.payment_method.update.content':
             mollie_info:
-                template: '@SyliusMolliePlugin/admin/payment_method/update/content/header/mollie_info.html.twig'
-                priority: -100
+                template: '@SyliusMolliePlugin/admin/payment_method/update/content/mollie_info.html.twig'
+                priority: 300
             mollie_version:
-                template: '@SyliusMolliePlugin/admin/payment_method/update/content/header/mollie_version.html.twig'
-                priority: -200
+                template: '@SyliusMolliePlugin/admin/payment_method/update/content/mollie_version.html.twig'
+                priority: 200
+            onboarding_wizard:
+                template: '@SyliusMolliePlugin/admin/payment_method/update/content/onboarding_wizard/navigation.html.twig'
+                priority: -100
 
         'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie':
             credentials:
