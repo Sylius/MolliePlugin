@@ -7,3 +7,8 @@ sylius_twig_hooks:
             mollie_refund:
                 template: '@SyliusMolliePlugin/admin/order/show/content/sections/payments/item/actions/refund.html.twig'
                 priority: -200
+
+        'sylius_admin.order.show.content.sections.summary':
+            voucher_total:
+                template: '@SyliusMolliePlugin/admin/order/show/content/sections/summary/voucher_total.html.twig'
+                priority: -100
