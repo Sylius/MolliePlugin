@@ -254,7 +254,7 @@ sylius_mollie:
                 <p>You only need to do the configuration once to have TEST + LIVE environments available. Try easily toggling between the two.</p>
         step_4:
             text: >-
-                <p>Fill in your correct details and click "TEST API Key" this will return a successful or failed result for both the LIVE and TEST environments.</p>
+                <p>Fill in your correct details and click "Test API Keys" this will return a successful or failed result for both the LIVE and TEST environments.</p>
         step_5:
             text: >-
                 <p>Next, we'll set-up key settings for the checkout screen display on your webshop.</p>
@@ -296,7 +296,7 @@ sylius_mollie:
                     <p>This is Mollie suggested API to use for webshops because it allows you to create “orders”. An order contains the personal information of a customer (e.g. address) and products that the customer ordered. When an order is made, a corresponding payment will be created automatically.</p>
         step_14:
             text: >-
-                <p>"In case you have fees that you are passing on to the consumer, you can add them here. Read more about fees <a href=""https://help.mollie.com/hc/en-us/articles/360012564454-Can-I-pass-over-the-costs-for-the-use-of-a-payment-method-to-my-customers-"" target=""_blank"">here</a>.</p>
+                <p>In case you have fees that you are passing on to the consumer, you can add them here. Read more about fees <a href=""https://help.mollie.com/hc/en-us/articles/360012564454-Can-I-pass-over-the-costs-for-the-use-of-a-payment-method-to-my-customers-"" target=""_blank"">here</a>.</p>
         step_15:
             text: >-
                 <p>Remember to save your configurations.</p>

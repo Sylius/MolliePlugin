@@ -16,3 +16,6 @@ sylius_state_machine_abstraction:
         mollie_subscription_payment_graph_manual: 'winzou_state_machine'
         mollie_subscription_payment_state_graph: 'winzou_state_machine'
         mollie_subscription_processing_graph: 'winzou_state_machine'
+
+bazinga_js_translation:
+    locale_fallback: '%kernel.default_locale%'
