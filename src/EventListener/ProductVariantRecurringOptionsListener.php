@@ -15,6 +15,12 @@ namespace Sylius\MolliePlugin\EventListener;
 
 use Sylius\Bundle\AdminBundle\Event\ProductVariantMenuBuilderEvent;
 
+trigger_deprecation(
+    'sylius/mollie-plugin',
+    '2.2',
+    'The "%s" class is deprecated and will be removed in MolliePlugin 3.0.',
+    ProductVariantRecurringOptionsListener::class,
+);
 final class ProductVariantRecurringOptionsListener
 {
     public function addRecurringOptionsMenu(ProductVariantMenuBuilderEvent $event): void

@@ -8,6 +8,7 @@
    - `Sylius\MolliePlugin\StateMachine\Transition\ProcessingStateMachineTransitionInterface`
    - `Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransition`
    - `Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransitionInterface`
+   - `Sylius\MolliePlugin\EventListener\ProductVariantRecurringOptionsListener`
 
 1. Winzou State Machine deprecations
 
