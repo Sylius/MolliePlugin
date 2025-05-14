@@ -31,7 +31,7 @@
         </service>
 
         <service id="sylius_mollie.form.extension.type.gateway_config" class="Sylius\MolliePlugin\Form\Extension\GatewayConfigTypeExtension">
-            <tag name="form.type_extension" extended_type="Sylius\Bundle\PayumBundle\Form\Type\GatewayConfigType"/>
+            <tag name="form.type_extension" extended_type="Sylius\Bundle\PaymentBundle\Form\Type\GatewayConfigType"/>
         </service>
 
         <service id="sylius_mollie.form.extension.type.product_type" class="Sylius\MolliePlugin\Form\Extension\ProductTypeExtension">

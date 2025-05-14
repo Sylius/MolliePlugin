@@ -9,6 +9,7 @@ sylius_mollie:
         api_key_live: 'Live API Key'
         api_key_start_with_api_key_live: 'API key must start with live_'
         api_key_start_with_api_key_test: 'API key must start with test_'
+        no_api_key_provided: 'No API key provided'
         api_key_test: 'Test API Key'
         available_methods: 'Available methods'
         breadcrumbs:
@@ -194,7 +195,7 @@ sylius_mollie:
         you_can_fin_info_about: 'You can find more information about us on'
         you_can_sort_methods_via_drag_and_drop: 'You can sort payment methods via drag and drop'
     form:
-        amount_limit_help: 'Please specify the minimum and maximum amount to be applied to the cart. If left blank, the default settings provided by Mollie will be utilized'
+        amount_limit_help: 'Please specify the minimum and maximum amount to be applied to the cart. If left blank, the default settings provided by Mollie will be utilized.'
         channel_should_be_unique: 'Mollie payment method is already enabled for {channels} channel. Mollie can only be configured once per channel.'
         enabled_buy_now_button_help: 'The button is shown on the checkout page'
         expiration_date_time: 'Expiration date time'
@@ -203,9 +204,9 @@ sylius_mollie:
         payment_methods:
             payment_description: 'Description'
             payment_description_help: |-
-                The description to be used for the transactions. These variables are available:
-                <strong>{ordernumber}:</strong> The order number for this transaction
-                <strong>{storename}:</strong> The name of the store
+                The description to be used for the transactions. These variables are available:<br>
+                <strong>{ordernumber}:</strong> The order number for this transaction<br>
+                <strong>{storename}:</strong> The name of the store<br><br>
 
                 (Note: this only works when the method is set to Payments API)
         product_type: 'Product type (required in meal vouchers)'

@@ -1,4 +1,7 @@
-{% if payment_method is defined and payment_method.gatewayConfig.factoryName == constant('Sylius\\MolliePlugin\\Payum\\Factory\\MollieGatewayFactory::FACTORY_NAME') %}
+{% set resource = hookable_metadata.context.resource %}
+{% set factory_name = resource.gatewayConfig.factoryName ?? '' %}
+
+{% if factory_name == constant('Sylius\\MolliePlugin\\Payum\\Factory\\MollieGatewayFactory::FACTORY_NAME') %}
     <nav
         aria-hidden="false"
         aria-label="onboarding wizard"
@@ -6,7 +9,7 @@
         role="navigation"
     >
         <div class="onboarding-wizard__logo">
-            {% include '@SyliusMolliePlugin/Ui/OnboardingWizard/_logo.html.twig' %}
+            {% include '@SyliusMolliePlugin/admin/payment_method/update/content/onboarding_wizard/logo.html.twig' %}
         </div>
 
         <ul class="onboarding-wizard__steps">
@@ -14,8 +17,8 @@
                 <i class="onboarding-wizard__check icon check circle"></i>
 
                 <span class="onboarding-wizard__name">
-          {{ 'sylius_mollie.onboardingMollie.step_nav.1'|trans }}
-        </span>
+                  {{ 'sylius_mollie.onboardingMollie.step_nav.1'|trans }}
+                </span>
 
                 <i class="onboarding-wizard__arrow icon angle right"></i>
             </li>
@@ -24,8 +27,8 @@
                 <i class="onboarding-wizard__check icon check circle"></i>
 
                 <span class="onboarding-wizard__name">
-          {{ 'sylius_mollie.onboardingMollie.step_nav.2'|trans }}
-        </span>
+                    {{ 'sylius_mollie.onboardingMollie.step_nav.2'|trans }}
+                </span>
 
                 <i class="onboarding-wizard__arrow icon angle right"></i>
             </li>
@@ -34,8 +37,8 @@
                 <i class="onboarding-wizard__check icon check circle"></i>
 
                 <span class="onboarding-wizard__name">
-          {{ 'sylius_mollie.onboardingMollie.step_nav.3'|trans }}
-        </span>
+                    {{ 'sylius_mollie.onboardingMollie.step_nav.3'|trans }}
+                </span>
 
                 <i class="onboarding-wizard__arrow icon angle right"></i>
             </li>
@@ -44,8 +47,8 @@
                 <i class="onboarding-wizard__check icon check circle"></i>
 
                 <span class="onboarding-wizard__name">
-          {{ 'sylius_mollie.onboardingMollie.step_nav.4'|trans }}
-        </span>
+                    {{ 'sylius_mollie.onboardingMollie.step_nav.4'|trans }}
+                </span>
             </li>
         </ul>
     </nav>

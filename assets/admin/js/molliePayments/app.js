@@ -1,4 +1,5 @@
-$ = window.$;
+import $ from 'jquery';
+
 $(function () {
     const mollieFormIncluded = document.getElementById('mollie-payment-form');
     const liveApiValue = '1';
@@ -8,7 +9,7 @@ $(function () {
     }
 
     $('#get_methods').on('click', function () {
-        let form = $('.ui.form');
+        let form = $('form[name="sylius_admin_payment_method"]');
         form.addClass('loading');
 
         $.ajax({
@@ -23,11 +24,9 @@ $(function () {
         });
     });
 
-    $('.ui.dropdown').dropdown();
-
     $('.form_button--delete-img').each(function (index, value) {
         $(this).on('click', function () {
-            let form = $('.ui.form');
+            let form = $('.form');
             let value = $(this).data('value');
             form.addClass('loading');
 
@@ -55,15 +54,12 @@ $(function () {
 
     function setPaymentDescription(select) {
         const $targetMethod = select.closest('.js-draggable');
-        const $inputOrderNumber = $targetMethod.find('[id$="_paymentDescription"]');
-        const $descriptionOrderNumber = $targetMethod.find('[id^="payment_description_"]');
+        const $paymentDescription = $targetMethod.find('.js-onboardingWizard-order-number');
 
         if (select.find(':selected').val() === 'PAYMENT_API') {
-            $inputOrderNumber.show();
-            $descriptionOrderNumber.show();
+            $paymentDescription.show();
         } else {
-            $inputOrderNumber.hide();
-            $descriptionOrderNumber.hide();
+            $paymentDescription.hide();
         }
     }
 
@@ -75,21 +71,22 @@ $(function () {
 
         $(this).on('change', () => {
             const value = $(this).val();
-            const index = $('.content.active[data-method-id]').data('method-id');
+            const index = $(this).closest('[data-method-id]').data('method-id');
             setPaymentFeeFields(value, index);
         });
     });
 
     function setPaymentFeeFields(value, index) {
         const fixedAmount =
-            'sylius_payment_method_gatewayConfig_mollieGatewayConfig_' + index + '_paymentSurchargeFee_fixedAmount';
+            'sylius_admin_payment_method_gatewayConfig_mollieGatewayConfig_' + index + '_paymentSurchargeFee_fixedAmount';
         const percentage =
-            'sylius_payment_method_gatewayConfig_mollieGatewayConfig_' + index + '_paymentSurchargeFee_percentage';
+            'sylius_admin_payment_method_gatewayConfig_mollieGatewayConfig_' + index + '_paymentSurchargeFee_percentage';
         const surchargeLimit =
-            'sylius_payment_method_gatewayConfig_mollieGatewayConfig_' + index + '_paymentSurchargeFee_surchargeLimit';
-        const fixedAmountItems = $('label[for=' + fixedAmount + '], input#' + fixedAmount + '');
-        const percentageItems = $('label[for=' + percentage + '], input#' + percentage + '');
-        const surchargeLimitItems = $('label[for=' + surchargeLimit + '], input#' + surchargeLimit + '');
+            'sylius_admin_payment_method_gatewayConfig_mollieGatewayConfig_' + index + '_paymentSurchargeFee_surchargeLimit';
+
+        const fixedAmountItems = $('input#' + fixedAmount + '').parent();
+        const percentageItems = $('input#' + percentage + '').parent();
+        const surchargeLimitItems = $('input#' + surchargeLimit + '').parent();
 
         switch (value) {
             case 'no_fee':
@@ -158,8 +155,8 @@ $(function () {
     };
 
     const turnOnHandlers = () => {
-        const environmentField = $('#sylius_payment_method_gatewayConfig_config_environment');
-        const liveApiFieldIndicator = '#sylius_payment_method_gatewayConfig_config_api_key_live';
+        const environmentField = $('#sylius_admin_payment_method_gatewayConfig_config_environment');
+        const liveApiFieldIndicator = '#sylius_admin_payment_method_gatewayConfig_config_api_key_live';
 
         if (environmentField) {
             conditionalFieldHandler(environmentField, liveApiValue, liveApiFieldIndicator);
@@ -169,19 +166,5 @@ $(function () {
         }
     };
 
-    const hideProfileIdInput = () => {
-        let labelFor = "sylius_payment_method_gatewayConfig_config_profile_id";
-        let labelElement = document.querySelector(`label[for="${labelFor}"]`);
-
-        if (labelElement) {
-            let parentElement = labelElement.parentNode;
-
-            if (parentElement) {
-                parentElement.classList.remove('required');
-            }
-        }
-    };
-
     turnOnHandlers();
-    hideProfileIdInput();
 });
