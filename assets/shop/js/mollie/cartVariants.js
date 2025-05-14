@@ -1,26 +1,27 @@
-import {model} from './cartTableRecurringVariants';
+import { model } from './cartTableRecurringVariants';
 
-$(function () {
-    $(document).ready(() => {
-        const $cartVariantDetails = $('#cart-variant-details');
+document.addEventListener('DOMContentLoaded', () => {
+    const cartVariantDetails = document.getElementById('cart-variant-details');
 
-        if (1 !== $cartVariantDetails.length) {
-            return;
+    if (!cartVariantDetails) {
+        return;
+    }
+
+    const cartItemsTableRows = document.querySelectorAll('#sylius-cart-items tr');
+
+    Array.from(cartVariantDetails.querySelectorAll('div[data-recurring]')).forEach((variantDetailsElement) => {
+        const index = parseInt(variantDetailsElement.getAttribute('data-index'), 10);
+        const recurring = parseInt(variantDetailsElement.getAttribute('data-recurring'), 10);
+        const interval = variantDetailsElement.getAttribute('data-interval');
+        const times = variantDetailsElement.getAttribute('data-times');
+
+        if (recurring === 1) {
+            const row = cartItemsTableRows[index + 1];
+            const cells = row.querySelectorAll('td');
+            const item = cells[0];
+            const total = cells[4];
+
+            model.addRecurringDetailsLabels(item, total, interval, times);
         }
-
-        const $cartItemsTableRows = $('#sylius-cart-items tr');
-        $cartVariantDetails.children('div[data-recurring]').each(function () {
-            const $variantDetailsElement = $(this);
-            const $index = $variantDetailsElement.data('index');
-            const $recurring = $variantDetailsElement.data('recurring');
-            const $interval = $variantDetailsElement.data('interval');
-            const $times = $variantDetailsElement.data('times');
-
-            if (1 === $recurring) {
-                let [item, unitPrice, quantity, remove, total] = $($cartItemsTableRows[$index + 1]).children('td');
-
-                model.addRecurringDetailsLabels($(item), $(total), $interval, $times);
-            }
-        });
     });
 });
