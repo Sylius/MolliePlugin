@@ -1,75 +1,70 @@
-import {model} from './cartTableRecurringVariants';
+import { model } from './cartTableRecurringVariants';
 
-$(function () {
-    $(document).ready(function () {
-        const __recurringContainer = $('#sylius-product-name').siblings('.ui.text.menu');
-        const __productPriceContainer = $('#product-price');
+document.addEventListener('DOMContentLoaded', () => {
+    const recurringContainer = document.querySelector('#sylius-product-name')?.closest('.ui.text.menu');
+    const productPriceContainer = document.getElementById('product-price');
 
-        const getMatchSelector = () => {
-            let selector = '';
-
-            $('#sylius-product-adding-to-cart select[data-option]').each((index, element) => {
-                const select = $(element);
-                const option = select.find('option:selected').val();
-                selector += `[data-${select.attr('data-option')}="${option}"]`;
-            });
-
-            return selector;
-        }
-
-        const isChoice = () => {
-            return $('#sylius-product-adding-to-cart input[type="radio"][name="sylius_add_to_cart[cartItem][variant]"]').length > 0;
-        }
-
-        const resolveSelector = () => {
-            return isChoice() ? getChoiceSelector() : getMatchSelector();
-        }
-
-        const getChoiceSelector = () => {
-            return `[data-variant="${$('#sylius-product-adding-to-cart input[type="radio"][name="sylius_add_to_cart[cartItem][variant]"]:checked').val()}"]`;
-        }
-
-        const getTimes = () => {
-            return $('#sylius-variants-recurring-times').find(resolveSelector()).attr('data-value');
-        }
-
-        const getInterval = () => {
-            return $('#sylius-variants-recurring-interval').find(resolveSelector()).attr('data-value');
-        }
-
-        const checkRecurringMatch = () => {
-            return '1' === $('#sylius-variants-recurring-match').find(resolveSelector()).attr('data-value');
-        }
-
-        const checkRecurringChoice = () => {
-            return '1' === $('#sylius-variants-recurring-choice').find(resolveSelector()).attr('data-value');
-        }
-
-        const removeRecurringDetailsLabels = () => {
-            model.clearLabels();
-        };
-
-        const addRecurringDetailsLabels = () => {
-            // recurring label
-            model.appendRecurringLabel(__recurringContainer);
-
-            // times label
-            model.appendTimesLabel(__recurringContainer, getTimes());
-
-            model.appendIntervalLabel(__productPriceContainer, getInterval());
-        };
-
-        const updateProductRecurringLabel = () => {
-            removeRecurringDetailsLabels();
-
-            if (checkRecurringMatch() || checkRecurringChoice()) {
-                addRecurringDetailsLabels();
-            }
-        }
-
-        $('form[name=sylius_add_to_cart]').on('change', () => {
-            updateProductRecurringLabel()
+    const getMatchSelector = () => {
+        let selector = '';
+        document.querySelectorAll('#sylius-product-adding-to-cart select[data-option]').forEach(select => {
+            const option = select.options[select.selectedIndex].value;
+            selector += `[data-${select.getAttribute('data-option')}="${option}"]`;
         });
-        updateProductRecurringLabel();
-    })
-})
+        return selector;
+    };
+
+    const isChoice = () => {
+        return document.querySelectorAll('#sylius-product-adding-to-cart input[type="radio"][name="sylius_add_to_cart[cartItem][variant]"]').length > 0;
+    };
+
+    const getChoiceSelector = () => {
+        const checkedRadio = document.querySelector('#sylius-product-adding-to-cart input[type="radio"][name="sylius_add_to_cart[cartItem][variant]"]:checked');
+        return `[data-variant="${checkedRadio?.value}"]`;
+    };
+
+    const resolveSelector = () => {
+        return isChoice() ? getChoiceSelector() : getMatchSelector();
+    };
+
+    const getTimes = () => {
+        return document.querySelector(`#sylius-variants-recurring-times ${resolveSelector()}`)?.getAttribute('data-value');
+    };
+
+    const getInterval = () => {
+        return document.querySelector(`#sylius-variants-recurring-interval ${resolveSelector()}`)?.getAttribute('data-value');
+    };
+
+    const checkRecurringMatch = () => {
+        return document.querySelector(`#sylius-variants-recurring-match ${resolveSelector()}`)?.getAttribute('data-value') === '1';
+    };
+
+    const checkRecurringChoice = () => {
+        return document.querySelector(`#sylius-variants-recurring-choice ${resolveSelector()}`)?.getAttribute('data-value') === '1';
+    };
+
+    const removeRecurringDetailsLabels = () => {
+        model.clearLabels();
+    };
+
+    const addRecurringDetailsLabels = () => {
+        if (!recurringContainer || !productPriceContainer) return;
+
+        model.appendRecurringLabel(recurringContainer);
+        model.appendTimesLabel(recurringContainer, getTimes());
+        model.appendIntervalLabel(productPriceContainer, getInterval());
+    };
+
+    const updateProductRecurringLabel = () => {
+        removeRecurringDetailsLabels();
+        if (checkRecurringMatch() || checkRecurringChoice()) {
+            addRecurringDetailsLabels();
+        }
+    };
+
+    const form = document.querySelector('form[name="sylius_add_to_cart"]');
+    if (form) {
+        form.addEventListener('change', updateProductRecurringLabel);
+    }
+
+    updateProductRecurringLabel();
+});
