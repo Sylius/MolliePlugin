@@ -14,5 +14,5 @@
         {% hook 'item' %}
     </div>
 {% else %}
-    {% include '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body/accordion/no_results.html.twig' %}
+    {% hook 'item#no_results' %}
 {% endfor %}
