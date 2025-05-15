@@ -1,0 +1,10 @@
+{% set meal_vouchers_id = constant('Sylius\\MolliePlugin\\Model\\PaymentMethod\\MealVoucher::MEAL_VOUCHERS') %}
+
+{% set inner_payment_method = hookable_metadata.context.inner_payment_method %}
+{% set form = hookable_metadata.context.method_form.defaultCategory %}
+
+{% if inner_payment_method.methodId == meal_vouchers_id %}
+    <div class="mb-3 field">
+        {{ form_row(form, {'label': false}) }}
+    </div>
+{% endif %}

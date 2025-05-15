@@ -1,0 +1,17 @@
+winzou_state_machine:
+    sylius_shipment:
+        transitions:
+            create_and_ship:
+                from: [cart]
+                to: shipped
+        callbacks:
+            before:
+                mollie_purify_empty_ready_shipments:
+                    on: ["ship", "create_and_ship"]
+                    do: ["@sylius_mollie.partial_ship.purifier.order_shipment", "purify"]
+                    args: ["object.getOrder()"]
+            after:
+                sylius_resolve_state:
+                    on: ["ship", "create_and_ship"]
+                    do: ["@sylius.state_resolver.order_shipping", "resolve"]
+                    args: ["object.getOrder()"]

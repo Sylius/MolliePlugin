@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Form\Type;
 
-use Sylius\Bundle\ProductBundle\Form\Type\ProductType as ProductFormType;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Sylius\Bundle\ResourceBundle\Form\Type\ResourceTranslationsType;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
@@ -71,6 +70,7 @@ final class MollieGatewayConfigType extends AbstractResourceType
             ->add('paymentDescription', TextType::class, [
                 'label' => 'sylius_mollie.form.payment_methods.payment_description',
                 'help' => 'sylius_mollie.form.payment_methods.payment_description_help',
+                'help_html' => true,
                 'empty_data' => '{ordernumber}',
                 'attr' => [
                     'placeholder' => '{ordernumber}',
@@ -83,6 +83,7 @@ final class MollieGatewayConfigType extends AbstractResourceType
             ->add('amountLimits', MollieMinMaxType::class, [
                 'label' => false,
                 'required' => false,
+                'help' => 'sylius_mollie.form.amount_limit_help',
             ])
             ->add('customizeMethodImage', CustomizeMethodImageType::class, [
                 'label' => false,
@@ -92,11 +93,13 @@ final class MollieGatewayConfigType extends AbstractResourceType
                 'label' => 'sylius_mollie.ui.country_level_exclude',
                 'required' => false,
                 'multiple' => true,
+//                'autocomplete' => true, TODO: drag-n-drop sorter breaks the controllers
             ])
             ->add('countryLevel_allowed', CountryType::class, [
                 'label' => 'sylius_mollie.ui.country_level_allow',
                 'required' => false,
                 'multiple' => true,
+//                'autocomplete' => true,  TODO: drag-n-drop sorter breaks the controllers
             ])
             ->add('countryLevel', CountryType::class, [
                 'label' => 'sylius_mollie.ui.country_level_restriction',
@@ -145,18 +148,16 @@ final class MollieGatewayConfigType extends AbstractResourceType
                 $form = $event->getForm();
                 /** @var MollieGatewayConfigInterface $object */
                 $object = $form->getData();
-                $data = $event->getData();
 
                 if (in_array($object->getMethodId(), ApiTypeRestrictedPaymentMethods::onlyOrderApi(), true)) {
                     $form->remove('paymentType');
                     $form->add('paymentType', PaymentTypeChoiceType::class, [
+                        'empty_data' => ApiType::ORDER_API_VALUE,
                         'attr' => [
                             'disabled' => 'disabled',
                         ],
                     ]);
                 }
-
-                $event->setData($data);
             })
             ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
                 /** @var MollieGatewayConfigInterface $object */
@@ -178,11 +179,5 @@ final class MollieGatewayConfigType extends AbstractResourceType
     public function getBlockPrefix(): string
     {
         return 'mollie_payment_method';
-    }
-
-    /** @return array<array-key, class-string> */
-    public static function getExtendedTypes(): array
-    {
-        return [ProductFormType::class];
     }
 }

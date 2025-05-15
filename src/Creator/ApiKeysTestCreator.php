@@ -38,7 +38,7 @@ final class ApiKeysTestCreator implements ApiKeysTestCreatorInterface
 
         if (null === $key || '' === (trim($key))) {
             $apiKeyTest->setStatus(self::ERROR_STATUS);
-            $apiKeyTest->setMessage($this->translator->trans('sylius_mollie.ui.insert_you_key_first'));
+            $apiKeyTest->setMessage($this->translator->trans('sylius_mollie.ui.no_api_key_provided'));
 
             return $apiKeyTest;
         }

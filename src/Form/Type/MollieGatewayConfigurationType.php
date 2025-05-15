@@ -47,8 +47,7 @@ final class MollieGatewayConfigurationType extends AbstractType
                     'sylius_mollie.ui.api_key_choice_live' => true,
                 ],
             ])
-            ->add('profile_id', HiddenType::class, [
-            ])
+            ->add('profile_id', HiddenType::class)
             ->add(self::API_KEY_TEST, PasswordType::class, [
                 'always_empty' => false,
                 'label' => 'sylius_mollie.ui.api_key_test',

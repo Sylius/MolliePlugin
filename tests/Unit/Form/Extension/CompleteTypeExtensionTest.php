@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\MolliePlugin\Unit\Form\Extension;
 
-use Payum\Core\Model\GatewayConfigInterface;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\Component\Payment\Model\GatewayConfigInterface;
 use Sylius\MolliePlugin\Form\Extension\CompleteTypeExtension;
 use Sylius\MolliePlugin\Form\Type\DirectDebitType;
 use Symfony\Component\Form\AbstractTypeExtension;

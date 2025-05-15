@@ -4,12 +4,10 @@ sylius_mollie_plugin_mollie_logger:
         section: admin
         path: /mollie/logger
         permission: true
-        templates: "@SyliusAdmin\\Crud"
+        templates: "@SyliusAdmin\\shared\\crud"
         redirect: update
         grid: sylius_mollie_plugin_mollie_logger
         vars:
             all:
-                subheader: sylius_mollie.ui.logger_list
-            index:
-                icon: 'tags'
+                hook_prefix: 'sylius_mollie.admin.logger'
     type: sylius.resource

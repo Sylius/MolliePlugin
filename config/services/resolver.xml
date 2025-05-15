@@ -104,7 +104,7 @@
         <service
             id="sylius_mollie.payment_methods_resolver.mollie_payment"
             class="Sylius\MolliePlugin\Resolver\PaymentMethodResolver"
-            decorates="sylius.payment_methods_resolver.default"
+            decorates="sylius.resolver.payment_methods.default"
         >
             <argument type="service" id=".inner" />
             <argument type="service" id="sylius.repository.payment_method" />

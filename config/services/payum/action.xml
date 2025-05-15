@@ -134,7 +134,7 @@
             <argument type="service" id="sylius_mollie.manager.mollie_subscription"/>
             <argument type="service" id="sylius_mollie.state_machine.applicator.subscription_and_payment_id"/>
             <argument type="service" id="sylius_mollie.state_machine.applicator.subscription_and_sylius_payment"/>
-            <argument type="service" id="sylius_mollie.state_machine.transition.subscription"/>
+            <argument type="service" id="sylius_abstraction.state_machine"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.state_machine.status_recurring_subscription"/>
         </service>
     </services>
