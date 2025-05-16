@@ -7,10 +7,6 @@ imports:
     - { resource: "fixtures/**/*.yaml" }
     - { resource: "twig_hooks/**/*.yaml" }
 
-twig:
-    globals:
-        subscription_mollie_repository: "@sylius_mollie.repository.mollie_subscription"
-
 sylius_state_machine_abstraction:
     graphs_to_adapters_mapping:
         sylius_order_checkout: 'winzou_state_machine'
