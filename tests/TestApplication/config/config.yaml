@@ -21,11 +21,6 @@ twig:
     paths:
         '%kernel.project_dir%/../../../tests/TestApplication/templates': ~
 
-sylius_ui:
-    twig_ux:
-        anonymous_component_template_prefixes:
-            'sylius_cms:shop': "@SyliusCmsPlugin/shop/shared/components"
-
 sylius_refund:
     pdf_generator:
         enabled: false
