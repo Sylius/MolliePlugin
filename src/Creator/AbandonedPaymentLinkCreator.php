@@ -23,7 +23,7 @@ use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Entity\TemplateMollieEmailInterface;
 use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
 use Sylius\MolliePlugin\Provider\AbandonedOrdersProviderInterface;
-use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
+use Sylius\MolliePlugin\Repository\Query\MollieBasedPaymentMethodQueryInterface;
 use Sylius\MolliePlugin\Resolver\PaymentLinkResolverInterface;
 
 final class AbandonedPaymentLinkCreator implements AbandonedPaymentLinkCreatorInterface
@@ -31,7 +31,7 @@ final class AbandonedPaymentLinkCreator implements AbandonedPaymentLinkCreatorIn
     public function __construct(
         private readonly PaymentLinkResolverInterface $paymentLinkResolver,
         private readonly AbandonedOrdersProviderInterface $abandonedOrdersProvider,
-        private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+        private readonly MollieBasedPaymentMethodQueryInterface $mollieBasedPaymentMethodQuery,
         private readonly ChannelContextInterface $channelContext,
         private readonly EntityManagerInterface $entityManager,
     ) {
@@ -41,7 +41,7 @@ final class AbandonedPaymentLinkCreator implements AbandonedPaymentLinkCreatorIn
     {
         /** @var ChannelInterface $channel */
         $channel = $this->channelContext->getChannel();
-        $paymentMethod = $this->paymentMethodRepository->findOneByChannelAndGatewayFactoryName(
+        $paymentMethod = $this->mollieBasedPaymentMethodQuery->getOneByChannelAndFactoryName(
             $channel,
             MollieGatewayFactory::FACTORY_NAME,
         );

@@ -15,12 +15,12 @@ namespace Sylius\MolliePlugin\Payum\Action\Subscription;
 
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
+use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Factory\MollieSubscriptionFactoryInterface;
 use Sylius\MolliePlugin\Payum\Action\BaseApiAwareAction;
 use Sylius\MolliePlugin\Payum\Request\Subscription\CreateInternalRecurring;
 use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
-use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 
 final class CreateInternalSubscriptionAction extends BaseApiAwareAction
 {

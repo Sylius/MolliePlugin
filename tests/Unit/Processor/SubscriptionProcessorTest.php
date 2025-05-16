@@ -21,6 +21,7 @@ use Payum\Core\Security\TokenInterface;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
+use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Payment\Factory\PaymentFactoryInterface;
 use Sylius\Component\Payment\Model\PaymentMethodInterface;
 use Sylius\MolliePlugin\Cloner\SubscriptionOrderClonerInterface;
@@ -29,7 +30,6 @@ use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Factory\PaymentDetailsFactoryInterface;
 use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
-use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\MolliePlugin\Subscription\Processor\SubscriptionProcessor;
 use Sylius\MolliePlugin\Subscription\Processor\SubscriptionProcessorInterface;
 

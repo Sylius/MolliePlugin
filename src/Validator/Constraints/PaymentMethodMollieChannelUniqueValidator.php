@@ -20,7 +20,7 @@ use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
 use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
-use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
+use Sylius\MolliePlugin\Repository\Query\MollieBasedPaymentMethodQuery;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator as ConstraintValidatorAlias;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -29,7 +29,7 @@ use Webmozart\Assert\Assert;
 final class PaymentMethodMollieChannelUniqueValidator extends ConstraintValidatorAlias
 {
     public function __construct(
-        private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+        private readonly MollieBasedPaymentMethodQuery $mollieBasedPaymentMethodQuery,
         private readonly TranslatorInterface $translator,
     ) {
     }
@@ -49,7 +49,7 @@ final class PaymentMethodMollieChannelUniqueValidator extends ConstraintValidato
         if (null === $paymentMethod->getCode()) {
             return;
         }
-        $molliePaymentMethods = $this->paymentMethodRepository->findAllByFactoryNameAndCode($paymentMethod->getCode());
+        $molliePaymentMethods = $this->mollieBasedPaymentMethodQuery->getAllExcludingCode($paymentMethod->getCode());
 
         if (0 === count($molliePaymentMethods)) {
             return;
