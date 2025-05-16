@@ -87,3 +87,16 @@
        private readonly UnitRefundFilterInterface $unitRefundFilter,
    )
    ```
+
+1. The overwritten repository `Sylius\MolliePlugin\Repository\OrderRepository` has been removed along with its interface, the functionality is now available via `Sylius\MolliePlugin\Provider\AbandonedOrdersProvider`.
+   Due to this change the constructor of `Sylius\MolliePlugin\Creator\AbandonedPaymentLinkCreator` has been changed:
+   ```diff
+   public function __construct(
+       private readonly PaymentLinkResolverInterface $paymentLinkResolver,
+   -   private readonly OrderRepositoryInterface $orderRepository,,
+   +   private readonly AbandonedOrdersProviderInterface $abandonedOrdersProvider,
+       private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+       private readonly ChannelContextInterface $channelContext,
+   +   private readonly EntityManagerInterface $entityManager,
+   )
+   ```

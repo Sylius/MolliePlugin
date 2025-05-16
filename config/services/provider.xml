@@ -32,5 +32,10 @@
             <argument type="service" id="sylius_payum.provider.payment_description"/>
         </service>
         <service id="Sylius\MolliePlugin\Provider\PaymentDescriptionProviderInterface" alias="sylius_mollie.provider.payment_description" />
+
+        <service id="sylius_mollie.provider.order.abandoned" class="Sylius\MolliePlugin\Provider\AbandonedOrdersProvider">
+            <argument type="service" id="sylius_mollie.repository.query.order.abandoned" />
+        </service>
+        <service id="Sylius\MolliePlugin\Provider\AbandonedOrdersProviderInterface" alias="sylius_mollie.provider.order.abandoned" />
     </services>
 </container>

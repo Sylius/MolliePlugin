@@ -1,27 +1,24 @@
 <?php
 
-/*
- * This file is part of the Sylius Mollie Plugin package.
- *
- * (c) Sylius Sp. z o.o.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Repository;
+namespace Sylius\MolliePlugin\Repository\Query;
 
-use Sylius\Bundle\CoreBundle\Doctrine\ORM\OrderRepository as BaseOrderRepository;
+use Doctrine\ORM\Query;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderPaymentStates;
+use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 
-final class OrderRepository extends BaseOrderRepository implements OrderRepositoryInterface
+final readonly class AbandonedOrdersQuery implements AbandonedOrdersQueryInterface
 {
-    public function findAbandonedByDateTime(\DateTime $dateTime): array
+    public function __construct(
+        private OrderRepositoryInterface $orderRepository,
+    ) {
+    }
+
+    public function getQueryByDateTime(\DateTime $dateTime, int $maxResults = 20): Query
     {
-        return $this->createQueryBuilder('o')
+        return $this->orderRepository->createQueryBuilder('o')
             ->where('o.paymentState = :paymentState')
             ->andWhere('o.state = :state')
             ->andWhere('o.createdAt <= :createdAt')
@@ -30,9 +27,8 @@ final class OrderRepository extends BaseOrderRepository implements OrderReposito
             ->setParameter('paymentState', OrderPaymentStates::STATE_AWAITING_PAYMENT)
             ->setParameter('createdAt', $dateTime)
             ->setParameter('abandonedEmail', false)
-            ->setMaxResults(20)
+            ->setMaxResults($maxResults)
             ->getQuery()
-            ->getResult()
         ;
     }
 }

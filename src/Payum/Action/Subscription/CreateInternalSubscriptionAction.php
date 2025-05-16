@@ -20,7 +20,7 @@ use Sylius\MolliePlugin\Factory\MollieSubscriptionFactoryInterface;
 use Sylius\MolliePlugin\Payum\Action\BaseApiAwareAction;
 use Sylius\MolliePlugin\Payum\Request\Subscription\CreateInternalRecurring;
 use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
-use Sylius\MolliePlugin\Repository\OrderRepositoryInterface;
+use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 
 final class CreateInternalSubscriptionAction extends BaseApiAwareAction
 {
