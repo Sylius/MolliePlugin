@@ -11,17 +11,16 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Repository;
+namespace Sylius\MolliePlugin\Refund\Provider;
 
 use Sylius\RefundPlugin\Entity\CreditMemoInterface;
-use Sylius\RefundPlugin\Repository\CreditMemoRepositoryInterface as BaseCreditMemoRepositoryInterface;
 
-interface CreditMemoRepositoryInterface extends BaseCreditMemoRepositoryInterface
+interface CreditMemoProviderInterface
 {
-    /** @return CreditMemoInterface[] */
-    public function findByOrderNumberAndDateTime(
-        int $orderId,
+    /** @return iterable<CreditMemoInterface> */
+    public function getByOrderNumberDateTimeAndAmount(
+        string $orderNumber,
         \DateTime $dateTime,
         int $amount,
-    ): array;
+    ): iterable;
 }

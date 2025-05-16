@@ -76,3 +76,14 @@
    ```
 
 1. The `Sylius\MolliePlugin\EventListener\ProductVariantRecurringOptionsListener` has been removed and the functionality is now provided by twig hooks.
+
+1. The overwritten repository `Sylius\MolliePlugin\Repository\CreditMemoRepository` has been removed along with its interface, the functionality is now available via `Sylius\MolliePlugin\Refund\Provider\CreditMemoProvider`.
+   Due to this change the constructor of `Sylius\MolliePlugin\Refund\Checker\DuplicateRefundTheSameAmountChecker` has been changed:
+   ```diff
+   public function __construct(
+   -   private readonly CreditMemoRepositoryInterface $creditMemoRepository,
+   -   private readonly OrderRepositoryInterface $orderRepository,
+   +   private readonly CreditMemoProviderInterface $creditMemoProvider,
+       private readonly UnitRefundFilterInterface $unitRefundFilter,
+   )
+   ```
