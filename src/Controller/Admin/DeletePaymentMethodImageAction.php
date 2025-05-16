@@ -19,9 +19,8 @@ use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieMethodImageInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Uploader\PaymentMethodLogoUploaderInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Webmozart\Assert\Assert;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class DeletePaymentMethodImageAction
 {
@@ -33,17 +32,23 @@ final class DeletePaymentMethodImageAction
     ) {
     }
 
-    public function __invoke(Request $request): Response
+    public function __invoke(string $methodName): Response
     {
-        $methodName = $request->request->get('method');
-
-        /** @var MollieGatewayConfigInterface $mollieGateway */
+        /** @var MollieGatewayConfigInterface|null $mollieGateway */
         $mollieGateway = $this->logoRepository->findOneBy(['name' => $methodName]);
+        if (null === $mollieGateway) {
+            throw new NotFoundHttpException(sprintf(
+                'Mollie payment method with name "%s" does not exist.',
+                $methodName,
+            ));
+        }
 
         /** @var MollieMethodImageInterface $customizeMethodImage */
         $customizeMethodImage = $mollieGateway->getCustomizeMethodImage();
+        if (null === $customizeMethodImage->getPath()) {
+            return new Response(Response::$statusTexts[Response::HTTP_OK], Response::HTTP_OK);
+        }
 
-        Assert::notNull($customizeMethodImage->getPath());
         $this->logoUploader->remove($customizeMethodImage->getPath());
         $mollieGateway->setCustomizeMethodImage(null);
 
