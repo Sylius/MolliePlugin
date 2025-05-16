@@ -24,15 +24,15 @@ use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Filter\MollieMethodFilterInterface;
-use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
+use Sylius\MolliePlugin\Repository\Query\MollieBasedPaymentMethodQueryInterface;
 use Sylius\MolliePlugin\Resolver\MollieFactoryNameResolverInterface;
 use Sylius\MolliePlugin\Resolver\PaymentMethodResolver;
 
-final class MolliePaymentMethodResolverTest extends TestCase
+final class MolliePaymentMethodsResolverTest extends TestCase
 {
     private PaymentMethodsResolverInterface $decoratedServiceMock;
 
-    private PaymentMethodRepositoryInterface $paymentMethodRepositoryMock;
+    private MollieBasedPaymentMethodQueryInterface $mollieBasedPaymentMethodQueryMock;
 
     private MollieFactoryNameResolverInterface $factoryNameResolverMock;
 
@@ -45,14 +45,14 @@ final class MolliePaymentMethodResolverTest extends TestCase
     protected function setUp(): void
     {
         $this->decoratedServiceMock = $this->createMock(PaymentMethodsResolverInterface::class);
-        $this->paymentMethodRepositoryMock = $this->createMock(PaymentMethodRepositoryInterface::class);
+        $this->mollieBasedPaymentMethodQueryMock = $this->createMock(MollieBasedPaymentMethodQueryInterface::class);
         $this->factoryNameResolverMock = $this->createMock(MollieFactoryNameResolverInterface::class);
         $this->mollieMethodFilterMock = $this->createMock(MollieMethodFilterInterface::class);
         $this->entityManagerMock = $this->createMock(EntityManagerInterface::class);
 
         $this->molliePaymentMethodResolver = new PaymentMethodResolver(
             $this->decoratedServiceMock,
-            $this->paymentMethodRepositoryMock,
+            $this->mollieBasedPaymentMethodQueryMock,
             $this->factoryNameResolverMock,
             $this->mollieMethodFilterMock,
             $this->entityManagerMock,
@@ -75,7 +75,7 @@ final class MolliePaymentMethodResolverTest extends TestCase
 
         $factoryName = 'mollie_subscription';
         $this->factoryNameResolverMock->expects($this->once())->method('resolve')->with($orderMock)->willReturn($factoryName);
-        $this->paymentMethodRepositoryMock->expects($this->once())->method('findOneByChannelAndGatewayFactoryName')->with($channelMock, $factoryName)->willReturn($methodMock);
+        $this->mollieBasedPaymentMethodQueryMock->expects($this->once())->method('getOneByChannelAndFactoryName')->with($channelMock, $factoryName)->willReturn($methodMock);
 
         $this->assertSame([$methodMock], $this->molliePaymentMethodResolver->getSupportedMethods($subjectMock));
     }
@@ -167,8 +167,8 @@ final class MolliePaymentMethodResolverTest extends TestCase
             ->willReturn($factoryName)
         ;
 
-        $this->paymentMethodRepositoryMock->expects($this->once())
-            ->method('findOneByChannelAndGatewayFactoryName')
+        $this->mollieBasedPaymentMethodQueryMock->expects($this->once())
+            ->method('getOneByChannelAndFactoryName')
             ->with($channelMock, $factoryName)
             ->willReturn($methodMock)
         ;
@@ -278,8 +278,8 @@ final class MolliePaymentMethodResolverTest extends TestCase
             ->willReturn($factoryName)
         ;
 
-        $this->paymentMethodRepositoryMock->expects($this->once())
-            ->method('findOneByChannelAndGatewayFactoryName')
+        $this->mollieBasedPaymentMethodQueryMock->expects($this->once())
+            ->method('getOneByChannelAndFactoryName')
             ->with($channelMock, $factoryName)
             ->willReturn($methodMock)
         ;

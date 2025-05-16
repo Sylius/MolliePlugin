@@ -13,13 +13,10 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Refund\Repository\Query;
 
-use Doctrine\ORM\Query;
+use Sylius\RefundPlugin\Entity\CreditMemoInterface;
 
-interface CreditMemoByOrderIdDateTimeAndAmountQueryInterface
+interface CreditMemosByOrderNumberDateTimeAndAmountQueryInterface
 {
-    public function getQuery(
-        int $orderId,
-        \DateTime $dateTime,
-        int $amount,
-    ): Query;
+    /** @return iterable<CreditMemoInterface> */
+    public function __invoke(string $orderNumber, \DateTime $dateTime, int $amount): iterable;
 }

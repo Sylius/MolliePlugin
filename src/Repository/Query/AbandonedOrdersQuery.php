@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Repository\Query;
 
-use Doctrine\ORM\Query;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderPaymentStates;
@@ -27,7 +26,7 @@ final readonly class AbandonedOrdersQuery implements AbandonedOrdersQueryInterfa
     ) {
     }
 
-    public function getQueryByDateTime(\DateTime $dateTime, int $maxResults = 20): Query
+    public function __invoke(\DateTime $dateTime, int $maxResults = 20): iterable
     {
         return $this->orderRepository->createQueryBuilder('o')
             ->where('o.paymentState = :paymentState')
@@ -40,6 +39,7 @@ final readonly class AbandonedOrdersQuery implements AbandonedOrdersQueryInterfa
             ->setParameter('abandonedEmail', false)
             ->setMaxResults($maxResults)
             ->getQuery()
+            ->getResult()
         ;
     }
 }

@@ -77,9 +77,9 @@
 
 1. The `Sylius\MolliePlugin\EventListener\ProductVariantRecurringOptionsListener` has been removed and the functionality is now provided by twig hooks.
 
-1. The overwritten repository `Sylius\MolliePlugin\Repository\CreditMemoRepository` has been removed along with its interface, the functionality is now available via `Sylius\MolliePlugin\Refund\Provider\CreditMemoProvider`.
+1. The overwritten repository `Sylius\MolliePlugin\Repository\CreditMemoRepository` has been removed along with its interface, the functionality is now available via `Sylius\MolliePlugin\Refund\Repository\Query\CreditMemosByOrderNumberDateTimeAndAmountQuery`.
 
-   The overwritten repository `Sylius\MolliePlugin\Repository\OrderRepository` has been removed along with its interface, the functionality is now available via `Sylius\MolliePlugin\Provider\AbandonedOrdersProvider`.
+   The overwritten repository `Sylius\MolliePlugin\Repository\OrderRepository` has been removed along with its interface, the functionality is now available via `Sylius\MolliePlugin\Repository\Query\AbandonedOrdersQuery`.
 
    The overwritten repository `Sylius\MolliePlugin\Repository\PaymentMethodRepository` has been removed along with its interface, the functionality is now available via `Sylius\MolliePlugin\Repository\Query\MollieBasedPaymentMethodQuery`.
 
@@ -89,7 +89,7 @@
    public function __construct(
    -   private readonly CreditMemoRepositoryInterface $creditMemoRepository,
    -   private readonly OrderRepositoryInterface $orderRepository,
-   +   private readonly CreditMemoProviderInterface $creditMemoProvider,
+   +   private readonly CreditMemosByOrderNumberDateTimeAndAmountQueryInterface $creditMemoByOrderNumberDateTimeAndAmountQuery,
        private readonly UnitRefundFilterInterface $unitRefundFilter,
    )
    ```
@@ -100,7 +100,7 @@
        private readonly PaymentLinkResolverInterface $paymentLinkResolver,
    -   private readonly OrderRepositoryInterface $orderRepository,
    -   private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
-   +   private readonly AbandonedOrdersProviderInterface $abandonedOrdersProvider,
+   +   private readonly AbandonedOrdersQueryInterface $abandonedOrdersQuery,
    +   private readonly MollieBasedPaymentMethodQueryInterface $mollieBasedPaymentMethodQuery,
        private readonly ChannelContextInterface $channelContext,
    +   private readonly EntityManagerInterface $entityManager,

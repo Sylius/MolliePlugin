@@ -22,7 +22,7 @@ use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Entity\TemplateMollieEmailInterface;
 use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
-use Sylius\MolliePlugin\Provider\AbandonedOrdersProviderInterface;
+use Sylius\MolliePlugin\Repository\Query\AbandonedOrdersQueryInterface;
 use Sylius\MolliePlugin\Repository\Query\MollieBasedPaymentMethodQueryInterface;
 use Sylius\MolliePlugin\Resolver\PaymentLinkResolverInterface;
 
@@ -30,7 +30,7 @@ final class AbandonedPaymentLinkCreator implements AbandonedPaymentLinkCreatorIn
 {
     public function __construct(
         private readonly PaymentLinkResolverInterface $paymentLinkResolver,
-        private readonly AbandonedOrdersProviderInterface $abandonedOrdersProvider,
+        private readonly AbandonedOrdersQueryInterface $abandonedOrdersQuery,
         private readonly MollieBasedPaymentMethodQueryInterface $mollieBasedPaymentMethodQuery,
         private readonly ChannelContextInterface $channelContext,
         private readonly EntityManagerInterface $entityManager,
@@ -66,7 +66,7 @@ final class AbandonedPaymentLinkCreator implements AbandonedPaymentLinkCreatorIn
         $duration = new \DateInterval(\sprintf('PT%sH', $abandonedDuration));
         $dateTime->sub($duration);
 
-        $orders = $this->abandonedOrdersProvider->getAbandonedOrders($dateTime);
+        $orders = $this->abandonedOrdersQuery->__invoke($dateTime);
 
         /** @var OrderInterface $order */
         foreach ($orders as $order) {

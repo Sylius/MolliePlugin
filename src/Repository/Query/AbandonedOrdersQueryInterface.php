@@ -13,9 +13,10 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Repository\Query;
 
-use Doctrine\ORM\Query;
+use Sylius\Component\Core\Model\OrderInterface;
 
 interface AbandonedOrdersQueryInterface
 {
-    public function getQueryByDateTime(\DateTime $dateTime, int $maxResults = 20): Query;
+    /** @return iterable<OrderInterface> */
+    public function __invoke(\DateTime $dateTime, int $maxResults = 20): iterable;
 }

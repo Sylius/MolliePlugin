@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Refund\Checker;
 
-use Sylius\MolliePlugin\Refund\Provider\CreditMemoProviderInterface;
+use Sylius\MolliePlugin\Refund\Repository\Query\CreditMemosByOrderNumberDateTimeAndAmountQueryInterface;
 use Sylius\RefundPlugin\Command\RefundUnits;
 use Sylius\RefundPlugin\Filter\UnitRefundFilterInterface;
 use Sylius\RefundPlugin\Model\OrderItemUnitRefund;
@@ -22,7 +22,7 @@ use Sylius\RefundPlugin\Model\ShipmentRefund;
 final class DuplicateRefundTheSameAmountChecker implements DuplicateRefundTheSameAmountCheckerInterface
 {
     public function __construct(
-        private readonly CreditMemoProviderInterface $creditMemoProvider,
+        private readonly CreditMemosByOrderNumberDateTimeAndAmountQueryInterface $creditMemoByOrderNumberDateTimeAndAmountQuery,
         private readonly UnitRefundFilterInterface $unitRefundFilter,
     ) {
     }
@@ -32,7 +32,7 @@ final class DuplicateRefundTheSameAmountChecker implements DuplicateRefundTheSam
         $now = new \DateTime('now');
         $now->sub(new \DateInterval(self::ONE_HOUR_INTERVAL));
 
-        $creditMemos = $this->creditMemoProvider->getByOrderNumberDateTimeAndAmount(
+        $creditMemos = $this->creditMemoByOrderNumberDateTimeAndAmountQuery->__invoke(
             $command->orderNumber(),
             $now,
             $this->getTotalAmount($command),

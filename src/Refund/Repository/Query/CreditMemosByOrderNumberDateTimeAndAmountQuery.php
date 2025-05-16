@@ -13,28 +13,39 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Refund\Repository\Query;
 
-use Doctrine\ORM\Query;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
+use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\RefundPlugin\Repository\CreditMemoRepositoryInterface;
 
-final readonly class CreditMemoByOrderIdDateTimeAndAmountQuery implements CreditMemoByOrderIdDateTimeAndAmountQueryInterface
+final readonly class CreditMemosByOrderNumberDateTimeAndAmountQuery implements CreditMemosByOrderNumberDateTimeAndAmountQueryInterface
 {
-    /** @param CreditMemoRepositoryInterface&EntityRepository $creditMemoRepository */
+    /**
+     * @param OrderRepositoryInterface<OrderInterface> $orderRepository
+     * @param CreditMemoRepositoryInterface&EntityRepository $creditMemoRepository
+     */
     public function __construct(
+        private OrderRepositoryInterface $orderRepository,
         private CreditMemoRepositoryInterface $creditMemoRepository,
     ) {
     }
 
-    public function getQuery(int $orderId, \DateTime $dateTime, int $amount): Query
+    public function __invoke(string $orderNumber, \DateTime $dateTime, int $amount): iterable
     {
+        $order = $this->orderRepository->findOneBy(['number' => $orderNumber]);
+        if (null === $order) {
+            return [];
+        }
+
         return $this->creditMemoRepository->createQueryBuilder('o')
             ->andWhere('o.order = :orderId')
             ->andWhere('o.issuedAt > :issuedAt')
             ->andWhere('o.total = :amount')
-            ->setParameter('orderId', $orderId)
+            ->setParameter('orderId', $order->getId())
             ->setParameter('issuedAt', $dateTime)
             ->setParameter('amount', $amount)
             ->getQuery()
+            ->getResult()
         ;
     }
 }
