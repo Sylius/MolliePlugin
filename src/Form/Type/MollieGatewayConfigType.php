@@ -47,6 +47,7 @@ final class MollieGatewayConfigType extends AbstractResourceType
         $builder
             ->add('enabled', CheckboxType::class, [
                 'label' => 'sylius_mollie.ui.enable',
+                'required' => false,
             ])
             ->add('applePayDirectButton', CheckboxType::class, [
                 'label' => 'sylius_mollie.ui.enabled_buy_now_button',

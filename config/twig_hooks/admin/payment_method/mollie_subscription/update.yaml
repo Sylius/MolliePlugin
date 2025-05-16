@@ -73,6 +73,7 @@ sylius_twig_hooks:
             sorting_notice:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/header/sorting_notice.html.twig'
                 priority: 0
+                enabled: false
 
         'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie_subscription.mollie_payment_methods.body':
             accordion:

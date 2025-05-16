@@ -197,6 +197,8 @@ sylius_mollie:
     form:
         amount_limit_help: 'Please specify the minimum and maximum amount to be applied to the cart. If left blank, the default settings provided by Mollie will be utilized.'
         channel_should_be_unique: 'Mollie payment method is already enabled for {channels} channel. Mollie can only be configured once per channel.'
+        disable_all: 'Disable all'
+        enable_all: 'Enable all'
         enabled_buy_now_button_help: 'The button is shown on the checkout page'
         expiration_date_time: 'Expiration date time'
         methods: 'Choose enabled methods'
