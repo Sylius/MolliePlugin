@@ -6,34 +6,35 @@ document.addEventListener('DOMContentLoaded', function () {
     let mollieData = document.querySelector('.online-online-payment__container');
     let orderId = null;
     let qrCodeInterval = null;
-    const initialOrderTotal = document.getElementById('sylius-summary-grand-total').textContent;
+    const orderTotalRow = document.getElementById('sylius-shop-checkout-summary-order-total');
+    const initialOrderTotal = orderTotalRow ? orderTotalRow.textContent : null;
     const cardActiveClass = 'online-payment__item--active';
-    const orderTotalRow = document.getElementById('sylius-summary-grand-total');
-    const components = Boolean(mollieData.data('components'));
+    const components = mollieData ? Boolean(mollieData.getAttribute('data-components')) : false;
     let creditCardTranslations = {};
 
-    if (mollieData && mollieData[0]) {
-        let fetchTranslationsUrl = mollieData[0].getAttribute('data-fetchTranslations');
+    if (mollieData) {
+        let fetchTranslationsUrl = mollieData.getAttribute('data-fetchTranslations');
         fetchTranslations(fetchTranslationsUrl);
     }
 
-    document.querySelectorAll('input[id*="sylius_checkout_select_payment_"][type=radio]').forEach(input => {
-        if (!input.classList.contains('mollie-payments')) {
-            // let paymentMethodsContainer = document.getElementsByClassName('online-online-payment__container');
-            if (mollieData && mollieData[0]) {
-                let removeQrCodeUrl = mollieData[0].getAttribute('data-removeQrCode');
-                removeQrCode(removeQrCodeUrl);
+    document.querySelectorAll('input[id*="sylius_shop_checkout_select_payment_"][type=radio], input[id*="sylius_checkout_select_payment_"][type=radio]').forEach(input => {
+        input.addEventListener('change', (event) => {
+            if (!input.classList.contains('mollie-payments')) {
+                if (mollieData) {
+                    let removeQrCodeUrl = mollieData.getAttribute('data-removeQrCode');
+                    removeQrCode(removeQrCodeUrl);
+                }
+                restoreOrderTotalValue();
+
+                document.querySelectorAll(`.${cardActiveClass} input[type="radio"]`).forEach(function(radio) {
+                    radio.checked = false;
+                });
+
+                document.querySelectorAll(`.${cardActiveClass}`).forEach(function(elem) {
+                    elem.classList.remove(cardActiveClass);
+                });
             }
-            restoreOrderTotalValue();
-
-            document.querySelectorAll(`.${cardActiveClass} input[type="radio"]`).forEach(function(radio) {
-                radio.checked = false;
-            });
-
-            document.querySelectorAll(`.${cardActiveClass}`).forEach(function(elem) {
-                elem.classList.remove(cardActiveClass);
-            });
-        }
+        });
     });
 
     document.querySelectorAll('.online-payment__input').forEach(input => {
@@ -88,7 +89,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (paymentFeeRow) {
             paymentFeeRow.remove();
         }
-        orderTotalRow.textContent = initialOrderTotal;
+        if (orderTotalRow) {
+            orderTotalRow.textContent = initialOrderTotal;
+        }
     }
 
     if (mollieData && components === true) {
@@ -111,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 if (isOrderSummaryPage()) {
-                    const removeQrCodeUrl = mollieData[0].getAttribute('data-removeQrCode');
+                    const removeQrCodeUrl = mollieData.getAttribute('data-removeQrCode');
                     removeQrCode(removeQrCodeUrl);
                     return;
                 }
@@ -119,26 +122,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (target && (target.value === 'bancontact' || target.value === 'ideal')) {
                     createMolliePayment(target.getAttribute('data-qrcode'), target.value);
                 } else {
-                    const removeQrCodeUrl = mollieData[0].getAttribute('data-removeQrCode');
+                    const removeQrCodeUrl = mollieData.getAttribute('data-removeQrCode');
                     removeQrCode(removeQrCodeUrl);
                 }
             });
         });
-    }
-
-    // TODO: Potentially to be removed, doesn't seem to be used //
-    function fetchIssuer(target) {
-        let parentDiv = target.parentNode;
-        let img = parentDiv.querySelector('.online-payment__image');
-        if (img) {
-            let urlParts = img.src.split('/');
-            let filename = urlParts[urlParts.length - 1];
-            let issuer = filename.replace('.svg', '');
-
-            return 'ideal_' + issuer;
-        }
-
-        return null;
     }
 
     function isSavedCreditCardCheckboxChecked() {
@@ -189,9 +177,9 @@ document.addEventListener('DOMContentLoaded', function () {
             .then((data) => {
                 let qrCode = data.qrCode;
                 if (!qrCode) {
-                    let cartVariantDetails = document.getElementById('cart-variant-details')
-                    if (cartVariantDetails) {
-                        let thankYouPageUrl = cartVariantDetails.getAttribute('data-thankYouPage');
+                    let qrBoxElement = document.getElementById('sylius-shop-checkout-summary-qr-box')
+                    if (qrBoxElement) {
+                        let thankYouPageUrl = qrBoxElement.getAttribute('data-thankYouPage');
                         window.location.href = thankYouPageUrl + '?orderId=' + orderId;
                     }
                 }
@@ -228,10 +216,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function showQrCodePopUp() {
-        let cartVariantDetails = document.getElementById('cart-variant-details');
+        let qrBoxElement = document.getElementById('sylius-shop-checkout-summary-qr-box');
 
-        if (cartVariantDetails) {
-            let qrCodeGetUrl = cartVariantDetails.getAttribute('data-getQrCode');
+        if (qrBoxElement) {
+            let qrCodeGetUrl = qrBoxElement.getAttribute('data-getQrCode');
             fetchQrCode(qrCodeGetUrl);
         }
     }
@@ -363,22 +351,25 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function initializeCreditCartFields(selectedValue) {
-        const environment = mollieData.data('environment');
+        const environment = mollieData.getAttribute('data-environment');
         let testmode = true;
 
         if (environment === 1) {
             testmode = false;
         }
 
-        const mollie = Mollie(mollieData.data('profile_id'), {
-            locale: mollieData.data('locale'),
+        const mollie = Mollie(mollieData.getAttribute('data-profile_id'), {
+            locale: mollieData.getAttribute('data-locale'),
             testmode: testmode,
         });
 
-        const form = document.getElementsByName('sylius_checkout_select_payment')[0];
+        let form = document.getElementsByName('sylius_shop_checkout_select_payment')[0];
+        if (!form) {
+            form = document.getElementsByName('sylius_checkout_select_payment')[0];
+        }
 
         const formError = document.getElementById('form-error');
-        const submitButton = document.getElementById('next-step') || document.getElementById('sylius-pay-link');
+        const submitButton = form.querySelector('button[type="submit"]');
         const tokenField = document.querySelector('[id*="_details_cartToken"]');
         const saveCardInfoInput = document.querySelector('[id*="_details_saveCardInfo"]');
         const useSavedCardsInput = document.querySelector('[id*="_details_useSavedCards"]');

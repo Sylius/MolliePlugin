@@ -1,0 +1,5 @@
+{% if hookable_metadata.context.choice.value == 'creditcard' and true == hookable_metadata.context.gateway_config.config['components'] | default(false) %}
+    <div class="online-payment__credit-card" id="mollie_cart_data">
+        {% hook 'credit_card' %}
+    </div>
+{% endif %}
