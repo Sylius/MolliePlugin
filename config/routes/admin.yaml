@@ -10,9 +10,6 @@ mollie_logo:
 mollie_payment_refund:
     resource: "admin/payment_refund.yaml"
 
-mollie_partial_ship:
-    resource: "admin/partial_ship.yaml"
-
 mollie_payment_link:
     resource: "admin/payment_link.yaml"
 

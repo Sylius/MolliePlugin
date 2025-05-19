@@ -7,23 +7,6 @@
         {{ form_start(form, {'action': path(configuration.vars.route.name|default(configuration.getRouteName('create')), configuration.vars.route.parameters|default({})), 'attr': {'class': 'ui loadable form', 'novalidate': 'novalidate'}}) }}
         {% include '@SyliusMolliePlugin/Admin/Crud/form_validation_errors_checker.html.twig' %}
 
-        <table id="mollie_partial_shipment_ship_units" class="ui celled table">
-            <thead>
-            <tr>
-                <th>{{ 'sylius.ui.product'|trans }}</th>
-                <th class="center aligned"><input name="check-all" type="checkbox" data-js-bulk-checkboxes=".shipment-unit:not([disabled])"></th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for unit in form.units %}
-                <tr>
-                    <td>{{ form_label(unit) }}</td>
-                    <td class="center aligned">{{ form_widget(unit, {'attr': {'class': 'shipment-unit'}}) }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-
         <div class="ui aligned grid">
             <div class="sixteen wide column ui">
                 <div class="ui action input">

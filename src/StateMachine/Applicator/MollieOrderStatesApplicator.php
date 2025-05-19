@@ -20,15 +20,12 @@ use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Order\OrderTransitions;
 use Sylius\Component\Shipping\ShipmentTransitions;
-use Sylius\MolliePlugin\PartialShip\Converter\CreatePartialShipFromMollieInterface;
-use Sylius\MolliePlugin\StateMachine\ShipmentTransitions as ShipmentTransitionsPartial;
 
 final class MollieOrderStatesApplicator implements MollieOrderStatesApplicatorInterface
 {
     public function __construct(
         private readonly StateMachineInterface $stateMachine,
         private readonly OrderRepositoryInterface $orderRepository,
-        private readonly CreatePartialShipFromMollieInterface $createPartialShipFromMollie,
     ) {
     }
 
@@ -57,21 +54,12 @@ final class MollieOrderStatesApplicator implements MollieOrderStatesApplicatorIn
 
         if (
             $order->isShipping() &&
-            $this->isConfirmNotify($order, $firstShipment) &&
-            false === $this->isShippingAllItems($firstShipment)
+            $this->isConfirmNotify($order, $firstShipment)
         ) {
             return;
         }
 
-        if ($order->isShipping() && false === $this->isShippingAllItems($firstShipment)) {
-            $this->createPartialShipFromMollie->create($orderSylius, $order);
-            $this->applyShipmentTransition(
-                $lastShipment,
-                ShipmentTransitionsPartial::TRANSITION_CREATE_AND_SHIP,
-            );
-        }
-
-        if ($order->isShipping() && true === $this->isShippingAllItems($firstShipment)) {
+        if ($order->isShipping()) {
             $this->applyShipmentTransition($lastShipment, ShipmentTransitions::TRANSITION_SHIP);
         }
     }
@@ -92,11 +80,6 @@ final class MollieOrderStatesApplicator implements MollieOrderStatesApplicatorIn
         }
 
         $this->stateMachine->apply($orderSylius, ShipmentTransitions::GRAPH, $transition);
-    }
-
-    private function isShippingAllItems(ShipmentInterface $shipment): bool
-    {
-        return $shipment->getUnits()->isEmpty();
     }
 
     private function isConfirmNotify(Order $order, ShipmentInterface $shipment): bool
