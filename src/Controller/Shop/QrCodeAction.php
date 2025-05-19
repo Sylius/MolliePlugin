@@ -102,7 +102,7 @@ final class QrCodeAction
         /** @var OrderInterface $order */
         $order = $this->cartContext->getCart();
         $orderToken = $request->get('orderToken');
-        if (null !== $orderToken) {
+        if (null !== $orderToken && '' !== $orderToken) {
             /** @var OrderInterface|null $order */
             $order = $this->orderRepository->findOneByTokenValue($orderToken);
         }
@@ -147,8 +147,8 @@ final class QrCodeAction
         $molliePayment->setMethod($request->get('paymentMethod'));
         $molliePayment->setDescription((string) $order->getId());
         $molliePayment->setIssuer($request->get('issuer') ?? '');
-        $redirectUrl = $this->urlGenerator->generate('sylius_mollie_plugin_payum', [], UrlGeneratorInterface::ABSOLUTE_URL);
-        $webhookUrl = $this->urlGenerator->generate('sylius_mollie_plugin_payment_webhook', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $redirectUrl = $this->urlGenerator->generate('sylius_mollie_shop_payum', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $webhookUrl = $this->urlGenerator->generate('sylius_mollie_shop_payment_webhook', [], UrlGeneratorInterface::ABSOLUTE_URL);
         $redirectUrl .= '?orderId=' . $order->getId();
         $webhookUrl .= '?orderId=' . $order->getId();
         $molliePayment->setWebhookUrl($webhookUrl);

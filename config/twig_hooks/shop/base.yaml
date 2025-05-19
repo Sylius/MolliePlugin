@@ -1,0 +1,6 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_shop.base#javascripts':
+            mollie_javascripts:
+                template: '@SyliusMolliePlugin/shop/shared/layout/base/mollie_javascripts.html.twig'
+                priority: 100

@@ -11,6 +11,6 @@
 #            label: sylius_mollie.ui.cancel_subscription
 #            options:
 #              link:
-#                route: sylius_mollie_plugin_cancel_subscription_mollie
+#                route: sylius_mollie_shop_cancel_subscription_mollie
 #                parameters:
 #                  orderId: resource.id

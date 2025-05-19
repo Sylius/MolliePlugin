@@ -21,6 +21,23 @@
     - `Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransition`
     - `Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransitionInterface`
 
+1. The following names of routes have been renamed:
+
+   | Old Name                                          | New Name                                        |
+   |---------------------------------------------------|-------------------------------------------------|
+   | `sylius_mollie_plugin_apple_pay_validation`       | `sylius_mollie_shop_apple_pay_validation`       |
+   | `sylius_mollie_plugin_apple_pay_payment`          | `sylius_mollie_shop_apple_pay_payment`          |
+   | `mollie_shop_checkout_apple_complete`             | `sylius_mollie_shop_checkout_apple_complete`    |
+   | `sylius_mollie_plugin_credit_card_translation`    | `sylius_mollie_shop_credit_card_translation`    |
+   | `sylius_mollie_plugin_thankYou_page_redirect`     | `sylius_mollie_shop_thank_you_page_redirect`    |
+   | `sylius_mollie_plugin_payment_fee_calculate`      | `sylius_mollie_shop_payment_fee_calculate`      |
+   | `sylius_mollie_plugin_payment_webhook`            | `sylius_mollie_shop_payment_webhook`            |
+   | `sylius_mollie_plugin_payum`                      | `sylius_mollie_shop_payum`                      |
+   | `sylius_mollie_plugin_qr_code`                    | `sylius_mollie_shop_qr_code`                    |
+   | `sylius_mollie_plugin_get_qr_code`                | `sylius_mollie_shop_get_qr_code`                |
+   | `sylius_mollie_plugin_remove_qr_code`             | `sylius_mollie_shop_remove_qr_code`             |
+   | `sylius_mollie_plugin_cancel_subscription_mollie` | `sylius_mollie_shop_cancel_subscription_mollie` |
+
 1. Winzou State Machine
 
    The constructors of the following classes have been changed:

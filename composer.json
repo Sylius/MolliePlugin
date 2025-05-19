@@ -7,7 +7,7 @@
         "php": "^8.2",
         "mollie/mollie-api-php": "^2.73",
         "sylius/refund-plugin": "^2.0",
-        "sylius/sylius": "^2.0",
+        "sylius/sylius": "^2.0.x-dev",
         "willdurand/js-translation-bundle": "^7.0",
         "winzou/state-machine": "^0.4",
         "winzou/state-machine-bundle": "^0.6"

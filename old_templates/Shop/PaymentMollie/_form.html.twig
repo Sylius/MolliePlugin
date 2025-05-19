@@ -3,12 +3,12 @@
      data-profile_id="{{ gatewayConfig.config['profile_id'] }}"
      data-environment="{{ gatewayConfig.config['environment'] }}"
      data-components="{{ gatewayConfig.config['components'] | default(false) }}"
-     data-removeQrCode="{{ path('sylius_mollie_plugin_remove_qr_code') }}"
-     data-fetchTranslations="{{ path('sylius_mollie_plugin_credit_card_translation') }}"
+     data-removeQrCode="{{ path('sylius_mollie_shop_remove_qr_code') }}"
+     data-fetchTranslations="{{ path('sylius_mollie_shop_credit_card_translation') }}"
 >
     {% for keyChoice, choice in methodMollie.vars.choices %}
         <div class="online-payment__item online-payment__item--{{ choice.value }}" id="{{ choice.value }}"
-             data-feeurl="{{ path('sylius_mollie_plugin_payment_fee_calculate', {methodId: choice.value }) }}"
+             data-feeurl="{{ path('sylius_mollie_shop_payment_fee_calculate', {methodId: choice.value }) }}"
         >
             <input
                     type="radio"
@@ -16,7 +16,7 @@
                     id="choice-{{ keyChoice }}"
                     name="{{ methodMollie.vars.full_name }}"
                     class="online-payment__input"
-                    data-qrcode="{{ path('sylius_mollie_plugin_qr_code') }}"
+                    data-qrcode="{{ path('sylius_mollie_shop_qr_code') }}"
                     {{ sylius_test_html_attribute('payment-method-payment-item') }}
             >
             <label for="choice-{{ keyChoice }}" class="online-payment__label">
