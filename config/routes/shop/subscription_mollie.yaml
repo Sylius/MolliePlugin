@@ -1,4 +1,4 @@
-sylius_mollie_plugin_cancel_subscription_mollie:
+sylius_mollie_shop_cancel_subscription_mollie:
     path: /account/order/{orderId}/subscription-mollie/cancel
     methods: [PUT]
     defaults:
