@@ -41,9 +41,9 @@ final class MollieOrderStatesApplicator implements MollieOrderStatesApplicatorIn
             return;
         }
 
-        /** @var ShipmentInterface|null $lastShipment */
+        /** @var ShipmentInterface|false $lastShipment */
         $lastShipment = $orderSylius->getShipments()->last();
-        if (null === $lastShipment) {
+        if (false === $lastShipment) {
             return;
         }
 
