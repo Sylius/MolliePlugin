@@ -3,11 +3,11 @@
 {% if single_click_enabled and getCustomerFromContext() %}
     {% if (isCardSaved(hookable_metadata.context.order.customer.email)) %}
         <div class="mollie-components-use-saved-card">
-            <div class="ui toggle checkbox checked">
-                <input type="checkbox" id="mollie-sylius-use-saved-credit-card"
-                       name="mollie-sylius-use-saved-credit-card" value="1" tabindex="0" class="hidden" checked>
-                <label
-                        for="mollie-sylius-use-saved-credit-card">{{ 'sylius_mollie.ui.use_saved_card'|trans }}</label>
+            <div>
+                <label class="form-check">
+                    <input type="checkbox" id="mollie-sylius-use-saved-credit-card" checked>
+                    <span>{{ 'sylius_mollie.ui.use_saved_card'|trans }}</span>
+                </label>
             </div>
         </div>
     {% endif %}
