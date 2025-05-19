@@ -1,4 +1,4 @@
-app_admin_product_type:
+sylius_mollie_admin_product_type:
     resource: |
         alias: sylius_mollie.product_type
         section: admin

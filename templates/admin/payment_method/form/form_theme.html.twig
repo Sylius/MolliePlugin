@@ -43,8 +43,7 @@
         <div class="input-group-append">
             <div
                 class="btn btn-danger form_button--delete-img"
-                data-value="{{ payment_method.name }}"
-                data-url="{{ path('mollie_admin_delete_logo') }}"
+                data-url="{{ path('sylius_mollie_admin_mollie_method_delete_logo', {'methodName': payment_method.name}) }}"
             >
                 {{ 'sylius.ui.delete'|trans }}
             </div>

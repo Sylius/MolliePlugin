@@ -19,10 +19,10 @@ mollie_email_template:
 mollie_product_type:
     resource: "admin/product_type.yaml"
 
-sylius_mollie_plugin_onboarding_wizard_status:
+sylius_mollie_admin_onboarding_wizard_status:
     resource: "admin/onboarding_wizard/status.yaml"
 
-sylius_mollie_plugin_onboarding_wizard_completed:
+sylius_mollie_admin_onboarding_wizard_completed:
     resource: "admin/onboarding_wizard/completed.yaml"
 
 sylius_mollie_plugin_mollie_subscription:

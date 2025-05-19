@@ -49,7 +49,7 @@ final class AdminOrderShowMenuListener
         ) {
             $menu
             ->addChild('payment_link', [
-                'route' => 'sylius_mollie_plugin_payment_link',
+                'route' => 'sylius_mollie_admin_payment_link_generate',
                 'routeParameters' => ['orderNumber' => $order->getNumber()],
             ])
             ->setAttribute('type', 'transition')

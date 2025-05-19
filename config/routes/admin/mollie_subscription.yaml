@@ -1,4 +1,4 @@
-sylius_mollie_plugin_mollie_subscription:
+sylius_mollie_admin_mollie_subscription:
     resource: |
         alias: sylius_mollie.mollie_subscription
         section: admin
@@ -12,7 +12,7 @@ sylius_mollie_plugin_mollie_subscription:
             hook_prefix: 'sylius_mollie.admin.subscription'
     type: sylius.resource
 
-sylius_mollie_plugin_mollie_subscription_show:
+sylius_mollie_admin_mollie_subscription_show:
     path: /mollie/subscription/{id}
     methods: [GET]
     defaults:
@@ -22,7 +22,7 @@ sylius_mollie_plugin_mollie_subscription_show:
             permission: true
             template: "@SyliusMolliePlugin/Admin/MollieSubscription/show.html.twig"
 
-sylius_mollie_plugin_mollie_subscription_cancel:
+sylius_mollie_admin_mollie_subscription_cancel:
     path: /mollie/subscription/{id}/cancel
     methods: [PUT]
     defaults:
@@ -34,7 +34,7 @@ sylius_mollie_plugin_mollie_subscription_cancel:
                 transition: cancel
             redirect: referer
 
-sylius_mollie_plugin_mollie_subscription_pause:
+sylius_mollie_admin_mollie_subscription_pause:
     path: /mollie/subscription/{id}/pause
     methods: [PUT]
     defaults:
@@ -46,7 +46,7 @@ sylius_mollie_plugin_mollie_subscription_pause:
                 transition: pause
             redirect: referer
 
-sylius_mollie_plugin_mollie_subscription_resume:
+sylius_mollie_admin_mollie_subscription_resume:
     path: /mollie/subscription/{id}/resume
     methods: [PUT]
     defaults:

@@ -11,7 +11,7 @@ sylius_grid:
                         type: show
                         options:
                             link:
-                                route: sylius_mollie_plugin_mollie_subscription_show
+                                route: sylius_mollie_admin_mollie_subscription_show
                                 parameters:
                                     id: resource.id
             sorting:

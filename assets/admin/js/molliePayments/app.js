@@ -24,25 +24,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.querySelectorAll('.form_button--delete-img').forEach((btn) => {
         btn.addEventListener('click', function () {
-            const form = document.querySelector('.form');
-            const value = this.dataset.value;
-            if (form) {
-                form.classList.add('loading');
-            }
-
             fetch(this.dataset.url, {
                 method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ method: value }),
             })
                 .then(() => location.reload())
-                .catch(() => {
-                    if (form) {
-                        form.classList.remove('loading');
-                    }
-                });
+                .catch();
         });
     });
 

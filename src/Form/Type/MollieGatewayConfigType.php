@@ -47,6 +47,7 @@ final class MollieGatewayConfigType extends AbstractResourceType
         $builder
             ->add('enabled', CheckboxType::class, [
                 'label' => 'sylius_mollie.ui.enable',
+                'required' => false,
             ])
             ->add('applePayDirectButton', CheckboxType::class, [
                 'label' => 'sylius_mollie.ui.enabled_buy_now_button',
@@ -93,13 +94,13 @@ final class MollieGatewayConfigType extends AbstractResourceType
                 'label' => 'sylius_mollie.ui.country_level_exclude',
                 'required' => false,
                 'multiple' => true,
-//                'autocomplete' => true, TODO: drag-n-drop sorter breaks the controllers
+                'autocomplete' => true,
             ])
             ->add('countryLevel_allowed', CountryType::class, [
                 'label' => 'sylius_mollie.ui.country_level_allow',
                 'required' => false,
                 'multiple' => true,
-//                'autocomplete' => true,  TODO: drag-n-drop sorter breaks the controllers
+                'autocomplete' => true,
             ])
             ->add('countryLevel', CountryType::class, [
                 'label' => 'sylius_mollie.ui.country_level_restriction',

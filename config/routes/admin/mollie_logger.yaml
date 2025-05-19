@@ -1,4 +1,4 @@
-sylius_mollie_plugin_mollie_logger:
+sylius_mollie_admin_mollie_logger:
     resource: |
         alias: sylius_mollie.mollie_logger
         section: admin

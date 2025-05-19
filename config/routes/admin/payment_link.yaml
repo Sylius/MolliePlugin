@@ -1,4 +1,4 @@
-sylius_mollie_plugin_payment_link:
+sylius_mollie_admin_payment_link_generate:
     path: /orders/{orderNumber}/payment-link
     methods: [GET, PUT]
     defaults:
