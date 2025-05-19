@@ -1,4 +1,4 @@
-mollie_admin_mollie_payment_method_delete_logo:
+sylius_mollie_admin_mollie_method_delete_logo:
     path: /mollie-payment-methods/delete-logo/{methodName}
     methods: [DELETE]
     defaults:

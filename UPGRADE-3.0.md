@@ -21,22 +21,34 @@
     - `Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransition`
     - `Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransitionInterface`
 
-1. The following names of routes have been renamed:
+1. The following routes have been renamed:
 
-   | Old Name                                          | New Name                                        |
-   |---------------------------------------------------|-------------------------------------------------|
-   | `sylius_mollie_plugin_apple_pay_validation`       | `sylius_mollie_shop_apple_pay_validation`       |
-   | `sylius_mollie_plugin_apple_pay_payment`          | `sylius_mollie_shop_apple_pay_payment`          |
-   | `mollie_shop_checkout_apple_complete`             | `sylius_mollie_shop_checkout_apple_complete`    |
-   | `sylius_mollie_plugin_credit_card_translation`    | `sylius_mollie_shop_credit_card_translation`    |
-   | `sylius_mollie_plugin_thankYou_page_redirect`     | `sylius_mollie_shop_thank_you_page_redirect`    |
-   | `sylius_mollie_plugin_payment_fee_calculate`      | `sylius_mollie_shop_payment_fee_calculate`      |
-   | `sylius_mollie_plugin_payment_webhook`            | `sylius_mollie_shop_payment_webhook`            |
-   | `sylius_mollie_plugin_payum`                      | `sylius_mollie_shop_payum`                      |
-   | `sylius_mollie_plugin_qr_code`                    | `sylius_mollie_shop_qr_code`                    |
-   | `sylius_mollie_plugin_get_qr_code`                | `sylius_mollie_shop_get_qr_code`                |
-   | `sylius_mollie_plugin_remove_qr_code`             | `sylius_mollie_shop_remove_qr_code`             |
-   | `sylius_mollie_plugin_cancel_subscription_mollie` | `sylius_mollie_shop_cancel_subscription_mollie` |
+   | Old Name                                           | New Name                                            |
+   |----------------------------------------------------|-----------------------------------------------------|
+   | `sylius_mollie_plugin_apple_pay_validation`        | `sylius_mollie_shop_apple_pay_validation`           |
+   | `sylius_mollie_plugin_apple_pay_payment`           | `sylius_mollie_shop_apple_pay_payment`              |
+   | `mollie_shop_checkout_apple_complete`              | `sylius_mollie_shop_checkout_apple_complete`        |
+   | `sylius_mollie_plugin_credit_card_translation`     | `sylius_mollie_shop_credit_card_translation`        |
+   | `sylius_mollie_plugin_thankYou_page_redirect`      | `sylius_mollie_shop_thank_you_page_redirect`        |
+   | `sylius_mollie_plugin_payment_fee_calculate`       | `sylius_mollie_shop_payment_fee_calculate`          |
+   | `sylius_mollie_plugin_payment_webhook`             | `sylius_mollie_shop_payment_webhook`                |
+   | `sylius_mollie_plugin_payum`                       | `sylius_mollie_shop_payum`                          |
+   | `sylius_mollie_plugin_qr_code`                     | `sylius_mollie_shop_qr_code`                        |
+   | `sylius_mollie_plugin_get_qr_code`                 | `sylius_mollie_shop_get_qr_code`                    |
+   | `sylius_mollie_plugin_remove_qr_code`              | `sylius_mollie_shop_remove_qr_code`                 |
+   | `sylius_mollie_plugin_cancel_subscription_mollie`  | `sylius_mollie_shop_cancel_subscription_mollie`     |
+   | `sylius_mollie_plugin_onboarding_wizard_completed` | `sylius_mollie_admin_onboarding_wizard_completed`   |
+   | `sylius_mollie_plugin_onboarding_wizard_status`    | `sylius_mollie_admin_onboarding_wizard_status`      |
+   | `mollie_admin_methods`                             | `sylius_mollie_admin_mollie_methods`                |
+   | `mollie_admin_test_api_keys`                       | `sylius_mollie_admin_test_api_keys`                 |
+   | `mollie_admin_change_position`                     | `sylius_mollie_admin_mollie_method_change_position` |
+   | `mollie_admin_mollie_payment_method_delete_logo`   | `sylius_mollie_admin_mollie_method_delete_logo`     |
+   | `sylius_mollie_plugin_mollie_subscription_show`    | `sylius_mollie_admin_mollie_subscription_show`      |
+   | `sylius_mollie_plugin_mollie_subscription_cancel`  | `sylius_mollie_admin_mollie_subscription_cancel`    |
+   | `sylius_mollie_plugin_mollie_subscription_pause`   | `sylius_mollie_admin_mollie_subscription_pause`     |
+   | `sylius_mollie_plugin_mollie_subscription_resume`  | `sylius_mollie_admin_mollie_subscription_resume`    |
+   | `sylius_mollie_plugin_payment_link`                | `sylius_mollie_admin_payment_link_generate`         |
+   | `sylius_mollie_plugin_payum_refund`                | `sylius_mollie_admin_mollie_subscription_pause`     |
 
 1. Winzou State Machine
 

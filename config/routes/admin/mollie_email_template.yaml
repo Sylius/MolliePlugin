@@ -1,4 +1,4 @@
-sylius_mollie_plugin_mollie_logger:
+sylius_mollie_admin_email_template:
     resource: |
         alias: sylius_mollie.template_mollie_email
         section: admin

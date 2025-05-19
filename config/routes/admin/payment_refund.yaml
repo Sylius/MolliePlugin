@@ -4,7 +4,7 @@ sylius_admin_order_payment_refund:
     defaults:
         _controller: sylius_mollie.controller.admin.refund
 
-sylius_mollie_plugin_payum_refund:
+sylius_mollie_admin_payum_refund:
     resource: "@PayumBundle/Resources/config/routing/refund.xml"
     prefix: /admin
 
