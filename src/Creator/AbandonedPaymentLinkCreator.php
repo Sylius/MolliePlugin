@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Creator;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
@@ -21,17 +22,18 @@ use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Entity\TemplateMollieEmailInterface;
 use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
-use Sylius\MolliePlugin\Repository\OrderRepositoryInterface;
-use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
+use Sylius\MolliePlugin\Repository\Query\AbandonedOrdersQueryInterface;
+use Sylius\MolliePlugin\Repository\Query\MollieBasedPaymentMethodQueryInterface;
 use Sylius\MolliePlugin\Resolver\PaymentLinkResolverInterface;
 
 final class AbandonedPaymentLinkCreator implements AbandonedPaymentLinkCreatorInterface
 {
     public function __construct(
         private readonly PaymentLinkResolverInterface $paymentLinkResolver,
-        private readonly OrderRepositoryInterface $orderRepository,
-        private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+        private readonly AbandonedOrdersQueryInterface $abandonedOrdersQuery,
+        private readonly MollieBasedPaymentMethodQueryInterface $mollieBasedPaymentMethodQuery,
         private readonly ChannelContextInterface $channelContext,
+        private readonly EntityManagerInterface $entityManager,
     ) {
     }
 
@@ -39,7 +41,7 @@ final class AbandonedPaymentLinkCreator implements AbandonedPaymentLinkCreatorIn
     {
         /** @var ChannelInterface $channel */
         $channel = $this->channelContext->getChannel();
-        $paymentMethod = $this->paymentMethodRepository->findOneByChannelAndGatewayFactoryName(
+        $paymentMethod = $this->mollieBasedPaymentMethodQuery->getOneByChannelAndFactoryName(
             $channel,
             MollieGatewayFactory::FACTORY_NAME,
         );
@@ -64,7 +66,7 @@ final class AbandonedPaymentLinkCreator implements AbandonedPaymentLinkCreatorIn
         $duration = new \DateInterval(\sprintf('PT%sH', $abandonedDuration));
         $dateTime->sub($duration);
 
-        $orders = $this->orderRepository->findAbandonedByDateTime($dateTime);
+        $orders = $this->abandonedOrdersQuery->__invoke($dateTime);
 
         /** @var OrderInterface $order */
         foreach ($orders as $order) {
@@ -80,8 +82,9 @@ final class AbandonedPaymentLinkCreator implements AbandonedPaymentLinkCreatorIn
             if (MollieGatewayFactory::FACTORY_NAME === $gatewayConfig->getFactoryName()) {
                 $this->paymentLinkResolver->resolve($order, [], TemplateMollieEmailInterface::PAYMENT_LINK_ABANDONED);
                 $order->setAbandonedEmail(true);
-                $this->orderRepository->add($order);
             }
         }
+
+        $this->entityManager->flush();
     }
 }

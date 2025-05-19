@@ -21,7 +21,7 @@ use Sylius\MolliePlugin\Entity\OrderInterface as MollieOrderInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
 use Sylius\MolliePlugin\Repository\MollieGatewayConfigRepository;
-use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
+use Sylius\MolliePlugin\Repository\Query\MollieBasedPaymentMethodQueryInterface;
 use Sylius\MolliePlugin\Resolver\Order\PaymentCheckoutOrderResolverInterface;
 use Sylius\MolliePlugin\Voucher\Checker\ProductVoucherTypeCheckerInterface;
 use Webmozart\Assert\Assert;
@@ -39,7 +39,7 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         private readonly MollieCountriesRestrictionResolverInterface $countriesRestrictionResolver,
         private readonly ProductVoucherTypeCheckerInterface $productVoucherTypeChecker,
         private readonly PaymentCheckoutOrderResolverInterface $paymentCheckoutOrderResolver,
-        private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+        private readonly MollieBasedPaymentMethodQueryInterface $mollieBasedPaymentMethodQuery,
         private readonly MollieAllowedMethodsResolverInterface $allowedMethodsResolver,
         private readonly MollieLoggerActionInterface $loggerAction,
         private readonly MollieFactoryNameResolverInterface $mollieFactoryNameResolver,
@@ -84,7 +84,7 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         $factoryName = $this->mollieFactoryNameResolver->resolve($order);
 
         Assert::notNull($order->getChannel());
-        $paymentMethod = $this->paymentMethodRepository->findOneByChannelAndGatewayFactoryName(
+        $paymentMethod = $this->mollieBasedPaymentMethodQuery->getOneByChannelAndFactoryName(
             $order->getChannel(),
             $factoryName,
         );

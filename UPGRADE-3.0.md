@@ -93,3 +93,82 @@
    ```
 
 1. The `Sylius\MolliePlugin\EventListener\ProductVariantRecurringOptionsListener` has been removed and the functionality is now provided by twig hooks.
+
+1. The overwritten repository `Sylius\MolliePlugin\Repository\CreditMemoRepository` has been removed along with its interface, the functionality is now available via `Sylius\MolliePlugin\Refund\Repository\Query\CreditMemosByOrderNumberDateTimeAndAmountQuery`.
+
+   The overwritten repository `Sylius\MolliePlugin\Repository\OrderRepository` has been removed along with its interface, the functionality is now available via `Sylius\MolliePlugin\Repository\Query\AbandonedOrdersQuery`.
+
+   The overwritten repository `Sylius\MolliePlugin\Repository\PaymentMethodRepository` has been removed along with its interface, the functionality is now available via `Sylius\MolliePlugin\Repository\Query\MollieBasedPaymentMethodQuery`.
+
+   Due to these changes the following constructors have been changed:
+   ```diff
+   // Sylius\MolliePlugin\Refund\Checker\DuplicateRefundTheSameAmountChecker
+   public function __construct(
+   -   private readonly CreditMemoRepositoryInterface $creditMemoRepository,
+   -   private readonly OrderRepositoryInterface $orderRepository,
+   +   private readonly CreditMemosByOrderNumberDateTimeAndAmountQueryInterface $creditMemoByOrderNumberDateTimeAndAmountQuery,
+       private readonly UnitRefundFilterInterface $unitRefundFilter,
+   )
+   ```
+
+   ```diff
+   // Sylius\MolliePlugin\Creator\AbandonedPaymentLinkCreator
+   public function __construct(
+       private readonly PaymentLinkResolverInterface $paymentLinkResolver,
+   -   private readonly OrderRepositoryInterface $orderRepository,
+   -   private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+   +   private readonly AbandonedOrdersQueryInterface $abandonedOrdersQuery,
+   +   private readonly MollieBasedPaymentMethodQueryInterface $mollieBasedPaymentMethodQuery,
+       private readonly ChannelContextInterface $channelContext,
+   +   private readonly EntityManagerInterface $entityManager,
+   )
+   ```
+
+   ```diff
+   // Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolver
+   public function __construct(
+       private readonly MollieApiClient $mollieApiClient,
+       private readonly MollieLoggerActionInterface $loggerAction,
+   -   private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+   +   private readonly MollieBasedPaymentMethodQueryInterface $mollieBasedPaymentMethodQuery,
+       private readonly ChannelContextInterface $channelContext,
+       private readonly MollieFactoryNameResolverInterface $factoryNameResolver,
+   )
+   ```
+
+   ```diff
+   // Sylius\MolliePlugin\Resolver\MolliePaymentsMethodResolver
+   public function __construct(
+       private readonly MollieGatewayConfigRepository $mollieGatewayRepository,
+       private readonly MollieCountriesRestrictionResolverInterface $countriesRestrictionResolver,
+       private readonly ProductVoucherTypeCheckerInterface $productVoucherTypeChecker,
+       private readonly PaymentCheckoutOrderResolverInterface $paymentCheckoutOrderResolver,
+   -   private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+   +   private readonly MollieBasedPaymentMethodQueryInterface $mollieBasedPaymentMethodQuery,
+       private readonly MollieAllowedMethodsResolverInterface $allowedMethodsResolver,
+       private readonly MollieLoggerActionInterface $loggerAction,
+       private readonly MollieFactoryNameResolverInterface $mollieFactoryNameResolver,
+       private readonly DivisorProviderInterface $divisorProvider,
+   )
+   ```
+
+   ```diff
+   // Sylius\MolliePlugin\Resolver\PaymentMethodResolver
+   public function __construct(
+       private readonly PaymentMethodsResolverInterface $decoratedResolver,
+   -   private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+   +   private readonly MollieBasedPaymentMethodQueryInterface $mollieBasedPaymentMethodQuery,
+       private readonly MollieFactoryNameResolverInterface $factoryNameResolver,
+       private readonly MollieMethodFilterInterface $mollieMethodFilter,
+       private readonly EntityManagerInterface $entityManager,
+   )
+   ```
+
+   ```diff
+   // Sylius\MolliePlugin\Validator\Constraints\PaymentMethodMollieChannelUniqueValidator
+   public function __construct(
+   -   private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+   +   private readonly MollieBasedPaymentMethodQuery $mollieBasedPaymentMethodQuery,
+       private readonly TranslatorInterface $translator,
+   )
+   ```
