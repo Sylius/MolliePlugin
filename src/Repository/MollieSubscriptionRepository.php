@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Repository;
 
+use Doctrine\ORM\Query\Expr\Join;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
@@ -83,5 +84,15 @@ final class MollieSubscriptionRepository extends EntityRepository implements Mol
     public function findOneByOrderIdAsString(string $orderId): ?MollieSubscriptionInterface
     {
         return $this->findOneByOrderId((int) $orderId);
+    }
+
+    public function findOneByOrderToken(string $token): ?MollieSubscriptionInterface
+    {
+        return $this->createQueryBuilder('s')
+            ->innerJoin('s.orders', 'o', Join::WITH, 'o.tokenValue = :token')
+            ->setParameter('token', $token)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
     }
 }

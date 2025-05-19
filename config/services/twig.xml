@@ -61,5 +61,15 @@
 
             <tag name="sylius.live_component.admin" key="sylius_mollie:admin:email_template:form" />
         </service>
+
+        <service
+            id="sylius_mollie.twig.component.order.cancel_subscription"
+            class="Sylius\MolliePlugin\Twig\Component\Order\CancelSubscriptionComponent"
+        >
+            <argument type="service" id="sylius_mollie.repository.mollie_subscription" />
+            <argument type="service" id="sylius_abstraction.state_machine" />
+
+            <tag name="sylius.twig_component" key="sylius_mollie:shop:order:cancel_subscription" />
+        </service>
     </services>
 </container>
