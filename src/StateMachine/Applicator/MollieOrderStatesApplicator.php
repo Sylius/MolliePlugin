@@ -78,23 +78,4 @@ final class MollieOrderStatesApplicator implements MollieOrderStatesApplicatorIn
 
         $this->stateMachine->apply($shipment, ShipmentTransitions::GRAPH, $transition);
     }
-
-    private function isConfirmNotify(Order $order, ShipmentInterface $shipment): bool
-    {
-        $shippableQuantity = 0;
-
-        foreach ($order->lines as $line) {
-            if (!property_exists($line, 'type') || $line->type !== 'physical') {
-                continue;
-            }
-
-            if (!property_exists($line, 'shippableQuantity')) {
-                throw new \InvalidArgumentException('Missing shippableQuantity property.');
-            }
-
-            $shippableQuantity += $line->shippableQuantity;
-        }
-
-        return $shippableQuantity === count($shipment->getUnits()->toArray());
-    }
 }
