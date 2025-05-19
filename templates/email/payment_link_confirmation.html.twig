@@ -4,10 +4,9 @@
 
 {%- block body -%}
     {% block content %}
-        {{ dump() }}
-        {% if template.translatable.styleCss %}
+        {%- if template.translatable.styleCss -%}
             {{ template.translatable.styleCss|raw }}
-        {% endif %}
+        {%- endif -%}
         <h1 class="name">{{ template.name }}</h1>
         <h3 class="subject">{{ template.subject }}</h3>
         {{ content|raw }}

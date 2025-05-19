@@ -2,7 +2,7 @@ sylius_twig_hooks:
     hooks:
         'sylius_mollie.admin.payment_link.create.content.header':
             breadcrumbs:
-                enabled: false
+                template: '@SyliusMolliePlugin/admin/payment_link/create/content/header/breadcrumbs.html.twig'
 
         'sylius_mollie.admin.payment_link.create.content.header.title_block':
             title:

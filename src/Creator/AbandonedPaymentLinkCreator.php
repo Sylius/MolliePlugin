@@ -56,8 +56,6 @@ final class AbandonedPaymentLinkCreator implements AbandonedPaymentLinkCreatorIn
 
             $this->entityManager->flush();
         }
-
-        $this->entityManager->flush();
     }
 
     private function getMollieBasedGatewayInChannel(ChannelInterface $channel): ?SyliusGatewayConfigInterface

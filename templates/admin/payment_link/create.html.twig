@@ -5,14 +5,10 @@
     'sylius_admin.common'
 ] %}
 
-{% set configuration = {
-    'title': 'sylius_mollie.ui.payment_link_generate',
-} %}
-
 {% block title %}{{ 'sylius_mollie.ui.payment_link_generate'|trans }} | {{ parent() }}{% endblock %}
 
 {% block body %}
-    {% hook 'create' with { _prefixes: prefixes, order, configuration, form } %}
+    {% hook 'create' with { _prefixes: prefixes, order, form } %}
 {% endblock %}
 
 {% block stylesheets %}
