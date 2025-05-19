@@ -34,14 +34,14 @@ final class PaymentLinkEmailSender implements PaymentLinkEmailSenderInterface
         OrderInterface $order,
         TemplateMollieEmailTranslationInterface $template,
     ): void {
-        /** @var PaymentInterface|null $payment */
+        /** @var PaymentInterface|false $payment */
         $payment = $order->getPayments()->last();
-
-        if (null === $payment || 0 === count($payment->getDetails())) {
+        if (false === $payment) {
             return;
         }
 
-        $paymentLink = $payment->getDetails()['payment_mollie_link'];
+        $paymentLink = $payment->getDetails()['payment_mollie_link'] ?? null;
+        Assert::notNull($paymentLink);
 
         Assert::notNull($template->getContent());
         $content = $this->contentParser->parse($template->getContent(), $paymentLink);
@@ -49,10 +49,16 @@ final class PaymentLinkEmailSender implements PaymentLinkEmailSenderInterface
         /** @var CustomerInterface $customer */
         $customer = $order->getCustomer();
 
-        $this->emailSender->send(Emails::PAYMENT_LINK, [$customer->getEmail()], [
-            'order' => $order,
-            'template' => $template,
-            'content' => $content,
-        ]);
+        $this->emailSender->send(
+            Emails::PAYMENT_LINK,
+            [$customer->getEmail()],
+            [
+                'order' => $order,
+                'template' => $template,
+                'content' => $content,
+            ],
+            [],
+            [],
+        );
     }
 }

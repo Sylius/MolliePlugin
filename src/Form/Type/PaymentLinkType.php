@@ -17,17 +17,24 @@ use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
-final class PaymentlinkType extends AbstractType
+final class PaymentLinkType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('methods', EntityType::class, [
                 'class' => MollieGatewayConfig::class,
-                'multiple' => true,
+                'multiple' => false,
                 'label' => 'sylius_mollie.form.methods',
                 'required' => false,
+                'autocomplete' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'sylius_mollie.payment_link.method.not_blank',
+                    ]),
+                ],
             ])
         ;
     }
