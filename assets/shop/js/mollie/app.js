@@ -1,9 +1,13 @@
 const {Mollie} = window;
 
 document.addEventListener('DOMContentLoaded', function () {
+    const mollieData = document.querySelector('.online-online-payment__container');
+    if (!mollieData) {
+        return;
+    }
+
     let disableValidationMollieComponents = false;
     let selectedValue = false;
-    let mollieData = document.querySelector('.online-online-payment__container');
     let orderId = null;
     let qrCodeInterval = null;
     const orderTotalRow = document.getElementById('sylius-shop-checkout-summary-order-total');

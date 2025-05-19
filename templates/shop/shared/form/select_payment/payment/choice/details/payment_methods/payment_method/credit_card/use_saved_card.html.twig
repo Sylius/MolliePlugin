@@ -1,4 +1,6 @@
-{% if (true == hookable_metadata.context.gateway_config.config['single_click_enabled'] | default(false)) and getCustomerFromContext() %}
+{% set single_click_enabled = hookable_metadata.context.gateway_config.config['single_click_enabled'] | default(false) %}
+
+{% if single_click_enabled and getCustomerFromContext() %}
     {% if (isCardSaved(hookable_metadata.context.order.customer.email)) %}
         <div class="mollie-components-use-saved-card">
             <div class="ui toggle checkbox checked">
