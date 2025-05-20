@@ -81,3 +81,12 @@
     +   private readonly ChannelContextInterface|ChannelRepositoryInterface $channelContext,
     )
     ```
+
+   `Sylius\MolliePlugin\StateMachine/Applicator/MollieOrderStatesApplicator`
+   ```diff
+   public function __construct(
+        private readonly StateMachineInterface $stateMachine,
+        private readonly OrderRepositoryInterface $orderRepository,
+   -    private readonly CreatePartialShipFromMollieInterface $createPartialShipFromMollie,
+   )
+   ```
