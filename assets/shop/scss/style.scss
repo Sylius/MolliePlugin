@@ -52,14 +52,15 @@
     background-color: #fff0f0;
 }
 
-@media (min-width: 321px) {
+@media (min-width: 350px) {
     .form-fields {
         grid-template-columns: 1fr 1fr;
     }
 
     .form-group--card-number,
     .form-group--card-name,
-    .form-group--save-credit-card{
+    .form-group--save-credit-card,
+    .form-group--form-error{
         grid-column: span 2;
     }
 }
