@@ -15,8 +15,6 @@ namespace Tests\Sylius\MolliePlugin\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\Product as BaseProduct;
-use Sylius\Component\Core\Model\ProductTranslation;
-use Sylius\Component\Core\Model\ProductTranslationInterface;
 use Sylius\MolliePlugin\Entity\ProductInterface;
 use Sylius\MolliePlugin\Entity\ProductTrait;
 
@@ -25,9 +23,4 @@ use Sylius\MolliePlugin\Entity\ProductTrait;
 class Product extends BaseProduct implements ProductInterface
 {
     use ProductTrait;
-
-    protected function createTranslation(): ProductTranslationInterface
-    {
-        return new ProductTranslation();
-    }
 }
