@@ -196,19 +196,20 @@
    ```
    
 1. The entire Partial Shipments functionality has been removed from the Mollie Plugin. This includes the deletion of the following classes:
-   - `Sylius\MolliePlugin\PartialShip\Model\PartialShipItem`
-   - `Sylius\MolliePlugin\PartialShip\Form\Type\PartialShipItemType`
-   - `Sylius\MolliePlugin\PartialShip\Form\Type\ShippingShipItemsChoiceType`
+   - `Sylius\MolliePlugin\Model\DTO\PartialShipItem`
+   - `Sylius\MolliePlugin\Model\DTO\PartialShipItems`
+   - `Sylius\MolliePlugin\Form\Type\PartialShip\PartialShipType`
+   - `Sylius\MolliePlugin\Form\Type\PartialShip\ShippingUnitsChoiceType`
    - `Sylius\MolliePlugin\PartialShip\Converter\CreatePartialShipFromMollie`
    - `Sylius\MolliePlugin\PartialShip\Converter\CreatePartialShipFromMollieInterface`
    - `Sylius\MolliePlugin\PartialShip\Factory\ShipmentFactory`
    - `Sylius\MolliePlugin\PartialShip\Factory\ShipmentFactoryInterface`
-   - `Sylius\MolliePlugin\PartialShip\Model\OrderMolliePartialShip`
-   - `Sylius\MolliePlugin\PartialShip\Model\OrderMolliePartialShipInterface`
+   - `Sylius\MolliePlugin\PartialShip\OrderMolliePartialShip`
+   - `Sylius\MolliePlugin\PartialShip\OrderMolliePartialShipInterface`
    - `Sylius\MolliePlugin\PartialShip\Purifier\OrderShipmentPurifier`
    - `Sylius\MolliePlugin\PartialShip\Purifier\OrderShipmentPurifierInterface`
-   - `Sylius\MolliePlugin\PartialShip\Remover\OldShipmentsRemover`
-   - `Sylius\MolliePlugin\PartialShip\Remover\OldShipmentsRemoverInterface`
+   - `Sylius\MolliePlugin\PartialShip\Remover\OldShipmentItemsRemover`
+   - `Sylius\MolliePlugin\PartialShip\Remover\OldShipmentItemsRemoverInterface`
    - `Sylius\MolliePlugin\PartialShip\Resolver\FromMollieToSyliusResolver`
    - `Sylius\MolliePlugin\PartialShip\Resolver\FromMollieToSyliusResolverInterface`
    - `Sylius\MolliePlugin\PartialShip\Resolver\FromSyliusToMollieLinesResolver`
