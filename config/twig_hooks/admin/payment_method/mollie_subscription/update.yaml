@@ -76,6 +76,9 @@ sylius_twig_hooks:
                 enabled: false
 
         'sylius_admin.payment_method.update.content.form.sections.gateway_configuration.mollie_subscription.mollie_payment_methods.body':
+            enable_all:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body/enable_all.html.twig'
+                priority: 100
             accordion:
                 template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body/accordion.html.twig'
                 priority: 0
