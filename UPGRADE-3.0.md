@@ -212,5 +212,4 @@
    - `Sylius\MolliePlugin\PartialShip\Resolver\FromMollieToSyliusResolverInterface`
    - `Sylius\MolliePlugin\PartialShip\Resolver\FromSyliusToMollieLinesResolver`
    - `Sylius\MolliePlugin\PartialShip\Resolver\FromSyliusToMollieLinesResolverInterface`
-   - `Sylius\MolliePlugin\StateMachine\Applicator\MollieOrderStatesApplicator`
 
