@@ -138,9 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!checkbox) {
             return null;
         }
-        let parentElement = checkbox.parentNode;
-
-        return parentElement.classList.contains('checked') ? 1 : 0;
+        return checkbox.checked ? 1 : 0;
     }
 
     function createMolliePayment(url, paymentMethod, issuer = null) {
@@ -311,9 +309,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!checkbox) {
             return null;
         }
-        let parentElement = checkbox.parentNode;
 
-        return parentElement.classList.contains('checked') ? 1 : 0;
+        return checkbox.checked ? 1 : 0;
     }
 
     function toggleMollieComponents() {
