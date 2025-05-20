@@ -1,7 +1,7 @@
 {% if (true == hookable_metadata.context.gateway_config.config['single_click_enabled'] | default(false)) and getCustomerFromContext() %}
-    <div class="ui toggle checkbox checked">
+    <div class="ui toggle checkbox checked form-group--save-credit-card">
         <input type="checkbox" id="mollie-sylius-save-credit-card" name="mollie-sylius-save-credit-card"
-               value="1" tabindex="0" class="hidden" checked>
+               value="1" tabindex="0" class="hidden form-check-input" checked>
         <label for="mollie-sylius-save-credit-card">{{ 'sylius_mollie.ui.save_card'|trans }}</label>
     </div>
 {% endif %}
