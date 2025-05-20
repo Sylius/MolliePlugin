@@ -262,7 +262,7 @@ sylius_mollie_plugin:
 bin/console doctrine:migrations:migrate
 ```
 
-#### 12. Install assets:
+#### 12. Install frontend assets:
 
 ```bash
 bin/console assets:install
@@ -270,58 +270,40 @@ bin/console assets:install
 
 **Note:** If you are running it on production, add the `-e prod` flag to this command.
 
-## Frontend Asset Management
+Add the plugin's assets to your entrypoint files:
+```javascript
+// assets/admin/entrypoint.js
 
-1. Import the plugin's assets into your application's entrypoint files:
+import '../../vendor/sylius/mollie-plugin/assets/admin/entrypoint';
+```
 
-   ```javascript
-   // assets/admin/entrypoint.js
-   
-   import '../../vendor/sylius/mollie-plugin/assets/admin/entrypoint';
-   ```
+and:
 
-   and:
+```javascript
+// assets/shop/entrypoint.js
 
-   ```javascript
-   // assets/shop/entrypoint.js
-   
-   import '../../vendor/sylius/mollie-plugin/assets/shop/entrypoint';
-   ```
+import '../../vendor/sylius/mollie-plugin/assets/shop/entrypoint';
+```
 
-1. Install assets:
+Install additional dependencies:
+```bash
+yarn add bazinga-translator intl-messageformat lodash.get shepherd.js@11.0
+```
 
-   ```bash
-   bin/console assets:install
-   ```
+Build assets:
 
-#### Installation & Build Process
+```bash
+yarn encode dev # for development
+yarn encore production # for production
+```
 
-1. Install dependencies:
-   ```bash
-   yarn add bazinga-translator intl-messageformat lodash.get shepherd.js@11.0
-   ```
+#### 12. Clear cache:
 
-1. Build assets:
+```bash
+php bin/console cache:clear
+```
 
-   for development:
-   ```bash
-   yarn install
-   yarn build
-   yarn encore dev
-   ```
-
-   for production:
-   ```bash
-   yarn install
-   yarn build
-   yarn encore production
-   ```
-
-1. Clear cache:
-
-   ```bash
-   php bin/console cache:clear
-   ```
+## Optional and troubleshooting
 
 1. [Optional] Load fixtures:
 
