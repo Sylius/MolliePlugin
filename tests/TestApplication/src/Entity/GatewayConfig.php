@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\MolliePlugin\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Bundle\PayumBundle\Model\GatewayConfig as BaseGatewayConfig;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
@@ -29,6 +28,6 @@ class GatewayConfig extends BaseGatewayConfig implements GatewayConfigInterface
     {
         parent::__construct();
 
-        $this->mollieGatewayConfig = new ArrayCollection();
+        $this->initializeMollieGatewayConfig();
     }
 }

@@ -1,15 +1,14 @@
 ## Legacy installation (without Symfony Flex)
 
 This installation instruction assumes that you're not using Symfony Flex. If you do, take a look at the
-[README](../README.md). We strongly encourage you to use
-Symfony Flex, it's much quicker!
+[README](../README.md). We strongly encourage you to use Symfony Flex, it's much quicker!
 
 #### 1. Ensure that you have `wkhtmltopdf` installed, and that you have the proper path to it set in the .env file (`WKHTMLTOPDF_PATH` and `WKHTMLTOIMAGE_PATH` variables)(Visit [RefundPlugin](https://github.com/Sylius/RefundPlugin) for more information).
 
 #### 2. Require Mollie plugin with composer:
 
 ```bash
-composer require sylius/mollie-plugin --no-scripts -W
+composer require sylius/mollie-plugin:^3.0 --no-scripts -W
 ```
 
 #### 3. Update the GatewayConfig entity class with the following code:
@@ -22,10 +21,9 @@ declare(strict_types=1);
 namespace App\Entity\Payment;
 
 use Doctrine\ORM\Mapping as ORM;
+use Sylius\Bundle\PayumBundle\Model\GatewayConfig as BaseGatewayConfig;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigTrait;
-use Doctrine\Common\Collections\ArrayCollection;
-use Sylius\Bundle\PayumBundle\Model\GatewayConfig as BaseGatewayConfig;
 
 /**
  * @ORM\Entity
@@ -41,7 +39,7 @@ class GatewayConfig extends BaseGatewayConfig implements GatewayConfigInterface
     {
         parent::__construct();
 
-        $this->mollieGatewayConfig = new ArrayCollection();
+        $this->initializeMollieGatewayConfig();
     }
 }
 
@@ -52,7 +50,7 @@ Ensure that the GatewayConfig resource is overridden in the Sylius configuration
 # config/packages/_sylius.yaml
 ...
 
-sylius_payum:
+sylius_payment:
     resources:
         gateway_config:
           classes:
@@ -115,10 +113,9 @@ declare(strict_types=1);
 namespace App\Entity\Product;
 
 use Doctrine\ORM\Mapping as ORM;
-use Sylius\Component\Core\Model\ProductTranslationInterface;
+use Sylius\Component\Core\Model\Product as BaseProduct;
 use Sylius\MolliePlugin\Entity\ProductInterface;
 use Sylius\MolliePlugin\Entity\ProductTrait;
-use Sylius\Component\Core\Model\Product as BaseProduct;
 
 /**
  * @ORM\Entity
@@ -129,13 +126,7 @@ use Sylius\Component\Core\Model\Product as BaseProduct;
 class Product extends BaseProduct implements ProductInterface
 {
     use ProductTrait;
-
-    protected function createTranslation(): ProductTranslationInterface
-    {
-        return new ProductTranslation();
-    }
 }
-
 
 ```
 
@@ -163,7 +154,6 @@ namespace App\Entity\Product;
 
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\ProductVariant as BaseProductVariant;
-use Sylius\Component\Product\Model\ProductVariantTranslationInterface;
 use Sylius\MolliePlugin\Entity\ProductVariantInterface;
 use Sylius\MolliePlugin\Entity\RecurringProductVariantTrait;
 
@@ -176,11 +166,6 @@ use Sylius\MolliePlugin\Entity\RecurringProductVariantTrait;
 class ProductVariant extends BaseProductVariant implements ProductVariantInterface
 {
     use RecurringProductVariantTrait;
-
-    protected function createTranslation(): ProductVariantTranslationInterface
-    {
-        return new ProductVariantTranslation();
-    }
 }
 
 ```
@@ -198,18 +183,61 @@ sylius_product:
                     model: App\Entity\Product\ProductVariant
 ```
 
-#### 7. Ensure that the plugin dependency is added to your `config/bundles.php` file:
+#### 7. Update the ProductVariant entity class with the following code:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Entity\User;
+
+use Doctrine\ORM\Mapping as ORM;
+use Sylius\Component\Core\Model\AdminUser as BaseAdminUser;
+use Sylius\MolliePlugin\Entity\OnboardingStatusAwareInterface;
+use Sylius\MolliePlugin\Entity\OnboardingStatusAwareTrait;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="sylius_admin_user")
+ */
+#[ORM\Entity]
+#[ORM\Table(name: 'sylius_admin_user')]
+class AdminUser extends BaseAdminUser implements OnboardingStatusAwareInterface
+{
+    use OnboardingStatusAwareTrait;
+}
+
+```
+
+Ensure that the AdminUser resource is overridden in the Sylius configuration file:
+
+```yaml
+# config/packages/_sylius.yaml
+...
+
+sylius_user:
+   resources:
+      admin:
+         user:
+            classes:
+               model: App\Entity\User\AdminUser
+```
+
+#### 8. Ensure that the plugin dependency is added to your `config/bundles.php` file:
 
 ```php
 # config/bundles.php
 
 return [
     ...
+    winzou\Bundle\StateMachineBundle\winzouStateMachineBundle::class => ['all' => true],
+    Bazinga\Bundle\JsTranslationBundle\BazingaJsTranslationBundle::class => ['all' => true],
     Sylius\MolliePlugin\SyliusMolliePlugin::class => ['all' => true],
 ];
 ```
 
-#### 8. Import required config in your `config/packages/_sylius.yaml` file:
+#### 9. Import required config in your `config/packages/_sylius.yaml` file:
 
 ```yaml
 # config/packages/_sylius.yaml
@@ -219,7 +247,7 @@ imports:
     - { resource: "@SyliusMolliePlugin/config/config.yaml" }
 ```
 
-#### 9. Import the routing in your `config/routes.yaml` file:
+#### 10. Import the routing in your `config/routes.yaml` file:
 
 ```yaml
 # config/routes.yaml
@@ -228,44 +256,13 @@ sylius_mollie_plugin:
     resource: "@SyliusMolliePlugin/config/routes.yaml"
 ```
 
-#### 10. Update your database
+#### 11. Update your database
 
 ```
 bin/console doctrine:migrations:migrate
 ```
 
-#### 11. Copy Sylius templates overridden in plugin to your templates directory (e.g templates/bundles/):
-**Note:** Some directories may already exist in your project
-
-```
-mkdir -p templates/bundles/SyliusAdminBundle/
-mkdir -p templates/bundles/SyliusShopBundle/
-mkdir -p templates/bundles/SyliusUiBundle/
-mkdir -p templates/bundles/SyliusRefundPlugin/
-```
-**Note:** Be aware that the following commands will override your existing templates!
-
-```
-cp -R vendor/sylius/mollie-plugin/templates/bundles/SyliusAdminBundle/* templates/bundles/SyliusAdminBundle/
-cp -R vendor/sylius/mollie-plugin/templates/bundles/SyliusShopBundle/* templates/bundles/SyliusShopBundle/
-cp -R vendor/sylius/mollie-plugin/templates/bundles/SyliusUiBundle/* templates/bundles/SyliusUiBundle/
-cp -R vendor/sylius/mollie-plugin/templates/bundles/SyliusRefundPlugin/* templates/bundles/SyliusRefundPlugin/
-```
-
-**Important:**
-Ensure the Mollie script is included at the top of your `templates/bundles/SyliusShopBundle/_scripts.html.twig` file:
-
-```html
-<script src="https://js.mollie.com/v1/mollie.js"></script>
-```
-
-#### 12. Add the payment link cronjob:
-
-```shell script
-* * * * * /usr/bin/php /path/to/bin/console mollie:send-payment-link
-```
-
-#### 13. Install assets:
+#### 12. Install assets:
 
 ```bash
 bin/console assets:install
@@ -273,67 +270,75 @@ bin/console assets:install
 
 **Note:** If you are running it on production, add the `-e prod` flag to this command.
 
-#### 14. Download the [domain validation file](https://www.mollie.com/.well-known/apple-developer-merchantid-domain-association) and place it on your server at:
-`public/.well-known/apple-developer-merchantid-domain-association`
-
 ## Frontend Asset Management
 
 1. Import the plugin's assets into your application's entrypoint files:
 
-    ```javascript
-    // assets/admin/entrypoint.js
-    
-    import '../../vendor/sylius/mollie-plugin/assets/admin/entrypoint';
-    ```
+   ```javascript
+   // assets/admin/entrypoint.js
+   
+   import '../../vendor/sylius/mollie-plugin/assets/admin/entrypoint';
+   ```
 
-    and:
+   and:
 
-    ```javascript
-    // assets/shop/entrypoint.js
-    
-    import '../../vendor/sylius/mollie-plugin/assets/shop/entrypoint';
-    ```
+   ```javascript
+   // assets/shop/entrypoint.js
+   
+   import '../../vendor/sylius/mollie-plugin/assets/shop/entrypoint';
+   ```
 
 1. Install assets:
 
-    ```bash
-    bin/console assets:install
-    ```
+   ```bash
+   bin/console assets:install
+   ```
 
 #### Installation & Build Process
 
 1. Install dependencies:
-    ```bash
-    yarn add bazinga-translator intl-messageformat lodash.get shepherd.js@11.0
-    ```
+   ```bash
+   yarn add bazinga-translator intl-messageformat lodash.get shepherd.js@11.0
+   ```
 
 1. Build assets:
 
-    for development:
-    ```bash
-    yarn install
-    yarn build
-    yarn encore dev
-    ```
+   for development:
+   ```bash
+   yarn install
+   yarn build
+   yarn encore dev
+   ```
 
-    for production:
-    ```bash
-    yarn install
-    yarn build
-    yarn encore production
-    ```
+   for production:
+   ```bash
+   yarn install
+   yarn build
+   yarn encore production
+   ```
 
 1. Clear cache:
 
-    ```bash
-    php bin/console cache:clear
-    ```
+   ```bash
+   php bin/console cache:clear
+   ```
 
 1. [Optional] Load fixtures:
 
-    ```bash
-    bin/console sylius:fixtures:load
-    ```
+   ```bash
+   bin/console sylius:fixtures:load
+   ```
+
+1. [Optional] Add the payment link cronjob:
+
+   ```shell script
+   * * * * * /usr/bin/php /path/to/bin/console mollie:send-payment-link
+   ```
+
+1. [Optional] If you want to use ApplePay, you need to add the [domain validation file](https://www.mollie.com/.well-known/apple-developer-merchantid-domain-association) file to your server at:
+   ```
+   public/.well-known/apple-developer-merchantid-domain-association
+   ```
 
 ### ⚠️ SyliusRefundPlugin Troubleshooting
 
@@ -384,15 +389,6 @@ In order to create Mollie payment with Sylius API, the following steps must be f
 ## Usage
 
 During configuration, first save the keys to the database and then click "Load methods".
-
-### Rendering Mollie credit card form
-
-You can use:
-
-- `SyliusMolliePlugin:DirectDebit:_form.html.twig`
-- `@SyliusMolliePlugin/Grid/Action/cancelSubscriptionMollie.html.twig`
-
-See [these examples](tests/Application/templates/bundles/SyliusShopBundle).
 
 ## Security issues
 
