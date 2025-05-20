@@ -131,7 +131,8 @@
    -   private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
    +   private readonly AbandonedOrdersQueryInterface $abandonedOrdersQuery,
    +   private readonly MollieBasedPaymentMethodQueryInterface $mollieBasedPaymentMethodQuery,
-       private readonly ChannelContextInterface $channelContext,
+   -   private readonly ChannelContextInterface $channelContext,
+   +   private readonly ChannelRepositoryInterface $channelRepository,
    +   private readonly EntityManagerInterface $entityManager,
    )
    ```
