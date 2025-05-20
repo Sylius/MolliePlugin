@@ -15,6 +15,12 @@ namespace Sylius\MolliePlugin\PartialShip\Factory;
 
 use Sylius\Component\Core\Model\ShipmentInterface;
 
+trigger_deprecation(
+    'sylius/mollie-plugin',
+    '2.2',
+    'The "%s" class is deprecated and will be removed in MolliePlugin 3.0',
+    ShipmentFactoryInterface::class,
+);
 interface ShipmentFactoryInterface
 {
     public function createWithOrderInventorySourceAndMethodFromShipment(ShipmentInterface $shipment): ShipmentInterface;

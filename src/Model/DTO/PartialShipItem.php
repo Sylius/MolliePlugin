@@ -13,6 +13,12 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Model\DTO;
 
+trigger_deprecation(
+    'sylius/mollie-plugin',
+    '2.2',
+    'The "%s" class is deprecated and will be removed in MolliePlugin 3.0',
+    PartialShipItem::class,
+);
 final class PartialShipItem
 {
     private int $id;

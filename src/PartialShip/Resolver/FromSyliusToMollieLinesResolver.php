@@ -20,6 +20,12 @@ use Sylius\MolliePlugin\Model\DTO\PartialShipItem;
 use Sylius\MolliePlugin\Model\DTO\PartialShipItems;
 use Webmozart\Assert\Assert;
 
+trigger_deprecation(
+    'sylius/mollie-plugin',
+    '2.2',
+    'The "%s" class is deprecated and will be removed in MolliePlugin 3.0',
+    FromSyliusToMollieLinesResolver::class,
+);
 final class FromSyliusToMollieLinesResolver implements FromSyliusToMollieLinesResolverInterface
 {
     public function resolve(Collection $units, Order $mollieOrder): PartialShipItems

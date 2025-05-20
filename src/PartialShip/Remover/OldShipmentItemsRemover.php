@@ -18,6 +18,12 @@ use Sylius\Component\Core\Model\OrderItemUnitInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\MolliePlugin\Model\DTO\PartialShipItems;
 
+trigger_deprecation(
+    'sylius/mollie-plugin',
+    '2.2',
+    'The "%s" class is deprecated and will be removed in MolliePlugin 3.0',
+    OldShipmentItemsRemover::class,
+);
 final class OldShipmentItemsRemover implements OldShipmentItemsRemoverInterface
 {
     public function remove(OrderInterface $order, PartialShipItems $shipItems): OrderInterface

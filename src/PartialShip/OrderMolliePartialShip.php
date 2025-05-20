@@ -23,6 +23,12 @@ use Sylius\MolliePlugin\PartialShip\Resolver\FromSyliusToMollieLinesResolverInte
 use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
 use Webmozart\Assert\Assert;
 
+trigger_deprecation(
+    'sylius/mollie-plugin',
+    '2.2',
+    'The "%s" class is deprecated and will be removed in MolliePlugin 3.0',
+    OrderMolliePartialShip::class,
+);
 final class OrderMolliePartialShip implements OrderMolliePartialShipInterface
 {
     public function __construct(

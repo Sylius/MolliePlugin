@@ -16,6 +16,12 @@ namespace Sylius\MolliePlugin\Model\DTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
+trigger_deprecation(
+    'sylius/mollie-plugin',
+    '2.2',
+    'The "%s" class is deprecated and will be removed in MolliePlugin 3.0',
+    PartialShipItems::class,
+);
 final class PartialShipItems
 {
     /** @var Collection<PartialShipItem> */

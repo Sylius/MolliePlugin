@@ -22,6 +22,12 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Count;
 
+trigger_deprecation(
+    'sylius/mollie-plugin',
+    '2.2',
+    'The "%s" class is deprecated and will be removed in MolliePlugin 3.0',
+    PartialShipType::class,
+);
 final class PartialShipType extends AbstractResourceType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

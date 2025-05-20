@@ -17,6 +17,12 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 
+trigger_deprecation(
+    'sylius/mollie-plugin',
+    '2.2',
+    'The "%s" class is deprecated and will be removed in MolliePlugin 3.0',
+    ShipmentFactory::class,
+);
 final class ShipmentFactory implements ShipmentFactoryInterface
 {
     public function __construct(private readonly FactoryInterface $baseFactory)

@@ -43,6 +43,15 @@ final class MollieOrderStatesApplicator implements MollieOrderStatesApplicatorIn
                 ),
             );
         }
+
+        trigger_deprecation(
+            'sylius/mollie-plugin',
+            '2.2',
+            sprintf(
+                'The "%s" service will be removed in MolliePlugin 3.0 and should not be used anymore.',
+                CreatePartialShipFromMollieInterface::class,
+            ),
+        );
     }
 
     public function execute(Order $order): void
