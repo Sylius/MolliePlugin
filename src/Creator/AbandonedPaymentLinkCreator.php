@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Creator;
 
 use Sylius\Component\Channel\Context\ChannelContextInterface;
+use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
@@ -31,14 +32,39 @@ final class AbandonedPaymentLinkCreator implements AbandonedPaymentLinkCreatorIn
         private readonly PaymentLinkResolverInterface $paymentLinkResolver,
         private readonly OrderRepositoryInterface $orderRepository,
         private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
-        private readonly ChannelContextInterface $channelContext,
+        private readonly ChannelContextInterface|ChannelRepositoryInterface $channelContext,
     ) {
+        if ($this->channelContext instanceof ChannelContextInterface) {
+            trigger_deprecation(
+                'sylius/mollie-plugin',
+                '2.2',
+                'Passing "%s" as the fourth constructor argument is deprecated and will be changed to "%s" in 3.0.',
+                ChannelContextInterface::class,
+                ChannelRepositoryInterface::class,
+            );
+        }
     }
 
     public function create(): void
     {
+        if ($this->channelContext instanceof ChannelContextInterface) {
+            /** @var ChannelInterface $channel */
+            $channel = $this->channelContext->getChannel();
+
+            $this->handleEmail($channel);
+
+            return;
+        }
+
+        $channels = $this->channelContext->findEnabled();
         /** @var ChannelInterface $channel */
-        $channel = $this->channelContext->getChannel();
+        foreach ($channels as $channel) {
+            $this->handleEmail($channel);
+        }
+    }
+
+    private function handleEmail(ChannelInterface $channel): void
+    {
         $paymentMethod = $this->paymentMethodRepository->findOneByChannelAndGatewayFactoryName(
             $channel,
             MollieGatewayFactory::FACTORY_NAME,

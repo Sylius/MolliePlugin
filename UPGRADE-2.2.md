@@ -70,3 +70,14 @@
    +    private ?ProcessingStateMachineTransitionInterface $processingStateMachineTransition = null,
    )
    ```
+
+   `Sylius\MolliePlugin\Creator\AbandonedPaymentLinkCreator`:
+    ```diff
+    public function __construct(
+        private readonly PaymentLinkResolverInterface $paymentLinkResolver,
+        private readonly OrderRepositoryInterface $orderRepository,
+        private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+    -   private readonly ChannelContextInterface $channelContext,
+    +   private readonly ChannelContextInterface|ChannelRepositoryInterface $channelContext,
+    )
+    ```
