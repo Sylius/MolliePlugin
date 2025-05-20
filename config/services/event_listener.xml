@@ -63,5 +63,11 @@
 
             <tag name="kernel.event_listener" event="workflow.sylius_payment.completed.complete" priority="-100" />
         </service>
+
+        <service id="sylius_mollie.listener.workflow.order_checkout.process_payment_surcharge" class="Sylius\MolliePlugin\EventListener\Workflow\OrderCheckoutProcessPaymentSurchargeListener">
+            <argument type="service" id="sylius_mollie.processor.payment_surcharge" />
+
+            <tag name="kernel.event_listener" event="workflow.sylius_order_checkout.completed.select_payment" priority="-100" />
+        </service>
     </services>
 </container>
