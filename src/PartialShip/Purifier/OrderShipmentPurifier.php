@@ -18,6 +18,12 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\MolliePlugin\PartialShip\OrderMolliePartialShipInterface;
 
+trigger_deprecation(
+    'sylius/mollie-plugin',
+    '2.2',
+    'The "%s" class is deprecated and will be removed in MolliePlugin 3.0',
+    OrderShipmentPurifier::class,
+);
 final class OrderShipmentPurifier implements OrderShipmentPurifierInterface
 {
     public function __construct(private readonly OrderMolliePartialShipInterface $molliePartialShip)

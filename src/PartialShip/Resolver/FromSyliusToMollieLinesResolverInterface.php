@@ -17,6 +17,12 @@ use Doctrine\Common\Collections\Collection;
 use Mollie\Api\Resources\Order;
 use Sylius\MolliePlugin\Model\DTO\PartialShipItems;
 
+trigger_deprecation(
+    'sylius/mollie-plugin',
+    '2.2',
+    'The "%s" class is deprecated and will be removed in MolliePlugin 3.0',
+    FromSyliusToMollieLinesResolverInterface::class,
+);
 interface FromSyliusToMollieLinesResolverInterface
 {
     public function resolve(Collection $units, Order $mollieOrder): PartialShipItems;

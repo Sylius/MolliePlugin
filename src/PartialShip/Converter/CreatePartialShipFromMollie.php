@@ -21,6 +21,12 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\PartialShip\Factory\ShipmentFactoryInterface;
 use Sylius\MolliePlugin\PartialShip\Resolver\FromMollieToSyliusResolverInterface;
 
+trigger_deprecation(
+    'sylius/mollie-plugin',
+    '2.2',
+    'The "%s" class is deprecated and will be removed in MolliePlugin 3.0',
+    CreatePartialShipFromMollie::class,
+);
 final class CreatePartialShipFromMollie implements CreatePartialShipFromMollieInterface
 {
     public function __construct(

@@ -16,6 +16,12 @@ namespace Sylius\MolliePlugin\PartialShip\Converter;
 use Mollie\Api\Resources\Order;
 use Sylius\Component\Core\Model\OrderInterface;
 
+trigger_deprecation(
+    'sylius/mollie-plugin',
+    '2.2',
+    'The "%s" class is deprecated and will be removed in MolliePlugin 3.0',
+    CreatePartialShipFromMollieInterface::class,
+);
 interface CreatePartialShipFromMollieInterface
 {
     public function create(OrderInterface $order, Order $mollieOrder): OrderInterface;

@@ -15,6 +15,12 @@ namespace Sylius\MolliePlugin\PartialShip\Purifier;
 
 use Sylius\Component\Core\Model\OrderInterface;
 
+trigger_deprecation(
+    'sylius/mollie-plugin',
+    '2.2',
+    'The "%s" class is deprecated and will be removed in MolliePlugin 3.0',
+    OrderShipmentPurifierInterface::class,
+);
 interface OrderShipmentPurifierInterface
 {
     public function purify(OrderInterface $order): void;

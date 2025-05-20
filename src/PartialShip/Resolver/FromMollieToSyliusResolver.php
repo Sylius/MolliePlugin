@@ -21,6 +21,12 @@ use Sylius\MolliePlugin\Model\DTO\PartialShipItem;
 use Sylius\MolliePlugin\Model\DTO\PartialShipItems;
 use Sylius\MolliePlugin\PartialShip\Remover\OldShipmentItemsRemoverInterface;
 
+trigger_deprecation(
+    'sylius/mollie-plugin',
+    '2.2',
+    'The "%s" class is deprecated and will be removed in MolliePlugin 3.0',
+    FromMollieToSyliusResolver::class,
+);
 final class FromMollieToSyliusResolver implements FromMollieToSyliusResolverInterface
 {
     public function __construct(
