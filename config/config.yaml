@@ -1,6 +1,6 @@
 imports:
     - { resource: "resources/**/*.yaml" }
-    - { resource: "state_machine/**/*.yaml" }
+    - { resource: "state_machine/*.yaml" }
     - { resource: "grids/**/*.yaml" }
     - { resource: "email/**/*.yaml" }
 #    - { resource: "ui/**/*.yaml" }
@@ -9,9 +9,6 @@ imports:
 
 sylius_state_machine_abstraction:
     graphs_to_adapters_mapping:
-        sylius_order_checkout: 'winzou_state_machine'
-        sylius_payment: 'winzou_state_machine'
-        sylius_shipment: 'winzou_state_machine'
         mollie_subscription_graph: 'winzou_state_machine'
         mollie_subscription_payment_graph_manual: 'winzou_state_machine'
         mollie_subscription_payment_state_graph: 'winzou_state_machine'

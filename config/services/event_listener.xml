@@ -51,5 +51,17 @@
             <argument type="service" id="request_stack" />
             <tag name="kernel.event_listener" event="sylius.order.initialize_address" method="onUpdate"/>
         </service>
+
+        <service id="sylius_mollie.listener.workflow.payment.subscription_fail" class="Sylius\MolliePlugin\EventListener\Workflow\SubscriptionPaymentFailListener">
+            <argument type="service" id="sylius_mollie.subscription.processor.subscription_payment" />
+
+            <tag name="kernel.event_listener" event="workflow.sylius_payment.completed.fail" priority="-100" />
+        </service>
+
+        <service id="sylius_mollie.listener.workflow.payment.subscription_success" class="Sylius\MolliePlugin\EventListener\Workflow\SubscriptionPaymentSuccessListener">
+            <argument type="service" id="sylius_mollie.subscription.processor.subscription_payment" />
+
+            <tag name="kernel.event_listener" event="workflow.sylius_payment.completed.complete" priority="-100" />
+        </service>
     </services>
 </container>
