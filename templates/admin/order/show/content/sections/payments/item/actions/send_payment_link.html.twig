@@ -10,7 +10,7 @@
 
 {% if payment_gateway == constant('Sylius\\MolliePlugin\\Payum\\Factory\\MollieGatewayFactory::FACTORY_NAME') and payment.state in allowed_payment_states %}
     {% set order = payment.order %}
-    <a href="{{ path('sylius_mollie_plugin_payment_link', {'orderNumber': order.number}) }}" class="btn btn-primary">
+    <a href="{{ path('sylius_mollie_admin_payment_link_generate', {'orderNumber': order.number}) }}" class="btn btn-primary">
         {{ 'sylius_mollie.ui.payment_link_generate'|trans }}
     </a>
 {% endif %}
