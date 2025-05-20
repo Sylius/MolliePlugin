@@ -6,7 +6,7 @@
 {% if
     payment_link != ''
     and payment_gateway == constant('Sylius\\MolliePlugin\\Payum\\Factory\\MollieGatewayFactory::FACTORY_NAME')
-    and sylius_sm_can(payment, constant('Sylius\\Component\\Payment\\PaymentTransitions::TRANSITION_COMPLETE'), constant('Sylius\\Component\\Payment\\PaymentTransitions::GRAPH'))
+    and sylius_sm_can(payment, constant('Sylius\\Component\\Payment\\PaymentTransitions::GRAPH'), constant('Sylius\\Component\\Payment\\PaymentTransitions::TRANSITION_COMPLETE'))
 %}
     <a href="{{ payment_link ?? '' }}" class="btn">
         {{ ux_icon('tabler:currency') }} {{ 'sylius.ui.pay'|trans }}
