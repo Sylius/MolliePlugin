@@ -1,9 +1,0 @@
-{% if sm_can(payment, 'complete', 'sylius_payment') and payment.details['payment-link'] is defined %}
-    <div class="ui segment">
-        <a href="{{ payment.details['payment-link'] }}">
-            <button type="submit" id="payment-link" class="ui icon labeled tiny yellow fluid loadable button">
-                <i class="money icon"></i> {{ 'sylius.ui.pay'|trans }}
-            </button>
-        </a>
-    </div>
-{% endif %}

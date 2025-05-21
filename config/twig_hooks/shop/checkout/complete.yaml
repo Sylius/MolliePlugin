@@ -1,0 +1,6 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_shop.checkout.complete.content':
+            qr_box:
+                template: '@SyliusMolliePlugin/shop/checkout/complete/content/qr_box.html.twig'
+                priority: -100

@@ -1,0 +1,13 @@
+winzou_state_machine:
+    sylius_payment:
+        callbacks:
+            after:
+                sylius_process_subscription_fail:
+                    on: [ "fail" ]
+                    do: [ "@sylius_mollie.subscription.processor.subscription_payment", "processFailed" ]
+                    args: [ "object" ]
+
+                sylius_process_subscription_success:
+                    on: [ "complete" ]
+                    do: [ "@sylius_mollie.subscription.processor.subscription_payment", "processSuccess" ]
+                    args: [ "object" ]

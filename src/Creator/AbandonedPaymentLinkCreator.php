@@ -13,101 +13,97 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Creator;
 
-use Sylius\Component\Channel\Context\ChannelContextInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Core\Model\OrderInterface as SyliusOrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
-use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\Component\Payment\Model\GatewayConfigInterface as SyliusGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Entity\TemplateMollieEmailInterface;
 use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
-use Sylius\MolliePlugin\Repository\OrderRepositoryInterface;
-use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
+use Sylius\MolliePlugin\Repository\Query\AbandonedOrdersQueryInterface;
+use Sylius\MolliePlugin\Repository\Query\MollieBasedPaymentMethodQueryInterface;
 use Sylius\MolliePlugin\Resolver\PaymentLinkResolverInterface;
 
 final class AbandonedPaymentLinkCreator implements AbandonedPaymentLinkCreatorInterface
 {
     public function __construct(
         private readonly PaymentLinkResolverInterface $paymentLinkResolver,
-        private readonly OrderRepositoryInterface $orderRepository,
-        private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
-        private readonly ChannelContextInterface|ChannelRepositoryInterface $channelContext,
+        private readonly AbandonedOrdersQueryInterface $abandonedOrdersQuery,
+        private readonly MollieBasedPaymentMethodQueryInterface $mollieBasedPaymentMethodQuery,
+        private readonly ChannelRepositoryInterface $channelRepository,
+        private readonly EntityManagerInterface $entityManager,
     ) {
-        if ($this->channelContext instanceof ChannelContextInterface) {
-            trigger_deprecation(
-                'sylius/mollie-plugin',
-                '2.2',
-                'Passing "%s" as the fourth constructor argument is deprecated and will be changed to "%s" in 3.0.',
-                ChannelContextInterface::class,
-                ChannelRepositoryInterface::class,
-            );
-        }
     }
 
     public function create(): void
     {
-        if ($this->channelContext instanceof ChannelContextInterface) {
-            /** @var ChannelInterface $channel */
-            $channel = $this->channelContext->getChannel();
-
-            $this->handleEmail($channel);
-
-            return;
-        }
-
-        $channels = $this->channelContext->findEnabled();
-        /** @var ChannelInterface $channel */
+        $start = new \DateTime();
+        /** @var ChannelInterface[] $channels */
+        $channels = $this->channelRepository->findEnabled();
         foreach ($channels as $channel) {
-            $this->handleEmail($channel);
+            $gateway = $this->getMollieBasedGatewayInChannel($channel);
+            if (null === $gateway) {
+                continue;
+            }
+
+            foreach ($this->getAbandonedOrders($start, $gateway) as $order) {
+                /** @var OrderInterface $order */
+                $this->sendAbandonedEmail($order);
+            }
+
+            $this->entityManager->flush();
         }
     }
 
-    private function handleEmail(ChannelInterface $channel): void
+    private function getMollieBasedGatewayInChannel(ChannelInterface $channel): ?SyliusGatewayConfigInterface
     {
-        $paymentMethod = $this->paymentMethodRepository->findOneByChannelAndGatewayFactoryName(
+        /** @var PaymentMethodInterface|null $paymentMethod */
+        $paymentMethod = $this->mollieBasedPaymentMethodQuery->getOneByChannelAndFactoryName(
             $channel,
             MollieGatewayFactory::FACTORY_NAME,
         );
-        if (null === $paymentMethod) {
-            return;
-        }
 
-        /** @var ?GatewayConfigInterface $gateway */
-        $gateway = $paymentMethod->getGatewayConfig();
-        if (null === $gateway) {
-            return;
-        }
+        return $paymentMethod?->getGatewayConfig();
+    }
 
+    /** @return iterable<SyliusOrderInterface> */
+    private function getAbandonedOrders(\DateTime $start, SyliusGatewayConfigInterface $gateway): iterable
+    {
         $abandonedEnabled = $gateway->getConfig()['abandoned_email_enabled'] ?? false;
         if (false === $abandonedEnabled) {
-            return;
+            return [];
         }
 
         $abandonedDuration = $gateway->getConfig()['abandoned_hours'] ?? 4;
 
-        $dateTime = new \DateTime('now');
-        $duration = new \DateInterval(\sprintf('PT%sH', $abandonedDuration));
-        $dateTime->sub($duration);
+        $dateTime = clone $start;
+        $dateTime->sub(new \DateInterval(\sprintf('PT%sH', $abandonedDuration)));
 
-        $orders = $this->orderRepository->findAbandonedByDateTime($dateTime);
+        return $this->abandonedOrdersQuery->__invoke($dateTime);
+    }
 
-        /** @var OrderInterface $order */
-        foreach ($orders as $order) {
-            /** @var PaymentInterface $payment */
-            $payment = $order->getPayments()->first();
-
-            /** @var PaymentMethodInterface $paymentMethod */
-            $paymentMethod = $payment->getMethod();
-
-            /** @var \Payum\Core\Model\GatewayConfigInterface $gatewayConfig */
-            $gatewayConfig = $paymentMethod->getGatewayConfig();
-
-            if (MollieGatewayFactory::FACTORY_NAME === $gatewayConfig->getFactoryName()) {
-                $this->paymentLinkResolver->resolve($order, [], TemplateMollieEmailInterface::PAYMENT_LINK_ABANDONED);
-                $order->setAbandonedEmail(true);
-                $this->orderRepository->add($order);
-            }
+    private function sendAbandonedEmail(OrderInterface $order): void
+    {
+        /** @var PaymentInterface|false $payment */
+        $payment = $order->getPayments()->first();
+        if (!$payment instanceof PaymentInterface) {
+            return;
         }
+
+        /** @var PaymentMethodInterface $paymentMethod */
+        $paymentMethod = $payment->getMethod();
+
+        /** @var SyliusGatewayConfigInterface $gatewayConfig */
+        $gatewayConfig = $paymentMethod->getGatewayConfig();
+
+        if (MollieGatewayFactory::FACTORY_NAME !== $gatewayConfig->getFactoryName()) {
+            return;
+        }
+
+        $this->paymentLinkResolver->resolve($order, [], TemplateMollieEmailInterface::PAYMENT_LINK_ABANDONED);
+        $order->setAbandonedEmail(true);
     }
 }

@@ -1,0 +1,14 @@
+{% set single_click_enabled = hookable_metadata.context.gateway_config.config['single_click_enabled'] | default(false) %}
+
+{% if single_click_enabled and getCustomerFromContext() %}
+    {% if (isCardSaved(hookable_metadata.context.order.customer.email)) %}
+        <div class="mollie-components-use-saved-card">
+            <div>
+                <label class="form-check">
+                    <input type="checkbox" id="mollie-sylius-use-saved-credit-card" checked>
+                    <span>{{ 'sylius_mollie.ui.use_saved_card'|trans }}</span>
+                </label>
+            </div>
+        </div>
+    {% endif %}
+{% endif %}

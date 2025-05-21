@@ -1,0 +1,9 @@
+{% if data is defined %}
+    {% if data == constant('Sylius\\MolliePlugin\\Logger\\LoggerLevel::NOTICE') %}
+        <span class="badge bg-info text-dark">{{ 'sylius_mollie.ui.info'|trans }}</span>
+    {% elseif data == constant('Sylius\\MolliePlugin\\Logger\\LoggerLevel::ERROR') %}
+        <div class="badge bg-danger">{{ 'sylius_mollie.ui.error'|trans }}</div>
+    {% else %}
+        <div class="badge bg-dark">{{ 'sylius.ui.unknown'|trans }}</div>
+    {% endif %}
+{% endif %}

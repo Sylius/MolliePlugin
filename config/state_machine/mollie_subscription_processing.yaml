@@ -1,0 +1,17 @@
+winzou_state_machine:
+    mollie_subscription_processing:
+        class: "%sylius_mollie.model.mollie_subscription.class%"
+        property_path: processingState
+        graph: mollie_subscription_processing_graph
+        state_machine_class: "%sylius.state_machine.class%"
+        states:
+            none: ~
+            pending: ~
+            processing: ~
+        transitions:
+            process:
+                from: [none, pending]
+                to: processing
+            schedule:
+                from: [processing, none]
+                to: pending

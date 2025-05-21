@@ -1,0 +1,10 @@
+{% set apple_pay = constant('Mollie\\Api\\Types\\PaymentMethod::APPLEPAY') %}
+
+{% set inner_payment_method = hookable_metadata.context.inner_payment_method %}
+{% set form = hookable_metadata.context.method_form.applePayDirectButton %}
+
+{% if inner_payment_method.methodId == apple_pay %}
+    <div class="mb-3 field">
+        {{ form_row(form) }}
+    </div>
+{% endif %}

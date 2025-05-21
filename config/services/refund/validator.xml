@@ -22,10 +22,10 @@
         <service
             id="sylius_mollie.refund.validator.refund_units_command"
             class="Sylius\MolliePlugin\Refund\Validator\RefundUnitsCommandValidator"
-            decorates="Sylius\RefundPlugin\Validator\RefundUnitsCommandValidator"
+            decorates="sylius_refund.validator.refund_units_command"
         >
-            <argument type="service" id="Sylius\RefundPlugin\Checker\OrderRefundingAvailabilityChecker"/>
-            <argument type="service" id="Sylius\RefundPlugin\Validator\RefundAmountValidator" />
+            <argument type="service" id="sylius_refund.checker.order_refunding_availability"/>
+            <argument type="service" id="sylius_refund.validator.refund_amount" />
             <argument type="service" id="sylius_mollie.refund.checker.duplicate_refund_the_same_amount"/>
         </service>
     </services>
