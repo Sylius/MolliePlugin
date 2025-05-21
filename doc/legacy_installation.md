@@ -291,11 +291,11 @@ yarn add bazinga-translator intl-messageformat lodash.get shepherd.js@11.0
 Build assets:
 
 ```bash
-yarn encode dev # for development
+yarn encore dev # for development
 yarn encore production # for production
 ```
 
-#### 12. Clear cache:
+#### 13. Clear cache:
 
 ```bash
 php bin/console cache:clear
