@@ -7,9 +7,7 @@
         "php": "^8.2",
         "mollie/mollie-api-php": "^2.73",
         "sylius/sylius": "^2.0.x-dev",
-        "willdurand/js-translation-bundle": "^7.0",
-        "winzou/state-machine": "^0.4",
-        "winzou/state-machine-bundle": "^0.6"
+        "willdurand/js-translation-bundle": "^7.0"
     },
     "require-dev": {
         "behat/behat": "^3.7",
@@ -41,7 +39,9 @@
         "symfony/flex": "^2.0",
         "symfony/intl": "^6.4 || ^7.1",
         "symfony/web-profiler-bundle": "^6.4 || ^7.1",
-        "symfony/webpack-encore-bundle": "^2.2"
+        "symfony/webpack-encore-bundle": "^2.2",
+        "winzou/state-machine": "^0.4",
+        "winzou/state-machine-bundle": "^0.6"
     },
     "suggest": {
         "sylius/refund-plugin": "To allow refunding payments in the Mollie payment method."
