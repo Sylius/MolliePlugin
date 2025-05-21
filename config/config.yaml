@@ -7,6 +7,8 @@ imports:
     - { resource: "fixtures/**/*.yaml" }
     - { resource: "twig_hooks/**/*.yaml" }
 
+    - { resource: "integration/refund-plugin/config.php" }
+
 sylius_state_machine_abstraction:
     graphs_to_adapters_mapping:
         mollie_subscription_graph: 'winzou_state_machine'

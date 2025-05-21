@@ -7,9 +7,6 @@ mollie_logger:
 mollie_logo:
     resource: "admin/mollie_logo.yaml"
 
-mollie_payment_refund:
-    resource: "admin/payment_refund.yaml"
-
 mollie_payment_link:
     resource: "admin/payment_link.yaml"
 
