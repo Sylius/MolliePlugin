@@ -3,15 +3,13 @@
 This installation instruction assumes that you're not using Symfony Flex. If you do, take a look at the
 [README](../README.md). We strongly encourage you to use Symfony Flex, it's much quicker!
 
-#### 1. Ensure that you have `wkhtmltopdf` installed, and that you have the proper path to it set in the .env file (`WKHTMLTOPDF_PATH` and `WKHTMLTOIMAGE_PATH` variables)(Visit [RefundPlugin](https://github.com/Sylius/RefundPlugin) for more information).
-
-#### 2. Require Mollie plugin with composer:
+#### 1. Require Mollie plugin with composer:
 
 ```bash
 composer require sylius/mollie-plugin:^3.0 --no-scripts -W
 ```
 
-#### 3. Update the GatewayConfig entity class with the following code:
+#### 2. Update the GatewayConfig entity class with the following code:
 
 ```php
 <?php
@@ -57,7 +55,7 @@ sylius_payment:
               model: App\Entity\Payment\GatewayConfig
 ```
 
-#### 4. Update the Order entity class with the following code:
+#### 3. Update the Order entity class with the following code:
 
 ```php
 <?php
@@ -103,7 +101,7 @@ sylius_order:
                 model: App\Entity\Order\Order
 ```
 
-#### 5. Update the Product entity class with the following code:
+#### 4. Update the Product entity class with the following code:
 
 ```php
 <?php
@@ -143,7 +141,7 @@ sylius_product:
                     model: App\Entity\Product\Product
 ```
 
-#### 6. Update the ProductVariant entity class with the following code:
+#### 5. Update the ProductVariant entity class with the following code:
 
 ```php
 <?php
@@ -183,7 +181,7 @@ sylius_product:
                     model: App\Entity\Product\ProductVariant
 ```
 
-#### 7. Update the ProductVariant entity class with the following code:
+#### 6. Update the ProductVariant entity class with the following code:
 
 ```php
 <?php
@@ -224,7 +222,7 @@ sylius_user:
                model: App\Entity\User\AdminUser
 ```
 
-#### 8. Ensure that the plugin dependency is added to your `config/bundles.php` file:
+#### 7. Ensure that the plugin dependency is added to your `config/bundles.php` file:
 
 ```php
 # config/bundles.php
@@ -237,7 +235,7 @@ return [
 ];
 ```
 
-#### 9. Import required config in your `config/packages/_sylius.yaml` file:
+#### 8. Import required config in your `config/packages/_sylius.yaml` file:
 
 ```yaml
 # config/packages/_sylius.yaml
@@ -247,7 +245,7 @@ imports:
     - { resource: "@SyliusMolliePlugin/config/config.yaml" }
 ```
 
-#### 10. Import the routing in your `config/routes.yaml` file:
+#### 9. Import the routing in your `config/routes.yaml` file:
 
 ```yaml
 # config/routes.yaml
@@ -256,13 +254,13 @@ sylius_mollie_plugin:
     resource: "@SyliusMolliePlugin/config/routes.yaml"
 ```
 
-#### 11. Update your database
+#### 10. Update your database
 
 ```
 bin/console doctrine:migrations:migrate
 ```
 
-#### 12. Install frontend assets:
+#### 11. Install frontend assets:
 
 ```bash
 bin/console assets:install
@@ -305,6 +303,14 @@ php bin/console cache:clear
 
 ## Optional and troubleshooting
 
+1. [Optional] To allow refunding orders add the RefundPlugin:
+
+   ```bash
+   composer require sylius/refund-plugin:^2.0 --no-scripts -W
+   ```
+
+   And follow its installation instructions.
+
 1. [Optional] Load fixtures:
 
    ```bash
@@ -321,62 +327,3 @@ php bin/console cache:clear
    ```
    public/.well-known/apple-developer-merchantid-domain-association
    ```
-
-### ⚠️ SyliusRefundPlugin Troubleshooting
-
-If you encounter an error related to duplicate transitions in the `sylius_refund_refund_payment` state machine (e.g. multiple `"complete"` transitions from `"new"` state),  
-you should **remove the following file** from your project:
-```
-config/packages/sylius_refund.yaml
-```
-You should remove it **if your project does not use Symfony Workflow**
-
-## Sylius API
-In order to create Mollie payment with Sylius API, the following steps must be followed:
-
-- send the following request to the Sylius API in order to retrieve Mollie payment method configuration: /api/v2/shop/orders/{tokenValue}/payments/{paymentId}/configuration
-- tokenValue represents order token which is saved in the sylius_order DB table
-- response from this endpoint should be in the following format:
-
-```json
-{
-  "method": "ideal",
-  "issuer": "ideal_ABNANL2A",
-  "cardToken": null,
-  "amount": {"value":"18.75","currency":"EUR"},
-  "customerId": null,
-  "description": "000000157",
-  "redirectUrl": "{redirect_url}",
-  "webhookUrl": "{webhook_url}",
-  "metadata": {"order_id":170,"customer_id":22,"molliePaymentMethods":"ideal","cartToken":null,"saveCardInfo":null,"useSavedCards":null,"selected_issuer":"ideal_ABNANL2A","methodType":"Payments API","refund_token":"{token}"},
-  "locale": "en_US"
-}
-```
-- create the payment on Mollie, using Mollie API. Response from the above-mentioned step should be put in the request body.
-  Request should be sent to the POST: https://api.mollie.com/v2/payments. Bearer token should be sent in the request authorization header.
-  Token can be copied from the Mollie admin configuration page.
-
-- after payment has been created, API response will contain checkout field. User should enter this url in the browser.
-
-```json
-{
-  "checkout": 
-    {
-    "href": "https://www.mollie.com/checkout/test-mode?method=ideal&token=6.voklib",
-    "type": "text/html"
-}}
-```
-- open checkout url in the browser and complete the payment
-
-## Usage
-
-During configuration, first save the keys to the database and then click "Load methods".
-
-## Security issues
-
-If you think that you have found a security issue, please do not use the issue tracker and do not post it publicly.
-Instead, all security issues must be sent to `security@sylius.com`
-
-## Community
-
-For online communication, we invite you to chat with us & other users on [Sylius Slack](https://sylius-devs.slack.com/).

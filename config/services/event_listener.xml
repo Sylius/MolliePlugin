@@ -32,19 +32,6 @@
             <tag name="kernel.event_listener" event="sylius.payment_method.pre_update" method="uploadLogo"/>
         </service>
 
-        <service id="sylius_mollie.listener.payment_partial" class="Sylius\MolliePlugin\EventListener\PaymentPartialEventListener">
-            <argument type="service" id="sylius_mollie.refund.handler.order_payment_refund"/>
-            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
-            <tag name="messenger.message_handler" priority="1" />
-        </service>
-
-        <service id="sylius_mollie.listener.refund_payment_generated_auto_complete" class="Sylius\MolliePlugin\EventListener\RefundPaymentGeneratedAutoCompleteListener">
-            <argument type="service" id="sylius_refund.repository.refund_payment" />
-            <argument type="service" id="sylius_refund.state_resolver.refund_payment_completed_applier"/>
-            <argument type="service" id="sylius.repository.payment_method"/>
-            <tag name="messenger.message_handler" priority="10" />
-        </service>
-
         <service id="sylius_mollie.listener.checkout_order_colliding_products" class="Sylius\MolliePlugin\EventListener\CheckoutOrderCollidingProductsListener">
             <argument type="service" id="router" />
             <argument type="service" id="translator" />

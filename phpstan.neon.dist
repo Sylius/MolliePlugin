@@ -8,6 +8,7 @@ parameters:
     excludePaths:
         # Makes PHPStan crash
         - 'src/DependencyInjection/Configuration.php'
+        - 'src/Refund/Validator/*.php'
 
         # Test dependencies
         - 'tests/Application/app/**.php'
@@ -27,3 +28,5 @@ parameters:
 
         - '#Property .* is never read, only written.#'
         - '#Method .*get.*Translation\(\) should return Sylius\\.*Resource\\Model\\TranslationInterface but returns Sylius\\.*Resource\\Model\\TranslationInterface.#'
+
+        - '#.*Sylius\\RefundPlugin\\.*#'

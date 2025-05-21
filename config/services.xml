@@ -18,6 +18,8 @@
 >
     <imports>
         <import resource="services/**/*.xml" />
+
+        <import resource="integration/refund-plugin/services.php" />
     </imports>
 
     <services>
