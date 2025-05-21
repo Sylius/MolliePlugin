@@ -313,7 +313,7 @@ export const steps = [
         text: 'stepFinishWizard.text',
         highlightClass: 'payment-settings',
         btnBackClass: 'd-none',
-        btnNextClass: 'mr-auto',
+        btnNextClass: 'text-center',
         btnNextText: 'stepButtons.finishWizard',
         btnCollapseClass: 'd-none',
         btnCloseClass: 'd-none',
