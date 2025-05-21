@@ -53,6 +53,9 @@
    | `sylius_mollie_plugin_payment_link`                | `sylius_mollie_admin_payment_link_generate`         |
    | `sylius_mollie_plugin_payum_refund`                | `sylius_mollie_admin_mollie_subscription_pause`     |
 
+1. The constants `TRANSITION_ACTIVATE` and `TRANSITION_COMPLETE` in `Sylius\MolliePlugin\StateMachine\MollieRecurringTransitions` have been removed as they are no longer used.
+   In their place, have been added `TRANSITION_PAUSE` and `TRANSITION_RESUME`.
+
 1. Winzou State Machine
 
    The constructors of the following classes have been changed:

@@ -1,6 +1,6 @@
 imports:
     - { resource: "resources/**/*.yaml" }
-    - { resource: "state_machine/*.yaml" }
+    - { resource: "state_machine/*.php" }
     - { resource: "grids/**/*.yaml" }
     - { resource: "email/**/*.yaml" }
 #    - { resource: "ui/**/*.yaml" }
