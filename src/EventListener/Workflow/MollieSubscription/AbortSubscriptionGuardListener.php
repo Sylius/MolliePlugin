@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sylius package.
+ * This file is part of the Sylius Mollie Plugin package.
  *
  * (c) Sylius Sp. z o.o.
  *
@@ -26,7 +26,6 @@ final class AbortSubscriptionGuardListener
 
     public function __invoke(GuardEvent $event): void
     {
-        /** @var MollieSubscriptionInterface $subscription */
         $subscription = $event->getSubject();
         Assert::isInstanceOf($subscription, MollieSubscriptionInterface::class);
 

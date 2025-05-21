@@ -11,14 +11,14 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\EventListener\Workflow;
+namespace Sylius\MolliePlugin\EventListener\Workflow\OrderCheckout;
 
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Processor\PaymentSurchargeProcessorInterface;
 use Symfony\Component\Workflow\Event\CompletedEvent;
 use Webmozart\Assert\Assert;
 
-final readonly class OrderCheckoutProcessPaymentSurchargeListener
+final readonly class ProcessPaymentSurchargeListener
 {
     public function __construct(
         private PaymentSurchargeProcessorInterface $paymentSurchargeProcessor,

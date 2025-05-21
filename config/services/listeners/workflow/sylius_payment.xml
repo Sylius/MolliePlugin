@@ -17,13 +17,13 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <services>
-        <service id="sylius_mollie.listener.workflow.payment.subscription_fail" class="Sylius\MolliePlugin\EventListener\Workflow\SubscriptionPaymentFailListener">
+        <service id="sylius_mollie.listener.workflow.payment.subscription_payment_fail" class="Sylius\MolliePlugin\EventListener\Workflow\Payment\SubscriptionPaymentFailListener">
             <argument type="service" id="sylius_mollie.subscription.processor.subscription_payment" />
 
             <tag name="kernel.event_listener" event="workflow.sylius_payment.completed.fail" priority="-100" />
         </service>
 
-        <service id="sylius_mollie.listener.workflow.payment.subscription_success" class="Sylius\MolliePlugin\EventListener\Workflow\SubscriptionPaymentSuccessListener">
+        <service id="sylius_mollie.listener.workflow.payment.subscription_payment_success" class="Sylius\MolliePlugin\EventListener\Workflow\Payment\SubscriptionPaymentSuccessListener">
             <argument type="service" id="sylius_mollie.subscription.processor.subscription_payment" />
 
             <tag name="kernel.event_listener" event="workflow.sylius_payment.completed.complete" priority="-100" />
