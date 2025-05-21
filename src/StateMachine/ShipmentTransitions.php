@@ -13,6 +13,12 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\StateMachine;
 
+trigger_deprecation(
+    'sylius/mollie-plugin',
+    '2.2',
+    'The "%s" class is deprecated and will be removed in MolliePlugin 3.0',
+    ShipmentTransitions::class,
+);
 final class ShipmentTransitions
 {
     public const GRAPH = 'sylius_shipment';
