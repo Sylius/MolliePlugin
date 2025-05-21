@@ -13,7 +13,7 @@ framework:
                 - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_ACTIVE
                 - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_PROCESSING
                 - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_PAUSED
-                - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_CANCELLED
+                - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_CANCELED
                 - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_COMPLETED
             transitions:
                 !php/const Sylius\MolliePlugin\StateMachine\MollieRecurringTransitions::TRANSITION_PAUSE:
