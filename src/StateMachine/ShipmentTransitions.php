@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\StateMachine;
 
-
 trigger_deprecation(
     'sylius/mollie-plugin',
     '2.2',
