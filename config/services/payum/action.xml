@@ -39,11 +39,11 @@
         </service>
 
         <service id="sylius_mollie.payum.action.status" class="Sylius\MolliePlugin\Payum\Action\StatusAction">
-            <argument />
-            <argument />
+            <argument type="service" id="sylius_mollie.refund.payment" on-invalid="null" />
+            <argument type="service" id="sylius_mollie.refund.order" on-invalid="null" />
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
             <argument type="service" id="sylius_mollie.voucher.updater.order_voucher_adjustment"/>
-            <argument />
+            <argument type="service" id="sylius_mollie.refund.checker.mollie_order_refund" on-invalid="null" />
             <tag name="payum.action" factory="mollie" alias="payum.action.status"/>
             <tag name="payum.action" factory="mollie_subscription" alias="payum.action.status_subscription"/>
         </service>

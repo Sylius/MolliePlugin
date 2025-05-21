@@ -9,11 +9,12 @@
 
 >
     <testsuites>
-        <testsuite name="functional">
-            <directory>tests/Functional</directory>
-        </testsuite>
         <testsuite name="unit">
             <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="integration-refund">
+            <directory>tests/Integration/Refund/Functional</directory>
+            <directory>tests/Integration/Refund/Unit</directory>
         </testsuite>
     </testsuites>
 

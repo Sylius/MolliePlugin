@@ -43,7 +43,7 @@
         "symfony/web-profiler-bundle": "^6.4 || ^7.1",
         "symfony/webpack-encore-bundle": "^2.2"
     },
-    "suggested": {
+    "suggest": {
         "sylius/refund-plugin": "To allow refunding payments in the Mollie payment method."
     },
     "scripts": {

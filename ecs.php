@@ -12,7 +12,6 @@
 declare(strict_types=1);
 
 use PhpCsFixer\Fixer\ClassNotation\OrderedTypesFixer;
-use PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer;
 use PhpCsFixer\Fixer\Comment\HeaderCommentFixer;
 use PhpCsFixer\Fixer\FunctionNotation\NullableTypeDeclarationForDefaultNullValueFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocSeparationFixer;
@@ -26,7 +25,7 @@ return static function (ECSConfig $config): void {
     $config->paths([
         'src',
         'tests/Behat',
-        'tests/Functional',
+        'tests/Integration',
         'tests/Unit',
         'tests/TestApplication/src',
     ]);

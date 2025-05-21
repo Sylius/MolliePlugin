@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\MolliePlugin\Functional;
+namespace Tests\Sylius\MolliePlugin\Integration\Refund\Functional;
 
 use ApiTestCase\JsonApiTestCase;
 

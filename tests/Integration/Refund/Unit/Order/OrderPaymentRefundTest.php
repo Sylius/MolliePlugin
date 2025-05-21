@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\MolliePlugin\Unit\Order;
+namespace Tests\Sylius\MolliePlugin\Integration\Refund\Unit\Order;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Payum\Core\GatewayInterface;

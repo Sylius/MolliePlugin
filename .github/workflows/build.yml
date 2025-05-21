@@ -13,7 +13,7 @@ jobs:
     tests:
         runs-on: ubuntu-latest
 
-        name: "Sylius ${{ matrix.sylius }}, PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }}, State Machine ${{ matrix.state_machine_adapter }}"
+        name: "Sylius ${{ matrix.sylius }}, PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }}, State Machine ${{ matrix.state_machine_adapter }}, Refund ${{ matrix.refund }}"
 
         strategy:
             fail-fast: false
@@ -24,6 +24,7 @@ jobs:
                 symfony: [ "^7.2" ]
                 sylius: [ "~2.0.0" ]
                 state_machine_adapter: [ "winzou_state_machine", "symfony_workflow" ]
+                refund: [ "false", "true" ]
 
         env:
             APP_ENV: test
@@ -90,8 +91,15 @@ jobs:
                 if: matrix.sylius != ''
                 run: composer require "sylius/sylius:${{ matrix.sylius }}" --no-update --no-scripts --no-interaction
 
+            -   name: Install Refund Plugin
+                if: matrix.refund == 'true'
+                run: composer require "sylius/refund-plugin" --no-update --no-scripts --no-interaction
+
             -   name: Install PHP dependencies
                 run: composer install --no-interaction
+
+            -   name: Validate composer.json
+                run: composer validate --ansi --strict
 
             -   name: Run PHPStan
                 run: vendor/bin/phpstan analyse
@@ -146,22 +154,20 @@ jobs:
                 run: vendor/bin/console sylius:fixtures:load -n
 
             -
-                name: Validate composer.json
-                run: composer validate --ansi --strict
-
-            -
                 name: Validate container
                 run: vendor/bin/console lint:container
 
             -   name: Run Mockoon CLI
+                if: matrix.refund == 'true'
                 uses: mockoon/cli-action@v2
                 with:
                     version: "latest"
-                    data-file: tests/Functional/Mockoon.json
+                    data-file: tests/Integration/Refund/Functional/Mockoon.json
                     port: 8217
 
             -   name: Run Functional Tests
-                run: vendor/bin/phpunit --colors=always --testsuite=functional
+                if: matrix.refund == 'true'
+                run: vendor/bin/phpunit --colors=always --testsuite=integration-refund
 
 #            -   name: Run Mockoon for Behat
 #                shell: bash

@@ -1,5 +1,5 @@
 imports:
-#    - { resource: "@SyliusRefundPlugin/config/config.yaml" }
+    - { resource: 'integration/refund/config.php' }
     - { resource: "@SyliusMolliePlugin/config/config.yaml" }
 #    - { resource: "services_test.php" } # fix and enable when working on behat
 
@@ -20,10 +20,6 @@ doctrine:
 twig:
     paths:
         '%kernel.project_dir%/../../../tests/TestApplication/templates': ~
-
-#sylius_refund:
-#    pdf_generator:
-#        enabled: false
 
 sylius_payment:
     resources:
