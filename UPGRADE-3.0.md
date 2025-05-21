@@ -12,6 +12,9 @@
 
 1. The `sylius/admin-order-creation-plugin` integration layer has been removed as there are no plans of updating it to Sylius 2.0.
 
+1. The `sylius/refund-plugin` has been made optional, but it's required for the refund functionality to work.
+   If you want to allow refunding orders you need to install it.
+
 1. The following classes have been removed:
 
     - `Sylius\MolliePlugin\StateMachine\Transition\PaymentStateMachineTransition`
