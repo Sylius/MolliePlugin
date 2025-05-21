@@ -17,15 +17,22 @@ use Sylius\MolliePlugin\Payum\Action\BaseApiAwareAction;
 
 abstract class BaseRefundAction extends BaseApiAwareAction
 {
-    /**
-     * Checks if payment should be refunded. As long as there are order items to be refunded, payment will be refunded.
-     */
     public function shouldBeRefunded(\ArrayObject $details): bool
     {
-        if (isset($details['metadata']['refund']) && array_key_exists('items', $details['metadata']['refund'])) {
-            $items = $details['metadata']['refund']['items'];
+        $refundMetadata = $details['metadata']['refund'] ?? null;
+        if (null === $refundMetadata) {
+            return false;
+        }
 
-            return count($items) > 0 && !empty($items[0]);
+        if (isset($refundMetadata['items']) && [] !== $refundMetadata['items']) {
+            $items = $refundMetadata['items'];
+
+            return !empty($items[0]);
+        }
+        if (isset($refundMetadata['shipments']) && [] !== $refundMetadata['shipments']) {
+            $shipments = $refundMetadata['shipments'];
+
+            return !empty($shipments[0]);
         }
 
         return false;
