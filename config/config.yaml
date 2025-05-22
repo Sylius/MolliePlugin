@@ -1,20 +1,14 @@
 imports:
     - { resource: "resources/**/*.yaml" }
-    - { resource: "state_machine/*.yaml" }
+    - { resource: "state_machine/*.php" }
     - { resource: "grids/**/*.yaml" }
     - { resource: "email/**/*.yaml" }
 #    - { resource: "ui/**/*.yaml" }
     - { resource: "fixtures/**/*.yaml" }
     - { resource: "twig_hooks/**/*.yaml" }
+    - { resource: "workflow/**/*.yaml" }
 
     - { resource: "integration/refund-plugin/config.php" }
-
-sylius_state_machine_abstraction:
-    graphs_to_adapters_mapping:
-        mollie_subscription_graph: 'winzou_state_machine'
-        mollie_subscription_payment_graph_manual: 'winzou_state_machine'
-        mollie_subscription_payment_state_graph: 'winzou_state_machine'
-        mollie_subscription_processing_graph: 'winzou_state_machine'
 
 bazinga_js_translation:
     locale_fallback: '%kernel.default_locale%'

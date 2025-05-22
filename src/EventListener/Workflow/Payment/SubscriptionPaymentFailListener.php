@@ -11,14 +11,14 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\EventListener\Workflow;
+namespace Sylius\MolliePlugin\EventListener\Workflow\Payment;
 
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\MolliePlugin\Subscription\Processor\SubscriptionPaymentProcessorInterface;
 use Symfony\Component\Workflow\Event\CompletedEvent;
 use Webmozart\Assert\Assert;
 
-final readonly class SubscriptionPaymentSuccessListener
+final readonly class SubscriptionPaymentFailListener
 {
     public function __construct(
         private SubscriptionPaymentProcessorInterface $subscriptionPaymentProcessor,
@@ -30,6 +30,6 @@ final readonly class SubscriptionPaymentSuccessListener
         $payment = $event->getSubject();
         Assert::isInstanceOf($payment, PaymentInterface::class);
 
-        $this->subscriptionPaymentProcessor->processSuccess($payment);
+        $this->subscriptionPaymentProcessor->processFailed($payment);
     }
 }
