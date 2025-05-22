@@ -67,15 +67,13 @@ docker run -p 8080:80 -p 8025:8025 -e APP_ENV=dev -e APP_DEBUG=1 ghcr.io/sylius/
 This installation instruction assumes that you're using Symfony Flex and Rector. If you don't, take a look at the
 [legacy installation instruction](doc/legacy_installation.md). However, we strongly encourage you to use them, it's much quicker!
 
-#### 1. Ensure that you have `wkhtmltopdf` installed, and that you have the proper path to it set in the .env file (`WKHTMLTOPDF_PATH` and `WKHTMLTOIMAGE_PATH` variables)(Visit [RefundPlugin](https://github.com/Sylius/RefundPlugin) for more information).
-
-#### 2. Require Mollie plugin with composer:
+#### 1. Require Mollie plugin with composer:
 
 ```bash
 composer require sylius/mollie-plugin:^3.0 --no-scripts -W
 ```
 
-#### 3. Add the Mollie rector set:
+#### 2. Add the Mollie rector set:
 
 ```diff
    # <project_root>/rector.php
@@ -93,13 +91,13 @@ and run it:
 vendor/bin/rector
 ```
 
-#### 4. Update your database
+#### 3. Update your database
 
 ```
 bin/console doctrine:migrations:migrate
 ```
 
-#### 5. Install frontend assets:
+#### 4. Install frontend assets:
 
 ```bash
 bin/console assets:install
@@ -117,13 +115,21 @@ yarn encore dev # for development
 yarn encore production # for production
 ```
 
-#### 6. Clear cache:
+#### 5. Clear cache:
 
 ```bash
 php bin/console cache:clear
 ```
 
 ## Optional and troubleshooting
+
+1. [Optional] To allow refunding orders add the RefundPlugin:
+
+   ```bash
+   composer require sylius/refund-plugin:^2.0 --no-scripts -W
+   ```
+
+   And follow its installation instructions.
 
 1. [Optional] Load fixtures:
 
