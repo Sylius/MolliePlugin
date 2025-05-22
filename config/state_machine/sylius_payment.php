@@ -34,6 +34,13 @@ return static function (ContainerConfigurator $container) {
                         'args' => ['object'],
                     ],
                 ],
+                'guard' => [
+                    'sylius_mollie_payment_refund_guard' => [
+                        'on' => 'refund',
+                        'do' => ['@sylius_mollie.refund.guard.mollie_payment_refund', 'isRefundPossible'],
+                        'args' => ['object'],
+                    ],
+                ],
             ],
         ],
     ]);

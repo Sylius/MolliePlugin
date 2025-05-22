@@ -31,5 +31,10 @@
 
             <tag name="sylius.api.payment_method_handler" />
         </service>
+
+        <service id="sylius_mollie.refund.guard.mollie_payment_refund" class="Sylius\MolliePlugin\Refund\Guard\PaymentRefundGuard">
+            <argument>%kernel.bundles%</argument>
+        </service>
+        <service id="Sylius\MolliePlugin\Refund\Guard\PaymentRefundGuardInterface" alias="sylius_mollie.refund.guard.mollie_payment_refund" />
     </services>
 </container>
