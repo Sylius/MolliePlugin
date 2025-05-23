@@ -1,0 +1,8 @@
+{% set resource = hookable_metadata.context.resource %}
+{% set factory_name = resource.gatewayConfig.factoryName ?? '' %}
+
+{%- if factory_name == constant('Sylius\\MolliePlugin\\Payum\\Factory\\MollieGatewayFactory::FACTORY_NAME') -%}
+    <div class="container-xl mt-3">
+        {{ mollie_render_version_widget() }}
+    </div>
+{%- endif -%}

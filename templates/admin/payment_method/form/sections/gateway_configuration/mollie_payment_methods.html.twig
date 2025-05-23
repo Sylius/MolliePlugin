@@ -1,0 +1,5 @@
+{% set resource = hookable_metadata.context.resource %}
+
+<div class="card" id="mollie-payment-form" data-status="{{ resource.id }}">
+    {% hook 'mollie_payment_methods' %}
+</div>

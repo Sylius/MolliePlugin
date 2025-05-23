@@ -11,7 +11,7 @@ sylius_grid:
                         type: show
                         options:
                             link:
-                                route: sylius_mollie_plugin_mollie_subscription_show
+                                route: sylius_mollie_admin_mollie_subscription_show
                                 parameters:
                                     id: resource.id
             sorting:
@@ -77,4 +77,4 @@ sylius_grid:
                         label: test
     templates:
         filter:
-            subscription_state: "@SyliusMolliePlugin/Admin/Logger/Grid/_theme.html.twig"
+            subscription_state: "@SyliusMolliePlugin/admin/mollie_subscription/grid/filter/states.html.twig"

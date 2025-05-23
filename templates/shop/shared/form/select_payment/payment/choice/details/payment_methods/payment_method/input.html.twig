@@ -1,0 +1,9 @@
+<input
+    type="radio"
+    value="{{ hookable_metadata.context.choice.value }}"
+    id="choice-{{ hookable_metadata.context.key_choice }}"
+    name="{{ hookable_metadata.context.form.vars.full_name }}"
+    class="online-payment__input"
+    data-qrcode="{{ path('sylius_mollie_shop_qr_code') }}"
+    {{ sylius_test_html_attribute('payment-method-payment-item') }}
+>

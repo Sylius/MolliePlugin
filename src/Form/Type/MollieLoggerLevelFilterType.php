@@ -24,6 +24,7 @@ final class MollieLoggerLevelFilterType extends AbstractType
             ->add('loggerLevel', LoggerLevelChoiceType::class, [
                 'label' => false,
                 'log_type' => LoggerLevelChoiceType::TYPE_LOG,
+                'placeholder' => 'sylius.ui.all',
             ])
         ;
     }

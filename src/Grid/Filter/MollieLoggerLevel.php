@@ -25,7 +25,10 @@ final class MollieLoggerLevel implements FilterInterface
         $data,
         array $options,
     ): void {
-        if (false === is_array($data) || false === isset($data['loggerLevel'])) {
+        if (
+            false === is_array($data) ||
+            '' === ($data['loggerLevel'] ?? '')
+        ) {
             return;
         }
 

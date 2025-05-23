@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Resolver;
 
 use Liip\ImagineBundle\Exception\Config\Filter\NotFoundException;
-use Sylius\AdminOrderCreationPlugin\Provider\PaymentTokenProviderInterface as OrderCreationPaymentTokenProviderInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
@@ -36,7 +35,7 @@ final class PaymentLinkResolver implements PaymentLinkResolverInterface
         private readonly IntToStringConverterInterface $intToStringConverter,
         private readonly RepositoryInterface $orderRepository,
         private readonly PaymentLinkEmailManagerInterface $paymentLinkEmailManager,
-        private readonly OrderCreationPaymentTokenProviderInterface|PaymentTokenProviderInterface $paymentTokenProvider,
+        private readonly PaymentTokenProviderInterface $paymentTokenProvider,
     ) {
     }
 

@@ -119,7 +119,7 @@ final class CaptureAction extends BaseApiAwareAction implements GenericTokenFact
                 $cancelToken = $this->tokenFactory->createToken(
                     $token->getGatewayName(),
                     $token->getDetails(),
-                    'sylius_mollie_plugin_cancel_subscription_mollie',
+                    'sylius_mollie_shop_cancel_subscription_mollie',
                     ['orderId' => $details['metadata']['order_id']],
                 );
 

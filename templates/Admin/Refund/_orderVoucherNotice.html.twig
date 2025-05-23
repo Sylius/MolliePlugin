@@ -1,4 +1,0 @@
-{% set unitPromotionAdjustmentVoucher = constant('Sylius\\MolliePlugin\\Model\\PaymentMethod\\MealVoucher::MEAL_VOUCHERS') %}
-{% set unitPromotionTotalVoucher = order.getAdjustmentsTotalRecursively(unitPromotionAdjustmentVoucher) %}
-
-{% include '@SyliusMolliePlugin/Refund/_warningVoucherInfo.html.twig' %}

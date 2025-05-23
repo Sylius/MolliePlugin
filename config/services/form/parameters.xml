@@ -23,9 +23,6 @@
         <parameter key="sylius_mollie.form.type.payment_methods.payment_surcharge_fee.validation_groups" type="collection">
             <parameter>sylius</parameter>
         </parameter>
-        <parameter key="sylius_mollie.form.type.partial_shipment.validation_groups" type="collection">
-            <parameter>sylius</parameter>
-        </parameter>
         <parameter key="sylius_mollie.form.type.mollie.validation_groups" type="collection">
             <parameter>sylius</parameter>
         </parameter>

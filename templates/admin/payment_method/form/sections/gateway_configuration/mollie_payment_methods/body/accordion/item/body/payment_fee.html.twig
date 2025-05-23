@@ -1,0 +1,5 @@
+{% set form = hookable_metadata.context.method_form.paymentSurchargeFee %}
+
+<h3>{{ 'sylius_mollie.ui.payment_fee'|trans }}</h3>
+
+{{ form_row(form, {'attr': {'class': 'js-onboardingWizard-paymentFee'}}) }}

@@ -23,7 +23,7 @@
             <argument type="service" id="sylius_mollie.calculator.payment_fee.composite"/>
             <argument type="service" id="sylius.context.cart"/>
             <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
-            <argument type="service" id="sylius.adjustments_aggregator" />
+            <argument type="service" id="sylius.aggregator.adjustments_by_label" />
             <argument type="service" id="sylius_mollie.converter.price_to_amount" />
             <argument type="service" id="twig"/>
         </service>
@@ -47,7 +47,7 @@
             <argument type="service" id="payum" />
             <argument type="service" id="sylius.repository.order" />
             <argument type="service" id="router" />
-            <argument type="service" id="SM\Factory\Factory"/>
+            <argument type="service" id="sylius_abstraction.state_machine"/>
             <argument type="service" id="doctrine.orm.default_entity_manager"/>
         </service>
 
@@ -56,7 +56,6 @@
             <argument type="service" id="sylius_mollie.resolver.mollie_api_client_key"/>
             <argument type="service" id="sylius.repository.order" />
             <argument type="service" id="sylius.repository.payment" />
-            <argument type="service" id="SM\Factory\Factory"/>
         </service>
 
         <service id="sylius_mollie.controller.shop.page_redirect" class="Sylius\MolliePlugin\Controller\Shop\PageRedirectController">

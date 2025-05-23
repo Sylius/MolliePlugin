@@ -17,9 +17,7 @@ use Behat\Behat\Context\Context;
 use Doctrine\ORM\EntityManager;
 use Payum\Core\Payum;
 use Payum\Core\Registry\RegistryInterface;
-use SM\Factory\FactoryInterface;
 use Sylius\Abstraction\StateMachine\StateMachineInterface;
-use Sylius\Abstraction\StateMachine\WinzouStateMachineAdapter;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Payment\PaymentTransitions;
@@ -31,22 +29,11 @@ final class OrderContext implements Context
 {
     public function __construct(
         private readonly EntityManager $entityManager,
-        private readonly FactoryInterface|StateMachineInterface $stateMachineFactory,
+        private readonly StateMachineInterface $stateMachine,
         private readonly RegistryInterface $payum,
         private readonly MollieGatewayFactoryCheckerInterface $mollieGatewayFactoryChecker,
         private readonly DivisorProviderInterface $divisorProvider,
     ) {
-        if ($this->stateMachineFactory instanceof FactoryInterface) {
-            trigger_deprecation(
-                'sylius/mollie-plugin',
-                '2.2',
-                sprintf(
-                    'Passing an instance of "%s" as the second argument is deprecated. It will accept only instances of "%s" in MolliePlugin 3.0.',
-                    FactoryInterface::class,
-                    StateMachineInterface::class,
-                ),
-            );
-        }
     }
 
     /**
@@ -86,17 +73,7 @@ final class OrderContext implements Context
                 $payment->setDetails($model);
             }
 
-            $stateMachine = $this->getStateMachine();
-            $stateMachine->apply($payment, PaymentTransitions::GRAPH, $transition);
+            $this->stateMachine->apply($payment, PaymentTransitions::GRAPH, $transition);
         }
-    }
-
-    private function getStateMachine(): StateMachineInterface
-    {
-        if ($this->stateMachineFactory instanceof FactoryInterface) {
-            return new WinzouStateMachineAdapter($this->stateMachineFactory);
-        }
-
-        return $this->stateMachineFactory;
     }
 }

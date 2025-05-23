@@ -1,11 +1,14 @@
 imports:
     - { resource: "resources/**/*.yaml" }
-    - { resource: "state_machine/**/*.yaml" }
+    - { resource: "state_machine/*.php" }
     - { resource: "grids/**/*.yaml" }
     - { resource: "email/**/*.yaml" }
-    - { resource: "ui/**/*.yaml" }
+#    - { resource: "ui/**/*.yaml" }
     - { resource: "fixtures/**/*.yaml" }
+    - { resource: "twig_hooks/**/*.yaml" }
+    - { resource: "workflow/**/*.yaml" }
 
-twig:
-    globals:
-        subscription_mollie_repository: "@sylius_mollie.repository.mollie_subscription"
+    - { resource: "integration/refund-plugin/config.php" }
+
+bazinga_js_translation:
+    locale_fallback: '%kernel.default_locale%'

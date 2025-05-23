@@ -1,0 +1,6 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_refund.admin.order.refund.content.header':
+            voucher_notice:
+                template: '@SyliusMolliePlugin/admin/order/refund/content/header/voucher_notice.html.twig'
+                priority: -100

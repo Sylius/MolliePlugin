@@ -1,0 +1,14 @@
+{% set method_form = hookable_metadata.context.method_form %}
+{% set methods_loop = hookable_metadata.context.methods_loop %}
+{% set payment_method_accordion_id = hookable_metadata.context.payment_method_accordion_id %}
+{% set methods_accordion_id = hookable_metadata.context.methods_accordion_id %}
+
+<div
+    id="{{ payment_method_accordion_id }}"
+    class="accordion-collapse collapse {% if methods_loop.first %}show{% endif %}"
+    data-bs-parent="#{{ methods_accordion_id }}"
+>
+    <div class="accordion-body" data-method-id="{{ method_form.vars.name }}">
+        {% hook 'body' %}
+    </div>
+</div>

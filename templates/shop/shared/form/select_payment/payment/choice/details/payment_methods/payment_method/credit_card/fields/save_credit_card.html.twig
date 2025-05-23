@@ -1,0 +1,8 @@
+{% if (true == hookable_metadata.context.gateway_config.config['single_click_enabled'] | default(false)) and getCustomerFromContext() %}
+    <div class="form-group--save-credit-card">
+        <label>
+            <input type="checkbox" id="mollie-sylius-save-credit-card" class="form-check-input" checked>
+            <span>{{ 'sylius_mollie.ui.save_card'|trans }}</span>
+        </label>
+    </div>
+{% endif %}

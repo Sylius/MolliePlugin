@@ -54,8 +54,7 @@ final class PaymentRefundCommandCreator implements PaymentRefundCommandCreatorIn
         $mollieRefund = (float) $payment->amountRefunded->value * $this->divisorProvider->getDivisor();
         $toRefund = (int) $mollieRefund - $refunded;
 
-        Assert::notNull($order->getChannel());
-        $refundMethods = $this->refundPaymentMethodProvider->findForChannel($order->getChannel());
+        $refundMethods = $this->refundPaymentMethodProvider->findForOrder($order);
 
         if (0 === count($refundMethods)) {
             throw new OfflineRefundPaymentMethodNotFound(
