@@ -15,6 +15,7 @@ namespace Sylius\MolliePlugin\Refund\Guard;
 
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
 
 final class PaymentRefundGuard implements PaymentRefundGuardInterface
 {
@@ -35,7 +36,12 @@ final class PaymentRefundGuard implements PaymentRefundGuardInterface
             return false;
         }
 
-        if ($gatewayConfig->getFactoryName() !== MollieGatewayFactory::FACTORY_NAME) {
+        $factoryName = $gatewayConfig->getFactoryName();
+        if ($factoryName === MollieSubscriptionGatewayFactory::FACTORY_NAME) {
+            return false;
+        }
+
+        if ($factoryName !== MollieGatewayFactory::FACTORY_NAME) {
             return true;
         }
 
