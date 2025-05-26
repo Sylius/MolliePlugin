@@ -22,6 +22,12 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Constraints\Iban;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+trigger_deprecation(
+    'sylius/mollie-plugin',
+    '2.2',
+    'The "%s" class is deprecated and will be removed in MolliePlugin 3.0.',
+    DirectDebitType::class,
+);
 final class DirectDebitType extends AbstractType
 {
     public function __construct(private readonly RequestStack $requestStack)

@@ -9,6 +9,9 @@
    - `Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransition`
    - `Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransitionInterface`
    - `Sylius\MolliePlugin\EventListener\ProductVariantRecurringOptionsListener`
+   - `Sylius\MolliePlugin\Form\Extension\CompleteTypeExtension`
+   - `Sylius\MolliePlugin\Form\Type\DirectDebitType`
+   - `Sylius\MolliePlugin\Model\PaymentMethod\DirectDebit`
 
 1. Winzou State Machine deprecations
 

@@ -16,6 +16,12 @@ namespace Sylius\MolliePlugin\Model\PaymentMethod;
 use Mollie\Api\Types\PaymentMethod;
 use Sylius\MolliePlugin\Model\ApiType;
 
+trigger_deprecation(
+    'sylius/mollie-plugin',
+    '2.2',
+    'The "%s" class is deprecated and will be removed in MolliePlugin 3.0.',
+    DirectDebit::class,
+);
 final class DirectDebit extends AbstractMethod
 {
     public function getMethodId(): string
