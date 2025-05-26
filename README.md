@@ -198,15 +198,6 @@ In order to create Mollie payment with Sylius API, the following steps must be f
 
 During configuration, first save the keys to the database and then click "Load methods".
 
-### Rendering Mollie credit card form
-
-You can use:
-
-- `SyliusMolliePlugin:DirectDebit:_form.html.twig`
-- `@SyliusMolliePlugin/Grid/Action/cancelSubscriptionMollie.html.twig`
-
-See [these examples](tests/Application/templates/bundles/SyliusShopBundle).
-
 ## Security issues
 
 If you think that you have found a security issue, please do not use the issue tracker and do not post it publicly.

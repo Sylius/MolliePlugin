@@ -23,6 +23,8 @@
     - `Sylius\MolliePlugin\StateMachine\Transition\ProcessingStateMachineTransitionInterface`
     - `Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransition`
     - `Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransitionInterface`
+    - `Sylius\MolliePlugin\Form\Extension\CompleteTypeExtension`
+    - `Sylius\MolliePlugin\Form\Type\DirectDebitType`
 
 1. The following routes have been renamed:
 
