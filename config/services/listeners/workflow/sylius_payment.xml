@@ -28,5 +28,11 @@
 
             <tag name="kernel.event_listener" event="workflow.sylius_payment.completed.complete" priority="-100" />
         </service>
+
+        <service id="sylius_mollie.listener.workflow.payment.refund_guard" class="Sylius\MolliePlugin\EventListener\Workflow\Payment\PaymentRefundGuardListener">
+            <argument type="service" id="sylius_mollie.refund.guard.mollie_payment_refund" />
+
+            <tag name="kernel.event_listener" event="workflow.sylius_payment.guard.refund" priority="0" />
+        </service>
     </services>
 </container>

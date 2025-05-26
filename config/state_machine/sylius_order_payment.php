@@ -20,24 +20,17 @@ return static function (ContainerConfigurator $container) {
     }
 
     $container->extension('winzou_state_machine', [
-        'sylius_payment' => [
+        'sylius_order_payment' => [
             'callbacks' => [
-                'after' => [
-                    'sylius_process_subscription_fail' => [
-                        'on' => ['fail'],
-                        'do' => ['@sylius_mollie.subscription.processor.subscription_payment', 'processFailed'],
-                        'args' => ['object'],
-                    ],
-                    'sylius_process_subscription_success' => [
-                        'on' => ['complete'],
-                        'do' => ['@sylius_mollie.subscription.processor.subscription_payment', 'processSuccess'],
-                        'args' => ['object'],
-                    ],
-                ],
                 'guard' => [
-                    'sylius_mollie_payment_refund_guard' => [
+                    'sylius_mollie_order_payment_partially_refund_guard' => [
+                        'on' => 'partially_refund',
+                        'do' => ['@sylius_mollie.refund.guard.order_payment_refund', 'isRefundPossible'],
+                        'args' => ['object'],
+                    ],
+                    'sylius_mollie_order_payment_refund_guard' => [
                         'on' => 'refund',
-                        'do' => ['@sylius_mollie.refund.guard.mollie_payment_refund', 'isRefundPossible'],
+                        'do' => ['@sylius_mollie.refund.guard.order_payment_refund', 'isRefundPossible'],
                         'args' => ['object'],
                     ],
                 ],

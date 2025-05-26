@@ -126,7 +126,7 @@ php bin/console cache:clear
 1. [Optional] To allow refunding orders add the RefundPlugin:
 
    ```bash
-   composer require sylius/refund-plugin:^2.0 --no-scripts -W
+   composer require sylius/refund-plugin:^2.0.2 --no-scripts -W
    ```
 
    And follow its installation instructions.
