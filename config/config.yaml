@@ -3,7 +3,6 @@ imports:
     - { resource: "state_machine/*.php" }
     - { resource: "grids/**/*.yaml" }
     - { resource: "email/**/*.yaml" }
-#    - { resource: "ui/**/*.yaml" }
     - { resource: "fixtures/**/*.yaml" }
     - { resource: "twig_hooks/**/*.yaml" }
     - { resource: "workflow/**/*.yaml" }
