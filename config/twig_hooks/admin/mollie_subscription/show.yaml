@@ -1,0 +1,16 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_admin.mollie_subscription.show.content':
+            sections:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections.html.twig'
+                priority: 0
+        
+        'sylius_admin.mollie_subscription.show.content.sections':
+            general:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general.html.twig'
+                priority: 0
+        
+        'sylius_admin.mollie_subscription.show.content.sections.general':
+            content:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/content.html.twig'
+                priority: 0
