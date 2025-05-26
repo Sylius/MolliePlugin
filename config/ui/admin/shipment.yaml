@@ -1,7 +1,0 @@
-sylius_ui:
-    events:
-        sylius.admin.shipment.partial.ship:
-            blocks:
-                content:
-                    template: '@SyliusMolliePlugin/Admin/Shipment/Partial/_shipContent.html.twig'
-                    priority: 10
