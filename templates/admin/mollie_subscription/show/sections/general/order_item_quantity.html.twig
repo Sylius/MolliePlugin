@@ -1,0 +1,9 @@
+{% set mollie_subscription = hookable_metadata.context.resource %}
+{% set orderItem = mollie_subscription.orderItem %}
+
+{% if orderItem is not null %}
+    <div class="row mb-2 border-bottom pb-2">
+        <div class="col-md-4 fw-bold">{{ 'sylius.ui.items'|trans }} {{ 'sylius.ui.quantity'|trans }}</div>
+        <div class="col-md-8">{{ orderItem.quantity }}</div>
+    </div>
+{% endif %}
