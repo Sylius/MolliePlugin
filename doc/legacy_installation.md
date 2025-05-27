@@ -229,7 +229,6 @@ sylius_user:
 
 return [
     ...
-    winzou\Bundle\StateMachineBundle\winzouStateMachineBundle::class => ['all' => true],
     Bazinga\Bundle\JsTranslationBundle\BazingaJsTranslationBundle::class => ['all' => true],
     Sylius\MolliePlugin\SyliusMolliePlugin::class => ['all' => true],
 ];
@@ -309,7 +308,7 @@ php bin/console cache:clear
    composer require sylius/refund-plugin:^2.0.2 --no-scripts -W
    ```
 
-   And follow its installation instructions.
+   And follow its installation [instructions](https://github.com/Sylius/RefundPlugin/tree/v2.0.1?tab=readme-ov-file#installation).
 
 1. [Optional] Load fixtures:
 
