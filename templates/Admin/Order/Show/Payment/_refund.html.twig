@@ -1,4 +1,10 @@
-{% if order.paymentState != constant('Sylius\\Component\\Core\\OrderPaymentStates::STATE_PARTIALLY_REFUNDED') and sm_can(payment, 'refund', 'sylius_payment') and payment.method.gatewayConfig.factoryName == constant('Sylius\\MolliePlugin\\Payum\\Factory\\MollieGatewayFactory::FACTORY_NAME') %}
+{% if
+    order.paymentState != constant('Sylius\\Component\\Core\\OrderPaymentStates::STATE_PARTIALLY_REFUNDED') and
+    sm_can(order, 'partially_refund', 'sylius_order_payment') and
+    sm_can(order, 'refund', 'sylius_order_payment') and
+    sm_can(payment, 'refund', 'sylius_payment') and
+    payment.method.gatewayConfig.factoryName == constant('Sylius\\MolliePlugin\\Payum\\Factory\\MollieGatewayFactory::FACTORY_NAME')
+%}
     <div class="ui segment">
         <form action="{{ path('sylius_admin_order_payment_refund', {'orderId': order.id, 'id': payment.id}) }}" method="post" novalidate>
             <input type="hidden" name="_method" value="PUT">
