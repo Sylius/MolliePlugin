@@ -13,9 +13,12 @@ sylius_twig_hooks:
         'sylius_admin.mollie_subscription.show.content.sections.general':
             state:
                 template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/state.html.twig'
-                priority: 1200
+                priority: 1300
             processing_state:
                 template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/processing_state.html.twig'
+                priority: 1200
+            payment_state:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/payment_state.html.twig'
                 priority: 1100
             recent_failed_payments_count:
                 template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/recent_failed_payments_count.html.twig'
