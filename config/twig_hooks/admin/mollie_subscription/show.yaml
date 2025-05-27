@@ -40,4 +40,4 @@ sylius_twig_hooks:
                 priority: 100
             schedule:
                 template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/schedule.html.twig'
-                priority: 100
+                priority: 0
