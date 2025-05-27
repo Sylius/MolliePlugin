@@ -11,9 +11,6 @@ sylius_twig_hooks:
                 priority: 0
         
         'sylius_admin.mollie_subscription.show.content.sections.general':
-            id:
-                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/id.html.twig'
-                priority: 900
             state:
                 template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/state.html.twig'
                 priority: 800

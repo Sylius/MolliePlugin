@@ -8,16 +8,16 @@
     aborted: 'danger'
 } %}
 {% set state_to_icons_map = {
-    new: 'bi-eye',
-    active: 'bi-box-arrow-in-right',
-    paused: 'bi-pause-circle',
-    processing: 'bi-arrow-repeat',
-    canceled: 'bi-x-octagon',
-    completed: 'bi-check-circle',
-    aborted: 'bi-x-circle'
+    new: 'eye',
+    active: 'login',
+    paused: 'player-pause',
+    processing: 'refresh',
+    canceled: 'circle-x',
+    completed: 'circle-check',
+    aborted: 'x'
 } %}
 
 <span class="badge bg-{{ state_to_colors_map[data]|default('secondary') }} d-inline-flex align-items-center{% if attached is defined and attached == true %} w-100 rounded-0{% endif %}">
-    <i class="bi {{ state_to_icons_map[data]|default('bi-exclamation-circle') }} me-1"></i>
+    {{ ux_icon('tabler:' ~ (state_to_icons_map[data]|default('alert-circle')), { 'class': 'me-1' }) }}
     {{ ('sylius_mollie.ui.subscription.state.' ~ data) | trans }}
 </span>
