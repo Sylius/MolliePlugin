@@ -1,0 +1,30 @@
+framework:
+    workflows:
+        !php/const Sylius\MolliePlugin\StateMachine\MollieRecurringTransitions::GRAPH_MANUAL:
+            type: state_machine
+            marking_store:
+                type: method
+                property: state
+            supports:
+                - Sylius\MolliePlugin\Entity\MollieSubscriptionInterface
+            initial_marking: !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_NEW
+            places:
+                - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_NEW
+                - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_ACTIVE
+                - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_PROCESSING
+                - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_PAUSED
+                - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_CANCELED
+                - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_COMPLETED
+            transitions:
+                !php/const Sylius\MolliePlugin\StateMachine\MollieRecurringTransitions::TRANSITION_PAUSE:
+                    from: !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_ACTIVE
+                    to: !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_PAUSED
+                !php/const Sylius\MolliePlugin\StateMachine\MollieRecurringTransitions::TRANSITION_RESUME:
+                    from: !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_PAUSED
+                    to: !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_ACTIVE
+                !php/const Sylius\MolliePlugin\StateMachine\MollieRecurringTransitions::TRANSITION_CANCEL:
+                    from:
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_NEW
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_ACTIVE
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_PROCESSING
+                    to: !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_CANCELED

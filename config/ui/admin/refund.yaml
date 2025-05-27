@@ -1,7 +1,0 @@
-sylius_ui:
-    events:
-        sylius_refund.admin.order.refund:
-            blocks:
-                voucher_notice:
-                    template: '@SyliusMolliePlugin/Admin/Refund/_orderVoucherNotice.html.twig'
-                    priority: 15

@@ -3,12 +3,12 @@ export {
     methodLoadIndicator,
     validateFields,
     currentStepValidator,
-    updateTourCompletition,
+    updateTourCompletion,
     getStatusInfo,
     saveStep,
     clearStorage,
     handleSubmit,
-    checkForExistance,
+    checkForExistence,
     expandDisabled
 } from './filterMethod';
 

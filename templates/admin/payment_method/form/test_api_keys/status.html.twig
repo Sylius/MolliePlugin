@@ -1,0 +1,10 @@
+{% set value = 'sylius_mollie.ui.' ~ test.type %}
+
+<span>
+    <strong>{{ value|trans }}:</strong>
+    {%- if test.methods is not empty %}
+        <span>{{ 'sylius_mollie.ui.success'|trans }}! {{ ux_icon('tabler:check') }}</span>
+    {%- else %}
+        <span>{{ 'sylius_mollie.ui.fail'|trans }}! {{ ux_icon('tabler:x') }}</span>
+    {%- endif %}
+</span>

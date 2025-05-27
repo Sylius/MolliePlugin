@@ -1,0 +1,10 @@
+{% set method_form = hookable_metadata.context.method_form %}
+{% set form = hookable_metadata.context.method_form.paymentDescription %}
+
+<div class="mb-3 js-onboardingWizard-order-number">
+    {{ form_label(form) }}
+    {{ form_widget(form, { 'attr': { 'class': 'js-onboardingWizard-paymentDescription' } }) }}
+    <div id="payment_description_{{ method_form.vars.name }}">
+        {{ form_help(form) }}
+    </div>
+</div>

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Form\Type;
 
+use Mollie\Api\Exceptions\ApiException;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Validator\Constraints\LiveApiKeyIsNotBlank;
 use Symfony\Component\Form\AbstractType;
@@ -47,8 +48,7 @@ final class MollieGatewayConfigurationType extends AbstractType
                     'sylius_mollie.ui.api_key_choice_live' => true,
                 ],
             ])
-            ->add('profile_id', HiddenType::class, [
-            ])
+            ->add('profile_id', HiddenType::class)
             ->add(self::API_KEY_TEST, PasswordType::class, [
                 'always_empty' => false,
                 'label' => 'sylius_mollie.ui.api_key_test',
@@ -121,16 +121,17 @@ final class MollieGatewayConfigurationType extends AbstractType
                 $data = $event->getData();
 
                 $apiKeyField = ((bool) $data['environment']) ? MollieGatewayConfigurationType::API_KEY_LIVE : MollieGatewayConfigurationType::API_KEY_TEST;
-
                 $apiKey = $data[$apiKeyField] ?? '';
-                if (!preg_match('/^(test|live)_\w{26,}$/', $apiKey)) {
+
+                try {
+                    $this->apiClient->setApiKey($apiKey);
+                    $profile = $this->apiClient->profiles->getCurrent();
+
+                    $data['profile_id'] = $profile->id;
+                } catch (ApiException) {
                     return;
                 }
 
-                $this->apiClient->setApiKey($apiKey);
-                $profile = $this->apiClient->profiles->getCurrent();
-
-                $data['profile_id'] = $profile->id;
                 $event->setData($data);
             });
     }

@@ -18,7 +18,7 @@ use Symfony\Component\Form\DataTransformerInterface;
 
 final class MollieIntervalTransformer implements DataTransformerInterface
 {
-    public function transform($value)
+    public function transform($value): mixed
     {
         if (false === is_string($value)) {
             return [
@@ -39,7 +39,7 @@ final class MollieIntervalTransformer implements DataTransformerInterface
         return $matches;
     }
 
-    public function reverseTransform($value)
+    public function reverseTransform($value): mixed
     {
         if (false === is_array($value)) {
             return null;

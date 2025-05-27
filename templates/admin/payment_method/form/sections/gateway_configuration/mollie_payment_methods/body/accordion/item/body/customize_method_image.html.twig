@@ -1,0 +1,5 @@
+{% set form = hookable_metadata.context.method_form.customizeMethodImage %}
+
+{% form_theme form '@SyliusMolliePlugin/admin/payment_method/form/form_theme.html.twig' %}
+
+{{ form_row(form, { 'attr': { 'class': 'js-onboardingWizard-customizeMethodImage' } }) }}

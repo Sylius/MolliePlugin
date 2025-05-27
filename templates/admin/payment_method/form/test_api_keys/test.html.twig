@@ -1,0 +1,15 @@
+<div class="row">
+    {% include '@SyliusMolliePlugin/admin/payment_method/form/test_api_keys/status.html.twig' %}
+
+    {% if test.status == constant('Sylius\\MolliePlugin\\Creator\\ApiKeysTestCreatorInterface::ERROR_STATUS') %}
+        <span class="mt-2">{{ test.message }}</span>
+    {% endif %}
+    {% if test.status == constant('Sylius\\MolliePlugin\\Creator\\ApiKeysTestCreatorInterface::OK_STATUS') %}
+        <span class="mt-2">
+            {{ 'sylius_mollie.ui.available_methods'|trans }}:
+            {% for method in test.methods %}
+                {{ method.description }},
+            {% endfor %}
+        </span>
+    {% endif %}
+</div>

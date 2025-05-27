@@ -1,0 +1,25 @@
+framework:
+    workflows:
+        !php/const Sylius\MolliePlugin\StateMachine\MollieSubscriptionProcessingTransitions::GRAPH:
+            type: state_machine
+            marking_store:
+                type: method
+                property: processingState
+            supports:
+                - Sylius\MolliePlugin\Entity\MollieSubscriptionInterface
+            initial_marking: !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::PROCESSING_STATE_NONE
+            places:
+                - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::PROCESSING_STATE_NONE
+                - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::PROCESSING_STATE_PENDING
+                - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::PROCESSING_STATE_PROCESSING
+            transitions:
+                !php/const Sylius\MolliePlugin\StateMachine\MollieSubscriptionProcessingTransitions::TRANSITION_PROCESS:
+                    from:
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::PROCESSING_STATE_NONE
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::PROCESSING_STATE_PENDING
+                    to: !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::PROCESSING_STATE_PROCESSING
+                !php/const Sylius\MolliePlugin\StateMachine\MollieSubscriptionProcessingTransitions::TRANSITION_SCHEDULE:
+                    from:
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::PROCESSING_STATE_NONE
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::PROCESSING_STATE_PROCESSING
+                    to: !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::PROCESSING_STATE_PENDING

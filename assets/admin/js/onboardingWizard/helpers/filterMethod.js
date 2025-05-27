@@ -34,7 +34,7 @@ export const currentStepValidator = (element, popup) => {
 		select:not(disabled):not([style*="display: none;"])`);
     const messageWindow = document.querySelector(popup);
 
-    if (validationElements && validationElements.length != 0) {
+    if (validationElements && validationElements.length !== 0) {
         validateFields(validationElements, messageWindow);
         validationElements.forEach((el) => {
             el.addEventListener('input', () => {
@@ -44,7 +44,7 @@ export const currentStepValidator = (element, popup) => {
     }
 };
 
-export const updateTourCompletition = async () => {
+export const updateTourCompletion = async () => {
     const url = '/admin/onboarding-wizard/completed';
 
     try {
@@ -88,14 +88,14 @@ export const handleSubmit = () => {
     });
 };
 
-export const checkForExistance = (highlightClass) => document.querySelector(highlightClass) != undefined;
+export const checkForExistence = (highlightClass) => document.querySelector(highlightClass) !== undefined;
 
 export const expandDisabled = (child, parent, target) => {
     const element = document.querySelector(child);
     const container = element.closest(parent);
     const eventTarget = container.querySelector(target);
 
-    if (!eventTarget.classList.contains('active')) {
-        eventTarget.click();
+    if (!eventTarget.classList.contains('collapsed')) {
+        container.click();
     }
 };
