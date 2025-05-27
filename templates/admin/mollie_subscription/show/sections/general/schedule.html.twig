@@ -1,0 +1,12 @@
+{% set mollie_subscription = hookable_metadata.context.resource %}
+
+<div class="row mb-2 border-bottom pb-2">
+    <div class="col-md-4 fw-bold">{{ 'sylius_mollie.ui.subscription.schedule.block_name'|trans }}</div>
+    <div class="col-md-8">
+        {% for schedule in mollie_subscription.schedules %}
+            {{ schedule.scheduledDate|date('Y-m-d') }}{% if not loop.last %}, {% endif %}
+        {% else %}
+            <span class="text-muted">{{ 'sylius.ui.not_contains'|trans }}</span>
+        {% endfor %}
+    </div>
+</div>

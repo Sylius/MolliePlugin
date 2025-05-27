@@ -1,0 +1,6 @@
+{% set mollie_subscription = hookable_metadata.context.resource %}
+
+<div class="row mb-2 border-bottom pb-2">
+    <div class="col-md-4 fw-bold">{{ 'sylius_mollie.ui.subscription.state.processing'|trans }}</div>
+    <div class="col-md-8">{{ mollie_subscription.processingState }}</div>
+</div>

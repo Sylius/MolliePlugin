@@ -1,0 +1,13 @@
+{% set mollie_subscription = hookable_metadata.context.resource %}
+{% set customer = mollie_subscription.customer %}
+
+{% if customer is not null %}
+    <div class="row mb-2 border-bottom pb-2">
+        <div class="col-md-4 fw-bold">{{ 'sylius.ui.customer_id'|trans }}</div>
+        <div class="col-md-8">{{ customer.id }}</div>
+    </div>
+    <div class="row mb-2 border-bottom pb-2">
+        <div class="col-md-4 fw-bold">{{ 'sylius.ui.email'|trans }}</div>
+        <div class="col-md-8">{{ customer.email }}</div>
+    </div>
+{% endif %}

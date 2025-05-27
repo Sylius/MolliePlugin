@@ -11,6 +11,33 @@ sylius_twig_hooks:
                 priority: 0
         
         'sylius_admin.mollie_subscription.show.content.sections.general':
-            content:
-                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/content.html.twig'
-                priority: 0
+            id:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/id.html.twig'
+                priority: 900
+            state:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/state.html.twig'
+                priority: 800
+            processing_state:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/processing_state.html.twig'
+                priority: 700
+            recent_failed_payments_count:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/recent_failed_payments_count.html.twig'
+                priority: 600
+            created_at:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/created_at.html.twig'
+                priority: 500
+            started_at:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/started_at.html.twig'
+                priority: 400
+            customer:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/customer.html.twig'
+                priority: 300
+            order_item:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/order_item.html.twig'
+                priority: 200
+            configuration:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/configuration.html.twig'
+                priority: 100
+            schedule:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/schedule.html.twig'
+                priority: 100
