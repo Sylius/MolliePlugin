@@ -102,7 +102,7 @@ final class QrCodeAction
         /** @var OrderInterface $order */
         $order = $this->cartContext->getCart();
         $orderToken = $request->get('orderToken');
-        if (null !== $orderToken) {
+        if (null !== $orderToken && '' !== $orderToken) {
             /** @var OrderInterface|null $order */
             $order = $this->orderRepository->findOneByTokenValue($orderToken);
         }
