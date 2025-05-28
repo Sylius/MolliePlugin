@@ -1,9 +1,9 @@
 {% set mollie_subscription = hookable_metadata.context.resource %}
-{% from '@SyliusAdmin/order/macro/order_state_label.html.twig' import label %}
+{% import '@SyliusMolliePlugin/admin/mollie_subscription/macro/payment_state.html.twig' as processingState %}
 
 <div class="row mb-2 border-bottom pb-2">
     <div class="col-md-4 fw-bold">{{ 'sylius_mollie.ui.subscription.state.processing'|trans }}</div>
     <div class="col-md-8">
-        {{ label(mollie_subscription.processingState) }}
+        {{ processingState.label(mollie_subscription.processingState) }}
     </div>
 </div>
