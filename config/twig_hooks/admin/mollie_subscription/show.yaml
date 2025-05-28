@@ -1,0 +1,55 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_admin.mollie_subscription.show.content':
+            sections:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections.html.twig'
+                priority: 0
+        
+        'sylius_admin.mollie_subscription.show.content.sections':
+            general:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general.html.twig'
+                priority: 0
+        
+        'sylius_admin.mollie_subscription.show.content.sections.general':
+            state:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/state.html.twig'
+                priority: 1300
+            processing_state:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/processing_state.html.twig'
+                priority: 1200
+            payment_state:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/payment_state.html.twig'
+                priority: 1100
+            recent_failed_payments_count:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/recent_failed_payments_count.html.twig'
+                priority: 1000
+            created_at:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/created_at.html.twig'
+                priority: 900
+            started_at:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/started_at.html.twig'
+                priority: 800
+            customer_email:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/customer_email.html.twig'
+                priority: 700
+            order_number:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/order_number.html.twig'
+                priority: 600
+            order_item_id:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/order_item_id.html.twig'
+                priority: 500
+            order_item_quantity:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/order_item_quantity.html.twig'
+                priority: 400
+            order_item_unit_price:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/order_item_unit_price.html.twig'
+                priority: 300
+            config_interval:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/config_interval.html.twig'
+                priority: 200
+            number_of_repetitions:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/number_of_repetitions.html.twig'
+                priority: 100
+            schedule:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/schedule.html.twig'
+                priority: 0

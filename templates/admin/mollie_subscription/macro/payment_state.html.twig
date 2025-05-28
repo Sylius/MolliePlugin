@@ -1,0 +1,24 @@
+{% macro label(state, attached) %}
+    {% import _self as self %}
+
+    {% set state_to_colors_map = {
+        pending: 'warning',
+        fail: 'danger',
+        ok: 'success'
+    } %}
+    {% set state_to_icons_map = {
+        pending: 'refresh',
+        fail: 'x',
+        ok: 'circle-check'
+    } %}
+
+    {% set badge_class = 'badge bg-' ~ (state_to_colors_map[state]|default('secondary')) ~ ' d-inline-flex align-items-center' %}
+    {% if attached is defined and attached == true %}
+        {% set badge_class = badge_class ~ ' w-100 rounded-0' %}
+    {% endif %}
+
+    <span class="{{ badge_class }}">
+        {{ ux_icon('tabler:' ~ (state_to_icons_map[state]|default('alert-circle')), { 'class': 'me-1' }) }}
+        {{ ('sylius_mollie.ui.subscription.payment_state.' ~ state) | trans }}
+    </span>
+{% endmacro %}

@@ -1,0 +1,33 @@
+{% macro label(state, attached = false) %}
+    {% import _self as self %}
+
+    {% set state_to_colors_map = {
+        new: 'info',
+        active: 'primary',
+        paused: 'warning',
+        processing: 'secondary',
+        canceled: 'danger',
+        completed: 'success',
+        aborted: 'danger'
+    } %}
+
+    {% set state_to_icons_map = {
+        new: 'eye',
+        active: 'login',
+        paused: 'player-pause',
+        processing: 'refresh',
+        canceled: 'circle-x',
+        completed: 'circle-check',
+        aborted: 'x'
+    } %}
+
+    {% set badge_class = 'badge bg-' ~ (state_to_colors_map[state]|default('secondary')) ~ ' d-inline-flex align-items-center' %}
+    {% if attached %}
+        {% set badge_class = badge_class ~ ' w-100 rounded-0' %}
+    {% endif %}
+
+    <span class="{{ badge_class }}">
+        {{ ux_icon('tabler:' ~ (state_to_icons_map[state]|default('alert-circle')), { 'class': 'me-1' }) }}
+        {{ ('sylius_mollie.ui.subscription.state.' ~ state) | trans }}
+    </span>
+{% endmacro %}
