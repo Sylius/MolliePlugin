@@ -8,3 +8,16 @@ sylius_twig_hooks:
             recurring:
                 template: '@SyliusMolliePlugin/shop/shared/order/show/summary/table/body/recurring_settings.html.twig'
                 priority: 250
+                
+        'sylius_shop.shared.order.show.summary.table_summary':
+            payment_fee:
+                template: "@SyliusMolliePlugin/shop/shared/order/show/summary/table_summary/payment_fee.html.twig"
+                priority: 600
+        
+        'sylius_shop.shared.order.show.summary.table_summary.payment_fee':
+            label:
+                template: "@SyliusMolliePlugin/shop/shared/order/show/summary/table_summary/payment_fee/label.html.twig"
+                priority: 100
+            value:
+                template: "@SyliusMolliePlugin/shop/shared/order/show/summary/table_summary/payment_fee/value.html.twig"
+                priority: 0
