@@ -448,7 +448,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (error) {
                     enableForm();
-                    formError.textContent = error.message;
+                    formError.textContent = creditCardTranslations.oneOrMoreInvalidFields;
                     form.classList.remove('loading');
                     return;
                 }
