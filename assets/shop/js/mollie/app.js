@@ -71,20 +71,24 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch(url)
             .then((response) => response.json())
             .then((data) => {
-                const paymentFeeRow = document.getElementById('mollie-paymentFee-row');
+                const orderTotalRow = document.getElementById('sylius-shop-checkout-summary-order-total');
+                const orderTotalTr = orderTotalRow ? orderTotalRow.closest('tr') : null;
 
-                if (paymentFeeRow && data.view) {
-                    paymentFeeRow.outerHTML = data.view;
-                    orderTotalRow.textContent = data.orderTotal;
-                } else if (data.view) {
-                    const subtotalHeader = document.querySelector('#sylius-checkout-subtotal .ui.large.header');
-                    if (subtotalHeader) {
-                        subtotalHeader.insertAdjacentHTML('beforebegin', data.view);
-                        orderTotalRow.textContent = data.orderTotal;
-                    }
-                } else {
-                    restoreOrderTotalValue();
+                const existingPaymentFeeRow = document.getElementById('mollie-paymentFee-row');
+                if (existingPaymentFeeRow) {
+                    existingPaymentFeeRow.remove();
                 }
+
+                if (data.view && orderTotalTr) {
+                    orderTotalTr.insertAdjacentHTML('beforebegin', data.view);
+                }
+
+                if (data.orderTotal && orderTotalRow) {
+                    orderTotalRow.textContent = data.orderTotal;
+                }
+            })
+            .catch(() => {
+                restoreOrderTotalValue();
             });
     }
 

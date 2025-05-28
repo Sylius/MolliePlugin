@@ -65,7 +65,7 @@ final class PaymentFeeCalculateAction
 
         return new JsonResponse([
             'view' => $this->twig->render(
-                'SyliusMolliePlugin:Shop/PaymentMollie:_paymentFeeTableTr.html.twig',
+                '@SyliusMolliePlugin/shop/checkout/payment_mollie/payment_fee_table.html.twig',
                 [
                     'paymentFee' => $this->priceToAmountConverter->convert(reset($paymentFee)),
                 ],
