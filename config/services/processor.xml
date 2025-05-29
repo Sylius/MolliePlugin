@@ -23,6 +23,7 @@
             public="true"
         >
             <argument type="service" id="sylius_mollie.calculator.payment_fee.composite"/>
+            <tag name="sylius.order_processor" priority="10"/>
         </service>
         <service id="Sylius\MolliePlugin\Processor\PaymentSurchargeProcessorInterface" alias="sylius_mollie.processor.payment_surcharge"/>
     </services>

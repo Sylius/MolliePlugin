@@ -15,14 +15,16 @@ namespace Sylius\MolliePlugin\Processor;
 
 use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\Component\Order\Model\OrderInterface;
+use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\Component\Payment\Model\PaymentInterface;
 use Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeCalculatorInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
-use Sylius\MolliePlugin\Entity\OrderInterface;
 use Webmozart\Assert\Assert;
+use Sylius\MolliePlugin\Model\AdjustmentInterface as MollieAdjustmentInterface;
 
-final class PaymentSurchargeProcessor implements PaymentSurchargeProcessorInterface
+final class PaymentSurchargeProcessor implements PaymentSurchargeProcessorInterface, OrderProcessorInterface
 {
     public function __construct(private readonly PaymentSurchargeCalculatorInterface $calculator)
     {
@@ -38,6 +40,7 @@ final class PaymentSurchargeProcessor implements PaymentSurchargeProcessorInterf
 
         Assert::notNull($paymentMethod->getGatewayConfig());
         if ('mollie' !== $paymentMethod->getGatewayConfig()->getFactoryName()) {
+            $this->removeMollieAdjustments($order);
             return;
         }
 
@@ -79,5 +82,23 @@ final class PaymentSurchargeProcessor implements PaymentSurchargeProcessorInterf
         }
 
         return null;
+    }
+
+    private function removeMollieAdjustments(OrderInterface $order): void
+    {
+        foreach ($this->getMollieAdjustmentTypes() as $type) {
+            foreach ($order->getAdjustmentsRecursively($type) as $adjustment) {
+                $order->removeAdjustment($adjustment);
+            }
+        }
+    }
+
+    private function getMollieAdjustmentTypes(): array
+    {
+        return [
+            MollieAdjustmentInterface::PERCENTAGE_ADJUSTMENT,
+            MollieAdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT,
+            MollieAdjustmentInterface::PERCENTAGE_AND_AMOUNT_ADJUSTMENT,
+        ];
     }
 }
