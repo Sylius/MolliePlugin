@@ -4,3 +4,8 @@ sylius_twig_hooks:
             flashes:
                 template: '@SyliusShop/shared/flashes.html.twig'
                 priority: 50
+
+        'sylius_shop.checkout.select_payment.sidebar':
+            apple_pay_button:
+                template: '@SyliusMolliePlugin/shop/checkout/select_payment/sidebar/apple_pay_button.html.twig'
+                priority: -100
