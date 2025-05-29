@@ -36,7 +36,7 @@ final class PaymentSurchargeProcessor implements PaymentSurchargeProcessorInterf
          */
         $payment = $order->getPayments()->first();
 
-        if ($payment instanceof PaymentInterface) {
+        if (!$payment instanceof PaymentInterface) {
             return;
         }
 
