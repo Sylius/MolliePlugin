@@ -32,11 +32,13 @@ final class PaymentSurchargeProcessor implements PaymentSurchargeProcessorInterf
     public function process(OrderInterface $order): void
     {
         /**
-         * @var PaymentInterface $payment
-         *
          * @phpstan-ignore-next-line
          */
         $payment = $order->getPayments()->first();
+
+        if ($payment instanceof PaymentInterface) {
+            return;
+        }
 
         /** @var PaymentMethodInterface $paymentMethod */
         $paymentMethod = $payment->getMethod();
