@@ -24,7 +24,7 @@ use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Webmozart\Assert\Assert;
 use Sylius\MolliePlugin\Model\AdjustmentInterface as MollieAdjustmentInterface;
 
-final class PaymentSurchargeProcessor implements PaymentSurchargeProcessorInterface, OrderProcessorInterface
+final class PaymentSurchargeProcessor implements PaymentSurchargeProcessorInterface
 {
     public function __construct(private readonly PaymentSurchargeCalculatorInterface $calculator)
     {
@@ -32,7 +32,10 @@ final class PaymentSurchargeProcessor implements PaymentSurchargeProcessorInterf
 
     public function process(OrderInterface $order): void
     {
-        /** @var PaymentInterface $payment */
+        /**
+         * @var PaymentInterface $payment
+         * @phpstan-ignore-next-line
+         */
         $payment = $order->getPayments()->first();
 
         /** @var PaymentMethodInterface $paymentMethod */
@@ -93,6 +96,9 @@ final class PaymentSurchargeProcessor implements PaymentSurchargeProcessorInterf
         }
     }
 
+    /**
+     * @return string[]
+     */
     private function getMollieAdjustmentTypes(): array
     {
         return [

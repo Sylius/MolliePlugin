@@ -13,9 +13,8 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Processor;
 
-use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\Component\Order\Processor\OrderProcessorInterface;
 
-interface PaymentSurchargeProcessorInterface
+interface PaymentSurchargeProcessorInterface extends OrderProcessorInterface
 {
-    public function process(OrderInterface $order): void;
 }
