@@ -16,13 +16,12 @@ namespace Sylius\MolliePlugin\Processor;
 use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Order\Model\OrderInterface;
-use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\Component\Payment\Model\PaymentInterface;
 use Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeCalculatorInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
-use Webmozart\Assert\Assert;
 use Sylius\MolliePlugin\Model\AdjustmentInterface as MollieAdjustmentInterface;
+use Webmozart\Assert\Assert;
 
 final class PaymentSurchargeProcessor implements PaymentSurchargeProcessorInterface
 {
@@ -34,6 +33,7 @@ final class PaymentSurchargeProcessor implements PaymentSurchargeProcessorInterf
     {
         /**
          * @var PaymentInterface $payment
+         *
          * @phpstan-ignore-next-line
          */
         $payment = $order->getPayments()->first();
@@ -44,6 +44,7 @@ final class PaymentSurchargeProcessor implements PaymentSurchargeProcessorInterf
         Assert::notNull($paymentMethod->getGatewayConfig());
         if ('mollie' !== $paymentMethod->getGatewayConfig()->getFactoryName()) {
             $this->removeMollieAdjustments($order);
+
             return;
         }
 
