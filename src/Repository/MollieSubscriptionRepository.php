@@ -86,11 +86,13 @@ final class MollieSubscriptionRepository extends EntityRepository implements Mol
         return $this->findOneByOrderId((int) $orderId);
     }
 
-    public function findOneByOrderToken(string $token): ?MollieSubscriptionInterface
+    public function findOneActiveByOrderToken(string $token): ?MollieSubscriptionInterface
     {
         return $this->createQueryBuilder('s')
             ->innerJoin('s.orders', 'o', Join::WITH, 'o.tokenValue = :token')
+            ->andWhere('s.state NOT IN (:states)')
             ->setParameter('token', $token)
+            ->setParameter('states', [MollieSubscriptionInterface::STATE_CANCELED, MollieSubscriptionInterface::STATE_ABORTED])
             ->getQuery()
             ->getOneOrNullResult()
         ;

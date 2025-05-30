@@ -24,7 +24,7 @@ return static function (ContainerConfigurator $container) {
             'callbacks' => [
                 'after' => [
                     'sylius_process_subscription_fail' => [
-                        'on' => ['fail'],
+                        'on' => ['fail', 'cancel'],
                         'do' => ['@sylius_mollie.subscription.processor.subscription_payment', 'processFailed'],
                         'args' => ['object'],
                     ],
