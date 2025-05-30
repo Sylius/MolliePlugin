@@ -11,14 +11,14 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Calculator\Cleaner;
+namespace Sylius\MolliePlugin\Calculator\Clearer;
 
 use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\MolliePlugin\Model\AdjustmentInterface;
 
-final class PaymentFeeAdjustmentCleaner implements PaymentFeeAdjustmentCleanerInterface
+final class PaymentFeeAdjustmentClearer implements PaymentFeeAdjustmentClearerInterface
 {
-    public function clean(OrderInterface $order): void
+    public function clear(OrderInterface $order): void
     {
         $order->removeAdjustments(AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT);
         $order->removeAdjustments(AdjustmentInterface::PERCENTAGE_ADJUSTMENT);

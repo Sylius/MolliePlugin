@@ -15,12 +15,12 @@ namespace Sylius\MolliePlugin\Processor;
 
 use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
-use Sylius\MolliePlugin\Calculator\Cleaner\PaymentFeeAdjustmentCleanerInterface;
+use Sylius\MolliePlugin\Calculator\Clearer\PaymentFeeAdjustmentClearerInterface;
 
 final readonly class PaymentSurchargeCleanupProcessor implements OrderProcessorInterface
 {
     public function __construct(
-        private PaymentFeeAdjustmentCleanerInterface $paymentFeeAdjustmentCleaner,
+        private PaymentFeeAdjustmentClearerInterface $paymentFeeAdjustmentClearer,
     ) {
     }
 
@@ -30,6 +30,6 @@ final readonly class PaymentSurchargeCleanupProcessor implements OrderProcessorI
             return;
         }
 
-        $this->paymentFeeAdjustmentCleaner->clean($order);
+        $this->paymentFeeAdjustmentClearer->clear($order);
     }
 }

@@ -40,8 +40,8 @@ final readonly class PaymentSurchargeProcessor implements OrderProcessorInterfac
             return;
         }
 
-        /** @var PaymentInterface|bool $payment */
-        $payment = $order->getPayments()->first();
+        /** @var PaymentInterface|null $payment */
+        $payment = $order->getLastPayment();
 
         if (!$payment instanceof PaymentInterface) {
             return;

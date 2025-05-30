@@ -78,10 +78,10 @@
         />
 
         <service
-                id="sylius_mollie.calculator.cleaner.payment_fee_adjustment"
-                class="Sylius\MolliePlugin\Calculator\Cleaner\PaymentFeeAdjustmentCleaner"
+                id="sylius_mollie.calculator.clearer.payment_fee_adjustment"
+                class="Sylius\MolliePlugin\Calculator\Cleaner\PaymentFeeAdjustmentClearer"
         >
         </service>
-        <service id="Sylius\MolliePlugin\Calculator\Cleaner\PaymentFeeAdjustmentCleanerInterface" alias="sylius_mollie.calculator.cleaner.payment_fee_adjustment"/>
+        <service id="Sylius\MolliePlugin\Calculator\Cleaner\PaymentFeeAdjustmentClearerInterface" alias="sylius_mollie.calculator.clearer.payment_fee_adjustment"/>
     </services>
 </container>

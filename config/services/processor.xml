@@ -29,7 +29,7 @@
             id="sylius_mollie.processor.payment_surcharge_cleanup"
             class="Sylius\MolliePlugin\Processor\PaymentSurchargeCleanupProcessor"
         >
-            <argument type="service" id="sylius_mollie.calculator.cleaner.payment_fee_adjustment"/>
+            <argument type="service" id="sylius_mollie.calculator.clearer.payment_fee_adjustment"/>
             <tag name="sylius.order_processor" priority="20"/>
         </service>
     </services>

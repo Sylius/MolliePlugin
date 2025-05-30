@@ -15,7 +15,7 @@ namespace Sylius\MolliePlugin\Controller\Shop;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Order\Context\CartContextInterface;
-use Sylius\MolliePlugin\Calculator\Cleaner\PaymentFeeAdjustmentCleanerInterface;
+use Sylius\MolliePlugin\Calculator\Clearer\PaymentFeeAdjustmentClearerInterface;
 use Sylius\MolliePlugin\Converter\PriceToAmountConverterInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +26,7 @@ final readonly class NoPaymentFeeCalculateAction
     public function __construct(
         private CartContextInterface $cartContext,
         private PriceToAmountConverterInterface $priceToAmountConverter,
-        private PaymentFeeAdjustmentCleanerInterface $paymentFeeAdjustmentCleaner,
+        private PaymentFeeAdjustmentClearerInterface $paymentFeeAdjustmentClearer,
     ) {
     }
 
@@ -34,7 +34,7 @@ final readonly class NoPaymentFeeCalculateAction
     {
         /** @var OrderInterface $order */
         $order = $this->cartContext->getCart();
-        $this->paymentFeeAdjustmentCleaner->clean($order);
+        $this->paymentFeeAdjustmentClearer->clear($order);
 
         return new JsonResponse([
             'orderTotal' => $this->priceToAmountConverter->convert($order->getTotal()),
