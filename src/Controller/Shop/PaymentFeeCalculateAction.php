@@ -18,6 +18,7 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Order\Aggregator\AdjustmentsAggregatorInterface;
 use Sylius\Component\Order\Context\CartContextInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Calculator\Cleaner\PaymentFeeAdjustmentCleanerInterface;
 use Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeCalculatorInterface;
 use Sylius\MolliePlugin\Converter\PriceToAmountConverterInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
@@ -42,6 +43,7 @@ final class PaymentFeeCalculateAction
         private readonly AdjustmentsAggregatorInterface $adjustmentsAggregator,
         private readonly PriceToAmountConverterInterface $priceToAmountConverter,
         private readonly Environment $twig,
+        private readonly PaymentFeeAdjustmentCleanerInterface $paymentFeeAdjustmentCleaner,
     ) {
     }
 
@@ -55,6 +57,7 @@ final class PaymentFeeCalculateAction
             throw new NotFoundException(sprintf('Method with id %s not found', $methodId));
         }
 
+        $this->paymentFeeAdjustmentCleaner->clean($order);
         $this->paymentSurchargeCalculator->calculate($order, $method);
 
         $paymentFee = $this->getPaymentFee($order);

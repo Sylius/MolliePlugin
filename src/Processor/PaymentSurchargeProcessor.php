@@ -21,7 +21,8 @@ use Sylius\Component\Payment\Model\PaymentInterface;
 use Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeCalculatorInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
-use Sylius\MolliePlugin\Model\AdjustmentInterface as MollieAdjustmentInterface;
+use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
+use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
 use Webmozart\Assert\Assert;
 
 final readonly class PaymentSurchargeProcessor implements OrderProcessorInterface
@@ -32,9 +33,11 @@ final readonly class PaymentSurchargeProcessor implements OrderProcessorInterfac
 
     public function process(OrderInterface $order): void
     {
-        /**
-         * @phpstan-ignore-next-line
-         */
+        if (!$order->canBeProcessed()) {
+            return;
+        }
+
+        /** @var PaymentInterface|bool $payment */
         $payment = $order->getPayments()->first();
 
         if (!$payment instanceof PaymentInterface) {
@@ -45,9 +48,8 @@ final readonly class PaymentSurchargeProcessor implements OrderProcessorInterfac
         $paymentMethod = $payment->getMethod();
 
         Assert::notNull($paymentMethod->getGatewayConfig());
-        if ('mollie' !== $paymentMethod->getGatewayConfig()->getFactoryName()) {
-            $this->removeMollieAdjustments($order);
-
+        $factoryName = $paymentMethod->getGatewayConfig()->getFactoryName();
+        if (false === in_array($factoryName, [MollieGatewayFactory::FACTORY_NAME, MollieSubscriptionGatewayFactory::FACTORY_NAME], true)) {
             return;
         }
 
@@ -89,26 +91,5 @@ final readonly class PaymentSurchargeProcessor implements OrderProcessorInterfac
         }
 
         return null;
-    }
-
-    private function removeMollieAdjustments(OrderInterface $order): void
-    {
-        foreach ($this->getMollieAdjustmentTypes() as $type) {
-            foreach ($order->getAdjustmentsRecursively($type) as $adjustment) {
-                $order->removeAdjustment($adjustment);
-            }
-        }
-    }
-
-    /**
-     * @return string[]
-     */
-    private function getMollieAdjustmentTypes(): array
-    {
-        return [
-            MollieAdjustmentInterface::PERCENTAGE_ADJUSTMENT,
-            MollieAdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT,
-            MollieAdjustmentInterface::PERCENTAGE_AND_AMOUNT_ADJUSTMENT,
-        ];
     }
 }

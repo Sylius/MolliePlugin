@@ -57,13 +57,6 @@ final class FixedAmountAndPercentageCalculator implements PaymentSurchargeCalcul
             $totalAmount = $limit;
         }
 
-        $order->removeAdjustments(AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT);
-        $order->removeAdjustments(AdjustmentInterface::PERCENTAGE_ADJUSTMENT);
-
-        if (!$order->getAdjustments(AdjustmentInterface::PERCENTAGE_AND_AMOUNT_ADJUSTMENT)->isEmpty()) {
-            $order->removeAdjustments(AdjustmentInterface::PERCENTAGE_AND_AMOUNT_ADJUSTMENT);
-        }
-
         $adjustment = $this->adjustmentFactory->createNew();
         $adjustment->setType(AdjustmentInterface::PERCENTAGE_AND_AMOUNT_ADJUSTMENT);
         $adjustment->setAmount((int) ceil($totalAmount));

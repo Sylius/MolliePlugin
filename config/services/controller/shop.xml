@@ -26,6 +26,13 @@
             <argument type="service" id="sylius.aggregator.adjustments_by_label" />
             <argument type="service" id="sylius_mollie.converter.price_to_amount" />
             <argument type="service" id="twig"/>
+            <argument type="service" id="sylius_mollie.calculator.cleaner.payment_fee_adjustment"/>
+        </service>
+
+        <service id="sylius_mollie.controller.shop.no_payment_fee_calculate" class="Sylius\MolliePlugin\Controller\Shop\NoPaymentFeeCalculateAction">
+            <argument type="service" id="sylius.context.cart"/>
+            <argument type="service" id="sylius_mollie.converter.price_to_amount" />
+            <argument type="service" id="sylius_mollie.calculator.cleaner.payment_fee_adjustment"/>
         </service>
 
         <service id="sylius_mollie.controller.shop.qr_code" class="Sylius\MolliePlugin\Controller\Shop\QrCodeAction">

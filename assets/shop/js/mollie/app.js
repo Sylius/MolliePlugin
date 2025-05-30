@@ -98,7 +98,16 @@ document.addEventListener('DOMContentLoaded', function () {
             paymentFeeRow.remove();
         }
         if (orderTotalRow) {
-            orderTotalRow.textContent = initialOrderTotal;
+            fetch(mollieData.getAttribute('data-no-fee-url'))
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.orderTotal) {
+                        orderTotalRow.textContent = data.orderTotal;
+                    }
+                })
+                .catch(() => {
+                    orderTotalRow.textContent = initialOrderTotal;
+                });
         }
     }
 
