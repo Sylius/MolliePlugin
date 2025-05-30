@@ -164,16 +164,23 @@ sylius_mollie:
                 new: 'New'
                 paused: 'Paused'
                 processing: 'Processing'
+                suspended: 'Suspended'
             subscription_duration: 'Will occur %times% times, with interval %interval%.'
             payment_state:
                 fail: 'Failed'
                 ok: 'Ok'
                 pending: 'Pending'
+            processing_state:
+                none: 'None'
+                pending: 'Pending'
+                processing: 'Processing'
+                processed: 'Processed'
             transitions:
                 block_name: 'Subscription state management'
                 cancel: 'Cancel'
                 pause: 'Pause'
                 resume: 'Resume'
+            all_payments: 'All subscription payments'
         subscription_list: ''
         success: 'Success'
         surcharge_limit: 'Surcharge limit'

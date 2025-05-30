@@ -1,0 +1,4 @@
+{% import '@SyliusMolliePlugin/admin/mollie_subscription/macro/order_payment_state.html.twig' as paymentState %}
+<td>
+    {{ paymentState.label(hookable_metadata.context.payment.state) }}
+</td>

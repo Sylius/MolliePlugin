@@ -1,9 +1,9 @@
-{% macro label(state, attached = false) %}
+{% macro label(state) %}
     {% set state_to_colors_map = {
-        none: 'secondary',
-        pending: 'warning',
-        processing: 'info',
-        processed: 'success'
+        none: 'bg-muted-lt',
+        pending: 'bg-blue-lt',
+        processing: 'bg-azure-lt',
+        processed: 'bg-green-lt'
     } %}
 
     {% set state_to_icons_map = {
@@ -13,13 +13,8 @@
         processed: 'check'
     } %}
 
-    {% set badge_class = 'badge bg-' ~ (state_to_colors_map[state]|default('dark')) ~ ' d-inline-flex align-items-center' %}
-    {% if attached %}
-        {% set badge_class = badge_class ~ ' w-100 rounded-0' %}
-    {% endif %}
-
-    <span class="{{ badge_class }}">
-        {{ ux_icon('tabler:' ~ (state_to_icons_map[state]|default('alert-circle')), { 'class': 'me-1' }) }}
-        {{ ('sylius_mollie.ui.processing_state.' ~ state) | trans }}
+    <span class="badge {{ state_to_colors_map[state]|default('') }}">
+        {{ ux_icon('tabler:' ~ (state_to_icons_map[state]|default('alert-circle'))) }}
+        {{ ('sylius_mollie.ui.subscription.processing_state.' ~ state) | trans }}
     </span>
 {% endmacro %}

@@ -1,7 +1,0 @@
-{% set mollie_subscription = hookable_metadata.context.resource %}
-
-<div class="row mb-2 border-bottom pb-2">
-    <div class="col-md-4 fw-bold">{{ 'sylius.ui.created_at'|trans }}</div>
-    <div class="col-md-8">{{ mollie_subscription.createdAt|date('Y-m-d H:i:s') }}</div>
-</div>
-
