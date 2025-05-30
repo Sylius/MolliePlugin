@@ -60,7 +60,9 @@ final class PaymentFeeCalculateAction
         $paymentFee = $this->getPaymentFee($order);
 
         if (0 === count($paymentFee)) {
-            return new JsonResponse([], Response::HTTP_OK);
+            return new JsonResponse([
+                'orderTotal' => $this->priceToAmountConverter->convert($order->getTotal()),
+            ]);
         }
 
         return new JsonResponse([
