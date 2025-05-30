@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Repository;
 
+use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\Query\Expr\Join;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\Component\Core\Model\PaymentInterface;
@@ -93,7 +94,9 @@ final class MollieSubscriptionRepository extends EntityRepository implements Mol
             ->andWhere('s.state NOT IN (:states)')
             ->setParameter('token', $token)
             ->setParameter('states', [MollieSubscriptionInterface::STATE_CANCELED, MollieSubscriptionInterface::STATE_ABORTED])
+            ->orderBy('s.createdAt', Order::Descending)
             ->getQuery()
+            ->setMaxResults(1)
             ->getOneOrNullResult()
         ;
     }

@@ -1,4 +1,4 @@
-{% set order = hookable_metadata.context.resource.orders | last %}
+{% set order = hookable_metadata.context.resource.orders|last %}
 <tbody>
     {% for payment in order.payments %}
         <tr>
