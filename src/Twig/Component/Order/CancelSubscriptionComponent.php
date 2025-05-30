@@ -48,7 +48,7 @@ class CancelSubscriptionComponent
     public function postMount(): void
     {
         $this->orderToken = $this->order->getTokenValue();
-        $subscription = $this->subscriptionRepository->findOneByOrderToken($this->orderToken);
+        $subscription = $this->subscriptionRepository->findOneActiveByOrderToken($this->orderToken);
 
         if ($subscription !== null) {
             $this->subscriptionId = $subscription->getId();

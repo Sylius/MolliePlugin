@@ -1,0 +1,7 @@
+<tbody>
+    {% for order in hookable_metadata.context.resource.orders %}
+        <tr>
+            {% hook 'body' with { order } %}
+        </tr>
+    {% endfor %}
+</tbody>

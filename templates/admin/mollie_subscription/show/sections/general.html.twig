@@ -1,10 +1,12 @@
 <div class="card mb-3">
+    <div class="card-header">
+        <div class="card-title">
+            {{ 'sylius_mollie.ui.subscription_details'|trans }}
+        </div>
+    </div>
     <div class="card-body">
         <div class="divide-y">
-            <div class="container">
-                <h2 class="mb-4 border-bottom pb-2">{{ 'sylius_mollie.ui.subscription_details'|trans }}</h2>
-                {% hook 'general' %}
-            </div>
+            {% hook 'general' %}
         </div>
     </div>
 </div>

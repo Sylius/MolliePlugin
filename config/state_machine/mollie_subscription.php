@@ -29,7 +29,7 @@ return static function (ContainerConfigurator $container) {
                 'new' => null,
                 'processing' => null,
                 'active' => null,
-                'cancelled' => null,
+                'canceled' => null,
                 'suspended' => null,
                 'completed' => null,
                 'aborted' => null,
@@ -45,7 +45,7 @@ return static function (ContainerConfigurator $container) {
                 ],
                 'cancel' => [
                     'from' => ['processing', 'active', 'suspended', 'completed'],
-                    'to' => 'cancelled',
+                    'to' => 'canceled',
                 ],
                 'suspend' => [
                     'from' => ['new', 'processing', 'active', 'completed'],
