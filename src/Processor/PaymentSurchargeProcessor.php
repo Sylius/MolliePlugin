@@ -14,8 +14,9 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Processor;
 
 use Doctrine\Common\Collections\Collection;
+use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
-use Sylius\Component\Order\Model\OrderInterface;
+use Sylius\Component\Order\Model\OrderInterface as BaseOrderInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\Component\Payment\Model\PaymentInterface;
 use Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeCalculatorInterface;
@@ -31,8 +32,10 @@ final readonly class PaymentSurchargeProcessor implements OrderProcessorInterfac
     {
     }
 
-    public function process(OrderInterface $order): void
+    public function process(BaseOrderInterface $order): void
     {
+        Assert::isInstanceOf($order, OrderInterface::class);
+
         if (!$order->canBeProcessed()) {
             return;
         }
