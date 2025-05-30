@@ -16,6 +16,7 @@ namespace Sylius\MolliePlugin\Processor;
 use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Order\Model\OrderInterface;
+use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\Component\Payment\Model\PaymentInterface;
 use Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeCalculatorInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
@@ -23,9 +24,9 @@ use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Model\AdjustmentInterface as MollieAdjustmentInterface;
 use Webmozart\Assert\Assert;
 
-final class PaymentSurchargeProcessor implements PaymentSurchargeProcessorInterface
+final readonly class PaymentSurchargeProcessor implements OrderProcessorInterface
 {
-    public function __construct(private readonly PaymentSurchargeCalculatorInterface $calculator)
+    public function __construct(private PaymentSurchargeCalculatorInterface $calculator)
     {
     }
 

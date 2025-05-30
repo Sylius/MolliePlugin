@@ -25,6 +25,7 @@
     - `Sylius\MolliePlugin\StateMachine\Transition\StateMachineTransitionInterface`
     - `Sylius\MolliePlugin\Form\Extension\CompleteTypeExtension`
     - `Sylius\MolliePlugin\Form\Type\DirectDebitType`
+    - `\Sylius\MolliePlugin\Processor\PaymentSurchargeProcessorInterface`
 
 1. The following routes have been renamed:
 
