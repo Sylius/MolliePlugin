@@ -34,7 +34,7 @@ final class MollieAllowedMethodsResolver implements MollieAllowedMethodsResolver
     {
         $allowedMethodsIds = [];
 
-        $client = $this->mollieApiClientKeyResolver->getClientWithKey();
+        $client = $this->mollieApiClientKeyResolver->getClientWithKey($order);
 
         /** API will return only payment methods allowed for order total, currency, billing country */
         $allowedMethods = $client->methods->allActive($this->createParametersByOrder($order));

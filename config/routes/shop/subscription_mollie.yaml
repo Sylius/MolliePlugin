@@ -21,7 +21,7 @@ sylius_mollie_shop_cancel_order_subscription:
         _controller: sylius_mollie.controller.admin.mollie_subscription::applyStateMachineTransitionAction
         _sylius:
             repository:
-                method: findOneByOrderToken
+                method: findOneActiveByOrderToken
                 arguments:
                   - $orderToken
             state_machine:
