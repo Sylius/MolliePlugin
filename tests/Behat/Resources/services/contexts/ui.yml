@@ -12,6 +12,7 @@ services:
         public: true
         arguments:
             - "@sylius_mollie.behat.page.shop.checkout.complete"
+            - "@sylius.behat.notification_checker.shop"
 
     sylius_mollie.behat.context.ui.shop.product:
         class: Tests\Sylius\MolliePlugin\Behat\Context\Ui\Shop\ProductContext
@@ -30,7 +31,7 @@ services:
         public: true
         arguments:
             - "@sylius_mollie.behat.page.shop.account.order.index"
-            - "@sylius.behat.notification_checker"
+            - "@sylius.behat.notification_checker.shop"
 
 
     sylius_mollie.behat.context.ui.admin.order:

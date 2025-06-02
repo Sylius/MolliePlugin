@@ -22,6 +22,13 @@ final class IndexPage extends BaseIndexPage implements IndexPageInterface
      */
     public function cancelSubscription(): void
     {
-        $this->getDocument()->pressButton('Cancel subscription');
+        $this->getElement('cancel_subscription_button')->click();
+    }
+
+    protected function getDefinedElements(): array
+    {
+        return array_merge(parent::getDefinedElements(), [
+            'cancel_subscription_button' => '[data-test-cancel-subscription]',
+        ]);
     }
 }
