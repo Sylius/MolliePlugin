@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\Processor;
+namespace Sylius\MolliePlugin\Calculator\Clearer;
 
-use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\Component\Order\Model\OrderInterface;
 
-interface PaymentSurchargeProcessorInterface
+interface PaymentFeeAdjustmentClearerInterface
 {
-    public function process(OrderInterface $order): void;
+    public function clear(OrderInterface $order): void;
 }
