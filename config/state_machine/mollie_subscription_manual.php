@@ -31,7 +31,9 @@ return static function (ContainerConfigurator $container) {
                 'processing' => null,
                 'paused' => null,
                 'canceled' => null,
+                'suspended' => null,
                 'completed' => null,
+                'aborted' => null,
             ],
             'transitions' => [
                 'pause' => [

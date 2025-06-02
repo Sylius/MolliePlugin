@@ -29,6 +29,7 @@ return static function (ContainerConfigurator $container) {
                 'new' => null,
                 'processing' => null,
                 'active' => null,
+                'paused' => null,
                 'canceled' => null,
                 'suspended' => null,
                 'completed' => null,
