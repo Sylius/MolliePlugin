@@ -14,8 +14,9 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Resolver;
 
 use Mollie\Api\Resources\Method;
-use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Model\OrderInterface as BaseOrderInterface;
 use Sylius\MolliePlugin\Converter\IntToStringConverterInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Model\DTO\MolliePayment\Amount;
 
 /**
@@ -30,10 +31,11 @@ final class MollieAllowedMethodsResolver implements MollieAllowedMethodsResolver
     ) {
     }
 
-    public function resolve(OrderInterface $order): array
+    public function resolve(BaseOrderInterface $order): array
     {
         $allowedMethodsIds = [];
 
+        /** @var OrderInterface $order */
         $client = $this->mollieApiClientKeyResolver->getClientWithKey($order);
 
         /** API will return only payment methods allowed for order total, currency, billing country */
@@ -54,7 +56,7 @@ final class MollieAllowedMethodsResolver implements MollieAllowedMethodsResolver
      *     locale: string|null
      * }
      */
-    private function createParametersByOrder(OrderInterface $order): array
+    private function createParametersByOrder(BaseOrderInterface $order): array
     {
         $parameters = array_merge(
             [
