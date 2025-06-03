@@ -26,10 +26,6 @@ In order to configure one's, access any product's variants, and modify it's **Re
 ![subscription_admin_variant.png](subscription_admin_variant.png)
 
 
-And then, edit its settings up to your needs
-
-![subscription_admin_variant_settings.png](subscription_admin_variant_settings.png)
-
 ### 2. Subscriptions
 Subscriptions can be accessed in admin by selecting proper menu
 
@@ -60,18 +56,8 @@ This helps individual **refunds** or **partial** subscription **pause** / **canc
 By default, this plugin comes with labels, that indicate **subscription** state of product.
 ![subscription_product_variants.png](subscription_product_variants.png)
 
-However, they may not fit into your template(s). In order to replace them, override of few templates is necesary:
-
-Copy:
-* `vendor/mollie/sylius-plugin/src/Resources/views/Shop/_partial/_recurringBadge.html.twig` into `templates/SyliusMolliePlugin/Shop/_partial/_recurringBadge.html.twig`
-
-Check:
-* `vendor/mollie/sylius-plugin/src/Resources/views/Shop/_partial/_recurringTranslations.html.twig`
-* `vendor/mollie/sylius-plugin/src/Resources/views/Shop/Product`
-* `vendor/mollie/sylius-plugin/src/Resources/views/Shop/Cart`
-
-for more templates to customize.
-
+However, they may not fit into your template(s). To replace them, override the hookable `variant_recurring_settings` 
+form Twig hook: `sylius_shop.product.show.content.info.summary`.
 
 ### 5. Final note
 * Every subscription is auto-canceled once `two` payments return `negative` status (timed out / failed).
