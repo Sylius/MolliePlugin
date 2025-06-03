@@ -23,6 +23,7 @@ use Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeCalculatorInterfac
 use Sylius\MolliePlugin\Converter\PriceToAmountConverterInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Model\AdjustmentInterface;
+use Sylius\MolliePlugin\Repository\MollieGatewayConfigRepositoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,7 +40,7 @@ final class PaymentFeeCalculateAction
     public function __construct(
         private readonly PaymentSurchargeCalculatorInterface $paymentSurchargeCalculator,
         private readonly CartContextInterface $cartContext,
-        private readonly RepositoryInterface $methodRepository,
+        private readonly MollieGatewayConfigRepositoryInterface $methodRepository,
         private readonly AdjustmentsAggregatorInterface $adjustmentsAggregator,
         private readonly PriceToAmountConverterInterface $priceToAmountConverter,
         private readonly Environment $twig,
@@ -47,11 +48,11 @@ final class PaymentFeeCalculateAction
     ) {
     }
 
-    public function __invoke(Request $request, string $methodId): Response
+    public function __invoke(Request $request, string $gatewayName, string $methodId): Response
     {
         /** @var OrderInterface $order */
         $order = $this->cartContext->getCart();
-        $method = $this->methodRepository->findOneBy(['methodId' => $methodId]);
+        $method = $this->methodRepository->findOneActiveByGatewayNameAndMethod($gatewayName, $methodId);
 
         if (!$method instanceof MollieGatewayConfig) {
             throw new NotFoundException(sprintf('Method with id %s not found', $methodId));

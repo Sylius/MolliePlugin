@@ -22,6 +22,8 @@ interface MollieGatewayConfigRepositoryInterface extends RepositoryInterface
     /** @return MollieGatewayConfigInterface[] */
     public function findAllEnabledByGateway(GatewayConfigInterface $gateway): array;
 
+    public function findOneActiveByGatewayNameAndMethod(string $gatewayName, string $methodId): ?MollieGatewayConfigInterface;
+
     /** @return MollieGatewayConfigInterface[] */
     public function getExistingAmountLimitsById(int $id): array;
 }
