@@ -56,6 +56,7 @@ final class ManagingOrdersContext implements Context
     public function iShouldSeeASingleOrderFromCustomer(CustomerInterface $customer): void
     {
         Assert::true($this->indexPage->isSingleResourceOnPage(['customer' => $customer->getEmail()]));
+
     }
 
     /**
