@@ -51,6 +51,9 @@ final class FixedAmountAndPercentageCalculator implements PaymentSurchargeCalcul
         $percentageAmount = $this->getSumOfCalculatedValue($order->getAdjustments(AdjustmentInterface::PERCENTAGE_ADJUSTMENT));
         $fixedAmount = $this->getSumOfCalculatedValue($order->getAdjustments(AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT));
 
+        $order->removeAdjustments(AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT);
+        $order->removeAdjustments(AdjustmentInterface::PERCENTAGE_ADJUSTMENT);
+
         $totalAmount = $percentageAmount + $fixedAmount;
 
         if ($totalAmount > $limit) {
