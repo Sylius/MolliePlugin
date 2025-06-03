@@ -41,7 +41,16 @@ final class CheckoutContext extends RawMinkContext implements Context
     {
         $this->notificationChecker->checkNotification(
             'Payment has been completed.',
-            NotificationType::success(),
+            NotificationType::info(),
+        );
+    }
+
+    #[Then('I should be notified that my payment has been cancelled')]
+    public function iShouldBeNotifiedThatMyPaymentHasBeenCancelled(): void
+    {
+        $this->notificationChecker->checkNotification(
+            'Payment has been cancelled.',
+            NotificationType::info(),
         );
     }
 }

@@ -24,7 +24,7 @@ Feature: Paying with Mollie during checkout
         When I am logged in as an administrator
         And I browse orders
         Then I should see a single order from customer "john@mollie.pl"
-        And I view summary of last order
+        And I view the summary of the last order
         And it should be paid with "Mollie"
 
     @ui

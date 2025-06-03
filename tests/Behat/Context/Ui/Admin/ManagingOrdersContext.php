@@ -47,7 +47,7 @@ final class ManagingOrdersContext implements Context
      */
     public function itShouldHaveAmountOfItems(int $amount = 1): void
     {
-        Assert::same($this->showPage->countItems(), $amount);
+        Assert::same($this->indexPage->countItems(), $amount);
     }
 
     /**
