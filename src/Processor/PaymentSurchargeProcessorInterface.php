@@ -19,9 +19,8 @@ use Sylius\MolliePlugin\Entity\OrderInterface;
 trigger_deprecation(
     'sylius/mollie-plugin',
     '2.2',
-    'The "%s" class is deprecated and will be removed in MolliePlugin 3.0. Use "%s" instead.',
+    'The "%s" class is deprecated and will be removed in MolliePlugin 3.0.',
     PaymentSurchargeProcessorInterface::class,
-    OrderProcessorInterface::class,
 );
 interface PaymentSurchargeProcessorInterface
 {
