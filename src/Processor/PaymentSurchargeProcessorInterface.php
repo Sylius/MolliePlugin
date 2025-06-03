@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Processor;
 
-use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 
 trigger_deprecation(
