@@ -16,7 +16,7 @@
                     <span>{{ 'sylius_mollie.ui.cancel_subscription'|trans }}</span>
                 </button>
             {% else %}
-                <button class="{{ button_config.class }}" type="submit" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ 'sylius_mollie.ui.cancel_subscription'|trans }}">
+                <button class="{{ button_config.class }}" type="submit" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ 'sylius_mollie.ui.cancel_subscription'|trans }}" {{ sylius_test_html_attribute('cancel-subscription', order_token) }}>
                     {{ ux_icon('tabler:x', { class: 'icon icon-sm flex-shrink-0' }) }}
                 </button>
             {% endif %}
