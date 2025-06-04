@@ -56,6 +56,16 @@
    | `sylius_mollie_plugin_payment_link`                | `sylius_mollie_admin_payment_link_generate`         |
    | `sylius_mollie_plugin_payum_refund`                | `sylius_mollie_admin_mollie_subscription_pause`     |
 
+1. Route `sylius_mollie_shop_payment_fee_calculate` has been updated to include the `gatewayName` parameter.
+
+```yaml
+   sylius_mollie_shop_payment_fee_calculate:
+-     path: /payment-fee-calculate/{methodId}
++     path: /payment-fee-calculate/{gatewayName}/{methodId}
+      defaults:
+         _controller: sylius_mollie.controller.shop.payment_fee_calculate
+```
+
 1. The constants `TRANSITION_ACTIVATE` and `TRANSITION_COMPLETE` in `Sylius\MolliePlugin\StateMachine\MollieRecurringTransitions` have been removed as they are no longer used.
    In their place, have been added `TRANSITION_PAUSE` and `TRANSITION_RESUME`.
 
@@ -201,6 +211,20 @@
         private readonly StateMachineInterface $stateMachine,
         private readonly OrderRepositoryInterface $orderRepository,
    -    private readonly CreatePartialShipFromMollieInterface $createPartialShipFromMollie,
+   )
+   ```
+
+   ```diff
+   // Sylius\MolliePlugin\Controller\Shop\PaymentFeeCalculateAction
+   public function __construct(
+        private readonly PaymentSurchargeCalculatorInterface $paymentSurchargeCalculator,
+        private readonly CartContextInterface $cartContext,
+   -    private readonly RepositoryInterface $methodRepository,
+   +    private readonly MollieGatewayConfigRepositoryInterface $methodRepository,
+        private readonly AdjustmentsAggregatorInterface $adjustmentsAggregator,
+        private readonly PriceToAmountConverterInterface $priceToAmountConverter,
+        private readonly Environment $twig,
+        private readonly PaymentFeeAdjustmentClearerInterface $paymentFeeAdjustmentClearer,
    )
    ```
    
