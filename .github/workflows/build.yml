@@ -22,7 +22,7 @@ jobs:
                 node: [ "20.x" ]
                 mysql: [ "8.4" ]
                 symfony: [ "^7.2" ]
-                sylius: [ "2.0.x-dev" ]
+                sylius: [ "^2.0.8" ]
                 state_machine_adapter: [ "winzou_state_machine", "symfony_workflow" ]
                 refund: [ "false", "true" ]
 
@@ -92,8 +92,8 @@ jobs:
             -   name: Install PHP dependencies
                 run: composer install --no-interaction
 
-#            -   name: Validate composer.json
-#                run: composer validate --ansi --strict
+            -   name: Validate composer.json
+                run: composer validate --ansi --strict
 
             -   name: Run PHPStan
                 run: vendor/bin/phpstan analyse

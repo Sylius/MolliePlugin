@@ -6,7 +6,7 @@
     "require": {
         "php": "^8.2",
         "mollie/mollie-api-php": "^2.73",
-        "sylius/sylius": "2.0.x-dev",
+        "sylius/sylius": "^2.0.8",
         "willdurand/js-translation-bundle": "^7.0"
     },
     "require-dev": {
