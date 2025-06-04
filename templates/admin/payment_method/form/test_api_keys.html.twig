@@ -1,0 +1,5 @@
+{% for test in tests %}
+    <div class="alert {% if test.status == constant('Sylius\\MolliePlugin\\Creator\\ApiKeysTestCreatorInterface::ERROR_STATUS') %}alert-danger{% else %}alert-success{% endif %}">
+        {% include '@SyliusMolliePlugin/admin/payment_method/form/test_api_keys/test.html.twig' %}
+    </div>
+{% endfor %}

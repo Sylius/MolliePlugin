@@ -52,6 +52,8 @@ final class ConvertMolliePaymentActionTest extends TestCase
 
     private CreateCustomerFactoryInterface $createCustomerFactoryMock;
 
+    private DivisorProviderInterface $divisorProviderMock;
+
     private ConvertMolliePaymentAction $convertMolliePaymentAction;
 
     protected function setUp(): void
@@ -63,7 +65,7 @@ final class ConvertMolliePaymentActionTest extends TestCase
         $this->customerContextMock = $this->createMock(CustomerContextInterface::class);
         $this->paymentLocaleResolverMock = $this->createMock(PaymentLocaleResolverInterface::class);
         $this->createCustomerFactoryMock = $this->createMock(CreateCustomerFactoryInterface::class);
-        $this->intToStringConverterMock = $this->createMock(IntToStringConverterInterface::class);
+        $intToStringConverterMock = $this->createMock(IntToStringConverterInterface::class);
         $this->divisorProviderMock = $this->createMock(DivisorProviderInterface::class);
         $this->convertMolliePaymentAction =
             new ConvertMolliePaymentAction(
@@ -73,7 +75,7 @@ final class ConvertMolliePaymentActionTest extends TestCase
                 $this->customerContextMock,
                 $this->paymentLocaleResolverMock,
                 $this->createCustomerFactoryMock,
-                $this->intToStringConverterMock,
+                $intToStringConverterMock,
                 $this->divisorProviderMock,
             )
         ;

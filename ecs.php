@@ -12,7 +12,6 @@
 declare(strict_types=1);
 
 use PhpCsFixer\Fixer\ClassNotation\OrderedTypesFixer;
-use PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer;
 use PhpCsFixer\Fixer\Comment\HeaderCommentFixer;
 use PhpCsFixer\Fixer\FunctionNotation\NullableTypeDeclarationForDefaultNullValueFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocSeparationFixer;
@@ -26,14 +25,13 @@ return static function (ECSConfig $config): void {
     $config->paths([
         'src',
         'tests/Behat',
-        'tests/Functional',
+        'tests/Integration',
         'tests/Unit',
-        'tests/Application/src',
+        'tests/TestApplication/src',
     ]);
     $config->skip([
         InlineDocCommentDeclarationSniff::class . '.MissingVariable',
         InlineDocCommentDeclarationSniff::class . '.NoAssignment',
-        VisibilityRequiredFixer::class => ['*Spec.php'],
         '**/var/*',
     ]);
     $config->ruleWithConfiguration(PhpdocSeparationFixer::class, ['groups' => [['Given', 'When', 'Then']]]);

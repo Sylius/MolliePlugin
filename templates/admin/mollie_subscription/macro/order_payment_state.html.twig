@@ -1,0 +1,16 @@
+{% macro label(state) %}
+    {% set state_to_colors_map = {
+        authorized: 'bg-orange-lt',
+        cancelled: 'bg-yellow-lt',
+        cart: 'bg-lime-lt',
+        completed: 'bg-green-lt',
+        failed: 'bg-red-lt',
+        new: 'bg-blue-lt',
+        processing: 'bg-indigo-lt',
+        refunded: 'bg-purple-lt',
+    } %}
+
+    <span class="badge {{ state_to_colors_map[state]|default('') }}">
+        {{ ('sylius.ui.' ~ state) | trans }}
+    </span>
+{% endmacro %}

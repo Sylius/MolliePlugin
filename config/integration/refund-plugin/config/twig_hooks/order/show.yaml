@@ -1,0 +1,6 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_admin.order.show.content.sections.payments.item.actions':
+            refund:
+                template: '@SyliusMolliePlugin/admin/order/show/content/sections/payments/item/actions/refund.html.twig'
+                priority: 0

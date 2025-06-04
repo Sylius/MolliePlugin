@@ -1,7 +1,0 @@
-sylius_grid:
-    grids:
-        sylius_refund_credit_memo:
-            fields:
-                order:
-                    sortable: order.number
-

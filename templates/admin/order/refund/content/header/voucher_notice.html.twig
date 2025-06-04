@@ -1,0 +1,13 @@
+{% import "@SyliusShop/shared/macro/money.html.twig" as money %}
+
+{% set unitPromotionAdjustmentVoucher = constant('Sylius\\MolliePlugin\\Model\\PaymentMethod\\MealVoucher::MEAL_VOUCHERS') %}
+{% set order = hookable_metadata.context.order %}
+{% set unitPromotionTotalVoucher = order.getAdjustmentsTotalRecursively(unitPromotionAdjustmentVoucher) %}
+
+{% if unitPromotionTotalVoucher %}
+    <div class="alert alert-warning m-2">
+        <strong>{{ 'sylius_mollie.ui.warning'|trans }}</strong><br>
+        {{ 'sylius_mollie.ui.warning_voucher_info'|trans }}<br>
+        {{ money.format((order.getItemsTotal + order.getShippingTotal) - order_refunded_total(order.number), order.currencyCode) }}
+    </div>
+{% endif %}

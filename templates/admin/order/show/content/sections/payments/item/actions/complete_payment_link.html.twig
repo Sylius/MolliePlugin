@@ -1,0 +1,14 @@
+{% set payment = hookable_metadata.context.payment %}
+
+{% set payment_link = payment.details['payment-link']|default(payment.details['payment_mollie_link']|default('')) %}
+{% set payment_gateway = payment.method.gatewayConfig.factoryName|default('') %}
+
+{% if
+    payment_link != ''
+    and payment_gateway == constant('Sylius\\MolliePlugin\\Payum\\Factory\\MollieGatewayFactory::FACTORY_NAME')
+    and sylius_sm_can(payment, constant('Sylius\\Component\\Payment\\PaymentTransitions::GRAPH'), constant('Sylius\\Component\\Payment\\PaymentTransitions::TRANSITION_COMPLETE'))
+%}
+    <a href="{{ payment_link ?? '' }}" class="btn">
+        {{ ux_icon('tabler:currency') }} {{ 'sylius.ui.pay'|trans }}
+    </a>
+{% endif %}

@@ -39,7 +39,6 @@ final class ProductVariantRecurringExtension extends AbstractTypeExtension
         $builder
             ->add('recurring', CheckboxType::class, [
                 'label' => 'sylius_mollie.form.product_variant.recurring',
-                'help' => 'sylius_mollie.form.product_variant.recurring_help',
                 'required' => false,
                 'constraints' => [
                     new NotNull(),

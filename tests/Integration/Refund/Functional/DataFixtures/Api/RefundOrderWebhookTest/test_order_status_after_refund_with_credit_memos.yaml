@@ -1,0 +1,175 @@
+Sylius\Component\Core\Model\Channel:
+    channel:
+        code: "CHANNEL_CODE"
+        name: "Channel name"
+        hostname: "localhost"
+        description: "Lorem ipsum"
+        baseCurrency: "@euro"
+        defaultLocale: "@locale_en_us"
+        locales: ["@locale_en_us"]
+        color: "black"
+        enabled: true
+        taxCalculationStrategy: "order_items_based"
+        accountVerificationRequired: true
+
+Sylius\Component\Currency\Model\Currency:
+    euro:
+        code: EUR
+
+Sylius\Component\Locale\Model\Locale:
+    locale_en_us:
+        code: en_US
+
+Sylius\Component\Core\Model\Customer:
+    customer:
+        firstName: "John"
+        lastName: "Nowak"
+        email: "test@example.com"
+        emailCanonical: "test@example.com"
+
+Sylius\Component\Core\Model\Address:
+    customer_address:
+        firstName: "Bruce"
+        lastName: "Wayne"
+        phoneNumber: 123123123
+        company: "Wayne Enterprise"
+        countryCode: "GB"
+        provinceCode: "GB-SCT"
+        street: "McGlynn Island"
+        city: "Klingside"
+        postcode: "33553"
+        customer: "@customer"
+
+Sylius\Component\Core\Model\Adjustment:
+    shipping_adjustment:
+        adjustable: '@order'
+        type: 'shipping'
+        amount: 0
+
+Tests\Sylius\MolliePlugin\Entity\Order:
+    order:
+        customer: "@customer"
+        currency_code: "EUR"
+        locale_code: "en_US"
+        channel: "@channel"
+        token_value: 67891
+        number: "000000001"
+        state: "new"
+        checkout_state: "completed"
+        payment_state: "paid"
+        billingAddress: "@customer_address"
+        checkout_completed_at: '<dateTimeBetween("-60 minutes", "-35 minutes", "Europe/Paris")>'
+
+Sylius\Component\Core\Model\OrderItem:
+    order_item:
+        order: "@order"
+        variant: "@cap_variant"
+        unitPrice: 3832
+
+Sylius\Component\Core\Model\OrderItemUnit:
+    order_item_unit:
+        __construct: ["@order_item"]
+
+Sylius\Component\Core\Model\Payment:
+    order_payment:
+        method: "@mollie"
+        order: "@order"
+        currency_code: "EUR"
+        amount: 3832
+        state: "completed"
+        details: {"email": "test@test.pl", "lines": [{"name": "Knitted wool-blend green cap", "type": "physical", "vatRate": "0", "category": null, "metadata": {"item_id": 77}, "quantity": 1, "unitPrice": {"value": "38.32", "currency": "USD"}, "vatAmount": {"value": "0", "currency": "USD"}, "totalAmount": {"value": "38.32", "currency": "USD"}, "discountAmount": {"value": "0.00", "currency": "USD"}}, {"name": "SHIPPING_FEE", "type": "shipping_fee", "vatRate": "0.00", "quantity": 1, "unitPrice": {"value": "0.00", "currency": "USD"}, "vatAmount": {"value": "0.00", "currency": "USD"}, "totalAmount": {"value": "0.00", "currency": "USD"}}], "amount": {"value": "38.32", "currency": "USD"}, "locale": "en_US", "backurl": "http://7b3a-85-117-23-246.ngrok.io/payment/capture/4Msd-gEEBKW2r1K3MeOC4hmBDiuFQYxRfjljcPEOLxk", "metadata": {"refund": {"items": [], "shipments": [{}]}, "order_id": 39, "cartToken": null, "methodType": "Orders API", "customer_id": 24, "refund_token": "789def", "selected_issuer": null, "molliePaymentMethods": "creditcard"}, "full_name": "", "webhookUrl": "http://7b3a-85-117-23-246.ngrok.io/payment/notify/654fed", "description": "Payment contains 1 item for a total of 38.32", "orderNumber": "000000001", "billingAddress": {"city": "Test", "email": "test@test.pl", "country": "PL", "givenName": "Test", "familyName": "Test", "postalCode": "12-123", "streetAndNumber": "Test"}, "order_mollie_id": "ord_123xyz", "shippingAddress": {"city": "Test", "email": "test@test.pl", "country": "PL", "givenName": "Test", "familyName": "Test", "postalCode": "12-123", "streetAndNumber": "Test"}}
+
+Sylius\Component\Core\Model\PaymentMethod:
+    mollie:
+        code: "MOLLIE_DEFAULT"
+        enabled: true
+        gatewayConfig: "@mollie_gateway"
+        currentLocale: "en_GB"
+        channels: ["@channel"]
+
+Tests\Sylius\MolliePlugin\Entity\GatewayConfig:
+    mollie_gateway:
+        gatewayName: "mollie_default"
+        factoryName: "mollie"
+        config: {"components": false, "profile_id": "pfl_aa", "environment": null, "loggerLevel": 0, "api_key_live": null, "api_key_test": "test_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "abandoned_hours": 1, "payum.http_client": "\\@sylius_mollie.client.mollie_api", "single_click_enabled": false, "abandoned_email_enabled": true}
+
+Sylius\Component\Payment\Model\PaymentMethodTranslation:
+    mollie_translation:
+        name: "mollie_default"
+        locale: "en_GB"
+        description: <paragraph(2)>
+        instructions: "Please put the money in the bag!"
+        translatable: "@mollie"
+
+Tests\Sylius\MolliePlugin\Entity\Product:
+    cap_product:
+        code: "CAP_CODE"
+        createdAt: "<date_create('2019-02-01 03:00:00')>"
+        channels: ["@channel"]
+        currentLocale: "en_GB"
+#        translations: ["@cap_product_translation"]
+        main_taxon: null
+
+Sylius\Component\Core\Model\ProductTranslation:
+    cap_product_translation:
+        slug: "random-cap"
+        locale: "en_US"
+        name: "Knitted wool-blend green cap"
+        description: "WINDPROOF INSULATED CAP."
+        translatable: "@cap_product"
+
+Tests\Sylius\MolliePlugin\Entity\ProductVariant:
+    cap_variant:
+        code: "RANDOM_CAP_CODE"
+        product: "@cap_product"
+        currentLocale: "en_US"
+#        translations: ["@cap_variant_translation"]
+        channelPricings:
+            CHANNEL_CODE: "@channel_pricing"
+        tracked: true
+        on_hand: 2000
+        on_hold: 0
+        shippingCategory: null
+        shippingRequired: false
+
+Sylius\Component\Product\Model\ProductVariantTranslation:
+    cap_variant_translation:
+        locale: "en_US"
+        name: "Random Cap"
+        translatable: "@cap_variant"
+
+Sylius\Component\Core\Model\ChannelPricing:
+    channel_pricing:
+        channelCode: "CHANNEL_CODE"
+        price: 3832
+        originalPrice: 3832
+
+Sylius\Bundle\PayumBundle\Model\PaymentSecurityToken:
+    notify_token:
+        hash: '654fed'
+        details: ''
+        afterUrl:
+        targetUrl: 'http://127.0.0.1/payment/notify/654fed'
+        gatewayName: 'mollie_default'
+    refund_token:
+        hash: '789def'
+        details: ''
+        afterUrl:
+        targetUrl: 'http://127.0.0.1/admin/admin/payment/refund/789def'
+        gatewayName: 'mollie_default'
+
+Sylius\MolliePlugin\Entity\MollieGatewayConfig:
+    mollie_configuration:
+        gateway: '@mollie_gateway'
+        methodId: 'creditcard'
+        name: 'Credit Card'
+        image: []
+        minimumAmount: {"value": "0.01", "currency":"EUR"}
+        maximumAmount: {"value": "0.01", "currency":"EUR"}
+        paymentType: 'ORDER_API'
+        country: ['N']
+        canRefunded: 1
+        countryRestriction: 'ALL_COUNTRIES'
+        applePayDirectButton: 0
+        position: 0
+

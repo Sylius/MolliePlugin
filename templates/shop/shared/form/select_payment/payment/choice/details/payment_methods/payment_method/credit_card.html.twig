@@ -1,0 +1,8 @@
+{% set value = hookable_metadata.context.choice.value %}
+{% set has_components = hookable_metadata.context.gateway_config.config['components'] | default(false) %}
+
+{% if value == constant('Mollie\\Api\\Types\\PaymentMethod::CREDITCARD') and has_components %}
+    <div class="online-payment__credit-card" id="mollie_cart_data">
+        {% hook 'credit_card' %}
+    </div>
+{% endif %}

@@ -1,0 +1,15 @@
+{% if mollie_render_apple_pay_direct() %}
+    {% set order = hookable_metadata.context.order %}
+    <div class="apple-pay-button-with-text apple-pay-button apple-pay-button-black" id="mollie_applepay_button"
+         data-divisor="{{ mollie_get_divisor() }}"
+         data-url-validate="{{ path('sylius_mollie_shop_apple_pay_validation') }}"
+         data-url-payment="{{ path('sylius_mollie_shop_checkout_apple_complete') }}"
+         data-total-order="{{ order.total }}"
+         data-currency-order="{{ order.channel.baseCurrency.code }}"
+         data-merchant-name="{{ order.channel.name }}"
+    >
+        <span class=" apple-pay-text">{{ 'sylius_mollie.ui.buy_with_apple_pay'|trans }}</span>
+        <span class="logo"></span>
+    </div>
+{% endif %}
+
