@@ -3,10 +3,10 @@ sylius_ui:
         sylius.admin.product.create.tab_details:
             blocks:
                 mollie_product_type:
-                    template: '@SyliusMolliePlugin/Admin/Product/form/_productType.html.twig'
+                    template: '@SyliusMolliePlugin/Admin/Product/Form/_productType.html.twig'
                     priority: 10
         sylius.admin.product.update.tab_details:
             blocks:
                 mollie_product_type:
-                    template: '@SyliusMolliePlugin/Admin/Product/form/_productType.html.twig'
+                    template: '@SyliusMolliePlugin/Admin/Product/Form/_productType.html.twig'
                     priority: 10
