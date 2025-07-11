@@ -82,18 +82,6 @@
     "knplabs/knp-menu-bundle": {
         "version": "v3.5.0"
     },
-    "knplabs/knp-snappy-bundle": {
-        "version": "1.10",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "main",
-            "version": "1.5",
-            "ref": "c81bdcf4a9d4e7b1959071457f9608631865d381"
-        },
-        "files": [
-            "config/packages/knp_snappy.yaml"
-        ]
-    },
     "league/flysystem-bundle": {
         "version": "2.4",
         "recipe": {
@@ -242,19 +230,6 @@
     "sylius/mailer-bundle": {
         "version": "v2.1.0"
     },
-    "sylius/refund-plugin": {
-        "version": "1.5",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "main",
-            "version": "0.4",
-            "ref": "a3f813f608c6f04bd7d0b4cefd73a96bf378c390"
-        },
-        "files": [
-            "config/packages/sylius_refund.yaml",
-            "config/routes/sylius_refund.yaml"
-        ]
-    },
     "sylius/resource-bundle": {
         "version": "1.11",
         "recipe": {
@@ -391,6 +366,18 @@
         },
         "files": [
             "config/packages/monolog.yaml"
+        ]
+    },
+    "symfony/property-info": {
+        "version": "7.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "7.3",
+            "ref": "dae70df71978ae9226ae915ffd5fad817f5ca1f7"
+        },
+        "files": [
+            "config/packages/property_info.yaml"
         ]
     },
     "symfony/routing": {
