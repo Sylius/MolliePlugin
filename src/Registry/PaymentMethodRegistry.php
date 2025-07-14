@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Registry;
 
 use Mollie\Api\Resources\Method;
+use Mollie\Api\Types\PaymentMethod;
 use Sylius\MolliePlugin\Model\PaymentMethod\AbstractMethod;
 
 final class PaymentMethodRegistry implements PaymentMethodRegistryInterface
@@ -30,7 +31,12 @@ final class PaymentMethodRegistry implements PaymentMethodRegistryInterface
 
         $payment = new $gateway();
 
-        $payment->setName($mollieMethod->description);
+        if (PaymentMethod::TRUSTLY === $mollieMethod->id) {
+            $payment->setName(ucfirst(PaymentMethod::TRUSTLY));
+        } else {
+            $payment->setName($mollieMethod->description);
+        }
+
         $payment->setMinimumAmount((array) $mollieMethod->minimumAmount);
         $payment->setMaximumAmount((array) $mollieMethod->maximumAmount);
         $payment->setImage((array) $mollieMethod->image);
