@@ -16,11 +16,11 @@ namespace Sylius\MolliePlugin\Model\PaymentMethod;
 use Mollie\Api\Types\PaymentMethod;
 use Sylius\MolliePlugin\Model\ApiType;
 
-class Trustly extends AbstractMethod
+final class PayByBank extends AbstractMethod
 {
     public function getMethodId(): string
     {
-        return PaymentMethod::TRUSTLY;
+        return PaymentMethod::PAYBYBANK;
     }
 
     public function getPaymentType(): string

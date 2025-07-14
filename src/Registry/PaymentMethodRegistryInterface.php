@@ -37,6 +37,7 @@ use Sylius\MolliePlugin\Model\PaymentMethod\Klarnasliceit;
 use Sylius\MolliePlugin\Model\PaymentMethod\MealVoucher;
 use Sylius\MolliePlugin\Model\PaymentMethod\MethodInterface;
 use Sylius\MolliePlugin\Model\PaymentMethod\MyBank;
+use Sylius\MolliePlugin\Model\PaymentMethod\PayByBank;
 use Sylius\MolliePlugin\Model\PaymentMethod\Payconiq;
 use Sylius\MolliePlugin\Model\PaymentMethod\PayPal;
 use Sylius\MolliePlugin\Model\PaymentMethod\Przelewy24;
@@ -79,6 +80,7 @@ interface PaymentMethodRegistryInterface
         PaymentMethod::BANCOMATPAY => Bancomatpay::class,
         PaymentMethod::PAYCONIQ => Payconiq::class,
         PaymentMethod::SATISPAY => Satispay::class,
+        PaymentMethod::PAYBYBANK => PayByBank::class,
     ];
 
     /** @return MethodInterface[] */
