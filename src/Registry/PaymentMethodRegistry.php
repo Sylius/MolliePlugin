@@ -31,6 +31,7 @@ final class PaymentMethodRegistry implements PaymentMethodRegistryInterface
 
         $payment = new $gateway();
 
+        // Temporary fix for the Trustly payment method, which returns from the Mollie API "Pay By Bank" instead of "Trustly"
         if (PaymentMethod::TRUSTLY === $mollieMethod->id) {
             $payment->setName(ucfirst(PaymentMethod::TRUSTLY));
         } else {
