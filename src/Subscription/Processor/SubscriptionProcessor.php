@@ -80,9 +80,7 @@ final class SubscriptionProcessor implements SubscriptionProcessorInterface
             $subscription->getSubscriptionConfiguration(),
             $clonedOrder,
         );
-        $payment->setDetails(
-            $details,
-        );
+        $payment->setDetails($details);
         $clonedOrder->addPayment($payment);
         $this->orderRepository->add($clonedOrder);
 
