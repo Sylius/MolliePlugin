@@ -18,16 +18,12 @@ use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieMinMaxInterface;
 use Sylius\MolliePlugin\Validator\Constraints\MollieGatewayConfigValidator;
 use Sylius\MolliePlugin\Validator\Constraints\MollieGatewayConfigValidatorType;
-use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 final class MollieGatewayConfigValidatorTest extends ConstraintValidatorTestCase
 {
-    /** @var MollieGatewayConfigValidatorType */
-    protected Constraint $constraint;
-
     private MollieGatewayConfigInterface $mollieGatewayConfig;
 
     private MollieMinMaxInterface $configAmountLimits;
