@@ -1,0 +1,6 @@
+{% set form = hookable_metadata.context.method_form %}
+{% set inner_payment_method = hookable_metadata.context.inner_payment_method %}
+
+<div class="col-md-auto col-sm-12 pt-3 pb-2 mt-2" data-mollie-method-enabled="{{ inner_payment_method.methodId }}">
+    {{ form_row(form.enabled, { id: inner_payment_method.name }) }}
+</div>

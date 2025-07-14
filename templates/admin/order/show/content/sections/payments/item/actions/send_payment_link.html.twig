@@ -1,0 +1,21 @@
+{% set payment = hookable_metadata.context.payment %}
+{% set lastPayment = hookable_metadata.context.order.lastPayment %}
+
+{% set allowed_payment_states = [
+    constant('Sylius\\Component\\Payment\\Model\\PaymentInterface::STATE_NEW'),
+    constant('Sylius\\Component\\Payment\\Model\\PaymentInterface::STATE_PROCESSING'),
+    constant('Sylius\\Component\\Payment\\Model\\PaymentInterface::STATE_CANCELLED'),
+    constant('Sylius\\Component\\Payment\\Model\\PaymentInterface::STATE_FAILED'),
+] %}
+{% set payment_gateway = payment.method.gatewayConfig.factoryName|default('') %}
+
+{% if
+    payment_gateway == constant('Sylius\\MolliePlugin\\Payum\\Factory\\MollieGatewayFactory::FACTORY_NAME') and
+    payment.state in allowed_payment_states and
+    lastPayment == payment
+%}
+    {% set order = payment.order %}
+    <a href="{{ path('sylius_mollie_admin_payment_link_generate', {'orderNumber': order.number}) }}" class="btn btn-primary">
+        {{ 'sylius_mollie.ui.payment_link_generate'|trans }}
+    </a>
+{% endif %}

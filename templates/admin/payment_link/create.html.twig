@@ -1,0 +1,22 @@
+{% extends '@SyliusAdmin/shared/layout/base.html.twig' %}
+
+{% set prefixes = [
+    'sylius_mollie.admin.payment_link',
+    'sylius_admin.common'
+] %}
+
+{% block title %}{{ 'sylius_mollie.ui.payment_link_generate'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+    {% hook 'create' with { _prefixes: prefixes, order, form } %}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% hook 'create#stylesheets' with { _prefixes: prefixes } %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% hook 'create#javascripts' with { _prefixes: prefixes } %}
+{% endblock %}

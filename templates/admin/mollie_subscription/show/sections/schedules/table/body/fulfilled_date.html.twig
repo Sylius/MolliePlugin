@@ -1,0 +1,7 @@
+<td>
+    {% if hookable_metadata.context.schedule.fulfilledDate is not empty %}
+        {{ hookable_metadata.context.schedule.fulfilledDate|date ('d-m-Y H:i:s') }}
+    {% else %}
+        -
+    {% endif %}
+</td>

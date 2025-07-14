@@ -24,7 +24,7 @@
             class="Sylius\MolliePlugin\Voucher\Applicator\UnitsVouchersApplicator"
         >
             <argument type="service" id="sylius.custom_factory.adjustment"/>
-            <argument type="service" id="sylius.integer_distributor"/>
+            <argument type="service" id="sylius.distributor.integer"/>
         </service>
         <service id="Sylius\MolliePlugin\Voucher\Applicator\UnitsVouchersApplicatorInterface" alias="sylius_mollie.voucher.applicator.units_promotion_adjustments"/>
 
@@ -32,7 +32,7 @@
             id="sylius_mollie.voucher.applicator.order_vouchers"
             class="Sylius\MolliePlugin\Voucher\Applicator\OrderVouchersApplicator"
         >
-            <argument type="service" id="sylius.proportional_integer_distributor"/>
+            <argument type="service" id="sylius.distributor.proportional_integer"/>
             <argument type="service" id="sylius_mollie.voucher.applicator.units_promotion_adjustments"/>
         </service>
         <service id="Sylius\MolliePlugin\Voucher\Applicator\OrderVouchersApplicatorInterface" alias="sylius_mollie.voucher.applicator.order_vouchers" />

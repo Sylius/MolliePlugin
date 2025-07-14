@@ -1,0 +1,12 @@
+{% set method_form = hookable_metadata.context.method_form %}
+{% set methods_loop = hookable_metadata.context.methods_loop %}
+
+<div class="js-onboardingWizard-countryRestrictions">
+    {{ form_row(method_form.country_restriction, { 'attr': { 'class': 'js-onboardingWizard-countryRestriction' } }) }}
+    <div id="country-allowed_{{ methods_loop.index0 }}">
+        {{ form_row(method_form.countryLevel_allowed) }}
+    </div>
+    <div id="country-excluded_{{ methods_loop.index0 }}">
+        {{ form_row(method_form.countryLevel_excluded) }}
+    </div>
+</div>

@@ -15,16 +15,17 @@ namespace Tests\Sylius\MolliePlugin\Behat\Context\Ui\Shop;
 
 use Behat\Behat\Context\Context;
 use Behat\MinkExtension\Context\RawMinkContext;
+use Behat\Step\Then;
+use Sylius\Behat\NotificationType;
+use Sylius\Behat\Service\NotificationCheckerInterface;
 use Tests\Sylius\MolliePlugin\Behat\Page\Shop\Checkout\CompletePageInterface;
 
 final class CheckoutContext extends RawMinkContext implements Context
 {
-    private CompletePageInterface $summaryPage;
-
     public function __construct(
-        CompletePageInterface $summaryPage,
+        private readonly CompletePageInterface $summaryPage,
+        private readonly NotificationCheckerInterface $notificationChecker,
     ) {
-        $this->summaryPage = $summaryPage;
     }
 
     /**
@@ -33,5 +34,23 @@ final class CheckoutContext extends RawMinkContext implements Context
     public function iSelectPaymentOption(string $paymentOptionName): void
     {
         $this->summaryPage->selectPaymentOption($paymentOptionName);
+    }
+
+    #[Then('I should be notified that my payment has been completed')]
+    public function iShouldBeNotifiedThatMyPaymentHasBeenCompleted(): void
+    {
+        $this->notificationChecker->checkNotification(
+            'Payment has been completed.',
+            NotificationType::info(),
+        );
+    }
+
+    #[Then('I should be notified that my payment has been cancelled')]
+    public function iShouldBeNotifiedThatMyPaymentHasBeenCancelled(): void
+    {
+        $this->notificationChecker->checkNotification(
+            'Payment has been cancelled.',
+            NotificationType::info(),
+        );
     }
 }

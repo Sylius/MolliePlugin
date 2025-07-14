@@ -1,0 +1,17 @@
+{% macro label(state) %}
+    {% set state_to_colors_map = {
+        pending: 'bg-blue-lt',
+        fail: 'bg-red-lt',
+        ok: 'bg-green-lt'
+    } %}
+    {% set state_to_icons_map = {
+        pending: 'refresh',
+        fail: 'x',
+        ok: 'circle-check'
+    } %}
+
+    <span class="badge {{ state_to_colors_map[state]|default('') }}">
+        {{ ux_icon('tabler:' ~ (state_to_icons_map[state]|default('alert-circle'))) }}
+        {{ ('sylius_mollie.ui.subscription.payment_state.' ~ state) | trans }}
+    </span>
+{% endmacro %}

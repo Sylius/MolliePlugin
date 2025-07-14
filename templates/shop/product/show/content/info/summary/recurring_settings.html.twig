@@ -1,0 +1,19 @@
+{% set variant = hookable_metadata.context.variant|default(null) %}
+
+{%- if variant is not null and variant.recurring -%}
+    {% set interval = variant.interval|default('')|split(' ') %}
+    {% if interval|length == 2 %}
+        {% set intervalValue = interval[0] %}
+        {% set intervalUnit = interval[1] %}
+
+        <div class="mb-1 pb-1">
+            <span class="badge bg-secondary">
+                {{ 'sylius_mollie.shop.product_variant.recurring'|trans }}:
+
+                {{ 'sylius_mollie.shop.product_variant.every.%s'|format(intervalUnit)|trans({'%amount%': intervalValue}) }},
+
+                {{ variant.times }} {{ 'sylius_mollie.shop.product_variant.times'|trans }}
+            </span>
+        </div>
+    {% endif %}
+{%- endif -%}

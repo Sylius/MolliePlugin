@@ -15,7 +15,7 @@ namespace Sylius\MolliePlugin\Payum\Factory;
 
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayFactory;
-use Sylius\Bundle\CoreBundle\Application\Kernel;
+use Sylius\Bundle\CoreBundle\SyliusCoreBundle;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType;
 
@@ -53,7 +53,7 @@ final class MollieGatewayFactory extends GatewayFactory
                 $mollieApiClient = $config['payum.http_client'];
                 $mollieApiClient->setApiKey($config[$environment]);
                 $mollieApiClient->setConfig($config->toUnsafeArray());
-                $mollieApiClient->addVersionString(\sprintf('Sylius/%s', Kernel::VERSION));
+                $mollieApiClient->addVersionString(\sprintf('Sylius/%s', SyliusCoreBundle::VERSION));
                 $mollieApiClient->addVersionString(\sprintf('SyliusMolliePlugin/%s', $mollieApiClient->getVersion()));
                 $mollieApiClient->addVersionString(\sprintf('uap/%s', $mollieApiClient->getUserAgentToken()));
 

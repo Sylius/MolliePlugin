@@ -1,7 +1,6 @@
 imports:
     - vendor/sylius/sylius/src/Sylius/Behat/Resources/config/suites.yml
     - tests/Behat/Resources/suites.yml
-    - tests/Behat/Resources/integration/sylius_admin_order_creation_plugin/suites.yaml
 
 default:
     formatters:
@@ -37,9 +36,9 @@ default:
             show_auto: false
 
         FriendsOfBehat\SymfonyExtension:
-            bootstrap: tests/Application/config/bootstrap.php
+            bootstrap: vendor/sylius/test-application/config/bootstrap.php
             kernel:
-                class: Tests\Sylius\MolliePlugin\Application\Kernel
+                class: Sylius\TestApplication\Kernel
 
         FriendsOfBehat\VariadicExtension: ~
 

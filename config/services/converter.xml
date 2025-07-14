@@ -28,8 +28,8 @@
             <argument type="service" id="sylius_mollie.converter.int_to_string"/>
             <argument type="service" id="sylius_mollie.calculator.calculate_tax_amount"/>
             <argument type="service" id="sylius_mollie.resolver.meal_voucher"/>
-            <argument type="service" id="sylius.tax_rate_resolver"/>
-            <argument type="service" id="sylius.zone_matcher"/>
+            <argument type="service" id="sylius.resolver.tax_rate"/>
+            <argument type="service" id="sylius.matcher.zone"/>
             <argument type="service" id="request_stack"/>
         </service>
         <service id="Sylius\MolliePlugin\Converter\OrderConverterInterface" alias="sylius_mollie.converter.order" />
@@ -37,7 +37,7 @@
         <service id="sylius_mollie.converter.price_to_amount" class="Sylius\MolliePlugin\Converter\PriceToAmountConverter">
             <argument type="service" id="sylius.context.currency"/>
             <argument type="service" id="sylius.context.locale"/>
-            <argument type="service" id="sylius.templating.helper.format_money"/>
+            <argument type="service" id="sylius.formatter.money"/>
         </service>
         <service id="Sylius\MolliePlugin\Converter\PriceToAmountConverterInterface" alias="sylius_mollie.converter.price_to_amount" />
     </services>

@@ -14,29 +14,23 @@ declare(strict_types=1);
 namespace Tests\Sylius\MolliePlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
+use Sylius\Behat\NotificationType;
+use Sylius\Behat\Service\NotificationCheckerInterface;
 use Tests\Sylius\MolliePlugin\Behat\Page\Admin\PaymentMethod\CreatePageInterface;
 use Webmozart\Assert\Assert;
 
 final class ManagingPaymentMethodContext implements Context
 {
-    private CreatePageInterface $createPage;
-
-    private string $mollieTestApiKey;
-
-    private string $mollieProfileId;
-
     public const MOLLIE_TEST_API_KEY = 'MOLLIE_TEST_API_KEY';
 
     public const MOLLIE_PROFILE_KEY = 'MOLLIE_PROFILE_KEY';
 
     public function __construct(
-        CreatePageInterface $createPage,
-        string $mollieTestApiKey,
-        string $mollieProfileId,
+        private readonly CreatePageInterface $createPage,
+        private readonly NotificationCheckerInterface $notificationChecker,
+        private readonly string $mollieTestApiKey,
+        private readonly string $mollieProfileId,
     ) {
-        $this->createPage = $createPage;
-        $this->mollieTestApiKey = $mollieTestApiKey;
-        $this->mollieProfileId = $mollieProfileId;
     }
 
     /**
@@ -103,7 +97,10 @@ final class ManagingPaymentMethodContext implements Context
      */
     public function iShouldBeNotifiedWithSuccessMessage(string $message): void
     {
-        Assert::true($this->createPage->containsSuccessMessage($message));
+        $this->notificationChecker->checkNotification(
+            $message,
+            NotificationType::success(),
+        );
     }
 
     /**

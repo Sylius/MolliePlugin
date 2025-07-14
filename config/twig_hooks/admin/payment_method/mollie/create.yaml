@@ -1,0 +1,74 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_admin.payment_method.create.content.form.sections.gateway_configuration.mollie':
+            credentials:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credentials.html.twig'
+                priority: 400
+            second_chance:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/second_chance.html.twig'
+                priority: 300
+            credit_cards_extra:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credit_cards_extra.html.twig'
+                priority: 200
+            log_level:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/log_level.html.twig'
+                priority: 100
+            mollie_payment_methods:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods.html.twig'
+                priority: 0
+
+        'sylius_admin.payment_method.create.content.form.sections.gateway_configuration.mollie.credentials':
+            environment:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credentials/environment.html.twig'
+                priority: 300
+            test_credentials:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credentials/test_credentials.html.twig'
+                priority: 200
+            api_key_live:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credentials/api_key_live.html.twig'
+                priority: 100
+            test_api_keys_action:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credentials/test_api_keys_action.html.twig'
+                priority: 0
+
+        'sylius_admin.payment_method.create.content.form.sections.gateway_configuration.mollie.credentials.test_credentials':
+            profile_id:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credentials/test_credentials/profile_id.html.twig'
+                priority: 100
+            api_key_test:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credentials/test_credentials/api_key_test.html.twig'
+                priority: 0
+
+        'sylius_admin.payment_method.create.content.form.sections.gateway_configuration.mollie.second_chance':
+            toggle:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/second_chance/toggle.html.twig'
+                priority: 100
+            abandoned_hours:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/second_chance/abandoned_hours.html.twig'
+                priority: 0
+
+        'sylius_admin.payment_method.create.content.form.sections.gateway_configuration.mollie.credit_cards_extra':
+            components:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credit_cards_extra/components.html.twig'
+                priority: 100
+            single_click:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/credit_cards_extra/single_click.html.twig'
+                priority: 0
+
+        'sylius_admin.payment_method.create.content.form.sections.gateway_configuration.mollie.mollie_payment_methods':
+            header:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/header.html.twig'
+                priority: 100
+            body:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body.html.twig'
+                priority: 0
+
+        'sylius_admin.payment_method.create.content.form.sections.gateway_configuration.mollie.mollie_payment_methods.header':
+            title:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/header/title.html.twig'
+                priority: 0
+
+        'sylius_admin.payment_method.create.content.form.sections.gateway_configuration.mollie.mollie_payment_methods.body':
+            create_notice:
+                template: '@SyliusMolliePlugin/admin/payment_method/form/sections/gateway_configuration/mollie_payment_methods/body/create_notice.html.twig'
+                priority: 0

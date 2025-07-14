@@ -1,0 +1,6 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_shop.product.show.content.info.summary':
+            variant_recurring_settings:
+                template: '@SyliusMolliePlugin/shop/product/show/content/info/summary/recurring_settings.html.twig'
+                priority: 350

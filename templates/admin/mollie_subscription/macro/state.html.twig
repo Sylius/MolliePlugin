@@ -1,0 +1,28 @@
+{% macro label(state) %}
+    {% set state_to_colors_map = {
+        new: 'bg-blue-lt',
+        active: 'bg-indigo-lt',
+        paused: 'bg-yellow-lt',
+        processing: 'bg-azure-lt',
+        canceled: 'bg-orange-lt',
+        suspended: 'bg-purple-lt',
+        completed: 'bg-green-lt',
+        aborted: 'bg-red-lt'
+    } %}
+
+    {% set state_to_icons_map = {
+        new: 'eye',
+        active: 'login',
+        paused: 'player-pause',
+        processing: 'refresh',
+        canceled: 'circle-x',
+        suspended: 'alert-circle',
+        completed: 'circle-check',
+        aborted: 'x'
+    } %}
+
+    <span class="badge {{ state_to_colors_map[state]|default('') }}">
+        {{ ux_icon('tabler:' ~ (state_to_icons_map[state]|default('alert-circle'))) }}
+        {{ ('sylius_mollie.ui.subscription.state.' ~ state) | trans }}
+    </span>
+{% endmacro %}

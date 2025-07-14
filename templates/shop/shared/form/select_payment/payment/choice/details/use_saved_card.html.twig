@@ -1,0 +1,5 @@
+{% set form_details = hookable_metadata.context.parent_form.details %}
+
+{% if not form_details.useSavedCards.rendered %}
+    {{ form_row(form_details.useSavedCards) }}
+{% endif %}
