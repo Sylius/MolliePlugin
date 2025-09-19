@@ -18,8 +18,7 @@ use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\Component\Resource\Exception\UpdateHandlingException;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Purifier\MolliePaymentMethodPurifierInterface;
-use Sylius\MolliePlugin\Resolver\MollieMethodsResolverInterface;
+use Sylius\MolliePlugin\Updater\MollieMethodsUpdaterInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,8 +29,7 @@ final class MethodsAction
     public function __construct(
         private readonly MollieLoggerActionInterface $loggerAction,
         private readonly RequestStack $requestStack,
-        private readonly MollieMethodsResolverInterface $mollieMethodsResolver,
-        private readonly MolliePaymentMethodPurifierInterface $methodPurifier,
+        private readonly MollieMethodsUpdaterInterface $mollieMethodsUpdater,
         private readonly EntityRepository $gatewayConfigRepository,
     ) {
     }
@@ -45,9 +43,8 @@ final class MethodsAction
             /** @var GatewayConfigInterface $gateway */
             $gateway = $this->gatewayConfigRepository->find($id);
 
-            $this->mollieMethodsResolver->createForGateway($gateway);
+            $this->mollieMethodsUpdater->update($gateway, true);
 
-            $this->methodPurifier->removeAllNoLongerSupportedMethods();
             $session->getFlashBag()->add('success', 'sylius_mollie.admin.success_got_methods');
 
             return new Response('OK', Response::HTTP_OK);
