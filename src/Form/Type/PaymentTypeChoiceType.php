@@ -25,6 +25,8 @@ final class PaymentTypeChoiceType extends AbstractType
         $resolver->setDefaults([
             'label' => 'sylius_mollie.ui.payment_type',
             'choices' => ApiType::getAllAvailable(),
+            'empty_data' => ApiType::PAYMENT_API_VALUE,
+            'placeholder' => false,
             'help' => 'sylius_mollie.ui.payment_methods_doc',
             'help_html' => true,
         ]);
