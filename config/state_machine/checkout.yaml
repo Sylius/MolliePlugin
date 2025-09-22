@@ -8,8 +8,7 @@ winzou_state_machine:
                     args: ["object"]
                 sylius_mollie_refresh_mollie_payment_methods:
                     on: ["address"]
-                    do: ["@sylius_mollie.payment_method_refresher", "refresh"]
-                    args: ["object"]
+                    do: ["@sylius_mollie.synchronizer.mollie_payment_methods", "sync"]
     sylius_shipment:
         transitions:
             create_and_ship:

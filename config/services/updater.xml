@@ -39,5 +39,12 @@
             <argument>%sylius_mollie.mollie_payment_methods_refresh_ttl%</argument>
         </service>
         <service id="Sylius\MolliePlugin\Updater\MollieMethodsUpdaterInterface" alias="sylius_mollie.updater.mollie_methods" />
+
+        <service id="sylius_mollie.synchronizer.mollie_payment_methods" class="Sylius\MolliePlugin\Updater\MolliePaymentMethodsSynchronizer">
+            <argument type="service" id="sylius.repository.payment_method"/>
+            <argument type="service" id="sylius.context.channel" />
+            <argument type="service" id="sylius_mollie.updater.mollie_methods" />
+        </service>
+        <service id="Sylius\MolliePlugin\Updater\MolliePaymentMethodsSynchronizerInterface" alias="sylius_mollie.synchronizer.mollie_payment_methods" />
     </services>
 </container>
