@@ -17,6 +17,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Exceptions\MollieMethodsException;
 use Sylius\MolliePlugin\Factory\MethodsFactoryInterface;
 use Sylius\MolliePlugin\Factory\MollieGatewayConfigFactoryInterface;
 use Sylius\MolliePlugin\Model\PaymentMethod\MethodInterface;
@@ -55,9 +56,13 @@ final class MollieMethodsUpdater implements MollieMethodsUpdaterInterface
             }
         }
 
-        $upstreamMethodsMap = $this->getPurifiedMethodsFromProvider($gateway);
-        if ([] === $upstreamMethodsMap) {
-            return;
+        try {
+            $upstreamMethodsMap = $this->getPurifiedMethodsFromProvider($gateway);
+            if ([] === $upstreamMethodsMap) {
+                return;
+            }
+        } catch (MollieMethodsException $exception) {
+            throw MollieMethodsException::update($exception);
         }
 
         /** @var MollieGatewayConfigInterface[] $existingMethods */

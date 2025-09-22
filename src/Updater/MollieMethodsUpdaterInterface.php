@@ -14,8 +14,10 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Updater;
 
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Exceptions\MollieMethodsException;
 
 interface MollieMethodsUpdaterInterface
 {
+    /** @throws MollieMethodsException */
     public function update(GatewayConfigInterface $gateway, bool $force = false): void;
 }

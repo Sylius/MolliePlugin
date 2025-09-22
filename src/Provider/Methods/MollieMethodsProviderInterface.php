@@ -15,9 +15,14 @@ namespace Sylius\MolliePlugin\Provider\Methods;
 
 use Mollie\Api\Resources\Method;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Exceptions\MollieMethodsException;
 
 interface MollieMethodsProviderInterface
 {
-    /** @return Method[] */
+    /**
+     * @return Method[]
+     *
+     * @throws MollieMethodsException
+     */
     public function getMethods(GatewayConfigInterface $gateway): array;
 }

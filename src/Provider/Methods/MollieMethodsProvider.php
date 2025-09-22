@@ -13,10 +13,12 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Provider\Methods;
 
+use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Resources\Method;
 use Mollie\Api\Resources\MethodCollection;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Exceptions\MollieMethodsException;
 use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
@@ -40,16 +42,24 @@ final class MollieMethodsProvider implements MollieMethodsProviderInterface
             return [];
         }
 
-        $client = $this->getClient($gateway);
+        try {
+            $client = $this->getClient($gateway);
 
-        if (MollieGatewayFactory::FACTORY_NAME === $factoryName) {
-            return $this->fetchRegular($client);
+            if (MollieGatewayFactory::FACTORY_NAME === $factoryName) {
+                return $this->fetchRegular($client);
+            }
+
+            return $this->fetchSubscription($client);
+        } catch (ApiException $exception) {
+            throw MollieMethodsException::retrieval($exception);
         }
-
-        return $this->fetchSubscription($client);
     }
 
-    /** @return Method[] */
+    /**
+     * @return Method[]
+     *
+     * @throws ApiException
+     */
     private function fetchSubscription(MollieApiClient $client): array
     {
         /** @var MethodCollection $baseCollection */
@@ -62,7 +72,11 @@ final class MollieMethodsProvider implements MollieMethodsProviderInterface
         return $baseCollection->getArrayCopy();
     }
 
-    /** @return Method[] */
+    /**
+     * @return Method[]
+     *
+     * @throws ApiException
+     */
     private function fetchRegular(MollieApiClient $client): array
     {
         /** @var MethodCollection $allMollieMethods */
@@ -74,6 +88,7 @@ final class MollieMethodsProvider implements MollieMethodsProviderInterface
         );
     }
 
+    /** @throws ApiException */
     private function getClient(GatewayConfigInterface $gateway): MollieApiClient
     {
         $config = $gateway->getConfig();

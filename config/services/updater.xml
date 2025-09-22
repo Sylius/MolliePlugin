@@ -29,10 +29,7 @@
         </service>
         <service id="Sylius\MolliePlugin\Updater\MolliePaymentMethodPositionUpdaterInterface" alias="sylius_mollie.updater.mollie_payment_method_position" />
 
-        <service
-            id="sylius_mollie.updater.mollie_methods"
-            class="Sylius\MolliePlugin\Updater\MollieMethodsUpdater"
-        >
+        <service id="sylius_mollie.updater.mollie_methods" class="Sylius\MolliePlugin\Updater\MollieMethodsUpdater">
             <argument type="service" id="cache.app" />
             <argument type="service" id="sylius_mollie.provider.methods.mollie_methods" />
             <argument type="service" id="sylius_mollie.repository.mollie_gateway_config" />
