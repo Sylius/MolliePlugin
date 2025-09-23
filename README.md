@@ -24,6 +24,7 @@
 * [Demo](#mollie-plugin-demo)
 * [Installation](#installation)
   * [Usage](#usage)
+  * [Mollie payment methods synchronization](doc/synchronizing_payment_methods.md)
   * [Recurring subscription (internal CRON)](doc/recurring.md)
 * [Recurring payments](doc/recurring.md)
 * [Community](#community)

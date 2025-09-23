@@ -31,8 +31,7 @@
         <service id="sylius_mollie.controller.admin.methods" class="Sylius\MolliePlugin\Controller\Admin\MethodsAction">
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
             <argument type="service" id="request_stack"/>
-            <argument type="service" id="sylius_mollie.resolver.mollie_methods"/>
-            <argument type="service" id="sylius_mollie.purifier.mollie_payment_method"/>
+            <argument type="service" id="sylius_mollie.updater.mollie_methods"/>
             <argument type="service" id="sylius.repository.gateway_config"/>
         </service>
 

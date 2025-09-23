@@ -58,7 +58,8 @@ final class MollieMethodsCreator implements MollieMethodsCreatorInterface
             $gatewayConfig = $this->factory->create($method, $gateway, $key);
 
             $this->entityManager->persist($gatewayConfig);
-            $this->entityManager->flush();
         }
+
+        $this->entityManager->flush();
     }
 }

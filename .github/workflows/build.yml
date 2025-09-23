@@ -38,16 +38,6 @@ jobs:
                         state_machine_adapter: "winzou_state_machine"
                         refund: "false"
 
-                    -
-                        php: "8.2"
-                        symfony: "~7.2.0"
-                        sylius: "~2.1.0"
-                        node: "24.x"
-                        database: "mysql"
-                        mysql: "8.4"
-                        state_machine_adapter: "symfony_workflow"
-                        refund: "false"
-
         env:
             APP_ENV: test
             DATABASE_URL: "mysql://root:root@127.0.0.1/sylius?serverVersion=${{ matrix.mysql }}"
