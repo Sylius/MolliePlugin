@@ -2,7 +2,6 @@
 
 This section describes setting up & configuring **recurring** payments with this plugin.
 
-With release **4.0** there's updated version or **recurring** payments gateway available in **payment methods** section within admin panel.
 ![subscription.png](subscription.png)
 
 ### 1. Configuration
@@ -74,4 +73,4 @@ for more templates to customize.
 
 
 ### 5. Final note
-* Every subscription is auto-canceled once `two` payments return `negative` status (timed out / failed).
+* Every subscription is auto-canceled after `two` payments return `negative` status (timed out / failed).
