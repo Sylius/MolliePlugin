@@ -1,0 +1,17 @@
+{% import '@SyliusAdmin/shared/helper/money.html.twig' as money %}
+
+{% set unit_promotion_adjustment_voucher = constant('Sylius\\MolliePlugin\\Model\\PaymentMethod\\MealVoucher::MEAL_VOUCHERS') %}
+{% set order = hookable_metadata.context.resource %}
+
+{% set unit_promotion_total_voucher = order.getAdjustmentsTotalRecursively(unit_promotion_adjustment_voucher) %}
+
+{% if unit_promotion_total_voucher %}
+    <tr>
+        <td>
+            <strong>{{ 'sylius_mollie.ui.voucher_promotion'|trans }}</strong>:
+        </td>
+        <td class="text-end voucher-disabled">
+            {{ money.format(unit_promotion_total_voucher, order.currencyCode) }}
+        </td>
+    </tr>
+{% endif %}

@@ -1,6 +1,6 @@
 import _get from 'lodash.get';
 
-import {updateTourCompletition} from "./index";
+import {updateTourCompletion} from "./index";
 
 import {steps} from '../config/steps';
 import wizardTranslations from '../config/wizardTranslations';
@@ -16,14 +16,14 @@ const handleStepButtons = (onboardingWizard, stepIndex, step, translator) => {
 
     return [
         {
-            text: '<i class="close icon"></i>',
+            text: '<i class="btn-close"></i>',
             action: () => {
                 onboardingWizard.handleQuitConfirmation();
             },
             classes: `shepherd-button--close ${step.btnCloseClass || ''}`,
         },
         {
-            text: '<i class="arrow down icon"></i>',
+            text: '<i class="dropdown-toggle me-1"></i>',
             action: () => onboardingWizard.modalCollapseHandler(),
             classes: `shepherd-button--collapse js-tour-collapse ${step.btnCollapseClass || ''}`,
         },
@@ -38,7 +38,7 @@ const handleStepButtons = (onboardingWizard, stepIndex, step, translator) => {
 
                 if (stepIndex === 0) {
                     tour.complete();
-                    updateTourCompletition();
+                    updateTourCompletion();
                 } else {
                     if (step.urlMollie) {
                         window.open(`${step.urlMollie}/signin`, '_blank');

@@ -1,0 +1,50 @@
+{% set resource = hookable_metadata.context.resource %}
+{% set factory_name = resource.gatewayConfig.factoryName ?? '' %}
+
+{%- if factory_name == constant('Sylius\\MolliePlugin\\Payum\\Factory\\MollieGatewayFactory::FACTORY_NAME') -%}
+    <div class="container-xl">
+        <div class="card">
+            <div class="card-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6 d-flex justify-content-end">
+                            <button class="btn btn-primary js-restart-tour" type="button">
+                                {{ 'sylius_mollie.ui.restart_tour'|trans }}
+                            </button>
+                        </div>
+                        <div class="col-6 d-flex justify-content-start">
+                            <a href="https://www.mollie.com/dashboard/login?lang=en" target="_blank">
+                                <img
+                                    src="https://images.ctfassets.net/k4kk06v59kf0/5WfNYahm6s4W2aqOsUsM0y/93db1c43d56b2a073dae1faa44410619/og-image-mollie.png"
+                                    style="width: 100px"
+                                >
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-4 d-flex justify-content-center">
+                        <a class="native-link" href="https://github.com/Sylius/MolliePlugin" target="_blank">
+                            {{ ux_icon('tabler:home') }}
+                            {{ 'sylius_mollie.ui.sylius_bundle'|trans }}
+                        </a>
+                    </div>
+                    <div class="col-4 d-flex justify-content-center">
+                        <a class="native-link" href="https://www.mollie.com/en/contact" target="_blank">
+                            {{ ux_icon('tabler:mail') }}
+                            {{ 'sylius_mollie.ui.contact_mollie'|trans }}
+                        </a>
+                    </div>
+                    <div class="col-4 d-flex justify-content-center">
+                        <a class="native-link" href="https://help.mollie.com/hc/en-us" target="_blank">
+                            {{ ux_icon('tabler:help') }}
+                            {{ 'sylius_mollie.ui.more_info_about_mollie'|trans }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{%- endif -%}

@@ -1,0 +1,26 @@
+framework:
+    workflows:
+        !php/const Sylius\MolliePlugin\StateMachine\MollieSubscriptionPaymentProcessingTransitions::GRAPH:
+            type: state_machine
+            marking_store:
+                type: method
+                property: paymentState
+            supports:
+                - Sylius\MolliePlugin\Entity\MollieSubscriptionInterface
+            initial_marking: !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::PAYMENT_STATE_PENDING
+            places:
+                - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::PAYMENT_STATE_PENDING
+                - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::PAYMENT_STATE_OK
+                - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::PAYMENT_STATE_FAIL
+            transitions:
+                !php/const Sylius\MolliePlugin\StateMachine\MollieSubscriptionPaymentProcessingTransitions::TRANSITION_BEGIN:
+                    from:
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::PAYMENT_STATE_OK
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::PAYMENT_STATE_FAIL
+                    to: !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::PAYMENT_STATE_PENDING
+                !php/const Sylius\MolliePlugin\StateMachine\MollieSubscriptionPaymentProcessingTransitions::TRANSITION_SUCCESS:
+                    from: !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::PAYMENT_STATE_PENDING
+                    to: !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::PAYMENT_STATE_OK
+                !php/const Sylius\MolliePlugin\StateMachine\MollieSubscriptionPaymentProcessingTransitions::TRANSITION_FAILURE:
+                    from: !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::PAYMENT_STATE_PENDING
+                    to: !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::PAYMENT_STATE_FAIL

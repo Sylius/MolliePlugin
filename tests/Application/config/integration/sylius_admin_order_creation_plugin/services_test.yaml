@@ -1,3 +1,0 @@
-imports:
-    - { resource: "../../../../../vendor/sylius/admin-order-creation-plugin/tests/Behat/Resources/services.xml" }
-    - { resource: "../../../../Behat/Resources/integration/sylius_admin_order_creation_plugin/services.xml" }

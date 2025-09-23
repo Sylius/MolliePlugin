@@ -1,0 +1,12 @@
+{% set form = hookable_metadata.context.form %}
+{% set name = hookable_metadata.context.form.name %}
+
+{% set method_form = form.parent.parent %}
+{% set first_translation = form.parent.children|first == form %}
+{% set first_method = method_form.parent.children|sort((a, b) => a.vars.value.position <=> b.vars.value.position)|first == method_form %}
+
+{% if first_method and first_translation %}
+    {{ form_row(name, {'attr': {'class': 'js-onboardingWizard-paymentName'}}) }}
+{% else %}
+    {{ form_row(name) }}
+{% endif %}

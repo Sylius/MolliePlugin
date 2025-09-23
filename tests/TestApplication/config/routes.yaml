@@ -1,0 +1,8 @@
+_bazinga_jstranslation:
+    resource: "@BazingaJsTranslationBundle/Resources/config/routing/routing.yml"
+
+sylius_mollie_plugin:
+    resource: "@SyliusMolliePlugin/config/routes.yaml"
+
+integration_refund:
+    resource: 'integration/refund/routes.php'

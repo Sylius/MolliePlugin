@@ -1,0 +1,16 @@
+{% set form = hookable_metadata.context.method_form.amountLimits %}
+
+<h3>{{ 'sylius_mollie.ui.min_max'|trans }}</h3>
+
+<div class="alert alert-info">
+    {{ form.vars.help|trans }}
+</div>
+
+<div class="row js-onboardingWizard-minMax">
+    <div class="col-6">
+        {{ form_row(form.minimumAmount) }}
+    </div>
+    <div class="col-6">
+        {{ form_row(form.maximumAmount) }}
+    </div>
+</div>

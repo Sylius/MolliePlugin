@@ -136,14 +136,38 @@ final class SubscriptionOrderClonerTest extends TestCase
             ->method('getPromotionCoupon')
             ->willReturn($couponMock)
         ;
-        $orderMock->expects($this->exactly(2))
+        $orderMock->expects($this->once())
         ->method('getShippingAddress')
             ->willReturn($addressMock)
         ;
-        $orderMock->expects($this->exactly(2))
+        $orderMock->expects($this->once())
         ->method('getBillingAddress')
             ->willReturn($billingAddressMock)
         ;
+
+        $addressMock->expects($this->once())->method('getFirstName')->willReturn('John');
+        $addressMock->expects($this->once())->method('getLastName')->willReturn('Doe');
+        $addressMock->expects($this->once())->method('getCompany')->willReturn('Company');
+        $addressMock->expects($this->once())->method('getStreet')->willReturn('Street');
+        $addressMock->expects($this->once())->method('getCity')->willReturn('City');
+        $addressMock->expects($this->once())->method('getPostcode')->willReturn('12345');
+        $addressMock->expects($this->once())->method('getCountryCode')->willReturn('US');
+        $addressMock->expects($this->once())->method('getProvinceCode')->willReturn('US-CA');
+        $addressMock->expects($this->once())->method('getProvinceName')->willReturn('California');
+        $addressMock->expects($this->once())->method('getPhoneNumber')->willReturn('123456789');
+        $addressMock->expects($this->once())->method('getCustomer')->willReturn($customerMock);
+
+        $billingAddressMock->expects($this->once())->method('getFirstName')->willReturn('John');
+        $billingAddressMock->expects($this->once())->method('getLastName')->willReturn('Doe');
+        $billingAddressMock->expects($this->once())->method('getCompany')->willReturn('Company');
+        $billingAddressMock->expects($this->once())->method('getStreet')->willReturn('Street');
+        $billingAddressMock->expects($this->once())->method('getCity')->willReturn('City');
+        $billingAddressMock->expects($this->once())->method('getPostcode')->willReturn('12345');
+        $billingAddressMock->expects($this->once())->method('getCountryCode')->willReturn('US');
+        $billingAddressMock->expects($this->once())->method('getProvinceCode')->willReturn('US-CA');
+        $billingAddressMock->expects($this->once())->method('getProvinceName')->willReturn('California');
+        $billingAddressMock->expects($this->once())->method('getPhoneNumber')->willReturn('123456789');
+        $billingAddressMock->expects($this->once())->method('getCustomer')->willReturn($customerMock);
         $orderMock->expects($this->once())
             ->method('getAdjustments')
             ->willReturn(new ArrayCollection([$adjustmentMock]))

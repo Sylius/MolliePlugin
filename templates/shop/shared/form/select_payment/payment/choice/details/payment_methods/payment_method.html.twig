@@ -1,0 +1,7 @@
+{% for key_choice, choice in hookable_metadata.context.form.vars.choices %}
+    <div class="online-payment__item online-payment__item--{{ choice.value }}" id="{{ choice.value }}"
+         data-feeurl="{{ path('sylius_mollie_shop_payment_fee_calculate', {gatewayName: hookable_metadata.context.gateway_config.gatewayName, methodId: choice.value }) }}"
+    >
+        {% hook 'payment_method' with { key_choice, choice } %}
+    </div>
+{% endfor %}

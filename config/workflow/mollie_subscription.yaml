@@ -1,0 +1,63 @@
+framework:
+    workflows:
+        !php/const \Sylius\MolliePlugin\StateMachine\MollieSubscriptionTransitions::GRAPH:
+            type: state_machine
+            marking_store:
+                type: method
+                property: state
+            supports:
+                - Sylius\MolliePlugin\Entity\MollieSubscriptionInterface
+            initial_marking: !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_NEW
+            places:
+                - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_NEW
+                - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_PROCESSING
+                - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_ACTIVE
+                - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_PAUSED
+                - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_CANCELED
+                - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_SUSPENDED
+                - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_COMPLETED
+                - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_ABORTED
+            transitions:
+                !php/const \Sylius\MolliePlugin\StateMachine\MollieSubscriptionTransitions::TRANSITION_PROCESS:
+                    from:
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_NEW
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_ACTIVE
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_SUSPENDED
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_COMPLETED
+                    to: !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_PROCESSING
+                !php/const \Sylius\MolliePlugin\StateMachine\MollieSubscriptionTransitions::TRANSITION_ACTIVATE:
+                    from:
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_NEW
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_PROCESSING
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_SUSPENDED
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_COMPLETED
+                    to: !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_ACTIVE
+                !php/const \Sylius\MolliePlugin\StateMachine\MollieSubscriptionTransitions::TRANSITION_CANCEL:
+                    from:
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_PROCESSING
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_ACTIVE
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_SUSPENDED
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_COMPLETED
+                    to: !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_CANCELED
+                !php/const \Sylius\MolliePlugin\StateMachine\MollieSubscriptionTransitions::TRANSITION_SUSPEND:
+                    from:
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_NEW
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_PROCESSING
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_ACTIVE
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_COMPLETED
+                    to: !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_SUSPENDED
+                !php/const \Sylius\MolliePlugin\StateMachine\MollieSubscriptionTransitions::TRANSITION_COMPLETE:
+                    from:
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_NEW
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_PROCESSING
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_ACTIVE
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_SUSPENDED
+                    to: !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_COMPLETED
+                !php/const \Sylius\MolliePlugin\StateMachine\MollieSubscriptionTransitions::TRANSITION_ABORT:
+                    from:
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_NEW
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_PROCESSING
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_ACTIVE
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_SUSPENDED
+                        - !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_COMPLETED
+                    to: !php/const Sylius\MolliePlugin\Entity\MollieSubscriptionInterface::STATE_ABORTED

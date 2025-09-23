@@ -1,0 +1,7 @@
+<tbody>
+    {% for payment in hookable_metadata.context.resource.payments %}
+        <tr>
+            {% hook 'body' with { payment } %}
+        </tr>
+    {% endfor %}
+</tbody>

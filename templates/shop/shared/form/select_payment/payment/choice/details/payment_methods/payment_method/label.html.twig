@@ -1,0 +1,9 @@
+<label for="choice-{{ hookable_metadata.context.key_choice }}" class="online-payment__label">
+    {% set image = hookable_metadata.context.choice.attr['image'] %}
+    {% if 'http:' not in image and 'https:' not in image %}
+        {% set image = image|imagine_filter('sylius_original') %}
+    {% endif %}
+
+    <img class="online-payment__image" src="{{ image }}" alt="payment_image">
+    {{ hookable_metadata.context.choice.label }}
+</label>
