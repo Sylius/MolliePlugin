@@ -51,8 +51,6 @@ final class ConvertMolliePaymentActionTest extends TestCase
 
     private DivisorProviderInterface|MockObject $divisorProviderMock;
 
-    private DivisorProviderInterface $divisorProviderMock;
-
     private ConvertMolliePaymentAction $convertMolliePaymentAction;
 
     protected function setUp(): void
