@@ -55,5 +55,12 @@
             <argument type="service" id="request_stack" />
             <tag name="kernel.event_listener" event="sylius.order.initialize_address" method="onUpdate"/>
         </service>
+
+        <service id="sylius_mollie.listener.payment_methods_refresh" class="Sylius\MolliePlugin\EventListener\PaymentMethodsRefreshListener">
+            <argument type="service" id="sylius_mollie.updater.mollie_methods" />
+            <argument type="service" id="request_stack" />
+
+            <tag name="kernel.event_listener" event="sylius.payment_method.initialize_update" method="refreshMethods" />
+        </service>
     </services>
 </container>
