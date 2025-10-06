@@ -21,7 +21,7 @@
 ## Table of Contents
 
 * [Overview](#overview)
-* [Demo](#mollie-plugin-demo)
+* [Demo](#demo)
 * [Installation](#installation)
   * [Usage](#usage)
   * [Recurring subscription (internal CRON)](doc/recurring.md)
