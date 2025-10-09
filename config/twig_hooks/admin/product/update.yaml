@@ -11,6 +11,6 @@ sylius_twig_hooks:
                 priority: -100
 
         'sylius_admin.product.update.content.form.sections.mollie':
-            mollie_product_type:
+            product_type:
                 template: '@SyliusMolliePlugin/admin/product/form/sections/mollie/product_type.html.twig'
                 priority: -100
