@@ -17,14 +17,6 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <services>
-        <service id="sylius_mollie.menu_listener.mollie" class="Sylius\MolliePlugin\Menu\MollieMenuListener">
-            <tag name="kernel.event_listener" method="buildMenu" event="sylius.menu.admin.main" />
-        </service>
-
-        <service id="sylius_mollie.menu_listener.mollie_email_template" class="Sylius\MolliePlugin\Menu\MollieEmailTemplateMenuListener">
-            <tag name="kernel.event_listener" event="sylius.menu.admin.main" method="buildMenu" />
-        </service>
-
         <service id="sylius_mollie.menu_listener.mollie_recurring" class="Sylius\MolliePlugin\Menu\MollieRecurringMenuListener">
             <tag name="kernel.event_listener" method="buildMenu" event="sylius.menu.admin.main" />
         </service>
