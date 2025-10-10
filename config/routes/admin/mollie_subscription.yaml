@@ -9,7 +9,8 @@ sylius_mollie_admin_mollie_subscription:
         redirect: update
         grid: sylius_mollie_plugin_mollie_subscription
         vars:
-            hook_prefix: 'sylius_mollie.admin.subscription'
+            all:
+                hook_prefix: 'sylius_mollie.admin.subscription'
     type: sylius.resource
 
 sylius_mollie_admin_mollie_subscription_cancel:

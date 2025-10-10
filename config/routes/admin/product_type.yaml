@@ -6,7 +6,8 @@ sylius_mollie_admin_product_type:
         except: ['show']
         grid: sylius_mollie_plugin_admin_product_type
         vars:
-            hook_prefix: 'sylius_mollie.admin.product_type'
+            all:
+                hook_prefix: 'sylius_mollie.admin.product_type'
         redirect: index
         permission: true
     type: sylius.resource
