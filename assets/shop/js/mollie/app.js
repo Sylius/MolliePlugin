@@ -343,7 +343,7 @@ $(function () {
     }
 
     function initializeCreditCartFields(selectedValue) {
-        const testmode = '' === mollieData.getAttribute('data-environment');
+        const testmode = '' === mollieData.data('environment');
 
         const mollie = Mollie(mollieData.data('profile_id'), {
             locale: mollieData.data('locale'),
