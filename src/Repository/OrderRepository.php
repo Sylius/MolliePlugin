@@ -17,7 +17,7 @@ use Sylius\Bundle\CoreBundle\Doctrine\ORM\OrderRepository as BaseOrderRepository
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderPaymentStates;
 
-final class OrderRepository extends BaseOrderRepository implements OrderRepositoryInterface
+class OrderRepository extends BaseOrderRepository implements OrderRepositoryInterface
 {
     public function findAbandonedByDateTime(\DateTime $dateTime): array
     {
