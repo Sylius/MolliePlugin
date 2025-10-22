@@ -21,7 +21,7 @@
 ## Table of Contents
 
 * [Overview](#overview)
-* [Demo](#mollie-plugin-demo)
+* [Demo](#demo)
 * [Installation](#installation)
   * [Usage](#usage)
   * [Mollie payment methods synchronization](doc/synchronizing_payment_methods.md)
