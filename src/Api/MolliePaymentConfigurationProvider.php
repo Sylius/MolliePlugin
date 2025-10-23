@@ -57,7 +57,7 @@ class MolliePaymentConfigurationProvider
         $details = $payment->getDetails();
         $methodName = $details['molliePaymentMethods'] ?? null;
 
-        if (!$methodName) {
+        if (empty($methodName)) {
             if (isset($details['metadata']['molliePaymentMethods'])) {
                 $methodName = $details['metadata']['molliePaymentMethods'];
             }
