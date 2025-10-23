@@ -9,6 +9,10 @@ sylius_twig_hooks:
                     template: '@SyliusAdmin/shared/crud/common/content/form.html.twig'
                 priority: 0
 
+        'sylius_mollie.admin.email_template.create.content.header':
+            breadcrumbs:
+                template: '@SyliusMolliePlugin/admin/email_template/create/content/header/breadcrumbs.html.twig'
+
         'sylius_mollie.admin.email_template.create.content.form.sections.general':
             default:
                 enabled: false
