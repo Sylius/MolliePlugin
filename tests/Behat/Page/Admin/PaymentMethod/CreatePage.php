@@ -55,7 +55,7 @@ final class CreatePage extends BaseCreatePage implements CreatePageInterface
      */
     public function containsErrorWithMessage(string $message, bool $strict = true): bool
     {
-        $validationMessageElements = $this->getDocument()->findAll('css', '.sylius-validation-error');
+        $validationMessageElements = $this->getDocument()->findAll('css', '.invalid-feedback');
         $result = false;
 
         /** @var NodeElement $validationMessageElement */
@@ -70,18 +70,5 @@ final class CreatePage extends BaseCreatePage implements CreatePageInterface
         }
 
         return $result;
-    }
-
-    public function containsSuccessMessage(string $message): bool
-    {
-        $successMessages = $this->getDocument()->findAll('css', '.sylius-flash-message p');
-
-        foreach ($successMessages as $successMessage) {
-            if ($successMessage->getText() === $message) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

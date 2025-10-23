@@ -1,5 +1,0 @@
-<div id="sylius-variants-recurring-choice" data-unavailable-text="{{ 'sylius.ui.unavailable'|trans }}">
-    {% for variant in product.getEnabledVariants() %}
-            <div data-variant="{{ variant.code }}" {{ sylius_test_html_attribute('variant-recurring') }} data-value="{{ (variant.recurring ? '1' : '0') | default('0') }}" ></div>
-    {% endfor %}
-</div>

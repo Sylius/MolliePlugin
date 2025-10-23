@@ -52,12 +52,15 @@
     background-color: #fff0f0;
 }
 
-@media (min-width: 321px) {
+@media (min-width: 350px) {
     .form-fields {
         grid-template-columns: 1fr 1fr;
     }
 
-    .form-group--card-number {
+    .form-group--card-number,
+    .form-group--card-name,
+    .form-group--save-credit-card,
+    .form-group--form-error{
         grid-column: span 2;
     }
 }
@@ -68,13 +71,14 @@
 
 .online-payment__label {
     display: flex!important;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     border: 1px solid #dedede;
     padding: 1rem!important;
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
+    gap: 10px;
 }
 
 .online-payment__item {
@@ -84,13 +88,12 @@
 }
 
 .online-payment__input:checked~.online-payment__label {
-    border-color: #21ba45;
-    box-shadow: 0 0 0 2px #21ba45 inset;
+    border-color: #22B99A;
+    box-shadow: 0 0 0 2px #22B99A inset;
 }
 
 .online-payment__image {
     width: 50px;
-    margin-bottom: 0.5rem;
 }
 
 .online-payment__credit-card {
@@ -183,5 +186,4 @@
 
 .draggable {
     position: relative;
-
 }

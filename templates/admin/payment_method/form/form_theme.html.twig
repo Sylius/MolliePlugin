@@ -1,0 +1,85 @@
+{% extends '@SyliusAdmin/shared/form_theme.html.twig' %}
+
+{% block _sylius_admin_payment_method_gatewayConfig_config_api_key_test_help %}
+    <div id="{{ id }}" class="form-text mb-0 help-text">
+        {{ 'sylius_mollie.ui.read_more_test_api_key'|trans({
+            '%link%': '<a target="_blank" href="https://www.mollie.com/dashboard/developers/api-keys">' ~ 'sylius_mollie.ui.mollie_profile'|trans ~ '</a>'
+        })|raw }}
+    </div>
+{% endblock %}
+
+{% block _sylius_admin_payment_method_gatewayConfig_config_api_key_live_help %}
+    <div id="{{ id }}" class="form-text mb-0 help-text">
+        {{ 'sylius_mollie.ui.read_more_live_api_key'|trans({
+            '%link%': '<a target="_blank" href="https://www.mollie.com/dashboard/developers/api-keys">' ~ 'sylius_mollie.ui.mollie_profile'|trans ~ '</a>'
+        })|raw }}
+    </div>
+{% endblock %}
+
+{% block _sylius_admin_payment_method_gatewayConfig_config_components_help %}
+    <div id="{{ id }}" class="form-text mb-0 help-text">
+        {{ 'sylius_mollie.ui.read_more_enable_components'|trans({
+            '%link%': '<a target="_blank" href="https://www.mollie.com/en/news/post/better-checkout-flows-with-mollie-components">' ~ 'sylius_mollie.ui.mollie_components'|trans ~ '</a>'
+        })|raw }}
+    </div>
+{% endblock %}
+
+{% block _sylius_admin_payment_method_gatewayConfig_config_single_click_enabled_help %}
+    <div id="{{ id }}" class="form-text mb-0 help-text">
+        {{ 'sylius_mollie.ui.read_more_single_click_enabled'|trans({
+            '%link%': '<a target="_blank" href="https://help.mollie.com/hc/en-us/articles/115000671249-What-are-single-click-payments-and-how-does-it-work-">' ~ 'sylius_mollie.ui.mollie_single_click'|trans ~ '</a>'
+        })|raw }}
+    </div>
+{% endblock %}
+
+{% block _sylius_admin_payment_method_gatewayConfig_mollieGatewayConfig_entry_customizeMethodImage_file_widget %}
+    {%- if form.parent.vars.data != null and form.parent.vars.data.path != null %}
+    <div class="input-group">
+    {% endif %}
+    {{ form_widget(form) }}
+
+    {%- if form.parent.vars.data != null and form.parent.vars.data.path != null %}
+        {% set payment_method = form.parent.parent.vars.data %}
+        <div class="input-group-append">
+            <div
+                class="btn btn-danger form_button--delete-img"
+                data-url="{{ path('sylius_mollie_admin_mollie_method_delete_logo', {'methodName': payment_method.name}) }}"
+            >
+                {{ 'sylius.ui.delete'|trans }}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block _sylius_admin_payment_method_gatewayConfig_config_api_key_test_widget %}
+    <div class="input-group">
+        {{ form_widget(form) }}
+        <div class="input-group-append">
+            <button
+                id="{{ name }}"
+                class="btn btn-success"
+                type="button"
+                data-input="{{ id }}"
+            >
+                {{ 'sylius_mollie.ui.show_hide'|trans }}
+            </button>
+        </div>
+    </div>
+{% endblock %}
+
+{% block _sylius_admin_payment_method_gatewayConfig_config_api_key_live_widget %}
+    <div class="input-group">
+        {{ form_widget(form) }}
+        <div class="input-group-append">
+            <button
+                id="{{ name }}"
+                class="btn btn-success"
+                type="button"
+                data-input="{{ id }}"
+            >
+                {{ 'sylius_mollie.ui.show_hide'|trans }}
+            </button>
+        </div>
+    </div>
+{% endblock %}

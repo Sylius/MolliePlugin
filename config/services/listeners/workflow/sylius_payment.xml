@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <services>
+        <service id="sylius_mollie.listener.workflow.payment.subscription_payment_fail" class="Sylius\MolliePlugin\EventListener\Workflow\Payment\SubscriptionPaymentFailListener">
+            <argument type="service" id="sylius_mollie.subscription.processor.subscription_payment" />
+
+            <tag name="kernel.event_listener" event="workflow.sylius_payment.completed.fail" priority="-100" />
+            <tag name="kernel.event_listener" event="workflow.sylius_payment.completed.cancel" priority="-100" />
+        </service>
+
+        <service id="sylius_mollie.listener.workflow.payment.subscription_payment_success" class="Sylius\MolliePlugin\EventListener\Workflow\Payment\SubscriptionPaymentSuccessListener">
+            <argument type="service" id="sylius_mollie.subscription.processor.subscription_payment" />
+
+            <tag name="kernel.event_listener" event="workflow.sylius_payment.completed.complete" priority="-100" />
+        </service>
+
+        <service id="sylius_mollie.listener.workflow.payment.refund_guard" class="Sylius\MolliePlugin\EventListener\Workflow\Payment\PaymentRefundGuardListener">
+            <argument type="service" id="sylius_mollie.refund.guard.mollie_payment_refund" />
+
+            <tag name="kernel.event_listener" event="workflow.sylius_payment.guard.refund" priority="0" />
+        </service>
+    </services>
+</container>

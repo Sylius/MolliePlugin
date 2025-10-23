@@ -4,6 +4,7 @@ services:
         public: true
         arguments:
             - "@sylius_mollie.behat.page.admin.payment_method.create"
+            - "@sylius.behat.notification_checker.admin"
             - "%env(MOLLIE_TEST_API_KEY)%"
             - "%env(MOLLIE_PROFILE_KEY)%"
 
@@ -12,6 +13,7 @@ services:
         public: true
         arguments:
             - "@sylius_mollie.behat.page.shop.checkout.complete"
+            - "@sylius.behat.notification_checker.shop"
 
     sylius_mollie.behat.context.ui.shop.product:
         class: Tests\Sylius\MolliePlugin\Behat\Context\Ui\Shop\ProductContext
@@ -30,7 +32,7 @@ services:
         public: true
         arguments:
             - "@sylius_mollie.behat.page.shop.account.order.index"
-            - "@sylius.behat.notification_checker"
+            - "@sylius.behat.notification_checker.shop"
 
 
     sylius_mollie.behat.context.ui.admin.order:
@@ -39,7 +41,6 @@ services:
         arguments:
             - "@sylius_mollie.behat.page.admin.order_index"
             - "@sylius.repository.payment"
-            - "@sylius_mollie.behat.page.admin.order_show"
 
     sylius_mollie.behat.context.ui.admin.managing_orders:
         class: Tests\Sylius\MolliePlugin\Behat\Context\Ui\Admin\ManagingOrdersContext

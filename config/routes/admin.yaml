@@ -7,12 +7,6 @@ mollie_logger:
 mollie_logo:
     resource: "admin/mollie_logo.yaml"
 
-mollie_payment_refund:
-    resource: "admin/payment_refund.yaml"
-
-mollie_partial_ship:
-    resource: "admin/partial_ship.yaml"
-
 mollie_payment_link:
     resource: "admin/payment_link.yaml"
 
@@ -22,11 +16,14 @@ mollie_email_template:
 mollie_product_type:
     resource: "admin/product_type.yaml"
 
-sylius_mollie_plugin_onboarding_wizard_status:
+sylius_mollie_admin_onboarding_wizard_status:
     resource: "admin/onboarding_wizard/status.yaml"
 
-sylius_mollie_plugin_onboarding_wizard_completed:
+sylius_mollie_admin_onboarding_wizard_completed:
     resource: "admin/onboarding_wizard/completed.yaml"
 
 sylius_mollie_plugin_mollie_subscription:
     resource: "admin/mollie_subscription.yaml"
+
+sylius_mollie_admin_payum_refund:
+    resource: "@PayumBundle/Resources/config/routing/refund.xml"

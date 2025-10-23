@@ -21,14 +21,14 @@ use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Filter\MollieMethodFilterInterface;
 use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
-use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
+use Sylius\MolliePlugin\Repository\Query\MollieBasedPaymentMethodQueryInterface;
 use Webmozart\Assert\Assert;
 
 final class PaymentMethodResolver implements PaymentMethodsResolverInterface
 {
     public function __construct(
         private readonly PaymentMethodsResolverInterface $decoratedResolver,
-        private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+        private readonly MollieBasedPaymentMethodQueryInterface $mollieBasedPaymentMethodQuery,
         private readonly MollieFactoryNameResolverInterface $factoryNameResolver,
         private readonly MollieMethodFilterInterface $mollieMethodFilter,
         private readonly EntityManagerInterface $entityManager,
@@ -47,7 +47,7 @@ final class PaymentMethodResolver implements PaymentMethodsResolverInterface
         $factoryName = $this->factoryNameResolver->resolve($order);
 
         Assert::notNull($channel);
-        $method = $this->paymentMethodRepository->findOneByChannelAndGatewayFactoryName(
+        $method = $this->mollieBasedPaymentMethodQuery->getOneByChannelAndFactoryName(
             $channel,
             $factoryName,
         );

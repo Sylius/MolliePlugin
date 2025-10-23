@@ -17,11 +17,14 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <services>
-        <service
-            id="sylius_mollie.repository.credit_memo"
-            class="Sylius\MolliePlugin\Repository\CreditMemoRepository"
-            parent="sylius_refund.repository.credit_memo"
-        />
-        <service id="Sylius\MolliePlugin\Repository\CreditMemoRepositoryInterface" alias="sylius_mollie.repository.credit_memo"/>
+        <service id="sylius_mollie.repository.query.order.abandoned" class="Sylius\MolliePlugin\Repository\Query\AbandonedOrdersQuery">
+            <argument type="service" id="sylius.repository.order" />
+        </service>
+        <service id="Sylius\MolliePlugin\Repository\Query\AbandonedOrdersQueryInterface" alias="sylius_mollie.repository.query.order.abandoned" />
+
+        <service id="sylius_mollie.repository.query.payment_method.mollie_based" class="Sylius\MolliePlugin\Repository\Query\MollieBasedPaymentMethodQuery">
+            <argument type="service" id="sylius.repository.payment_method" />
+        </service>
+        <service id="Sylius\MolliePlugin\Repository\Query\MollieBasedPaymentMethodQueryInterface" alias="sylius_mollie.repository.query.payment_method.mollie_based" />
     </services>
 </container>

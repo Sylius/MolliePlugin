@@ -1,5 +1,4 @@
-$ = window.$;
-$(function () {
+document.addEventListener('DOMContentLoaded', function () {
     const mollieFormIncluded = document.getElementById('mollie-payment-form');
     const liveApiValue = '1';
 
@@ -7,181 +6,162 @@ $(function () {
         return;
     }
 
-    $('#get_methods').on('click', function () {
-        let form = $('.ui.form');
-        form.addClass('loading');
+    const getMethodsButton = document.getElementById('get_methods');
+    if (getMethodsButton) {
+        getMethodsButton.addEventListener('click', function () {
+            const form = document.querySelector('form[name="sylius_admin_payment_method"]');
+            if (form) {
+                form.classList.add('loading');
+            }
 
-        $.ajax({
-            type: 'GET',
-            url: $(this).data('url'),
-            success: function (data) {
-                location.reload();
-            },
-            error: function () {
-                location.reload();
-            },
+            fetch(this.dataset.url, {
+                method: 'GET',
+            })
+                .then(() => location.reload())
+                .catch(() => location.reload());
+        });
+    }
+
+    document.querySelectorAll('.form_button--delete-img').forEach((btn) => {
+        btn.addEventListener('click', function () {
+            fetch(this.dataset.url, {
+                method: 'DELETE',
+            })
+                .then(() => location.reload())
+                .catch();
         });
     });
 
-    $('.ui.dropdown').dropdown();
+    document.querySelectorAll('[id$="_paymentType"]').forEach((select, index) => {
+        setPaymentDescription(select);
 
-    $('.form_button--delete-img').each(function (index, value) {
-        $(this).on('click', function () {
-            let form = $('.ui.form');
-            let value = $(this).data('value');
-            form.addClass('loading');
-
-            $.ajax({
-                data: {method: value},
-                type: 'DELETE',
-                url: $(this).data('url'),
-                success: function (data) {
-                    location.reload();
-                },
-                error: function () {
-                    form.removeClass('loading');
-                },
-            });
-        });
-    });
-
-    $('[id$="_paymentType"]').each(function (index) {
-        setPaymentDescription($(this), index);
-
-        $(this).on('change', function (event) {
-            setPaymentDescription($(event.target), index);
+        select.addEventListener('change', function (event) {
+            setPaymentDescription(event.target);
         });
     });
 
     function setPaymentDescription(select) {
-        const $targetMethod = select.closest('.js-draggable');
-        const $inputOrderNumber = $targetMethod.find('[id$="_paymentDescription"]');
-        const $descriptionOrderNumber = $targetMethod.find('[id^="payment_description_"]');
+        const targetMethod = select.closest('.js-draggable');
+        if (!targetMethod) return;
 
-        if (select.find(':selected').val() === 'PAYMENT_API') {
-            $inputOrderNumber.show();
-            $descriptionOrderNumber.show();
+        const paymentDescription = targetMethod.querySelector('.js-onboardingWizard-order-number');
+        if (!paymentDescription) return;
+
+        if (select.value === 'PAYMENT_API') {
+            paymentDescription.style.display = '';
         } else {
-            $inputOrderNumber.hide();
-            $descriptionOrderNumber.hide();
+            paymentDescription.style.display = 'none';
         }
     }
 
-    $('[id$="_paymentSurchargeFee_type"]').each(function () {
-        const value = $(this).val();
-        const index = $(this).closest('[data-method-id]').data('method-id');
+    document.querySelectorAll('[id$="_paymentSurchargeFee_type"]').forEach((element) => {
+        const value = element.value;
+        const index = element.closest('[data-method-id]').dataset.methodId;
 
         setPaymentFeeFields(value, index);
 
-        $(this).on('change', () => {
-            const value = $(this).val();
-            const index = $('.content.active[data-method-id]').data('method-id');
+        element.addEventListener('change', function () {
+            const value = this.value;
+            const index = this.closest('[data-method-id]').dataset.methodId;
             setPaymentFeeFields(value, index);
         });
     });
 
     function setPaymentFeeFields(value, index) {
-        const fixedAmount =
-            'sylius_payment_method_gatewayConfig_mollieGatewayConfig_' + index + '_paymentSurchargeFee_fixedAmount';
-        const percentage =
-            'sylius_payment_method_gatewayConfig_mollieGatewayConfig_' + index + '_paymentSurchargeFee_percentage';
-        const surchargeLimit =
-            'sylius_payment_method_gatewayConfig_mollieGatewayConfig_' + index + '_paymentSurchargeFee_surchargeLimit';
-        const fixedAmountItems = $('label[for=' + fixedAmount + '], input#' + fixedAmount + '');
-        const percentageItems = $('label[for=' + percentage + '], input#' + percentage + '');
-        const surchargeLimitItems = $('label[for=' + surchargeLimit + '], input#' + surchargeLimit + '');
+        const fixedAmount = document.getElementById(`sylius_admin_payment_method_gatewayConfig_mollieGatewayConfig_${index}_paymentSurchargeFee_fixedAmount`);
+        const percentage = document.getElementById(`sylius_admin_payment_method_gatewayConfig_mollieGatewayConfig_${index}_paymentSurchargeFee_percentage`);
+        const surchargeLimit = document.getElementById(`sylius_admin_payment_method_gatewayConfig_mollieGatewayConfig_${index}_paymentSurchargeFee_surchargeLimit`);
+
+        const fixedAmountItems = fixedAmount?.parentElement;
+        const percentageItems = percentage?.parentElement;
+        const surchargeLimitItems = surchargeLimit?.parentElement;
+
+        if (!fixedAmountItems || !percentageItems || !surchargeLimitItems) return;
 
         switch (value) {
             case 'no_fee':
-                fixedAmountItems.hide();
-                percentageItems.hide();
-                surchargeLimitItems.hide();
+                fixedAmountItems.style.display = 'none';
+                percentageItems.style.display = 'none';
+                surchargeLimitItems.style.display = 'none';
                 break;
             case 'percentage':
-                fixedAmountItems.hide();
-                percentageItems.show();
-                surchargeLimitItems.show();
+                fixedAmountItems.style.display = 'none';
+                percentageItems.style.display = '';
+                surchargeLimitItems.style.display = '';
                 break;
             case 'fixed_fee':
-                fixedAmountItems.show();
-                percentageItems.hide();
-                surchargeLimitItems.hide();
+                fixedAmountItems.style.display = '';
+                percentageItems.style.display = 'none';
+                surchargeLimitItems.style.display = 'none';
                 break;
             case 'fixed_fee_and_percentage':
-                fixedAmountItems.show();
-                percentageItems.show();
-                surchargeLimitItems.show();
+                fixedAmountItems.style.display = '';
+                percentageItems.style.display = '';
+                surchargeLimitItems.style.display = '';
                 break;
             default:
                 break;
         }
     }
 
-    $('[id$="_country_restriction"]').each(function (index) {
-        const value = $(this).find(':selected').val();
-        setCountryRestriction(value, index);
+    document.querySelectorAll('[id$="_country_restriction"]').forEach((select, index) => {
+        setCountryRestriction(select.value, index);
 
-        $(this).on('change', function () {
-            const value = $(this).val();
-            setCountryRestriction(value, index);
+        select.addEventListener('change', function () {
+            setCountryRestriction(this.value, index);
         });
     });
 
     function setCountryRestriction(value, index) {
-        const excludeCountries = $('#country-excluded_' + index);
-        const allowCountries = $('#country-allowed_' + index);
+        const excludeCountries = document.getElementById('country-excluded_' + index);
+        const allowCountries = document.getElementById('country-allowed_' + index);
+
+        if (!excludeCountries || !allowCountries) return;
 
         if (value === 'ALL_COUNTRIES') {
-            excludeCountries.show();
-            allowCountries.hide();
-        }
-        if (value === 'SELECTED_COUNTRIES') {
-            excludeCountries.hide();
-            allowCountries.show();
+            excludeCountries.style.display = '';
+            allowCountries.style.display = 'none';
+        } else if (value === 'SELECTED_COUNTRIES') {
+            excludeCountries.style.display = 'none';
+            allowCountries.style.display = '';
         }
     }
 
-    const addRequired = (child) => {
-        $(child).closest('.field').addClass('required');
+    const addRequired = (selector) => {
+        const field = document.querySelector(selector);
+        if (field) {
+            const parent = field.closest('.field');
+            if (parent) parent.classList.add('required');
+        }
     };
 
-    const removeRequired = (child) => {
-        $(child).closest('.field').removeClass('required');
+    const removeRequired = (selector) => {
+        const field = document.querySelector(selector);
+        if (field) {
+            const parent = field.closest('.field');
+            if (parent) parent.classList.remove('required');
+        }
     };
 
-    const conditionalFieldHandler = (handledField, expectedValue, requiredField) => {
-        if (handledField.val() === expectedValue) {
-            addRequired(requiredField);
-        } else if (handledField.val() !== expectedValue) {
-            removeRequired(requiredField);
+    const conditionalFieldHandler = (field, expectedValue, requiredFieldSelector) => {
+        if (field.value === expectedValue) {
+            addRequired(requiredFieldSelector);
+        } else {
+            removeRequired(requiredFieldSelector);
         }
     };
 
     const turnOnHandlers = () => {
-        const environmentField = $('#sylius_payment_method_gatewayConfig_config_environment');
-        const liveApiFieldIndicator = '#sylius_payment_method_gatewayConfig_config_api_key_live';
+        const environmentField = document.getElementById('sylius_admin_payment_method_gatewayConfig_config_environment');
+        const liveApiFieldSelector = '#sylius_admin_payment_method_gatewayConfig_config_api_key_live';
 
         if (environmentField) {
-            conditionalFieldHandler(environmentField, liveApiValue, liveApiFieldIndicator);
-            environmentField.on('change', () => {
-                conditionalFieldHandler(environmentField, liveApiValue, liveApiFieldIndicator);
+            conditionalFieldHandler(environmentField, liveApiValue, liveApiFieldSelector);
+            environmentField.addEventListener('change', function () {
+                conditionalFieldHandler(environmentField, liveApiValue, liveApiFieldSelector);
             });
         }
     };
 
-    const hideProfileIdInput = () => {
-        let labelFor = "sylius_payment_method_gatewayConfig_config_profile_id";
-        let labelElement = document.querySelector(`label[for="${labelFor}"]`);
-
-        if (labelElement) {
-            let parentElement = labelElement.parentNode;
-
-            if (parentElement) {
-                parentElement.classList.remove('required');
-            }
-        }
-    };
-
     turnOnHandlers();
-    hideProfileIdInput();
 });

@@ -20,16 +20,10 @@ use Tests\Sylius\MolliePlugin\Behat\Page\Shop\Account\Order\IndexPageInterface;
 
 final class AccountContext implements Context
 {
-    private IndexPageInterface $orderIndexPage;
-
-    private NotificationCheckerInterface $notificationChecker;
-
     public function __construct(
-        IndexPageInterface $orderIndexPage,
-        NotificationCheckerInterface $notificationChecker,
+        private readonly IndexPageInterface $orderIndexPage,
+        private readonly NotificationCheckerInterface $notificationChecker,
     ) {
-        $this->orderIndexPage = $orderIndexPage;
-        $this->notificationChecker = $notificationChecker;
     }
 
     /**

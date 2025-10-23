@@ -1,0 +1,13 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_shop.account.order.show.content.main.header':
+            mollie_cancel_subscription:
+                component: 'sylius_mollie:shop:order:cancel_subscription'
+                props:
+                    order: '@=_context.order'
+                    template: "@SyliusMolliePlugin/shop/component/cancel_subscription.html.twig"
+                    button_config:
+                        expanded: true
+                        class: 'btn btn-warning'
+                        container_class: 'd-flex gap-3 justify-content-end mb-3'
+                priority: 50

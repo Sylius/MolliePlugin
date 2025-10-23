@@ -17,5 +17,7 @@ use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 
 interface SubscriptionGuardInterface
 {
+    public function isEligibleForPaymentsAbort(MollieSubscriptionInterface $subscription): bool;
+
     public function isCompletable(MollieSubscriptionInterface $subscription): bool;
 }

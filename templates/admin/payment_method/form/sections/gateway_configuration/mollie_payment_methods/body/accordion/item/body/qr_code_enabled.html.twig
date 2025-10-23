@@ -1,0 +1,10 @@
+{% set ideal = constant('Mollie\\Api\\Types\\PaymentMethod::IDEAL') %}
+{% set bancontact = constant('Mollie\\Api\\Types\\PaymentMethod::BANCONTACT') %}
+
+{% set inner_payment_method = hookable_metadata.context.inner_payment_method %}
+
+{% if inner_payment_method.methodId in [ideal, bancontact] %}
+    {% set form = hookable_metadata.context.method_form.qrCodeEnabled %}
+
+    {{ form_row(form) }}
+{% endif %}

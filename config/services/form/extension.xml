@@ -17,10 +17,6 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <services>
-        <service id="sylius_mollie.form.extension.type.complete" class="Sylius\MolliePlugin\Form\Extension\CompleteTypeExtension">
-            <tag name="form.type_extension" extended_type="Sylius\Bundle\CoreBundle\Form\Type\Checkout\CompleteType"/>
-        </service>
-
         <service id="sylius_mollie.form.extension.type.product_variant_recurring" class="Sylius\MolliePlugin\Form\Extension\ProductVariantRecurringExtension">
             <argument type="service" id="sylius_mollie.form.resolver.product_variant_validation_groups"/>
             <tag name="form.type_extension" extended_type="Sylius\Bundle\ProductBundle\Form\Type\ProductVariantType"/>
@@ -31,7 +27,7 @@
         </service>
 
         <service id="sylius_mollie.form.extension.type.gateway_config" class="Sylius\MolliePlugin\Form\Extension\GatewayConfigTypeExtension">
-            <tag name="form.type_extension" extended_type="Sylius\Bundle\PayumBundle\Form\Type\GatewayConfigType"/>
+            <tag name="form.type_extension" extended_type="Sylius\Bundle\PaymentBundle\Form\Type\GatewayConfigType"/>
         </service>
 
         <service id="sylius_mollie.form.extension.type.product_type" class="Sylius\MolliePlugin\Form\Extension\ProductTypeExtension">

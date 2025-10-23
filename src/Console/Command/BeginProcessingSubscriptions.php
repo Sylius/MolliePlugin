@@ -13,9 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Console\Command;
 
-use SM\Factory\FactoryInterface;
 use Sylius\Abstraction\StateMachine\StateMachineInterface;
-use Sylius\Abstraction\StateMachine\WinzouStateMachineAdapter;
 use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
 use Sylius\MolliePlugin\StateMachine\MollieSubscriptionProcessingTransitions;
 use Sylius\MolliePlugin\StateMachine\MollieSubscriptionTransitions;
@@ -35,21 +33,9 @@ class BeginProcessingSubscriptions extends Command
 
     public function __construct(
         private readonly MollieSubscriptionRepositoryInterface $mollieSubscriptionRepository,
-        private readonly FactoryInterface|StateMachineInterface $factory,
+        private readonly StateMachineInterface $stateMachine,
     ) {
         parent::__construct(self::COMMAND_NAME);
-
-        if ($this->factory instanceof FactoryInterface) {
-            trigger_deprecation(
-                'sylius/mollie-plugin',
-                '2.2',
-                sprintf(
-                    'Passing an instance of "%s" as the second argument is deprecated. It will accept only instances of "%s" in MolliePlugin 3.0. The argument name will change from "stateMachineFactory" to "stateMachine".',
-                    FactoryInterface::class,
-                    StateMachineInterface::class,
-                ),
-            );
-        }
     }
 
     protected function configure(): void
@@ -73,14 +59,13 @@ class BeginProcessingSubscriptions extends Command
             $this->io->writeln('Processing...');
 
             $subscriptions = $this->mollieSubscriptionRepository->findScheduledSubscriptions();
-            $stateMachine = $this->getStateMachine();
 
             foreach ($subscriptions as $subscription) {
-                if ($stateMachine->can($subscription, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_PROCESS)) {
-                    $stateMachine->apply($subscription, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_PROCESS);
+                if ($this->stateMachine->can($subscription, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_PROCESS)) {
+                    $this->stateMachine->apply($subscription, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_PROCESS);
 
-                    if ($stateMachine->can($subscription, MollieSubscriptionProcessingTransitions::GRAPH, MollieSubscriptionProcessingTransitions::TRANSITION_SCHEDULE)) {
-                        $stateMachine->apply($subscription, MollieSubscriptionProcessingTransitions::GRAPH, MollieSubscriptionProcessingTransitions::TRANSITION_SCHEDULE);
+                    if ($this->stateMachine->can($subscription, MollieSubscriptionProcessingTransitions::GRAPH, MollieSubscriptionProcessingTransitions::TRANSITION_SCHEDULE)) {
+                        $this->stateMachine->apply($subscription, MollieSubscriptionProcessingTransitions::GRAPH, MollieSubscriptionProcessingTransitions::TRANSITION_SCHEDULE);
                     }
 
                     $this->mollieSubscriptionRepository->add($subscription);
@@ -109,14 +94,5 @@ class BeginProcessingSubscriptions extends Command
         }
 
         return Command::SUCCESS;
-    }
-
-    private function getStateMachine(): StateMachineInterface
-    {
-        if ($this->factory instanceof FactoryInterface) {
-            return new WinzouStateMachineAdapter($this->factory);
-        }
-
-        return $this->factory;
     }
 }

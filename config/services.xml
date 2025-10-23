@@ -18,6 +18,8 @@
 >
     <imports>
         <import resource="services/**/*.xml" />
+
+        <import resource="integration/refund-plugin/services.php" />
     </imports>
 
     <services>
@@ -29,5 +31,13 @@
 
             <tag name="sylius.api.payment_method_handler" />
         </service>
+
+        <service id="sylius_mollie.refund.guard.mollie_payment_refund" class="Sylius\MolliePlugin\Refund\Guard\PaymentRefundGuard" public="true" >
+            <argument>%kernel.bundles%</argument>
+        </service>
+        <service id="Sylius\MolliePlugin\Refund\Guard\PaymentRefundGuardInterface" alias="sylius_mollie.refund.guard.mollie_payment_refund" />
+
+        <service id="sylius_mollie.refund.guard.order_payment_refund" class="Sylius\MolliePlugin\Refund\Guard\OrderPaymentRefundGuard" public="true" />
+        <service id="Sylius\MolliePlugin\Refund\Guard\OrderPaymentRefundGuardInterface" alias="sylius_mollie.refund.guard.order_payment_refund" />
     </services>
 </container>
