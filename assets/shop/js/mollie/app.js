@@ -365,12 +365,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function initializeCreditCartFields(selectedValue) {
-        const environment = mollieData.getAttribute('data-environment');
-        let testmode = true;
-
-        if (environment === 1) {
-            testmode = false;
-        }
+        const testmode = '' === mollieData.getAttribute('data-environment');
 
         const mollie = Mollie(mollieData.getAttribute('data-profile_id'), {
             locale: mollieData.getAttribute('data-locale'),
