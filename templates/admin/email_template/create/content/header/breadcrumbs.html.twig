@@ -1,0 +1,9 @@
+{% from '@SyliusAdmin/shared/helper/breadcrumbs.html.twig' import breadcrumbs %}
+
+{{ breadcrumbs([
+    { name: 'sylius.ui.dashboard', url: path('sylius_admin_dashboard'), active: false },
+    { name: 'sylius.ui.payment_methods'|trans, url: path('sylius_admin_payment_method_index'), active: false },
+    { name: 'sylius_mollie.ui.mollie_gateway_label'|trans, active: false },
+    { name: 'sylius_mollie.ui.template_mollie_emails'|trans, url: path('sylius_mollie_admin_template_mollie_email_index'), active: false },
+    { name: 'sylius.ui.new'|trans, active: true },
+]) }}

@@ -115,6 +115,7 @@ sylius_mollie:
         per_interval: ' / %interval%'
         percentage_and_fix_amount_surcharge: 'Fix amount and percentage'
         percentage_surcharge: 'Percentage'
+        product_type: 'Product type'
         product_types: 'Product types'
         product_variant:
             tab:

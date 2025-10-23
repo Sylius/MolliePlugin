@@ -1,0 +1,12 @@
+{% from '@SyliusAdmin/shared/helper/breadcrumbs.html.twig' import breadcrumbs %}
+
+{% set product_type = hookable_metadata.context.resource %}
+
+{{ breadcrumbs([
+    { name: 'sylius.ui.dashboard', url: path('sylius_admin_dashboard'), active: false },
+    { name: 'sylius.ui.payment_methods'|trans, url: path('sylius_admin_payment_method_index'), active: false },
+    { name: 'sylius_mollie.ui.mollie_gateway_label'|trans, active: false },
+    { name: 'sylius_mollie.ui.product_types'|trans, url: path('sylius_mollie_admin_product_type_index'), active: false },
+    { name: product_type.id, active: false },
+    { name: 'sylius.ui.edit'|trans, active: true },
+]) }}

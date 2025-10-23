@@ -1,5 +1,9 @@
 sylius_twig_hooks:
     hooks:
+        'sylius_mollie.admin.email_template.index.content.header':
+            breadcrumbs:
+                template: '@SyliusMolliePlugin/admin/email_template/index/content/header/breadcrumbs.html.twig'
+
         'sylius_mollie.admin.email_template.index.content.header.title_block.actions':
             cancel:
                 template: '@SyliusAdmin/shared/crud/common/content/header/title_block/actions/cancel.html.twig'
