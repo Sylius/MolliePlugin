@@ -19,7 +19,7 @@ use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 
-final class MollieSubscriptionRepository extends EntityRepository implements MollieSubscriptionRepositoryInterface
+class MollieSubscriptionRepository extends EntityRepository implements MollieSubscriptionRepositoryInterface
 {
     public function findOneByOrderId(int $orderId): ?MollieSubscriptionInterface
     {
