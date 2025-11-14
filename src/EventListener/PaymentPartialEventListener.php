@@ -15,8 +15,8 @@ namespace Sylius\MolliePlugin\EventListener;
 
 use Sylius\MolliePlugin\Exceptions\InvalidRefundAmountException;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Refund\RefundOriginInterface;
 use Sylius\MolliePlugin\Refund\Handler\OrderPaymentRefundInterface;
+use Sylius\MolliePlugin\Refund\RefundOriginInterface;
 use Sylius\RefundPlugin\Event\UnitsRefunded;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 
@@ -30,7 +30,7 @@ final class PaymentPartialEventListener
 
     public function __invoke(UnitsRefunded $unitRefunded): void
     {
-        if (method_exists($unitRefunded, 'comment') && $unitRefunded->comment() === RefundOriginInterface::MOLLIE_WEBHOOK) {
+        if ($unitRefunded->comment() === RefundOriginInterface::MOLLIE_WEBHOOK) {
             $this->loggerAction->addLog(sprintf('Skipping gateway refund: origin=%s', RefundOriginInterface::MOLLIE_WEBHOOK));
 
             return;
