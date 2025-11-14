@@ -17,6 +17,7 @@ use Mollie\Api\Resources\Payment;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Exceptions\OfflineRefundPaymentMethodNotFound;
+use Sylius\MolliePlugin\Refund\RefundOriginInterface;
 use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
 use Sylius\MolliePlugin\Refund\Units\PaymentUnitsItemRefundInterface;
 use Sylius\MolliePlugin\Refund\Units\ShipmentUnitRefundInterface;
@@ -77,7 +78,7 @@ final class PaymentRefundCommandCreator implements PaymentRefundCommandCreatorIn
             $order->getNumber(),
             array_merge($orderItemUnitRefund, $shipmentRefund),
             $refundMethod->getId(),
-            '',
+            RefundOriginInterface::MOLLIE_WEBHOOK,
         );
     }
 
