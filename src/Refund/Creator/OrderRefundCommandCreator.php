@@ -19,7 +19,6 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Converter\OrderConverterInterface;
 use Sylius\MolliePlugin\Exceptions\OfflineRefundPaymentMethodNotFound;
 use Sylius\MolliePlugin\Model\DTO\PartialRefundItems;
-use Sylius\MolliePlugin\Refund\RefundOriginInterface;
 use Sylius\MolliePlugin\Refund\Units\UnitsItemOrderRefundInterface;
 use Sylius\MolliePlugin\Refund\Units\UnitsShipmentOrderRefundInterface;
 use Sylius\RefundPlugin\Command\RefundUnits;
@@ -93,7 +92,7 @@ final class OrderRefundCommandCreator implements OrderRefundCommandCreatorInterf
             $syliusOrder->getNumber(),
             array_merge($unitsToRefund, $shipmentToRefund),
             $refundMethod->getId(),
-            RefundOriginInterface::MOLLIE_WEBHOOK,
+            '',
         );
     }
 }
