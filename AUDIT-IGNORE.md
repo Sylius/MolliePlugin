@@ -6,4 +6,4 @@ This document explains why specific advisories are added to `composer.json` → 
 
 - PKSA-gnn4-pxdg-q76m — same as above, applies to api-platform/core in Sylius ~1.13.x and ~1.14.x matrices.
 
-- PKSA-4g5g-4rkv-myqs — enshrined/svg-sanitize ^0.16 required transitively by sylius/sylius ~1.13.x and ~1.14.x.
+- PKSA-4g5g-4rkv-myqs — enshrined/svg-sanitize ^0.16 required transitively by sylius/sylius ~1.13.x.
