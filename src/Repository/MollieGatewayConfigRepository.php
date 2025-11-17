@@ -15,6 +15,7 @@ namespace Sylius\MolliePlugin\Repository;
 
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 
 class MollieGatewayConfigRepository extends EntityRepository implements MollieGatewayConfigRepositoryInterface
 {
@@ -30,6 +31,21 @@ class MollieGatewayConfigRepository extends EntityRepository implements MollieGa
             ->orderBy('m.position', 'ASC')
             ->getQuery()
             ->getResult()
+        ;
+    }
+
+    public function findOneActiveByGatewayNameAndMethod(string $gatewayName, string $methodId): ?MollieGatewayConfigInterface
+    {
+        return $this->createQueryBuilder('m')
+            ->innerJoin('m.gateway', 'g')
+            ->where('m.enabled = true')
+            ->andWhere('g.gatewayName = :gatewayName')
+            ->andWhere('m.methodId = :methodId')
+            ->setParameter('gatewayName', $gatewayName)
+            ->setParameter('methodId', $methodId)
+            ->getQuery()
+            ->setMaxResults(1)
+            ->getOneOrNullResult()
         ;
     }
 

@@ -3,8 +3,3 @@ services:
         class: Tests\Sylius\MolliePlugin\Behat\Page\Admin\Order\IndexPage
         parent: "sylius.behat.page.admin.order.index"
         public: false
-
-    sylius_mollie.behat.page.admin.order_show:
-        class: Tests\Sylius\MolliePlugin\Behat\Page\Admin\Order\ShowPage
-        parent: "sylius.behat.page.admin.order.show"
-        public: false

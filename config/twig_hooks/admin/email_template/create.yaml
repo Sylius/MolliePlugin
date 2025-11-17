@@ -1,0 +1,35 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_mollie.admin.email_template.create.content':
+            form:
+                component: 'sylius_mollie:admin:email_template:form'
+                props:
+                    resource: '@=_context.resource'
+                    form: '@=_context.form'
+                    template: '@SyliusAdmin/shared/crud/common/content/form.html.twig'
+                priority: 0
+
+        'sylius_mollie.admin.email_template.create.content.form.sections.general':
+            default:
+                enabled: false
+            type:
+                template: '@SyliusMolliePlugin/admin/email_template/form/sections/general/type.html.twig'
+                priority: 200
+            style:
+                template: '@SyliusMolliePlugin/admin/email_template/form/sections/general/style.html.twig'
+                priority: 100
+            translations:
+                template: '@SyliusMolliePlugin/admin/email_template/form/sections/general/translations.html.twig'
+                priority: 0
+
+
+        'sylius_mollie.admin.email_template.create.content.form.sections.general.translations':
+            name:
+                template: '@SyliusMolliePlugin/admin/email_template/form/sections/general/translations/name.html.twig'
+                priority: 200
+            subject:
+                template: '@SyliusMolliePlugin/admin/email_template/form/sections/general/translations/subject.html.twig'
+                priority: 100
+            content:
+                template: '@SyliusMolliePlugin/admin/email_template/form/sections/general/translations/content.html.twig'
+                priority: 0

@@ -1,0 +1,9 @@
+{% set resource = hookable_metadata.context.resource %}
+
+<div class="col-6 mb-3">
+    <div class="btn-group float-end js-header-btn">
+        <a href="#" id="get_methods" data-url="{{ path('sylius_mollie_admin_mollie_methods', {id: resource.gatewayConfig.id}) }}" class="btn btn-primary">
+            {{ 'sylius_mollie.ui.load_methods_button'|trans }}
+        </a>
+    </div>
+</div>

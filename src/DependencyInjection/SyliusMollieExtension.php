@@ -16,9 +16,12 @@ namespace Sylius\MolliePlugin\DependencyInjection;
 use SyliusLabs\DoctrineMigrationsExtraBundle\DependencyInjection\Configuration;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Loader\DelegatingLoader;
+use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 final class SyliusMollieExtension extends Extension implements PrependExtensionInterface
@@ -26,7 +29,10 @@ final class SyliusMollieExtension extends Extension implements PrependExtensionI
     public function load(array $configs, ContainerBuilder $container): void
     {
         $this->processConfiguration($this->getConfiguration([], $container), $configs);
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
+        $loader = new DelegatingLoader(new LoaderResolver([
+            new XmlFileLoader($container, new FileLocator(__DIR__ . '/../../config')),
+            new PhpFileLoader($container, new FileLocator(__DIR__ . '/../../config')),
+        ]));
         $loader->load('services.xml');
     }
 

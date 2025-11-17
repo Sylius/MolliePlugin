@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+
+ This file is part of the Sylius Mollie Plugin package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <services>
+        <service id="sylius_mollie.listener.workflow.mollie_subscription.complete_subscription_guard" class="Sylius\MolliePlugin\EventListener\Workflow\MollieSubscription\CompleteSubscriptionGuardListener">
+            <argument type="service" id="sylius_mollie.subscription.guard.subscription" />
+            <tag name="kernel.event_listener" event="workflow.mollie_subscription_graph.guard.complete" priority="0" />
+        </service>
+
+        <service id="sylius_mollie.listener.workflow.mollie_subscription.abort_subscription_guard" class="Sylius\MolliePlugin\EventListener\Workflow\MollieSubscription\AbortSubscriptionGuardListener">
+            <argument type="service" id="sylius_mollie.subscription.guard.subscription" />
+            <tag name="kernel.event_listener" event="workflow.mollie_subscription_graph.guard.abort" priority="0" />
+        </service>
+
+        <service id="sylius_mollie.listener.workflow.mollie_subscription.activate_subscription_process" class="Sylius\MolliePlugin\EventListener\Workflow\MollieSubscription\ActivateSubscriptionProcessListener">
+            <argument type="service" id="sylius_mollie.subscription.processor.subscription_schedule" />
+            <tag name="kernel.event_listener" event="workflow.mollie_subscription_graph.completed.activate" priority="0" />
+        </service>
+    </services>
+</container>

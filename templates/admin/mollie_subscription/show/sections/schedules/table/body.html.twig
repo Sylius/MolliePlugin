@@ -1,0 +1,7 @@
+<tbody>
+    {% for schedule in hookable_metadata.context.resource.schedules %}
+        <tr>
+            {% hook 'body' with { schedule } %}
+        </tr>
+    {% endfor %}
+</tbody>

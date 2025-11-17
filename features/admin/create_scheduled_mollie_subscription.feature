@@ -24,10 +24,10 @@ Feature: Create scheduled Mollie Subscription payment
   Scenario: Recurring payment
     When I go to "/"
     When I browse orders
-    Then I should see a single order from customer "sylius@example.com"
-    When I run command "cd tests/Application && APP_ENV=test php bin/console mollie:subscription:begin-processing"
+    Then I should see a single order from customer "shop@example.com"
+    When I run command "cd vendor && APP_ENV=test php bin/console mollie:subscription:begin-processing"
     Then I should see "[OK] Successfully marked scheduled subscriptions" in the output
-    When I run command "cd tests/Application && APP_ENV=test php bin/console mollie:subscription:process"
+    When I run command "cd vendor && APP_ENV=test php bin/console mollie:subscription:process"
     Then I should see "[OK] Successfully marked scheduled subscriptions" in the output
     When I browse orders
     Then I should see 2 orders in the list
@@ -42,14 +42,14 @@ Feature: Create scheduled Mollie Subscription payment
   Scenario: Recurring payment with changed price
     When I go to "/"
     When I browse orders
-    Then I should see a single order from customer "sylius@example.com"
+    Then I should see a single order from customer "shop@example.com"
     When I view the summary of the order "#00000666"
     Then the order's total should be "$1.00"
     And it should be paid with "Mollie Subscription"
     Then I change ANGEL_T_SHIRT product variant price to "5.00"
-    When I run command "cd tests/Application && APP_ENV=test php bin/console mollie:subscription:begin-processing"
+    When I run command "cd vendor && APP_ENV=test php bin/console mollie:subscription:begin-processing"
     Then I should see "[OK] Successfully marked scheduled subscriptions" in the output
-    When I run command "cd tests/Application && APP_ENV=test php bin/console mollie:subscription:process"
+    When I run command "cd vendor && APP_ENV=test php bin/console mollie:subscription:process"
     Then I should see "[OK] Successfully marked scheduled subscriptions" in the output
     When I browse orders
     Then I should see 2 orders in the list
@@ -65,12 +65,12 @@ Feature: Create scheduled Mollie Subscription payment
   Scenario: Failed recurring payment
     When this order is incomplete
     And I go to "/"
-    When I run command "cd tests/Application && APP_ENV=test php bin/console mollie:subscription:begin-processing"
+    When I run command "cd vendor && APP_ENV=test php bin/console mollie:subscription:begin-processing"
     Then I should see "[OK] Successfully marked scheduled subscriptions" in the output
-    When I run command "cd tests/Application && APP_ENV=test php bin/console mollie:subscription:process"
+    When I run command "cd vendor && APP_ENV=test php bin/console mollie:subscription:process"
     Then I should see "[ERROR] An error has occurred during send payment link process." in the output
     When I browse orders
-    Then I should see a single order from customer "sylius@example.com"
+    Then I should see a single order from customer "shop@example.com"
     When I browse payments
     Then I should see a single payment in the list
     When I choose "Completed" as a payment state

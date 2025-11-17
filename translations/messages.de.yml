@@ -86,7 +86,7 @@ sylius_mollie:
                     <p>Mollie empfiehlt die Verwendung dieser API für Onlineshops, da damit Bestellungen („Orders“) erstellt werden können. Eine Bestellung enthält die personenbezogenen Daten der Kunden (z. B. Adressen) und die Produkte, die sie bestellt haben. Nach der Aufgabe einer Bestellung wird der dazugehörige Bezahlvorgang automatisch erstellt.</p>
         step_14:
             text: |-
-                <p>Falls Sie Gebühren an den Kunden übertragen, können Sie diese hier hinzufügen. Mehr Informationen zu Gebühren finden Sie <a href=""https://help.mollie.com/hc/en-us/articles/360012564454-Can-I-pass-over-the-costs-for-the-use-of-a-payment-method-to-my-customers-"" target=""_blank"">hier</a>.</p>
+                <p>Falls Sie Gebühren an den Kunden übertragen, können Sie diese hier hinzufügen. Mehr Informationen zu Gebühren finden Sie <a href="https://help.mollie.com/hc/en-us/articles/360012564454-Can-I-pass-over-the-costs-for-the-use-of-a-payment-method-to-my-customers-" target="_blank">hier</a>.</p>
         step_15:
             text: |-
                 <p>Denken Sie daran, Ihre Einstellungen zu speichern.</p>

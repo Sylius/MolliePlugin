@@ -31,7 +31,7 @@
         </service>
 
         <service id="sylius_mollie.validator.payment_method_mollie_channel_unique" class="Sylius\MolliePlugin\Validator\Constraints\PaymentMethodMollieChannelUniqueValidator">
-            <argument type="service" id="sylius.repository.payment_method"/>
+            <argument type="service" id="sylius_mollie.repository.query.payment_method.mollie_based" />
             <argument type="service" id="translator"/>
             <tag name="validator.constraint_validator"/>
         </service>

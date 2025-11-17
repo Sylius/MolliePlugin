@@ -1,0 +1,25 @@
+{# Rendered with Sylius\MolliePlugin\Twig\Component\Order\CancelSubscriptionComponent (sylius_mollie:shop:order:cancel_subscription) #}
+
+{% if order_token and subscription_id and cancellable_subscription %}
+    {% set button_config = {
+        expanded: false,
+        class: 'btn btn-sm btn-outline-warning',
+        container_class: '',
+    }|merge(button_config|default({})) %}
+
+    <div class="{{ button_config.container_class }}">
+        <form action="{{ path('sylius_mollie_shop_cancel_order_subscription', {'orderToken': order_token}) }}" method="post" novalidate>
+            <input type="hidden" name="_method" value="PUT">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token(subscription_id) }}" />
+            {% if button_config.expanded %}
+                <button class="{{ button_config.class }}" type="submit">
+                    <span>{{ 'sylius_mollie.ui.cancel_subscription'|trans }}</span>
+                </button>
+            {% else %}
+                <button class="{{ button_config.class }}" type="submit" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ 'sylius_mollie.ui.cancel_subscription'|trans }}" {{ sylius_test_html_attribute('cancel-subscription', order_token) }}>
+                    {{ ux_icon('tabler:x', { class: 'icon icon-sm flex-shrink-0' }) }}
+                </button>
+            {% endif %}
+        </form>
+    </div>
+{% endif %}

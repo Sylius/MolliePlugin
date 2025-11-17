@@ -1,0 +1,9 @@
+{% set mollie_subscription = hookable_metadata.context.resource %}
+{% import '@SyliusMolliePlugin/admin/mollie_subscription/macro/payment_state.html.twig' as paymentState %}
+
+<div class="row">
+    <div class="col-md-4 fw-bold">{{ 'sylius.ui.payment_state'|trans }}</div>
+    <div class="col-md-8">
+        {{ paymentState.label(mollie_subscription.paymentState) }}
+    </div>
+</div>

@@ -24,9 +24,6 @@ use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 final class MollieGatewayConfigValidatorTest extends ConstraintValidatorTestCase
 {
-    /** @var MollieGatewayConfigValidatorType */
-    protected $constraint;
-
     private MollieGatewayConfigInterface $mollieGatewayConfig;
 
     private MollieMinMaxInterface $configAmountLimits;

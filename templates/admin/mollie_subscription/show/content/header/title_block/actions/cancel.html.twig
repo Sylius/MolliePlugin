@@ -1,0 +1,12 @@
+{% set mollie_subscription = hookable_metadata.context.resource %}
+
+{% if sylius_sm_can(mollie_subscription, constant('Sylius\\MolliePlugin\\StateMachine\\MollieRecurringTransitions::GRAPH_MANUAL'), constant('Sylius\\MolliePlugin\\StateMachine\\MollieRecurringTransitions::TRANSITION_CANCEL')) %}
+    <form action="{{ path('sylius_mollie_admin_mollie_subscription_cancel', {'id': mollie_subscription.id}) }}" method="POST" novalidate>
+        <input type="hidden" name="_method" value="PUT">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token(mollie_subscription.id) }}" />
+        <button type="submit" class="btn btn-red">
+            {{ ux_icon('tabler:cancel') }}
+            {{ 'sylius_mollie.ui.subscription.transitions.cancel'|trans }}
+        </button>
+    </form>
+{% endif %}

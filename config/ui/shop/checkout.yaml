@@ -1,7 +1,0 @@
-sylius_ui:
-    events:
-        sylius.shop.checkout.sidebar:
-            blocks:
-                mollie_apple_pay_button:
-                    template: '@SyliusMolliePlugin/Shop/Checkout/_supportApplePayButton.html.twig'
-                    priority: 15

@@ -99,7 +99,7 @@ sylius_mollie:
                     <p>Dit is de door Mollie aangeraden API voor het gebruik voor webshops, omdat hij de mogelijkheid biedt om ''orders'' te creëren. Een bestelling bevat de persoonlijke gegevens van een klant (bijv. het adres) en de producten die de klant heeft besteld. Wanneer er een bestelling is geplaatst, wordt er automatisch een corresponderende betaling gecreëerd.</p>
         step_14:
             text: >-
-                <p>Wanneer u onkosten heeft, die u wilt doorbelasten aan de klant, kunt u deze hier toevoegen. Lees <a href=""https://help.mollie.com/hc/en-us/articles/360012564454-Can-I-pass-over-the-costs-for-the-use-of-a-payment-method-to-my-customers-"" target=""_blank"">hier</a> meer over onkosten.</p>
+                <p>Wanneer u onkosten heeft, die u wilt doorbelasten aan de klant, kunt u deze hier toevoegen. Lees <a href="https://help.mollie.com/hc/en-us/articles/360012564454-Can-I-pass-over-the-costs-for-the-use-of-a-payment-method-to-my-customers-" target="_blank">hier</a> meer over onkosten.</p>
         step_15:
             text: >-
                 <p>Vergeet niet om uw configuraties op te slaan.</p>

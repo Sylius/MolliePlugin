@@ -4,20 +4,13 @@
     "description": "Mollie payment plugin for Sylius applications.",
     "license": "MIT",
     "require": {
-        "php": "^8.1",
-        "ext-json": "*",
-        "league/flysystem-bundle": "^2.4",
+        "php": "^8.2",
         "mollie/mollie-api-php": "^2.73",
-        "php-http/message-factory": "^1.1",
-        "sylius/refund-plugin": "^1.5",
-        "sylius/sylius": "^1.13",
-        "symfony/mailer": "^5.4 || ^6.4",
-        "symfony/messenger": "^5.4 || ^6.4",
-        "willdurand/js-translation-bundle": "^4.0 || ^5.0"
+        "sylius/sylius": "^2.0.8",
+        "willdurand/js-translation-bundle": "^7.0"
     },
     "require-dev": {
         "behat/behat": "^3.7",
-        "behat/mink-selenium2-driver": "~1.6.0",
         "dmore/behat-chrome-extension": "^1.3",
         "dmore/chrome-mink-driver": "^2.7",
         "friends-of-behat/mink": "^1.8",
@@ -40,17 +33,19 @@
         "polishsymfonycommunity/symfony-mocker-container": "^1.0",
         "slevomat/coding-standard": "~8.22.1",
         "sylius-labs/coding-standard": "^4.0",
-        "symfony/browser-kit": "^5.4 || ^6.4",
-        "symfony/debug-bundle": "^5.4 || ^6.4",
-        "symfony/dotenv": "^5.4 || ^6.4",
+        "sylius/test-application": "^2.0.0@alpha",
+        "symfony/browser-kit": "^6.4 || ^7.1",
+        "symfony/debug-bundle": "^6.4 || ^7.1",
+        "symfony/dotenv": "^6.4 || ^7.1",
         "symfony/flex": "^2.0",
-        "symfony/intl": "^5.4 || ^6.4",
-        "symfony/web-profiler-bundle": "^5.4 || ^6.4",
-        "symfony/webpack-encore-bundle": "^1.15",
-        "symplify/easy-coding-standard": "12.5.9"
+        "symfony/intl": "^6.4 || ^7.1",
+        "symfony/web-profiler-bundle": "^6.4 || ^7.1",
+        "symfony/webpack-encore-bundle": "^2.2",
+        "winzou/state-machine": "^0.4",
+        "winzou/state-machine-bundle": "^0.6"
     },
     "suggest": {
-        "sylius/admin-order-creation-plugin": "Allows to create orders in the admin panel."
+        "sylius/refund-plugin": "To allow refunding payments in the Mollie payment method."
     },
     "scripts": {
         "analyse": [
@@ -63,24 +58,23 @@
         ]
     },
     "prefer-stable": true,
-    "prefer-dist": true,
     "autoload": {
         "psr-4": {
             "Sylius\\MolliePlugin\\": "src/",
-            "Tests\\Sylius\\MolliePlugin\\": ["tests/", "tests/Application/src"]
+            "Tests\\Sylius\\MolliePlugin\\": ["tests/", "tests/TestApplication/src/"]
         }
     },
-    "autoload-dev": {
-        "classmap": ["tests/Application/Kernel.php"]
-    },
     "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
         "allow-plugins": {
-            "composer/package-versions-deprecated": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
+            "php-http/discovery": true,
             "phpstan/extension-installer": true,
             "symfony/flex": true,
-            "symfony/thanks": false,
-            "php-http/discovery": true
+            "symfony/runtime": false,
+            "symfony/thanks": false
         },
         "sort-packages": true,
         "audit": {
@@ -93,9 +87,10 @@
     },
     "extra": {
         "symfony": {
-            "require": "^6.4",
+            "require": "~7.3.0",
             "allow-contrib": false,
             "docker": false
-        }
+        },
+        "public-dir": "vendor/sylius/test-application/public"
     }
 }
