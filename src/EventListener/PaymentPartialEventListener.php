@@ -14,12 +14,12 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\EventListener;
 
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Exceptions\InvalidRefundAmountException;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Refund\Handler\OrderPaymentRefundInterface;
-use Sylius\RefundPlugin\Event\UnitsRefunded;
 use Sylius\RefundPlugin\Entity\RefundInterface;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\RefundPlugin\Event\UnitsRefunded;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 
 final class PaymentPartialEventListener
