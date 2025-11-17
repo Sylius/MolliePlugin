@@ -85,8 +85,8 @@
         "sort-packages": true,
         "audit": {
             "ignore": [
-                "CVE-2025-31481",
-                "CVE-2025-31485"
+                "PKSA-gs8r-6kz6-pp56",
+                "PKSA-gnn4-pxdg-q76m"
             ]
         }
     },
