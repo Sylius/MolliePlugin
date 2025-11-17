@@ -76,7 +76,14 @@
             "symfony/runtime": false,
             "symfony/thanks": false
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "audit": {
+            "ignore": [
+                "PKSA-gs8r-6kz6-pp56",
+                "PKSA-gnn4-pxdg-q76m",
+                "PKSA-4g5g-4rkv-myqs"
+            ]
+        }
     },
     "extra": {
         "symfony": {
