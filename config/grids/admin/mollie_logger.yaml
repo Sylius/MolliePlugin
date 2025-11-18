@@ -13,7 +13,7 @@ sylius_grid:
                     label: sylius_mollie.ui.level
                     sortable: ~
                     options:
-                        template: "@SyliusMolliePlugin/Admin/Logger/_level.html.twig"
+                        template: "@SyliusMolliePlugin/admin/logger/grid/field/level.html.twig"
                 errorCode:
                     type: string
                     label: sylius_mollie.ui.error_code
@@ -38,6 +38,7 @@ sylius_grid:
                 level:
                     type: log_level
                     label: sylius_mollie.ui.level
+
     templates:
         filter:
-            log_level: "@SyliusMolliePlugin/Admin/Logger/Grid/_theme.html.twig"
+            log_level: "@SyliusMolliePlugin/admin/logger/grid/filter/log_level.html.twig"

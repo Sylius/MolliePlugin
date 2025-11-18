@@ -1,0 +1,10 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_mollie.admin.logger.index.content.header':
+            breadcrumbs:
+                template: '@SyliusMolliePlugin/admin/logger/index/content/header/breadcrumbs.html.twig'
+
+        'sylius_mollie.admin.logger.index.content.header.title_block.actions':
+            cancel:
+                template: '@SyliusAdmin/shared/crud/common/content/header/title_block/actions/cancel.html.twig'
+                priority: 0

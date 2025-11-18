@@ -46,10 +46,6 @@ final class PercentageCalculator implements PaymentSurchargeCalculatorInterface
 
         $amount = ($order->getItemsTotal() / 100) * $percentage;
 
-        if (!$order->getAdjustments(AdjustmentInterface::PERCENTAGE_ADJUSTMENT)->isEmpty()) {
-            $order->removeAdjustments(AdjustmentInterface::PERCENTAGE_ADJUSTMENT);
-        }
-
         if ($limit > 0 && $amount > $limit) {
             $amount = $limit;
         }

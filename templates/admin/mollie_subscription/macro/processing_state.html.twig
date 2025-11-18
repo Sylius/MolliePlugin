@@ -1,0 +1,20 @@
+{% macro label(state) %}
+    {% set state_to_colors_map = {
+        none: 'bg-muted-lt',
+        pending: 'bg-blue-lt',
+        processing: 'bg-azure-lt',
+        processed: 'bg-green-lt'
+    } %}
+
+    {% set state_to_icons_map = {
+        none: 'circle-dashed',
+        pending: 'clock',
+        processing: 'refresh',
+        processed: 'check'
+    } %}
+
+    <span class="badge {{ state_to_colors_map[state]|default('') }}">
+        {{ ux_icon('tabler:' ~ (state_to_icons_map[state]|default('alert-circle'))) }}
+        {{ ('sylius_mollie.ui.subscription.processing_state.' ~ state) | trans }}
+    </span>
+{% endmacro %}

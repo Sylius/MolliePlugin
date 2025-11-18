@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Form\Extension;
 
-use Sylius\Bundle\PayumBundle\Form\Type\GatewayConfigType;
+use Sylius\Bundle\PaymentBundle\Form\Type\GatewayConfigType;
 use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigType;
 use Sylius\MolliePlugin\Validator\Constraints\MollieGatewayConfigValidatorType;
 use Symfony\Component\Form\AbstractTypeExtension;

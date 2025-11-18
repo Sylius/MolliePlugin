@@ -17,11 +17,12 @@ use Liip\ImagineBundle\Exception\Config\Filter\NotFoundException;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Order\Aggregator\AdjustmentsAggregatorInterface;
 use Sylius\Component\Order\Context\CartContextInterface;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Calculator\Clearer\PaymentFeeAdjustmentClearerInterface;
 use Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeCalculatorInterface;
 use Sylius\MolliePlugin\Converter\PriceToAmountConverterInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Model\AdjustmentInterface;
+use Sylius\MolliePlugin\Repository\MollieGatewayConfigRepositoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,34 +39,38 @@ final class PaymentFeeCalculateAction
     public function __construct(
         private readonly PaymentSurchargeCalculatorInterface $paymentSurchargeCalculator,
         private readonly CartContextInterface $cartContext,
-        private readonly RepositoryInterface $methodRepository,
+        private readonly MollieGatewayConfigRepositoryInterface $methodRepository,
         private readonly AdjustmentsAggregatorInterface $adjustmentsAggregator,
         private readonly PriceToAmountConverterInterface $priceToAmountConverter,
         private readonly Environment $twig,
+        private readonly PaymentFeeAdjustmentClearerInterface $paymentFeeAdjustmentClearer,
     ) {
     }
 
-    public function __invoke(Request $request, string $methodId): Response
+    public function __invoke(Request $request, string $gatewayName, string $methodId): Response
     {
         /** @var OrderInterface $order */
         $order = $this->cartContext->getCart();
-        $method = $this->methodRepository->findOneBy(['methodId' => $methodId]);
+        $method = $this->methodRepository->findOneActiveByGatewayNameAndMethod($gatewayName, $methodId);
 
         if (!$method instanceof MollieGatewayConfig) {
             throw new NotFoundException(sprintf('Method with id %s not found', $methodId));
         }
 
+        $this->paymentFeeAdjustmentClearer->clear($order);
         $this->paymentSurchargeCalculator->calculate($order, $method);
 
         $paymentFee = $this->getPaymentFee($order);
 
         if (0 === count($paymentFee)) {
-            return new JsonResponse([], Response::HTTP_OK);
+            return new JsonResponse([
+                'orderTotal' => $this->priceToAmountConverter->convert($order->getTotal()),
+            ]);
         }
 
         return new JsonResponse([
             'view' => $this->twig->render(
-                'SyliusMolliePlugin:Shop/PaymentMollie:_paymentFeeTableTr.html.twig',
+                '@SyliusMolliePlugin/shop/checkout/payment_mollie/payment_fee_table.html.twig',
                 [
                     'paymentFee' => $this->priceToAmountConverter->convert(reset($paymentFee)),
                 ],

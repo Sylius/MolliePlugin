@@ -1,0 +1,16 @@
+{% set form_mollie_payment_methods = hookable_metadata.context.parent_form.details.molliePaymentMethods %}
+
+{% if form_mollie_payment_methods.vars.choices|length > 0 %}
+    {% set gateway_config = hookable_metadata.context.method.gatewayConfig %}
+    <div class="d-grid online-online-payment__container"
+         data-locale="{{ app.request.locale }}"
+         data-profile_id="{{ gateway_config.config['profile_id'] }}"
+         data-environment="{{ gateway_config.config['environment'] }}"
+         data-components="{{ gateway_config.config['components'] | default(false) }}"
+         data-removeQrCode="{{ path('sylius_mollie_shop_remove_qr_code') }}"
+         data-fetchTranslations="{{ path('sylius_mollie_shop_credit_card_translation') }}"
+         data-no-fee-url="{{ path('sylius_mollie_shop_no_payment_fee_calculate') }}"
+    >
+        {% hook 'payment_methods' with { form: form_mollie_payment_methods, gateway_config } %}
+    </div>
+{% endif %}

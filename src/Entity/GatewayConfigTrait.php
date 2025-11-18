@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -36,6 +37,11 @@ trait GatewayConfigTrait
         orphanRemoval: true,
     )]
     protected Collection $mollieGatewayConfig;
+
+    public function initializeMollieGatewayConfig(): void
+    {
+        $this->mollieGatewayConfig = new ArrayCollection();
+    }
 
     public function getMollieGatewayConfig(): ?Collection
     {

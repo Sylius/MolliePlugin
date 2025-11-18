@@ -1,0 +1,5 @@
+sylius_mollie_admin_order_payment_refund:
+    path: /orders/{orderId}/payments/{id}/refund-mollie
+    methods: [PUT]
+    defaults:
+        _controller: sylius_mollie.controller.admin.refund

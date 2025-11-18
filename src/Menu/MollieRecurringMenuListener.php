@@ -20,20 +20,17 @@ final class MollieRecurringMenuListener
     public function buildMenu(MenuBuilderEvent $menuBuilderEvent): void
     {
         $menu = $menuBuilderEvent->getMenu();
-        $menuItem =
-            $menu
-                ->getChild('mollie');
+        $salesMenu = $menu->getChild('sales');
 
-        if (null === $menuItem) {
+        if (null === $salesMenu) {
             return;
         }
 
-        $menuItem
+        $salesMenu
             ->addChild('mollie_subscriptions', [
                 'route' => 'sylius_mollie_admin_mollie_subscription_index',
             ])
             ->setLabel('sylius_mollie.ui.mollie_subscriptions')
-            ->setLabelAttribute('icon', 'cart')
         ;
     }
 }

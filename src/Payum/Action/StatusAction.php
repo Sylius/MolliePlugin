@@ -35,11 +35,11 @@ final class StatusAction extends BaseApiAwareAction implements GatewayAwareInter
     use GatewayAwareTrait;
 
     public function __construct(
-        private PaymentRefundInterface $paymentRefund,
-        private OrderRefundInterface $orderRefund,
+        private ?PaymentRefundInterface $paymentRefund,
+        private ?OrderRefundInterface $orderRefund,
         private MollieLoggerActionInterface $loggerAction,
         private OrderVoucherAdjustmentUpdaterInterface $orderVoucherAdjustmentUpdater,
-        private MollieOrderRefundCheckerInterface $mollieOrderRefundChecker,
+        private ?MollieOrderRefundCheckerInterface $mollieOrderRefundChecker,
     ) {
     }
 
@@ -129,6 +129,12 @@ final class StatusAction extends BaseApiAwareAction implements GatewayAwareInter
 
         Assert::notNull($molliePayment);
         if ($molliePayment->hasRefunds() || $molliePayment->hasChargebacks()) {
+            if (!$this->isRefundingPossible()) {
+                $this->loggerAction->addNegativeLog('Refunding is not supported without SyliusRefundPlugin');
+
+                return;
+            }
+
             if (isset($details['order_mollie_id'])) {
                 Assert::notNull($order);
 
@@ -170,5 +176,10 @@ final class StatusAction extends BaseApiAwareAction implements GatewayAwareInter
         return
             $request instanceof GetStatusInterface &&
             $request->getModel() instanceof PaymentInterface;
+    }
+
+    private function isRefundingPossible(): bool
+    {
+        return null !== $this->paymentRefund && null !== $this->orderRefund && null !== $this->mollieOrderRefundChecker;
     }
 }

@@ -18,6 +18,7 @@ use Payum\Core\Payum;
 use Payum\Core\Request\Capture;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\PaymentInterface as SyliusCorePayment;
+use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Payment\Factory\PaymentFactoryInterface;
 use Sylius\Component\Payment\Model\PaymentInterface;
 use Sylius\MolliePlugin\Cloner\SubscriptionOrderClonerInterface;
@@ -25,7 +26,6 @@ use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Factory\PaymentDetailsFactoryInterface;
 use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
-use Sylius\MolliePlugin\Repository\OrderRepositoryInterface;
 use Webmozart\Assert\Assert;
 
 final class SubscriptionProcessor implements SubscriptionProcessorInterface
@@ -80,9 +80,7 @@ final class SubscriptionProcessor implements SubscriptionProcessorInterface
             $subscription->getSubscriptionConfiguration(),
             $clonedOrder,
         );
-        $payment->setDetails(
-            $details,
-        );
+        $payment->setDetails($details);
         $clonedOrder->addPayment($payment);
         $this->orderRepository->add($clonedOrder);
 

@@ -1,0 +1,10 @@
+{% set form = hookable_metadata.context.form.gatewayConfig.mollieGatewayConfig %}
+{% set methods_accordion_id = 'payment_methods' %}
+
+<div
+    class="accordion accordion-flush js-sortable"
+    id="{{ methods_accordion_id }}"
+    data-ajax-url="{{ path('sylius_mollie_admin_mollie_method_change_position') }}"
+>
+    {% hook 'accordion' %}
+</div>

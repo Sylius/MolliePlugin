@@ -1,0 +1,18 @@
+{% set form = hookable_metadata.context.form.gatewayConfig.mollieGatewayConfig %}
+
+{% for name, method_form in form|sort((a, b) => a.vars.value.position <=> b.vars.value.position) %}
+    {% set inner_payment_method = method_form.vars.value %}
+    {% set payment_method_accordion_id = 'accordion-' ~ inner_payment_method.id %}
+    {% set methods_loop = loop %}
+
+    <div
+        class="accordion-item draggable js-draggable"
+        draggable="false"
+        data-payment-method="{{ inner_payment_method.methodId }}"
+        data-payment-id="{{ inner_payment_method.id }}"
+    >
+        {% hook 'item' %}
+    </div>
+{% else %}
+    {% hook 'item#no_results' %}
+{% endfor %}

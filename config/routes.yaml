@@ -7,3 +7,7 @@ sylius_mollie_shop:
     prefix: /{_locale}
     requirements:
         _locale: ^[A-Za-z]{2,4}(_([A-Za-z]{4}|[0-9]{3}))?(_([A-Za-z]{2}|[0-9]{3}))?$
+
+mollie_refund_integration:
+    resource: "integration/refund-plugin/routes.php"
+    prefix: /%sylius_admin.path_name%

@@ -42,7 +42,7 @@ final class MolliePluginLatestVersion extends AbstractExtension
             return '';
         }
 
-        return $environment->render('@SyliusAdmin/PaymentMethod/_versionNotification.html.twig', [
+        return $environment->render('@SyliusMolliePlugin/admin/payment_method/version_notification.html.twig', [
             'latestVersion' => $latestVersion,
             'currentVersion' => SyliusMolliePlugin::VERSION,
         ]);

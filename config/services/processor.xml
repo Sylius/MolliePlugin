@@ -20,10 +20,17 @@
         <service
             id="sylius_mollie.processor.payment_surcharge"
             class="Sylius\MolliePlugin\Processor\PaymentSurchargeProcessor"
-            public="true"
         >
             <argument type="service" id="sylius_mollie.calculator.payment_fee.composite"/>
+            <tag name="sylius.order_processor" priority="10"/>
         </service>
-        <service id="Sylius\MolliePlugin\Processor\PaymentSurchargeProcessorInterface" alias="sylius_mollie.processor.payment_surcharge"/>
+
+        <service
+            id="sylius_mollie.processor.payment_surcharge_cleanup"
+            class="Sylius\MolliePlugin\Processor\PaymentSurchargeCleanupProcessor"
+        >
+            <argument type="service" id="sylius_mollie.calculator.clearer.payment_fee_adjustment"/>
+            <tag name="sylius.order_processor" priority="20"/>
+        </service>
     </services>
 </container>

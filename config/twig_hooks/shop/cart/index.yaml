@@ -1,0 +1,10 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_shop.cart.index.content.form.sections.general.items.body':
+            recurring_settings:
+                template: '@SyliusMolliePlugin/shop/cart/index/content/form/sections/general/items/body/recurring_settings.html.twig'
+                priority: 250
+        'sylius_shop.cart.index.content.form.sections.general.items.head':
+            recurring:
+                template: '@SyliusMolliePlugin/shop/cart/index/content/form/sections/general/items/head/recurring.html.twig'
+                priority: 250

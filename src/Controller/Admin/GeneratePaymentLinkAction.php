@@ -16,7 +16,7 @@ namespace Sylius\MolliePlugin\Controller\Admin;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\MolliePlugin\Entity\TemplateMollieEmailInterface;
-use Sylius\MolliePlugin\Form\Type\PaymentlinkType;
+use Sylius\MolliePlugin\Form\Type\PaymentLinkType;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Resolver\PaymentLinkResolverInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -46,7 +46,7 @@ final class GeneratePaymentLinkAction
         /** @var OrderInterface $order */
         $order = $this->orderRepository->findOneByNumber($request->attributes->get('orderNumber'));
 
-        $form = $this->formFactory->create(PaymentlinkType::class);
+        $form = $this->formFactory->create(PaymentLinkType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -58,18 +58,18 @@ final class GeneratePaymentLinkAction
 
                 $session->getFlashBag()->add('success', $paymentLink);
 
-                $this->loggerAction->addLog(sprintf('Created payment link to order with id = %s', $order->getId()));
+                $this->loggerAction->addLog(sprintf('Created payment link for order with id: %s', $order->getId()));
 
                 return new RedirectResponse($this->router->generate('sylius_admin_order_show', ['id' => $order->getId()]));
             } catch (\Exception $e) {
-                $this->loggerAction->addNegativeLog(sprintf('Error with generate payment link with : %s', $e->getMessage()));
+                $this->loggerAction->addNegativeLog(sprintf('Error generating a payment link: %s', $e->getMessage()));
 
                 $session->getFlashBag()->add('error', $e->getMessage());
             }
         }
 
         return new Response(
-            $this->twig->render('@SyliusMolliePlugin/Admin/Paymentlink/_form.html.twig', [
+            $this->twig->render('@SyliusMolliePlugin/admin/payment_link/create.html.twig', [
                 'order' => $order,
                 'form' => $form->createView(),
             ]),

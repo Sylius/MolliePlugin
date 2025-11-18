@@ -113,7 +113,7 @@ final class MollieCountriesRestrictionResolver implements MollieCountriesRestric
     {
         /** @var MollieGatewayConfigTranslationInterface $translation */
         $translation = $paymentMethod->getTranslation();
-        $methods['data'][$translation->getName() ?? $paymentMethod->getName()] = $paymentMethod->getMethodId();
+        $methods['data'][$paymentMethod->getMethodId()] = $translation->getName() ?? $paymentMethod->getName();
         $methods['image'][$paymentMethod->getMethodId()] = $this->imageResolver->resolve($paymentMethod);
         $methods['issuers'][$paymentMethod->getMethodId()] = $paymentMethod->getIssuers();
         $methods['paymentFee'][$paymentMethod->getMethodId()] = $paymentMethod->getPaymentSurchargeFee() ?? [];

@@ -1,0 +1,11 @@
+{% import '@SyliusAdmin/shared/helper/translations.html.twig' as translations %}
+
+{% set method_form = hookable_metadata.context.method_form %}
+{% set prefixes = hookable_metadata.prefixes %}
+{% set payment_method_accordion_id = hookable_metadata.context.payment_method_accordion_id %}
+
+{{ translations.with_hook(method_form.translations, prefixes, null, {
+    accordion_id: payment_method_accordion_id ~ '-translations'
+}) }}
+
+<div class="mb-3"></div>
