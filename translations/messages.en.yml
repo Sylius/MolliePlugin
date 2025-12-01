@@ -107,7 +107,7 @@ sylius_mollie:
         payment_link_abandoned: 'Payment link abandoned'
         payment_link_generate: 'Generate payment link'
         payment_link_generate_subtitle: 'Generate payment link and send it to customer'
-        payment_mathod_conf_title: 'Payment methods configuration'
+        payment_method_conf_title: 'Payment methods configuration'
         payment_method_id: 'Payment method Id'
         payment_methods_doc: 'to read more about the differences between the Payment and Orders API'
         payment_name: 'Payment name'

@@ -12,7 +12,6 @@ sylius_mollie:
     credit_cart_error:
         authentication_failed: 'Authenticatie mislukt'
         card_expired: 'Pas verlopen'
-        empty_payment_method_checkout: 'Kies een van de Mollie-betalingsmethoden'
         inactive_card: 'Kaart niet actief'
         insufficient_funds: 'Onvoldoende saldo'
         invalid_card_holder_name: 'Naam kaarthouder ongeldig'
@@ -21,6 +20,9 @@ sylius_mollie:
         invalid_cvv: 'Ongeldige cvv'
         possible_fraud: 'Mogelijke fraude'
         refused_by_issuer: 'Geweigerd door issuer'
+    empty_payment_method_checkout: 'Kies een van de Mollie-betalingsmethoden'
+    order_checkout:
+        colliding_products: 'Er zitten gemengde producten (terugkerende en eenmalige) in uw winkelwagen. Het is niet toegestaan om door te gaan met gemengde inhoud.'
     refunded_only_locally: 'De terugbetaling is alleen lokaal gedaan'
     subscription:
         cancelled: 'Abonnement is opgezegd.'

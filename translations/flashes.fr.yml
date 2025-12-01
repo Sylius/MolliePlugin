@@ -12,7 +12,6 @@ sylius_mollie:
     credit_cart_error:
         authentication_failed: "Échec de l'authentification"
         card_expired: "Carte expirée"
-        empty_payment_method_checkout: 'Veuillez choisir une méthode de paiement Mollie'
         inactive_card: "Carte inactive"
         insufficient_funds: "Fonds insuffisants"
         invalid_card_holder_name: "Nom du titulaire de la carte non valide"
@@ -21,6 +20,9 @@ sylius_mollie:
         invalid_cvv: "cvv non valide"
         possible_fraud: "Risque de fraude"
         refused_by_issuer: "Refusé par l'émetteur"
+    empty_payment_method_checkout: 'Veuillez choisir une méthode de paiement Mollie'
+    order_checkout:
+        colliding_products: 'Votre panier contient des produits mixtes (récurrents et non récurrents). Il est interdit de poursuivre avec un contenu mixte.'
     refunded_only_locally: "Le remboursement n'a été réalisé que localement"
     subscription:
         cancelled: "L'abonnement a été annulé."
