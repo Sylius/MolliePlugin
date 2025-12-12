@@ -4,10 +4,19 @@ on:
     push:
         branches-ignore:
             - 'upmerge/**'
+        paths-ignore:
+            - "*.md"
+    pull_request:
+        paths-ignore:
+            - "*.md"
     workflow_dispatch: ~
-    pull_request: ~
     schedule:
-        -   cron: "0 1 * * 6" # Run at 1am every Saturday
+        -
+            cron: "0 1 * * *" # Run at 1am every day
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
 
 jobs:
     tests:
@@ -23,7 +32,7 @@ jobs:
                 sylius: ["~2.0.8", "~2.1.0"]
                 node: ["22.x"]
                 database: ["mysql"]
-                mysql: ["8.4"]
+                database_version: ["8.4"]
                 state_machine_adapter: ["symfony_workflow"]
                 refund: ["false", "true"]
 
@@ -34,165 +43,101 @@ jobs:
                         sylius: "~2.1.0"
                         node: "24.x"
                         database: "mysql"
-                        mysql: "8.4"
+                        database_version: "8.4"
                         state_machine_adapter: "winzou_state_machine"
                         refund: "false"
 
         env:
             APP_ENV: test
-            DATABASE_URL: "mysql://root:root@127.0.0.1/sylius?serverVersion=${{ matrix.mysql }}"
+            DATABASE_URL: "mysql://root:root@127.0.0.1/sylius?serverVersion=${{ matrix.database_version }}"
             TEST_SYLIUS_STATE_MACHINE_ADAPTER: "${{ matrix.state_machine_adapter }}"
 
         steps:
-            -   uses: actions/checkout@v4
+            -
+                uses: actions/checkout@v4
 
-            -   name: Setup PHP
-                uses: shivammathur/setup-php@v2
-                with:
-                    php-version: "${{ matrix.php }}"
-                    extensions: intl
-                    tools: symfony
-                    coverage: none
-
-            -   name: Setup Node
-                uses: actions/setup-node@v4
-                with:
-                    node-version: "${{ matrix.node }}"
-
-            -   name: Shutdown default MySQL
-                run: sudo service mysql stop
-
-            -   name: Setup MySQL
-                uses: mirromutth/mysql-action@v1.1
-                with:
-                    mysql version: "${{ matrix.mysql }}"
-                    mysql root password: "root"
-
-            -   name: Output PHP version for Symfony CLI
-                run: php -v | head -n 1 | awk '{ print $2 }' > .php-version
-
-            -   name: Get Composer cache directory
-                id: composer-cache
-                run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-
-            -   name: Cache Composer
-                uses: actions/cache@v4
-                with:
-                    path: ${{ steps.composer-cache.outputs.dir }}
-                    key: ${{ runner.os }}-php-${{ matrix.php }}-composer-${{ hashFiles('**/composer.json **/composer.lock') }}
-                    restore-keys: |
-                        ${{ runner.os }}-php-${{ matrix.php }}-composer-
-
-            -   name: Restrict Symfony version
-                if: matrix.symfony != ''
-                run: |
-                    composer global config --no-plugins allow-plugins.symfony/flex true
-                    composer global require --no-progress --no-scripts --no-plugins "symfony/flex:^1.17 || ^2.0"
-                    composer config extra.symfony.require "${{ matrix.symfony }}"
-
-            -   name: Restrict Sylius version
-                if: matrix.sylius != ''
-                run: composer require "sylius/sylius:${{ matrix.sylius }}" --no-update --no-scripts --no-interaction
-
-            -   name: Install Refund Plugin
+            -
+                name: Install Refund Plugin
                 if: matrix.refund == 'true'
                 run: composer require "sylius/refund-plugin" --no-update --no-scripts --no-interaction
 
-            -   name: Install PHP dependencies
-                run: composer install --no-interaction
+            -
+                name: Require Winzou State Machine
+                if: "${{ matrix.state_machine_adapter == 'winzou_state_machine' }}"
+                run: |
+                    composer require winzou/state-machine:^0.4 --no-update
+                    composer require winzou/state-machine-bundle:^0.6 --no-update
 
-            -   name: Validate composer.json
+            -
+                name: Build Sylius Test Application
+                uses: SyliusLabs/BuildTestAppAction@v3.2.0
+                with:
+                    e2e_js: "yes"
+                    cache_key: "${{ runner.os }}-php-${{ matrix.php }}-composer-${{ hashFiles('**/composer.json') }}"
+                    cache_restore_key: "${{ runner.os }}-php-${{ matrix.php }}-composer-"
+                    database: "${{ matrix.database }}"
+                    database_version: "${{ matrix.database_version }}"
+                    node_version: "${{ matrix.node }}"
+                    php_version: "${{ matrix.php }}"
+                    sylius_version: "${{ matrix.sylius }}"
+                    symfony_version: "${{ matrix.symfony }}"
+
+            -
+                name: Run security check
+                run: composer audit --abandoned=ignore
+
+            -
+                name: Validate composer.json
                 run: composer validate --ansi --strict
 
-            -   name: Run PHPStan
-                run: vendor/bin/phpstan analyse
-
-            -   name: Run ECS
+            -
+                name: Run ECS
                 run: vendor/bin/ecs check
 
-            -   name: Run unit tests
+            -
+                name: Lint container
+                run: vendor/bin/console lint:container
+
+            -
+                name: Run PHPStan
+                run: vendor/bin/phpstan analyse
+
+            -
+                name: Run PHPUnit (Unit)
                 run: vendor/bin/phpunit --colors=always --testsuite=unit
 
-            -   name: Validate container
-                run: vendor/bin/console lint:container
-
-            -   name: Get Yarn cache directory
-                id: yarn-cache
-                run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-
-            -   name: Cache Yarn
-                uses: actions/cache@v4
-                with:
-                    path: ${{ steps.yarn-cache.outputs.dir }}
-                    key: ${{ runner.os }}-node-${{ matrix.node }}-yarn-${{ hashFiles('**/package.json **/yarn.lock') }}
-                    restore-keys: |
-                        ${{ runner.os }}-node-${{ matrix.node }}-yarn-
-
             -
-                name: Install JS dependencies
-                run: (cd vendor/sylius/test-application && yarn install)
-
-            -
-                name: Prepare test application database
-                run: |
-                    vendor/bin/console doctrine:database:create -vvv
-                    vendor/bin/console doctrine:migrations:migrate -n -vvv -q
-
-            -
-                name: Validate database schema
-                run: vendor/bin/console doctrine:schema:validate
-
-            -
-                name: Prepare test application assets
-                run: |
-                    vendor/bin/console assets:install -vvv
-                    (cd vendor/sylius/test-application && yarn build)
-
-            -
-                name: Prepare test application cache
-                run: vendor/bin/console cache:warmup -vvv
-
-            -
-                name: Load fixtures in test application
-                run: vendor/bin/console sylius:fixtures:load -n
-
-            -
-                name: Validate container
-                run: vendor/bin/console lint:container
-
-            -   name: Run Mockoon CLI
+                name: Run Mockoon CLI
                 uses: mockoon/cli-action@v2
                 with:
                     version: "latest"
                     data-file: tests/Integration/Refund/Functional/Mockoon.json
                     port: 8217
 
-            -   name: Run Functional Tests
+            -
+                name: Run Functional Tests
                 if: matrix.refund == 'true'
                 run: vendor/bin/phpunit --colors=always --testsuite=integration-refund
 
-            -   name: Run Chrome Headless
-                run: google-chrome-stable --enable-automation --disable-background-networking --no-default-browser-check --no-first-run --disable-popup-blocking --disable-default-apps --allow-insecure-localhost --disable-translate --disable-extensions --no-sandbox --enable-features=Metal --headless --remote-debugging-port=9222 --window-size=2880,1800 --proxy-server='direct://' --proxy-bypass-list='*' http://127.0.0.1 > /dev/null 2>&1 &
-
-            -   name: Run webserver
-                run: symfony server:start --port=8080 --daemon
-
-            -   name: Run Mockoon for Behat
+            -
+                name: Run Mockoon for Behat
                 shell: bash
                 run: |
                     npx mockoon-cli start --port=8218 --data tests/Behat/Mollie_Behat.json &
 
-            -   name: Run Behat
-                run: |
-                    vendor/bin/behat --colors --strict -f progress -vvv --no-interaction || vendor/bin/behat --colors --strict -vvv --no-interaction --rerun
+            -
+                name: Run Behat
+                run: vendor/bin/behat --colors --strict -f progress -vvv --no-interaction || vendor/bin/behat --colors --strict -vvv --no-interaction --rerun
 
-            -   name: Upload Behat logs
+            -
+                name: Upload Behat logs
                 uses: actions/upload-artifact@v4
                 if: failure()
                 with:
-                    name: Behat logs - ${{ github.run_id }}-${{ github.run_number }}
+                    name: "Behat logs - Sylius ${{ matrix.sylius }}, PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }}, Refund ${{ matrix.refund }}"
                     path: |
                         etc/build/
                         var/log
                     if-no-files-found: ignore
+                    compression-level: 6
                     overwrite: true
