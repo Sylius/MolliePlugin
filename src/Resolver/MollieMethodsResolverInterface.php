@@ -21,12 +21,13 @@ interface MollieMethodsResolverInterface
     /** @var string[] */
     public const PARAMETERS = [
         'include' => 'issuers',
-        'includeWallets' => 'applepay',
+        'includeWallets' => PaymentMethod::APPLEPAY,
         'resource' => 'orders',
     ];
 
     public const PARAMETERS_RECURRING = [
         'include' => 'issuers',
+        'includeWallets' => PaymentMethod::APPLEPAY,
         'sequenceType' => 'recurring',
     ];
 
@@ -47,6 +48,7 @@ interface MollieMethodsResolverInterface
     ];
 
     public const RECURRING_PAYMENT_INITIAL_METHODS = [
+        PaymentMethod::APPLEPAY,
         PaymentMethod::BANCONTACT,
         PaymentMethod::BELFIUS,
         PaymentMethod::EPS,
