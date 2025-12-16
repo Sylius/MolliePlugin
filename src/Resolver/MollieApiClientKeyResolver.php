@@ -38,7 +38,7 @@ final class MollieApiClientKeyResolver implements MollieApiClientKeyResolverInte
     public function getClientWithKey(?OrderInterface $order = null): MollieApiClient
     {
         /** @var ChannelInterface $channel */
-        $channel = $this->channelContext->getChannel();
+        $channel = $order?->getChannel() ?? $this->channelContext->getChannel();
 
         $paymentMethod = $this->paymentMethodRepository->findOneByChannelAndGatewayFactoryName(
             $channel,
