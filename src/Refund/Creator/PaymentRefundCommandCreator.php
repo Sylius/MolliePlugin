@@ -16,6 +16,7 @@ namespace Sylius\MolliePlugin\Refund\Creator;
 use Mollie\Api\Resources\Payment;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\MolliePlugin\Exceptions\InvalidRefundAmountException;
 use Sylius\MolliePlugin\Exceptions\OfflineRefundPaymentMethodNotFound;
 use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
 use Sylius\MolliePlugin\Refund\Units\PaymentUnitsItemRefundInterface;
@@ -53,6 +54,12 @@ final class PaymentRefundCommandCreator implements PaymentRefundCommandCreatorIn
         Assert::notNull($payment->amountRefunded);
         $mollieRefund = (float) $payment->amountRefunded->value * $this->divisorProvider->getDivisor();
         $toRefund = (int) $mollieRefund - $refunded;
+
+        if ($toRefund <= 0) {
+            throw new InvalidRefundAmountException(
+                sprintf('Refund already processed for order %s (Mollie: %d, Sylius: %d)', $order->getNumber(), (int) $mollieRefund, $refunded),
+            );
+        }
 
         Assert::notNull($order->getChannel());
         $refundMethods = $this->refundPaymentMethodProvider->findForChannel($order->getChannel());
