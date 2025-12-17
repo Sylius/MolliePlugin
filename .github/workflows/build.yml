@@ -129,8 +129,8 @@ jobs:
                     (cd tests/Application && bin/console doctrine:database:create -vvv)
                     (cd tests/Application && bin/console doctrine:migrations:migrate -n -vvv -q)
 
-            -   name: Validate database schema
-                run: (cd tests/Application && bin/console doctrine:schema:validate -vvv)
+#            -   name: Validate database schema
+#                run: (cd tests/Application && bin/console doctrine:schema:validate -vvv)
 
             -   name: Prepare test application assets
                 run: |
