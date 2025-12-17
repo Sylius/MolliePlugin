@@ -31,6 +31,11 @@ final class ApplePayDirectEnabled extends AbstractExtension
                 [$this->applePayEnabledChecker, 'isEnabled'],
                 ['is_safe' => ['html']],
             ),
+            new TwigFunction(
+                'mollie_render_apple_pay_direct_for_order',
+                [$this->applePayEnabledChecker, 'isEnabledForOrder'],
+                ['is_safe' => ['html']],
+            ),
         ];
     }
 }

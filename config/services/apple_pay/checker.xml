@@ -22,8 +22,9 @@
             class="Sylius\MolliePlugin\ApplePay\Checker\ApplePayEnabledChecker"
             public="true"
         >
-            <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
+            <argument type="service" id="sylius_mollie.repository.mollie_gateway_config" />
+            <argument type="service" id="sylius.payment_methods_resolver.default" on-invalid="null" />
         </service>
-        <service id="Sylius\MolliePlugin\ApplePay\Checker\ApplePayEnabledCheckerInterface" alias="sylius_mollie.apple_pay.checker.apple_pay_enabled"/>
+        <service id="Sylius\MolliePlugin\ApplePay\Checker\ApplePayEnabledCheckerInterface" alias="sylius_mollie.apple_pay.checker.apple_pay_enabled" />
     </services>
 </container>
