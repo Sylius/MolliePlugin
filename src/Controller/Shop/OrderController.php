@@ -104,7 +104,7 @@ final class OrderController extends BaseOrderController
     private function getApplePayProviderService(): ApplePayDirectProviderInterface
     {
         /** @var ApplePayDirectProviderInterface $provider */
-        $provider = $this->get('sylius_mollie_plugin.provider.apple.apple_pay_direct_provider');
+        $provider = $this->get('sylius_mollie.apple_pay.provider.apple_pay_direct');
 
         return $provider;
     }
