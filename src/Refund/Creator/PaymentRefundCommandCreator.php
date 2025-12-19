@@ -15,9 +15,11 @@ namespace Sylius\MolliePlugin\Refund\Creator;
 
 use Mollie\Api\Resources\Payment;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Exceptions\InvalidRefundAmountException;
 use Sylius\MolliePlugin\Exceptions\OfflineRefundPaymentMethodNotFound;
+use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
 use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
 use Sylius\MolliePlugin\Refund\Units\PaymentUnitsItemRefundInterface;
 use Sylius\MolliePlugin\Refund\Units\ShipmentUnitRefundInterface;
@@ -61,19 +63,7 @@ final class PaymentRefundCommandCreator implements PaymentRefundCommandCreatorIn
             );
         }
 
-        Assert::notNull($order->getChannel());
-        $refundMethods = $this->refundPaymentMethodProvider->findForChannel($order->getChannel());
-
-        if (0 === count($refundMethods)) {
-            throw new OfflineRefundPaymentMethodNotFound(
-                sprintf(
-                    'Not found offline payment method on this channel with code :%s',
-                    $order->getChannel()->getCode(),
-                ),
-            );
-        }
-
-        $refundMethod = current($refundMethods);
+        $refundMethod = $this->resolveRefundMethod($order);
 
         $orderItemUnitRefund = $this->itemRefund->refund($order, $toRefund);
         $shipmentRefund = $this->shipmentRefund->refund($order, $orderItemUnitRefund, $toRefund);
@@ -86,6 +76,31 @@ final class PaymentRefundCommandCreator implements PaymentRefundCommandCreatorIn
             $refundMethod->getId(),
             '',
         );
+    }
+
+    private function resolveRefundMethod(OrderInterface $order): PaymentMethodInterface
+    {
+        $refundMethods = $this->refundPaymentMethodProvider->findForOrder($order);
+        if (0 === count($refundMethods)) {
+            throw new OfflineRefundPaymentMethodNotFound(
+                sprintf(
+                    'No refund payment method found for order with id "%s"',
+                    $order->getId(),
+                ),
+            );
+        }
+
+        foreach ($refundMethods as $method) {
+            $gateway = $method->getGatewayConfig();
+            if (null === $gateway) {
+                continue;
+            }
+            if ($gateway->getFactoryName() === MollieGatewayFactory::FACTORY_NAME) {
+                return $method;
+            }
+        }
+
+        return $refundMethods[0];
     }
 
     /** @param RefundInterface[] $refundedUnits */
