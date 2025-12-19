@@ -22,7 +22,7 @@
         <service
             id="sylius_mollie.refund.validator.refund_units_command"
             class="Sylius\MolliePlugin\Refund\Validator\RefundUnitsCommandValidator"
-            decorates="Sylius\RefundPlugin\Validator\RefundUnitsCommandValidator"
+            decorates="Sylius\RefundPlugin\Validator\RefundUnitsCommandValidatorInterface"
         >
             <argument type="service" id="Sylius\RefundPlugin\Checker\OrderRefundingAvailabilityChecker"/>
             <argument type="service" id="Sylius\RefundPlugin\Validator\RefundAmountValidator" />
