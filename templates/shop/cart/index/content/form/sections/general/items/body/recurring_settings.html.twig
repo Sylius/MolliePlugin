@@ -1,0 +1,21 @@
+{% set item = hookable_metadata.context.item %}
+{% set variant = item.variant %}
+
+{%- if variant is not null and variant.recurring -%}
+    {% set interval = variant.interval|default('')|split(' ') %}
+    {% if interval|length == 2 %}
+        {% set intervalValue = interval[0] %}
+        {% set intervalUnit = interval[1] %}
+
+        <td>
+            <span>
+                {{ 'sylius_mollie.shop.product_variant.every.%s'|format(intervalUnit)|trans({'%amount%': intervalValue})|capitalize }},
+                {{ variant.times }} {{ 'sylius_mollie.shop.product_variant.times'|trans }}
+            </span>
+        </td>
+    {% endif %}
+{%- else -%}
+    <td class="text-center">
+        <span>{{ ux_icon('tabler:x') }}</span>
+    </td>
+{%- endif -%}

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Cloner;
 
+use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\OrderCheckoutStates;
 use Sylius\Component\Core\OrderPaymentStates;
@@ -67,10 +68,14 @@ final class SubscriptionOrderCloner implements SubscriptionOrderClonerInterface
         $clonedOrder->setPaymentState(OrderPaymentStates::STATE_AWAITING_PAYMENT);
         $clonedOrder->setPromotionCoupon($order->getPromotionCoupon());
 
-        Assert::notNull($order->getShippingAddress());
-        Assert::notNull($order->getBillingAddress());
-        $clonedOrder->setShippingAddress(clone $order->getShippingAddress());
-        $clonedOrder->setBillingAddress(clone $order->getBillingAddress());
+        $shippingAddress = $order->getShippingAddress();
+        Assert::notNull($shippingAddress);
+        $clonedOrder->setShippingAddress($this->hydrateAndClone($shippingAddress));
+
+        $billingAddress = $order->getBillingAddress();
+        Assert::notNull($billingAddress);
+        $clonedOrder->setBillingAddress($this->hydrateAndClone($billingAddress));
+
         $clonedOrder->setShippingState(OrderShippingStates::STATE_READY);
         $clonedOrder->setTokenValue($this->randomnessGenerator->generateUriSafeString(10));
 
@@ -112,5 +117,23 @@ final class SubscriptionOrderCloner implements SubscriptionOrderClonerInterface
         $clonedOrder->recalculateItemsTotal();
 
         return $clonedOrder;
+    }
+
+    /** Hydrates the proxy data of the address before cloning it */
+    private function hydrateAndClone(AddressInterface $address): AddressInterface
+    {
+        $address->getFirstName();
+        $address->getLastName();
+        $address->getCompany();
+        $address->getStreet();
+        $address->getCity();
+        $address->getPostcode();
+        $address->getCountryCode();
+        $address->getProvinceCode();
+        $address->getProvinceName();
+        $address->getPhoneNumber();
+        $address->getCustomer();
+
+        return clone $address;
     }
 }

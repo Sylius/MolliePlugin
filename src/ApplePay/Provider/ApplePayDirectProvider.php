@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\ApplePay\Provider;
 
-use Sylius\AdminOrderCreationPlugin\Provider\CustomerProviderInterface as OrderCreationCustomerProviderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\MolliePlugin\ApplePay\Resolver\AddressResolverInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
@@ -26,7 +25,7 @@ final class ApplePayDirectProvider implements ApplePayDirectProviderInterface
     public function __construct(
         private readonly AddressResolverInterface $applePayAddressResolver,
         private readonly OrderPaymentApplePayDirectProviderInterface $paymentApplePayDirectProvider,
-        private readonly CustomerProviderInterface|OrderCreationCustomerProviderInterface $customerProvider,
+        private readonly CustomerProviderInterface $customerProvider,
         private readonly ApplePayDirectPaymentProviderInterface $applePayDirectPaymentProvider,
     ) {
     }

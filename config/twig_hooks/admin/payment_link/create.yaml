@@ -1,0 +1,33 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_mollie.admin.payment_link.create.content.header':
+            breadcrumbs:
+                template: '@SyliusMolliePlugin/admin/payment_link/create/content/header/breadcrumbs.html.twig'
+
+        'sylius_mollie.admin.payment_link.create.content.header.title_block':
+            title:
+                template: '@SyliusMolliePlugin/admin/payment_link/create/content/header/title_block/title.html.twig'
+
+        'sylius_mollie.admin.payment_link.create.content.header.title_block.actions':
+            create:
+                enabled: false
+            cancel:
+                template: '@SyliusMolliePlugin/admin/payment_link/create/content/header/title_block/actions/cancel.html.twig'
+                priority: 100
+            generate:
+                template: '@SyliusMolliePlugin/admin/payment_link/create/content/header/title_block/actions/generate.html.twig'
+                priority: 0
+
+        'sylius_mollie.admin.payment_link.create.content':
+            form:
+                template: '@SyliusAdmin/shared/crud/common/content/form.html.twig'
+                configuration:
+                    render_rest: false
+                priority: 100
+
+        'sylius_mollie.admin.payment_link.create.content.form.sections.general':
+            default:
+                enabled: false
+            methods:
+                template: '@SyliusMolliePlugin/admin/payment_link/form/sections/general/methods.html.twig'
+                priority: 0

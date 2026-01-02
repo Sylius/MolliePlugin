@@ -221,7 +221,7 @@ final class CaptureActionTest extends TestCase
 
         $request->method('getModel')->willReturn($details);
 
-        $this->genericTokenFactory->method('createToken')->with('test', $identity, 'sylius_mollie_plugin_cancel_subscription_mollie', ['orderId' => 'test_order_id'])->willReturn($cancelToken);
+        $this->genericTokenFactory->method('createToken')->with('test', $identity, 'sylius_mollie_shop_cancel_subscription_mollie', ['orderId' => 'test_order_id'])->willReturn($cancelToken);
 
         $this->gateway->expects($this->exactly(3))->method('execute');
 

@@ -1,0 +1,23 @@
+{% set inner_payment_method = hookable_metadata.context.inner_payment_method %}
+{% set payment_method_accordion_id = hookable_metadata.context.payment_method_accordion_id %}
+
+{% set method_image = inner_payment_method.image.svg %}
+{% if inner_payment_method.customizeMethodImage != null and inner_payment_method.customizeMethodImage.path != null %}
+    {% set method_image = inner_payment_method.customizeMethodImage.path|imagine_filter('sylius_original') %}
+{% endif %}
+
+{% set methods_loop = hookable_metadata.context.methods_loop %}
+
+<div class="col">
+    <button
+        class="accordion-button mollie-accordion {% if not methods_loop.first %} collapsed{% endif %}"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#{{ payment_method_accordion_id }}"
+        aria-expanded="{% if methods_loop.first %}true{% else %}false{% endif %}"
+        aria-controls="{{ payment_method_accordion_id }}"
+    >
+        <img class="ui mini avatar image" src="{{ method_image }}" />
+        <span class="ms-3">{{ inner_payment_method.name }}</span>
+    </button>
+</div>

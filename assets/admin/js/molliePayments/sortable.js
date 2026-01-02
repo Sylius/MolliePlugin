@@ -1,5 +1,4 @@
-$ = window.$;
-$(function () {
+document.addEventListener('DOMContentLoaded', function () {
     const container = document.querySelector('.js-sortable');
 
     if (!container) {
@@ -24,23 +23,21 @@ $(function () {
         event.preventDefault();
         const afterElement = getDragAfterElement(container, event.clientY);
         const draggable = document.querySelector('.dragging');
-        if (afterElement == null) {
-            container.appendChild(draggable);
-        } else {
-            container.insertBefore(draggable, afterElement);
+        if (draggable) {
+            if (afterElement == null) {
+                container.appendChild(draggable);
+            } else {
+                container.insertBefore(draggable, afterElement);
+            }
         }
     });
 
     function getPaymentMethodPositions() {
         const draggables = [...container.querySelectorAll('.js-draggable')];
-        const updatedPositions = [];
-
-        draggables.map((item, index) => {
-            const {paymentMethod, paymentId} = item.dataset;
-            updatedPositions.push({id: index, name: paymentMethod, identifier: paymentId});
+        return draggables.map((item, index) => {
+            const { paymentMethod, paymentId } = item.dataset;
+            return { id: index, name: paymentMethod, identifier: paymentId };
         });
-
-        return updatedPositions;
     }
 
     function getDragAfterElement(container, y) {
@@ -51,24 +48,36 @@ $(function () {
                 const box = child.getBoundingClientRect();
                 const offset = y - box.top - box.height / 2;
                 if (offset < 0 && offset > closest.offset) {
-                    return {offset: offset, element: child};
+                    return { offset: offset, element: child };
                 } else {
                     return closest;
                 }
             },
-            {offset: Number.NEGATIVE_INFINITY}
+            { offset: Number.NEGATIVE_INFINITY }
         ).element;
     }
 
     function changePositionAjaxAction(data) {
-        const url = document.getElementById('payment_methods').getAttribute('data-ajax-url');
+        const urlElement = document.getElementById('payment_methods');
+        if (!urlElement) return;
 
-        $.ajax({
-            type: 'GET',
-            url: url,
-            data: {data: data},
-            success: function (data) {},
-            error: function () {},
-        });
+        const url = urlElement.getAttribute('data-ajax-url');
+
+        // Assuming the backend expects query parameters for GET
+        const params = new URLSearchParams({ data: JSON.stringify(data) });
+
+        fetch(`${url}?${params.toString()}`, {
+            method: 'GET',
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // Optionally handle success
+            })
+            .catch((error) => {
+                // Optionally handle error
+                console.error('AJAX error:', error);
+            });
     }
 });

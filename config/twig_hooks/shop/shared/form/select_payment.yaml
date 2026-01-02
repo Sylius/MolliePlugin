@@ -1,0 +1,128 @@
+sylius_twig_hooks:
+    hooks:
+
+# mollie factory name
+
+        'sylius_shop.shared.form.select_payment.payment.choice.mollie.details':
+            name:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/name.html.twig'
+                priority: 100
+            cart_token:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/cart_token.html.twig'
+                priority: -100
+            save_card_info:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/save_card_info.html.twig'
+                priority: -200
+            use_saved_card:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/use_saved_card.html.twig'
+                priority: -300
+            payment_methods:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods.html.twig'
+                priority: -400
+
+        'sylius_shop.shared.form.select_payment.payment.choice.mollie.details.payment_methods':
+            payment_method:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method.html.twig'
+                priority: 0
+
+        'sylius_shop.shared.form.select_payment.payment.choice.mollie.details.payment_methods.payment_method':
+            input:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method/input.html.twig'
+                priority: 200
+            label:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method/label.html.twig'
+                priority: 100
+            credit_card:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method/credit_card.html.twig'
+                priority: 0
+
+        'sylius_shop.shared.form.select_payment.payment.choice.mollie.details.payment_methods.payment_method.credit_card':
+            use_saved_card:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method/credit_card/use_saved_card.html.twig'
+                priority: 100
+            fields:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method/credit_card/fields.html.twig'
+                priority: 0
+
+        'sylius_shop.shared.form.select_payment.payment.choice.mollie.details.payment_methods.payment_method.credit_card.fields':
+            card_holder:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method/credit_card/fields/card_holder.html.twig'
+                priority: 500
+            card_number:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method/credit_card/fields/card_number.html.twig'
+                priority: 400
+            expiry_date:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method/credit_card/fields/expiry_date.html.twig'
+                priority: 300
+            verification_code:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method/credit_card/fields/verification_code.html.twig'
+                priority: 200
+            save_credit_card:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method/credit_card/fields/save_credit_card.html.twig'
+                priority: 100
+            errors:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method/credit_card/fields/errors.html.twig'
+                priority: 0
+
+# mollie_subscription factory name
+
+        'sylius_shop.shared.form.select_payment.payment.choice.mollie_subscription.details':
+            name:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/name.html.twig'
+                priority: 100
+            cart_token:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/cart_token.html.twig'
+                priority: -100
+            save_card_info:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/save_card_info.html.twig'
+                priority: -200
+            use_saved_card:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/use_saved_card.html.twig'
+                priority: -300
+            payment_methods:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods.html.twig'
+                priority: -400
+
+        'sylius_shop.shared.form.select_payment.payment.choice.mollie_subscription.details.payment_methods':
+            payment_method:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method.html.twig'
+                priority: 0
+
+        'sylius_shop.shared.form.select_payment.payment.choice.mollie_subscription.details.payment_methods.payment_method':
+            input:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method/input.html.twig'
+                priority: 200
+            label:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method/label.html.twig'
+                priority: 100
+            credit_card:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method/credit_card.html.twig'
+                priority: 0
+
+        'sylius_shop.shared.form.select_payment.payment.choice.mollie_subscription.details.payment_methods.payment_method.credit_card':
+            use_saved_card:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method/credit_card/use_saved_card.html.twig'
+                priority: 100
+            fields:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method/credit_card/fields.html.twig'
+                priority: 0
+
+        'sylius_shop.shared.form.select_payment.payment.choice.mollie_subscription.details.payment_methods.payment_method.credit_card.fields':
+            card_holder:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method/credit_card/fields/card_holder.html.twig'
+                priority: 500
+            card_number:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method/credit_card/fields/card_number.html.twig'
+                priority: 400
+            expiry_date:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method/credit_card/fields/expiry_date.html.twig'
+                priority: 300
+            verification_code:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method/credit_card/fields/verification_code.html.twig'
+                priority: 200
+            save_credit_card:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method/credit_card/fields/save_credit_card.html.twig'
+                priority: 100
+            errors:
+                template: '@SyliusMolliePlugin/shop/shared/form/select_payment/payment/choice/details/payment_methods/payment_method/credit_card/fields/errors.html.twig'
+                priority: 0

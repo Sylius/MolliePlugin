@@ -1,0 +1,25 @@
+sylius_grid:
+    grids:
+        sylius_admin_payment_method:
+            actions:
+                main:
+                    mollie:
+                        type: links
+                        label: sylius_mollie.ui.mollie_gateway_label
+                        position: -100
+                        options:
+                            class: primary
+                            icon: "tabler:credit-card"
+                            links:
+                                logger:
+                                    label: sylius_mollie.ui.mollie_loggers
+                                    route: sylius_mollie_admin_mollie_logger_index
+                                    icon: 'tabler:tags'
+                                product_type:
+                                    label: sylius_mollie.ui.mollie_product_type
+                                    route: sylius_mollie_admin_product_type_index
+                                    icon: 'tabler:sitemap'
+                                email_template:
+                                    label: sylius_mollie.ui.template_mollie_emails
+                                    icon: 'tabler:mail'
+                                    route: sylius_mollie_admin_template_mollie_email_index

@@ -1,10 +1,10 @@
-sylius_mollie_plugin_apple_pay_validation:
+sylius_mollie_shop_apple_pay_validation:
   methods: [POST]
   path: /mollie/apple-direct/validation
   defaults:
     _controller: sylius_mollie.controller.shop.apple_pay_validation
 
-mollie_shop_checkout_apple_complete:
+sylius_mollie_shop_checkout_apple_complete:
     path: /mollie/apple-direct/complete
     methods: [POST, GET]
     defaults:

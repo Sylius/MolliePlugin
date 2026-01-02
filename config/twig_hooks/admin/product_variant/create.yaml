@@ -1,0 +1,33 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_admin.product_variant.create.content.form.side_navigation':
+            mollie:
+                template: '@SyliusMolliePlugin/admin/product_variant/form/side_navigation/mollie.html.twig'
+                priority: -100
+
+        'sylius_admin.product_variant.create.content.form.sections':
+            mollie:
+                template: '@SyliusMolliePlugin/admin/product_variant/form/sections/mollie.html.twig'
+                priority: -100
+
+        'sylius_admin.product_variant.create.content.form.sections.mollie':
+            header:
+                template: '@SyliusMolliePlugin/admin/product_variant/form/sections/mollie/header.html.twig'
+                priority: 100
+            body:
+                template: '@SyliusMolliePlugin/admin/product_variant/form/sections/mollie/body.html.twig'
+                priority: 0
+
+        'sylius_admin.product_variant.create.content.form.sections.mollie.body':
+            recurring:
+                template: '@SyliusMolliePlugin/admin/product_variant/form/sections/mollie/body/recurring.html.twig'
+                priority: 300
+            times:
+                template: '@SyliusMolliePlugin/admin/product_variant/form/sections/mollie/body/times.html.twig'
+                priority: 200
+            interval_amount:
+                template: '@SyliusMolliePlugin/admin/product_variant/form/sections/mollie/body/interval_amount.html.twig'
+                priority: 100
+            interval_step:
+                template: '@SyliusMolliePlugin/admin/product_variant/form/sections/mollie/body/interval_step.html.twig'
+                priority: 0

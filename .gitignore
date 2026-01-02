@@ -21,3 +21,7 @@ composer.lock
 /behat.yml
 /phpunit.xml
 /phpstan.neon
+
+/tests/TestApplication/.env.local
+/tests/TestApplication/.env.*.local
+/var/

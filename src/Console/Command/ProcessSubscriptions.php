@@ -13,9 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Console\Command;
 
-use SM\Factory\FactoryInterface;
 use Sylius\Abstraction\StateMachine\StateMachineInterface;
-use Sylius\Abstraction\StateMachine\WinzouStateMachineAdapter;
 use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
 use Sylius\MolliePlugin\StateMachine\MollieSubscriptionPaymentProcessingTransitions;
 use Sylius\MolliePlugin\StateMachine\MollieSubscriptionProcessingTransitions;
@@ -38,23 +36,11 @@ class ProcessSubscriptions extends Command
 
     public function __construct(
         private readonly MollieSubscriptionRepositoryInterface $mollieSubscriptionRepository,
-        private readonly FactoryInterface|StateMachineInterface $stateMachineFactory,
+        private readonly StateMachineInterface $stateMachine,
         private readonly SubscriptionProcessorInterface $subscriptionProcessor,
         private readonly RouterInterface $router,
     ) {
         parent::__construct(self::COMMAND_NAME);
-
-        if ($this->stateMachineFactory instanceof FactoryInterface) {
-            trigger_deprecation(
-                'sylius/mollie-plugin',
-                '2.2',
-                sprintf(
-                    'Passing an instance of "%s" as the second argument is deprecated. It will accept only instances of "%s" in MolliePlugin 3.0. The argument name will change from "stateMachineFactory" to "stateMachine".',
-                    FactoryInterface::class,
-                    StateMachineInterface::class,
-                ),
-            );
-        }
     }
 
     protected function configure(): void
@@ -79,17 +65,16 @@ class ProcessSubscriptions extends Command
 
             $subscriptions = $this->mollieSubscriptionRepository->findProcessableSubscriptions();
             $routerContext = $this->router->getContext();
-            $stateMachine = $this->getStateMachine();
             foreach ($subscriptions as $subscription) {
-                if (!$stateMachine->can($subscription, MollieSubscriptionProcessingTransitions::GRAPH, MollieSubscriptionProcessingTransitions::TRANSITION_PROCESS)) {
+                if (!$this->stateMachine->can($subscription, MollieSubscriptionProcessingTransitions::GRAPH, MollieSubscriptionProcessingTransitions::TRANSITION_PROCESS)) {
                     continue;
                 }
 
-                if (!$stateMachine->can($subscription, MollieSubscriptionPaymentProcessingTransitions::GRAPH, MollieSubscriptionPaymentProcessingTransitions::TRANSITION_BEGIN)) {
+                if (!$this->stateMachine->can($subscription, MollieSubscriptionPaymentProcessingTransitions::GRAPH, MollieSubscriptionPaymentProcessingTransitions::TRANSITION_BEGIN)) {
                     continue;
                 }
 
-                $stateMachine->apply($subscription, MollieSubscriptionPaymentProcessingTransitions::GRAPH, MollieSubscriptionPaymentProcessingTransitions::TRANSITION_BEGIN);
+                $this->stateMachine->apply($subscription, MollieSubscriptionPaymentProcessingTransitions::GRAPH, MollieSubscriptionPaymentProcessingTransitions::TRANSITION_BEGIN);
 
                 $configuration = $subscription->getSubscriptionConfiguration();
                 $routerContext->setHost($configuration->getHostName());
@@ -99,7 +84,7 @@ class ProcessSubscriptions extends Command
                 $routerContext->setParameter('_locale', $firstOrder->getLocaleCode());
                 $this->subscriptionProcessor->processNextPayment($subscription);
 
-                $stateMachine->apply($subscription, MollieSubscriptionProcessingTransitions::GRAPH, MollieSubscriptionProcessingTransitions::TRANSITION_PROCESS);
+                $this->stateMachine->apply($subscription, MollieSubscriptionProcessingTransitions::GRAPH, MollieSubscriptionProcessingTransitions::TRANSITION_PROCESS);
                 $this->mollieSubscriptionRepository->add($subscription);
             }
 
@@ -125,14 +110,5 @@ class ProcessSubscriptions extends Command
         }
 
         return Command::SUCCESS;
-    }
-
-    private function getStateMachine(): StateMachineInterface
-    {
-        if ($this->stateMachineFactory instanceof FactoryInterface) {
-            return new WinzouStateMachineAdapter($this->stateMachineFactory);
-        }
-
-        return $this->stateMachineFactory;
     }
 }

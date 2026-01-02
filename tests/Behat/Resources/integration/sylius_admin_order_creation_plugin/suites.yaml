@@ -1,2 +1,0 @@
-imports:
-    - suites/ui/creating_mollie_subscription_through_admin.yaml

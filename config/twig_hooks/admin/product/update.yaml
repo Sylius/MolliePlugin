@@ -1,0 +1,16 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_admin.product.update.content.form.side_navigation':
+            mollie:
+                template: '@SyliusMolliePlugin/admin/product/form/side_navigation/mollie.html.twig'
+                priority: -100
+
+        'sylius_admin.product.update.content.form.sections':
+            mollie:
+                template: '@SyliusMolliePlugin/admin/product/form/sections/mollie.html.twig'
+                priority: -100
+
+        'sylius_admin.product.update.content.form.sections.mollie':
+            product_type:
+                template: '@SyliusMolliePlugin/admin/product/form/sections/mollie/product_type.html.twig'
+                priority: -100

@@ -1,0 +1,9 @@
+{% set mollie_subscription = hookable_metadata.context.resource %}
+{% set config = mollie_subscription.subscriptionConfiguration %}
+
+{% if config is not null %}
+    <div class="row">
+        <div class="col-md-4 fw-bold">{{ 'sylius_mollie.ui.interval'|trans }}</div>
+        <div class="col-md-8">{{ config.interval }}</div>
+    </div>
+{% endif %}
