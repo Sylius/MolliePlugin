@@ -1,0 +1,17 @@
+/.docker                        export-ignore
+/.github                        export-ignore
+/etc                            export-ignore
+/tests/Integration              export-ignore
+/tests/TestApplication          export-ignore
+/tests/Unit                     export-ignore
+.dockerignore                   export-ignore
+.editorconfig                   export-ignore
+.gitattributes                  export-ignore
+.gitignore                      export-ignore
+behat.yml.dist                  export-ignore
+ecs.php                         export-ignore
+node_modules                    export-ignore
+phpstan.neon.dist               export-ignore
+phpunit.xml.dist                export-ignore
+rector.php                      export-ignore
+symfony.lock                    export-ignore
