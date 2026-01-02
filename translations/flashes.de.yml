@@ -12,7 +12,6 @@ sylius_mollie:
     credit_cart_error:
         authentication_failed: 'Authentifizierung fehlgeschlagen'
         card_expired: 'Karte abgelaufen'
-        empty_payment_method_checkout: 'Wählen Sie eine Mollie-Bezahlmethode'
         inactive_card: 'Inaktive Karte'
         insufficient_funds: 'Saldo nicht ausreichend'
         invalid_card_holder_name: 'Ungültiger Karteninhaber'
@@ -21,6 +20,9 @@ sylius_mollie:
         invalid_cvv: 'Ungültiger Kartenprüfziffer'
         possible_fraud: 'Möglicher Betrug'
         refused_by_issuer: 'Vom Anbieter abgelehnt'
+    empty_payment_method_checkout: 'Wählen Sie eine Mollie-Bezahlmethode'
+    order_checkout:
+        colliding_products: 'Ihr Warenkorb enthält gemischte Produkte (wiederkehrende und nicht wiederkehrende). Das Fortfahren mit gemischten Inhalten ist nicht zulässig.'
     refunded_only_locally: 'Die Rückzahlung ist nur lokal erfolgt'
     subscription:
         cancelled: 'Das Abonnement wurde gekündigt.'

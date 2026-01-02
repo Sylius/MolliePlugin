@@ -26,3 +26,6 @@ sylius_mollie:
         not_blank: 'Wert darf nicht leer sein'
     times:
         min_range: 'Zeiten darf nicht geringer sein als {{ limit }}.'
+    payment_link:
+        method:
+            not_blank: 'Bitte wählen Sie eine Zahlungsmethode aus.'
