@@ -27,6 +27,14 @@ final class ApplePayEnabledChecker implements ApplePayEnabledCheckerInterface
         private readonly RepositoryInterface $mollieGatewayConfigurationRepository,
         private readonly ?PaymentMethodsResolverInterface $paymentMethodsResolver = null,
     ) {
+        if (null === $this->paymentMethodsResolver) {
+            @trigger_deprecation(
+                'sylius/mollie-plugin',
+                '2.2',
+                'Not passing an instance of "%s" is deprecated and will be required in MolliePlugin 4.0',
+                PaymentMethodsResolverInterface::class,
+            );
+        }
     }
 
     public function isEnabled(): bool
