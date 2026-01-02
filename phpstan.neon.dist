@@ -9,6 +9,7 @@ parameters:
         # Makes PHPStan crash
         - 'src/DependencyInjection/Configuration.php'
         - 'src/Refund/Validator/*.php'
+        - 'src/EventListener/PaymentPartialEventListener.php'
 
     ignoreErrors:
         - identifier: missingType.generics

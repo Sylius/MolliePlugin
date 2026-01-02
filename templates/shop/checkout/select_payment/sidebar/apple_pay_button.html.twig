@@ -1,5 +1,6 @@
-{% if mollie_render_apple_pay_direct() %}
-    {% set order = hookable_metadata.context.order %}
+{% set order = hookable_metadata.context.order %}
+
+{% if mollie_render_apple_pay_direct_for_order(order) %}
     <div class="apple-pay-button-with-text apple-pay-button apple-pay-button-black" id="mollie_applepay_button"
          data-divisor="{{ mollie_get_divisor() }}"
          data-url-validate="{{ path('sylius_mollie_shop_apple_pay_validation') }}"
