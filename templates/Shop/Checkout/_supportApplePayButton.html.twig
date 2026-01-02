@@ -1,3 +1,3 @@
-{% if mollie_render_apple_pay_direct() %}
+{% if order is defined and order is not empty and order.checkoutState in [constant('Sylius\\Component\\Core\\OrderCheckoutStates::STATE_SHIPPING_SELECTED'), constant('Sylius\\Component\\Core\\OrderCheckoutStates::STATE_SHIPPING_SKIPPED')] and mollie_render_apple_pay_direct_for_order(order) %}
     {% include '@SyliusMolliePlugin/Shop/Checkout/SelectPayment/_applePayButton.html.twig' %}
 {% endif %}

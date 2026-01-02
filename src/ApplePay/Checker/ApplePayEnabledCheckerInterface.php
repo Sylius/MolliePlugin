@@ -13,6 +13,11 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\ApplePay\Checker;
 
+use Sylius\MolliePlugin\Entity\OrderInterface;
+
+/**
+ * @method bool isEnabledForOrder(?OrderInterface $order = null)
+ */
 interface ApplePayEnabledCheckerInterface
 {
     public function isEnabled(): bool;

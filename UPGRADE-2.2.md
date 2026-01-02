@@ -93,3 +93,11 @@
    -    private readonly CreatePartialShipFromMollieInterface $createPartialShipFromMollie,
    )
    ```
+
+   `Sylius\MolliePlugin\ApplePay\Checker\ApplePayEnabledChecker`
+   ```diff
+   public function __construct(
+        private readonly RepositoryInterface $mollieGatewayConfigurationRepository,
+   +    private readonly ?PaymentMethodsResolverInterface $paymentMethodsResolver = null,
+   )
+   ```
