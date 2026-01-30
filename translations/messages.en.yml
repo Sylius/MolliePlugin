@@ -212,6 +212,8 @@ sylius_mollie:
         enable_all: 'Enable all'
         enabled_buy_now_button_help: 'The button is shown on the checkout page'
         expiration_date_time: 'Expiration date time'
+        legacy_refund: 'Enable legacy refund'
+        legacy_refund_help: 'Allows refunding the whole payment bypassing Sylius refund system. Enabling this options is not recommended and will be removed in future versions.'
         methods: 'Choose enabled methods'
         no_category: 'No default category'
         payment_methods:
