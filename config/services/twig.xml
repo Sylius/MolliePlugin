@@ -50,6 +50,11 @@
             <tag name="twig.extension" />
         </service>
 
+        <service id="sylius_mollie.twig.extension.legacy_refund" class="Sylius\MolliePlugin\Twig\Extension\LegacyRefundExtension">
+            <argument type="service" id="sylius_mollie.payum.checker.mollie_gateway_factory" />
+            <tag name="twig.extension" />
+        </service>
+
         <service
             id="sylius_mollie.twig.component.email_template.form"
             class="Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponent"

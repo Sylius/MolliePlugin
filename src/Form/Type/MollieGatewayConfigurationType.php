@@ -15,6 +15,7 @@ namespace Sylius\MolliePlugin\Form\Type;
 
 use Mollie\Api\Exceptions\ApiException;
 use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\Twig\Extension\LegacyRefundExtension;
 use Sylius\MolliePlugin\Validator\Constraints\LiveApiKeyIsNotBlank;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -99,6 +100,11 @@ final class MollieGatewayConfigurationType extends AbstractType
             ])
             ->add('loggerLevel', LoggerLevelChoiceType::class, [
                 'log_type' => LoggerLevelChoiceType::TYPE_DEBUG,
+            ])
+            ->add(LegacyRefundExtension::CONFIG_KEY, CheckboxType::class, [
+                'label' => 'sylius_mollie.form.legacy_refund',
+                'help' => 'sylius_mollie.form.legacy_refund_help',
+                'required' => false,
             ])
             ->add('components', CheckboxType::class, [
                 'label' => 'sylius_mollie.ui.enable_components',
