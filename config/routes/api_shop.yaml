@@ -1,0 +1,5 @@
+sylius_mollie_api_shop_order_mollie_methods:
+    path: orders/{tokenValue}/mollie-methods
+    methods: ['GET']
+    defaults:
+        _controller: sylius_mollie.api.controller.get_mollie_methods
