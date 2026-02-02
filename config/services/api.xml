@@ -27,7 +27,7 @@
         </service>
 
         <service id="sylius_mollie.api.controller.get_mollie_methods" class="Sylius\MolliePlugin\Api\Controller\GetMollieMethodsAction" public="true">
-            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="sylius_mollie.repository.query.order.by_token_for_available_methods" />
             <argument type="service" id="sylius_mollie.payum.checker.mollie_gateway_factory" />
             <argument type="service" id="sylius_mollie.resolver.payment_methods" />
             <argument type="service" id="liip_imagine.cache.manager" />

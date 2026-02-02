@@ -76,7 +76,7 @@ final class SelectMollieMethodAction
 
         $methodId = $data['methodId'] ?? null;
         $backUrl = $data['backUrl'] ?? null;
-        if (!$methodId || !$backUrl) {
+        if (empty($methodId) || empty($backUrl)) {
             throw new BadRequestHttpException('The `methodId` and `backUrl` are required');
         }
 
@@ -159,7 +159,7 @@ final class SelectMollieMethodAction
 
         $payment->setDetails($details);
 
-        if ($isSubscription && $order instanceof MollieOrderInterface) {
+        if ($isSubscription) {
             $this->createInternalSubscriptions($order, $paymentData, $customerMollieId);
         }
 

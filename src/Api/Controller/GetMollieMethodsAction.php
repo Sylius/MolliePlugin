@@ -16,11 +16,10 @@ namespace Sylius\MolliePlugin\Api\Controller;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
-use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
-use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Entity\PaymentSurchargeFeeInterface;
 use Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryCheckerInterface;
+use Sylius\MolliePlugin\Repository\Query\OrderByTokenForAvailableMethodsQueryInterface;
 use Sylius\MolliePlugin\Resolver\MolliePaymentsMethodResolver;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -29,7 +28,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 final class GetMollieMethodsAction
 {
     public function __construct(
-        private readonly OrderRepositoryInterface $orderRepository,
+        private readonly OrderByTokenForAvailableMethodsQueryInterface $orderByTokenForAvailableMethodsQuery,
         private readonly MollieGatewayFactoryCheckerInterface $mollieGatewayFactoryChecker,
         private readonly MolliePaymentsMethodResolver $molliePaymentsMethodResolver,
         private readonly CacheManager $imagineCacheManager,
@@ -38,8 +37,8 @@ final class GetMollieMethodsAction
 
     public function __invoke(string $tokenValue): JsonResponse
     {
-        $order = $this->orderRepository->findOneByTokenValue($tokenValue);
-        if (!$order instanceof OrderInterface) {
+        $order = $this->orderByTokenForAvailableMethodsQuery->getOrder($tokenValue);
+        if (null === $order) {
             throw new NotFoundHttpException(sprintf('Order with token "%s" not found', $tokenValue));
         }
 
