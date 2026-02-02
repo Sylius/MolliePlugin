@@ -50,5 +50,13 @@
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action" />
             <argument type="service" id="sylius_mollie.converter.order" />
         </service>
+
+        <service id="sylius_mollie.api.controller.get_mollie_status" class="Sylius\MolliePlugin\Api\Controller\GetMollieStatusAction" public="true">
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="sylius_mollie.resolver.mollie_api_client_key" />
+            <argument type="service" id="sylius_abstraction.state_machine" />
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action" />
+        </service>
     </services>
 </container>
