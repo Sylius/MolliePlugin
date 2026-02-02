@@ -152,9 +152,10 @@ final readonly class MollieDocumentationModifier implements DocumentationModifie
 
         $schemas['MollieSelectMethodRequest'] = [
             'type' => 'object',
-            'required' => ['methodId'],
+            'required' => ['methodId', 'backUrl'],
             'properties' => [
                 'methodId' => ['type' => 'string', 'example' => 'ideal'],
+                'backUrl' => ['type' => 'string', 'example' => 'https://example.com/return-here-after-payment'],
             ],
         ];
 
@@ -169,7 +170,6 @@ final readonly class MollieDocumentationModifier implements DocumentationModifie
         $schemas['MolliePaymentStatus'] = [
             'type' => 'object',
             'properties' => [
-                'orderToken' => ['type' => 'string'],
                 'paymentState' => ['type' => 'string'],
             ],
         ];

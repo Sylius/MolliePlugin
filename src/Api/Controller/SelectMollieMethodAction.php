@@ -73,10 +73,11 @@ final class SelectMollieMethodAction
         }
 
         $data = json_decode($request->getContent(), true);
-        $methodId = $data['methodId'] ?? null;
 
-        if (!$methodId) {
-            throw new BadRequestHttpException('The `methodId` is required');
+        $methodId = $data['methodId'] ?? null;
+        $backUrl = $data['backUrl'] ?? null;
+        if (!$methodId || !$backUrl) {
+            throw new BadRequestHttpException('The `methodId` and `backUrl` are required');
         }
 
         $payment = $order->getLastPayment();
@@ -113,6 +114,7 @@ final class SelectMollieMethodAction
             $gatewayConfig,
             $methodId,
             $isSubscription,
+            $backUrl,
             $customerMollieId,
         );
 
@@ -178,6 +180,7 @@ final class SelectMollieMethodAction
         GatewayConfigInterface $gatewayConfig,
         string $methodId,
         bool $isSubscription,
+        string $backUrl,
         ?string $customerMollieId,
     ): array {
         $divisor = $this->divisorProvider->getDivisor();
@@ -196,11 +199,6 @@ final class SelectMollieMethodAction
             UrlGeneratorInterface::ABSOLUTE_URL,
         );
 
-        $redirectUrl = $this->router->generate(
-            'sylius_mollie_api_shop_order_mollie_payment_status',
-            ['tokenValue' => $order->getTokenValue()],
-            UrlGeneratorInterface::ABSOLUTE_URL,
-        );
         $paymentData = [
             'method' => $methodId,
             'amount' => [
@@ -208,7 +206,7 @@ final class SelectMollieMethodAction
                 'value' => $this->intToStringConverter->convertIntToString($payment->getAmount(), $divisor),
             ],
             'description' => $this->paymentDescriptionProvider->getPaymentDescription($payment, $methodConfig, $order),
-            'redirectUrl' => $redirectUrl,
+            'redirectUrl' => $backUrl,
             'webhookUrl' => $webhookUrl,
             'metadata' => [
                 'order_id' => $order->getId(),

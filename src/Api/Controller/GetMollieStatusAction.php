@@ -79,7 +79,6 @@ final class GetMollieStatusAction
         }
 
         return new JsonResponse([
-            'orderToken' => $tokenValue,
             'paymentState' => $payment->getState(),
         ]);
     }
