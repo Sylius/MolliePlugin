@@ -58,5 +58,11 @@
             <argument type="service" id="sylius_abstraction.state_machine" />
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action" />
         </service>
+
+        <service id="sylius_mollie.api.open_api.mollie_documentation_modifier" class="Sylius\MolliePlugin\Api\OpenApi\MollieDocumentationModifier">
+            <argument>%sylius.security.api_shop_route%</argument>
+
+            <tag name="sylius.open_api.modifier" />
+        </service>
     </services>
 </container>

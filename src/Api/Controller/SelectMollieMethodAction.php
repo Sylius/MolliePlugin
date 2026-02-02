@@ -164,10 +164,8 @@ final class SelectMollieMethodAction
         $this->entityManager->flush();
 
         return new JsonResponse([
-            'success' => true,
             'methodId' => $methodId,
             'checkoutUrl' => $checkoutUrl,
-            'paymentId' => $molliePayment->id,
         ]);
     }
 
