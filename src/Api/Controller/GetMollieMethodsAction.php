@@ -1,15 +1,24 @@
 <?php
 
+/*
+ * This file is part of the Sylius Mollie Plugin package.
+ *
+ * (c) Sylius Sp. z o.o.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Api\Controller;
 
-use Sylius\Component\Core\Model\OrderInterface;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Entity\PaymentSurchargeFeeInterface;
 use Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryCheckerInterface;
 use Sylius\MolliePlugin\Resolver\MolliePaymentsMethodResolver;
@@ -54,9 +63,9 @@ final class GetMollieMethodsAction
 
         $availableMethods = $this->molliePaymentsMethodResolver->resolve();
 
-        $data = $availableMethods['data'] ?? [];
-        $images = $availableMethods['image'] ?? [];
-        $paymentFees = $availableMethods['paymentFee'] ?? [];
+        $data = $availableMethods['data'];
+        $images = $availableMethods['image'];
+        $paymentFees = $availableMethods['paymentFee'];
         $result = [];
         foreach ($data as $id => $label) {
             $result[] = [
@@ -70,15 +79,14 @@ final class GetMollieMethodsAction
         return new JsonResponse($result);
     }
 
-    private function normalizeImage(?string $image): ?string
-    {
-        if (null === $image || str_starts_with($image, 'https://') && str_contains($image, 'mollie.com')) {
-            return $image;
-        }
-
-        return $this->imagineCacheManager->getBrowserPath($image, 'sylius_original');
-    }
-
+    /**
+     * @return array{
+     *     type: string|null,
+     *     fixedAmount: float|null,
+     *     percentage: float|null,
+     *     surchargeLimit: float|null,
+     *  }|null
+     */
     private function normalizePaymentFee(mixed $fee): ?array
     {
         if ($fee instanceof PaymentSurchargeFeeInterface) {
@@ -91,5 +99,14 @@ final class GetMollieMethodsAction
         }
 
         return null;
+    }
+
+    private function normalizeImage(?string $image): ?string
+    {
+        if (null === $image || str_starts_with($image, 'https://') && str_contains($image, 'mollie.com')) {
+            return $image;
+        }
+
+        return $this->imagineCacheManager->getBrowserPath($image, 'sylius_original');
     }
 }

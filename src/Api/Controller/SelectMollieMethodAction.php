@@ -1,12 +1,20 @@
 <?php
 
+/*
+ * This file is part of the Sylius Mollie Plugin package.
+ *
+ * (c) Sylius Sp. z o.o.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Api\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mollie\Api\Exceptions\ApiException;
-use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
@@ -16,6 +24,7 @@ use Sylius\MolliePlugin\Converter\IntToStringConverterInterface;
 use Sylius\MolliePlugin\Converter\OrderConverterInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieCustomer;
+use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface as MollieOrderInterface;
 use Sylius\MolliePlugin\Factory\MollieSubscriptionFactoryInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
@@ -59,7 +68,6 @@ final class SelectMollieMethodAction
     public function __invoke(string $tokenValue, Request $request): JsonResponse
     {
         $order = $this->orderRepository->findOneByTokenValue($tokenValue);
-
         if (!$order instanceof OrderInterface) {
             throw new NotFoundHttpException(sprintf('Order with token "%s" not found', $tokenValue));
         }
@@ -163,6 +171,9 @@ final class SelectMollieMethodAction
         ]);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function createPaymentData(
         OrderInterface $order,
         PaymentInterface $payment,
@@ -263,6 +274,9 @@ final class SelectMollieMethodAction
         return $customer->getProfileId();
     }
 
+    /**
+     * @param array<string, mixed> $paymentData
+     */
     private function createInternalSubscriptions(
         MollieOrderInterface $order,
         array $paymentData,

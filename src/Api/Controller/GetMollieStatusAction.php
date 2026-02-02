@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Sylius Mollie Plugin package.
+ *
+ * (c) Sylius Sp. z o.o.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Api\Controller;
@@ -9,6 +18,7 @@ use Mollie\Api\Types\PaymentStatus as MolliePaymentStatus;
 use Sylius\Abstraction\StateMachine\StateMachineInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Payment\PaymentTransitions;
+use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -29,7 +39,7 @@ final class GetMollieStatusAction
     public function __invoke(string $tokenValue): JsonResponse
     {
         $order = $this->orderRepository->findOneByTokenValue($tokenValue);
-        if (null === $order) {
+        if (!$order instanceof OrderInterface) {
             throw new NotFoundHttpException(sprintf('Order with token "%s" not found', $tokenValue));
         }
 
