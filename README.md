@@ -480,3 +480,8 @@ Instead, all security issues must be sent to `security@sylius.com`
 ## Community
 
 For online communication, we invite you to chat with us & other users on [Sylius Slack](https://sylius-devs.slack.com/).
+
+## Telemetry
+
+This plugin enforces telemetry data collection when used with Sylius.
+Details are described in [TELEMETRY_POLICY.md](./TELEMETRY_POLICY.md).
