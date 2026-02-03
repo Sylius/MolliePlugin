@@ -11,6 +11,7 @@
         "php-http/message-factory": "^1.1",
         "sylius/refund-plugin": "^1.5",
         "sylius/sylius": "^1.13",
+        "sylius/telemetry": "^1.0",
         "symfony/mailer": "^5.4 || ^6.4",
         "symfony/messenger": "^5.4 || ^6.4",
         "willdurand/js-translation-bundle": "^4.0 || ^5.0"
@@ -66,11 +67,16 @@
     "autoload": {
         "psr-4": {
             "Sylius\\MolliePlugin\\": "src/",
-            "Tests\\Sylius\\MolliePlugin\\": ["tests/", "tests/Application/src"]
+            "Tests\\Sylius\\MolliePlugin\\": [
+                "tests/",
+                "tests/Application/src"
+            ]
         }
     },
     "autoload-dev": {
-        "classmap": ["tests/Application/Kernel.php"]
+        "classmap": [
+            "tests/Application/Kernel.php"
+        ]
     },
     "config": {
         "allow-plugins": {
