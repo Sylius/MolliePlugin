@@ -16,6 +16,7 @@ namespace Sylius\MolliePlugin;
 use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
 use Sylius\MolliePlugin\DependencyInjection\AdminOrderCreationCompatibilityPass;
 use Sylius\MolliePlugin\DependencyInjection\SyliusMessageBusPolyfillPass;
+use Sylius\Telemetry\TelemetryCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -33,6 +34,7 @@ final class SyliusMolliePlugin extends Bundle
 
         $container->addCompilerPass(new SyliusMessageBusPolyfillPass());
         $container->addCompilerPass(new AdminOrderCreationCompatibilityPass());
+        $container->addCompilerPass(new TelemetryCompilerPass());
     }
 
     public function getPath(): string
