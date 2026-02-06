@@ -27,6 +27,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class GetMollieMethodsAction
 {
+    use PayableOrderTrait;
+
     public function __construct(
         private readonly OrderByTokenForAvailableMethodsQueryInterface $orderByTokenForAvailableMethodsQuery,
         private readonly MollieGatewayFactoryCheckerInterface $mollieGatewayFactoryChecker,
@@ -41,6 +43,8 @@ final class GetMollieMethodsAction
         if (null === $order) {
             throw new NotFoundHttpException(sprintf('Order with token "%s" not found', $tokenValue));
         }
+
+        $this->assertOrderIsPayable($order);
 
         $payment = $order->getLastPayment();
         if (!$payment instanceof PaymentInterface) {

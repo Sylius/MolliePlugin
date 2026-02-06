@@ -15,6 +15,7 @@ namespace Sylius\MolliePlugin\Api\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mollie\Api\Exceptions\ApiException;
+use Mollie\Api\Types\PaymentStatus;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
@@ -46,6 +47,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class SelectMollieMethodAction
 {
+    use PayableOrderTrait;
+
     public function __construct(
         private readonly OrderRepositoryInterface $orderRepository,
         private readonly EntityManagerInterface $entityManager,
@@ -71,6 +74,8 @@ final class SelectMollieMethodAction
         if (!$order instanceof OrderInterface) {
             throw new NotFoundHttpException(sprintf('Order with token "%s" not found', $tokenValue));
         }
+
+        $this->assertOrderIsPayable($order);
 
         $data = json_decode($request->getContent(), true);
 
@@ -100,6 +105,11 @@ final class SelectMollieMethodAction
         }
 
         $mollieApiClient = $this->apiClientKeyResolver->getClientWithKey($order);
+
+        $existingPaymentResponse = $this->handleExistingMolliePayment($mollieApiClient, $payment, $methodId);
+        if (null !== $existingPaymentResponse) {
+            return $existingPaymentResponse;
+        }
 
         $customerMollieId = null;
         $isSubscription = $gatewayConfig->getFactoryName() === MollieSubscriptionGatewayFactory::FACTORY_NAME;
@@ -244,6 +254,46 @@ final class SelectMollieMethodAction
         }
 
         return $paymentData;
+    }
+
+    private function handleExistingMolliePayment(
+        MollieApiClient $mollieApiClient,
+        PaymentInterface $payment,
+        string $methodId,
+    ): ?JsonResponse {
+        $details = $payment->getDetails();
+        $existingMolliePaymentId = $details['payment_mollie_id'] ?? null;
+
+        if ($existingMolliePaymentId === null) {
+            return null;
+        }
+
+        try {
+            $existingMolliePayment = $mollieApiClient->payments->get($existingMolliePaymentId);
+        } catch (ApiException) {
+            return null;
+        }
+
+        if (!in_array(
+            $existingMolliePayment->status,
+            [PaymentStatus::STATUS_OPEN, PaymentStatus::STATUS_PENDING],
+            true,
+        )) {
+            return null;
+        }
+
+        $checkoutUrl = $existingMolliePayment->_links->checkout->href ?? null;
+        if (
+            null === $checkoutUrl ||
+            $methodId !== $existingMolliePayment->method
+        ) {
+            return null;
+        }
+
+        return new JsonResponse([
+            'methodId' => $methodId,
+            'checkoutUrl' => $checkoutUrl,
+        ]);
     }
 
     private function findOrCreateMollieCustomer(MollieApiClient $mollieApiClient, OrderInterface $order): string
