@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Refund\Units;
 
 use Mollie\Api\Resources\Order;
+use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Order\Model\Adjustment;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Converter\OrderConverterInterface;
 use Sylius\RefundPlugin\Model\RefundType;
@@ -41,13 +41,14 @@ final class UnitsShipmentOrderRefund implements UnitsShipmentOrderRefundInterfac
             }
 
             if (OrderConverterInterface::SHIPPING_TYPE === $line->type && 0 < $line->quantityRefunded) {
-                /** @var Adjustment $refundedShipment */
-                $refundedShipment = $syliusOrder->getAdjustments('shipping')->first();
+                /** @var AdjustmentInterface $shippingAdjustment */
+                $shippingAdjustment = $syliusOrder->getAdjustments('shipping')->first();
+                $shipmentTotal = $shippingAdjustment->getShipment()->getAdjustmentsTotal();
 
                 return [
                     new ShipmentRefund(
-                        $refundedShipment->getId(),
-                        $refundedShipment->getAmount(),
+                        $shippingAdjustment->getId(),
+                        $shipmentTotal,
                     ),
                 ];
             }
