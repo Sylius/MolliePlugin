@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Refund\Units;
 
+use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Order\Model\AdjustmentInterface;
 use Sylius\RefundPlugin\Model\OrderItemUnitRefund;
 use Sylius\RefundPlugin\Model\ShipmentRefund;
 
@@ -25,8 +25,8 @@ final class ShipmentUnitRefund implements ShipmentUnitRefundInterface
         array $orderItemUnitRefund,
         int $totalToRefund,
     ): array {
-        /** @var AdjustmentInterface $refundedShipment */
-        $refundedShipment = $order->getAdjustments('shipping')->first();
+        /** @var AdjustmentInterface $shippingAdjustment */
+        $shippingAdjustment = $order->getAdjustments('shipping')->first();
 
         $totalRefunded = 0;
         if (0 < count($orderItemUnitRefund)) {
@@ -42,13 +42,14 @@ final class ShipmentUnitRefund implements ShipmentUnitRefundInterface
             return [];
         }
 
-        if ($totalToRefund > $refundedShipment->getAmount()) {
-            $totalToRefund = $refundedShipment->getAmount();
+        $shipmentTotal = $shippingAdjustment->getShipment()->getAdjustmentsTotal();
+        if ($totalToRefund > $shipmentTotal) {
+            $totalToRefund = $shipmentTotal;
         }
 
         return [
             new ShipmentRefund(
-                $refundedShipment->getId(),
+                $shippingAdjustment->getId(),
                 $totalToRefund,
             ),
         ];
