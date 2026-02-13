@@ -1,0 +1,222 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_admin.mollie_subscription.show.content':
+            sections:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections.html.twig'
+                priority: 0
+
+        'sylius_admin.mollie_subscription.show.content.header.title_block':
+            actions:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/content/header/title_block/actions.html.twig'
+                priority: -100
+
+        'sylius_admin.mollie_subscription.show.content.header.title_block.actions':
+            pause:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/content/header/title_block/actions/pause.html.twig'
+                priority: 200
+            resume:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/content/header/title_block/actions/resume.html.twig'
+                priority: 100
+            cancel:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/content/header/title_block/actions/cancel.html.twig'
+                priority: 0
+
+        'sylius_admin.mollie_subscription.show.content.sections#left':
+            general:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general.html.twig'
+                priority: 100
+            schedules:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/schedules.html.twig'
+                priority: 0
+
+        'sylius_admin.mollie_subscription.show.content.sections#right':
+            orders:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/orders.html.twig'
+                priority: 200
+            payments:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/payments.html.twig'
+                priority: 100
+            all_payments:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/all_payments.html.twig'
+                priority: 0
+
+        'sylius_admin.mollie_subscription.show.content.sections.general':
+            state:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/state.html.twig'
+                priority: 400
+            processing_state:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/processing_state.html.twig'
+                priority: 300
+            payment_state:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/payment_state.html.twig'
+                priority: 200
+            customer_email:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/customer_email.html.twig'
+                priority: 100
+            config_interval:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/general/config_interval.html.twig'
+                priority: 0
+
+        'sylius_admin.mollie_subscription.show.content.sections.schedules':
+            table:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/schedules/table.html.twig'
+                priority: 0
+
+        'sylius_admin.mollie_subscription.show.content.sections.schedules.table':
+            header:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/schedules/table/header.html.twig'
+                priority: 100
+            body:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/schedules/table/body.html.twig'
+                priority: 0
+
+        'sylius_admin.mollie_subscription.show.content.sections.schedules.table.header':
+            index:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/schedules/table/header/item.html.twig'
+                configuration:
+                    label: 'sylius_mollie.ui.subscription.schedule.index'
+                priority: 200
+            date:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/schedules/table/header/item.html.twig'
+                configuration:
+                    label: 'sylius_mollie.ui.subscription.schedule.scheduled_date'
+                priority: 100
+            fulfilled_date:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/schedules/table/header/item.html.twig'
+                configuration:
+                    label: 'sylius_mollie.ui.subscription.schedule.fulfilled_date'
+                priority: 0
+
+        'sylius_admin.mollie_subscription.show.content.sections.schedules.table.body':
+            index:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/schedules/table/body/index.html.twig'
+                priority: 200
+            date:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/schedules/table/body/date.html.twig'
+                priority: 100
+            fulfilled_date:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/schedules/table/body/fulfilled_date.html.twig'
+                priority: 0
+
+        'sylius_admin.mollie_subscription.show.content.sections.orders':
+            table:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/orders/table.html.twig'
+                priority: 0
+
+        'sylius_admin.mollie_subscription.show.content.sections.orders.table':
+            header:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/orders/table/header.html.twig'
+                priority: 100
+            body:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/orders/table/body.html.twig'
+                priority: 0
+
+        'sylius_admin.mollie_subscription.show.content.sections.orders.table.header':
+            date:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/orders/table/header/item.html.twig'
+                configuration:
+                    label: 'sylius.ui.date'
+                priority: 300
+            order:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/orders/table/header/item.html.twig'
+                configuration:
+                    label: 'sylius.ui.number'
+                priority: 200
+            state:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/orders/table/header/item.html.twig'
+                configuration:
+                    label: 'sylius.ui.state'
+                priority: 100
+            payment_state:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/orders/table/header/item.html.twig'
+                configuration:
+                    label: 'sylius.ui.payment_state'
+                priority: 0
+
+        'sylius_admin.mollie_subscription.show.content.sections.orders.table.body':
+            date:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/orders/table/body/date.html.twig'
+                priority: 300
+            order:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/orders/table/body/order.html.twig'
+                priority: 200
+            state:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/orders/table/body/state.html.twig'
+                priority: 100
+            payment_state:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/orders/table/body/payment_state.html.twig'
+                priority: 0
+
+        'sylius_admin.mollie_subscription.show.content.sections.payments':
+            table:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/payments/table.html.twig'
+                priority: 0
+
+        'sylius_admin.mollie_subscription.show.content.sections.payments.table':
+            header:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/payments/table/header.html.twig'
+                priority: 100
+            body:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/payments/table/body.html.twig'
+                priority: 0
+
+        'sylius_admin.mollie_subscription.show.content.sections.payments.table.header':
+            date:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/payments/table/header/item.html.twig'
+                configuration:
+                    label: 'sylius.ui.date'
+                priority: 100
+            state:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/payments/table/header/item.html.twig'
+                configuration:
+                    label: 'sylius.ui.payment_state'
+                priority: 0
+
+        'sylius_admin.mollie_subscription.show.content.sections.payments.table.body':
+            date:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/payments/table/body/date.html.twig'
+                priority: 100
+            state:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/payments/table/body/state.html.twig'
+                priority: 0
+
+        'sylius_admin.mollie_subscription.show.content.sections.all_payments':
+            table:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/all_payments/table.html.twig'
+                priority: 0
+
+        'sylius_admin.mollie_subscription.show.content.sections.all_payments.table':
+            header:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/all_payments/table/header.html.twig'
+                priority: 100
+            body:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/all_payments/table/body.html.twig'
+                priority: 0
+
+        'sylius_admin.mollie_subscription.show.content.sections.all_payments.table.header':
+            date:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/all_payments/table/header/item.html.twig'
+                configuration:
+                    label: 'sylius.ui.date'
+                priority: 200
+            order:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/all_payments/table/header/item.html.twig'
+                configuration:
+                    label: 'sylius.ui.order'
+                priority: 100
+            state:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/all_payments/table/header/item.html.twig'
+                configuration:
+                    label: 'sylius.ui.payment_state'
+                priority: 0
+
+        'sylius_admin.mollie_subscription.show.content.sections.all_payments.table.body':
+            date:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/all_payments/table/body/date.html.twig'
+                priority: 200
+            order:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/all_payments/table/body/order.html.twig'
+                priority: 100
+            state:
+                template: '@SyliusMolliePlugin/admin/mollie_subscription/show/sections/all_payments/table/body/state.html.twig'
+                priority: 0

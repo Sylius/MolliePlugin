@@ -26,3 +26,6 @@ sylius_mollie:
         not_blank: "La valeur ne peut pas être vide"
     times:
         min_range: "Les délais ne peuvent pas être inférieurs à {{ limite }}."
+    payment_link:
+        method:
+            not_blank: 'Veuillez choisir une méthode de paiement.'

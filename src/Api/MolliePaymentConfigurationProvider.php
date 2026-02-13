@@ -57,14 +57,14 @@ class MolliePaymentConfigurationProvider
         $details = $payment->getDetails();
         $methodName = $details['molliePaymentMethods'] ?? null;
 
-        if (!$methodName) {
+        if ($methodName === null || $methodName === '') {
             if (isset($details['metadata']['molliePaymentMethods'])) {
                 $methodName = $details['metadata']['molliePaymentMethods'];
             }
         }
 
-        $redirectUrl = $this->urlGenerator->generate('sylius_mollie_plugin_payum', [], UrlGeneratorInterface::ABSOLUTE_URL);
-        $webhookUrl = $this->urlGenerator->generate('sylius_mollie_plugin_payment_webhook', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $redirectUrl = $this->urlGenerator->generate('sylius_mollie_shop_payum', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $webhookUrl = $this->urlGenerator->generate('sylius_mollie_shop_payment_webhook', [], UrlGeneratorInterface::ABSOLUTE_URL);
         $redirectUrl .= '?orderId=' . $order->getId();
         $webhookUrl .= '?orderId=' . $order->getId();
 

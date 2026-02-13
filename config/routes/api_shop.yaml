@@ -1,0 +1,17 @@
+sylius_mollie_api_shop_order_mollie_methods:
+    path: orders/{tokenValue}/mollie-methods
+    methods: ['GET']
+    defaults:
+        _controller: sylius_mollie.api.controller.get_mollie_methods
+
+sylius_mollie_api_shop_order_mollie_select_method:
+    path: orders/{tokenValue}/mollie-methods
+    methods: ['POST']
+    defaults:
+        _controller: sylius_mollie.api.controller.select_mollie_method
+
+sylius_mollie_api_shop_order_mollie_payment_status:
+    path: orders/{tokenValue}/mollie-status
+    methods: ['GET']
+    defaults:
+        _controller: sylius_mollie.api.controller.get_mollie_status

@@ -21,7 +21,7 @@ use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Repository\PaymentMethodRepositoryInterface;
+use Sylius\MolliePlugin\Repository\Query\MollieBasedPaymentMethodQueryInterface;
 use Webmozart\Assert\Assert;
 
 final class MollieApiClientKeyResolver implements MollieApiClientKeyResolverInterface
@@ -29,7 +29,7 @@ final class MollieApiClientKeyResolver implements MollieApiClientKeyResolverInte
     public function __construct(
         private readonly MollieApiClient $mollieApiClient,
         private readonly MollieLoggerActionInterface $loggerAction,
-        private readonly PaymentMethodRepositoryInterface $paymentMethodRepository,
+        private readonly MollieBasedPaymentMethodQueryInterface $mollieBasedPaymentMethodQuery,
         private readonly ChannelContextInterface $channelContext,
         private readonly MollieFactoryNameResolverInterface $factoryNameResolver,
     ) {
@@ -40,7 +40,7 @@ final class MollieApiClientKeyResolver implements MollieApiClientKeyResolverInte
         /** @var ChannelInterface $channel */
         $channel = $order?->getChannel() ?? $this->channelContext->getChannel();
 
-        $paymentMethod = $this->paymentMethodRepository->findOneByChannelAndGatewayFactoryName(
+        $paymentMethod = $this->mollieBasedPaymentMethodQuery->getOneByChannelAndFactoryName(
             $channel,
             $this->factoryNameResolver->resolve($order),
         );

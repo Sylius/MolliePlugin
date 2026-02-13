@@ -21,6 +21,7 @@ use Sylius\Component\Order\Repository\OrderRepositoryInterface;
 use Sylius\Component\Payment\Model\PaymentInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,14 +34,35 @@ class PaymentWebhookController
         private readonly MollieApiClientKeyResolverInterface $apiClientKeyResolver,
         private readonly OrderRepositoryInterface $orderRepository,
         private readonly PaymentRepositoryInterface $paymentRepository,
+        private readonly ?MollieLoggerActionInterface $logger = null,
     ) {
+        if (null === $this->logger) {
+            trigger_deprecation(
+                'sylius/mollie-plugin',
+                '3.2',
+                'Not passing MollieLoggerActionInterface to %s is deprecated and will not be supported in the future.',
+                self::class,
+            );
+        }
     }
 
-    /** @throws ApiException */
     public function __invoke(Request $request): Response
     {
         $this->mollieApiClient->setApiKey($this->apiClientKeyResolver->getClientWithKey()->getApiKey());
-        $molliePayment = $this->mollieApiClient->payments->get($request->get('id'));
+
+        $molliePaymentId = $request->get('id');
+
+        try {
+            $molliePayment = $this->mollieApiClient->payments->get($molliePaymentId);
+        } catch (ApiException $e) {
+            $this->logger?->addLog(sprintf(
+                'Mollie Webhook: Could not retrieve payment with id %s. Error: %s',
+                $molliePaymentId,
+                $e->getMessage(),
+            ));
+
+            return new JsonResponse(Response::HTTP_OK);
+        }
 
         /** @var OrderInterface|null $order */
         $order = $this->orderRepository->findOneBy(['id' => $request->get('orderId')]);

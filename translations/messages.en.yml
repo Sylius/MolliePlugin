@@ -9,6 +9,7 @@ sylius_mollie:
         api_key_live: 'Live API Key'
         api_key_start_with_api_key_live: 'API key must start with live_'
         api_key_start_with_api_key_test: 'API key must start with test_'
+        no_api_key_provided: 'No API key provided'
         api_key_test: 'Test API Key'
         available_methods: 'Available methods'
         breadcrumbs:
@@ -86,7 +87,9 @@ sylius_mollie:
         mollie_recurring_payments: 'Recurring payments'
         mollie_single_click: 'Single Click Payments'
         mollie_subscription_gateway_label: 'Mollie subscription'
+        mollie_subscription: 'Mollie Subscription'
         mollie_subscriptions: 'Subscriptions'
+        subscription_details: 'Subscription details'
         more_info_about_mollie: 'More info on Mollie'
         new_template_mollie_email: 'Create new email template'
         new_product_type: 'Create new product type'
@@ -94,6 +97,7 @@ sylius_mollie:
         no_fee: 'No fee'
         no_methods_found_message: 'No methods found. Click the button "Load methods", but first insert You profile Id and API key.'
         nothing_log: 'Disabled'
+        number_of_repetitions: 'Number of repetitions'
         order_expiration_days: 'Order expiration days'
         order_recurring: 'Is recurring'
         partially_ship: 'Partial ship'
@@ -103,7 +107,7 @@ sylius_mollie:
         payment_link_abandoned: 'Payment link abandoned'
         payment_link_generate: 'Generate payment link'
         payment_link_generate_subtitle: 'Generate payment link and send it to customer'
-        payment_mathod_conf_title: 'Payment methods configuration'
+        payment_method_conf_title: 'Payment methods configuration'
         payment_method_id: 'Payment method Id'
         payment_methods_doc: 'to read more about the differences between the Payment and Orders API'
         payment_name: 'Payment name'
@@ -111,6 +115,7 @@ sylius_mollie:
         per_interval: ' / %interval%'
         percentage_and_fix_amount_surcharge: 'Fix amount and percentage'
         percentage_surcharge: 'Percentage'
+        product_type: 'Product type'
         product_types: 'Product types'
         product_variant:
             tab:
@@ -160,16 +165,23 @@ sylius_mollie:
                 new: 'New'
                 paused: 'Paused'
                 processing: 'Processing'
+                suspended: 'Suspended'
             subscription_duration: 'Will occur %times% times, with interval %interval%.'
             payment_state:
                 fail: 'Failed'
                 ok: 'Ok'
                 pending: 'Pending'
+            processing_state:
+                none: 'None'
+                pending: 'Pending'
+                processing: 'Processing'
+                processed: 'Processed'
             transitions:
                 block_name: 'Subscription state management'
                 cancel: 'Cancel'
                 pause: 'Pause'
                 resume: 'Resume'
+            all_payments: 'All subscription payments'
         subscription_list: ''
         success: 'Success'
         surcharge_limit: 'Surcharge limit'
@@ -177,6 +189,7 @@ sylius_mollie:
         sylius_bundle: 'Visit the Sylius bundle'
         template_content: 'Content'
         template_contents: 'Contents'
+        template_mollie_email: 'Email template'
         template_mollie_emails: 'Email templates'
         template_name: 'Name'
         template_subject: 'Subject'
@@ -193,18 +206,22 @@ sylius_mollie:
         you_can_fin_info_about: 'You can find more information about us on'
         you_can_sort_methods_via_drag_and_drop: 'You can sort payment methods via drag and drop'
     form:
-        amount_limit_help: 'Please specify the minimum and maximum amount to be applied to the cart. If left blank, the default settings provided by Mollie will be utilized'
+        amount_limit_help: 'Please specify the minimum and maximum amount to be applied to the cart. If left blank, the default settings provided by Mollie will be utilized.'
         channel_should_be_unique: 'Mollie payment method is already enabled for {channels} channel. Mollie can only be configured once per channel.'
+        disable_all: 'Disable all'
+        enable_all: 'Enable all'
         enabled_buy_now_button_help: 'The button is shown on the checkout page'
         expiration_date_time: 'Expiration date time'
+        legacy_refund: 'Enable legacy refund'
+        legacy_refund_help: 'Allows refunding the whole payment bypassing Sylius refund system. Enabling this options is not recommended and will be removed in future versions.'
         methods: 'Choose enabled methods'
         no_category: 'No default category'
         payment_methods:
             payment_description: 'Description'
             payment_description_help: |-
-                The description to be used for the transactions. These variables are available:
-                <strong>{ordernumber}:</strong> The order number for this transaction
-                <strong>{storename}:</strong> The name of the store
+                The description to be used for the transactions. These variables are available:<br>
+                <strong>{ordernumber}:</strong> The order number for this transaction<br>
+                <strong>{storename}:</strong> The name of the store<br><br>
 
                 (Note: this only works when the method is set to Payments API)
         product_type: 'Product type (required in meal vouchers)'
@@ -250,7 +267,7 @@ sylius_mollie:
                 <p>You only need to do the configuration once to have TEST + LIVE environments available. Try easily toggling between the two.</p>
         step_4:
             text: >-
-                <p>Fill in your correct details and click "TEST API Key" this will return a successful or failed result for both the LIVE and TEST environments.</p>
+                <p>Fill in your correct details and click "Test API Keys" this will return a successful or failed result for both the LIVE and TEST environments.</p>
         step_5:
             text: >-
                 <p>Next, we'll set-up key settings for the checkout screen display on your webshop.</p>
@@ -292,7 +309,7 @@ sylius_mollie:
                     <p>This is Mollie suggested API to use for webshops because it allows you to create “orders”. An order contains the personal information of a customer (e.g. address) and products that the customer ordered. When an order is made, a corresponding payment will be created automatically.</p>
         step_14:
             text: >-
-                <p>"In case you have fees that you are passing on to the consumer, you can add them here. Read more about fees <a href=""https://help.mollie.com/hc/en-us/articles/360012564454-Can-I-pass-over-the-costs-for-the-use-of-a-payment-method-to-my-customers-"" target=""_blank"">here</a>.</p>
+                <p>In case you have fees that you are passing on to the consumer, you can add them here. Read more about fees <a href="https://help.mollie.com/hc/en-us/articles/360012564454-Can-I-pass-over-the-costs-for-the-use-of-a-payment-method-to-my-customers-" target="_blank">here</a>.</p>
         step_15:
             text: >-
                 <p>Remember to save your configurations.</p>

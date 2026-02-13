@@ -1,0 +1,39 @@
+{% import "@SyliusShop/shared/macro/money.html.twig" as money %}
+
+{% set order = hookable_metadata.context.order %}
+
+{% if order is not null %}
+    {% set orderPromotionAdjustmentPercentage = constant('Sylius\\MolliePlugin\\Model\\AdjustmentInterface::PERCENTAGE_ADJUSTMENT') %}
+    {% set orderPromotionAdjustmentFixAmount =  constant('Sylius\\MolliePlugin\\Model\\AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT') %}
+    {% set orderPromotionAdjustmentFixAmountAndPercentage = constant('Sylius\\MolliePlugin\\Model\\AdjustmentInterface::PERCENTAGE_AND_AMOUNT_ADJUSTMENT') %}
+
+    {% set surchargePercentage = sylius_aggregate_adjustments(order.adjustmentsRecursively(orderPromotionAdjustmentPercentage)) %}
+    {% set surchargeFixAmount = sylius_aggregate_adjustments(order.adjustmentsRecursively(orderPromotionAdjustmentFixAmount)) %}
+    {% set surchargePercentageAndFixAmount = sylius_aggregate_adjustments(order.adjustmentsRecursively(orderPromotionAdjustmentFixAmountAndPercentage)) %}
+
+    <td class="text-end">
+        <div data-test="payment-fee-total" {{ sylius_test_html_attribute('payment-fee-total') }}>
+            {% if not surchargePercentage and not surchargeFixAmount and not surchargePercentageAndFixAmount %}
+                <div>{{ money.convertAndFormat(0) }}</div>
+            {% endif %}
+
+            {% if surchargeFixAmount %}
+                {% for _, value in surchargeFixAmount %}
+                    <div>{{ money.convertAndFormat(value) }}</div>
+                {% endfor %}
+            {% endif %}
+
+            {% if surchargePercentage %}
+                {% for _, value in surchargePercentage %}
+                    <div>{{ money.convertAndFormat(value) }}</div>
+                {% endfor %}
+            {% endif %}
+
+            {% if surchargePercentageAndFixAmount %}
+                {% for _, value in surchargePercentageAndFixAmount %}
+                    <div>{{ money.convertAndFormat(value) }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </td>
+{% endif %}

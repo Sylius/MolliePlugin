@@ -14,10 +14,7 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\ApplePay\Provider;
 
 use Payum\Core\Payum;
-use SM\Factory\FactoryInterface;
 use Sylius\Abstraction\StateMachine\StateMachineInterface;
-use Sylius\Abstraction\StateMachine\WinzouStateMachineAdapter;
-use Sylius\AdminOrderCreationPlugin\Provider\PaymentTokenProviderInterface as OrderCreationPaymentTokenProviderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Payment\Exception\NotProvidedOrderPaymentException;
@@ -35,23 +32,12 @@ final class OrderPaymentApplePayDirectProvider implements OrderPaymentApplePayDi
 {
     public function __construct(
         private readonly PaymentFactoryInterface $paymentFactory,
-        private readonly FactoryInterface|StateMachineInterface $stateMachineFactory,
+        private readonly StateMachineInterface $stateMachine,
         private readonly RepositoryInterface $paymentMethodRepository,
         private readonly RepositoryInterface $gatewayConfigRepository,
-        private readonly OrderCreationPaymentTokenProviderInterface|PaymentTokenProviderInterface $paymentTokenProvider,
+        private readonly PaymentTokenProviderInterface $paymentTokenProvider,
         private readonly Payum $payum,
     ) {
-        if ($this->stateMachineFactory instanceof FactoryInterface) {
-            trigger_deprecation(
-                'sylius/mollie-plugin',
-                '2.2',
-                sprintf(
-                    'Passing an instance of "%s" as the second argument is deprecated. It will accept only instances of "%s" in MolliePlugin 3.0. The argument name will change from "stateMachineFactory" to "stateMachine".',
-                    FactoryInterface::class,
-                    StateMachineInterface::class,
-                ),
-            );
-        }
     }
 
     public function provideOrderPayment(OrderInterface $order, string $targetState): ?PaymentInterface
@@ -99,11 +85,10 @@ final class OrderPaymentApplePayDirectProvider implements OrderPaymentApplePayDi
             return;
         }
 
-        $stateMachine = $this->getStateMachine();
-        $targetTransition = $stateMachine->getTransitionToState($payment, PaymentTransitions::GRAPH, $targetState);
+        $targetTransition = $this->stateMachine->getTransitionToState($payment, PaymentTransitions::GRAPH, $targetState);
 
         if (null !== $targetTransition) {
-            $stateMachine->apply($payment, PaymentTransitions::GRAPH, $targetTransition);
+            $this->stateMachine->apply($payment, PaymentTransitions::GRAPH, $targetTransition);
         }
     }
 
@@ -134,14 +119,5 @@ final class OrderPaymentApplePayDirectProvider implements OrderPaymentApplePayDi
         } catch (UnresolvedDefaultPaymentMethodException) {
             return null;
         }
-    }
-
-    private function getStateMachine(): StateMachineInterface
-    {
-        if ($this->stateMachineFactory instanceof FactoryInterface) {
-            return new WinzouStateMachineAdapter($this->stateMachineFactory);
-        }
-
-        return $this->stateMachineFactory;
     }
 }

@@ -1,0 +1,8 @@
+{
+    "dependencies": {
+        "bazinga-translator": "^4.0.1",
+        "intl-messageformat": "^10.7.16",
+        "lodash.get": "^4.4.2",
+        "shepherd.js": "11.0"
+    }
+}

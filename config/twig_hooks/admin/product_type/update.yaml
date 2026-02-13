@@ -1,0 +1,5 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_mollie.admin.product_type.update.content.header':
+            breadcrumbs:
+                template: '@SyliusMolliePlugin/admin/product_type/update/content/header/breadcrumbs.html.twig'

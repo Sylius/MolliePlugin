@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin;
 
 use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
-use Sylius\MolliePlugin\DependencyInjection\AdminOrderCreationCompatibilityPass;
 use Sylius\MolliePlugin\DependencyInjection\SyliusMessageBusPolyfillPass;
 use Sylius\Telemetry\TelemetryCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -33,7 +32,6 @@ final class SyliusMolliePlugin extends Bundle
         parent::build($container);
 
         $container->addCompilerPass(new SyliusMessageBusPolyfillPass());
-        $container->addCompilerPass(new AdminOrderCreationCompatibilityPass());
         $container->addCompilerPass(new TelemetryCompilerPass());
     }
 

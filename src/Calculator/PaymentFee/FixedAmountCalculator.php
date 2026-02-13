@@ -40,10 +40,6 @@ final class FixedAmountCalculator implements PaymentSurchargeCalculatorInterface
         $fixedAmount = $paymentMethod->getPaymentSurchargeFee()->getFixedAmount();
         Assert::notNull($fixedAmount);
 
-        if (false === $order->getAdjustments(AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT)->isEmpty()) {
-            $order->removeAdjustments(AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT);
-        }
-
         $adjustment = $this->adjustmentFactory->createNew();
         $adjustment->setType(AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT);
         $adjustment->setAmount((int) ($fixedAmount * $this->divisorProvider->getDivisor()));

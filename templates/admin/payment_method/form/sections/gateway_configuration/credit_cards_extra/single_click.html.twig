@@ -1,0 +1,7 @@
+{% set form = hookable_metadata.context.form.gatewayConfig.config.single_click_enabled %}
+
+{% form_theme form '@SyliusMolliePlugin/admin/payment_method/form/form_theme.html.twig' %}
+
+<div class="col-12 col-md-6 js-onboardingWizard-singleClick">
+    {{ form_row(form) }}
+</div>

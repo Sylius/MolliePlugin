@@ -1,0 +1,20 @@
+{% set mealvouchersId = constant('Sylius\\MolliePlugin\\Model\\PaymentMethod\\MealVoucher::MEAL_VOUCHERS') %}
+{% set klarnaOne = constant('Mollie\\Api\\Types\\PaymentMethod::KLARNA_ONE') %}
+{% set klarnaPayLater = constant('Mollie\\Api\\Types\\PaymentMethod::KLARNA_PAY_LATER') %}
+{% set klarnaSliceIt = constant('Mollie\\Api\\Types\\PaymentMethod::KLARNA_SLICE_IT') %}
+{% set billie = constant('Mollie\\Api\\Types\\PaymentMethod::BILLIE') %}
+{% set in3 = constant('Mollie\\Api\\Types\\PaymentMethod::IN3') %}
+{% set alma = constant('Mollie\\Api\\Types\\PaymentMethod::ALMA') %}
+{% set riverty = constant('Mollie\\Api\\Types\\PaymentMethod::RIVERTY') %}
+
+{% set inner_payment_method = hookable_metadata.context.inner_payment_method %}
+
+{% set form = hookable_metadata.context.method_form.paymentType %}
+{% set attr = {'class': 'js-onboardingWizard-PaymentMethod'} %}
+
+{# TODO: this condition is potentially unneeded #}
+{% if inner_payment_method.methodId in [mealvouchersId, klarnaOne, klarnaPayLater, klarnaSliceIt, billie, alma, riverty, in3] %}
+    {% set attr = attr|merge({'disabled': 'disabled'}) %}
+{% endif %}
+
+{{ form_row(form, {'attr': attr}) }}
