@@ -1,0 +1,141 @@
+Sylius\Component\Core\Model\Channel:
+    channel:
+        code: "CHANNEL_CODE"
+        name: "Channel name"
+        hostname: "localhost"
+        description: "Lorem ipsum"
+        baseCurrency: "@euro"
+        defaultLocale: "@locale_en_us"
+        locales: ["@locale_en_us"]
+        color: "black"
+        enabled: true
+        taxCalculationStrategy: "order_items_based"
+        accountVerificationRequired: true
+
+Sylius\Component\Currency\Model\Currency:
+    euro:
+        code: EUR
+
+Sylius\Component\Locale\Model\Locale:
+    locale_en_us:
+        code: en_US
+
+Sylius\Component\Core\Model\Customer:
+    customer:
+        firstName: "John"
+        lastName: "Nowak"
+        email: "test@example.com"
+        emailCanonical: "test@example.com"
+
+Sylius\Component\Core\Model\Address:
+    customer_address:
+        firstName: "Bruce"
+        lastName: "Wayne"
+        phoneNumber: 123123123
+        company: "Wayne Enterprise"
+        countryCode: "GB"
+        provinceCode: "GB-SCT"
+        street: "McGlynn Island"
+        city: "Klingside"
+        postcode: "33553"
+        customer: "@customer"
+
+Tests\Sylius\MolliePlugin\Entity\Product:
+    cap_product:
+        code: "CAP_CODE"
+        createdAt: "<date_create('2019-02-01 03:00:00')>"
+        channels: ["@channel"]
+        currentLocale: "en_GB"
+        main_taxon: null
+
+Sylius\Component\Core\Model\ProductTranslation:
+    cap_product_translation:
+        slug: "random-cap"
+        locale: "en_US"
+        name: "Knitted wool-blend green cap"
+        description: "WINDPROOF INSULATED CAP."
+        translatable: "@cap_product"
+
+Tests\Sylius\MolliePlugin\Entity\ProductVariant:
+    cap_variant:
+        code: "RANDOM_CAP_CODE"
+        product: "@cap_product"
+        currentLocale: "en_US"
+        channelPricings:
+            CHANNEL_CODE: "@channel_pricing"
+        tracked: true
+        on_hand: 2000
+        on_hold: 0
+        shippingCategory: null
+        shippingRequired: false
+
+Sylius\Component\Product\Model\ProductVariantTranslation:
+    cap_variant_translation:
+        locale: "en_US"
+        name: "Random Cap"
+        translatable: "@cap_variant"
+
+Sylius\Component\Core\Model\ChannelPricing:
+    channel_pricing:
+        channelCode: "CHANNEL_CODE"
+        price: 1000
+        originalPrice: 1000
+
+Sylius\Component\Core\Model\PaymentMethod:
+    mollie:
+        code: "MOLLIE_DEFAULT"
+        enabled: true
+        gatewayConfig: "@mollie_gateway"
+        currentLocale: "en_GB"
+        channels: ["@channel"]
+
+Tests\Sylius\MolliePlugin\Entity\GatewayConfig:
+    mollie_gateway:
+        gatewayName: "mollie_default"
+        factoryName: "mollie"
+        config: {"components": false, "profile_id": "pfl_aa", "environment": null, "loggerLevel": 0, "api_key_live": null, "api_key_test": "test_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "abandoned_hours": 1, "payum.http_client": "\\@sylius_mollie.client.mollie_api", "single_click_enabled": false, "abandoned_email_enabled": true}
+
+Sylius\Component\Payment\Model\PaymentMethodTranslation:
+    mollie_translation:
+        name: "mollie_default"
+        locale: "en_GB"
+        description: "Mollie payment method"
+        instructions: "Please complete the payment."
+        translatable: "@mollie"
+
+Sylius\Component\Core\Model\ShippingMethod:
+    shipping_method:
+        code: "FLAT_RATE"
+        enabled: true
+        zone: "@zone"
+        calculator: "flat_rate"
+        configuration: {"CHANNEL_CODE": {"amount": 500}}
+        currentLocale: "en_US"
+        channels: ["@channel"]
+
+Sylius\Component\Shipping\Model\ShippingMethodTranslation:
+    shipping_method_translation:
+        name: "Flat Rate"
+        locale: "en_US"
+        translatable: "@shipping_method"
+
+Sylius\Component\Addressing\Model\Zone:
+    zone:
+        code: "WORLD"
+        name: "World"
+        type: "country"
+
+Sylius\MolliePlugin\Entity\MollieGatewayConfig:
+    mollie_configuration:
+        gateway: '@mollie_gateway'
+        methodId: 'creditcard'
+        name: 'Credit Card'
+        image: []
+        minimumAmount: {"value": "0.01", "currency":"EUR"}
+        maximumAmount: {"value": "0.01", "currency":"EUR"}
+        paymentType: 'ORDER_API'
+        country: ['N']
+        canRefunded: 1
+        countryRestriction: 'ALL_COUNTRIES'
+        applePayDirectButton: 0
+        position: 0
