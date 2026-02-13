@@ -26,5 +26,10 @@
             <argument type="service" id="sylius.repository.payment_method" />
         </service>
         <service id="Sylius\MolliePlugin\Repository\Query\MollieBasedPaymentMethodQueryInterface" alias="sylius_mollie.repository.query.payment_method.mollie_based" />
+
+        <service id="sylius_mollie.repository.query.order.by_token_for_available_methods" class="Sylius\MolliePlugin\Repository\Query\OrderByTokenForAvailableMethodsQuery">
+            <argument type="service" id="sylius.repository.order" />
+        </service>
+        <service id="Sylius\MolliePlugin\Repository\Query\OrderByTokenForAvailableMethodsQueryInterface" alias="sylius_mollie.repository.query.order.by_token_for_available_methods" />
     </services>
 </container>
