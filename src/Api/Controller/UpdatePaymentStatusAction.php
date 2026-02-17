@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-final class GetMollieStatusAction
+final class UpdatePaymentStatusAction
 {
     public function __construct(
         private readonly OrderRepositoryInterface $orderRepository,

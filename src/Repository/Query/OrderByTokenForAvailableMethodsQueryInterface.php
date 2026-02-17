@@ -17,5 +17,5 @@ use Sylius\MolliePlugin\Entity\OrderInterface;
 
 interface OrderByTokenForAvailableMethodsQueryInterface
 {
-    public function getOrder(string $tokenValue): ? OrderInterface;
+    public function getOrder(string $tokenValue): ?OrderInterface;
 }

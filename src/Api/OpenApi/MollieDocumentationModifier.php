@@ -105,7 +105,7 @@ final readonly class MollieDocumentationModifier implements DocumentationModifie
         $statusPath = sprintf('%s/orders/{tokenValue}/mollie-status', $this->shopApiRoute);
         $paths->addPath($statusPath, new PathItem(
             ref: 'MolliePaymentStatus',
-            get: new Operation(
+            patch: new Operation(
                 operationId: 'sylius_mollie_api_shop_order_mollie_payment_status',
                 tags: ['Mollie'],
                 responses: [

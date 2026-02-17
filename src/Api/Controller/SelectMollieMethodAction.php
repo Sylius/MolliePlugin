@@ -21,8 +21,7 @@ use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
-use Sylius\MolliePlugin\Converter\IntToStringConverterInterface;
-use Sylius\MolliePlugin\Converter\OrderConverterInterface;
+use Sylius\MolliePlugin\Creator\PaymentDataCreatorInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieCustomer;
 use Sylius\MolliePlugin\Entity\OrderInterface;
@@ -31,19 +30,14 @@ use Sylius\MolliePlugin\Factory\MollieSubscriptionFactoryInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryCheckerInterface;
 use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
-use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
-use Sylius\MolliePlugin\Provider\PaymentDescriptionProviderInterface;
-use Sylius\MolliePlugin\Repository\MollieGatewayConfigRepositoryInterface;
 use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
 use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
-use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class SelectMollieMethodAction
 {
@@ -52,19 +46,13 @@ final class SelectMollieMethodAction
     public function __construct(
         private readonly OrderRepositoryInterface $orderRepository,
         private readonly EntityManagerInterface $entityManager,
-        private readonly IntToStringConverterInterface $intToStringConverter,
-        private readonly UrlGeneratorInterface $router,
         private readonly MollieApiClientKeyResolverInterface $apiClientKeyResolver,
         private readonly MollieGatewayFactoryCheckerInterface $mollieGatewayFactoryChecker,
-        private readonly PaymentDescriptionProviderInterface $paymentDescriptionProvider,
-        private readonly PaymentLocaleResolverInterface $paymentLocaleResolver,
-        private readonly DivisorProviderInterface $divisorProvider,
-        private readonly MollieGatewayConfigRepositoryInterface $mollieGatewayConfigRepository,
         private readonly RepositoryInterface $mollieCustomerRepository,
         private readonly MollieSubscriptionFactoryInterface $subscriptionFactory,
         private readonly MollieSubscriptionRepositoryInterface $subscriptionRepository,
+        private readonly PaymentDataCreatorInterface $paymentDataCreator,
         private readonly MollieLoggerActionInterface $logger,
-        private readonly OrderConverterInterface $orderConverter,
     ) {
     }
 
@@ -118,7 +106,7 @@ final class SelectMollieMethodAction
             $customerMollieId = $this->findOrCreateMollieCustomer($mollieApiClient, $order);
         }
 
-        $paymentData = $this->createPaymentData(
+        $paymentData = $this->paymentDataCreator->create(
             $order,
             $payment,
             $gatewayConfig,
@@ -179,81 +167,6 @@ final class SelectMollieMethodAction
             'methodId' => $methodId,
             'checkoutUrl' => $checkoutUrl,
         ]);
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    private function createPaymentData(
-        OrderInterface $order,
-        PaymentInterface $payment,
-        GatewayConfigInterface $gatewayConfig,
-        string $methodId,
-        bool $isSubscription,
-        string $backUrl,
-        ?string $customerMollieId,
-    ): array {
-        $divisor = $this->divisorProvider->getDivisor();
-
-        $methodConfig = $this->mollieGatewayConfigRepository->findOneActiveByGatewayNameAndMethod(
-            $gatewayConfig->getGatewayName(),
-            $methodId,
-        );
-        if (null === $methodConfig) {
-            throw new BadRequestHttpException(sprintf('Mollie method "%s" cannot be selected', $methodId));
-        }
-
-        $webhookUrl = $this->router->generate(
-            'sylius_mollie_shop_payment_webhook',
-            ['_locale' => $order->getLocaleCode() ?? 'en_US'],
-            UrlGeneratorInterface::ABSOLUTE_URL,
-        );
-
-        $paymentData = [
-            'method' => $methodId,
-            'amount' => [
-                'currency' => $payment->getCurrencyCode(),
-                'value' => $this->intToStringConverter->convertIntToString($payment->getAmount(), $divisor),
-            ],
-            'description' => $this->paymentDescriptionProvider->getPaymentDescription($payment, $methodConfig, $order),
-            'redirectUrl' => $backUrl,
-            'webhookUrl' => $webhookUrl,
-            'metadata' => [
-                'order_id' => $order->getId(),
-                'customer_id' => $order->getCustomer()?->getId(),
-                'molliePaymentMethods' => $methodId,
-            ],
-        ];
-
-        $converted = $this->orderConverter->convert($order, $paymentData, $divisor, $methodConfig);
-        $paymentData['billingAddress'] = $converted['billingAddress'];
-        $paymentData['shippingAddress'] = $converted['shippingAddress'];
-        $paymentData['lines'] = array_map(
-            static fn (array $line): array => [
-                'description' => $line['name'] ?? '',
-                'type' => $line['type'] ?? 'physical',
-                'quantity' => $line['quantity'],
-                'unitPrice' => $line['unitPrice'],
-                'totalAmount' => $line['totalAmount'],
-                'vatRate' => $line['vatRate'],
-                'vatAmount' => $line['vatAmount'],
-            ],
-            $converted['lines'],
-        );
-
-        $locale = $this->paymentLocaleResolver->resolveFromOrder($order);
-
-        if ($locale !== null) {
-            $paymentData['locale'] = $locale;
-        }
-
-        if ($isSubscription) {
-            $paymentData['customerId'] = $customerMollieId;
-            $paymentData['sequenceType'] = 'first';
-            $paymentData['metadata']['sequenceType'] = 'first';
-        }
-
-        return $paymentData;
     }
 
     private function handleExistingMolliePayment(
