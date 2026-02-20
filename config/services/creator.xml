@@ -40,5 +40,17 @@
             <argument type="service" id="translator"/>
         </service>
         <service id="Sylius\MolliePlugin\Creator\ApiKeysTestCreatorInterface" alias="sylius_mollie.creator.api_keys_test" />
+
+        <service id="sylius_mollie.creator.payment_data" class="Sylius\MolliePlugin\Creator\PaymentDataCreator">
+            <argument type="service" id="sylius_mollie.converter.int_to_string" />
+            <argument type="service" id="router" />
+            <argument type="service" id="sylius_mollie.provider.payment_description" />
+            <argument type="service" id="sylius_mollie.resolver.payment_locale" />
+            <argument type="service" id="sylius_mollie.provider.divisor" />
+            <argument type="service" id="sylius_mollie.repository.mollie_gateway_config" />
+            <argument type="service" id="sylius_mollie.converter.order" />
+            <argument>%locale%</argument>
+        </service>
+        <service id="Sylius\MolliePlugin\Creator\PaymentDataCreatorInterface" alias="sylius_mollie.creator.payment_data" />
     </services>
 </container>
