@@ -27,7 +27,7 @@ final class ChangePositionPaymentMethodAction
     public function __invoke(Request $request): Response
     {
         /** @var PositionsArray $positions */
-        $positions = $this->filterEmptyPositions($request->get('data', []));
+        $positions = $this->filterEmptyPositions(\json_decode($request->get('data', '[]'), true));
 
         if ($positions !== []) {
             $this->positionUpdater->update($positions);
