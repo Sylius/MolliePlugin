@@ -31,8 +31,7 @@ jobs:
                 symfony: ["^6.4", "^7.4"]
                 sylius: ["~2.0.8", "~2.1.0", "~2.2.0"]
                 node: ["22.x"]
-                database: ["mysql"]
-                database_version: ["8.4"]
+                database: ["mysql:8.4"]
                 state_machine_adapter: ["symfony_workflow"]
                 refund: ["false", "true"]
 
@@ -42,14 +41,12 @@ jobs:
                         symfony: "^7.4"
                         sylius: "~2.1.0"
                         node: "24.x"
-                        database: "mysql"
-                        database_version: "8.4"
+                        database: "mysql:8.4"
                         state_machine_adapter: "winzou_state_machine"
                         refund: "false"
 
         env:
             APP_ENV: test
-            DATABASE_URL: "mysql://root:root@127.0.0.1/sylius?serverVersion=${{ matrix.database_version }}"
             TEST_SYLIUS_STATE_MACHINE_ADAPTER: "${{ matrix.state_machine_adapter }}"
 
         steps:
@@ -70,13 +67,12 @@ jobs:
 
             -
                 name: Build Sylius Test Application
-                uses: SyliusLabs/BuildTestAppAction@v3.2.0
+                uses: SyliusLabs/BuildTestAppAction@v4
                 with:
                     e2e_js: "yes"
                     cache_key: "${{ runner.os }}-php-${{ matrix.php }}-composer-${{ hashFiles('**/composer.json') }}"
                     cache_restore_key: "${{ runner.os }}-php-${{ matrix.php }}-composer-"
                     database: "${{ matrix.database }}"
-                    database_version: "${{ matrix.database_version }}"
                     node_version: "${{ matrix.node }}"
                     php_version: "${{ matrix.php }}"
                     sylius_version: "${{ matrix.sylius }}"

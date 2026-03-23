@@ -23,15 +23,6 @@
     </imports>
 
     <services>
-        <service
-            id="sylius_mollie.api.payment_configuration_provider.mollie"
-            class="Sylius\MolliePlugin\Api\MolliePaymentConfigurationProvider"
-        >
-            <argument type="service" id="router" />
-
-            <tag name="sylius.api.payment_method_handler" />
-        </service>
-
         <service id="sylius_mollie.refund.guard.mollie_payment_refund" class="Sylius\MolliePlugin\Refund\Guard\PaymentRefundGuard" public="true" >
             <argument>%kernel.bundles%</argument>
         </service>
