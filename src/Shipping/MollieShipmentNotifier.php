@@ -11,42 +11,39 @@
 
 declare(strict_types=1);
 
-namespace Sylius\MolliePlugin\EventListener;
+namespace Sylius\MolliePlugin\Shipping;
 
 use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Resources\Order;
+use Sylius\Bundle\ApiBundle\SectionResolver\AdminApiSection;
+use Sylius\Bundle\ApiBundle\SectionResolver\ShopApiSection;
+use Sylius\Bundle\CoreBundle\SectionResolver\SectionProviderInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
-use Sylius\MolliePlugin\EventListener\Workflow\Shipment\ShipmentShipListener;
 use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType;
 use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
-use Symfony\Component\EventDispatcher\GenericEvent;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Webmozart\Assert\Assert;
 
-final class ShipmentShipEventListener
+final class MollieShipmentNotifier implements MollieShipmentNotifierInterface
 {
     public function __construct(
         private readonly MollieApiClient $apiClient,
-        private readonly RequestStack $requestStack,
+        private readonly SectionProviderInterface $sectionProvider,
     ) {
-        trigger_deprecation(
-            'sylius/mollie-plugin',
-            '3.3',
-            'The "%s" class is deprecated and will be replaced by "%s" in 4.0.',
-            self::class,
-            ShipmentShipListener::class,
-        );
     }
 
-    public function shipAll(GenericEvent $event): void
+    /**
+     * @throws ApiException
+     */
+    public function shipAll(ShipmentInterface $shipment): void
     {
-        /** @var ?ShipmentInterface $shipment */
-        $shipment = $event->getSubject();
-        Assert::isInstanceOf($shipment, ShipmentInterface::class);
+        $section = $this->sectionProvider->getSection();
+
+        if (null !== $section && !$section instanceof AdminApiSection && !$section instanceof ShopApiSection) {
+            return;
+        }
 
         /** @var OrderInterface $order */
         $order = $shipment->getOrder();
@@ -70,16 +67,10 @@ final class ShipmentShipEventListener
 
         $modusKey = $this->getModus($gatewayConfig->getConfig());
 
-        try {
-            $this->apiClient->setApiKey($modusKey);
-            /** @var Order $order */
-            $order = $this->apiClient->orders->get($payment->getDetails()['order_mollie_id']);
-            $order->shipAll();
-        } catch (ApiException $e) {
-            /** @var Session $session */
-            $session = $this->requestStack->getSession();
-            $session->getFlashBag()->add('error', $e->getMessage());
-        }
+        $this->apiClient->setApiKey($modusKey);
+        /** @var Order $mollieOrder */
+        $mollieOrder = $this->apiClient->orders->get($payment->getDetails()['order_mollie_id']);
+        $mollieOrder->shipAll();
     }
 
     /**
