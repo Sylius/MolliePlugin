@@ -20,7 +20,7 @@ use Sylius\MolliePlugin\Model\PaymentMethod\AbstractMethod;
 final class PaymentMethodRegistry implements PaymentMethodRegistryInterface
 {
     /** @var AbstractMethod[] */
-    private array $methods;
+    private array $methods = [];
 
     public function add(Method $mollieMethod): void
     {
