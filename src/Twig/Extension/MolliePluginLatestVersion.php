@@ -36,15 +36,15 @@ final class MolliePluginLatestVersion extends AbstractExtension
 
     public function versionRenderWidget(Environment $environment): string
     {
-        $latestVersion = str_replace('v', '', SyliusMolliePlugin::VERSION);
+        $latestVersion = str_replace('v', '', SyliusMolliePlugin::getVersion());
 
-        if (SyliusMolliePlugin::VERSION === $latestVersion) {
+        if (SyliusMolliePlugin::getVersion() === $latestVersion) {
             return '';
         }
 
         return $environment->render('@SyliusMolliePlugin/admin/payment_method/version_notification.html.twig', [
             'latestVersion' => $latestVersion,
-            'currentVersion' => SyliusMolliePlugin::VERSION,
+            'currentVersion' => SyliusMolliePlugin::getVersion(),
         ]);
     }
 }
