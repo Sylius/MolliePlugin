@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin;
 
+use Composer\InstalledVersions;
 use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
 use Sylius\MolliePlugin\DependencyInjection\SyliusMessageBusPolyfillPass;
 use Sylius\Telemetry\TelemetryCompilerPass;
@@ -21,9 +22,17 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 final class SyliusMolliePlugin extends Bundle
 {
-    public const VERSION = '5.0.0';
-
     public const USER_AGENT_TOKEN = 'p5ACCDx8Tbn8vjpr';
+
+    public static function getVersion(): string
+    {
+        $currentVersion = InstalledVersions::getPrettyVersion('sylius/mollie-plugin') ?? 'unknown';
+        if (str_starts_with($currentVersion, 'v')) {
+            return substr($currentVersion, 1);
+        }
+
+        return $currentVersion;
+    }
 
     use SyliusPluginTrait;
 
