@@ -25,7 +25,7 @@ class MollieApiClient extends BaseMollieApiClient
 
     public function getVersion(): string
     {
-        return SyliusMolliePlugin::VERSION;
+        return SyliusMolliePlugin::getVersion();
     }
 
     public function getUserAgentToken(): string
