@@ -44,6 +44,7 @@ use Sylius\MolliePlugin\Model\PaymentMethod\Przelewy24;
 use Sylius\MolliePlugin\Model\PaymentMethod\Riverty;
 use Sylius\MolliePlugin\Model\PaymentMethod\Satispay;
 use Sylius\MolliePlugin\Model\PaymentMethod\SofortBanking;
+use Sylius\MolliePlugin\Model\PaymentMethod\Swish;
 use Sylius\MolliePlugin\Model\PaymentMethod\Trustly;
 use Sylius\MolliePlugin\Model\PaymentMethod\Twint;
 
@@ -81,6 +82,7 @@ interface PaymentMethodRegistryInterface
         PaymentMethod::PAYCONIQ => Payconiq::class,
         PaymentMethod::SATISPAY => Satispay::class,
         PaymentMethod::PAYBYBANK => PayByBank::class,
+        Swish::SWISH => Swish::class,
     ];
 
     /** @return MethodInterface[] */
