@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Payum\Action;
 
+use Mollie\Api\Types\OrderStatus;
+use Mollie\Api\Types\PaymentStatus;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Exception\RuntimeException;
@@ -47,6 +49,18 @@ final class CaptureAction extends BaseApiAwareAction implements GenericTokenFact
 
     public const PAYMENT_NEW_STATUS = 'new';
 
+    private const TERMINAL_MOLLIE_STATUSES = [
+        PaymentStatus::STATUS_CANCELED,
+        PaymentStatus::STATUS_FAILED,
+        PaymentStatus::STATUS_EXPIRED,
+    ];
+
+    private const OPEN_MOLLIE_STATUSES = [
+        PaymentStatus::STATUS_OPEN,
+        PaymentStatus::STATUS_PENDING,
+        OrderStatus::STATUS_CREATED,
+    ];
+
     use GatewayAwareTrait;
 
     private ?GenericTokenFactoryInterface $tokenFactory = null;
@@ -70,31 +84,23 @@ final class CaptureAction extends BaseApiAwareAction implements GenericTokenFact
 
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
-        if (true === isset($details['payment_mollie_id']) ||
-            true === isset($details['subscription_mollie_id']) ||
-            true === isset($details['order_mollie_id']) ||
-            $request->getFirstModel()->getOrder()->getQrCode() ||
+        if (true === isset($details['subscription_mollie_id'])) {
+            return;
+        }
+
+        if ($request->getFirstModel()->getOrder()->getQrCode() ||
             $request->getFirstModel()->getOrder()->getMolliePaymentId()) {
-            $qrCodeValue = $request->getFirstModel()->getOrder()->getQrCode();
-            $molliePaymentId = $request->getFirstModel()->getOrder()->getMolliePaymentId();
-            if ($qrCodeValue || $molliePaymentId) {
-                $this->setQrCodeOnOrder($request->getFirstModel()->getOrder());
-                $payment = $request->getFirstModel();
-
-                if ($payment->getState() === self::PAYMENT_FAILED_STATUS ||
-                    $payment->getState() === self::PAYMENT_CANCELLED_STATUS) {
-                    $this->paymentRepository->add($this->createNewPayment($payment));
-                }
-
-                $this->mollieApiClient->setApiKey($this->apiClientKeyResolver->getClientWithKey()->getApiKey());
-                $molliePayment = $this->mollieApiClient->payments->get($molliePaymentId);
-
-                if (null !== $checkoutUrl = $molliePayment->getCheckoutUrl()) {
-                    throw new HttpRedirect($checkoutUrl);
-                }
-            }
+            $this->handleQrCodeOrApplePay($request, $details);
 
             return;
+        }
+
+        if (isset($details['payment_mollie_id']) || isset($details['order_mollie_id'])) {
+            $handled = $this->handleExistingMolliePayment($request, $details);
+
+            if ($handled) {
+                return;
+            }
         }
 
         /** @var TokenInterface $token */
@@ -167,6 +173,96 @@ final class CaptureAction extends BaseApiAwareAction implements GenericTokenFact
         return
             $request instanceof Capture &&
             $request->getModel() instanceof \ArrayAccess;
+    }
+
+    /**
+     * Handles the case where a Mollie payment/order ID already exists in details.
+     *
+     * Returns true if the request was fully handled (caller should return).
+     * Returns false if the stale IDs were cleared and the caller should continue
+     * to create a new Mollie payment.
+     */
+    private function handleExistingMolliePayment(Capture $request, ArrayObject $details): bool
+    {
+        $paymentMollieId = $details['payment_mollie_id'] ?? null;
+        $orderMollieId = $details['order_mollie_id'] ?? null;
+
+        try {
+            $mollieResource = null !== $paymentMollieId
+                ? $this->mollieApiClient->payments->get($paymentMollieId)
+                : $this->mollieApiClient->orders->get($orderMollieId, ['embed' => 'payments']);
+        } catch (\Exception) {
+            $this->clearStaleDetailsForRetry($details);
+
+            return false;
+        }
+
+        $mollieStatus = $mollieResource->status;
+
+        if (in_array($mollieStatus, self::TERMINAL_MOLLIE_STATUSES, true)) {
+            $this->clearStaleDetailsForRetry($details);
+
+            return false;
+        }
+
+        if (in_array($mollieStatus, self::OPEN_MOLLIE_STATUSES, true)) {
+            $checkoutUrl = $mollieResource->getCheckoutUrl();
+
+            if (null !== $checkoutUrl) {
+                throw new HttpRedirect($checkoutUrl);
+            }
+
+            $this->clearStaleDetailsForRetry($details);
+
+            return false;
+        }
+
+        // paid/authorized — let normal Payum status flow handle completion
+        return true;
+    }
+
+    private function clearStaleDetailsForRetry(ArrayObject $details): void
+    {
+        $newMethod = $details['molliePaymentMethods'] ?? null;
+
+        unset(
+            $details['payment_mollie_id'],
+            $details['order_mollie_id'],
+            $details['webhookUrl'],
+            $details['backurl'],
+        );
+
+        if (null !== $newMethod && isset($details['metadata'])) {
+            $metadata = $details['metadata'];
+            $metadata['molliePaymentMethods'] = $newMethod;
+            unset($metadata['refund_token']);
+            $details['metadata'] = $metadata;
+        }
+    }
+
+    private function handleQrCodeOrApplePay(Capture $request, ArrayObject $details): void
+    {
+        $qrCodeValue = $request->getFirstModel()->getOrder()->getQrCode();
+        $molliePaymentId = $request->getFirstModel()->getOrder()->getMolliePaymentId();
+
+        if (!$qrCodeValue && !$molliePaymentId) {
+            return;
+        }
+
+        $this->setQrCodeOnOrder($request->getFirstModel()->getOrder());
+        $payment = $request->getFirstModel();
+
+        if ($payment->getState() === self::PAYMENT_FAILED_STATUS ||
+            $payment->getState() === self::PAYMENT_CANCELLED_STATUS) {
+            $this->paymentRepository->add($this->createNewPayment($payment));
+        }
+
+        $this->mollieApiClient->setApiKey($this->apiClientKeyResolver->getClientWithKey()->getApiKey());
+        $molliePayment = $this->mollieApiClient->payments->get($molliePaymentId);
+
+        if (null !== $checkoutUrl = $molliePayment->getCheckoutUrl()) {
+            throw new HttpRedirect($checkoutUrl);
+        }
     }
 
     private function createNewPayment(PaymentInterface $payment): PaymentInterface
