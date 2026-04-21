@@ -71,6 +71,13 @@ class PaymentWebhookController
         }
     }
 
+    /**
+     * Every exit path returns 200 because Mollie keeps retrying the webhook on any
+     * non-2xx response — "for any other response we keep trying"
+     * (https://docs.mollie.com/docs/accepting-payments). When we cannot meaningfully
+     * act (unknown Mollie id, unknown order, order has no payment, unsupported
+     * status), a retry would not change the outcome, so we acknowledge and move on.
+     */
     public function __invoke(Request $request): Response
     {
         $this->mollieApiClient->setApiKey($this->apiClientKeyResolver->getClientWithKey()->getApiKey());
