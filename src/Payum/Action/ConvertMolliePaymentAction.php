@@ -74,17 +74,21 @@ final class ConvertMolliePaymentAction extends BaseApiAwareAction implements Gat
 
         $paymentOptions = $payment->getDetails();
 
-        if (isset($paymentOptions['metadata'])) {
-            $paymentMethod = $paymentOptions['metadata']['molliePaymentMethods'] ?? null;
-            $cartToken = $paymentOptions['metadata']['cartToken'];
-            $saveCardInfo = $paymentOptions['metadata']['saveCardInfo'];
-            $useSavedCards = $paymentOptions['metadata']['useSavedCards'];
-        } else {
-            $paymentMethod = $paymentOptions['molliePaymentMethods'] ?? null;
-            $cartToken = $paymentOptions['cartToken'] ?? null;
-            $saveCardInfo = $paymentOptions['saveCardInfo'] ?? null;
-            $useSavedCards = $paymentOptions['useSavedCards'] ?? null;
-        }
+        // Top-level keys reflect the most recent form submission (Sylius
+        // PaymentMollieType writes there). On retry, metadata may carry stale values
+        // from a previous Convert run — always prefer top-level if present.
+        $paymentMethod = $paymentOptions['molliePaymentMethods']
+            ?? $paymentOptions['metadata']['molliePaymentMethods']
+            ?? null;
+        $cartToken = $paymentOptions['cartToken']
+            ?? $paymentOptions['metadata']['cartToken']
+            ?? null;
+        $saveCardInfo = $paymentOptions['saveCardInfo']
+            ?? $paymentOptions['metadata']['saveCardInfo']
+            ?? null;
+        $useSavedCards = $paymentOptions['useSavedCards']
+            ?? $paymentOptions['metadata']['useSavedCards']
+            ?? null;
 
         /** @var MollieGatewayConfigInterface $method */
         $method = $this->mollieMethodsRepository->findOneBy(['methodId' => $paymentMethod]);

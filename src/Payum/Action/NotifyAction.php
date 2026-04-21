@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Payum\Action;
 
 use Mollie\Api\Exceptions\ApiException;
+use Mollie\Api\Types\PaymentStatus;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\GatewayAwareInterface;
@@ -99,6 +100,65 @@ final class NotifyAction extends BaseApiAwareAction implements GatewayAwareInter
 
             throw new HttpResponse(Response::$statusTexts[Response::HTTP_OK], Response::HTTP_OK);
         }
+
+        $this->reconcileOrphanPaidPayment($details);
+    }
+
+    /**
+     * Handle webhooks fired for a Mollie payment ID that is no longer the current
+     * one tracked in Sylius details — typically a session abandoned on retry that
+     * the customer later completed from a stale tab.
+     *
+     * When the incoming payment is paid/authorized and its metadata.order_id
+     * matches ours, we swap details.payment_mollie_id to point at the incoming
+     * resource so Payum's subsequent StatusAction syncs Sylius state correctly.
+     * No-op if the incoming ID matches current, if the orphan is not paid, or if
+     * metadata does not match (safety against spoofed webhooks).
+     */
+    private function reconcileOrphanPaidPayment(ArrayObject $details): void
+    {
+        $incomingMollieId = (string) ($this->getHttpRequest->request['id'] ?? '');
+        if (!str_starts_with($incomingMollieId, 'tr_')) {
+            return;
+        }
+
+        $currentMollieId = $details['payment_mollie_id'] ?? null;
+        if ($incomingMollieId === $currentMollieId) {
+            return;
+        }
+
+        try {
+            $incoming = $this->mollieApiClient->payments->get($incomingMollieId);
+        } catch (\Exception $e) {
+            $this->loggerAction->addNegativeLog(sprintf(
+                'Orphan reconciliation fetch failed for %s: %s',
+                $incomingMollieId,
+                $e->getMessage(),
+            ));
+
+            return;
+        }
+
+        $ourOrderId = (int) ($details['metadata']['order_id'] ?? 0);
+        $incomingOrderId = filter_var($incoming->metadata->order_id ?? null, \FILTER_VALIDATE_INT);
+
+        if (0 === $ourOrderId || false === $incomingOrderId || $ourOrderId !== $incomingOrderId) {
+            return;
+        }
+
+        if (!in_array($incoming->status, [PaymentStatus::STATUS_PAID, PaymentStatus::STATUS_AUTHORIZED], true)) {
+            return;
+        }
+
+        $details['payment_mollie_id'] = $incomingMollieId;
+
+        $this->loggerAction->addLog(sprintf(
+            'Reconciled orphan Mollie payment %s (status=%s) onto Sylius order %d (was tracking %s)',
+            $incomingMollieId,
+            $incoming->status,
+            $ourOrderId,
+            $currentMollieId ?? 'none',
+        ));
     }
 
     public function supports($request): bool

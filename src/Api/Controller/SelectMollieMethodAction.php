@@ -187,26 +187,45 @@ final class SelectMollieMethodAction
             return null;
         }
 
-        if (!in_array(
-            $existingMolliePayment->status,
-            [PaymentStatus::STATUS_OPEN, PaymentStatus::STATUS_PENDING],
-            true,
-        )) {
+        // Pending: customer is mid-payment on the PSP side (e.g. Satispay waiting on
+        // mobile confirmation). Don't spin up a competing session — let them finish or
+        // let it expire naturally.
+        if (PaymentStatus::STATUS_PENDING === $existingMolliePayment->status) {
+            $checkoutUrl = $existingMolliePayment->_links->checkout->href ?? null;
+
+            if (null !== $checkoutUrl) {
+                return new JsonResponse([
+                    'methodId' => $existingMolliePayment->method ?? $methodId,
+                    'checkoutUrl' => $checkoutUrl,
+                ]);
+            }
+
+            return new JsonResponse(
+                ['error' => 'A payment is already in progress for this order. Please wait for it to finish or expire.'],
+                Response::HTTP_CONFLICT,
+            );
+        }
+
+        if (PaymentStatus::STATUS_OPEN !== $existingMolliePayment->status) {
             return null;
         }
 
-        $checkoutUrl = $existingMolliePayment->_links->checkout->href ?? null;
-        if (
-            null === $checkoutUrl ||
-            $methodId !== $existingMolliePayment->method
-        ) {
-            return null;
+        // Open session — always best-effort cancel and create a fresh one. Reusing the
+        // existing checkoutUrl would carry a stale redirectUrl that points at an
+        // already-consumed Payum capture token on the UI side; reuse is also method-lossy
+        // when the user switches methods. Mollie only supports cancellation for a subset
+        // of methods; the rest will remain orphaned until expiry. See issue #329.
+        //
+        // Note: Payment resource does not expose cancel() as an instance method — it's
+        // on the endpoint. (Only Order resource has an instance-level cancel.)
+        if (true === ($existingMolliePayment->isCancelable ?? false)) {
+            try {
+                $mollieApiClient->payments->cancel($existingMolliePayment->id);
+            } catch (ApiException) {
+            }
         }
 
-        return new JsonResponse([
-            'methodId' => $methodId,
-            'checkoutUrl' => $checkoutUrl,
-        ]);
+        return null;
     }
 
     private function findOrCreateMollieCustomer(MollieApiClient $mollieApiClient, OrderInterface $order): string
