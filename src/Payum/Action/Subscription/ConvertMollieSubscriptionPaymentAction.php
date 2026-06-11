@@ -73,7 +73,7 @@ final class ConvertMollieSubscriptionPaymentAction extends BaseApiAwareAction im
         $amount = $this->intToStringConverter->convertIntToString($payment->getAmount(), $divisor);
         $paymentOptions = $payment->getDetails();
 
-        $cartToken = $paymentOptions['cartToken'];
+        $cartToken = $paymentOptions['cartToken'] ?? null;
         $sequenceType = array_key_exists(
             'recurring',
             $paymentOptions,
