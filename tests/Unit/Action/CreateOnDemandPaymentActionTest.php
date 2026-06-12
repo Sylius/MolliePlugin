@@ -71,11 +71,11 @@ final class CreateOnDemandPaymentActionTest extends TestCase
             ->expects($this->once())
             ->method('create')
             ->with($this->callback(static function (array $payload): bool {
-                return false === array_key_exists('cardToken', $payload)
-                    && false === array_key_exists('method', $payload)
-                    && 'recurring' === $payload['sequenceType']
-                    && 'cst_abc' === $payload['customerId']
-                    && 'mdt_xyz' === $payload['mandateId'];
+                return false === array_key_exists('cardToken', $payload) &&
+                    false === array_key_exists('method', $payload) &&
+                    'recurring' === $payload['sequenceType'] &&
+                    'cst_abc' === $payload['customerId'] &&
+                    'mdt_xyz' === $payload['mandateId'];
             }))
             ->willReturn($payment)
         ;
@@ -105,8 +105,8 @@ final class CreateOnDemandPaymentActionTest extends TestCase
             ->expects($this->once())
             ->method('create')
             ->with($this->callback(static function (array $payload): bool {
-                return 'creditcard' === ($payload['method'] ?? null)
-                    && 'tkn_live' === ($payload['cardToken'] ?? null);
+                return 'creditcard' === ($payload['method'] ?? null) &&
+                    'tkn_live' === ($payload['cardToken'] ?? null);
             }))
             ->willReturn($payment)
         ;
@@ -136,11 +136,11 @@ final class CreateOnDemandPaymentActionTest extends TestCase
             ->expects($this->once())
             ->method('create')
             ->with($this->callback(static function (array $payload): bool {
-                return false === array_key_exists('cardToken', $payload)
-                    && false === array_key_exists('method', $payload)
-                    && 'recurring' === $payload['sequenceType']
-                    && 'cst_abc' === $payload['customerId']
-                    && 'mdt_xyz' === $payload['mandateId'];
+                return false === array_key_exists('cardToken', $payload) &&
+                    false === array_key_exists('method', $payload) &&
+                    'recurring' === $payload['sequenceType'] &&
+                    'cst_abc' === $payload['customerId'] &&
+                    'mdt_xyz' === $payload['mandateId'];
             }))
             ->willReturn($payment)
         ;
