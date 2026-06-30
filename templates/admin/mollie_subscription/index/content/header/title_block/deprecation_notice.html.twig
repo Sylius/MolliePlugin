@@ -1,0 +1,20 @@
+<div class="col-12">
+    <div class="alert alert-warning alert-dismissible fade show d-flex align-items-start gap-2 mb-0" role="alert">
+        {{ ux_icon('tabler:alert-triangle', {class: 'flex-shrink-0 mt-1'}) }}
+        <span>
+            <strong>{{ 'sylius_mollie.ui.mollie_subscription_deprecation_notice_intro'|trans }}</strong>
+            <a class="text-muted small text-decoration-none d-block mt-1" data-bs-toggle="collapse" href="#mollieDeprecationNoticeIndex" role="button" aria-expanded="false" aria-controls="mollieDeprecationNoticeIndex">{{ 'sylius_mollie.ui.mollie_subscription_deprecation_notice_read_more'|trans }}</a>
+            <span class="collapse small text-muted" id="mollieDeprecationNoticeIndex">
+                <span class="d-block mt-2">{{ 'sylius_mollie.ui.mollie_subscription_deprecation_notice_body'|trans }}</span>
+                <span class="d-block mt-2">
+                    {{ 'sylius_mollie.ui.mollie_subscription_deprecation_notice_migration_before'|trans }}
+                    <a href="https://sylius.com/blog/important-update-for-projects-using-mollie-subscriptions/" target="_blank" rel="noopener noreferrer">{{ 'sylius_mollie.ui.mollie_subscription_deprecation_notice_dedicated_blog'|trans }}</a>
+                    {{ 'sylius_mollie.ui.mollie_subscription_deprecation_notice_migration_after'|trans }}
+                    <a href="https://sylius.com/contact/" target="_blank" rel="noopener noreferrer">{{ 'sylius_mollie.ui.mollie_subscription_deprecation_notice_contact_team'|trans }}</a>.
+                </span>
+                <span class="d-block mt-2">{{ 'sylius_mollie.ui.mollie_subscription_deprecation_notice_note'|trans }}</span>
+            </span>
+        </span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>

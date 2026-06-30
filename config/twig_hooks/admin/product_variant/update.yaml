@@ -11,6 +11,9 @@ sylius_twig_hooks:
                 priority: -100
 
         'sylius_admin.product_variant.update.content.form.sections.mollie':
+            deprecation_notice:
+                template: '@SyliusMolliePlugin/admin/product_variant/form/sections/mollie/deprecation_notice.html.twig'
+                priority: 200
             header:
                 template: '@SyliusMolliePlugin/admin/product_variant/form/sections/mollie/header.html.twig'
                 priority: 100

@@ -6,3 +6,35 @@
    (`sylius_mollie.listener.workflow.shipment.ship`, listening on `workflow.sylius_shipment.completed.ship`)
    will become the sole listener responsible for notifying Mollie about shipments - covering both admin UI and API contexts.
    Currently, the workflow listener only handles API requests; admin UI shipments are still handled by the old listener.
+
+2. **Important update for projects using Mollie subscriptions!**
+
+   Starting with Mollie Plugin 4.0, the subscription and recurring payment feature will be removed from the
+   open-source Mollie integration. Standard Mollie payments will not be affected.
+
+   As of 3.3, the subscription and recurring payment classes are marked as `@deprecated` and will be removed in 4.0.
+
+   For migration details, please check the
+   [dedicated blog post](https://sylius.com/blog/important-update-for-projects-using-mollie-subscriptions/)
+   or [contact the Sylius team](https://sylius.com/contact/).
+
+3. A nullable `migrated_at` column has been added to the `mollie_subscription` table. Run the Doctrine migrations
+   after upgrading:
+
+   ```bash
+   bin/console doctrine:migrations:migrate
+   ```
+
+   To support the transition to 4.0, two interfaces gained methods used by the migration process. If you provide
+   your own implementations, add them (note that both interfaces are themselves deprecated and will be removed in
+   4.0):
+
+   `Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface`:
+   - `findScheduledSubscriptionsForMigration(): array`
+   - `iterateToMigrate(int $batchSize): iterable`
+   - `findMigrated(int $limit): array`
+
+   `Sylius\MolliePlugin\Entity\MollieSubscriptionInterface`:
+   - `getMigratedAt(): ?\DateTime`
+   - `setMigratedAt(?\DateTimeInterface $migratedAt): void`
+   - `isMigrated(): bool`
