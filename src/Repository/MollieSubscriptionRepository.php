@@ -71,6 +71,19 @@ class MollieSubscriptionRepository extends EntityRepository implements MollieSub
         return $qb->getQuery()->getResult();
     }
 
+    public function findScheduledSubscriptionsForMigration(): array
+    {
+        $qb = $this->createQueryBuilder('q');
+        $qb->andWhere('q.state IN (:states)');
+        $qb->setParameter('states', [MollieSubscriptionInterface::STATE_ACTIVE, MollieSubscriptionInterface::STATE_PROCESSING]);
+        $qb->leftJoin('q.schedules', 's');
+        $qb->andWhere('s.scheduledDate < :date');
+        $qb->setParameter('date', new \DateTime());
+        $qb->andWhere('s.fulfilledDate IS NULL');
+
+        return $qb->getQuery()->getResult();
+    }
+
     public function findProcessableSubscriptions(): array
     {
         $qb = $this->createQueryBuilder('q');
@@ -86,6 +99,8 @@ class MollieSubscriptionRepository extends EntityRepository implements MollieSub
     {
         $qb = $this->createQueryBuilder('q');
         $qb->andWhere('q.migratedAt IS NULL');
+        $qb->andWhere('q.state != :paused');
+        $qb->setParameter('paused', MollieSubscriptionInterface::STATE_PAUSED);
         $qb->setMaxResults($batchSize);
 
         return $qb->getQuery()->toIterable();

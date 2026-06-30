@@ -130,9 +130,18 @@ class MollieSubscription implements MollieSubscriptionInterface
         return $this->migratedAt;
     }
 
-    public function setMigratedAt(?\DateTime $migratedAt): void
+    public function setMigratedAt(?\DateTimeInterface $migratedAt): void
     {
-        $this->migratedAt = $migratedAt;
+        if ($migratedAt instanceof \DateTimeImmutable) {
+            $this->migratedAt = \DateTime::createFromImmutable($migratedAt);
+        } else {
+            $this->migratedAt = $migratedAt;
+        }
+    }
+
+    public function isMigrated(): bool
+    {
+        return null !== $this->migratedAt;
     }
 
     public function getLastOrder(): ?SyliusOrder
