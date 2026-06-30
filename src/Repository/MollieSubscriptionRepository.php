@@ -111,6 +111,15 @@ class MollieSubscriptionRepository extends EntityRepository implements MollieSub
         return $qb->getQuery()->toIterable();
     }
 
+    public function findMigrated(int $limit): array
+    {
+        $qb = $this->createQueryBuilder('q');
+        $qb->andWhere('q.migratedAt IS NOT NULL');
+        $qb->setMaxResults($limit);
+
+        return $qb->getQuery()->getResult();
+    }
+
     public function findOneByOrderIdAsString(string $orderId): ?MollieSubscriptionInterface
     {
         return $this->findOneByOrderId((int) $orderId);
