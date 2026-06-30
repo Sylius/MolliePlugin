@@ -15,7 +15,13 @@ namespace Sylius\MolliePlugin\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/** @mixin ProductVariantInterface */
+/**
+ * @deprecated since Mollie 3.3 and will be removed in 4.0.
+ *
+ * @see https://github.com/Sylius/MolliePlugin/blob/3.3/UPGRADE-3.3.md for migration details
+ *
+ * @mixin ProductVariantInterface
+ */
 trait RecurringProductVariantTrait
 {
     /** @ORM\Column(type="boolean", name="recurring", nullable="false", options={"default":0}) */

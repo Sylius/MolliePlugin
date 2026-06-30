@@ -17,6 +17,11 @@ use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 
+/**
+ * @deprecated since Mollie 3.3 and will be removed in 4.0.
+ *
+ * @see https://github.com/Sylius/MolliePlugin/blob/3.3/UPGRADE-3.3.md for migration details
+ */
 interface MollieSubscriptionRepositoryInterface extends RepositoryInterface
 {
     public function findOneByOrderId(int $orderId): ?MollieSubscriptionInterface;
@@ -38,6 +43,9 @@ interface MollieSubscriptionRepositoryInterface extends RepositoryInterface
 
     /** @return iterable<MollieSubscriptionInterface> */
     public function iterateToMigrate(int $batchSize): iterable;
+
+    /** @return MollieSubscriptionInterface[] */
+    public function findMigrated(int $limit): array;
 
     public function findOneByOrderIdAsString(string $orderId): ?MollieSubscriptionInterface;
 

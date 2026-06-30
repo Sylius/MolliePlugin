@@ -21,6 +21,11 @@ use Sylius\MolliePlugin\StateMachine\MollieSubscriptionPaymentProcessingTransiti
 use Sylius\MolliePlugin\StateMachine\MollieSubscriptionProcessingTransitions;
 use Sylius\MolliePlugin\StateMachine\MollieSubscriptionTransitions;
 
+/**
+ * @deprecated since Mollie 3.3 and will be removed in 4.0.
+ *
+ * @see https://github.com/Sylius/MolliePlugin/blob/3.3/UPGRADE-3.3.md for migration details
+ */
 final class SubscriptionAndPaymentIdApplicator implements SubscriptionAndPaymentIdApplicatorInterface
 {
     public function __construct(

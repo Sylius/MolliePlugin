@@ -18,6 +18,11 @@ use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\MolliePlugin\Payum\Request\Subscription\StatusRecurringSubscription;
 use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
 
+/**
+ * @deprecated since Mollie 3.3 and will be removed in 4.0.
+ *
+ * @see https://github.com/Sylius/MolliePlugin/blob/3.3/UPGRADE-3.3.md for migration details
+ */
 final class SubscriptionPaymentProcessor implements SubscriptionPaymentProcessorInterface
 {
     public function __construct(

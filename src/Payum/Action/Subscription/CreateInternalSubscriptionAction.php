@@ -22,6 +22,11 @@ use Sylius\MolliePlugin\Payum\Action\BaseApiAwareAction;
 use Sylius\MolliePlugin\Payum\Request\Subscription\CreateInternalRecurring;
 use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
 
+/**
+ * @deprecated since Mollie 3.3 and will be removed in 4.0.
+ *
+ * @see https://github.com/Sylius/MolliePlugin/blob/3.3/UPGRADE-3.3.md for migration details
+ */
 final class CreateInternalSubscriptionAction extends BaseApiAwareAction
 {
     public function __construct(
