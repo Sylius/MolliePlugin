@@ -19,6 +19,11 @@ use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 
+/**
+ * @deprecated since Mollie 3.3 and will be removed in 4.0.
+ *
+ * @see https://github.com/Sylius/MolliePlugin/blob/3.3/UPGRADE-3.3.md for migration details
+ */
 class MollieSubscriptionRepository extends EntityRepository implements MollieSubscriptionRepositoryInterface
 {
     public function findOneByOrderId(int $orderId): ?MollieSubscriptionInterface
