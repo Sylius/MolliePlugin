@@ -82,6 +82,10 @@ interface MollieSubscriptionInterface extends ResourceInterface
 
     public function setStartedAt(?\DateTime $startedAt = null): void;
 
+    public function getMigratedAt(): ?\DateTime;
+
+    public function setMigratedAt(?\DateTime $migratedAt): void;
+
     /** @return Collection<int, MollieSubscriptionScheduleInterface> */
     public function getSchedules(): Collection;
 

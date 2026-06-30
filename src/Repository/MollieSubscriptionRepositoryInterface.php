@@ -33,6 +33,9 @@ interface MollieSubscriptionRepositoryInterface extends RepositoryInterface
     /** @return MollieSubscriptionInterface[] */
     public function findProcessableSubscriptions(): array;
 
+    /** @return iterable<MollieSubscriptionInterface> */
+    public function iterateToMigrate(int $batchSize): iterable;
+
     public function findOneByOrderIdAsString(string $orderId): ?MollieSubscriptionInterface;
 
     public function findOneActiveByOrderToken(string $token): ?MollieSubscriptionInterface;
