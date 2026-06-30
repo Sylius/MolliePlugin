@@ -24,3 +24,17 @@
    ```bash
    bin/console doctrine:migrations:migrate
    ```
+
+   To support the transition to 4.0, two interfaces gained methods used by the migration process. If you provide
+   your own implementations, add them (note that both interfaces are themselves deprecated and will be removed in
+   4.0):
+
+   `Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface`:
+   - `findScheduledSubscriptionsForMigration(): array`
+   - `iterateToMigrate(int $batchSize): iterable`
+   - `findMigrated(int $limit): array`
+
+   `Sylius\MolliePlugin\Entity\MollieSubscriptionInterface`:
+   - `getMigratedAt(): ?\DateTime`
+   - `setMigratedAt(?\DateTimeInterface $migratedAt): void`
+   - `isMigrated(): bool`
