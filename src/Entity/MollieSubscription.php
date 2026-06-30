@@ -32,6 +32,8 @@ class MollieSubscription implements MollieSubscriptionInterface
 
     protected ?\DateTime $startedAt = null;
 
+    protected ?\DateTime $migratedAt = null;
+
     protected OrderItemInterface $orderItem;
 
     protected Collection $schedules;
@@ -121,6 +123,16 @@ class MollieSubscription implements MollieSubscriptionInterface
     public function setStartedAt(?\DateTime $startedAt = null): void
     {
         $this->startedAt = $startedAt;
+    }
+
+    public function getMigratedAt(): ?\DateTime
+    {
+        return $this->migratedAt;
+    }
+
+    public function setMigratedAt(?\DateTime $migratedAt): void
+    {
+        $this->migratedAt = $migratedAt;
     }
 
     public function getLastOrder(): ?SyliusOrder
