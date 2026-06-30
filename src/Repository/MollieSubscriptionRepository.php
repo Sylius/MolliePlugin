@@ -72,6 +72,7 @@ class MollieSubscriptionRepository extends EntityRepository implements MollieSub
         $qb->andWhere('s.scheduledDate < :date');
         $qb->setParameter('date', new \DateTime());
         $qb->andWhere('s.fulfilledDate IS NULL');
+        $qb->andWhere('q.migratedAt IS NULL');
 
         return $qb->getQuery()->getResult();
     }
@@ -79,12 +80,13 @@ class MollieSubscriptionRepository extends EntityRepository implements MollieSub
     public function findScheduledSubscriptionsForMigration(): array
     {
         $qb = $this->createQueryBuilder('q');
-        $qb->andWhere('q.state IN (:states)');
-        $qb->setParameter('states', [MollieSubscriptionInterface::STATE_ACTIVE, MollieSubscriptionInterface::STATE_PROCESSING]);
+        $qb->andWhere('q.state = :state');
+        $qb->setParameter('state', MollieSubscriptionInterface::STATE_ACTIVE);
         $qb->leftJoin('q.schedules', 's');
         $qb->andWhere('s.scheduledDate < :date');
         $qb->setParameter('date', new \DateTime());
         $qb->andWhere('s.fulfilledDate IS NULL');
+        $qb->andWhere('q.migratedAt IS NULL');
 
         return $qb->getQuery()->getResult();
     }
@@ -96,6 +98,7 @@ class MollieSubscriptionRepository extends EntityRepository implements MollieSub
         $qb->setParameter('state', MollieSubscriptionInterface::STATE_PROCESSING);
         $qb->andWhere('q.processingState = :processingState');
         $qb->setParameter('processingState', MollieSubscriptionInterface::PROCESSING_STATE_PENDING);
+        $qb->andWhere('q.migratedAt IS NULL');
 
         return $qb->getQuery()->getResult();
     }
@@ -104,8 +107,11 @@ class MollieSubscriptionRepository extends EntityRepository implements MollieSub
     {
         $qb = $this->createQueryBuilder('q');
         $qb->andWhere('q.migratedAt IS NULL');
-        $qb->andWhere('q.state != :paused');
-        $qb->setParameter('paused', MollieSubscriptionInterface::STATE_PAUSED);
+        $qb->andWhere('q.state NOT IN (:excludedStates)');
+        $qb->setParameter('excludedStates', [
+            MollieSubscriptionInterface::STATE_PAUSED,
+            MollieSubscriptionInterface::STATE_PROCESSING,
+        ]);
         $qb->setMaxResults($batchSize);
 
         return $qb->getQuery()->toIterable();
