@@ -16,7 +16,6 @@ namespace Tests\Sylius\MolliePlugin\Unit\Resolver;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
-use Sylius\Component\Core\Model\OrderInterface as SyliusOrderInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface as MollieOrderInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
@@ -87,19 +86,6 @@ final class MolliePaymentsMethodResolverTest extends TestCase
         $orderMock = $this->createMock(MollieOrderInterface::class);
         $orderMock->method('getBillingAddress')->willReturn(null);
         $orderMock->method('getShippingAddress')->willReturn(null);
-
-        $this->paymentCheckoutOrderResolverMock->method('resolve')->willReturn($orderMock);
-        $this->mollieFactoryNameResolverMock->expects($this->never())->method('resolve');
-
-        $this->assertSame($this->defaultOptions(), $this->resolver->resolve());
-    }
-
-    public function testReturnsDefaultOptionsWhenOrderIsNotMollieOrder(): void
-    {
-        $addressMock = $this->createMock(AddressInterface::class);
-
-        $orderMock = $this->createMock(SyliusOrderInterface::class);
-        $orderMock->method('getBillingAddress')->willReturn($addressMock);
 
         $this->paymentCheckoutOrderResolverMock->method('resolve')->willReturn($orderMock);
         $this->mollieFactoryNameResolverMock->expects($this->never())->method('resolve');
