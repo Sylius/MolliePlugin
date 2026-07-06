@@ -65,7 +65,10 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         if (false === $order instanceof MollieOrderInterface) {
             return $this->getDefaultOptions();
         }
-        Assert::notNull($address->getCountryCode());
+
+        if (null === $address->getCountryCode()) {
+            return $this->getDefaultOptions();
+        }
 
         return $this->getMolliePaymentOptions($order, $address->getCountryCode());
     }
