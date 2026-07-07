@@ -18,6 +18,7 @@ use Doctrine\ORM\Query\Expr\Join;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
+use Sylius\MolliePlugin\Entity\MollieSubscriptionScheduleInterface;
 
 /**
  * @deprecated since Mollie 3.3 and will be removed in 4.0.
@@ -93,13 +94,19 @@ class MollieSubscriptionRepository extends EntityRepository implements MollieSub
 
     public function iterateScheduledForMigration(int $batchSize): iterable
     {
+        $scheduleSubQuery = $this->getEntityManager()->createQueryBuilder();
+        $scheduleSubQuery
+            ->select('1')
+            ->from(MollieSubscriptionScheduleInterface::class, 's')
+            ->andWhere('s.mollieSubscription = q')
+            ->andWhere('s.scheduledDate < :date')
+            ->andWhere('s.fulfilledDate IS NULL');
+
         $qb = $this->createQueryBuilder('q');
         $qb->andWhere('q.state = :state');
         $qb->setParameter('state', MollieSubscriptionInterface::STATE_ACTIVE);
-        $qb->leftJoin('q.schedules', 's');
-        $qb->andWhere('s.scheduledDate < :date');
+        $qb->andWhere($qb->expr()->exists($scheduleSubQuery->getDQL()));
         $qb->setParameter('date', new \DateTime());
-        $qb->andWhere('s.fulfilledDate IS NULL');
         $qb->andWhere('q.migratedAt IS NULL');
         $qb->setMaxResults($batchSize);
 
