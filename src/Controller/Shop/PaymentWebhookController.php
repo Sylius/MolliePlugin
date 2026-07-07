@@ -107,6 +107,19 @@ class PaymentWebhookController
             return new JsonResponse(Response::HTTP_OK);
         }
 
+        $details = $payment->getDetails();
+        $storedMollieId = $details['payment_mollie_id'] ?? $order->getMolliePaymentId();
+        if ($storedMollieId !== $molliePayment->id) {
+            $this->logger?->addLog(sprintf(
+                'Mollie Webhook: payment ID mismatch for order %s. Expected %s, got %s.',
+                $request->get('orderId'),
+                (string) $storedMollieId,
+                $molliePayment->id,
+            ));
+
+            return new JsonResponse(Response::HTTP_OK);
+        }
+
         if (null !== $this->stateMachine && null !== $this->entityManager) {
             $this->applyTransition($payment, $molliePayment->status);
         } else {
