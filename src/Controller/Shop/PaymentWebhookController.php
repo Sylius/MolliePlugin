@@ -71,6 +71,24 @@ class PaymentWebhookController
         }
 
         $payment = $order->getLastPayment();
+        if (null === $payment) {
+            return new JsonResponse(Response::HTTP_OK);
+        }
+
+        $details = $payment->getDetails();
+        // QR-code payments store the Mollie id on the order, not in payment details.
+        $storedMollieId = $details['payment_mollie_id'] ?? $order->getMolliePaymentId();
+        if ($storedMollieId !== $molliePayment->id) {
+            $this->logger?->addLog(sprintf(
+                'Mollie Webhook: payment ID mismatch for order %s. Expected %s, got %s.',
+                $request->get('orderId'),
+                (string) $storedMollieId,
+                $molliePayment->id,
+            ));
+
+            return new JsonResponse(Response::HTTP_OK);
+        }
+
         $status = $this->getStatus($molliePayment);
 
         if ($payment->getState() !== $status && PaymentInterface::STATE_UNKNOWN !== $status) {
