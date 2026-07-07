@@ -19,6 +19,7 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
+use Sylius\MolliePlugin\EventListener\Workflow\Shipment\ShipmentShipListener;
 use Sylius\MolliePlugin\Form\Type\MollieGatewayConfigurationType;
 use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
 use Symfony\Component\EventDispatcher\GenericEvent;
@@ -32,6 +33,13 @@ final class ShipmentShipEventListener
         private readonly MollieApiClient $apiClient,
         private readonly RequestStack $requestStack,
     ) {
+        trigger_deprecation(
+            'sylius/mollie-plugin',
+            '3.3',
+            'The "%s" class is deprecated and will be replaced by "%s" in 4.0.',
+            self::class,
+            ShipmentShipListener::class,
+        );
     }
 
     public function shipAll(GenericEvent $event): void

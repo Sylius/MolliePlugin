@@ -13,15 +13,18 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\MolliePlugin\Unit\Controller\Shop;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Mollie\Api\Endpoints\PaymentEndpoint;
 use Mollie\Api\Resources\Payment;
 use Mollie\Api\Types\PaymentStatus;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Sylius\Abstraction\StateMachine\StateMachineInterface;
 use Sylius\Component\Core\Model\PaymentInterface as CorePaymentInterface;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 use Sylius\Component\Order\Repository\OrderRepositoryInterface;
 use Sylius\Component\Payment\Model\PaymentInterface;
+use Sylius\Component\Payment\PaymentTransitions;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Controller\Shop\PaymentWebhookController;
 use Sylius\MolliePlugin\Entity\OrderInterface;
@@ -42,6 +45,10 @@ final class PaymentWebhookControllerTest extends TestCase
 
     private MockObject&MollieLoggerActionInterface $logger;
 
+    private MockObject&StateMachineInterface $stateMachine;
+
+    private EntityManagerInterface&MockObject $entityManager;
+
     private MockObject&PaymentEndpoint $paymentEndpoint;
 
     protected function setUp(): void
@@ -51,6 +58,8 @@ final class PaymentWebhookControllerTest extends TestCase
         $this->orderRepository = $this->createMock(OrderRepositoryInterface::class);
         $this->paymentRepository = $this->createMock(PaymentRepositoryInterface::class);
         $this->logger = $this->createMock(MollieLoggerActionInterface::class);
+        $this->stateMachine = $this->createMock(StateMachineInterface::class);
+        $this->entityManager = $this->createMock(EntityManagerInterface::class);
 
         $this->paymentEndpoint = $this->createMock(PaymentEndpoint::class);
         $this->mollieApiClient->payments = $this->paymentEndpoint;
@@ -66,7 +75,7 @@ final class PaymentWebhookControllerTest extends TestCase
         $request = new Request(['id' => 'tr_abc', 'orderId' => '42']);
         $this->paymentEndpoint->expects(self::once())->method('get')->willReturn($this->makeMolliePayment(PaymentStatus::STATUS_PAID));
         $this->orderRepository->expects(self::once())->method('findOneBy')->with(['id' => '42'])->willReturn(null);
-        $this->paymentRepository->expects(self::never())->method('add');
+        $this->stateMachine->expects(self::never())->method('apply');
 
         $response = $controller->__invoke($request);
 
@@ -82,71 +91,110 @@ final class PaymentWebhookControllerTest extends TestCase
         $order->method('getLastPayment')->willReturn(null);
         $this->paymentEndpoint->expects(self::once())->method('get')->willReturn($this->makeMolliePayment(PaymentStatus::STATUS_PAID));
         $this->orderRepository->method('findOneBy')->willReturn($order);
-        $this->paymentRepository->expects(self::never())->method('add');
+        $this->stateMachine->expects(self::never())->method('apply');
 
         $response = $controller->__invoke($request);
 
         self::assertSame(Response::HTTP_OK, $response->getStatusCode());
     }
 
-    public function testItReturnsOkAndSkipsPaymentUpdateWhenMolliePaymentIdDoesNotMatchStoredId(): void
+    public function testItAppliesCompleteTransitionForPaidMolliePayment(): void
     {
         $controller = $this->createController();
 
         $request = new Request(['id' => 'tr_abc', 'orderId' => '42']);
         $payment = $this->createMock(CorePaymentInterface::class);
-        $payment->method('getDetails')->willReturn(['payment_mollie_id' => 'tr_DIFFERENT']);
         $order = $this->createMock(OrderInterface::class);
         $order->method('getLastPayment')->willReturn($payment);
+        $payment->method('getDetails')->willReturn(['payment_mollie_id' => 'tr_abc']);
 
         $this->paymentEndpoint->method('get')->willReturn($this->makeMolliePayment(PaymentStatus::STATUS_PAID));
         $this->orderRepository->method('findOneBy')->willReturn($order);
-        $this->paymentRepository->expects(self::never())->method('add');
-        $this->logger->expects(self::once())->method('addLog');
+
+        $this->stateMachine->expects(self::once())
+            ->method('can')
+            ->with($payment, PaymentTransitions::GRAPH, PaymentTransitions::TRANSITION_COMPLETE)
+            ->willReturn(true);
+        $this->stateMachine->expects(self::once())
+            ->method('apply')
+            ->with($payment, PaymentTransitions::GRAPH, PaymentTransitions::TRANSITION_COMPLETE);
+        $this->entityManager->expects(self::once())->method('flush');
 
         $response = $controller->__invoke($request);
 
         self::assertSame(Response::HTTP_OK, $response->getStatusCode());
     }
 
-    public function testItChangesPaymentStateForPaidMolliePayment(): void
+    public function testItSkipsTransitionWhenStateMachineRejectsIt(): void
     {
         $controller = $this->createController();
 
         $request = new Request(['id' => 'tr_abc', 'orderId' => '42']);
         $payment = $this->createMock(CorePaymentInterface::class);
+        $order = $this->createMock(OrderInterface::class);
+        $order->method('getLastPayment')->willReturn($payment);
         $payment->method('getDetails')->willReturn(['payment_mollie_id' => 'tr_abc']);
+
+        $this->paymentEndpoint->method('get')->willReturn($this->makeMolliePayment(PaymentStatus::STATUS_PAID));
+        $this->orderRepository->method('findOneBy')->willReturn($order);
+
+        $this->stateMachine->method('can')->willReturn(false);
+        $this->stateMachine->expects(self::never())->method('apply');
+        $this->entityManager->expects(self::never())->method('flush');
+
+        $response = $controller->__invoke($request);
+
+        self::assertSame(Response::HTTP_OK, $response->getStatusCode());
+    }
+
+    public function testItReturnsOkWithoutTransitionWhenMolliePaymentDoesNotBelongToOrder(): void
+    {
+        $controller = $this->createController();
+
+        $request = new Request(['id' => 'tr_abc', 'orderId' => '42']);
+        $payment = $this->createMock(CorePaymentInterface::class);
+        $payment->method('getDetails')->willReturn(['payment_mollie_id' => 'tr_other']);
+        $order = $this->createMock(OrderInterface::class);
+        $order->method('getLastPayment')->willReturn($payment);
+        $order->method('getMolliePaymentId')->willReturn(null);
+
+        $this->paymentEndpoint->method('get')->willReturn($this->makeMolliePayment(PaymentStatus::STATUS_PAID));
+        $this->orderRepository->method('findOneBy')->willReturn($order);
+
+        $this->stateMachine->expects(self::never())->method('can');
+        $this->stateMachine->expects(self::never())->method('apply');
+        $this->entityManager->expects(self::never())->method('flush');
+
+        $response = $controller->__invoke($request);
+
+        self::assertSame(Response::HTTP_OK, $response->getStatusCode());
+    }
+
+    /**
+     * @group legacy
+     */
+    public function testItFallsBackToSetStateWhenStateMachineIsNotProvided(): void
+    {
+        $controller = new PaymentWebhookController(
+            $this->mollieApiClient,
+            $this->apiClientKeyResolver,
+            $this->orderRepository,
+            $this->paymentRepository,
+            $this->logger,
+        );
+
+        $request = new Request(['id' => 'tr_abc', 'orderId' => '42']);
+        $payment = $this->createMock(CorePaymentInterface::class);
         $payment->method('getState')->willReturn(PaymentInterface::STATE_NEW);
-        $order = $this->createMock(OrderInterface::class);
-        $order->method('getLastPayment')->willReturn($payment);
-
-        $this->paymentEndpoint->method('get')->willReturn($this->makeMolliePayment(PaymentStatus::STATUS_PAID));
-        $this->orderRepository->method('findOneBy')->willReturn($order);
-
         $payment->expects(self::once())->method('setState')->with(PaymentInterface::STATE_COMPLETED);
-        $this->paymentRepository->expects(self::once())->method('add')->with($payment);
 
-        $response = $controller->__invoke($request);
-
-        self::assertSame(Response::HTTP_OK, $response->getStatusCode());
-    }
-
-    public function testItSkipsPaymentUpdateWhenStateIsAlreadyCurrent(): void
-    {
-        $controller = $this->createController();
-
-        $request = new Request(['id' => 'tr_abc', 'orderId' => '42']);
-        $payment = $this->createMock(CorePaymentInterface::class);
-        $payment->method('getDetails')->willReturn(['payment_mollie_id' => 'tr_abc']);
-        $payment->method('getState')->willReturn(PaymentInterface::STATE_COMPLETED);
         $order = $this->createMock(OrderInterface::class);
         $order->method('getLastPayment')->willReturn($payment);
+        $payment->method('getDetails')->willReturn(['payment_mollie_id' => 'tr_abc']);
 
         $this->paymentEndpoint->method('get')->willReturn($this->makeMolliePayment(PaymentStatus::STATUS_PAID));
         $this->orderRepository->method('findOneBy')->willReturn($order);
-
-        $payment->expects(self::never())->method('setState');
-        $this->paymentRepository->expects(self::never())->method('add');
+        $this->paymentRepository->expects(self::once())->method('add')->with($payment);
 
         $response = $controller->__invoke($request);
 
@@ -161,6 +209,8 @@ final class PaymentWebhookControllerTest extends TestCase
             $this->orderRepository,
             $this->paymentRepository,
             $this->logger,
+            $this->stateMachine,
+            $this->entityManager,
         );
     }
 
