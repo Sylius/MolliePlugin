@@ -49,6 +49,16 @@ class PaymentWebhookController
         }
 
         $payment = $order->getLastPayment();
+        if (null === $payment) {
+            return new JsonResponse(Response::HTTP_OK);
+        }
+
+        $details = $payment->getDetails();
+        $storedMollieId = $details['payment_mollie_id'] ?? $order->getMolliePaymentId();
+        if ($storedMollieId !== $molliePayment->id) {
+            return new JsonResponse(Response::HTTP_OK);
+        }
+
         $status = $this->getStatus($molliePayment);
 
         if ($payment->getState() !== $status && PaymentInterface::STATE_UNKNOWN !== $status) {

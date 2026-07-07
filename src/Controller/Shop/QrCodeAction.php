@@ -78,21 +78,19 @@ final class QrCodeAction
 
     public function fetchQrCodeFromOrder(Request $request): JsonResponse
     {
-        /** @var OrderInterface $order */
+        /** @var OrderInterface|null $order */
         $order = $this->cartContext->getCart();
-        $qrCode = null;
-        $orderId = $request->get('orderId');
+        $orderToken = $request->get('orderToken');
 
-        if (null !== $orderId) {
-            /** @var OrderInterface|null $order */
-            $order = $this->orderRepository->findOneBy(['id' => $orderId]);
+        if (null !== $orderToken && '' !== $orderToken &&
+            (null === $order || $order->getTokenValue() !== $orderToken)) {
+            return new JsonResponse([], Response::HTTP_FORBIDDEN);
         }
 
-        if (null !== $order) {
-            $qrCode = $order->getQrCode();
-        }
-
-        return new JsonResponse(['qrCode' => $qrCode, 'orderId' => $order->getId()], Response::HTTP_OK);
+        return new JsonResponse(
+            ['qrCode' => $order?->getQrCode(), 'orderToken' => $order?->getTokenValue()],
+            Response::HTTP_OK,
+        );
     }
 
     public function removeQrCodeFromOrder(Request $request): JsonResponse
