@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let disableValidationMollieComponents = false;
     let selectedValue = false;
-    let orderId = null;
+    let orderToken = null;
     let qrCodeInterval = null;
     const orderTotalRow = document.getElementById('sylius-shop-checkout-summary-order-total');
     const initialOrderTotal = orderTotalRow ? orderTotalRow.textContent : null;
@@ -171,8 +171,8 @@ document.addEventListener('DOMContentLoaded', function () {
             .then((response) => response.json())
             .then((data) => {
                 let qrCode = data.qrCode;
-                if (orderId === null) {
-                    orderId = data.orderId;
+                if (orderToken === null) {
+                    orderToken = data.orderToken;
                 }
 
                 if (qrCode) {
@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         qrCodeMethod = 'iDeal';
                     }
                     createPopup(qrCode, qrCodeMethod);
-                    qrCodeInterval = setInterval(() => checkQrCode(url + '?orderId=' + orderId), 1000);
+                    qrCodeInterval = setInterval(() => checkQrCode(url + '?orderToken=' + orderToken), 1000);
                 }
             });
     }
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     let qrBoxElement = document.getElementById('sylius-shop-checkout-summary-qr-box')
                     if (qrBoxElement) {
                         let thankYouPageUrl = qrBoxElement.getAttribute('data-thankYouPage');
-                        window.location.href = thankYouPageUrl + '?orderId=' + orderId;
+                        window.location.href = thankYouPageUrl + '?orderToken=' + orderToken;
                     }
                 }
             });
