@@ -1,3 +1,23 @@
+# UPGRADE FROM 3.2.3 TO 3.2.4
+
+1. The shop payment webhook now verifies that the Mollie payment belongs to the referenced
+   order before applying its status. Requests whose Mollie payment id does not match the id
+   stored for the order are acknowledged with `HTTP 200` and ignored.
+
+1. The thank-you and QR-code shop endpoints no longer accept a raw integer `orderId`; they now
+   use the order's non-guessable `orderToken` (`tokenValue`):
+
+   - `GET /{_locale}/thank-you` expects `?orderToken=` instead of `?orderId=` and returns
+     `HTTP 404` when the token is missing or unknown.
+   - `GET /{_locale}/get-code` expects `?orderToken=`, serves only the current session cart, and
+     returns `orderToken` in its JSON response.
+
+   The bundled `assets/shop/js/mollie/app.js` has been updated accordingly. If you have
+   overridden that file or link to these endpoints yourself, switch from `orderId` to
+   `orderToken`.
+
+1. Run `yarn install` and `yarn build`.
+
 # UPGRADE FROM 3.1 TO 3.2
 
 1. Mollie menu section has been removed
