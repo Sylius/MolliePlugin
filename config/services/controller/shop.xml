@@ -44,6 +44,7 @@
             <argument type="service" id="router" />
             <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
             <argument type="service" id="sylius_mollie.converter.int_to_string"/>
+            <argument type="service" id="sylius.assigner.order_token.unique_id_based"/>
         </service>
 
         <service id="sylius_mollie.controller.shop.credit_card_translation" class="Sylius\MolliePlugin\Controller\Shop\CreditCardTranslationController">

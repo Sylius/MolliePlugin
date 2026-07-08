@@ -15,6 +15,7 @@ namespace Sylius\MolliePlugin\Controller\Shop;
 
 use Mollie\Api\Resources\Payment;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
+use Sylius\Component\Core\TokenAssigner\OrderTokenAssignerInterface;
 use Sylius\Component\Order\Context\CartContextInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
@@ -43,6 +44,7 @@ final class QrCodeAction
         private readonly UrlGeneratorInterface $urlGenerator,
         private readonly RepositoryInterface $methodRepository,
         private readonly IntToStringConverterInterface $intToStringConverter,
+        private readonly OrderTokenAssignerInterface $orderTokenAssigner,
     ) {
     }
 
@@ -55,6 +57,7 @@ final class QrCodeAction
         if ($qrCodeEnabled) {
             /** @var OrderInterface $order */
             $order = $this->cartContext->getCart();
+            $this->orderTokenAssigner->assignTokenValueIfNotSet($order);
             $molliePayment = $this->buildPaymentObject($request, $order);
 
             try {
