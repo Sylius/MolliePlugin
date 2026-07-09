@@ -28,7 +28,6 @@ use Sylius\MolliePlugin\Model\DTO\MolliePayment\Metadata;
 use Sylius\MolliePlugin\Model\DTO\MolliePayment\MolliePayment;
 use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;

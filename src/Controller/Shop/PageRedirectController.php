@@ -14,8 +14,7 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Controller\Shop;
 
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Order\Context\CartContextInterface;
-use Sylius\Component\Order\Repository\OrderRepositoryInterface;
+use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -28,7 +27,6 @@ class PageRedirectController
     public function __construct(
         private readonly RouterInterface $router,
         private readonly OrderRepositoryInterface $orderRepository,
-        private readonly CartContextInterface $cartContext,
     ) {
     }
 
