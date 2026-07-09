@@ -1,3 +1,21 @@
+# UPGRADE FROM 2.2.8 TO 2.2.9
+
+1. Run `yarn install` and `yarn build` to rebuild the shop assets. The bundled
+   `assets/shop/js/mollie/app.js` has changed and the shop will not work correctly until it is
+   rebuilt.
+
+1. The QR-code and thank-you shop endpoints no longer use the order `tokenValue` introduced in
+   2.2.8. Ownership is now proven through the shop session, so both endpoints again accept
+   `?orderId=` and validate it against the session:
+
+   - `GET /{_locale}/get-code` serves the current session cart and rejects a foreign `orderId`
+     with `HTTP 403`; its JSON response returns `orderId`.
+   - `GET /{_locale}/thank-you` expects `?orderId=`, validates it against the session, and
+     returns `HTTP 404` when it is missing or does not match.
+
+   If you have overridden `app.js` or link to these endpoints yourself, switch back from
+   `orderToken` to `orderId`.
+
 # UPGRADE FROM 2.2.7 TO 2.2.8
 
 1. The shop payment webhook now verifies that the Mollie payment belongs to the referenced

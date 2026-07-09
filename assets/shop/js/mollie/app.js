@@ -4,7 +4,7 @@ $(function () {
     var disableValidationMollieComponents = false;
     let selectedValue = false;
     let mollieData = $('.online-online-payment__container');
-    let orderToken = null;
+    let orderId = null;
     let qrCodeInterval = null;
     const initialOrderTotal = $('#sylius-summary-grand-total').text();
     const cardActiveClass = 'online-payment__item--active';
@@ -148,8 +148,8 @@ $(function () {
             .then((response) => response.json())
             .then((data) => {
                 let qrCode = data.qrCode;
-                if (orderToken === null) {
-                    orderToken = data.orderToken;
+                if (orderId === null) {
+                    orderId = data.orderId;
                 }
 
                 if (qrCode) {
@@ -158,7 +158,7 @@ $(function () {
                         qrCodeMethod = 'iDeal';
                     }
                     createPopup(qrCode, qrCodeMethod);
-                    qrCodeInterval = setInterval(() => checkQrCode(url + '?orderToken=' + orderToken), 1000);
+                    qrCodeInterval = setInterval(() => checkQrCode(url + '?orderId=' + orderId), 1000);
                 }
             });
     }
@@ -172,7 +172,7 @@ $(function () {
                     let cartVariantDetails = document.getElementById('cart-variant-details')
                     if (cartVariantDetails) {
                         let thankYouPageUrl = cartVariantDetails.getAttribute('data-thankYouPage');
-                        window.location.href = thankYouPageUrl + '?orderToken=' + orderToken;
+                        window.location.href = thankYouPageUrl + '?orderId=' + orderId;
                     }
                 }
             });
