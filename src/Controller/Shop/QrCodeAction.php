@@ -88,8 +88,10 @@ final class QrCodeAction
                 return new JsonResponse([], Response::HTTP_FORBIDDEN);
             }
 
+            /** @var OrderInterface|null $order */
             $order = $this->orderRepository->findOneBy(['id' => $orderId]);
         } else {
+            /** @var OrderInterface|null $order */
             $order = $this->cartContext->getCart();
             $session->set('sylius_mollie_qr_order_id', $order->getId());
         }
