@@ -2,14 +2,18 @@ const {Mollie} = window;
 
 document.addEventListener('DOMContentLoaded', function () {
     const mollieData = document.querySelector('.online-online-payment__container');
+
+    let disableValidationMollieComponents = false;
+    let selectedValue = false;
+    let orderId = null;
+    let qrCodeInterval = null;
+
+    showQrCodePopUp();
+
     if (!mollieData) {
         return;
     }
 
-    let disableValidationMollieComponents = false;
-    let selectedValue = false;
-    let orderToken = null;
-    let qrCodeInterval = null;
     const orderTotalRow = document.getElementById('sylius-shop-checkout-summary-order-total');
     const initialOrderTotal = orderTotalRow ? orderTotalRow.textContent : null;
     const cardActiveClass = 'online-payment__item--active';
@@ -171,8 +175,8 @@ document.addEventListener('DOMContentLoaded', function () {
             .then((response) => response.json())
             .then((data) => {
                 let qrCode = data.qrCode;
-                if (orderToken === null) {
-                    orderToken = data.orderToken;
+                if (orderId === null) {
+                    orderId = data.orderId;
                 }
 
                 if (qrCode) {
@@ -181,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         qrCodeMethod = 'iDeal';
                     }
                     createPopup(qrCode, qrCodeMethod);
-                    qrCodeInterval = setInterval(() => checkQrCode(url + '?orderToken=' + orderToken), 1000);
+                    qrCodeInterval = setInterval(() => checkQrCode(url + '?orderId=' + orderId), 1000);
                 }
             });
     }
@@ -195,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     let qrBoxElement = document.getElementById('sylius-shop-checkout-summary-qr-box')
                     if (qrBoxElement) {
                         let thankYouPageUrl = qrBoxElement.getAttribute('data-thankYouPage');
-                        window.location.href = thankYouPageUrl + '?orderToken=' + orderToken;
+                        window.location.href = thankYouPageUrl + '?orderId=' + orderId;
                     }
                 }
             });
@@ -238,8 +242,6 @@ document.addEventListener('DOMContentLoaded', function () {
             fetchQrCode(qrCodeGetUrl);
         }
     }
-
-    showQrCodePopUp();
 
     function createPopup(qrCode, qrCodeMethod) {
         // Create popup container
