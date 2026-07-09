@@ -26,6 +26,8 @@ use Symfony\Component\Routing\RouterInterface;
 
 final class PageRedirectControllerTest extends TestCase
 {
+    private const QR_ORDER_ID_SESSION_KEY = 'sylius_mollie_qr_order_id';
+
     private MockObject&RouterInterface $router;
 
     private MockObject&OrderRepositoryInterface $orderRepository;
@@ -39,50 +41,76 @@ final class PageRedirectControllerTest extends TestCase
         $this->session = $this->createMock(SessionInterface::class);
     }
 
-    public function testItThrowsNotFoundWhenOrderTokenIsMissing(): void
+    public function testItThrowsNotFoundWhenOrderIdIsMissing(): void
     {
         $this->expectException(NotFoundHttpException::class);
 
-        $this->orderRepository->expects(self::never())->method('findOneByTokenValue');
+        $this->orderRepository->expects(self::never())->method('findOneBy');
 
         $controller = $this->createController();
         $controller->thankYouAction(new Request(), $this->session);
     }
 
-    public function testItThrowsNotFoundWhenOrderTokenIsEmpty(): void
+    public function testItThrowsNotFoundWhenOrderIdIsEmpty(): void
     {
         $this->expectException(NotFoundHttpException::class);
 
-        $this->orderRepository->expects(self::never())->method('findOneByTokenValue');
+        $this->orderRepository->expects(self::never())->method('findOneBy');
 
         $controller = $this->createController();
-        $controller->thankYouAction(new Request(['orderToken' => '']), $this->session);
+        $controller->thankYouAction(new Request(['orderId' => '']), $this->session);
     }
 
-    public function testItThrowsNotFoundWhenOrderTokenIsUnknown(): void
+    public function testItThrowsNotFoundWhenOrderIdDoesNotMatchSession(): void
     {
         $this->expectException(NotFoundHttpException::class);
 
+        $this->session->method('get')->with(self::QR_ORDER_ID_SESSION_KEY)->willReturn(7);
+        $this->orderRepository->expects(self::never())->method('findOneBy');
+
+        $controller = $this->createController();
+        $controller->thankYouAction(new Request(['orderId' => '42']), $this->session);
+    }
+
+    public function testItThrowsNotFoundWhenOrderIsUnknown(): void
+    {
+        $this->expectException(NotFoundHttpException::class);
+
+        $this->session->method('get')->with(self::QR_ORDER_ID_SESSION_KEY)->willReturn(42);
         $this->orderRepository
             ->expects(self::once())
-            ->method('findOneByTokenValue')
-            ->with('unknown-token')
+            ->method('findOneBy')
+            ->with(['id' => '42'])
             ->willReturn(null);
 
         $controller = $this->createController();
-        $controller->thankYouAction(new Request(['orderToken' => 'unknown-token']), $this->session);
+        $controller->thankYouAction(new Request(['orderId' => '42']), $this->session);
+    }
+
+    public function testItThrowsNotFoundWhenOrderHasNoTokenValueAndPaymentNotCompleted(): void
+    {
+        $this->expectException(NotFoundHttpException::class);
+
+        $order = $this->createOrderMock(42, null, 'new');
+
+        $this->session->method('get')->with(self::QR_ORDER_ID_SESSION_KEY)->willReturn(42);
+        $this->orderRepository->method('findOneBy')->with(['id' => '42'])->willReturn($order);
+
+        $controller = $this->createController();
+        $controller->thankYouAction(new Request(['orderId' => '42']), $this->session);
     }
 
     public function testItRedirectsToThankYouPageWhenPaymentIsCompleted(): void
     {
         $order = $this->createOrderMock(42, 'abc123', 'completed');
 
-        $this->orderRepository->method('findOneByTokenValue')->with('abc123')->willReturn($order);
+        $this->session->method('get')->with(self::QR_ORDER_ID_SESSION_KEY)->willReturn(42);
+        $this->orderRepository->method('findOneBy')->with(['id' => '42'])->willReturn($order);
         $this->session->expects(self::once())->method('set')->with('sylius_order_id', 42);
         $this->router->method('generate')->with('sylius_shop_order_thank_you')->willReturn('/en_US/order/thank-you');
 
         $controller = $this->createController();
-        $response = $controller->thankYouAction(new Request(['orderToken' => 'abc123']), $this->session);
+        $response = $controller->thankYouAction(new Request(['orderId' => '42']), $this->session);
 
         self::assertSame(302, $response->getStatusCode());
         self::assertSame('/en_US/order/thank-you', $response->getTargetUrl());
@@ -92,7 +120,8 @@ final class PageRedirectControllerTest extends TestCase
     {
         $order = $this->createOrderMock(42, 'abc123', 'new');
 
-        $this->orderRepository->method('findOneByTokenValue')->with('abc123')->willReturn($order);
+        $this->session->method('get')->with(self::QR_ORDER_ID_SESSION_KEY)->willReturn(42);
+        $this->orderRepository->method('findOneBy')->with(['id' => '42'])->willReturn($order);
         $this->session->expects(self::once())->method('set')->with('sylius_order_id', 42);
         $this->router->method('generate')->willReturnMap([
             ['sylius_shop_order_thank_you', [], 1, '/en_US/order/thank-you'],
@@ -100,17 +129,18 @@ final class PageRedirectControllerTest extends TestCase
         ]);
 
         $controller = $this->createController();
-        $response = $controller->thankYouAction(new Request(['orderToken' => 'abc123']), $this->session);
+        $response = $controller->thankYouAction(new Request(['orderId' => '42']), $this->session);
 
         self::assertSame(302, $response->getStatusCode());
         self::assertSame('/en_US/order/abc123', $response->getTargetUrl());
     }
 
-    public function testItSetsSessionFromOrderIdNotFromRequestParameter(): void
+    public function testItSetsSessionOrderIdFromLoadedOrder(): void
     {
         $order = $this->createOrderMock(99, 'abc123', 'completed');
 
-        $this->orderRepository->method('findOneByTokenValue')->willReturn($order);
+        $this->session->method('get')->with(self::QR_ORDER_ID_SESSION_KEY)->willReturn(99);
+        $this->orderRepository->method('findOneBy')->with(['id' => '99'])->willReturn($order);
         $this->router->method('generate')->willReturn('/en_US/order/thank-you');
 
         $this->session
@@ -119,7 +149,7 @@ final class PageRedirectControllerTest extends TestCase
             ->with('sylius_order_id', 99);
 
         $controller = $this->createController();
-        $controller->thankYouAction(new Request(['orderToken' => 'abc123']), $this->session);
+        $controller->thankYouAction(new Request(['orderId' => '99']), $this->session);
     }
 
     private function createController(): PageRedirectController
@@ -127,7 +157,7 @@ final class PageRedirectControllerTest extends TestCase
         return new PageRedirectController($this->router, $this->orderRepository);
     }
 
-    private function createOrderMock(int $id, string $tokenValue, string $paymentState): MockObject&OrderInterface
+    private function createOrderMock(int $id, ?string $tokenValue, string $paymentState): MockObject&OrderInterface
     {
         $payment = $this->createMock(PaymentInterface::class);
         $payment->method('getState')->willReturn($paymentState);

@@ -34,6 +34,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class QrCodeAction
 {
+    private const QR_ORDER_ID_SESSION_KEY = 'sylius_mollie_qr_order_id';
+
     public function __construct(
         private readonly MollieLoggerActionInterface $loggerAction,
         private readonly CartContextInterface $cartContext,
@@ -66,6 +68,7 @@ final class QrCodeAction
                 $qrCodeObject = $payment->details->qrCode;
                 $this->setQrCodeOnOrder($order, $qrCodeObject->src);
                 $this->setMolliePaymentIdOnOrder($order, $payment->id);
+                $request->getSession()->set(self::QR_ORDER_ID_SESSION_KEY, $order->getId());
 
                 return new JsonResponse(['qrCode' => $qrCodeObject], Response::HTTP_OK);
             } catch (\Exception $e) {
@@ -80,15 +83,15 @@ final class QrCodeAction
     {
         /** @var OrderInterface|null $order */
         $order = $this->cartContext->getCart();
-        $orderToken = $request->get('orderToken');
+        $orderId = $request->get('orderId');
 
-        if (null !== $orderToken && '' !== $orderToken &&
-            (null === $order || $order->getTokenValue() !== $orderToken)) {
-            return new JsonResponse([], Response::HTTP_FORBIDDEN);
+        if (null !== $orderId &&
+            (string) $request->getSession()->get(self::QR_ORDER_ID_SESSION_KEY) !== (string) $orderId) {
+            return new JsonResponse([], Response::HTTP_NOT_FOUND);
         }
 
         return new JsonResponse(
-            ['qrCode' => $order?->getQrCode(), 'orderToken' => $order?->getTokenValue()],
+            ['qrCode' => $order?->getQrCode(), 'orderId' => $order?->getId()],
             Response::HTTP_OK,
         );
     }
