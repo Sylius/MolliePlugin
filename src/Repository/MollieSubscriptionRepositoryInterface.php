@@ -38,6 +38,9 @@ interface MollieSubscriptionRepositoryInterface extends RepositoryInterface
     /** @return MollieSubscriptionInterface[] */
     public function findScheduledSubscriptionsForMigration(): array;
 
+    /** @return iterable<MollieSubscriptionInterface> */
+    public function iterateScheduledForMigration(int $batchSize): iterable;
+
     /** @return MollieSubscriptionInterface[] */
     public function findProcessableSubscriptions(): array;
 
