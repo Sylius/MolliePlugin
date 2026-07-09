@@ -14,11 +14,11 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Controller\Shop;
 
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Repository\OrderRepositoryInterface;
+use Sylius\Component\Order\Context\CartContextInterface;
+use Sylius\Component\Order\Repository\OrderRepositoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 
 class PageRedirectController
@@ -28,34 +28,30 @@ class PageRedirectController
     public function __construct(
         private readonly RouterInterface $router,
         private readonly OrderRepositoryInterface $orderRepository,
+        private readonly CartContextInterface $cartContext,
     ) {
     }
 
     public function thankYouAction(Request $request, SessionInterface $session): RedirectResponse
     {
-        $orderToken = $request->get('orderToken');
+        $orderId = $request->get('orderId');
+
+        if (null !== $orderId && (string) $session->get('sylius_mollie_qr_order_id') !== (string) $orderId) {
+            return new RedirectResponse($this->router->generate('sylius_shop_cart_summary'));
+        }
+
+        $session->set('sylius_order_id', $orderId);
         $thankYouPageUrl = $this->router->generate('sylius_shop_order_thank_you');
 
-        if (null === $orderToken || '' === $orderToken) {
-            throw new NotFoundHttpException('Order token is required.');
-        }
-
         /** @var OrderInterface|null $order */
-        $order = $this->orderRepository->findOneByTokenValue($orderToken);
-
-        if (null === $order) {
-            throw new NotFoundHttpException(sprintf('Order with token "%s" does not exist.', $orderToken));
-        }
-
-        $session->set('sylius_order_id', $order->getId());
+        $order = $this->orderRepository->findOneBy(['id' => $orderId]);
         $payment = $order->getLastPayment();
-        $tokenValue = $order->getTokenValue();
+        $orderToken = $order->getTokenValue();
 
         if ($payment?->getState() === self::ORDER_COMPLETED_STATE) {
             return new RedirectResponse($thankYouPageUrl);
         }
-
-        $cartSummaryUrl = $this->router->generate('sylius_shop_order_show', ['tokenValue' => $tokenValue]);
+        $cartSummaryUrl = $this->router->generate('sylius_shop_order_show', ['tokenValue' => $orderToken]);
 
         return new RedirectResponse($cartSummaryUrl);
     }

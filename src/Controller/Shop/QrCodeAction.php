@@ -15,7 +15,6 @@ namespace Sylius\MolliePlugin\Controller\Shop;
 
 use Mollie\Api\Resources\Payment;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\Component\Core\TokenAssigner\OrderTokenAssignerInterface;
 use Sylius\Component\Order\Context\CartContextInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
@@ -29,6 +28,7 @@ use Sylius\MolliePlugin\Model\DTO\MolliePayment\Metadata;
 use Sylius\MolliePlugin\Model\DTO\MolliePayment\MolliePayment;
 use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -44,7 +44,6 @@ final class QrCodeAction
         private readonly UrlGeneratorInterface $urlGenerator,
         private readonly RepositoryInterface $methodRepository,
         private readonly IntToStringConverterInterface $intToStringConverter,
-        private readonly OrderTokenAssignerInterface $orderTokenAssigner,
     ) {
     }
 
@@ -57,7 +56,7 @@ final class QrCodeAction
         if ($qrCodeEnabled) {
             /** @var OrderInterface $order */
             $order = $this->cartContext->getCart();
-            $this->orderTokenAssigner->assignTokenValueIfNotSet($order);
+            $request->getSession()->set('sylius_mollie_qr_order_id', $order->getId());
             $molliePayment = $this->buildPaymentObject($request, $order);
 
             try {
@@ -81,19 +80,26 @@ final class QrCodeAction
 
     public function fetchQrCodeFromOrder(Request $request): JsonResponse
     {
-        /** @var OrderInterface|null $order */
-        $order = $this->cartContext->getCart();
-        $orderToken = $request->get('orderToken');
+        $session = $request->getSession();
+        $qrCode = null;
+        $orderId = $request->get('orderId');
 
-        if (null !== $orderToken && '' !== $orderToken &&
-            (null === $order || $order->getTokenValue() !== $orderToken)) {
-            return new JsonResponse([], Response::HTTP_FORBIDDEN);
+        if (null !== $orderId) {
+            if ((string) $session->get('sylius_mollie_qr_order_id') !== (string) $orderId) {
+                return new JsonResponse([], Response::HTTP_FORBIDDEN);
+            }
+
+            $order = $this->orderRepository->findOneBy(['id' => $orderId]);
+        } else {
+            $order = $this->cartContext->getCart();
+            $session->set('sylius_mollie_qr_order_id', $order->getId());
         }
 
-        return new JsonResponse(
-            ['qrCode' => $order?->getQrCode(), 'orderToken' => $order?->getTokenValue()],
-            Response::HTTP_OK,
-        );
+        if (null !== $order) {
+            $qrCode = $order->getQrCode();
+        }
+
+        return new JsonResponse(['qrCode' => $qrCode, 'orderId' => $order->getId()], Response::HTTP_OK);
     }
 
     public function removeQrCodeFromOrder(Request $request): JsonResponse
