@@ -25,6 +25,8 @@ class PageRedirectController
 {
     private const ORDER_COMPLETED_STATE = 'completed';
 
+    private const QR_ORDER_ID_SESSION_KEY = 'sylius_mollie_qr_order_id';
+
     public function __construct(
         private readonly RouterInterface $router,
         private readonly OrderRepositoryInterface $orderRepository,
@@ -33,30 +35,34 @@ class PageRedirectController
 
     public function thankYouAction(Request $request, SessionInterface $session): RedirectResponse
     {
-        $orderToken = $request->get('orderToken');
-        $thankYouPageUrl = $this->router->generate('sylius_shop_order_thank_you');
+        $orderId = $request->get('orderId');
 
-        if (null === $orderToken || '' === $orderToken) {
-            throw new NotFoundHttpException('Order token is required.');
+        if (null === $orderId || '' === $orderId ||
+            (string) $session->get(self::QR_ORDER_ID_SESSION_KEY) !== (string) $orderId) {
+            throw new NotFoundHttpException('Order not found.');
         }
 
         /** @var OrderInterface|null $order */
-        $order = $this->orderRepository->findOneByTokenValue($orderToken);
+        $order = $this->orderRepository->findOneBy(['id' => $orderId]);
 
         if (null === $order) {
-            throw new NotFoundHttpException(sprintf('Order with token "%s" does not exist.', $orderToken));
+            throw new NotFoundHttpException('Order not found.');
         }
 
         $session->set('sylius_order_id', $order->getId());
-        $payment = $order->getLastPayment();
-        $tokenValue = $order->getTokenValue();
 
-        if ($payment?->getState() === self::ORDER_COMPLETED_STATE) {
-            return new RedirectResponse($thankYouPageUrl);
+        if ($order->getLastPayment()?->getState() === self::ORDER_COMPLETED_STATE) {
+            return new RedirectResponse($this->router->generate('sylius_shop_order_thank_you'));
         }
 
-        $cartSummaryUrl = $this->router->generate('sylius_shop_order_show', ['tokenValue' => $tokenValue]);
+        $tokenValue = $order->getTokenValue();
 
-        return new RedirectResponse($cartSummaryUrl);
+        if (null === $tokenValue) {
+            throw new NotFoundHttpException('Order not found.');
+        }
+
+        return new RedirectResponse(
+            $this->router->generate('sylius_shop_order_show', ['tokenValue' => $tokenValue]),
+        );
     }
 }
