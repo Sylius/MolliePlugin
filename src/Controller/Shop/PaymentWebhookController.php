@@ -121,7 +121,16 @@ class PaymentWebhookController
         }
 
         if (null !== $this->stateMachine && null !== $this->entityManager) {
-            $this->applyTransition($payment, $molliePayment->status);
+            $applied = $this->applyTransition($payment, $molliePayment->status);
+
+            if (!$applied && PaymentInterface::STATE_CART === $payment->getState()) {
+                $status = $this->mapMolliePaymentStatusToState($molliePayment);
+
+                if (PaymentInterface::STATE_UNKNOWN !== $status && $payment->getState() !== $status) {
+                    $payment->setState($status);
+                    $this->entityManager->flush();
+                }
+            }
         } else {
             $this->applyLegacyState($payment, $molliePayment);
         }
@@ -129,19 +138,21 @@ class PaymentWebhookController
         return new JsonResponse(Response::HTTP_OK);
     }
 
-    private function applyTransition(PaymentInterface $payment, string $mollieStatus): void
+    private function applyTransition(PaymentInterface $payment, string $mollieStatus): bool
     {
         $transition = $this->mapMolliePaymentStatusToTransition($mollieStatus);
         if (null === $transition) {
-            return;
+            return false;
         }
 
         if (!$this->stateMachine->can($payment, PaymentTransitions::GRAPH, $transition)) {
-            return;
+            return false;
         }
 
         $this->stateMachine->apply($payment, PaymentTransitions::GRAPH, $transition);
         $this->entityManager->flush();
+
+        return true;
     }
 
     private function applyLegacyState(PaymentInterface $payment, Payment $molliePayment): void

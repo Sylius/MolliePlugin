@@ -1,3 +1,26 @@
+# UPGRADE FROM 3.3.1 TO 3.3.2
+
+1. Run `yarn install` and `yarn build` to rebuild the shop assets. The bundled
+   `assets/shop/js/mollie/app.js` has changed and the shop will not work correctly until it is
+   rebuilt.
+
+2. The QR-code and thank-you shop endpoints no longer use the order `tokenValue` introduced in
+   3.3.1. Ownership is now proven through the shop session, so both endpoints again accept
+   `?orderId=` and validate it against the session:
+
+   - `GET /{_locale}/get-code` serves the current session cart and rejects a foreign `orderId`
+     with `HTTP 404`; its JSON response returns `orderId`.
+   - `GET /{_locale}/thank-you` expects `?orderId=`, validates it against the session, and
+     returns `HTTP 404` when it is missing or does not match.
+
+   If you have overridden `app.js` or link to these endpoints yourself, switch back from
+   `orderToken` to `orderId`.
+
+3. QR-code payments can be paid while their order is still in the `cart` state, because the order
+   is placed only after the payment completes. The payment state machine does not allow completing
+   a payment from `cart`, so as a workaround the shop payment webhook applies the paid status
+   directly in that case, otherwise QR-code orders would stay unpaid.
+
 # UPGRADE FROM 3.3.0 TO 3.3.1
 
 1. The shop payment webhook now verifies that the Mollie payment belongs to the referenced
