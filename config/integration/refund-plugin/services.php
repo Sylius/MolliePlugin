@@ -6,6 +6,6 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 
 return static function (ContainerConfigurator $container): void {
     if (class_exists(\Sylius\RefundPlugin\SyliusRefundPlugin::class)) {
-        $container->import('services/**/*.xml');
+        $container->import('services/**/*.php');
     }
 };
