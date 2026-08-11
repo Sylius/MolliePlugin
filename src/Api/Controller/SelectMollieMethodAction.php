@@ -149,6 +149,7 @@ final class SelectMollieMethodAction
             'useSavedCards' => '0',
             'webhookUrl' => $paymentData['webhookUrl'],
             'backurl' => $paymentData['redirectUrl'],
+            'mollie_payment_ids_history' => $this->appendToMollieIdHistory($payment, $molliePayment->id),
         ];
 
         if ($isSubscription) {
@@ -226,6 +227,22 @@ final class SelectMollieMethodAction
         }
 
         return null;
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function appendToMollieIdHistory(PaymentInterface $payment, string $newMollieId): array
+    {
+        $previousDetails = $payment->getDetails();
+        $history = $previousDetails['mollie_payment_ids_history'] ?? [];
+        $previousMollieId = $previousDetails['payment_mollie_id'] ?? null;
+
+        if (null !== $previousMollieId && $previousMollieId !== $newMollieId && !in_array($previousMollieId, $history, true)) {
+            $history[] = $previousMollieId;
+        }
+
+        return $history;
     }
 
     private function findOrCreateMollieCustomer(MollieApiClient $mollieApiClient, OrderInterface $order): string

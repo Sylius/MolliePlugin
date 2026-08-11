@@ -15,6 +15,7 @@ namespace Tests\Sylius\MolliePlugin\Unit\Action;
 
 use Mollie\Api\Endpoints\PaymentEndpoint;
 use Mollie\Api\Resources\Payment;
+use Mollie\Api\Types\PaymentStatus;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
@@ -23,6 +24,7 @@ use Payum\Core\GatewayAwareInterface;
 use Payum\Core\GatewayInterface;
 use Payum\Core\Payum;
 use Payum\Core\Request\Capture;
+use Payum\Core\Request\Convert;
 use Payum\Core\Security\GenericTokenFactory;
 use Payum\Core\Security\GenericTokenFactoryAwareInterface;
 use Payum\Core\Security\TokenInterface;
@@ -380,6 +382,143 @@ final class CaptureActionTest extends TestCase
         $this->expectExceptionMessage('Method klarnapaynow is not allowed to use Payments API');
 
         $this->captureAction->execute($request);
+    }
+
+    public function testItAppendsSupersededMollieIdToHistoryOnOpenRetry(): void
+    {
+        $request = $this->createMock(Capture::class);
+        $payment = $this->createMock(PaymentInterface::class);
+        $token = $this->createMock(TokenInterface::class);
+        $notifyToken = $this->createMock(TokenInterface::class);
+        $refundToken = $this->createMock(TokenInterface::class);
+        $identity = $this->createMock(IdentityInterface::class);
+        $order = $this->createMock(OrderInterface::class);
+        $paymentEndpoint = $this->createMock(PaymentEndpoint::class);
+
+        $openMolliePayment = new Payment($this->mollieApiClient);
+        $openMolliePayment->id = 'tr_old';
+        $openMolliePayment->status = PaymentStatus::STATUS_OPEN;
+        $openMolliePayment->isCancelable = false;
+
+        $this->mollieApiClient->method('isRecurringSubscription')->willReturn(false);
+        $this->mollieApiClient->payments = $paymentEndpoint;
+        $paymentEndpoint->method('get')->with('tr_old')->willReturn($openMolliePayment);
+        $paymentEndpoint->method('create')->willReturn((object) ['id' => 2, 'getCheckoutUrl' => 'https://thisisnotanemptyurl.com']);
+
+        $details = new ArrayObject([
+            'payment_mollie_id' => 'tr_old',
+            'metadata' => [
+                'refund_token' => ['refund_token_hash'],
+                'methodType' => ApiType::PAYMENT_API,
+                'molliePaymentMethods' => 'ideal',
+            ],
+            'webhookUrl' => 'url',
+            'backurl' => 'url',
+        ]);
+
+        $request->method('getModel')->willReturn($details);
+        $request->method('getFirstModel')->willReturn($payment);
+        $request->method('getToken')->willReturn($token);
+        $payment->method('getOrder')->willReturn($order);
+
+        $token->method('getGatewayName')->willReturn('test');
+        $token->method('getDetails')->willReturn($identity);
+        $token->method('getTargetUrl')->willReturn('url');
+        $token->method('getAfterUrl')->willReturn('url');
+        $token->method('getHash')->willReturn('test');
+
+        $this->genericTokenFactory->method('createNotifyToken')->willReturn($notifyToken);
+        $notifyToken->method('getTargetUrl')->willReturn('url');
+        $notifyToken->method('getHash')->willReturn('test');
+        $this->genericTokenFactory->method('createRefundToken')->willReturn($refundToken);
+        $refundToken->method('getHash')->willReturn('refund_token_hash');
+
+        $this->gateway->method('execute')->willReturnCallback(function ($executed) {
+            if ($executed instanceof Convert) {
+                $executed->setResult([
+                    'metadata' => [
+                        'refund_token' => ['refund_token_hash'],
+                        'methodType' => ApiType::PAYMENT_API,
+                        'molliePaymentMethods' => 'ideal',
+                    ],
+                    'webhookUrl' => 'url',
+                    'backurl' => 'url',
+                ]);
+            }
+        });
+
+        $this->captureAction->execute($request);
+
+        self::assertSame(['tr_old'], $details['mollie_payment_ids_history']);
+        self::assertSame(['test'], $details['capture_token_hashes']);
+    }
+
+    public function testItNoOpsWhenReturnRedirectUsesTheCurrentlyKnownCaptureToken(): void
+    {
+        $request = $this->createMock(Capture::class);
+        $payment = $this->createMock(PaymentInterface::class);
+        $token = $this->createMock(TokenInterface::class);
+        $order = $this->createMock(OrderInterface::class);
+        $paymentEndpoint = $this->createMock(PaymentEndpoint::class);
+
+        $openMolliePayment = new Payment($this->mollieApiClient);
+        $openMolliePayment->id = 'tr_current';
+        $openMolliePayment->status = PaymentStatus::STATUS_OPEN;
+
+        $this->mollieApiClient->payments = $paymentEndpoint;
+        $paymentEndpoint->method('get')->with('tr_current')->willReturn($openMolliePayment);
+
+        $details = new ArrayObject([
+            'payment_mollie_id' => 'tr_current',
+            'capture_token_hashes' => ['known_hash'],
+        ]);
+
+        $request->method('getModel')->willReturn($details);
+        $request->method('getFirstModel')->willReturn($payment);
+        $request->method('getToken')->willReturn($token);
+        $payment->method('getOrder')->willReturn($order);
+        $token->method('getHash')->willReturn('known_hash');
+
+        $this->gateway->expects($this->never())->method('execute');
+        $paymentEndpoint->expects($this->never())->method('cancel');
+
+        $this->captureAction->execute($request);
+
+        self::assertSame(['known_hash'], $details['capture_token_hashes']);
+    }
+
+    public function testItNoOpsWhenReturnRedirectUsesAnOlderKnownCaptureTokenFromAnEarlierRetry(): void
+    {
+        $request = $this->createMock(Capture::class);
+        $payment = $this->createMock(PaymentInterface::class);
+        $token = $this->createMock(TokenInterface::class);
+        $order = $this->createMock(OrderInterface::class);
+        $paymentEndpoint = $this->createMock(PaymentEndpoint::class);
+
+        $openMolliePayment = new Payment($this->mollieApiClient);
+        $openMolliePayment->id = 'tr_current';
+        $openMolliePayment->status = PaymentStatus::STATUS_OPEN;
+
+        $this->mollieApiClient->payments = $paymentEndpoint;
+        $paymentEndpoint->method('get')->with('tr_current')->willReturn($openMolliePayment);
+
+        $details = new ArrayObject([
+            'payment_mollie_id' => 'tr_current',
+            'capture_token_hashes' => ['hash_gen1', 'hash_gen2', 'hash_gen3'],
+        ]);
+
+        $request->method('getModel')->willReturn($details);
+        $request->method('getFirstModel')->willReturn($payment);
+        $request->method('getToken')->willReturn($token);
+        $payment->method('getOrder')->willReturn($order);
+        $token->method('getHash')->willReturn('hash_gen1');
+
+        $this->gateway->expects($this->never())->method('execute');
+        $paymentEndpoint->expects($this->never())->method('cancel');
+
+        $this->captureAction->execute($request);
+
+        self::assertSame(['hash_gen1', 'hash_gen2', 'hash_gen3'], $details['capture_token_hashes']);
     }
 
     public function testItSupportsOnlyCaptureRequestAndArrayAccess(): void

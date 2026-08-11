@@ -101,7 +101,7 @@ final class NotifyAction extends BaseApiAwareAction implements GatewayAwareInter
             throw new HttpResponse(Response::$statusTexts[Response::HTTP_OK], Response::HTTP_OK);
         }
 
-        $this->reconcileOrphanPaidPayment($details);
+        $this->logOrphanPaidPayment($details);
     }
 
     /**
@@ -109,13 +109,10 @@ final class NotifyAction extends BaseApiAwareAction implements GatewayAwareInter
      * one tracked in Sylius details — typically a session abandoned on retry that
      * the customer later completed from a stale tab.
      *
-     * When the incoming payment is paid/authorized and its metadata.order_id
-     * matches ours, we swap details.payment_mollie_id to point at the incoming
-     * resource so Payum's subsequent StatusAction syncs Sylius state correctly.
      * No-op if the incoming ID matches current, if the orphan is not paid, or if
      * metadata does not match (safety against spoofed webhooks).
      */
-    private function reconcileOrphanPaidPayment(ArrayObject $details): void
+    private function logOrphanPaidPayment(ArrayObject $details): void
     {
         $incomingMollieId = (string) ($this->getHttpRequest->request['id'] ?? '');
         if (!str_starts_with($incomingMollieId, 'tr_')) {
@@ -150,10 +147,8 @@ final class NotifyAction extends BaseApiAwareAction implements GatewayAwareInter
             return;
         }
 
-        $details['payment_mollie_id'] = $incomingMollieId;
-
         $this->loggerAction->addLog(sprintf(
-            'Reconciled orphan Mollie payment %s (status=%s) onto Sylius order %d (was tracking %s)',
+            'Ignoring orphan paid Mollie payment %s (status=%s) for order %d — currently tracking %s',
             $incomingMollieId,
             $incoming->status,
             $ourOrderId,
