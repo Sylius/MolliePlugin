@@ -7,15 +7,7 @@
 
 When a customer abandons a Mollie checkout mid-payment and later retries — from Sylius, possibly with a different payment method — the plugin creates a new Mollie payment for the order (see issue [#329](https://github.com/Sylius/MolliePlugin/issues/329), PR [#335](https://github.com/Sylius/MolliePlugin/pull/335)). It also best-effort cancels the superseded one, but Mollie only supports programmatic cancellation for a subset of methods (bank transfer and SEPA direct debit) — not for iDEAL, credit card, PayPal, Klarna, BLIK, and others. For those, the old Mollie payment can remain genuinely payable after the new one has already been created.
 
-We asked Mollie support directly what to do about this. Their answer:
-
-> We don't offer canceling an in-flight open payment for most methods to avoid a state mismatch, eg on our end the payment is canceled but upstream (let's say on blik) it still can be paid.
->
-> We recommend in these cases to keep a record of all payments created for a given checkout session, and only expect payment from the last one created (eg when the user changed the method). We expect the client keeps track of how many payments were created for a given session, as we can't necessarily link payments to the same session from our end.
->
-> Should an unexpected payment become paid, the integration can choose to ignore it (some of our other plugins do that just fine), or create a warning or task for the merchant to act on, or refund the unexpected payment automatically (we do something similar eg in Shopify when we're unable to get final order confirmation from them).
-
-So Mollie explicitly frames "an old, superseded payment becomes paid after a newer one already exists" as expected integration responsibility, not something they will solve for us, and names three acceptable strategies. We need to pick one for this plugin.
+We asked Mollie support directly what to do about this. Their answer suggested choosing one of 3 options.
 
 ## Decision Drivers
 
