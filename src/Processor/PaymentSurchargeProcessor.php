@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Processor;
 
-use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Order\Model\OrderInterface as BaseOrderInterface;
@@ -47,11 +46,15 @@ final readonly class PaymentSurchargeProcessor implements OrderProcessorInterfac
             return;
         }
 
-        /** @var PaymentMethodInterface $paymentMethod */
+        /** @var PaymentMethodInterface|null $paymentMethod */
         $paymentMethod = $payment->getMethod();
 
-        Assert::notNull($paymentMethod->getGatewayConfig());
-        $factoryName = $paymentMethod->getGatewayConfig()->getFactoryName();
+        if (null === $paymentMethod) {
+            return;
+        }
+
+        $factoryName = $paymentMethod->getGatewayConfig()?->getFactoryName();
+
         if (false === in_array($factoryName, [MollieGatewayFactory::FACTORY_NAME, MollieSubscriptionGatewayFactory::FACTORY_NAME], true)) {
             return;
         }
@@ -62,7 +65,7 @@ final readonly class PaymentSurchargeProcessor implements OrderProcessorInterfac
             return;
         }
 
-        $molliePaymentMethod = $data['molliePaymentMethods'];
+        $molliePaymentMethod = $data['molliePaymentMethods'] ?? null;
 
         $paymentSurcharge = $this->getMolliePaymentSurcharge($paymentMethod, $molliePaymentMethod);
 
@@ -79,11 +82,16 @@ final readonly class PaymentSurchargeProcessor implements OrderProcessorInterfac
     ): ?MollieGatewayConfig {
         /** @var GatewayConfigInterface $gatewayConfig */
         $gatewayConfig = $paymentMethod->getGatewayConfig();
-        /** @var Collection $configMethods */
         $configMethods = $gatewayConfig->getMollieGatewayConfig();
 
+        if (null === $configMethods) {
+            return null;
+        }
+
         if (null === $molliePaymentMethod) {
-            return $configMethods->last();
+            $lastConfigMethod = $configMethods->last();
+
+            return false === $lastConfigMethod ? null : $lastConfigMethod;
         }
 
         foreach ($configMethods as $configMethod) {
