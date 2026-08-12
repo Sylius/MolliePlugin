@@ -121,7 +121,6 @@ final class CaptureAction extends BaseApiAwareAction implements GenericTokenFact
 
         $details['webhookUrl'] = $notifyToken->getTargetUrl();
         $details['backurl'] = $token->getTargetUrl();
-        $this->rememberCaptureTokenHash($details, $token->getHash());
 
         $metadata = $details['metadata'];
         $metadata['refund_token'] = $refundToken->getHash();
@@ -211,10 +210,6 @@ final class CaptureAction extends BaseApiAwareAction implements GenericTokenFact
         }
 
         if (in_array($mollieStatus, self::OPEN_MOLLIE_STATUSES, true)) {
-            if (in_array($request->getToken()->getHash(), $details['capture_token_hashes'] ?? [], true)) {
-                return true;
-            }
-
             // Always create a fresh session — reusing would return to a stale Payum
             // token. Best-effort cancel; for non-cancelable methods the old session
             // stays orphaned until Mollie expires it (see #329).
@@ -257,7 +252,6 @@ final class CaptureAction extends BaseApiAwareAction implements GenericTokenFact
         }
 
         $history = $details['mollie_payment_ids_history'] ?? [];
-        $tokenHashes = $details['capture_token_hashes'] ?? [];
 
         try {
             $convert = new Convert($firstModel, 'array', $request->getToken());
@@ -287,10 +281,6 @@ final class CaptureAction extends BaseApiAwareAction implements GenericTokenFact
             $details['mollie_payment_ids_history'] = $history;
         }
 
-        if ([] !== $tokenHashes) {
-            $details['capture_token_hashes'] = $tokenHashes;
-        }
-
         $firstModel->setDetails((array) $details);
     }
 
@@ -307,17 +297,6 @@ final class CaptureAction extends BaseApiAwareAction implements GenericTokenFact
         }
 
         $details['mollie_payment_ids_history'] = $history;
-    }
-
-    private function rememberCaptureTokenHash(ArrayObject $details, string $tokenHash): void
-    {
-        $hashes = $details['capture_token_hashes'] ?? [];
-
-        if (!in_array($tokenHash, $hashes, true)) {
-            $hashes[] = $tokenHash;
-        }
-
-        $details['capture_token_hashes'] = $hashes;
     }
 
     /**
