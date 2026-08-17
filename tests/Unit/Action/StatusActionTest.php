@@ -15,9 +15,12 @@ namespace Tests\Sylius\MolliePlugin\Unit\Action;
 
 use Exception;
 use Mollie\Api\Endpoints\CustomerEndpoint;
+use Mollie\Api\Endpoints\PaymentEndpoint;
 use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Resources\Customer;
+use Mollie\Api\Resources\Payment;
 use Mollie\Api\Resources\Subscription;
+use Mollie\Api\Types\PaymentStatus;
 use Mollie\Api\Types\SubscriptionStatus;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
@@ -105,6 +108,46 @@ final class StatusActionTest extends TestCase
         ;
 
         $this->statusAction->execute($request);
+    }
+
+    public function testItKeepsPaymentNewWhileMollieSessionIsStillOpen(): void
+    {
+        $request = $this->createMock(GetStatusInterface::class);
+
+        $request->expects($this->once())->method('markNew');
+        $request->expects($this->never())->method('markPending');
+
+        $this->statusAction->execute($this->createStatusRequestForMollieStatus($request, PaymentStatus::STATUS_OPEN));
+    }
+
+    public function testItMarksPaymentAsPendingWhenTheCustomerCommittedOnTheMollieSide(): void
+    {
+        $request = $this->createMock(GetStatusInterface::class);
+
+        $request->expects($this->once())->method('markPending');
+        $request->expects($this->never())->method('markNew');
+
+        $this->statusAction->execute($this->createStatusRequestForMollieStatus($request, PaymentStatus::STATUS_PENDING));
+    }
+
+    private function createStatusRequestForMollieStatus(
+        GetStatusInterface $request,
+        string $mollieStatus,
+    ): GetStatusInterface {
+        $payment = $this->createMock(PaymentInterface::class);
+        $paymentEndpoint = $this->createMock(PaymentEndpoint::class);
+
+        $molliePayment = new Payment($this->mollieApiClient);
+        $molliePayment->id = 'tr_test';
+        $molliePayment->status = $mollieStatus;
+
+        $this->mollieApiClient->payments = $paymentEndpoint;
+        $paymentEndpoint->method('get')->with('tr_test')->willReturn($molliePayment);
+
+        $payment->method('getDetails')->willReturn(['payment_mollie_id' => 'tr_test']);
+        $request->method('getModel')->willReturn($payment);
+
+        return $request;
     }
 
     public function testItMarksPaymentAsFailedWhenStatusErrorIsPresent(): void

@@ -15,8 +15,6 @@ namespace Sylius\MolliePlugin\Payum\Action;
 
 use Mollie\Api\Resources\Order as MollieOrder;
 use Mollie\Api\Resources\Payment as MolliePayment;
-use Mollie\Api\Types\OrderStatus;
-use Mollie\Api\Types\PaymentStatus;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Exception\RuntimeException;
@@ -24,7 +22,6 @@ use Payum\Core\GatewayAwareInterface;
 use Payum\Core\GatewayAwareTrait;
 use Payum\Core\Reply\HttpRedirect;
 use Payum\Core\Request\Capture;
-use Payum\Core\Request\Convert;
 use Payum\Core\Security\GenericTokenFactoryAwareInterface;
 use Payum\Core\Security\GenericTokenFactoryInterface;
 use Payum\Core\Security\TokenInterface;
@@ -42,6 +39,8 @@ use Sylius\MolliePlugin\Payum\Request\CreatePayment;
 use Sylius\MolliePlugin\Payum\Request\Subscription\CreateInternalRecurring;
 use Sylius\MolliePlugin\Payum\Request\Subscription\CreateOnDemandSubscription;
 use Sylius\MolliePlugin\Payum\Request\Subscription\CreateOnDemandSubscriptionPayment;
+use Sylius\MolliePlugin\Payum\Resolver\ExistingMollieSessionDecision;
+use Sylius\MolliePlugin\Payum\Resolver\ExistingMollieSessionResolverInterface;
 use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
 
 final class CaptureAction extends BaseApiAwareAction implements GenericTokenFactoryAwareInterface, GatewayAwareInterface
@@ -52,21 +51,6 @@ final class CaptureAction extends BaseApiAwareAction implements GenericTokenFact
 
     public const PAYMENT_NEW_STATUS = 'new';
 
-    private const TERMINAL_MOLLIE_STATUSES = [
-        PaymentStatus::STATUS_CANCELED,
-        PaymentStatus::STATUS_FAILED,
-        PaymentStatus::STATUS_EXPIRED,
-    ];
-
-    private const OPEN_MOLLIE_STATUSES = [
-        PaymentStatus::STATUS_OPEN,
-        OrderStatus::STATUS_CREATED,
-    ];
-
-    private const PENDING_MOLLIE_STATUSES = [
-        PaymentStatus::STATUS_PENDING,
-    ];
-
     use GatewayAwareTrait;
 
     private ?GenericTokenFactoryInterface $tokenFactory = null;
@@ -75,6 +59,7 @@ final class CaptureAction extends BaseApiAwareAction implements GenericTokenFact
         private OrderRepositoryInterface $orderRepository,
         private MollieApiClientKeyResolverInterface $apiClientKeyResolver,
         private PaymentRepositoryInterface $paymentRepository,
+        private ExistingMollieSessionResolverInterface $existingSessionResolver,
     ) {
     }
 
@@ -181,9 +166,6 @@ final class CaptureAction extends BaseApiAwareAction implements GenericTokenFact
             $request->getModel() instanceof \ArrayAccess;
     }
 
-    /**
-     * True = caller returns; false = caller creates a fresh Mollie payment.
-     */
     private function handleExistingMolliePayment(Capture $request, ArrayObject $details): bool
     {
         $paymentMollieId = $details['payment_mollie_id'] ?? null;
@@ -194,114 +176,52 @@ final class CaptureAction extends BaseApiAwareAction implements GenericTokenFact
                 ? $this->mollieApiClient->payments->get($paymentMollieId)
                 : $this->mollieApiClient->orders->get($orderMollieId, ['embed' => 'payments']);
         } catch (\Exception) {
-            // Can't reach Mollie — let Payum's normal Status flow try next.
             return true;
         }
 
-        $mollieStatus = $mollieResource->status;
+        $decision = $this->existingSessionResolver->resolve($mollieResource, $details, $request->getToken());
 
-        // Terminal (canceled/failed/expired): let Payum's Status flow transition the
-        // payment so `sylius_process_order` creates a fresh Payment for the next retry.
-        // Creating a new Mollie payment here would race Payum's Status flow and, when
-        // Mollie's redirectUrl points back to the capture endpoint, produce a redirect
-        // loop.
-        if (in_array($mollieStatus, self::TERMINAL_MOLLIE_STATUSES, true)) {
+        if (ExistingMollieSessionDecision::LeaveToStatusFlow === $decision) {
             return true;
         }
 
-        if (in_array($mollieStatus, self::OPEN_MOLLIE_STATUSES, true)) {
-            // Always create a fresh session — reusing would return to a stale Payum
-            // token. Best-effort cancel; for non-cancelable methods the old session
-            // stays orphaned until Mollie expires it (see #329).
-            if (true === ($mollieResource->isCancelable ?? false)) {
-                try {
-                    $this->cancelMollieResource($mollieResource);
-                } catch (\Exception) {
-                }
+        if (ExistingMollieSessionDecision::Resume === $decision) {
+            $this->resumeMollieResource($request, $mollieResource);
+        }
+
+        if (true === ($mollieResource->isCancelable ?? false)) {
+            try {
+                $this->cancelMollieResource($mollieResource);
+            } catch (\Exception) {
             }
-
-            $this->appendToMollieIdHistory($details, $paymentMollieId ?? $orderMollieId);
-            $this->rebuildDetailsForRetry($request, $details);
-
-            return false;
         }
 
-        if (in_array($mollieStatus, self::PENDING_MOLLIE_STATUSES, true)) {
-            // Customer is mid-payment on the PSP side — don't spawn a competing session.
-            return true;
-        }
-
-        // paid/authorized — let Payum status flow complete.
-        return true;
+        return false;
     }
 
-    /**
-     * Rebuild details via Convert on retry. Payum's CapturePaymentAction only runs
-     * Convert when GetHumanStatus is "new"; stale payment_mollie_id in details means
-     * it isn't, so Convert is skipped and details lack amount/description/metadata
-     * that CreatePayment needs. Dispatch Convert explicitly to fill them in.
-     */
-    private function rebuildDetailsForRetry(Capture $request, ArrayObject $details): void
+    private function resumeMollieResource(Capture $request, MollieOrder|MolliePayment $resource): void
     {
-        $firstModel = $request->getFirstModel();
+        $checkoutUrl = $resource->getCheckoutUrl();
+        $token = $request->getToken();
 
-        if (!$firstModel instanceof PaymentInterface) {
-            $this->clearStaleDetailsForRetry($details);
-
+        if (null === $checkoutUrl || null === $token) {
             return;
         }
-
-        $history = $details['mollie_payment_ids_history'] ?? [];
 
         try {
-            $convert = new Convert($firstModel, 'array', $request->getToken());
-            $this->gateway->execute($convert);
-            $result = $convert->getResult();
+            $payload = ['redirectUrl' => $token->getTargetUrl()];
+
+            if ($resource instanceof MollieOrder) {
+                $this->mollieApiClient->orders->update($resource->id, $payload);
+            } else {
+                $this->mollieApiClient->payments->update($resource->id, $payload);
+            }
         } catch (\Exception) {
-            $this->clearStaleDetailsForRetry($details);
-
-            return;
         }
 
-        if (!is_array($result)) {
-            $this->clearStaleDetailsForRetry($details);
-
-            return;
-        }
-
-        foreach (array_keys($details->getArrayCopy()) as $key) {
-            unset($details[$key]);
-        }
-
-        foreach ($result as $key => $value) {
-            $details[$key] = $value;
-        }
-
-        if ([] !== $history) {
-            $details['mollie_payment_ids_history'] = $history;
-        }
-
-        $firstModel->setDetails((array) $details);
+        throw new HttpRedirect($checkoutUrl);
     }
 
-    private function appendToMollieIdHistory(ArrayObject $details, ?string $supersededId): void
-    {
-        if (null === $supersededId) {
-            return;
-        }
-
-        $history = $details['mollie_payment_ids_history'] ?? [];
-
-        if (!in_array($supersededId, $history, true)) {
-            $history[] = $supersededId;
-        }
-
-        $details['mollie_payment_ids_history'] = $history;
-    }
-
-    /**
-     * Payment resource has no instance-level cancel(); Order does. Route accordingly.
-     */
     private function cancelMollieResource(MollieOrder|MolliePayment $resource): void
     {
         if ($resource instanceof MollieOrder) {
@@ -311,42 +231,6 @@ final class CaptureAction extends BaseApiAwareAction implements GenericTokenFact
         }
 
         $this->mollieApiClient->payments->cancel($resource->id);
-    }
-
-    private function clearStaleDetailsForRetry(ArrayObject $details): void
-    {
-        $newMethod = $details['molliePaymentMethods'] ?? null;
-
-        unset(
-            $details['payment_mollie_id'],
-            $details['order_mollie_id'],
-            $details['webhookUrl'],
-            $details['backurl'],
-        );
-
-        if (null !== $newMethod && isset($details['metadata'])) {
-            $metadata = $details['metadata'];
-            $metadata['molliePaymentMethods'] = $newMethod;
-            unset($metadata['refund_token']);
-            $details['metadata'] = $metadata;
-
-            return;
-        }
-
-        // API-flow (SelectMollieMethodAction) stores the payment config as flat keys
-        // and never populates `metadata`. On UI retry the rest of this action reads
-        // `metadata.methodType`/`molliePaymentMethods` to decide which Mollie endpoint
-        // to call. Normalize the flat shape into the nested one expected by the UI
-        // flow so retry can dispatch CreatePayment correctly.
-        if (!isset($details['metadata']) && null !== $newMethod) {
-            $details['metadata'] = [
-                'molliePaymentMethods' => $newMethod,
-                'cartToken' => $details['cartToken'] ?? null,
-                'saveCardInfo' => $details['saveCardInfo'] ?? null,
-                'useSavedCards' => $details['useSavedCards'] ?? null,
-                'methodType' => ApiType::PAYMENT_API,
-            ];
-        }
     }
 
     private function handleQrCodeOrApplePay(Capture $request, ArrayObject $details): void

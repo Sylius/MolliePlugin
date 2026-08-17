@@ -104,18 +104,16 @@ final class NotifyAction extends BaseApiAwareAction implements GatewayAwareInter
         $this->logOrphanPaidPayment($details);
     }
 
-    /**
-     * Handle webhooks fired for a Mollie payment ID that is no longer the current
-     * one tracked in Sylius details — typically a session abandoned on retry that
-     * the customer later completed from a stale tab.
-     *
-     * No-op if the incoming ID matches current, if the orphan is not paid, or if
-     * metadata does not match (safety against spoofed webhooks).
-     */
     private function logOrphanPaidPayment(ArrayObject $details): void
     {
         $incomingMollieId = (string) ($this->getHttpRequest->request['id'] ?? '');
         if (!str_starts_with($incomingMollieId, 'tr_')) {
+            return;
+        }
+
+        // Order API points `payment.webhookUrl` at this same token, so a `tr_` id here belongs
+        // to the payment inside the order and is not an orphan.
+        if (isset($details['order_mollie_id'])) {
             return;
         }
 
@@ -147,8 +145,11 @@ final class NotifyAction extends BaseApiAwareAction implements GatewayAwareInter
             return;
         }
 
-        $this->loggerAction->addLog(sprintf(
-            'Ignoring orphan paid Mollie payment %s (status=%s) for order %d — currently tracking %s',
+        // Error level, not notice: `canSaveLog()` discards notices unless the gateway logs
+        // everything, and this is the only record that money was collected.
+        $this->loggerAction->addNegativeLog(sprintf(
+            'Mollie payment %s (status=%s) for order %d was paid but the order was not credited from it ' .
+            '(currently tracking %s). The money has been collected and needs manual review.',
             $incomingMollieId,
             $incoming->status,
             $ourOrderId,

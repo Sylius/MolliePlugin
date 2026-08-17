@@ -178,9 +178,38 @@ final class NotifyActionTest extends TestCase
         $paymentEndpoint->method('get')->willReturn($incoming);
 
         $this->loggerAction->expects($this->once())
-            ->method('addLog')
-            ->with($this->matchesRegularExpression('/Ignoring orphan paid Mollie payment tr_incoming/'))
+            ->method('addNegativeLog')
+            ->with($this->matchesRegularExpression(
+                '/Mollie payment tr_incoming .* was paid but the order was not credited from it/',
+            ))
         ;
+        $this->loggerAction->expects($this->never())->method('addLog');
+
+        $this->notifyAction->execute($request);
+    }
+
+    public function testItDoesNotTreatOrderApiPaymentWebhookAsOrphan(): void
+    {
+        $request = $this->createMock(Notify::class);
+        $gateway = $this->createMock(GatewayInterface::class);
+        $mollieApiClient = $this->createMock(MollieApiClient::class);
+        $paymentEndpoint = $this->createMock(PaymentEndpoint::class);
+
+        $this->notifyAction->setGateway($gateway);
+        $this->notifyAction->setApi($mollieApiClient);
+
+        $this->getHttpRequest->request = ['id' => 'tr_inside_order'];
+        $model = new \ArrayObject([
+            'metadata' => ['order_id' => 15],
+            'order_mollie_id' => 'ord_current',
+        ]);
+        $request->method('getModel')->willReturn($model);
+
+        $mollieApiClient->payments = $paymentEndpoint;
+        $paymentEndpoint->expects($this->never())->method('get');
+
+        $this->loggerAction->expects($this->never())->method('addLog');
+        $this->loggerAction->expects($this->never())->method('addNegativeLog');
 
         $this->notifyAction->execute($request);
     }

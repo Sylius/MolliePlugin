@@ -202,6 +202,46 @@ final class ConvertMolliePaymentActionTest extends TestCase
         $this->assertSame($inputDetails, $requestMock->getResult());
     }
 
+    public function testItCarriesTheTrackedMollieSessionOverIntoTheConvertedDetails(): void
+    {
+        $paymentMock = $this->createMock(PaymentInterface::class);
+        $requestMock = new Convert($paymentMock, 'array');
+        $orderMock = $this->createMock(OrderInterface::class);
+        $customerMock = $this->createMock(CustomerInterface::class);
+        $gatewayMock = $this->createMock(GatewayInterface::class);
+        $mollieApiClientMock = $this->createMock(MollieApiClient::class);
+        $methodMock = $this->createMock(MollieGatewayConfigInterface::class);
+        $gatewayConfigMock = $this->createMock(GatewayConfigInterface::class);
+
+        $mollieApiClientMock->method('isRecurringSubscription')->willReturn(false);
+        $this->convertMolliePaymentAction->setApi($mollieApiClientMock);
+        $this->convertMolliePaymentAction->setGateway($gatewayMock);
+        $customerMock->method('getFullName')->willReturn('Jan Kowalski');
+        $customerMock->method('getEmail')->willReturn('shop@example.com');
+        $customerMock->method('getId')->willReturn(1);
+        $orderMock->method('getId')->willReturn(1);
+        $orderMock->method('getLocaleCode')->willReturn('pl_PL');
+        $orderMock->method('getCustomer')->willReturn($customerMock);
+        $paymentMock->method('getOrder')->willReturn($orderMock);
+        $paymentMock->method('getAmount')->willReturn(445535);
+        $paymentMock->method('getCurrencyCode')->willReturn('EUR');
+        $this->paymentDescriptionProviderMock->method('getPaymentDescription')->willReturn('description');
+        $paymentMock->method('getDetails')->willReturn([
+            'molliePaymentMethods' => 15,
+            'cartToken' => 'token',
+            'payment_mollie_id' => 'tr_tracked',
+        ]);
+        $this->mollieMethodsRepositoryMock->method('findOneBy')->with(['methodId' => 15])->willReturn($methodMock);
+        $methodMock->method('getPaymentType')->willReturn('payment_type');
+        $methodMock->method('getGateway')->willReturn($gatewayConfigMock);
+        $gatewayConfigMock->method('getConfig')->willReturn([]);
+
+        $this->convertMolliePaymentAction->execute($requestMock);
+
+        $result = $requestMock->getResult();
+        $this->assertSame('tr_tracked', $result['payment_mollie_id']);
+    }
+
     public function testExecutesWithNoMetadataAndRecurringSubscriptionSetToFalseButWithPaymentLocale(): void
     {
         $inputDetails = [

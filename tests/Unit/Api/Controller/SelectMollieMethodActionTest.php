@@ -63,7 +63,6 @@ final class SelectMollieMethodActionTest extends TestCase
         $payment = $this->createMock(PaymentInterface::class);
         $payment->method('getDetails')->willReturn([
             'payment_mollie_id' => 'tr_old',
-            'mollie_payment_ids_history' => ['tr_older'],
         ]);
 
         $order = $this->createMock(OrderInterface::class);
@@ -119,6 +118,6 @@ final class SelectMollieMethodActionTest extends TestCase
 
         $action('order_token', $request);
 
-        self::assertSame(['tr_older', 'tr_old'], $capturedDetails['mollie_payment_ids_history']);
+        self::assertSame('tr_new', $capturedDetails['payment_mollie_id']);
     }
 }

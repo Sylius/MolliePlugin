@@ -149,7 +149,6 @@ final class SelectMollieMethodAction
             'useSavedCards' => '0',
             'webhookUrl' => $paymentData['webhookUrl'],
             'backurl' => $paymentData['redirectUrl'],
-            'mollie_payment_ids_history' => $this->appendToMollieIdHistory($payment, $molliePayment->id),
         ];
 
         if ($isSubscription) {
@@ -188,9 +187,6 @@ final class SelectMollieMethodAction
             return null;
         }
 
-        // Pending: customer is mid-payment on the PSP side (e.g. Satispay waiting on
-        // mobile confirmation). Don't spin up a competing session — let them finish or
-        // let it expire naturally.
         if (PaymentStatus::STATUS_PENDING === $existingMolliePayment->status) {
             $checkoutUrl = $existingMolliePayment->_links->checkout->href ?? null;
 
@@ -211,14 +207,17 @@ final class SelectMollieMethodAction
             return null;
         }
 
-        // Open session — always best-effort cancel and create a fresh one. Reusing the
-        // existing checkoutUrl would carry a stale redirectUrl that points at an
-        // already-consumed Payum capture token on the UI side; reuse is also method-lossy
-        // when the user switches methods. Mollie only supports cancellation for a subset
-        // of methods; the rest will remain orphaned until expiry. See issue #329.
-        //
-        // Note: Payment resource does not expose cancel() as an instance method — it's
-        // on the endpoint. (Only Order resource has an instance-level cancel.)
+        $checkoutUrl = $existingMolliePayment->_links->checkout->href ?? null;
+
+        if (null !== $checkoutUrl &&
+            (null === $existingMolliePayment->method || $existingMolliePayment->method === $methodId)) {
+            return new JsonResponse([
+                'methodId' => $methodId,
+                'checkoutUrl' => $checkoutUrl,
+            ]);
+        }
+
+        // Cancellation is unavailable for some methods; those stay orphaned until expiry (#329).
         if (true === ($existingMolliePayment->isCancelable ?? false)) {
             try {
                 $mollieApiClient->payments->cancel($existingMolliePayment->id);
@@ -227,22 +226,6 @@ final class SelectMollieMethodAction
         }
 
         return null;
-    }
-
-    /**
-     * @return array<int, string>
-     */
-    private function appendToMollieIdHistory(PaymentInterface $payment, string $newMollieId): array
-    {
-        $previousDetails = $payment->getDetails();
-        $history = $previousDetails['mollie_payment_ids_history'] ?? [];
-        $previousMollieId = $previousDetails['payment_mollie_id'] ?? null;
-
-        if (null !== $previousMollieId && $previousMollieId !== $newMollieId && !in_array($previousMollieId, $history, true)) {
-            $history[] = $previousMollieId;
-        }
-
-        return $history;
     }
 
     private function findOrCreateMollieCustomer(MollieApiClient $mollieApiClient, OrderInterface $order): string
