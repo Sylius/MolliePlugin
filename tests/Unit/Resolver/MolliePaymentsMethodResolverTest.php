@@ -13,9 +13,16 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\MolliePlugin\Unit\Resolver;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\AddressInterface;
+use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeAmountCalculatorInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Entity\OrderInterface as MollieOrderInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
@@ -49,6 +56,8 @@ final class MolliePaymentsMethodResolverTest extends TestCase
 
     private DivisorProviderInterface $divisorProviderMock;
 
+    private PaymentSurchargeAmountCalculatorInterface $surchargeAmountCalculatorMock;
+
     private MolliePaymentsMethodResolver $resolver;
 
     protected function setUp(): void
@@ -62,6 +71,7 @@ final class MolliePaymentsMethodResolverTest extends TestCase
         $this->loggerActionMock = $this->createMock(MollieLoggerActionInterface::class);
         $this->mollieFactoryNameResolverMock = $this->createMock(MollieFactoryNameResolverInterface::class);
         $this->divisorProviderMock = $this->createMock(DivisorProviderInterface::class);
+        $this->surchargeAmountCalculatorMock = $this->createMock(PaymentSurchargeAmountCalculatorInterface::class);
 
         $this->resolver = new MolliePaymentsMethodResolver(
             $this->mollieGatewayRepositoryMock,
@@ -73,6 +83,7 @@ final class MolliePaymentsMethodResolverTest extends TestCase
             $this->loggerActionMock,
             $this->mollieFactoryNameResolverMock,
             $this->divisorProviderMock,
+            $this->surchargeAmountCalculatorMock,
         );
     }
 
@@ -121,6 +132,97 @@ final class MolliePaymentsMethodResolverTest extends TestCase
         $this->mollieBasedPaymentMethodQueryMock->method('getOneByChannelAndFactoryName')->willReturn(null);
 
         $this->assertSame($this->defaultOptions(), $this->resolver->resolve());
+    }
+
+    public function testItKeepsOnlyMethodsMatchingTheSurchargeAlreadyChargedOnAPlacedOrder(): void
+    {
+        $ideal = $this->config('ideal');
+        $satispay = $this->config('satispay');
+
+        $order = $this->orderChargedWith(500, new \DateTimeImmutable());
+        $this->expectMethodsOffered($order, [$ideal, $satispay], ['ideal' => 500, 'satispay' => 400]);
+
+        $this->countriesRestrictionResolverMock->expects($this->once())
+            ->method('resolve')
+            ->with($ideal, $this->anything(), 'NL')
+            ->willReturn($this->defaultOptions())
+        ;
+
+        $this->resolver->resolve();
+    }
+
+    public function testItOffersEverySurchargeDuringCheckout(): void
+    {
+        $ideal = $this->config('ideal');
+        $satispay = $this->config('satispay');
+
+        $order = $this->orderChargedWith(500, null);
+        $this->expectMethodsOffered($order, [$ideal, $satispay], ['ideal' => 500, 'satispay' => 400]);
+
+        $this->countriesRestrictionResolverMock->expects($this->exactly(2))
+            ->method('resolve')
+            ->willReturn($this->defaultOptions())
+        ;
+
+        $this->resolver->resolve();
+    }
+
+    private function config(string $methodId): MollieGatewayConfig
+    {
+        $config = $this->createMock(MollieGatewayConfig::class);
+        $config->method('getMethodId')->willReturn($methodId);
+
+        return $config;
+    }
+
+    private function orderChargedWith(int $surcharge, ?\DateTimeImmutable $checkoutCompletedAt): MollieOrderInterface
+    {
+        $adjustment = $this->createMock(AdjustmentInterface::class);
+        $adjustment->method('getAmount')->willReturn($surcharge);
+
+        $address = $this->createMock(AddressInterface::class);
+        $address->method('getCountryCode')->willReturn('NL');
+
+        $order = $this->createMock(MollieOrderInterface::class);
+        $order->method('getBillingAddress')->willReturn($address);
+        $order->method('getChannel')->willReturn($this->createMock(ChannelInterface::class));
+        $order->method('getCheckoutCompletedAt')->willReturn($checkoutCompletedAt);
+        $order->method('getTotal')->willReturn(7597);
+        $order->method('getAdjustments')->willReturnCallback(
+            fn (?string $type = null): Collection => new ArrayCollection(
+                'fixed_fee' === $type ? [$adjustment] : [],
+            ),
+        );
+
+        return $order;
+    }
+
+    /**
+     * @param MollieGatewayConfig[] $configs
+     * @param array<string, int> $surchargePerMethod
+     */
+    private function expectMethodsOffered(MollieOrderInterface $order, array $configs, array $surchargePerMethod): void
+    {
+        $this->paymentCheckoutOrderResolverMock->method('resolve')->willReturn($order);
+        $this->mollieFactoryNameResolverMock->method('resolve')->willReturn('mollie');
+
+        $paymentMethod = $this->createMock(PaymentMethodInterface::class);
+        $paymentMethod->method('getGatewayConfig')->willReturn($this->createMock(GatewayConfigInterface::class));
+        $this->mollieBasedPaymentMethodQueryMock->method('getOneByChannelAndFactoryName')->willReturn($paymentMethod);
+
+        $this->mollieGatewayRepositoryMock->method('findAllEnabledByGateway')->willReturn(array_map(
+            fn (MollieGatewayConfig $config): array => [0 => $config, 'minimumAmount' => null, 'maximumAmount' => null],
+            $configs,
+        ));
+
+        $this->allowedMethodsResolverMock->method('resolve')->willReturn(array_keys($surchargePerMethod));
+        $this->divisorProviderMock->method('getDivisor')->willReturn(100);
+
+        $this->surchargeAmountCalculatorMock->method('calculateAmount')->willReturnCallback(
+            fn ($ignored, MollieGatewayConfig $config): int => $surchargePerMethod[$config->getMethodId()],
+        );
+
+        $this->productVoucherTypeCheckerMock->method('checkTheProductTypeOnCart')->willReturnArgument(1);
     }
 
     /**

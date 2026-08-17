@@ -78,6 +78,11 @@
         />
 
         <service
+            id="Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeAmountCalculatorInterface"
+            alias="sylius_mollie.calculator.payment_fee.composite"
+        />
+
+        <service
             id="sylius_mollie.calculator.clearer.payment_fee_adjustment"
             class="Sylius\MolliePlugin\Calculator\Clearer\PaymentFeeAdjustmentClearer"
         >

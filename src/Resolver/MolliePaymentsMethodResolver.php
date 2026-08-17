@@ -15,10 +15,13 @@ namespace Sylius\MolliePlugin\Resolver;
 
 use Mollie\Api\Exceptions\ApiException;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeAmountCalculatorInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface as MollieOrderInterface;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Model\AdjustmentInterface;
 use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
 use Sylius\MolliePlugin\Repository\MollieGatewayConfigRepository;
 use Sylius\MolliePlugin\Repository\Query\MollieBasedPaymentMethodQueryInterface;
@@ -44,6 +47,7 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         private readonly MollieLoggerActionInterface $loggerAction,
         private readonly MollieFactoryNameResolverInterface $mollieFactoryNameResolver,
         private readonly DivisorProviderInterface $divisorProvider,
+        private readonly PaymentSurchargeAmountCalculatorInterface $surchargeAmountCalculator,
     ) {
     }
 
@@ -118,6 +122,7 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         }
 
         $allowedMethods = $this->filterPaymentMethods($paymentConfigs, $allowedMethodsIds, (float) $order->getTotal() / $this->divisorProvider->getDivisor());
+        $allowedMethods = $this->filterMethodsKeepingTheOrderTotal($order, $allowedMethods);
 
         if (0 === count($allowedMethods)) {
             return $this->getDefaultOptions();
@@ -132,6 +137,48 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         }
 
         return $this->productVoucherTypeChecker->checkTheProductTypeOnCart($order, $methods);
+    }
+
+    /**
+     * Order processors stop running once an order leaves `cart` (`Order::canBeProcessed()`), so
+     * from then on the total can no longer follow the selected method.
+     *
+     * @param MollieGatewayConfigInterface[] $allowedMethods
+     *
+     * @return MollieGatewayConfigInterface[]
+     */
+    private function filterMethodsKeepingTheOrderTotal(OrderInterface $order, array $allowedMethods): array
+    {
+        if (null === $order->getCheckoutCompletedAt()) {
+            return $allowedMethods;
+        }
+
+        $chargedSurcharge = $this->chargedSurcharge($order);
+
+        return array_values(array_filter(
+            $allowedMethods,
+            fn (MollieGatewayConfigInterface $config): bool => $config instanceof MollieGatewayConfig &&
+                $this->surchargeAmountCalculator->calculateAmount($order, $config) === $chargedSurcharge,
+        ));
+    }
+
+    private function chargedSurcharge(OrderInterface $order): int
+    {
+        $types = [
+            AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT,
+            AdjustmentInterface::PERCENTAGE_ADJUSTMENT,
+            AdjustmentInterface::PERCENTAGE_AND_AMOUNT_ADJUSTMENT,
+        ];
+
+        $total = 0;
+
+        foreach ($types as $type) {
+            foreach ($order->getAdjustments($type) as $adjustment) {
+                $total += $adjustment->getAmount();
+            }
+        }
+
+        return $total;
     }
 
     /**
