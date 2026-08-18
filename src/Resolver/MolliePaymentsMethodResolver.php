@@ -20,9 +20,10 @@ use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface as MollieOrderInterface;
+use Sylius\MolliePlugin\Exceptions\UnknownPaymentSurchargeType;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
-use Sylius\MolliePlugin\Model\AdjustmentInterface;
 use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
+use Sylius\MolliePlugin\Provider\PaymentSurchargeAdjustmentsProviderInterface;
 use Sylius\MolliePlugin\Repository\MollieGatewayConfigRepository;
 use Sylius\MolliePlugin\Repository\Query\MollieBasedPaymentMethodQueryInterface;
 use Sylius\MolliePlugin\Resolver\Order\PaymentCheckoutOrderResolverInterface;
@@ -48,6 +49,7 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         private readonly MollieFactoryNameResolverInterface $mollieFactoryNameResolver,
         private readonly DivisorProviderInterface $divisorProvider,
         private readonly PaymentSurchargeAmountCalculatorInterface $surchargeAmountCalculator,
+        private readonly PaymentSurchargeAdjustmentsProviderInterface $surchargeAdjustmentsProvider,
     ) {
     }
 
@@ -122,7 +124,7 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         }
 
         $allowedMethods = $this->filterPaymentMethods($paymentConfigs, $allowedMethodsIds, (float) $order->getTotal() / $this->divisorProvider->getDivisor());
-        $allowedMethods = $this->filterMethodsKeepingTheOrderTotal($order, $allowedMethods);
+        $allowedMethods = $this->filterMethodsWithSameSurcharge($order, $allowedMethods);
 
         if (0 === count($allowedMethods)) {
             return $this->getDefaultOptions();
@@ -147,7 +149,7 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
      *
      * @return MollieGatewayConfigInterface[]
      */
-    private function filterMethodsKeepingTheOrderTotal(OrderInterface $order, array $allowedMethods): array
+    private function filterMethodsWithSameSurcharge(OrderInterface $order, array $allowedMethods): array
     {
         if (null === $order->getCheckoutCompletedAt()) {
             return $allowedMethods;
@@ -155,24 +157,52 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
 
         $chargedSurcharge = $this->chargedSurcharge($order);
 
-        return array_values(array_filter(
+        try {
+            return array_values(array_filter(
+                $allowedMethods,
+                fn (MollieGatewayConfigInterface $config): bool => $config instanceof MollieGatewayConfig &&
+                    $this->surchargeAmountCalculator->calculateAmount($order, $config) === $chargedSurcharge,
+            ));
+        } catch (UnknownPaymentSurchargeType $e) {
+            $this->loggerAction->addNegativeLog(sprintf(
+                'Cannot compare payment surcharges, offering only the method the order already carries: %s',
+                $e->getMessage(),
+            ));
+
+            return $this->onlyTheSelectedMethod($order, $allowedMethods);
+        }
+    }
+
+    /**
+     * The surcharge on the order was produced by the method currently selected, so that one is the
+     * only method known to keep the total as it stands.
+     *
+     * @param MollieGatewayConfigInterface[] $allowedMethods
+     *
+     * @return MollieGatewayConfigInterface[]
+     */
+    private function onlyTheSelectedMethod(OrderInterface $order, array $allowedMethods): array
+    {
+        $details = $order->getLastPayment()?->getDetails() ?? [];
+        $selected = $details['molliePaymentMethods'] ?? $details['metadata']['molliePaymentMethods'] ?? null;
+
+        if (null === $selected) {
+            return $allowedMethods;
+        }
+
+        $selectedOnly = array_values(array_filter(
             $allowedMethods,
-            fn (MollieGatewayConfigInterface $config): bool => $config instanceof MollieGatewayConfig &&
-                $this->surchargeAmountCalculator->calculateAmount($order, $config) === $chargedSurcharge,
+            fn (MollieGatewayConfigInterface $config): bool => $config->getMethodId() === $selected,
         ));
+
+        return [] === $selectedOnly ? $allowedMethods : $selectedOnly;
     }
 
     private function chargedSurcharge(OrderInterface $order): int
     {
-        $types = [
-            AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT,
-            AdjustmentInterface::PERCENTAGE_ADJUSTMENT,
-            AdjustmentInterface::PERCENTAGE_AND_AMOUNT_ADJUSTMENT,
-        ];
-
         $total = 0;
 
-        foreach ($types as $type) {
+        foreach ($this->surchargeAdjustmentsProvider->getTypes() as $type) {
             foreach ($order->getAdjustments($type) as $adjustment) {
                 $total += $adjustment->getAmount();
             }

@@ -74,6 +74,8 @@ final class ConvertMolliePaymentAction extends BaseApiAwareAction implements Gat
 
         $paymentOptions = $payment->getDetails();
 
+        // Top level keys come from the latest form submission, while metadata can still carry
+        // values from an earlier Convert run, so on a retry the top level wins.
         $paymentMethod = $paymentOptions['molliePaymentMethods']
             ?? $paymentOptions['metadata']['molliePaymentMethods']
             ?? null;
@@ -155,7 +157,7 @@ final class ConvertMolliePaymentAction extends BaseApiAwareAction implements Gat
         }
 
         // Payum re-runs Convert on every capture while the status is `new` and replaces the
-        // details with this result, so the tracked id has to survive it (#329).
+        // details with this result, so the tracked id has to survive it.
         foreach (['payment_mollie_id', 'order_mollie_id'] as $key) {
             if (isset($paymentOptions[$key])) {
                 $details[$key] = $paymentOptions[$key];

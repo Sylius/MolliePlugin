@@ -160,7 +160,7 @@ final class StatusAction extends BaseApiAwareAction implements GatewayAwareInter
 
         match ($molliePayment->status) {
             // The state machine has no transition back to `new`, so `processing` would make an
-            // abandoned session unpayable for good (#329).
+            // abandoned session unpayable for good.
             PaymentStatus::STATUS_OPEN => $request->markNew(),
             PaymentStatus::STATUS_PENDING => $request->markPending(),
             PaymentStatus::STATUS_AUTHORIZED => $request->markAuthorized(),

@@ -86,6 +86,7 @@
             id="sylius_mollie.calculator.clearer.payment_fee_adjustment"
             class="Sylius\MolliePlugin\Calculator\Clearer\PaymentFeeAdjustmentClearer"
         >
+            <argument type="service" id="sylius_mollie.provider.payment_surcharge_adjustments"/>
         </service>
         <service id="Sylius\MolliePlugin\Calculator\Clearer\PaymentFeeAdjustmentClearerInterface" alias="sylius_mollie.calculator.clearer.payment_fee_adjustment"/>
     </services>

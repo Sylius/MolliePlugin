@@ -31,6 +31,7 @@ use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Model\ApiType;
 use Sylius\MolliePlugin\Model\ApiTypeRestrictedPaymentMethods;
 use Sylius\MolliePlugin\Payum\Request\CreateCustomer;
@@ -60,6 +61,7 @@ final class CaptureAction extends BaseApiAwareAction implements GenericTokenFact
         private MollieApiClientKeyResolverInterface $apiClientKeyResolver,
         private PaymentRepositoryInterface $paymentRepository,
         private ExistingMollieSessionResolverInterface $existingSessionResolver,
+        private MollieLoggerActionInterface $loggerAction,
     ) {
     }
 
@@ -166,6 +168,7 @@ final class CaptureAction extends BaseApiAwareAction implements GenericTokenFact
             $request->getModel() instanceof \ArrayAccess;
     }
 
+    /** @return bool true when the caller is done, false when it should create a new Mollie payment */
     private function handleExistingMolliePayment(Capture $request, ArrayObject $details): bool
     {
         $paymentMollieId = $details['payment_mollie_id'] ?? null;
@@ -175,7 +178,13 @@ final class CaptureAction extends BaseApiAwareAction implements GenericTokenFact
             $mollieResource = null !== $paymentMollieId
                 ? $this->mollieApiClient->payments->get($paymentMollieId)
                 : $this->mollieApiClient->orders->get($orderMollieId, ['embed' => 'payments']);
-        } catch (\Exception) {
+        } catch (\Exception $e) {
+            $this->loggerAction->addNegativeLog(sprintf(
+                'Could not read the tracked Mollie session %s, leaving the payment to the status flow: %s',
+                $paymentMollieId ?? $orderMollieId,
+                $e->getMessage(),
+            ));
+
             return true;
         }
 
@@ -192,7 +201,12 @@ final class CaptureAction extends BaseApiAwareAction implements GenericTokenFact
         if (true === ($mollieResource->isCancelable ?? false)) {
             try {
                 $this->cancelMollieResource($mollieResource);
-            } catch (\Exception) {
+            } catch (\Exception $e) {
+                $this->loggerAction->addNegativeLog(sprintf(
+                    'Could not cancel the superseded Mollie session %s, it stays payable until it expires: %s',
+                    $mollieResource->id,
+                    $e->getMessage(),
+                ));
             }
         }
 

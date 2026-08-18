@@ -38,7 +38,7 @@ final class ExistingMollieSessionResolver implements ExistingMollieSessionResolv
         }
 
         // Mollie redirects back to the token that created the session after every attempt,
-        // abandoned ones included, so this is a return and not a new intent (#329).
+        // abandoned ones included, so this is a return and not a new intent.
         if (null !== $token && $token->getTargetUrl() === $resource->redirectUrl) {
             return ExistingMollieSessionDecision::LeaveToStatusFlow;
         }

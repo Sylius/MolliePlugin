@@ -12,7 +12,9 @@
    returned array.
 
 3. `CaptureAction` takes a resolver deciding what to do with a Mollie session already tracked on the
-   payment: leave it to the status flow, hand it back to the customer, or replace it.
+   payment: leave it to the status flow, hand it back to the customer, or replace it. It also takes
+   the logger, and records the two Mollie failures it used to swallow: a tracked session it cannot
+   read, and a superseded session it cannot cancel.
 
    ```diff
     public function __construct(
@@ -20,6 +22,7 @@
         private MollieApiClientKeyResolverInterface $apiClientKeyResolver,
         private PaymentRepositoryInterface $paymentRepository,
    +    private ExistingMollieSessionResolverInterface $existingSessionResolver,
+   +    private MollieLoggerActionInterface $loggerAction,
     ) {
    ```
 
@@ -37,6 +40,7 @@
         private readonly MollieFactoryNameResolverInterface $mollieFactoryNameResolver,
         private readonly DivisorProviderInterface $divisorProvider,
    +    private readonly PaymentSurchargeAmountCalculatorInterface $surchargeAmountCalculator,
+   +    private readonly PaymentSurchargeAdjustmentsProviderInterface $surchargeAdjustmentsProvider,
     ) {
    ```
 
@@ -44,10 +48,25 @@
    offered when changing the payment method. Shops that configure different surcharges per method
    will see a shorter list there than before. Nothing changes during checkout.
 
+   When a surcharge cannot be compared, only the method the order already carries is offered and the
+   reason is logged, so the total stays correct and the method list never fails because of it. See
+   point 6.
+
 6. The payment fee calculators in `Sylius\MolliePlugin\Calculator\PaymentFee` also implement
    `PaymentSurchargeAmountCalculatorInterface`, which reports a surcharge instead of applying it
-   to an order. `PaymentSurchargeCalculatorInterface` is unchanged, so existing implementations
-   keep working.
+   to an order. `PaymentSurchargeCalculatorInterface` is unchanged and was deliberately left alone
+   rather than gaining the new method, because a class implementing it without `calculateAmount()`
+   would stop loading altogether.
+
+   So a custom calculator implementing only `PaymentSurchargeCalculatorInterface` keeps applying its
+   surcharge exactly as before and needs no change to keep working. What it cannot do is report an
+   amount, so the plugin cannot compare its surcharge against the one already on an order. After
+   checkout completion such an order is then offered only the method it already carries, which is
+   the one that produced its surcharge, and the reason is logged.
+
+   To take part in the comparison, implement `PaymentSurchargeAmountCalculatorInterface` as well and
+   have `calculate()` delegate to `calculateAmount()`, which is what the bundled calculators do, so
+   the applied and the reported value cannot drift apart.
 
    Calculated amounts are unchanged. `FixedAmountAndPercentageCalculator` no longer adds and then
    removes intermediate adjustments to arrive at its total, so an order carrying unrelated
@@ -73,6 +92,26 @@
 
 8. That same log entry is no longer written for Order API payment webhooks, where Mollie calls the
    notify token with the `tr_` id of the payment inside the order.
+
+9. `PaymentSurchargeAdjustmentsProviderInterface` is the single source of truth for the adjustment
+   types a payment surcharge can produce. `PaymentFeeAdjustmentClearer` reads them from it rather
+   than naming three types itself.
+
+   A new parameter has been introduced, `sylius_mollie.payment_surcharge_adjustments`, holding the
+   three built in types. Redefine it to have your own surcharge adjustments cleared and compared
+   along with them.
+
+   ```diff
+   +public function __construct(
+   +    private readonly PaymentSurchargeAdjustmentsProviderInterface $surchargeAdjustmentsProvider,
+   +) {
+   +}
+   +
+    public function clear(OrderInterface $order): void
+   ```
+
+   `PaymentFeeCalculateAction::PAYMENTS_FEE_METHOD` still holds the same three types and still
+   works, but the provider is what the plugin now reads.
 
 9. `Sylius\MolliePlugin\Uploader\PaymentMethodLogoUploader` no longer depends on `Gaufrette\Filesystem`.
    It is now constructed with `Sylius\Component\Core\Filesystem\Adapter\FilesystemAdapterInterface`

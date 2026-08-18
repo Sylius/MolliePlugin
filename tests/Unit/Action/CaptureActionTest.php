@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\MolliePlugin\Unit\Action;
 
 use Mollie\Api\Endpoints\PaymentEndpoint;
+use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Resources\Payment;
 use Mollie\Api\Types\PaymentStatus;
 use Payum\Core\Action\ActionInterface;
@@ -37,6 +38,7 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Model\ApiType;
 use Sylius\MolliePlugin\Payum\Action\CaptureAction;
 use Sylius\MolliePlugin\Payum\Request\CreateCustomer;
@@ -65,17 +67,21 @@ final class CaptureActionTest extends TestCase
 
     private PaymentRepositoryInterface $paymentRepository;
 
+    private MollieLoggerActionInterface $loggerAction;
+
     protected function setUp(): void
     {
         $this->orderRepository = $this->createMock(OrderRepositoryInterface::class);
         $this->apiClientKeyResolver = $this->createMock(MollieApiClientKeyResolverInterface::class);
         $this->paymentRepository = $this->createMock(PaymentRepositoryInterface::class);
+        $this->loggerAction = $this->createMock(MollieLoggerActionInterface::class);
 
         $this->captureAction = new CaptureAction(
             $this->orderRepository,
             $this->apiClientKeyResolver,
             $this->paymentRepository,
             new ExistingMollieSessionResolver(),
+            $this->loggerAction,
         );
 
         $this->gateway = $this->createMock(GatewayInterface::class);
@@ -584,6 +590,83 @@ final class CaptureActionTest extends TestCase
                 ]);
             }
         });
+
+        $this->captureAction->execute($request);
+    }
+
+    public function testItLogsAndStepsAsideWhenTheTrackedSessionCannotBeRead(): void
+    {
+        $paymentEndpoint = $this->createMock(PaymentEndpoint::class);
+        $paymentEndpoint->method('get')->with('tr_unreachable')->willThrowException(new ApiException('network down'));
+        $paymentEndpoint->expects(self::never())->method('create');
+        $this->mollieApiClient->payments = $paymentEndpoint;
+
+        $request = $this->createCaptureRequestFor(new ArrayObject([
+            'payment_mollie_id' => 'tr_unreachable',
+        ]), 'https://shop.test/capture');
+
+        $this->loggerAction->expects(self::once())
+            ->method('addNegativeLog')
+            ->with($this->matchesRegularExpression(
+                '/Could not read the tracked Mollie session tr_unreachable.*network down/',
+            ))
+        ;
+
+        $this->captureAction->execute($request);
+    }
+
+    public function testItLogsWhenTheSupersededSessionCannotBeCancelled(): void
+    {
+        $request = $this->createMock(Capture::class);
+        $payment = $this->createMock(PaymentInterface::class);
+        $token = $this->createMock(TokenInterface::class);
+        $notifyToken = $this->createMock(TokenInterface::class);
+        $refundToken = $this->createMock(TokenInterface::class);
+        $identity = $this->createMock(IdentityInterface::class);
+        $order = $this->createMock(OrderInterface::class);
+        $paymentEndpoint = $this->createMock(PaymentEndpoint::class);
+
+        $openMolliePayment = new Payment($this->mollieApiClient);
+        $openMolliePayment->id = 'tr_old';
+        $openMolliePayment->status = PaymentStatus::STATUS_OPEN;
+        $openMolliePayment->isCancelable = true;
+
+        $this->mollieApiClient->method('isRecurringSubscription')->willReturn(false);
+        $this->mollieApiClient->payments = $paymentEndpoint;
+        $paymentEndpoint->method('get')->with('tr_old')->willReturn($openMolliePayment);
+        $paymentEndpoint->method('cancel')->with('tr_old')->willThrowException(new ApiException('not cancelable after all'));
+
+        $details = new ArrayObject([
+            'payment_mollie_id' => 'tr_old',
+            'metadata' => [
+                'refund_token' => ['refund_token_hash'],
+                'methodType' => ApiType::PAYMENT_API,
+                'molliePaymentMethods' => 'ideal',
+            ],
+            'webhookUrl' => 'url',
+            'backurl' => 'url',
+        ]);
+
+        $request->method('getModel')->willReturn($details);
+        $request->method('getFirstModel')->willReturn($payment);
+        $request->method('getToken')->willReturn($token);
+        $payment->method('getOrder')->willReturn($order);
+
+        $token->method('getGatewayName')->willReturn('test');
+        $token->method('getDetails')->willReturn($identity);
+        $token->method('getTargetUrl')->willReturn('url');
+
+        $this->genericTokenFactory->method('createNotifyToken')->willReturn($notifyToken);
+        $notifyToken->method('getTargetUrl')->willReturn('url');
+        $this->genericTokenFactory->method('createRefundToken')->willReturn($refundToken);
+        $refundToken->method('getHash')->willReturn('refund_token_hash');
+
+        $this->loggerAction->expects(self::once())
+            ->method('addNegativeLog')
+            ->with($this->matchesRegularExpression(
+                '/Could not cancel the superseded Mollie session tr_old.*not cancelable after all/',
+            ))
+        ;
 
         $this->captureAction->execute($request);
     }

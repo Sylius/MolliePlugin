@@ -217,7 +217,7 @@ final class SelectMollieMethodAction
             ]);
         }
 
-        // Cancellation is unavailable for some methods; those stay orphaned until expiry (#329).
+        // Cancellation is unavailable for some methods; those stay orphaned until expiry.
         if (true === ($existingMolliePayment->isCancelable ?? false)) {
             try {
                 $mollieApiClient->payments->cancel($existingMolliePayment->id);

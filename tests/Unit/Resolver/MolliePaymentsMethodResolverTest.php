@@ -19,13 +19,17 @@ use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeAmountCalculatorInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Entity\OrderInterface as MollieOrderInterface;
+use Sylius\MolliePlugin\Exceptions\UnknownPaymentSurchargeType;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Model\AdjustmentInterface as MollieAdjustmentInterface;
 use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
+use Sylius\MolliePlugin\Provider\PaymentSurchargeAdjustmentsProviderInterface;
 use Sylius\MolliePlugin\Repository\MollieGatewayConfigRepository;
 use Sylius\MolliePlugin\Repository\Query\MollieBasedPaymentMethodQueryInterface;
 use Sylius\MolliePlugin\Resolver\MollieAllowedMethodsResolverInterface;
@@ -58,6 +62,8 @@ final class MolliePaymentsMethodResolverTest extends TestCase
 
     private PaymentSurchargeAmountCalculatorInterface $surchargeAmountCalculatorMock;
 
+    private PaymentSurchargeAdjustmentsProviderInterface $surchargeAdjustmentsProviderMock;
+
     private MolliePaymentsMethodResolver $resolver;
 
     protected function setUp(): void
@@ -72,6 +78,8 @@ final class MolliePaymentsMethodResolverTest extends TestCase
         $this->mollieFactoryNameResolverMock = $this->createMock(MollieFactoryNameResolverInterface::class);
         $this->divisorProviderMock = $this->createMock(DivisorProviderInterface::class);
         $this->surchargeAmountCalculatorMock = $this->createMock(PaymentSurchargeAmountCalculatorInterface::class);
+        $this->surchargeAdjustmentsProviderMock = $this->createMock(PaymentSurchargeAdjustmentsProviderInterface::class);
+        $this->surchargeAdjustmentsProviderMock->method('getTypes')->willReturn([MollieAdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT]);
 
         $this->resolver = new MolliePaymentsMethodResolver(
             $this->mollieGatewayRepositoryMock,
@@ -84,6 +92,7 @@ final class MolliePaymentsMethodResolverTest extends TestCase
             $this->mollieFactoryNameResolverMock,
             $this->divisorProviderMock,
             $this->surchargeAmountCalculatorMock,
+            $this->surchargeAdjustmentsProviderMock,
         );
     }
 
@@ -167,6 +176,51 @@ final class MolliePaymentsMethodResolverTest extends TestCase
         $this->resolver->resolve();
     }
 
+    public function testItFallsBackToTheSelectedMethodWhenASurchargeCannotBeCompared(): void
+    {
+        $ideal = $this->config('ideal');
+        $satispay = $this->config('satispay');
+
+        $order = $this->orderChargedWith(500, new \DateTimeImmutable(), 'ideal');
+        $this->expectMethodsOffered($order, [$ideal, $satispay], ['ideal' => 500, 'satispay' => 400]);
+
+        $this->surchargeAmountCalculatorMock->method('calculateAmount')
+            ->willThrowException(new UnknownPaymentSurchargeType('no calculator supports payment type: custom'))
+        ;
+
+        $this->loggerActionMock->expects($this->once())
+            ->method('addNegativeLog')
+            ->with($this->matchesRegularExpression('/Cannot compare payment surcharges/'))
+        ;
+        $this->countriesRestrictionResolverMock->expects($this->once())
+            ->method('resolve')
+            ->with($ideal, $this->anything(), 'NL')
+            ->willReturn($this->defaultOptions())
+        ;
+
+        $this->resolver->resolve();
+    }
+
+    public function testItOffersEveryMethodWhenNeitherTheSurchargeNorTheSelectionCanBeRead(): void
+    {
+        $ideal = $this->config('ideal');
+        $satispay = $this->config('satispay');
+
+        $order = $this->orderChargedWith(500, new \DateTimeImmutable());
+        $this->expectMethodsOffered($order, [$ideal, $satispay], ['ideal' => 500, 'satispay' => 400]);
+
+        $this->surchargeAmountCalculatorMock->method('calculateAmount')
+            ->willThrowException(new UnknownPaymentSurchargeType('no calculator supports payment type: custom'))
+        ;
+
+        $this->countriesRestrictionResolverMock->expects($this->exactly(2))
+            ->method('resolve')
+            ->willReturn($this->defaultOptions())
+        ;
+
+        $this->resolver->resolve();
+    }
+
     private function config(string $methodId): MollieGatewayConfig
     {
         $config = $this->createMock(MollieGatewayConfig::class);
@@ -175,8 +229,11 @@ final class MolliePaymentsMethodResolverTest extends TestCase
         return $config;
     }
 
-    private function orderChargedWith(int $surcharge, ?\DateTimeImmutable $checkoutCompletedAt): MollieOrderInterface
-    {
+    private function orderChargedWith(
+        int $surcharge,
+        ?\DateTimeImmutable $checkoutCompletedAt,
+        ?string $selectedMethodId = null,
+    ): MollieOrderInterface {
         $adjustment = $this->createMock(AdjustmentInterface::class);
         $adjustment->method('getAmount')->willReturn($surcharge);
 
@@ -188,6 +245,14 @@ final class MolliePaymentsMethodResolverTest extends TestCase
         $order->method('getChannel')->willReturn($this->createMock(ChannelInterface::class));
         $order->method('getCheckoutCompletedAt')->willReturn($checkoutCompletedAt);
         $order->method('getTotal')->willReturn(7597);
+        $payment = null;
+
+        if (null !== $selectedMethodId) {
+            $payment = $this->createMock(PaymentInterface::class);
+            $payment->method('getDetails')->willReturn(['molliePaymentMethods' => $selectedMethodId]);
+        }
+
+        $order->method('getLastPayment')->willReturn($payment);
         $order->method('getAdjustments')->willReturnCallback(
             fn (?string $type = null): Collection => new ArrayCollection(
                 'fixed_fee' === $type ? [$adjustment] : [],
