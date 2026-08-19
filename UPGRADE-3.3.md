@@ -1,3 +1,21 @@
+# UPGRADE FROM 3.3.3 TO 3.3.4
+
+1. The checkout payment form no longer persists Mollie-specific keys (`molliePaymentMethods`,
+   `cartToken`, `saveCardInfo`, `useSavedCards`) in `Payment::details` for payments made through
+   non-Mollie gateways. When the selected payment method does not use a Mollie gateway, these keys
+   are stripped from the payment details on form submission, so unrelated gateways keep only their
+   own data.
+
+   `Sylius\MolliePlugin\Form\Extension\PaymentTypeExtension` gained an optional
+   `Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryCheckerInterface` constructor argument
+   (it falls back to the default checker when omitted), so no changes are required for existing
+   instantiations. Omitting the argument now triggers a deprecation and will be required in 4.0 -
+   if you instantiate the extension yourself, start passing the checker.
+
+# UPGRADE FROM 3.3.2 TO 3.3.3
+
+1. Establish gateway ownership before reading its config in surcharge processor
+
 # UPGRADE FROM 3.3.1 TO 3.3.2
 
 1. Run `yarn install` and `yarn build` to rebuild the shop assets. The bundled
