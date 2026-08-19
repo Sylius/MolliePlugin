@@ -6,11 +6,8 @@
    are stripped from the payment details on form submission, so unrelated gateways keep only their
    own data.
 
-   `Sylius\MolliePlugin\Form\Extension\PaymentTypeExtension` gained an optional
-   `Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryCheckerInterface` constructor argument
-   (it falls back to the default checker when omitted), so no changes are required for existing
-   instantiations. Omitting the argument now triggers a deprecation and will be required in 4.0 -
-   if you instantiate the extension yourself, start passing the checker.
+   `Sylius\MolliePlugin\Form\Extension\PaymentTypeExtension` gained a
+   `Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryCheckerInterface` constructor argument.
 
 # UPGRADE FROM 3.3.2 TO 3.3.3
 

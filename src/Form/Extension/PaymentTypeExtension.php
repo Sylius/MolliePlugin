@@ -17,7 +17,6 @@ use Payum\Core\Model\GatewayConfigInterface;
 use Sylius\Bundle\CoreBundle\Form\Type\Checkout\PaymentType;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\MolliePlugin\Form\Type\PaymentMollieType;
-use Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryChecker;
 use Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryCheckerInterface;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,22 +26,9 @@ use Symfony\Component\Validator\Constraints\Valid;
 
 final class PaymentTypeExtension extends AbstractTypeExtension
 {
-    private readonly MollieGatewayFactoryCheckerInterface $mollieGatewayFactoryChecker;
-
     public function __construct(
-        ?MollieGatewayFactoryCheckerInterface $mollieGatewayFactoryChecker = null,
+        private readonly MollieGatewayFactoryCheckerInterface $mollieGatewayFactoryChecker,
     ) {
-        if (null === $mollieGatewayFactoryChecker) {
-            trigger_deprecation(
-                'sylius/mollie-plugin',
-                '3.3.4',
-                'Not passing a "%s" to "%s" is deprecated and will be required in 4.0.',
-                MollieGatewayFactoryCheckerInterface::class,
-                self::class,
-            );
-        }
-
-        $this->mollieGatewayFactoryChecker = $mollieGatewayFactoryChecker ?? new MollieGatewayFactoryChecker();
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
