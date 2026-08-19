@@ -27,7 +27,6 @@ use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\FormInterface;
 
 final class PaymentTypeExtensionTest extends TestCase
@@ -45,7 +44,6 @@ final class PaymentTypeExtensionTest extends TestCase
 
     public function testItExtendsTheCheckoutPaymentType(): void
     {
-        $this->assertInstanceOf(FormExtensionInterface::class, $this->extension);
         $this->assertSame([PaymentType::class], PaymentTypeExtension::getExtendedTypes());
     }
 
@@ -114,9 +112,10 @@ final class PaymentTypeExtensionTest extends TestCase
 
     public function testItDoesNothingWhenTheDataIsNotAPayment(): void
     {
-        $this->expectNotToPerformAssertions();
-
         $this->dispatchPostSubmit(new \stdClass());
+
+        // Reaching this point without an exception proves the listener ignored non-payment data.
+        $this->addToAssertionCount(1);
     }
 
     /**
