@@ -119,6 +119,25 @@ final class PaymentTypeExtensionTest extends TestCase
     }
 
     /**
+     * @group legacy
+     */
+    public function testItFallsBackToTheDefaultCheckerWhenNoneIsProvided(): void
+    {
+        $extension = new PaymentTypeExtension();
+
+        $payment = $this->createPayment(
+            factoryName: 'offline',
+            details: $this->mollieDetails + ['unrelatedGatewayKey' => 'value'],
+        );
+
+        $payment->expects($this->once())
+            ->method('setDetails')
+            ->with(['unrelatedGatewayKey' => 'value']);
+
+        $this->dispatchPostSubmit($payment, $extension);
+    }
+
+    /**
      * @return PaymentInterface&MockObject
      */
     private function createPayment(string $factoryName, array $details): PaymentInterface
@@ -136,14 +155,14 @@ final class PaymentTypeExtensionTest extends TestCase
         return $payment;
     }
 
-    private function dispatchPostSubmit(mixed $data): void
+    private function dispatchPostSubmit(mixed $data, ?PaymentTypeExtension $extension = null): void
     {
-        $listener = $this->capturePostSubmitListener();
+        $listener = $this->capturePostSubmitListener($extension ?? $this->extension);
 
         $listener(new FormEvent($this->createMock(FormInterface::class), $data));
     }
 
-    private function capturePostSubmitListener(): callable
+    private function capturePostSubmitListener(PaymentTypeExtension $extension): callable
     {
         $listener = null;
 
@@ -158,7 +177,7 @@ final class PaymentTypeExtensionTest extends TestCase
                 return $builder;
             });
 
-        $this->extension->buildForm($builder, []);
+        $extension->buildForm($builder, []);
 
         $this->assertNotNull($listener, 'Expected a POST_SUBMIT listener to be registered.');
 
