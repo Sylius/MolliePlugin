@@ -157,11 +157,15 @@ final class ConvertMolliePaymentAction extends BaseApiAwareAction implements Gat
         }
 
         // Payum re-runs Convert on every capture while the status is `new` and replaces the
-        // details with this result, so the tracked id has to survive it.
-        foreach (['payment_mollie_id', 'order_mollie_id'] as $key) {
+        // details with this result, so everything describing the tracked session has to survive it.
+        foreach (['payment_mollie_id', 'order_mollie_id', 'webhookUrl', 'backurl'] as $key) {
             if (isset($paymentOptions[$key])) {
                 $details[$key] = $paymentOptions[$key];
             }
+        }
+
+        if (isset($paymentOptions['metadata']['refund_token'])) {
+            $details['metadata']['refund_token'] = $paymentOptions['metadata']['refund_token'];
         }
 
         $request->setResult($details);

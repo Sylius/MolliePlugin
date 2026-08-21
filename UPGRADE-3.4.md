@@ -7,9 +7,11 @@
    Anything that treats `processing` as "the customer started paying" changes meaning: admin grid
    filters, reporting, exports and custom state-machine callbacks.
 
-2. `ConvertMolliePaymentAction` now copies `payment_mollie_id` and `order_mollie_id` from the
-   existing payment details into its result. If you decorate this action, keep both keys in the
-   returned array.
+2. `ConvertMolliePaymentAction` now copies everything describing the Mollie session already tracked
+   on the payment into its result: `payment_mollie_id`, `order_mollie_id`, `webhookUrl`, `backurl`
+   and `metadata.refund_token`. Payum replaces the payment details with this result on every capture
+   while the payment sits in `new`, so a decorating action that drops these keys loses the payment
+   link, the abandoned payment link emails and Mollie side refunds for that payment.
 
 3. `CaptureAction` takes a resolver deciding what to do with a Mollie session already tracked on the
    payment: leave it to the status flow, hand it back to the customer, or replace it. It also takes

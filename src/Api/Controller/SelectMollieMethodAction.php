@@ -149,6 +149,7 @@ final class SelectMollieMethodAction
             'useSavedCards' => '0',
             'webhookUrl' => $paymentData['webhookUrl'],
             'backurl' => $paymentData['redirectUrl'],
+            'metadata' => $paymentData['metadata'],
         ];
 
         if ($isSubscription) {
@@ -221,7 +222,12 @@ final class SelectMollieMethodAction
         if (true === ($existingMolliePayment->isCancelable ?? false)) {
             try {
                 $mollieApiClient->payments->cancel($existingMolliePayment->id);
-            } catch (ApiException) {
+            } catch (ApiException $exception) {
+                $this->logger->addNegativeLog(sprintf(
+                    'Could not cancel the superseded Mollie session %s, it stays payable until it expires: %s',
+                    $existingMolliePayment->id,
+                    $exception->getMessage(),
+                ));
             }
         }
 

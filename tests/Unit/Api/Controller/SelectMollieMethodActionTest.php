@@ -36,7 +36,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class SelectMollieMethodActionTest extends TestCase
 {
-    public function testItAppendsPreviousMollieIdToHistoryOnRetryWithDifferentMethod(): void
+    public function testItTracksOnlyTheNewMollieSessionAfterAMethodChange(): void
     {
         $orderRepository = $this->createMock(OrderRepositoryInterface::class);
         $entityManager = $this->createMock(EntityManagerInterface::class);
@@ -93,6 +93,11 @@ final class SelectMollieMethodActionTest extends TestCase
         $paymentDataCreator->method('create')->willReturn([
             'webhookUrl' => 'https://example.com/webhook',
             'redirectUrl' => 'https://example.com/redirect',
+            'metadata' => [
+                'order_id' => 42,
+                'customer_id' => 7,
+                'molliePaymentMethods' => 'ideal',
+            ],
         ]);
 
         $newMolliePayment = (object) [
@@ -119,5 +124,6 @@ final class SelectMollieMethodActionTest extends TestCase
         $action('order_token', $request);
 
         self::assertSame('tr_new', $capturedDetails['payment_mollie_id']);
+        self::assertSame(42, $capturedDetails['metadata']['order_id']);
     }
 }
