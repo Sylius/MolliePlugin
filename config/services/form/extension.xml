@@ -23,6 +23,7 @@
         </service>
 
         <service id="sylius_mollie.form.extension.type.payment" class="Sylius\MolliePlugin\Form\Extension\PaymentTypeExtension">
+            <argument type="service" id="Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryCheckerInterface"/>
             <tag name="form.type_extension" extended_type="Sylius\Bundle\CoreBundle\Form\Type\Checkout\PaymentType"/>
         </service>
 

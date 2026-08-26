@@ -22,6 +22,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 final class PaymentMollieType extends AbstractType
 {
+    public const FIELD_PAYMENT_METHODS = 'molliePaymentMethods';
+
+    public const FIELD_CART_TOKEN = 'cartToken';
+
+    public const FIELD_SAVE_CARD_INFO = 'saveCardInfo';
+
+    public const FIELD_USE_SAVED_CARDS = 'useSavedCards';
+
     public function __construct(private readonly MolliePaymentsMethodResolverInterface $methodResolver)
     {
     }
@@ -35,7 +43,7 @@ final class PaymentMollieType extends AbstractType
         $paymentFee = $methods['paymentFee'];
 
         $builder
-            ->add('molliePaymentMethods', ChoiceType::class, [
+            ->add(self::FIELD_PAYMENT_METHODS, ChoiceType::class, [
                 'constraints' => [
                     new PaymentMethodCheckout([
                         'groups' => ['sylius'],
@@ -48,8 +56,8 @@ final class PaymentMollieType extends AbstractType
                     'paymentFee' => $paymentFee[$value],
                 ],
             ])
-            ->add('cartToken', HiddenType::class)
-            ->add('saveCardInfo', HiddenType::class)
-            ->add('useSavedCards', HiddenType::class);
+            ->add(self::FIELD_CART_TOKEN, HiddenType::class)
+            ->add(self::FIELD_SAVE_CARD_INFO, HiddenType::class)
+            ->add(self::FIELD_USE_SAVED_CARDS, HiddenType::class);
     }
 }
