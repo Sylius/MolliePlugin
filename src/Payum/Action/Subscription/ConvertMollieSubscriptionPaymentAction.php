@@ -118,6 +118,14 @@ final class ConvertMollieSubscriptionPaymentAction extends BaseApiAwareAction im
         $model = $mollieCustomer->getModel();
         $details['customerId'] = $model['customer_mollie_id'];
 
+        // Payum re-runs Convert on every capture while the status is `new` and replaces the
+        // details with this result, so everything describing the tracked session has to survive it.
+        foreach (['payment_mollie_id', 'order_mollie_id', 'webhookUrl', 'backurl'] as $key) {
+            if (isset($paymentOptions[$key])) {
+                $details[$key] = $paymentOptions[$key];
+            }
+        }
+
         $request->setResult($details);
     }
 

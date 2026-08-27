@@ -13,6 +13,8 @@
    while the payment sits in `new`, so a decorating action that drops these keys loses the payment
    link, the abandoned payment link emails and Mollie side refunds for that payment.
 
+   `ConvertMollieSubscriptionPaymentAction` carries the same four top level keys over.
+
 3. `CaptureAction` takes a resolver deciding what to do with a Mollie session already tracked on the
    payment: leave it to the status flow, hand it back to the customer, or replace it. It also takes
    the logger, and records the two Mollie failures it used to swallow: a tracked session it cannot
