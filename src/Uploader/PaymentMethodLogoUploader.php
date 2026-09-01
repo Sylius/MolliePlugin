@@ -14,14 +14,14 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Uploader;
 
 use Doctrine\Common\Collections\Collection;
-use Gaufrette\Filesystem;
+use Sylius\Component\Core\Filesystem\Adapter\FilesystemAdapterInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Webmozart\Assert\Assert;
 
 final class PaymentMethodLogoUploader implements PaymentMethodLogoUploaderInterface
 {
-    public function __construct(private readonly Filesystem $filesystem)
+    public function __construct(private readonly FilesystemAdapterInterface $filesystem)
     {
     }
 
@@ -39,7 +39,9 @@ final class PaymentMethodLogoUploader implements PaymentMethodLogoUploaderInterf
     public function remove(string $path): bool
     {
         if ($this->filesystem->has($path)) {
-            return $this->filesystem->delete($path);
+            $this->filesystem->delete($path);
+
+            return true;
         }
 
         return false;
