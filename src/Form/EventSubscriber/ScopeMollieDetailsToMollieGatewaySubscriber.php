@@ -103,7 +103,20 @@ final class ScopeMollieDetailsToMollieGatewaySubscriber implements EventSubscrib
             'constraints' => [
                 new Valid(),
             ],
+            PaymentMollieType::OPTION_MOLLIE_METHODS => $this->alreadyResolvedMollieMethods($form),
         ]);
+    }
+
+    /** @return array<string, mixed>|null */
+    private function alreadyResolvedMollieMethods(FormBuilderInterface|FormInterface $form): ?array
+    {
+        if (!$form instanceof FormInterface || !$this->ownsDetails($form)) {
+            return null;
+        }
+
+        $methods = $form->get(self::DETAILS_FIELD)->getConfig()->getAttribute(PaymentMollieType::OPTION_MOLLIE_METHODS);
+
+        return is_array($methods) ? $methods : null;
     }
 
     /** Only what this subscriber removed is dropped; a `details` field owned by someone else is not ours to clear. */

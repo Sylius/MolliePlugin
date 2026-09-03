@@ -63,15 +63,21 @@ final class PaymentTypeExtensionTest extends TypeTestCase
 
     private MockObject&MolliePaymentsMethodResolverInterface $molliePaymentsMethodResolver;
 
+    private int $resolveCalls = 0;
+
     protected function setUp(): void
     {
         $this->molliePaymentsMethodResolver = $this->createMock(MolliePaymentsMethodResolverInterface::class);
-        $this->molliePaymentsMethodResolver->method('resolve')->willReturn([
-            'data' => ['ideal' => 'iDEAL'],
-            'image' => ['ideal' => ['name' => 'ideal.png']],
-            'issuers' => [],
-            'paymentFee' => ['ideal' => 0],
-        ]);
+        $this->molliePaymentsMethodResolver->method('resolve')->willReturnCallback(function (): array {
+            ++$this->resolveCalls;
+
+            return [
+                'data' => ['ideal' => 'iDEAL'],
+                'image' => ['ideal' => ['name' => 'ideal.png']],
+                'issuers' => [],
+                'paymentFee' => ['ideal' => 0],
+            ];
+        });
 
         parent::setUp();
     }
@@ -121,6 +127,46 @@ final class PaymentTypeExtensionTest extends TypeTestCase
         self::assertArrayHasKey('cartToken', $detailsView->children);
         self::assertArrayHasKey('saveCardInfo', $detailsView->children);
         self::assertArrayHasKey('useSavedCards', $detailsView->children);
+        self::assertCount(1, $detailsView->children['molliePaymentMethods']->vars['choices']);
+    }
+
+    /** @dataProvider submittedMethodProvider */
+    public function testItResolvesTheMollieMethodsOnlyOncePerFormBuild(string $submittedMethod): void
+    {
+        $this->paymentMethods = [
+            $this->createPaymentMethod('offline', 'offline'),
+            $this->createPaymentMethod('mollie', MollieGatewayFactory::FACTORY_NAME),
+        ];
+
+        $form = $this->factory->create(PaymentType::class, $this->createPayment());
+
+        self::assertSame(1, $this->resolveCalls);
+
+        $form->submit(['method' => $submittedMethod, 'details' => self::MOLLIE_DETAILS]);
+
+        self::assertSame(1, $this->resolveCalls);
+    }
+
+    /** @return iterable<string, array{string}> */
+    public static function submittedMethodProvider(): iterable
+    {
+        yield 'a Mollie method' => ['mollie'];
+        yield 'an unrelated gateway' => ['offline'];
+    }
+
+    public function testItKeepsTheRebuiltFieldRenderable(): void
+    {
+        $this->paymentMethods = [
+            $this->createPaymentMethod('offline', 'offline'),
+            $this->createPaymentMethod('mollie', MollieGatewayFactory::FACTORY_NAME),
+        ];
+
+        $form = $this->factory->create(PaymentType::class, $this->createPayment());
+
+        $form->submit(['method' => 'offline', 'details' => self::MOLLIE_DETAILS]);
+
+        $detailsView = $form->createView()->children['details'];
+
         self::assertCount(1, $detailsView->children['molliePaymentMethods']->vars['choices']);
     }
 
