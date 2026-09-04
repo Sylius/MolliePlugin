@@ -22,6 +22,11 @@ use Sylius\TwigHooks\Twig\Component\HookableComponentTrait;
 use Symfony\UX\TwigComponent\Attribute\ExposeInTemplate;
 use Symfony\UX\TwigComponent\Attribute\PostMount;
 
+/**
+ * @deprecated since Mollie 3.3 and will be removed in 4.0.
+ *
+ * @see https://github.com/Sylius/MolliePlugin/blob/3.3/UPGRADE-3.3.md for migration details
+ */
 class CancelSubscriptionComponent
 {
     use HookableComponentTrait;
@@ -50,7 +55,7 @@ class CancelSubscriptionComponent
         $this->orderToken = $this->order->getTokenValue();
         $subscription = $this->subscriptionRepository->findOneActiveByOrderToken($this->orderToken);
 
-        if ($subscription !== null) {
+        if ($subscription !== null && null === $subscription->getMigratedAt()) {
             $this->subscriptionId = $subscription->getId();
             $this->cancellableSubscription = $this->stateMachine->can(
                 $subscription,

@@ -2,14 +2,18 @@ const {Mollie} = window;
 
 document.addEventListener('DOMContentLoaded', function () {
     const mollieData = document.querySelector('.online-online-payment__container');
-    if (!mollieData) {
-        return;
-    }
 
     let disableValidationMollieComponents = false;
     let selectedValue = false;
     let orderId = null;
     let qrCodeInterval = null;
+
+    showQrCodePopUp();
+
+    if (!mollieData) {
+        return;
+    }
+
     const orderTotalRow = document.getElementById('sylius-shop-checkout-summary-order-total');
     const initialOrderTotal = orderTotalRow ? orderTotalRow.textContent : null;
     const cardActiveClass = 'online-payment__item--active';
@@ -238,8 +242,6 @@ document.addEventListener('DOMContentLoaded', function () {
             fetchQrCode(qrCodeGetUrl);
         }
     }
-
-    showQrCodePopUp();
 
     function createPopup(qrCode, qrCodeMethod) {
         // Create popup container
