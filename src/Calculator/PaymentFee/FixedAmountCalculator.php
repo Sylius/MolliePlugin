@@ -21,7 +21,7 @@ use Sylius\MolliePlugin\Model\PaymentSurchargeFeeType;
 use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
 use Webmozart\Assert\Assert;
 
-final class FixedAmountCalculator implements PaymentSurchargeCalculatorInterface
+final class FixedAmountCalculator implements PaymentSurchargeCalculatorInterface, PaymentSurchargeAmountCalculatorInterface
 {
     public function __construct(
         private readonly AdjustmentFactoryInterface $adjustmentFactory,
@@ -36,15 +36,20 @@ final class FixedAmountCalculator implements PaymentSurchargeCalculatorInterface
 
     public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): void
     {
+        $adjustment = $this->adjustmentFactory->createNew();
+        $adjustment->setType(AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT);
+        $adjustment->setAmount($this->calculateAmount($order, $paymentMethod));
+        $adjustment->setNeutral(false);
+
+        $order->addAdjustment($adjustment);
+    }
+
+    public function calculateAmount(OrderInterface $order, MollieGatewayConfig $paymentMethod): int
+    {
         Assert::notNull($paymentMethod->getPaymentSurchargeFee());
         $fixedAmount = $paymentMethod->getPaymentSurchargeFee()->getFixedAmount();
         Assert::notNull($fixedAmount);
 
-        $adjustment = $this->adjustmentFactory->createNew();
-        $adjustment->setType(AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT);
-        $adjustment->setAmount((int) ($fixedAmount * $this->divisorProvider->getDivisor()));
-        $adjustment->setNeutral(false);
-
-        $order->addAdjustment($adjustment);
+        return (int) ($fixedAmount * $this->divisorProvider->getDivisor());
     }
 }

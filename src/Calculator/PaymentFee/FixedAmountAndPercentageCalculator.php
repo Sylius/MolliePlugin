@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Calculator\PaymentFee;
 
-use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Order\Factory\AdjustmentFactoryInterface;
 use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
@@ -22,12 +21,12 @@ use Sylius\MolliePlugin\Model\PaymentSurchargeFeeType;
 use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
 use Webmozart\Assert\Assert;
 
-final class FixedAmountAndPercentageCalculator implements PaymentSurchargeCalculatorInterface
+final class FixedAmountAndPercentageCalculator implements PaymentSurchargeCalculatorInterface, PaymentSurchargeAmountCalculatorInterface
 {
     public function __construct(
         private readonly AdjustmentFactoryInterface $adjustmentFactory,
-        private readonly PaymentSurchargeCalculatorInterface $percentageCalculator,
-        private readonly PaymentSurchargeCalculatorInterface $fixedAmountCalculator,
+        private readonly PaymentSurchargeAmountCalculatorInterface $percentageCalculator,
+        private readonly PaymentSurchargeAmountCalculatorInterface $fixedAmountCalculator,
         private readonly DivisorProviderInterface $divisorProvider,
     ) {
     }
@@ -39,42 +38,28 @@ final class FixedAmountAndPercentageCalculator implements PaymentSurchargeCalcul
 
     public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): void
     {
+        $adjustment = $this->adjustmentFactory->createNew();
+        $adjustment->setType(AdjustmentInterface::PERCENTAGE_AND_AMOUNT_ADJUSTMENT);
+        $adjustment->setAmount($this->calculateAmount($order, $paymentMethod));
+        $adjustment->setNeutral(false);
+        $order->addAdjustment($adjustment);
+    }
+
+    public function calculateAmount(OrderInterface $order, MollieGatewayConfig $paymentMethod): int
+    {
         $paymentSurchargeFee = $paymentMethod->getPaymentSurchargeFee();
         Assert::notNull($paymentSurchargeFee);
         Assert::notNull($paymentSurchargeFee->getSurchargeLimit());
 
         $limit = $paymentSurchargeFee->getSurchargeLimit() * $this->divisorProvider->getDivisor();
 
-        $this->percentageCalculator->calculate($order, $paymentMethod);
-        $this->fixedAmountCalculator->calculate($order, $paymentMethod);
-
-        $percentageAmount = $this->getSumOfCalculatedValue($order->getAdjustments(AdjustmentInterface::PERCENTAGE_ADJUSTMENT));
-        $fixedAmount = $this->getSumOfCalculatedValue($order->getAdjustments(AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT));
-
-        $order->removeAdjustments(AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT);
-        $order->removeAdjustments(AdjustmentInterface::PERCENTAGE_ADJUSTMENT);
-
-        $totalAmount = $percentageAmount + $fixedAmount;
+        $totalAmount = $this->percentageCalculator->calculateAmount($order, $paymentMethod)
+            + $this->fixedAmountCalculator->calculateAmount($order, $paymentMethod);
 
         if ($totalAmount > $limit) {
             $totalAmount = $limit;
         }
 
-        $adjustment = $this->adjustmentFactory->createNew();
-        $adjustment->setType(AdjustmentInterface::PERCENTAGE_AND_AMOUNT_ADJUSTMENT);
-        $adjustment->setAmount((int) ceil($totalAmount));
-        $adjustment->setNeutral(false);
-        $order->addAdjustment($adjustment);
-    }
-
-    private function getSumOfCalculatedValue(Collection $adjustments): float
-    {
-        $total = 0;
-        /** @var AdjustmentInterface $adjustment */
-        foreach ($adjustments as $adjustment) {
-            $total += $adjustment->getAmount();
-        }
-
-        return $total;
+        return (int) ceil($totalAmount);
     }
 }

@@ -21,7 +21,7 @@ use Sylius\MolliePlugin\Model\PaymentSurchargeFeeType;
 use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
 use Webmozart\Assert\Assert;
 
-final class PercentageCalculator implements PaymentSurchargeCalculatorInterface
+final class PercentageCalculator implements PaymentSurchargeCalculatorInterface, PaymentSurchargeAmountCalculatorInterface
 {
     public function __construct(
         private readonly AdjustmentFactoryInterface $adjustmentFactory,
@@ -35,6 +35,15 @@ final class PercentageCalculator implements PaymentSurchargeCalculatorInterface
     }
 
     public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): void
+    {
+        $adjustment = $this->adjustmentFactory->createNew();
+        $adjustment->setType(AdjustmentInterface::PERCENTAGE_ADJUSTMENT);
+        $adjustment->setAmount($this->calculateAmount($order, $paymentMethod));
+        $adjustment->setNeutral(false);
+        $order->addAdjustment($adjustment);
+    }
+
+    public function calculateAmount(OrderInterface $order, MollieGatewayConfig $paymentMethod): int
     {
         $paymentSurchargeFee = $paymentMethod->getPaymentSurchargeFee();
         Assert::notNull($paymentSurchargeFee);
@@ -50,10 +59,6 @@ final class PercentageCalculator implements PaymentSurchargeCalculatorInterface
             $amount = $limit;
         }
 
-        $adjustment = $this->adjustmentFactory->createNew();
-        $adjustment->setType(AdjustmentInterface::PERCENTAGE_ADJUSTMENT);
-        $adjustment->setAmount((int) ceil($amount));
-        $adjustment->setNeutral(false);
-        $order->addAdjustment($adjustment);
+        return (int) ceil($amount);
     }
 }

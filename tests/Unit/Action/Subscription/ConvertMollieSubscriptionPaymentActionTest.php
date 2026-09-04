@@ -106,4 +106,42 @@ final class ConvertMollieSubscriptionPaymentActionTest extends TestCase
         self::assertSame('mdt_xyz', $result['mandateId']);
         self::assertSame('cst_abc', $result['customerId']);
     }
+
+    public function testItCarriesTheTrackedMollieSessionOverIntoTheConvertedDetails(): void
+    {
+        $customer = $this->createMock(CustomerInterface::class);
+        $customer->method('getId')->willReturn(1);
+        $customer->method('getFullName')->willReturn('Jane Doe');
+        $customer->method('getEmail')->willReturn('jane@example.com');
+
+        $order = $this->createMock(OrderInterface::class);
+        $order->method('getRecurringSequenceIndex')->willReturn(0);
+        $order->method('getCustomer')->willReturn($customer);
+        $order->method('getNumber')->willReturn('000001');
+        $order->method('getId')->willReturn(10);
+
+        $payment = $this->createMock(PaymentInterface::class);
+        $payment->method('getOrder')->willReturn($order);
+        $payment->method('getCurrencyCode')->willReturn('EUR');
+        $payment->method('getAmount')->willReturn(1000);
+        $payment->method('getDetails')->willReturn([
+            'metadata' => ['molliePaymentMethods' => 'ideal', 'refund_token' => 'refund_hash'],
+            'payment_mollie_id' => 'tr_tracked',
+            'webhookUrl' => 'https://shop.example.com/payment/notify/hash',
+            'backurl' => 'https://shop.example.com/payment/capture/hash',
+        ]);
+
+        $token = $this->createMock(TokenInterface::class);
+        $token->method('getGatewayName')->willReturn('mollie_subscription');
+
+        $request = new Convert($payment, 'array', $token);
+
+        $this->action->execute($request);
+
+        $result = $request->getResult();
+        self::assertSame('tr_tracked', $result['payment_mollie_id']);
+        self::assertSame('https://shop.example.com/payment/notify/hash', $result['webhookUrl']);
+        self::assertSame('https://shop.example.com/payment/capture/hash', $result['backurl']);
+        self::assertSame('refund_hash', $result['metadata']['refund_token']);
+    }
 }
