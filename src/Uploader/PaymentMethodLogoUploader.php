@@ -15,6 +15,7 @@ namespace Sylius\MolliePlugin\Uploader;
 
 use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Core\Filesystem\Adapter\FilesystemAdapterInterface;
+use Sylius\Component\Core\Filesystem\Exception\FileNotFoundException;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Webmozart\Assert\Assert;
@@ -38,13 +39,13 @@ final class PaymentMethodLogoUploader implements PaymentMethodLogoUploaderInterf
 
     public function remove(string $path): bool
     {
-        if ($this->filesystem->has($path)) {
+        try {
             $this->filesystem->delete($path);
-
-            return true;
+        } catch (FileNotFoundException) {
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     private function uploadSingle(MollieGatewayConfigInterface $mollieGatewayConfig): void
