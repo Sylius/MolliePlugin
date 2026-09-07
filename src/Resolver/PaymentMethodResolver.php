@@ -18,8 +18,13 @@ use Sylius\Component\Core\Model\PaymentInterface as CorePaymentInterface;
 use Sylius\Component\Payment\Model\PaymentInterface;
 use Sylius\Component\Payment\Model\PaymentMethodInterface;
 use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
+use Sylius\MolliePlugin\Calculator\PaymentFee\ChargedSurchargeMatcherInterface;
+use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Exceptions\UnknownPaymentSurchargeType;
 use Sylius\MolliePlugin\Filter\MollieMethodFilterInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryCheckerInterface;
 use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Repository\Query\MollieBasedPaymentMethodQueryInterface;
 use Webmozart\Assert\Assert;
@@ -32,6 +37,9 @@ final class PaymentMethodResolver implements PaymentMethodsResolverInterface
         private readonly MollieFactoryNameResolverInterface $factoryNameResolver,
         private readonly MollieMethodFilterInterface $mollieMethodFilter,
         private readonly EntityManagerInterface $entityManager,
+        private readonly ChargedSurchargeMatcherInterface $chargedSurchargeMatcher,
+        private readonly MollieGatewayFactoryCheckerInterface $gatewayFactoryChecker,
+        private readonly MollieLoggerActionInterface $loggerAction,
     ) {
     }
 
@@ -65,6 +73,8 @@ final class PaymentMethodResolver implements PaymentMethodsResolverInterface
             $parentMethods = $this->mollieMethodFilter->recurringFilter($parentMethods);
         }
 
+        $parentMethods = $this->filterMethodsKeepingTheTotal($order, $parentMethods);
+
         return $this->sortMethodsByPosition($parentMethods);
     }
 
@@ -82,6 +92,75 @@ final class PaymentMethodResolver implements PaymentMethodsResolverInterface
 
         return $order->hasRecurringContents() || $order->hasNonRecurringContents() &&
             null !== $subject->getOrder()->getChannel();
+    }
+
+    /**
+     * Order processors stop running once an order leaves `cart` (`Order::canBeProcessed()`), so the
+     * surcharge charged on a placed order is frozen and can no longer follow the method the customer
+     * picks. Offering a method that would have produced a different surcharge means collecting a fee
+     * it never earned - or none of the fee it did.
+     *
+     * @param PaymentMethodInterface[] $methods
+     *
+     * @return PaymentMethodInterface[]
+     */
+    private function filterMethodsKeepingTheTotal(OrderInterface $order, array $methods): array
+    {
+        if (null === $order->getCheckoutCompletedAt()) {
+            return $methods;
+        }
+
+        $chargedSurcharge = $this->chargedSurchargeMatcher->chargedSurcharge($order);
+
+        $keptMethods = array_values(array_filter(
+            $methods,
+            fn (PaymentMethodInterface $method): bool => $this->keepsTheTotal($order, $method, $chargedSurcharge),
+        ));
+
+        if ([] === $keptMethods) {
+            $this->loggerAction->addNegativeLog(sprintf(
+                'No payment method reproduces the %d surcharge charged on order %s, so none was offered.',
+                $chargedSurcharge,
+                (string) $order->getNumber(),
+            ));
+        }
+
+        return $keptMethods;
+    }
+
+    /**
+     * A Mollie gateway keeps the total when any of its methods reproduces the charged surcharge.
+     * A method with no gateway at all, and one on a gateway other than Mollie, add no surcharge of
+     * their own, so they only fit an order that carries none - neither is ever taken for Mollie.
+     */
+    private function keepsTheTotal(OrderInterface $order, PaymentMethodInterface $method, int $chargedSurcharge): bool
+    {
+        $gatewayConfig = $method->getGatewayConfig();
+
+        if (null === $gatewayConfig) {
+            return 0 === $chargedSurcharge;
+        }
+
+        /** Every gateway config of an installed shop implements the plugin's interface, Mollie or not. */
+        if (false === $gatewayConfig instanceof GatewayConfigInterface) {
+            return 0 === $chargedSurcharge;
+        }
+
+        if (false === $this->gatewayFactoryChecker->isMollieGateway($gatewayConfig)) {
+            return 0 === $chargedSurcharge;
+        }
+
+        try {
+            return $this->chargedSurchargeMatcher->gatewayKeepsTheTotal($order, $gatewayConfig);
+        } catch (UnknownPaymentSurchargeType $e) {
+            $this->loggerAction->addNegativeLog(sprintf(
+                'Cannot compare the payment surcharges of gateway %s, so it was not offered: %s',
+                (string) $gatewayConfig->getGatewayName(),
+                $e->getMessage(),
+            ));
+
+            return false;
+        }
     }
 
     /**
