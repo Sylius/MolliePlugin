@@ -83,6 +83,19 @@
         />
 
         <service
+            id="sylius_mollie.calculator.payment_fee.charged_surcharge_matcher"
+            class="Sylius\MolliePlugin\Calculator\PaymentFee\ChargedSurchargeMatcher"
+        >
+            <argument type="service" id="sylius_mollie.provider.payment_surcharge_adjustments"/>
+            <argument type="service" id="sylius_mollie.calculator.payment_fee.composite"/>
+            <argument type="service" id="sylius_mollie.repository.mollie_gateway_config"/>
+        </service>
+        <service
+            id="Sylius\MolliePlugin\Calculator\PaymentFee\ChargedSurchargeMatcherInterface"
+            alias="sylius_mollie.calculator.payment_fee.charged_surcharge_matcher"
+        />
+
+        <service
             id="sylius_mollie.calculator.clearer.payment_fee_adjustment"
             class="Sylius\MolliePlugin\Calculator\Clearer\PaymentFeeAdjustmentClearer"
         >
