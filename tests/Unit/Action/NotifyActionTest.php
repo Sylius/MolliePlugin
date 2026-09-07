@@ -16,6 +16,7 @@ namespace Tests\Sylius\MolliePlugin\Unit\Action;
 use Mollie\Api\Endpoints\PaymentEndpoint;
 use Mollie\Api\Exceptions\ApiException;
 use Mollie\Api\Resources\Payment;
+use Mollie\Api\Types\PaymentStatus;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
 use Payum\Core\GatewayAwareInterface;
@@ -148,6 +149,150 @@ final class NotifyActionTest extends TestCase
         ;
 
         $this->expectException(ApiException::class);
+
+        $this->notifyAction->execute($request);
+    }
+
+    public function testItIgnoresOrphanPaidPaymentWithoutAdoptingIt(): void
+    {
+        $request = $this->createMock(Notify::class);
+        $gateway = $this->createMock(GatewayInterface::class);
+        $mollieApiClient = $this->createMock(MollieApiClient::class);
+        $paymentEndpoint = $this->createMock(PaymentEndpoint::class);
+        $incoming = new Payment($mollieApiClient);
+        $incoming->id = 'tr_incoming';
+        $incoming->status = PaymentStatus::STATUS_PAID;
+        $incoming->metadata = (object) ['order_id' => 15];
+
+        $this->notifyAction->setGateway($gateway);
+        $this->notifyAction->setApi($mollieApiClient);
+
+        $this->getHttpRequest->request = ['id' => 'tr_incoming'];
+        $model = new \ArrayObject([
+            'metadata' => ['order_id' => 15],
+            'payment_mollie_id' => 'tr_current',
+        ]);
+        $request->method('getModel')->willReturn($model);
+
+        $mollieApiClient->payments = $paymentEndpoint;
+        $paymentEndpoint->method('get')->willReturn($incoming);
+
+        $this->loggerAction->expects($this->once())
+            ->method('addNegativeLog')
+            ->with($this->matchesRegularExpression(
+                '/Mollie payment tr_incoming .* was paid but the order was not credited from it/',
+            ))
+        ;
+        $this->loggerAction->expects($this->never())->method('addLog');
+
+        $this->notifyAction->execute($request);
+    }
+
+    public function testItDoesNotTreatOrderApiPaymentWebhookAsOrphan(): void
+    {
+        $request = $this->createMock(Notify::class);
+        $gateway = $this->createMock(GatewayInterface::class);
+        $mollieApiClient = $this->createMock(MollieApiClient::class);
+        $paymentEndpoint = $this->createMock(PaymentEndpoint::class);
+
+        $this->notifyAction->setGateway($gateway);
+        $this->notifyAction->setApi($mollieApiClient);
+
+        $this->getHttpRequest->request = ['id' => 'tr_inside_order'];
+        $model = new \ArrayObject([
+            'metadata' => ['order_id' => 15],
+            'order_mollie_id' => 'ord_current',
+        ]);
+        $request->method('getModel')->willReturn($model);
+
+        $mollieApiClient->payments = $paymentEndpoint;
+        $paymentEndpoint->expects($this->never())->method('get');
+
+        $this->loggerAction->expects($this->never())->method('addLog');
+        $this->loggerAction->expects($this->never())->method('addNegativeLog');
+
+        $this->notifyAction->execute($request);
+    }
+
+    public function testItDoesNothingWhenOrphanIsNotPaid(): void
+    {
+        $request = $this->createMock(Notify::class);
+        $gateway = $this->createMock(GatewayInterface::class);
+        $mollieApiClient = $this->createMock(MollieApiClient::class);
+        $paymentEndpoint = $this->createMock(PaymentEndpoint::class);
+        $incoming = new Payment($mollieApiClient);
+        $incoming->id = 'tr_incoming';
+        $incoming->status = PaymentStatus::STATUS_OPEN;
+        $incoming->metadata = (object) ['order_id' => 15];
+
+        $this->notifyAction->setGateway($gateway);
+        $this->notifyAction->setApi($mollieApiClient);
+
+        $this->getHttpRequest->request = ['id' => 'tr_incoming'];
+        $model = new \ArrayObject([
+            'metadata' => ['order_id' => 15],
+            'payment_mollie_id' => 'tr_current',
+        ]);
+        $request->method('getModel')->willReturn($model);
+
+        $mollieApiClient->payments = $paymentEndpoint;
+        $paymentEndpoint->method('get')->willReturn($incoming);
+
+        $this->loggerAction->expects($this->never())->method('addLog');
+
+        $this->notifyAction->execute($request);
+    }
+
+    public function testItDoesNothingWhenIncomingIdMatchesCurrent(): void
+    {
+        $request = $this->createMock(Notify::class);
+        $gateway = $this->createMock(GatewayInterface::class);
+        $mollieApiClient = $this->createMock(MollieApiClient::class);
+        $paymentEndpoint = $this->createMock(PaymentEndpoint::class);
+
+        $this->notifyAction->setGateway($gateway);
+        $this->notifyAction->setApi($mollieApiClient);
+
+        $this->getHttpRequest->request = ['id' => 'tr_current'];
+        $model = new \ArrayObject([
+            'metadata' => ['order_id' => 15],
+            'payment_mollie_id' => 'tr_current',
+        ]);
+        $request->method('getModel')->willReturn($model);
+
+        $mollieApiClient->payments = $paymentEndpoint;
+        $paymentEndpoint->expects($this->never())->method('get');
+
+        $this->loggerAction->expects($this->never())->method('addLog');
+
+        $this->notifyAction->execute($request);
+    }
+
+    public function testItDoesNothingWhenOrderIdDoesNotMatch(): void
+    {
+        $request = $this->createMock(Notify::class);
+        $gateway = $this->createMock(GatewayInterface::class);
+        $mollieApiClient = $this->createMock(MollieApiClient::class);
+        $paymentEndpoint = $this->createMock(PaymentEndpoint::class);
+        $incoming = new Payment($mollieApiClient);
+        $incoming->id = 'tr_incoming';
+        $incoming->status = PaymentStatus::STATUS_PAID;
+        $incoming->metadata = (object) ['order_id' => 99];
+
+        $this->notifyAction->setGateway($gateway);
+        $this->notifyAction->setApi($mollieApiClient);
+
+        $this->getHttpRequest->request = ['id' => 'tr_incoming'];
+        $model = new \ArrayObject([
+            'metadata' => ['order_id' => 15],
+            'payment_mollie_id' => 'tr_current',
+        ]);
+        $request->method('getModel')->willReturn($model);
+
+        $mollieApiClient->payments = $paymentEndpoint;
+        $paymentEndpoint->method('get')->willReturn($incoming);
+
+        $this->loggerAction->expects($this->never())->method('addLog');
 
         $this->notifyAction->execute($request);
     }

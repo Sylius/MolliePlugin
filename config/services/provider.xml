@@ -16,11 +16,24 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
+    <parameters>
+        <parameter key="sylius_mollie.payment_surcharge_adjustments" type="collection">
+            <parameter type="constant">Sylius\MolliePlugin\Model\AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT</parameter>
+            <parameter type="constant">Sylius\MolliePlugin\Model\AdjustmentInterface::PERCENTAGE_ADJUSTMENT</parameter>
+            <parameter type="constant">Sylius\MolliePlugin\Model\AdjustmentInterface::PERCENTAGE_AND_AMOUNT_ADJUSTMENT</parameter>
+        </parameter>
+    </parameters>
+
     <services>
         <defaults public="true" />
 
         <service id="sylius_mollie.provider.divisor" class="Sylius\MolliePlugin\Provider\DivisorProvider"/>
         <service id="Sylius\MolliePlugin\Provider\DivisorProviderInterface" alias="sylius_mollie.provider.divisor" />
+
+        <service id="sylius_mollie.provider.payment_surcharge_adjustments" class="Sylius\MolliePlugin\Provider\PaymentSurchargeAdjustmentsProvider">
+            <argument>%sylius_mollie.payment_surcharge_adjustments%</argument>
+        </service>
+        <service id="Sylius\MolliePlugin\Provider\PaymentSurchargeAdjustmentsProviderInterface" alias="sylius_mollie.provider.payment_surcharge_adjustments" />
 
         <service id="sylius_mollie.provider.customer" class="Sylius\MolliePlugin\Provider\CustomerProvider">
             <argument type="service" id="sylius.repository.customer" />
