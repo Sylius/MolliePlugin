@@ -1,3 +1,29 @@
+# UPGRADE FROM 3.3.3 TO 3.3.4
+
+1. The checkout payment form no longer writes Mollie-specific keys (`molliePaymentMethods`,
+   `cartToken`, `saveCardInfo`, `useSavedCards`) into `Payment::details` for payments made through
+   non-Mollie gateways. The Mollie `details` sub-form is still added in `buildForm()`, but it is now:
+
+   - removed when none of the payment methods available for the payment uses a Mollie gateway;
+   - rebuilt as unmapped (`'mapped' => false`) when the submitted payment method does not use a
+     Mollie gateway, so it still renders but never writes to the payment.
+
+   Because Sylius reuses the same payment while its previous attempt is neither cancelled nor failed,
+   switching away from a Mollie method would otherwise leave a real method id and card token behind on
+   a payment another gateway is about to process. Those four keys are therefore dropped from
+   `Payment::details` in exactly one case: the payment was stored on a Mollie method and the submitted
+   method is not a Mollie one. Nothing else is ever removed, so data another integration keeps under
+   the same names is left untouched.
+
+   All of the above only ever acts on a `details` child that is a
+   `Sylius\MolliePlugin\Form\Type\PaymentMollieType`. If another integration registers its own
+   `details` form on the checkout payment type, that form is left alone.
+
+2. `Sylius\MolliePlugin\Form\Extension\PaymentTypeExtension` gained an optional
+   `Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryCheckerInterface` constructor argument.
+   It falls back to `Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryChecker` when omitted, so
+   existing instantiations keep working unchanged.
+
 # UPGRADE FROM 3.3.1 TO 3.3.2
 
 1. Run `yarn install` and `yarn build` to rebuild the shop assets. The bundled
