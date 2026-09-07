@@ -30,7 +30,11 @@
     ) {
    ```
 
-4. `MolliePaymentsMethodResolver` takes the surcharge amount calculator.
+4. `ChargedSurchargeMatcherInterface` answers which methods reproduce the surcharge already charged
+   on an order, and is the single place that comparison lives. Service:
+   `sylius_mollie.calculator.payment_fee.charged_surcharge_matcher`.
+
+   `MolliePaymentsMethodResolver` takes it instead of comparing surcharges itself.
 
    ```diff
     public function __construct(
@@ -43,18 +47,45 @@
         private readonly MollieLoggerActionInterface $loggerAction,
         private readonly MollieFactoryNameResolverInterface $mollieFactoryNameResolver,
         private readonly DivisorProviderInterface $divisorProvider,
-   +    private readonly PaymentSurchargeAmountCalculatorInterface $surchargeAmountCalculator,
-   +    private readonly PaymentSurchargeAdjustmentsProviderInterface $surchargeAdjustmentsProvider,
+   +    private readonly ChargedSurchargeMatcherInterface $chargedSurchargeMatcher,
     ) {
    ```
 
-5. Once an order has been placed, only methods whose surcharge matches the one already charged are
-   offered when changing the payment method. Shops that configure different surcharges per method
-   will see a shorter list there than before. Nothing changes during checkout.
+   `PaymentMethodResolver` takes the same matcher, the Mollie gateway factory checker and the logger.
 
-   When a surcharge cannot be compared, only the method the order already carries is offered and the
-   reason is logged, so the total stays correct and the method list never fails because of it. See
-   point 6.
+   ```diff
+    public function __construct(
+        private readonly PaymentMethodsResolverInterface $decoratedResolver,
+        private readonly MollieBasedPaymentMethodQueryInterface $mollieBasedPaymentMethodQuery,
+        private readonly MollieFactoryNameResolverInterface $factoryNameResolver,
+        private readonly MollieMethodFilterInterface $mollieMethodFilter,
+        private readonly EntityManagerInterface $entityManager,
+   +    private readonly ChargedSurchargeMatcherInterface $chargedSurchargeMatcher,
+   +    private readonly MollieGatewayFactoryCheckerInterface $gatewayFactoryChecker,
+   +    private readonly MollieLoggerActionInterface $loggerAction,
+    ) {
+   ```
+
+5. Once an order has been placed, only methods that keep its total as it stands are offered when
+   changing the payment method. Order processors stop running at `cart`, so the surcharge charged on
+   a placed order is frozen and can no longer follow the customer's choice. Nothing changes during
+   checkout.
+
+   This applies to whole gateways, not just to the Mollie method list. A Mollie gateway is offered
+   only when one of its enabled methods reproduces the charged surcharge; every other gateway adds
+   no surcharge of its own, so it is offered only when the order carries none. Two consequences:
+
+   - a gateway other than Mollie is no longer offered for an order carrying a Mollie surcharge, so
+     it can no longer collect a Mollie fee it never earned;
+   - Mollie is no longer offered for an order carrying no surcharge when every one of its enabled
+     methods would charge a fee, which used to render an empty method list.
+
+   When nothing keeps the total, no payment method is offered at all and the reason is logged, so a
+   customer can never pay a total that a different method produced.
+
+   A surcharge that cannot be compared, meaning a custom calculator that reports no amount, drops
+   the Mollie gateway from the list rather than the whole list. Inside a Mollie gateway that is still
+   offered, only the method the order already carries is offered in that case. See point 6.
 
 6. The payment fee calculators in `Sylius\MolliePlugin\Calculator\PaymentFee` also implement
    `PaymentSurchargeAmountCalculatorInterface`, which reports a surcharge instead of applying it
