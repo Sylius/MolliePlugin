@@ -15,6 +15,7 @@ namespace Sylius\MolliePlugin\Calculator\PaymentFee;
 
 use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Exceptions\UnknownPaymentSurchargeType;
 use Sylius\MolliePlugin\Model\PaymentSurchargeFeeType;
 
@@ -30,7 +31,7 @@ final class CompositePaymentSurchargeCalculator implements PaymentSurchargeCalcu
         $this->supporting($paymentMethod)->calculate($order, $paymentMethod);
     }
 
-    public function calculateAmount(OrderInterface $order, MollieGatewayConfig $paymentMethod): int
+    public function calculateAmount(OrderInterface $order, MollieGatewayConfigInterface $paymentMethod): int
     {
         $calculator = $this->supporting($paymentMethod);
 
@@ -49,7 +50,7 @@ final class CompositePaymentSurchargeCalculator implements PaymentSurchargeCalcu
         return true;
     }
 
-    private function supporting(MollieGatewayConfig $paymentMethod): PaymentSurchargeCalculatorInterface
+    private function supporting(MollieGatewayConfigInterface $paymentMethod): PaymentSurchargeCalculatorInterface
     {
         $paymentType = $paymentMethod->getPaymentSurchargeFee()?->getType() ?? PaymentSurchargeFeeType::NONE;
 

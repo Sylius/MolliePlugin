@@ -100,9 +100,10 @@
    therefore never pay a total that a different method produced, and an order whose configuration has
    changed since it was placed can still be paid.
 
-   A surcharge that cannot be compared, meaning a custom calculator that reports no amount, drops
-   the Mollie gateway from the list rather than the whole list. Inside a Mollie gateway that is still
-   offered, only the method the order already carries is offered in that case. See point 6.
+   A surcharge that cannot be compared, meaning a custom calculator that reports no amount or a
+   method whose surcharge is configured incompletely, drops the Mollie gateway from the list rather
+   than the whole list. Inside a Mollie gateway that is still offered, only the method the order
+   already carries is offered in that case. See point 6.
 
 6. The payment fee calculators in `Sylius\MolliePlugin\Calculator\PaymentFee` also implement
    `PaymentSurchargeAmountCalculatorInterface`, which reports a surcharge instead of applying it

@@ -17,7 +17,6 @@ use Mollie\Api\Exceptions\ApiException;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\MolliePlugin\Calculator\PaymentFee\ChargedSurchargeMatcherInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
-use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface as MollieOrderInterface;
 use Sylius\MolliePlugin\Exceptions\UnknownPaymentSurchargeType;
@@ -172,8 +171,7 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         try {
             return array_values(array_filter(
                 $allowedMethods,
-                fn (MollieGatewayConfigInterface $config): bool => $config instanceof MollieGatewayConfig &&
-                    $matcher->matches($order, $config),
+                fn (MollieGatewayConfigInterface $config): bool => $matcher->matches($order, $config),
             ));
         } catch (UnknownPaymentSurchargeType $e) {
             $this->loggerAction->addNegativeLog(sprintf(

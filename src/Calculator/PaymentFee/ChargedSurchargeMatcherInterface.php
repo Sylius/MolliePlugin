@@ -15,7 +15,7 @@ namespace Sylius\MolliePlugin\Calculator\PaymentFee;
 
 use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
-use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Exceptions\UnknownPaymentSurchargeType;
 
 interface ChargedSurchargeMatcherInterface
@@ -23,7 +23,7 @@ interface ChargedSurchargeMatcherInterface
     public function chargedSurcharge(OrderInterface $order): int;
 
     /** @throws UnknownPaymentSurchargeType */
-    public function matches(OrderInterface $order, MollieGatewayConfig $config): bool;
+    public function matches(OrderInterface $order, MollieGatewayConfigInterface $config): bool;
 
     /**
      * Whether any enabled method of the gateway would keep the order total unchanged.
