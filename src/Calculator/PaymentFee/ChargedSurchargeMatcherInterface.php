@@ -20,7 +20,6 @@ use Sylius\MolliePlugin\Exceptions\UnknownPaymentSurchargeType;
 
 interface ChargedSurchargeMatcherInterface
 {
-    /** The surcharge charged on the order, in the smallest currency unit. */
     public function chargedSurcharge(OrderInterface $order): int;
 
     /** @throws UnknownPaymentSurchargeType */

@@ -171,6 +171,36 @@ final class MolliePaymentsMethodResolverTest extends TestCase
         $this->resolver->resolve();
     }
 
+    public function testItOffersOnlyTheSelectedMethodWhenBuiltWithoutTheSurchargeMatcher(): void
+    {
+        $ideal = $this->config('ideal');
+        $satispay = $this->config('satispay');
+
+        $resolver = new MolliePaymentsMethodResolver(
+            $this->mollieGatewayRepositoryMock,
+            $this->countriesRestrictionResolverMock,
+            $this->productVoucherTypeCheckerMock,
+            $this->paymentCheckoutOrderResolverMock,
+            $this->mollieBasedPaymentMethodQueryMock,
+            $this->allowedMethodsResolverMock,
+            $this->loggerActionMock,
+            $this->mollieFactoryNameResolverMock,
+            $this->divisorProviderMock,
+        );
+
+        $order = $this->orderChargedWith(500, new \DateTimeImmutable(), 'ideal');
+        $this->expectMethodsOffered($order, [$ideal, $satispay], ['ideal' => 500, 'satispay' => 400]);
+
+        $this->chargedSurchargeMatcherMock->expects($this->never())->method('matches');
+        $this->countriesRestrictionResolverMock->expects($this->once())
+            ->method('resolve')
+            ->with($ideal, $this->anything(), 'NL')
+            ->willReturn($this->defaultOptions())
+        ;
+
+        $resolver->resolve();
+    }
+
     public function testItFallsBackToTheSelectedMethodWhenASurchargeCannotBeCompared(): void
     {
         $ideal = $this->config('ideal');

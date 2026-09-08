@@ -47,8 +47,17 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         private readonly MollieLoggerActionInterface $loggerAction,
         private readonly MollieFactoryNameResolverInterface $mollieFactoryNameResolver,
         private readonly DivisorProviderInterface $divisorProvider,
-        private readonly ChargedSurchargeMatcherInterface $chargedSurchargeMatcher,
+        private readonly ?ChargedSurchargeMatcherInterface $chargedSurchargeMatcher = null,
     ) {
+        if (null === $this->chargedSurchargeMatcher) {
+            trigger_deprecation(
+                'sylius/mollie-plugin',
+                '3.4',
+                'Not passing ChargedSurchargeMatcherInterface to %s is deprecated and will be required in 4.0. ' .
+                'Without it a placed order is offered only the method it already carries, since no other can be shown to keep its total.',
+                self::class,
+            );
+        }
     }
 
     public function resolve(): array
@@ -153,11 +162,18 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
             return $allowedMethods;
         }
 
+        /** Without the matcher no surcharge can be compared, so only the method already carried fits. */
+        if (null === $this->chargedSurchargeMatcher) {
+            return $this->onlyTheSelectedMethod($order, $allowedMethods);
+        }
+
+        $matcher = $this->chargedSurchargeMatcher;
+
         try {
             return array_values(array_filter(
                 $allowedMethods,
                 fn (MollieGatewayConfigInterface $config): bool => $config instanceof MollieGatewayConfig &&
-                    $this->chargedSurchargeMatcher->matches($order, $config),
+                    $matcher->matches($order, $config),
             ));
         } catch (UnknownPaymentSurchargeType $e) {
             $this->loggerAction->addNegativeLog(sprintf(

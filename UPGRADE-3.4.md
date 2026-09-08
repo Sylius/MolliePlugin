@@ -34,7 +34,11 @@
    on an order, and is the single place that comparison lives. Service:
    `sylius_mollie.calculator.payment_fee.charged_surcharge_matcher`.
 
-   `MolliePaymentsMethodResolver` takes it instead of comparing surcharges itself.
+   `MolliePaymentsMethodResolver` takes it instead of comparing surcharges itself. The argument is
+   optional, so a service definition written for 3.3 keeps building, and **not passing it is
+   deprecated and it will be required in 4.0**. A resolver built without it cannot compare surcharges
+   at all, so after checkout completion it offers only the method the order already carries, which is
+   the one that produced its surcharge. Nothing changes during checkout.
 
    ```diff
     public function __construct(
@@ -47,11 +51,20 @@
         private readonly MollieLoggerActionInterface $loggerAction,
         private readonly MollieFactoryNameResolverInterface $mollieFactoryNameResolver,
         private readonly DivisorProviderInterface $divisorProvider,
-   +    private readonly ChargedSurchargeMatcherInterface $chargedSurchargeMatcher,
+   +    private readonly ?ChargedSurchargeMatcherInterface $chargedSurchargeMatcher = null,
     ) {
    ```
 
    `PaymentMethodResolver` takes the same matcher, the Mollie gateway factory checker and the logger.
+   All three are optional and **not passing them is deprecated, they will be required in 4.0**: the
+   matcher and the checker are deprecated together, since the comparison needs both and a resolver
+   missing either offers a placed order only the payment method it already carries; the logger on its
+   own, since only the log entries are lost with it missing.
+
+   The plugin's own service definitions pass every one of these arguments, so a shop that did not
+   redefine `sylius_mollie.resolver.payment_methods` or
+   `sylius_mollie.payment_methods_resolver.mollie_payment` sees no deprecation and gets the new
+   behaviour. Redefine them as below to stop the notices.
 
    ```diff
     public function __construct(
@@ -60,9 +73,9 @@
         private readonly MollieFactoryNameResolverInterface $factoryNameResolver,
         private readonly MollieMethodFilterInterface $mollieMethodFilter,
         private readonly EntityManagerInterface $entityManager,
-   +    private readonly ChargedSurchargeMatcherInterface $chargedSurchargeMatcher,
-   +    private readonly MollieGatewayFactoryCheckerInterface $gatewayFactoryChecker,
-   +    private readonly MollieLoggerActionInterface $loggerAction,
+   +    private readonly ?ChargedSurchargeMatcherInterface $chargedSurchargeMatcher = null,
+   +    private readonly ?MollieGatewayFactoryCheckerInterface $gatewayFactoryChecker = null,
+   +    private readonly ?MollieLoggerActionInterface $loggerAction = null,
     ) {
    ```
 
@@ -78,10 +91,14 @@
    - a gateway other than Mollie is no longer offered for an order carrying a Mollie surcharge, so
      it can no longer collect a Mollie fee it never earned;
    - Mollie is no longer offered for an order carrying no surcharge when every one of its enabled
-     methods would charge a fee, which used to render an empty method list.
+     methods would charge a fee, which used to render an empty method list. A method that reproduces
+     the surcharge but is unavailable for other reasons, such as the order total falling outside its
+     amount limits, still keeps the gateway on the list, so an empty method list remains possible.
 
-   When nothing keeps the total, no payment method is offered at all and the reason is logged, so a
-   customer can never pay a total that a different method produced.
+   When nothing keeps the total, the only method offered is the one the order already carries, since
+   that is the method whose surcharge the order is charged, and the reason is logged. A customer can
+   therefore never pay a total that a different method produced, and an order whose configuration has
+   changed since it was placed can still be paid.
 
    A surcharge that cannot be compared, meaning a custom calculator that reports no amount, drops
    the Mollie gateway from the list rather than the whole list. Inside a Mollie gateway that is still
