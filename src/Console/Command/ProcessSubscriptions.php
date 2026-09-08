@@ -26,6 +26,11 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Webmozart\Assert\Assert;
 
+/**
+ * @deprecated since Mollie 3.3 and will be removed in 4.0.
+ *
+ * @see https://github.com/Sylius/MolliePlugin/blob/3.3/UPGRADE-3.3.md for migration details
+ */
 class ProcessSubscriptions extends Command
 {
     public const COMMAND_NAME = 'mollie:subscription:process';

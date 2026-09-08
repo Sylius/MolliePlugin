@@ -17,7 +17,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\OrderItemInterface;
 
-/** @mixin OrderInterface */
+/**
+ * @deprecated since Mollie 3.3 and will be removed in 4.0.
+ *
+ * @see https://github.com/Sylius/MolliePlugin/blob/3.3/UPGRADE-3.3.md for migration details
+ *
+ * @mixin OrderInterface
+ */
 trait RecurringOrderTrait
 {
     /** @ORM\Column(type="integer", name="recurring_sequence_index", nullable=true) */

@@ -18,6 +18,11 @@ use Sylius\MolliePlugin\Subscription\Guard\SubscriptionGuardInterface;
 use Symfony\Component\Workflow\Event\GuardEvent;
 use Webmozart\Assert\Assert;
 
+/**
+ * @deprecated since Mollie 3.3 and will be removed in 4.0.
+ *
+ * @see https://github.com/Sylius/MolliePlugin/blob/3.3/UPGRADE-3.3.md for migration details
+ */
 final class CompleteSubscriptionGuardListener
 {
     public function __construct(private readonly SubscriptionGuardInterface $subscriptionGuard)

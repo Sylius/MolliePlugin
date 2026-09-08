@@ -20,6 +20,11 @@ use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Customer\Model\CustomerInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
 
+/**
+ * @deprecated since Mollie 3.3 and will be removed in 4.0.
+ *
+ * @see https://github.com/Sylius/MolliePlugin/blob/3.3/UPGRADE-3.3.md for migration details
+ */
 interface MollieSubscriptionInterface extends ResourceInterface
 {
     public const STATE_NEW = 'new';
@@ -81,6 +86,12 @@ interface MollieSubscriptionInterface extends ResourceInterface
     public function getStartedAt(): ?\DateTime;
 
     public function setStartedAt(?\DateTime $startedAt = null): void;
+
+    public function getMigratedAt(): ?\DateTime;
+
+    public function setMigratedAt(?\DateTimeInterface $migratedAt): void;
+
+    public function isMigrated(): bool;
 
     /** @return Collection<int, MollieSubscriptionScheduleInterface> */
     public function getSchedules(): Collection;

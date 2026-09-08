@@ -149,6 +149,7 @@ final class SelectMollieMethodAction
             'useSavedCards' => '0',
             'webhookUrl' => $paymentData['webhookUrl'],
             'backurl' => $paymentData['redirectUrl'],
+            'metadata' => $paymentData['metadata'],
         ];
 
         if ($isSubscription) {
@@ -187,26 +188,50 @@ final class SelectMollieMethodAction
             return null;
         }
 
-        if (!in_array(
-            $existingMolliePayment->status,
-            [PaymentStatus::STATUS_OPEN, PaymentStatus::STATUS_PENDING],
-            true,
-        )) {
+        if (PaymentStatus::STATUS_PENDING === $existingMolliePayment->status) {
+            $checkoutUrl = $existingMolliePayment->_links->checkout->href ?? null;
+
+            if (null !== $checkoutUrl) {
+                return new JsonResponse([
+                    'methodId' => $existingMolliePayment->method ?? $methodId,
+                    'checkoutUrl' => $checkoutUrl,
+                ]);
+            }
+
+            return new JsonResponse(
+                ['error' => 'A payment is already in progress for this order. Please wait for it to finish or expire.'],
+                Response::HTTP_CONFLICT,
+            );
+        }
+
+        if (PaymentStatus::STATUS_OPEN !== $existingMolliePayment->status) {
             return null;
         }
 
         $checkoutUrl = $existingMolliePayment->_links->checkout->href ?? null;
-        if (
-            null === $checkoutUrl ||
-            $methodId !== $existingMolliePayment->method
-        ) {
-            return null;
+
+        if (null !== $checkoutUrl &&
+            (null === $existingMolliePayment->method || $existingMolliePayment->method === $methodId)) {
+            return new JsonResponse([
+                'methodId' => $methodId,
+                'checkoutUrl' => $checkoutUrl,
+            ]);
         }
 
-        return new JsonResponse([
-            'methodId' => $methodId,
-            'checkoutUrl' => $checkoutUrl,
-        ]);
+        // Cancellation is unavailable for some methods; those stay orphaned until expiry.
+        if (true === ($existingMolliePayment->isCancelable ?? false)) {
+            try {
+                $mollieApiClient->payments->cancel($existingMolliePayment->id);
+            } catch (ApiException $exception) {
+                $this->logger->addNegativeLog(sprintf(
+                    'Could not cancel the superseded Mollie session %s, it stays payable until it expires: %s',
+                    $existingMolliePayment->id,
+                    $exception->getMessage(),
+                ));
+            }
+        }
+
+        return null;
     }
 
     private function findOrCreateMollieCustomer(MollieApiClient $mollieApiClient, OrderInterface $order): string

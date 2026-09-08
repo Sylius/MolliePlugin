@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Payum\Action;
 
 use Mollie\Api\Exceptions\ApiException;
+use Mollie\Api\Types\PaymentStatus;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\GatewayAwareInterface;
@@ -99,6 +100,61 @@ final class NotifyAction extends BaseApiAwareAction implements GatewayAwareInter
 
             throw new HttpResponse(Response::$statusTexts[Response::HTTP_OK], Response::HTTP_OK);
         }
+
+        $this->logOrphanPaidPayment($details);
+    }
+
+    private function logOrphanPaidPayment(ArrayObject $details): void
+    {
+        $incomingMollieId = (string) ($this->getHttpRequest->request['id'] ?? '');
+        if (!str_starts_with($incomingMollieId, 'tr_')) {
+            return;
+        }
+
+        // Order API points `payment.webhookUrl` at this same token, so a `tr_` id here belongs
+        // to the payment inside the order and is not an orphan.
+        if (isset($details['order_mollie_id'])) {
+            return;
+        }
+
+        $currentMollieId = $details['payment_mollie_id'] ?? null;
+        if ($incomingMollieId === $currentMollieId) {
+            return;
+        }
+
+        try {
+            $incoming = $this->mollieApiClient->payments->get($incomingMollieId);
+        } catch (\Exception $e) {
+            $this->loggerAction->addNegativeLog(sprintf(
+                'Orphan reconciliation fetch failed for %s: %s',
+                $incomingMollieId,
+                $e->getMessage(),
+            ));
+
+            return;
+        }
+
+        $ourOrderId = (int) ($details['metadata']['order_id'] ?? 0);
+        $incomingOrderId = filter_var($incoming->metadata->order_id ?? null, \FILTER_VALIDATE_INT);
+
+        if (0 === $ourOrderId || false === $incomingOrderId || $ourOrderId !== $incomingOrderId) {
+            return;
+        }
+
+        if (!in_array($incoming->status, [PaymentStatus::STATUS_PAID, PaymentStatus::STATUS_AUTHORIZED], true)) {
+            return;
+        }
+
+        // Error level, not notice: `canSaveLog()` discards notices unless the gateway logs
+        // everything, and this is the only record that money was collected.
+        $this->loggerAction->addNegativeLog(sprintf(
+            'Mollie payment %s (status=%s) for order %d was paid but the order was not credited from it ' .
+            '(currently tracking %s). The money has been collected and needs manual review.',
+            $incomingMollieId,
+            $incoming->status,
+            $ourOrderId,
+            $currentMollieId ?? 'none',
+        ));
     }
 
     public function supports($request): bool

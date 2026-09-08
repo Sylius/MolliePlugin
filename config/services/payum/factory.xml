@@ -38,5 +38,8 @@
 
         <service id="sylius_mollie.payum.checker.mollie_gateway_factory" class="Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryChecker" public="true" />
         <service id="Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryCheckerInterface" alias="sylius_mollie.payum.checker.mollie_gateway_factory" />
+
+        <service id="sylius_mollie.payum.resolver.existing_mollie_session" class="Sylius\MolliePlugin\Payum\Resolver\ExistingMollieSessionResolver" />
+        <service id="Sylius\MolliePlugin\Payum\Resolver\ExistingMollieSessionResolverInterface" alias="sylius_mollie.payum.resolver.existing_mollie_session" />
     </services>
 </container>

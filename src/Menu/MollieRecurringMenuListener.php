@@ -15,6 +15,11 @@ namespace Sylius\MolliePlugin\Menu;
 
 use Sylius\Bundle\UiBundle\Menu\Event\MenuBuilderEvent;
 
+/**
+ * @deprecated since Mollie 3.3 and will be removed in 4.0.
+ *
+ * @see https://github.com/Sylius/MolliePlugin/blob/3.3/UPGRADE-3.3.md for migration details
+ */
 final class MollieRecurringMenuListener
 {
     public function buildMenu(MenuBuilderEvent $menuBuilderEvent): void

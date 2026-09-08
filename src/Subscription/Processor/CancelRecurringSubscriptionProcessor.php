@@ -19,6 +19,11 @@ use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Payum\Request\Subscription\CancelRecurringSubscription;
 
+/**
+ * @deprecated since Mollie 3.3 and will be removed in 4.0.
+ *
+ * @see https://github.com/Sylius/MolliePlugin/blob/3.3/UPGRADE-3.3.md for migration details
+ */
 final class CancelRecurringSubscriptionProcessor implements CancelRecurringSubscriptionProcessorInterface
 {
     public function __construct(private readonly Payum $payum)

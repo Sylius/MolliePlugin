@@ -20,6 +20,11 @@ use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Customer\Model\CustomerInterface;
 
+/**
+ * @deprecated since Mollie 3.3 and will be removed in 4.0.
+ *
+ * @see https://github.com/Sylius/MolliePlugin/blob/3.3/UPGRADE-3.3.md for migration details
+ */
 class MollieSubscription implements MollieSubscriptionInterface
 {
     protected ?int $id = null;
@@ -31,6 +36,8 @@ class MollieSubscription implements MollieSubscriptionInterface
     protected \DateTime $createdAt;
 
     protected ?\DateTime $startedAt = null;
+
+    protected ?\DateTime $migratedAt = null;
 
     protected OrderItemInterface $orderItem;
 
@@ -121,6 +128,25 @@ class MollieSubscription implements MollieSubscriptionInterface
     public function setStartedAt(?\DateTime $startedAt = null): void
     {
         $this->startedAt = $startedAt;
+    }
+
+    public function getMigratedAt(): ?\DateTime
+    {
+        return $this->migratedAt;
+    }
+
+    public function setMigratedAt(?\DateTimeInterface $migratedAt): void
+    {
+        if ($migratedAt instanceof \DateTimeImmutable) {
+            $this->migratedAt = \DateTime::createFromImmutable($migratedAt);
+        } else {
+            $this->migratedAt = $migratedAt;
+        }
+    }
+
+    public function isMigrated(): bool
+    {
+        return null !== $this->migratedAt;
     }
 
     public function getLastOrder(): ?SyliusOrder
