@@ -15,15 +15,13 @@ namespace Sylius\MolliePlugin\Resolver;
 
 use Mollie\Api\Exceptions\ApiException;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeAmountCalculatorInterface;
+use Sylius\MolliePlugin\Calculator\PaymentFee\ChargedSurchargeMatcherInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
-use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface as MollieOrderInterface;
 use Sylius\MolliePlugin\Exceptions\UnknownPaymentSurchargeType;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
-use Sylius\MolliePlugin\Provider\PaymentSurchargeAdjustmentsProviderInterface;
 use Sylius\MolliePlugin\Repository\MollieGatewayConfigRepository;
 use Sylius\MolliePlugin\Repository\Query\MollieBasedPaymentMethodQueryInterface;
 use Sylius\MolliePlugin\Resolver\Order\PaymentCheckoutOrderResolverInterface;
@@ -48,9 +46,17 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         private readonly MollieLoggerActionInterface $loggerAction,
         private readonly MollieFactoryNameResolverInterface $mollieFactoryNameResolver,
         private readonly DivisorProviderInterface $divisorProvider,
-        private readonly PaymentSurchargeAmountCalculatorInterface $surchargeAmountCalculator,
-        private readonly PaymentSurchargeAdjustmentsProviderInterface $surchargeAdjustmentsProvider,
+        private readonly ?ChargedSurchargeMatcherInterface $chargedSurchargeMatcher = null,
     ) {
+        if (null === $this->chargedSurchargeMatcher) {
+            trigger_deprecation(
+                'sylius/mollie-plugin',
+                '3.4',
+                'Not passing ChargedSurchargeMatcherInterface to %s is deprecated and will be required in 4.0. ' .
+                'Without it a placed order is offered only the method it already carries, since no other can be shown to keep its total.',
+                self::class,
+            );
+        }
     }
 
     public function resolve(): array
@@ -155,13 +161,17 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
             return $allowedMethods;
         }
 
-        $chargedSurcharge = $this->chargedSurcharge($order);
+        /** Without the matcher no surcharge can be compared, so only the method already carried fits. */
+        if (null === $this->chargedSurchargeMatcher) {
+            return $this->onlyTheSelectedMethod($order, $allowedMethods);
+        }
+
+        $matcher = $this->chargedSurchargeMatcher;
 
         try {
             return array_values(array_filter(
                 $allowedMethods,
-                fn (MollieGatewayConfigInterface $config): bool => $config instanceof MollieGatewayConfig &&
-                    $this->surchargeAmountCalculator->calculateAmount($order, $config) === $chargedSurcharge,
+                fn (MollieGatewayConfigInterface $config): bool => $matcher->matches($order, $config),
             ));
         } catch (UnknownPaymentSurchargeType $e) {
             $this->loggerAction->addNegativeLog(sprintf(
@@ -196,19 +206,6 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         ));
 
         return [] === $selectedOnly ? $allowedMethods : $selectedOnly;
-    }
-
-    private function chargedSurcharge(OrderInterface $order): int
-    {
-        $total = 0;
-
-        foreach ($this->surchargeAdjustmentsProvider->getTypes() as $type) {
-            foreach ($order->getAdjustments($type) as $adjustment) {
-                $total += $adjustment->getAmount();
-            }
-        }
-
-        return $total;
     }
 
     /**
