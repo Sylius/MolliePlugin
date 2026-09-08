@@ -16,6 +16,7 @@ namespace Sylius\MolliePlugin\Calculator\PaymentFee;
 use Sylius\Component\Order\Factory\AdjustmentFactoryInterface;
 use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Model\AdjustmentInterface;
 use Sylius\MolliePlugin\Model\PaymentSurchargeFeeType;
 use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
@@ -44,7 +45,7 @@ final class FixedAmountCalculator implements PaymentSurchargeCalculatorInterface
         $order->addAdjustment($adjustment);
     }
 
-    public function calculateAmount(OrderInterface $order, MollieGatewayConfig $paymentMethod): int
+    public function calculateAmount(OrderInterface $order, MollieGatewayConfigInterface $paymentMethod): int
     {
         Assert::notNull($paymentMethod->getPaymentSurchargeFee());
         $fixedAmount = $paymentMethod->getPaymentSurchargeFee()->getFixedAmount();

@@ -22,6 +22,7 @@ use Sylius\MolliePlugin\Calculator\PaymentFee\ChargedSurchargeMatcherInterface;
 use Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeAmountCalculatorInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface as MollieOrderInterface;
 use Sylius\MolliePlugin\Exceptions\UnknownPaymentSurchargeType;
 use Sylius\MolliePlugin\Model\AdjustmentInterface as MollieAdjustmentInterface;
@@ -92,6 +93,16 @@ final class ChargedSurchargeMatcherTest extends TestCase
         $this->surchargeAmountCalculatorMock->method('calculateAmount')->with($order, $config)->willReturn(400);
 
         $this->assertFalse($this->matcher->matches($order, $config));
+    }
+
+    public function testItMatchesAMethodOfAModelReplacingTheBundledEntity(): void
+    {
+        $order = $this->orderChargedWith(['fixed_fee' => 500]);
+        $config = $this->createMock(MollieGatewayConfigInterface::class);
+
+        $this->surchargeAmountCalculatorMock->method('calculateAmount')->with($order, $config)->willReturn(500);
+
+        $this->assertTrue($this->matcher->matches($order, $config));
     }
 
     public function testItFindsAGatewayKeepingTheTotalWhenOneOfItsMethodsMatches(): void

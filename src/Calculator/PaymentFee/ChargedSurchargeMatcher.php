@@ -15,7 +15,7 @@ namespace Sylius\MolliePlugin\Calculator\PaymentFee;
 
 use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
-use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Provider\PaymentSurchargeAdjustmentsProviderInterface;
 use Sylius\MolliePlugin\Repository\MollieGatewayConfigRepositoryInterface;
 
@@ -41,7 +41,7 @@ final readonly class ChargedSurchargeMatcher implements ChargedSurchargeMatcherI
         return $total;
     }
 
-    public function matches(OrderInterface $order, MollieGatewayConfig $config): bool
+    public function matches(OrderInterface $order, MollieGatewayConfigInterface $config): bool
     {
         return $this->surchargeAmountCalculator->calculateAmount($order, $config) === $this->chargedSurcharge($order);
     }
@@ -59,10 +59,10 @@ final readonly class ChargedSurchargeMatcher implements ChargedSurchargeMatcherI
 
     /**
      * `findAllEnabledByGateway()` selects the amount limits alongside the entity, so Doctrine hands
-     * back rows shaped `[0 => MollieGatewayConfig, 'minimumAmount' => …, 'maximumAmount' => …]`
+     * back rows shaped `[0 => MollieGatewayConfigInterface, 'minimumAmount' => …, 'maximumAmount' => …]`
      * rather than the entities its return type advertises.
      *
-     * @return MollieGatewayConfig[]
+     * @return MollieGatewayConfigInterface[]
      */
     private function enabledConfigs(GatewayConfigInterface $gateway): array
     {
@@ -74,7 +74,7 @@ final readonly class ChargedSurchargeMatcher implements ChargedSurchargeMatcherI
         foreach ($rows as $row) {
             $config = is_array($row) ? ($row[0] ?? null) : $row;
 
-            if ($config instanceof MollieGatewayConfig) {
+            if ($config instanceof MollieGatewayConfigInterface) {
                 $configs[] = $config;
             }
         }
