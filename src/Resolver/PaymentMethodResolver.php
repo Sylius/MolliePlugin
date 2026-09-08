@@ -37,10 +37,28 @@ final class PaymentMethodResolver implements PaymentMethodsResolverInterface
         private readonly MollieFactoryNameResolverInterface $factoryNameResolver,
         private readonly MollieMethodFilterInterface $mollieMethodFilter,
         private readonly EntityManagerInterface $entityManager,
-        private readonly ChargedSurchargeMatcherInterface $chargedSurchargeMatcher,
-        private readonly MollieGatewayFactoryCheckerInterface $gatewayFactoryChecker,
-        private readonly MollieLoggerActionInterface $loggerAction,
+        private readonly ?ChargedSurchargeMatcherInterface $chargedSurchargeMatcher = null,
+        private readonly ?MollieGatewayFactoryCheckerInterface $gatewayFactoryChecker = null,
+        private readonly ?MollieLoggerActionInterface $loggerAction = null,
     ) {
+        if (null === $this->chargedSurchargeMatcher || null === $this->gatewayFactoryChecker) {
+            trigger_deprecation(
+                'sylius/mollie-plugin',
+                '3.4',
+                'Not passing ChargedSurchargeMatcherInterface and MollieGatewayFactoryCheckerInterface to %s is deprecated and will be required in 4.0. ' .
+                'Without them a placed order is offered only the payment method it already carries, since no other can be shown to keep its total.',
+                self::class,
+            );
+        }
+
+        if (null === $this->loggerAction) {
+            trigger_deprecation(
+                'sylius/mollie-plugin',
+                '3.4',
+                'Not passing MollieLoggerActionInterface to %s is deprecated and will be required in 4.0.',
+                self::class,
+            );
+        }
     }
 
     public function getSupportedMethods(PaymentInterface $subject): array
@@ -73,7 +91,7 @@ final class PaymentMethodResolver implements PaymentMethodsResolverInterface
             $parentMethods = $this->mollieMethodFilter->recurringFilter($parentMethods);
         }
 
-        $parentMethods = $this->filterMethodsKeepingTheTotal($order, $parentMethods);
+        $parentMethods = $this->filterMethodsKeepingTheTotal($order, $parentMethods, $subject->getMethod());
 
         return $this->sortMethodsByPosition($parentMethods);
     }
@@ -100,14 +118,28 @@ final class PaymentMethodResolver implements PaymentMethodsResolverInterface
      * picks. Offering a method that would have produced a different surcharge means collecting a fee
      * it never earned - or none of the fee it did.
      *
+     * The method the order already carries produced the surcharge it is charged, so it is the one
+     * method known to keep the total as it stands and is offered when nothing else does.
+     *
      * @param PaymentMethodInterface[] $methods
      *
      * @return PaymentMethodInterface[]
      */
-    private function filterMethodsKeepingTheTotal(OrderInterface $order, array $methods): array
-    {
+    private function filterMethodsKeepingTheTotal(
+        OrderInterface $order,
+        array $methods,
+        ?PaymentMethodInterface $currentMethod,
+    ): array {
         if (null === $order->getCheckoutCompletedAt()) {
             return $methods;
+        }
+
+        /**
+         * Without the matcher or the gateway checker no surcharge can be compared, so the only method
+         * known to keep the total is the one that produced the surcharge the order is charged.
+         */
+        if (null === $this->chargedSurchargeMatcher || null === $this->gatewayFactoryChecker) {
+            return $this->onlyTheCarriedMethod($methods, $currentMethod) ?? $methods;
         }
 
         $chargedSurcharge = $this->chargedSurchargeMatcher->chargedSurcharge($order);
@@ -118,14 +150,31 @@ final class PaymentMethodResolver implements PaymentMethodsResolverInterface
         ));
 
         if ([] === $keptMethods) {
-            $this->loggerAction->addNegativeLog(sprintf(
-                'No payment method reproduces the %d surcharge charged on order %s, so none was offered.',
+            $keptMethods = $this->onlyTheCarriedMethod($methods, $currentMethod) ?? [];
+
+            $this->loggerAction?->addNegativeLog(sprintf(
+                'No payment method reproduces the %d surcharge charged on order %s, so %s was offered.',
                 $chargedSurcharge,
                 (string) $order->getNumber(),
+                [] === $keptMethods ? 'none' : 'only the method it already carries',
             ));
         }
 
         return $keptMethods;
+    }
+
+    /**
+     * @param PaymentMethodInterface[] $methods
+     *
+     * @return PaymentMethodInterface[]|null null when the order carries no method that is still offered
+     */
+    private function onlyTheCarriedMethod(array $methods, ?PaymentMethodInterface $currentMethod): ?array
+    {
+        if (null === $currentMethod || !in_array($currentMethod, $methods, true)) {
+            return null;
+        }
+
+        return [$currentMethod];
     }
 
     /**
@@ -146,14 +195,14 @@ final class PaymentMethodResolver implements PaymentMethodsResolverInterface
             return 0 === $chargedSurcharge;
         }
 
-        if (false === $this->gatewayFactoryChecker->isMollieGateway($gatewayConfig)) {
+        if (true !== $this->gatewayFactoryChecker?->isMollieGateway($gatewayConfig)) {
             return 0 === $chargedSurcharge;
         }
 
         try {
-            return $this->chargedSurchargeMatcher->gatewayKeepsTheTotal($order, $gatewayConfig);
-        } catch (UnknownPaymentSurchargeType $e) {
-            $this->loggerAction->addNegativeLog(sprintf(
+            return $this->chargedSurchargeMatcher?->gatewayKeepsTheTotal($order, $gatewayConfig) ?? true;
+        } catch (\InvalidArgumentException|UnknownPaymentSurchargeType $e) {
+            $this->loggerAction?->addNegativeLog(sprintf(
                 'Cannot compare the payment surcharges of gateway %s, so it was not offered: %s',
                 (string) $gatewayConfig->getGatewayName(),
                 $e->getMessage(),

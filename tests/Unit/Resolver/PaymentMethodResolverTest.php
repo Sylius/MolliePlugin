@@ -109,6 +109,84 @@ final class PaymentMethodResolverTest extends TestCase
         $this->assertSame([], $this->resolver->getSupportedMethods($payment));
     }
 
+    public function testItOffersTheMethodTheOrderAlreadyCarriesWhenNothingElseKeepsTheTotal(): void
+    {
+        $mollie = $this->mollieMethod();
+        $offline = $this->offlineMethod();
+
+        $payment = $this->paymentOfPlacedOrder(
+            [$mollie, $offline],
+            '000000035',
+            currentMethod: $offline,
+        );
+        $this->chargedSurchargeMatcherMock->method('chargedSurcharge')->willReturn(500);
+        $this->chargedSurchargeMatcherMock->method('gatewayKeepsTheTotal')->willReturn(false);
+
+        $this->loggerActionMock->expects($this->once())
+            ->method('addNegativeLog')
+            ->with($this->matchesRegularExpression('/order 000000035, so only the method it already carries was offered/'))
+        ;
+
+        $this->assertSame([$offline], array_values($this->resolver->getSupportedMethods($payment)));
+    }
+
+    public function testItOffersNothingWhenTheMethodTheOrderCarriesIsNoLongerAvailable(): void
+    {
+        $mollie = $this->mollieMethod();
+        $offline = $this->offlineMethod();
+
+        $payment = $this->paymentOfPlacedOrder(
+            [$mollie],
+            '000000035',
+            currentMethod: $offline,
+        );
+        $this->chargedSurchargeMatcherMock->method('chargedSurcharge')->willReturn(500);
+        $this->chargedSurchargeMatcherMock->method('gatewayKeepsTheTotal')->willReturn(false);
+
+        $this->assertSame([], $this->resolver->getSupportedMethods($payment));
+    }
+
+    public function testItOffersOnlyTheCarriedMethodWhenBuiltWithoutTheSurchargeMatcher(): void
+    {
+        $mollie = $this->mollieMethod();
+        $offline = $this->offlineMethod();
+
+        $payment = $this->paymentOfPlacedOrder([$mollie, $offline], currentMethod: $offline);
+
+        $this->chargedSurchargeMatcherMock->expects($this->never())->method('chargedSurcharge');
+
+        $this->assertSame([$offline], array_values($this->resolverWithoutTheSurchargeMatcher()->getSupportedMethods($payment)));
+    }
+
+    public function testItOffersEveryMethodWithoutTheSurchargeMatcherWhenTheOrderCarriesNoMethod(): void
+    {
+        $mollie = $this->mollieMethod();
+        $offline = $this->offlineMethod();
+
+        $payment = $this->paymentOfPlacedOrder([$mollie, $offline]);
+
+        $this->assertSame([$mollie, $offline], array_values($this->resolverWithoutTheSurchargeMatcher()->getSupportedMethods($payment)));
+    }
+
+    public function testItDropsAMollieGatewayWhoseSurchargeCannotBeCalculated(): void
+    {
+        $mollie = $this->mollieMethod();
+        $offline = $this->offlineMethod();
+
+        $payment = $this->paymentOfPlacedOrder([$mollie, $offline]);
+        $this->chargedSurchargeMatcherMock->method('chargedSurcharge')->willReturn(0);
+        $this->chargedSurchargeMatcherMock->method('gatewayKeepsTheTotal')->willThrowException(
+            new \InvalidArgumentException('Expected a value other than null.'),
+        );
+
+        $this->loggerActionMock->expects($this->once())
+            ->method('addNegativeLog')
+            ->with($this->matchesRegularExpression('/Cannot compare the payment surcharges of gateway mollie/'))
+        ;
+
+        $this->assertSame([$offline], array_values($this->resolver->getSupportedMethods($payment)));
+    }
+
     public function testItHidesMollieOnASurchargeFreeOrderWhenEveryMollieMethodWouldChargeAFee(): void
     {
         $mollie = $this->mollieMethod();
@@ -182,6 +260,17 @@ final class PaymentMethodResolverTest extends TestCase
         $this->assertSame([$subscriptionMethod], $this->resolver->getSupportedMethods($payment));
     }
 
+    private function resolverWithoutTheSurchargeMatcher(): PaymentMethodResolver
+    {
+        return new PaymentMethodResolver(
+            $this->decoratedResolverMock,
+            $this->mollieBasedPaymentMethodQueryMock,
+            $this->factoryNameResolverMock,
+            $this->mollieMethodFilterMock,
+            $this->entityManagerAssociatingEveryMethodWithTheChannel(),
+        );
+    }
+
     private function mollieMethod(): PaymentMethodInterface
     {
         $gatewayConfig = $this->createMock(GatewayConfigInterface::class);
@@ -222,6 +311,7 @@ final class PaymentMethodResolverTest extends TestCase
         string $number = '000000001',
         ?\DateTimeInterface $checkoutCompletedAt = new \DateTimeImmutable(),
         string $factoryName = MollieGatewayFactory::FACTORY_NAME,
+        ?PaymentMethodInterface $currentMethod = null,
     ): PaymentInterface {
         $channel = $this->createMock(ChannelInterface::class);
         $channel->method('getId')->willReturn(1);
@@ -234,6 +324,7 @@ final class PaymentMethodResolverTest extends TestCase
 
         $payment = $this->createMock(PaymentInterface::class);
         $payment->method('getOrder')->willReturn($order);
+        $payment->method('getMethod')->willReturn($currentMethod);
 
         $this->factoryNameResolverMock->method('resolve')->willReturn($factoryName);
         $this->decoratedResolverMock->method('getSupportedMethods')->willReturn($methods);
