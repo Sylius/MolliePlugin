@@ -139,7 +139,40 @@ final class ChargedSurchargeMatcherTest extends TestCase
         $this->assertFalse($this->matcher->gatewayKeepsTheTotal($order, $this->createMock(GatewayConfigInterface::class)));
     }
 
-    public function testItPropagatesAnUnknownSurchargeType(): void
+    public function testItPropagatesAnUnknownSurchargeTypeFromASingleMethod(): void
+    {
+        $order = $this->orderChargedWith(['fixed_fee' => 500]);
+
+        $this->surchargeAmountCalculatorMock->method('calculateAmount')->willThrowException(
+            new UnknownPaymentSurchargeType('no calculator supports payment type: custom'),
+        );
+
+        $this->expectException(UnknownPaymentSurchargeType::class);
+
+        $this->matcher->matches($order, new MollieGatewayConfig());
+    }
+
+    public function testItKeepsAGatewayWhoseOtherMethodMatchesWhenOneCannotBeCompared(): void
+    {
+        $order = $this->orderChargedWith(['fixed_fee' => 500]);
+        $broken = new MollieGatewayConfig();
+        $ideal = new MollieGatewayConfig();
+
+        $this->expectEnabledConfigs([$broken, $ideal]);
+        $this->surchargeAmountCalculatorMock->method('calculateAmount')->willReturnCallback(
+            function ($ignored, MollieGatewayConfig $config) use ($ideal): int {
+                if ($config !== $ideal) {
+                    throw new \InvalidArgumentException('Expected a value other than null.');
+                }
+
+                return 500;
+            },
+        );
+
+        $this->assertTrue($this->matcher->gatewayKeepsTheTotal($order, $this->createMock(GatewayConfigInterface::class)));
+    }
+
+    public function testItFindsNoGatewayKeepingTheTotalWhenNoMethodCanBeCompared(): void
     {
         $order = $this->orderChargedWith(['fixed_fee' => 500]);
 
@@ -148,9 +181,7 @@ final class ChargedSurchargeMatcherTest extends TestCase
             new UnknownPaymentSurchargeType('no calculator supports payment type: custom'),
         );
 
-        $this->expectException(UnknownPaymentSurchargeType::class);
-
-        $this->matcher->gatewayKeepsTheTotal($order, $this->createMock(GatewayConfigInterface::class));
+        $this->assertFalse($this->matcher->gatewayKeepsTheTotal($order, $this->createMock(GatewayConfigInterface::class)));
     }
 
     /**

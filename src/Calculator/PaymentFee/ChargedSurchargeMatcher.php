@@ -16,6 +16,7 @@ namespace Sylius\MolliePlugin\Calculator\PaymentFee;
 use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
+use Sylius\MolliePlugin\Exceptions\UnknownPaymentSurchargeType;
 use Sylius\MolliePlugin\Provider\PaymentSurchargeAdjustmentsProviderInterface;
 use Sylius\MolliePlugin\Repository\MollieGatewayConfigRepositoryInterface;
 
@@ -49,8 +50,13 @@ final readonly class ChargedSurchargeMatcher implements ChargedSurchargeMatcherI
     public function gatewayKeepsTheTotal(OrderInterface $order, GatewayConfigInterface $gateway): bool
     {
         foreach ($this->enabledConfigs($gateway) as $config) {
-            if ($this->matches($order, $config)) {
-                return true;
+            try {
+                if ($this->matches($order, $config)) {
+                    return true;
+                }
+            } catch (\InvalidArgumentException|UnknownPaymentSurchargeType) {
+                /** One method that cannot be compared must not hide another that keeps the total. */
+                continue;
             }
         }
 

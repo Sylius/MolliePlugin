@@ -209,10 +209,88 @@ final class MolliePaymentsMethodResolverTest extends TestCase
         $order = $this->orderChargedWith(500, new \DateTimeImmutable(), 'ideal');
         $this->expectMethodsOffered($order, [$ideal, $satispay], ['ideal' => 500, 'satispay' => 400]);
         $this->matcherUnableToCompareSurcharges();
+        $logs = $this->captureLogs();
+
+        $this->countriesRestrictionResolverMock->expects($this->once())
+            ->method('resolve')
+            ->with($ideal, $this->anything(), 'NL')
+            ->willReturn($this->defaultOptions())
+        ;
+
+        $this->resolver->resolve();
+
+        $this->assertSame([
+            'No Mollie method reproduces the 0 surcharge charged on order 000000035, so only the method it already carries was offered.',
+        ], $logs->getArrayCopy());
+    }
+
+    public function testItOffersTheMethodsItCanCompareWhenAnotherIsConfiguredIncompletely(): void
+    {
+        $ideal = $this->config('ideal');
+        $satispay = $this->config('satispay');
+
+        $order = $this->orderChargedWith(500, new \DateTimeImmutable(), 'ideal');
+        $this->expectMethodsOffered($order, [$ideal, $satispay], ['ideal' => 500, 'satispay' => 400]);
+        $logs = $this->captureLogs();
+        $notices = $this->captureLogs('addLog');
+
+        $this->chargedSurchargeMatcherMock->method('matches')->willReturnCallback(
+            function ($ignored, MollieGatewayConfig $config) use ($satispay): bool {
+                if ($config === $satispay) {
+                    throw new \InvalidArgumentException('Expected a value other than null.');
+                }
+
+                return true;
+            },
+        );
+
+        $this->countriesRestrictionResolverMock->expects($this->once())
+            ->method('resolve')
+            ->with($ideal, $this->anything(), 'NL')
+            ->willReturn($this->defaultOptions())
+        ;
+
+        $this->resolver->resolve();
+
+        $this->assertSame([], $logs->getArrayCopy());
+        $this->assertSame([
+            'Cannot compare the payment surcharge of method satispay on order 000000035, so it was not offered: Expected a value other than null.',
+        ], $notices->getArrayCopy());
+    }
+
+    public function testItOffersNoMethodWhenNeitherTheSurchargeNorTheSelectionCanBeRead(): void
+    {
+        $ideal = $this->config('ideal');
+        $satispay = $this->config('satispay');
+
+        $order = $this->orderChargedWith(500, new \DateTimeImmutable());
+        $this->expectMethodsOffered($order, [$ideal, $satispay], ['ideal' => 500, 'satispay' => 400]);
+        $this->matcherUnableToCompareSurcharges();
+        $logs = $this->captureLogs();
+
+        $this->countriesRestrictionResolverMock->expects($this->never())->method('resolve');
+
+        $this->assertSame($this->defaultOptions(), $this->resolver->resolve());
+        $this->assertSame([
+            'No Mollie method reproduces the 0 surcharge charged on order 000000035, so none was offered.',
+        ], $logs->getArrayCopy());
+    }
+
+    public function testItOffersTheSelectedMethodWhenNoMethodReproducesTheChargedSurcharge(): void
+    {
+        $ideal = $this->config('ideal');
+        $satispay = $this->config('satispay');
+
+        $order = $this->orderChargedWith(500, new \DateTimeImmutable(), 'ideal');
+        $this->expectMethodsOffered($order, [$ideal, $satispay], ['ideal' => 700, 'satispay' => 400]);
+        $this->matcherKeepingTheTotalFor(['ideal' => 700, 'satispay' => 400], 500);
+        $this->chargedSurchargeMatcherMock->method('chargedSurcharge')->willReturn(500);
 
         $this->loggerActionMock->expects($this->once())
             ->method('addNegativeLog')
-            ->with($this->matchesRegularExpression('/Cannot compare payment surcharges/'))
+            ->with($this->matchesRegularExpression(
+                '/No Mollie method reproduces the 500 surcharge charged on order 000000035, so only the method it already carries was offered/',
+            ))
         ;
         $this->countriesRestrictionResolverMock->expects($this->once())
             ->method('resolve')
@@ -223,21 +301,42 @@ final class MolliePaymentsMethodResolverTest extends TestCase
         $this->resolver->resolve();
     }
 
-    public function testItOffersEveryMethodWhenNeitherTheSurchargeNorTheSelectionCanBeRead(): void
+    public function testItOffersNoMethodWhenNothingReproducesTheSurchargeAndTheOrderCarriesNoMethod(): void
     {
         $ideal = $this->config('ideal');
         $satispay = $this->config('satispay');
 
         $order = $this->orderChargedWith(500, new \DateTimeImmutable());
-        $this->expectMethodsOffered($order, [$ideal, $satispay], ['ideal' => 500, 'satispay' => 400]);
-        $this->matcherUnableToCompareSurcharges();
+        $this->expectMethodsOffered($order, [$ideal, $satispay], ['ideal' => 700, 'satispay' => 400]);
+        $this->matcherKeepingTheTotalFor(['ideal' => 700, 'satispay' => 400], 500);
+        $this->chargedSurchargeMatcherMock->method('chargedSurcharge')->willReturn(500);
 
-        $this->countriesRestrictionResolverMock->expects($this->exactly(2))
-            ->method('resolve')
-            ->willReturn($this->defaultOptions())
+        $this->loggerActionMock->expects($this->once())
+            ->method('addNegativeLog')
+            ->with($this->matchesRegularExpression('/charged on order 000000035, so none was offered/'))
         ;
+        $this->countriesRestrictionResolverMock->expects($this->never())->method('resolve');
 
-        $this->resolver->resolve();
+        $this->assertSame($this->defaultOptions(), $this->resolver->resolve());
+    }
+
+    public function testItOffersNoMethodWhenTheMethodTheOrderCarriesIsNoLongerAvailable(): void
+    {
+        $ideal = $this->config('ideal');
+        $satispay = $this->config('satispay');
+
+        $order = $this->orderChargedWith(500, new \DateTimeImmutable(), 'paypal');
+        $this->expectMethodsOffered($order, [$ideal, $satispay], ['ideal' => 700, 'satispay' => 400]);
+        $this->matcherKeepingTheTotalFor(['ideal' => 700, 'satispay' => 400], 500);
+        $this->chargedSurchargeMatcherMock->method('chargedSurcharge')->willReturn(500);
+
+        $this->loggerActionMock->expects($this->once())
+            ->method('addNegativeLog')
+            ->with($this->matchesRegularExpression('/charged on order 000000035, so none was offered/'))
+        ;
+        $this->countriesRestrictionResolverMock->expects($this->never())->method('resolve');
+
+        $this->assertSame($this->defaultOptions(), $this->resolver->resolve());
     }
 
     private function config(string $methodId): MollieGatewayConfig
@@ -263,6 +362,7 @@ final class MolliePaymentsMethodResolverTest extends TestCase
         $order->method('getBillingAddress')->willReturn($address);
         $order->method('getChannel')->willReturn($this->createMock(ChannelInterface::class));
         $order->method('getCheckoutCompletedAt')->willReturn($checkoutCompletedAt);
+        $order->method('getNumber')->willReturn('000000035');
         $order->method('getTotal')->willReturn(7597);
         $payment = null;
 
@@ -313,10 +413,25 @@ final class MolliePaymentsMethodResolverTest extends TestCase
         );
     }
 
-    private function matcherUnableToCompareSurcharges(): void
+    /** @return \ArrayObject<int, string> */
+    private function captureLogs(string $method = 'addNegativeLog'): \ArrayObject
+    {
+        /** @var \ArrayObject<int, string> $messages */
+        $messages = new \ArrayObject();
+
+        $this->loggerActionMock->method($method)->willReturnCallback(
+            static function (string $message) use ($messages): void {
+                $messages[] = $message;
+            },
+        );
+
+        return $messages;
+    }
+
+    private function matcherUnableToCompareSurcharges(?\Throwable $failure = null): void
     {
         $this->chargedSurchargeMatcherMock->method('matches')->willThrowException(
-            new UnknownPaymentSurchargeType('no calculator supports payment type: custom'),
+            $failure ?? new UnknownPaymentSurchargeType('no calculator supports payment type: custom'),
         );
     }
 

@@ -93,17 +93,22 @@
    - Mollie is no longer offered for an order carrying no surcharge when every one of its enabled
      methods would charge a fee, which used to render an empty method list. A method that reproduces
      the surcharge but is unavailable for other reasons, such as the order total falling outside its
-     amount limits, still keeps the gateway on the list, so an empty method list remains possible.
+     amount limits, still keeps the gateway on the list, so an empty method list remains possible,
+     and the reason is logged.
 
    When nothing keeps the total, the only method offered is the one the order already carries, since
-   that is the method whose surcharge the order is charged, and the reason is logged. A customer can
-   therefore never pay a total that a different method produced, and an order whose configuration has
-   changed since it was placed can still be paid.
+   that is the method whose surcharge the order is charged, and the reason is logged. The same rule
+   applies inside the Mollie method list: when no enabled Mollie method reproduces the charged
+   surcharge, the list holds only the method the order already carries. A customer can therefore
+   never pay a total that a different method produced, and an order whose configuration has changed
+   since it was placed can still be paid, as long as the method it carries is still available. When
+   it is not, nothing is offered.
 
    A surcharge that cannot be compared, meaning a custom calculator that reports no amount or a
-   method whose surcharge is configured incompletely, drops the Mollie gateway from the list rather
-   than the whole list. Inside a Mollie gateway that is still offered, only the method the order
-   already carries is offered in that case. See point 6.
+   method whose surcharge is configured incompletely, leaves that method out of the comparison. Its
+   siblings are still compared, and the Mollie gateway is offered as long as one of them reproduces
+   the charged surcharge. The skipped method is recorded in the Mollie log at notice level.
+   See point 6.
 
 6. The payment fee calculators in `Sylius\MolliePlugin\Calculator\PaymentFee` also implement
    `PaymentSurchargeAmountCalculatorInterface`, which reports a surcharge instead of applying it
@@ -115,7 +120,7 @@
    surcharge exactly as before and needs no change to keep working. What it cannot do is report an
    amount, so the plugin cannot compare its surcharge against the one already on an order. After
    checkout completion such an order is then offered only the method it already carries, which is
-   the one that produced its surcharge, and the reason is logged.
+   the one that produced its surcharge, and nothing when it carries none. The reason is logged.
 
    To take part in the comparison, implement `PaymentSurchargeAmountCalculatorInterface` as well and
    have `calculate()` delegate to `calculateAmount()`, which is what the bundled calculators do, so
