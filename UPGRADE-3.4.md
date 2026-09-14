@@ -182,3 +182,24 @@
     service and pass it a `Gaufrette\Filesystem` argument, update it to inject
     `Sylius\Component\Core\Filesystem\Adapter\FilesystemAdapterInterface` instead. Stored logo files
     are unaffected, as both filesystems resolve to the same directory.
+
+11. `POST /api/v2/shop/orders/{tokenValue}/mollie-methods` rejects a `methodId` that the matching
+    `GET` does not offer with a 400, instead of creating a Mollie payment for it. An API client
+    therefore reaches the same methods the shop offers, described in point 5.
+
+    `SelectMollieMethodAction` takes the resolver answering which methods are offered:
+
+    ```diff
+     public function __construct(
+         private readonly OrderRepositoryInterface $orderRepository,
+         private readonly EntityManagerInterface $entityManager,
+         private readonly MollieApiClientKeyResolverInterface $apiClientKeyResolver,
+         private readonly MollieGatewayFactoryCheckerInterface $mollieGatewayFactoryChecker,
+         private readonly RepositoryInterface $mollieCustomerRepository,
+         private readonly MollieSubscriptionFactoryInterface $subscriptionFactory,
+         private readonly MollieSubscriptionRepositoryInterface $subscriptionRepository,
+         private readonly PaymentDataCreatorInterface $paymentDataCreator,
+         private readonly MollieLoggerActionInterface $logger,
+    +    private readonly MolliePaymentsMethodResolverInterface $molliePaymentsMethodResolver,
+     ) {
+    ```

@@ -32,7 +32,9 @@ use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryCheckerInterface;
 use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
 use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
+use Sylius\MolliePlugin\Resolver\MolliePaymentsMethodResolverInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 final class SelectMollieMethodActionTest extends TestCase
 {
@@ -47,6 +49,8 @@ final class SelectMollieMethodActionTest extends TestCase
         $subscriptionRepository = $this->createMock(MollieSubscriptionRepositoryInterface::class);
         $paymentDataCreator = $this->createMock(PaymentDataCreatorInterface::class);
         $logger = $this->createMock(MollieLoggerActionInterface::class);
+        $molliePaymentsMethodResolver = $this->createMock(MolliePaymentsMethodResolverInterface::class);
+        $molliePaymentsMethodResolver->method('resolve')->willReturn($this->offeredMethods(['ideal']));
 
         $action = new SelectMollieMethodAction(
             $orderRepository,
@@ -58,6 +62,7 @@ final class SelectMollieMethodActionTest extends TestCase
             $subscriptionRepository,
             $paymentDataCreator,
             $logger,
+            $molliePaymentsMethodResolver,
         );
 
         $payment = $this->createMock(PaymentInterface::class);
@@ -125,5 +130,75 @@ final class SelectMollieMethodActionTest extends TestCase
 
         self::assertSame('tr_new', $capturedDetails['payment_mollie_id']);
         self::assertSame(42, $capturedDetails['metadata']['order_id']);
+    }
+
+    public function testItRejectsAMethodThatIsNotOfferedForTheOrder(): void
+    {
+        $orderRepository = $this->createMock(OrderRepositoryInterface::class);
+        $apiClientKeyResolver = $this->createMock(MollieApiClientKeyResolverInterface::class);
+        $mollieGatewayFactoryChecker = $this->createMock(MollieGatewayFactoryCheckerInterface::class);
+        $paymentDataCreator = $this->createMock(PaymentDataCreatorInterface::class);
+        $molliePaymentsMethodResolver = $this->createMock(MolliePaymentsMethodResolverInterface::class);
+
+        $action = new SelectMollieMethodAction(
+            $orderRepository,
+            $this->createMock(EntityManagerInterface::class),
+            $apiClientKeyResolver,
+            $mollieGatewayFactoryChecker,
+            $this->createMock(RepositoryInterface::class),
+            $this->createMock(MollieSubscriptionFactoryInterface::class),
+            $this->createMock(MollieSubscriptionRepositoryInterface::class),
+            $paymentDataCreator,
+            $this->createMock(MollieLoggerActionInterface::class),
+            $molliePaymentsMethodResolver,
+        );
+
+        $gatewayConfig = $this->createMock(GatewayConfigInterface::class);
+        $paymentMethod = $this->createMock(PaymentMethodInterface::class);
+        $paymentMethod->method('getGatewayConfig')->willReturn($gatewayConfig);
+
+        $payment = $this->createMock(PaymentInterface::class);
+        $payment->method('getMethod')->willReturn($paymentMethod);
+
+        $order = $this->createMock(OrderInterface::class);
+        $order->method('getPaymentState')->willReturn('awaiting_payment');
+        $order->method('getLastPayment')->willReturn($payment);
+
+        $orderRepository->method('findOneByTokenValue')->with('order_token')->willReturn($order);
+        $mollieGatewayFactoryChecker->method('isMollieGateway')->willReturn(true);
+        $molliePaymentsMethodResolver->method('resolve')->willReturn($this->offeredMethods(['ideal', 'bancontact']));
+
+        $apiClientKeyResolver->expects(self::never())->method('getClientWithKey');
+        $paymentDataCreator->expects(self::never())->method('create');
+
+        $request = new Request([], [], [], [], [], [], json_encode([
+            'methodId' => 'paypal',
+            'backUrl' => 'https://example.com/back',
+        ]));
+
+        $this->expectException(BadRequestHttpException::class);
+        $this->expectExceptionMessage('The payment method is not available for order "order_token"');
+
+        $action('order_token', $request);
+    }
+
+    /**
+     * @param string[] $methodIds
+     *
+     * @return array{
+     *     data: array<string, string>,
+     *     image: array<string, string>,
+     *     issuers: array<string, mixed>|null,
+     *     paymentFee: array<string, mixed>
+     * }
+     */
+    private function offeredMethods(array $methodIds): array
+    {
+        return [
+            'data' => array_combine($methodIds, $methodIds),
+            'image' => [],
+            'issuers' => [],
+            'paymentFee' => [],
+        ];
     }
 }
