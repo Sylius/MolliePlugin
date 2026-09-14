@@ -203,3 +203,8 @@
     +    private readonly MolliePaymentsMethodResolverInterface $molliePaymentsMethodResolver,
      ) {
     ```
+
+12. A payment surcharge of type `fixed_fee_and_percentage` requires a surcharge limit, the way
+    `percentage` already did. `FixedAmountAndPercentageCalculator` needs the limit to cap its total,
+    so a method saved without one could not have its fee calculated, which broke the checkout fee
+    call for it.
