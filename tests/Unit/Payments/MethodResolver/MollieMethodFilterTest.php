@@ -76,8 +76,8 @@ final class MollieMethodFilterTest extends TestCase
 
         $paymentMethods = [$method1Mock, $method2Mock];
 
-        $method1Mock->expects($this->exactly(2))
-        ->method('getGatewayConfig')
+        $method1Mock->expects($this->once())
+            ->method('getGatewayConfig')
             ->willReturn($config1Mock)
         ;
         $config1Mock->expects($this->once())
@@ -85,17 +85,56 @@ final class MollieMethodFilterTest extends TestCase
             ->willReturn(MollieGatewayFactory::FACTORY_NAME)
         ;
 
-        $method2Mock->expects($this->exactly(2))
-        ->method('getGatewayConfig')
+        $method2Mock->expects($this->once())
+            ->method('getGatewayConfig')
             ->willReturn($config2Mock)
         ;
         $config2Mock->expects($this->once())
             ->method('getFactoryName')
-            ->willReturn('mollie_subscription')
+            ->willReturn(MollieSubscriptionGatewayFactory::FACTORY_NAME)
         ;
 
         $filteredMethods = $this->mollieMethodFilter->recurringFilter($paymentMethods);
 
         $this->assertSame([$method2Mock], $filteredMethods);
+    }
+
+    /** @dataProvider nonSubscriptionFactoryNameProvider */
+    public function testRemovesNonSubscriptionMethodsFromRecurringMethods(string $factoryName): void
+    {
+        $methodMock = $this->createMock(PaymentMethodInterface::class);
+        $configMock = $this->createMock(GatewayConfigInterface::class);
+
+        $methodMock->expects($this->once())
+            ->method('getGatewayConfig')
+            ->willReturn($configMock)
+        ;
+        $configMock->expects($this->once())
+            ->method('getFactoryName')
+            ->willReturn($factoryName)
+        ;
+
+        $this->assertSame([], $this->mollieMethodFilter->recurringFilter([$methodMock]));
+    }
+
+    public function testRemovesMethodsWithoutGatewayConfigFromRecurringMethods(): void
+    {
+        $methodMock = $this->createMock(PaymentMethodInterface::class);
+
+        $methodMock->expects($this->once())
+            ->method('getGatewayConfig')
+            ->willReturn(null)
+        ;
+
+        $this->assertSame([], $this->mollieMethodFilter->recurringFilter([$methodMock]));
+    }
+
+    /** @return iterable<string, array{string}> */
+    public static function nonSubscriptionFactoryNameProvider(): iterable
+    {
+        yield 'mollie' => [MollieGatewayFactory::FACTORY_NAME];
+        yield 'offline' => ['offline'];
+        yield 'paypal' => ['paypal'];
+        yield 'stripe' => ['stripe_checkout'];
     }
 }

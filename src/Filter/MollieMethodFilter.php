@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Filter;
 
 use Sylius\Component\Core\Model\PaymentMethodInterface;
-use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
 use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
 use Webmozart\Assert\Assert;
 
@@ -40,8 +39,7 @@ final class MollieMethodFilter implements MollieMethodFilterInterface
 
         /** @var PaymentMethodInterface $method */
         foreach ($paymentMethods as $method) {
-            Assert::notNull($method->getGatewayConfig());
-            if (MollieGatewayFactory::FACTORY_NAME !== $method->getGatewayConfig()->getFactoryName()) {
+            if (MollieSubscriptionGatewayFactory::FACTORY_NAME === $method->getGatewayConfig()?->getFactoryName()) {
                 $filteredMethods[] = $method;
             }
         }
