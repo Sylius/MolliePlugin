@@ -184,12 +184,7 @@ final class ChargedSurchargeMatcherTest extends TestCase
         $this->assertFalse($this->matcher->gatewayKeepsTheTotal($order, $this->createMock(GatewayConfigInterface::class)));
     }
 
-    /**
-     * `findAllEnabledByGateway()` selects the amount limits alongside the entity, so Doctrine hands
-     * back rows rather than the entities its return type advertises.
-     *
-     * @param MollieGatewayConfig[] $configs
-     */
+    /** @param MollieGatewayConfig[] $configs */
     private function expectEnabledConfigs(array $configs): void
     {
         $this->mollieGatewayConfigRepositoryMock->method('findAllEnabledByGateway')->willReturn(array_map(

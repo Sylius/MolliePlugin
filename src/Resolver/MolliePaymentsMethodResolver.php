@@ -161,7 +161,6 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
             return $allowedMethods;
         }
 
-        /** Without the matcher no surcharge can be compared, so only the method already carried fits. */
         if (null === $this->chargedSurchargeMatcher) {
             return $this->onlyTheSelectedMethod($order, $allowedMethods) ?? $allowedMethods;
         }
@@ -175,7 +174,6 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
                     $keptMethods[] = $config;
                 }
             } catch (\InvalidArgumentException|UnknownPaymentSurchargeType $e) {
-                /** One method that cannot be compared must not hide another that keeps the total. */
                 $this->loggerAction->addLog(sprintf(
                     'Cannot compare the payment surcharge of method %s on order %s, so it was not offered: %s',
                     (string) $config->getMethodId(),

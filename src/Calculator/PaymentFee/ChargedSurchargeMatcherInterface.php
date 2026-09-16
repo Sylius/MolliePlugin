@@ -28,6 +28,5 @@ interface ChargedSurchargeMatcherInterface
      */
     public function matches(OrderInterface $order, MollieGatewayConfigInterface $config): bool;
 
-    /** Whether any enabled method of the gateway would keep the order total unchanged. */
     public function gatewayKeepsTheTotal(OrderInterface $order, GatewayConfigInterface $gateway): bool;
 }

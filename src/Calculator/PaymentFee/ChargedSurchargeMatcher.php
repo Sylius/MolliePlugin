@@ -63,13 +63,7 @@ final readonly class ChargedSurchargeMatcher implements ChargedSurchargeMatcherI
         return false;
     }
 
-    /**
-     * `findAllEnabledByGateway()` selects the amount limits alongside the entity, so Doctrine hands
-     * back rows shaped `[0 => MollieGatewayConfigInterface, 'minimumAmount' => …, 'maximumAmount' => …]`
-     * rather than the entities its return type advertises.
-     *
-     * @return MollieGatewayConfigInterface[]
-     */
+    /** @return MollieGatewayConfigInterface[] */
     private function enabledConfigs(GatewayConfigInterface $gateway): array
     {
         /** @var array<array-key, mixed> $rows */
