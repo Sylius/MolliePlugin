@@ -14,10 +14,10 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Calculator\PaymentFee;
 
 use Sylius\Component\Order\Model\OrderInterface;
-use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 
 interface PaymentSurchargeAmountCalculatorInterface
 {
     /** The surcharge this method would add to the order, in the smallest currency unit. */
-    public function calculateAmount(OrderInterface $order, MollieGatewayConfig $paymentMethod): int;
+    public function calculateAmount(OrderInterface $order, MollieGatewayConfigInterface $paymentMethod): int;
 }

@@ -43,6 +43,7 @@
             <argument type="service" id="sylius_mollie.repository.mollie_subscription" />
             <argument type="service" id="sylius_mollie.creator.payment_data" />
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action" />
+            <argument type="service" id="sylius_mollie.resolver.payment_methods" />
         </service>
 
         <service id="sylius_mollie.api.controller.update_payment_status" class="Sylius\MolliePlugin\Api\Controller\UpdatePaymentStatusAction" public="true">

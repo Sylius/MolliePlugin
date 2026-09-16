@@ -29,8 +29,7 @@
             <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
             <argument type="service" id="sylius_mollie.resolver.mollie_factory_name"/>
             <argument type="service" id="sylius_mollie.provider.divisor"/>
-            <argument type="service" id="sylius_mollie.calculator.payment_fee.composite"/>
-            <argument type="service" id="sylius_mollie.provider.payment_surcharge_adjustments"/>
+            <argument type="service" id="sylius_mollie.calculator.payment_fee.charged_surcharge_matcher"/>
         </service>
         <service id="Sylius\MolliePlugin\Resolver\MolliePaymentsMethodResolverInterface" alias="sylius_mollie.resolver.payment_methods" />
 
@@ -113,6 +112,9 @@
             <argument type="service" id="sylius_mollie.resolver.mollie_factory_name" />
             <argument type="service" id="sylius_mollie.filter.mollie_method"/>
             <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="sylius_mollie.calculator.payment_fee.charged_surcharge_matcher"/>
+            <argument type="service" id="sylius_mollie.payum.checker.mollie_gateway_factory"/>
+            <argument type="service" id="sylius_mollie.logger.mollie_logger_action"/>
             <tag name="sylius.payment_method_resolver" type="mollie" label="Mollie" priority="2" />
         </service>
     </services>

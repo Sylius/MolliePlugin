@@ -15,15 +15,13 @@ namespace Sylius\MolliePlugin\Resolver;
 
 use Mollie\Api\Exceptions\ApiException;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeAmountCalculatorInterface;
+use Sylius\MolliePlugin\Calculator\PaymentFee\ChargedSurchargeMatcherInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
-use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface as MollieOrderInterface;
 use Sylius\MolliePlugin\Exceptions\UnknownPaymentSurchargeType;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
-use Sylius\MolliePlugin\Provider\PaymentSurchargeAdjustmentsProviderInterface;
 use Sylius\MolliePlugin\Repository\MollieGatewayConfigRepository;
 use Sylius\MolliePlugin\Repository\Query\MollieBasedPaymentMethodQueryInterface;
 use Sylius\MolliePlugin\Resolver\Order\PaymentCheckoutOrderResolverInterface;
@@ -48,9 +46,17 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         private readonly MollieLoggerActionInterface $loggerAction,
         private readonly MollieFactoryNameResolverInterface $mollieFactoryNameResolver,
         private readonly DivisorProviderInterface $divisorProvider,
-        private readonly PaymentSurchargeAmountCalculatorInterface $surchargeAmountCalculator,
-        private readonly PaymentSurchargeAdjustmentsProviderInterface $surchargeAdjustmentsProvider,
+        private readonly ?ChargedSurchargeMatcherInterface $chargedSurchargeMatcher = null,
     ) {
+        if (null === $this->chargedSurchargeMatcher) {
+            trigger_deprecation(
+                'sylius/mollie-plugin',
+                '3.4',
+                'Not passing ChargedSurchargeMatcherInterface to %s is deprecated and will be required in 4.0. ' .
+                'Without it a placed order is offered only the method it already carries, since no other can be shown to keep its total.',
+                self::class,
+            );
+        }
     }
 
     public function resolve(): array
@@ -155,22 +161,40 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
             return $allowedMethods;
         }
 
-        $chargedSurcharge = $this->chargedSurcharge($order);
-
-        try {
-            return array_values(array_filter(
-                $allowedMethods,
-                fn (MollieGatewayConfigInterface $config): bool => $config instanceof MollieGatewayConfig &&
-                    $this->surchargeAmountCalculator->calculateAmount($order, $config) === $chargedSurcharge,
-            ));
-        } catch (UnknownPaymentSurchargeType $e) {
-            $this->loggerAction->addNegativeLog(sprintf(
-                'Cannot compare payment surcharges, offering only the method the order already carries: %s',
-                $e->getMessage(),
-            ));
-
-            return $this->onlyTheSelectedMethod($order, $allowedMethods);
+        if (null === $this->chargedSurchargeMatcher) {
+            return $this->onlyTheSelectedMethod($order, $allowedMethods) ?? $allowedMethods;
         }
+
+        $matcher = $this->chargedSurchargeMatcher;
+        $keptMethods = [];
+
+        foreach ($allowedMethods as $config) {
+            try {
+                if ($matcher->matches($order, $config)) {
+                    $keptMethods[] = $config;
+                }
+            } catch (\InvalidArgumentException|UnknownPaymentSurchargeType $e) {
+                $this->loggerAction->addLog(sprintf(
+                    'Cannot compare the payment surcharge of method %s on order %s, so it was not offered: %s',
+                    (string) $config->getMethodId(),
+                    (string) $order->getNumber(),
+                    $e->getMessage(),
+                ));
+            }
+        }
+
+        if ([] === $keptMethods) {
+            $keptMethods = $this->onlyTheSelectedMethod($order, $allowedMethods) ?? [];
+
+            $this->loggerAction->addNegativeLog(sprintf(
+                'No Mollie method reproduces the %d surcharge charged on order %s, so %s was offered.',
+                $matcher->chargedSurcharge($order),
+                (string) $order->getNumber(),
+                [] === $keptMethods ? 'none' : 'only the method it already carries',
+            ));
+        }
+
+        return $keptMethods;
     }
 
     /**
@@ -179,15 +203,15 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
      *
      * @param MollieGatewayConfigInterface[] $allowedMethods
      *
-     * @return MollieGatewayConfigInterface[]
+     * @return MollieGatewayConfigInterface[]|null null when the order carries no method that is still offered
      */
-    private function onlyTheSelectedMethod(OrderInterface $order, array $allowedMethods): array
+    private function onlyTheSelectedMethod(OrderInterface $order, array $allowedMethods): ?array
     {
         $details = $order->getLastPayment()?->getDetails() ?? [];
         $selected = $details['molliePaymentMethods'] ?? $details['metadata']['molliePaymentMethods'] ?? null;
 
         if (null === $selected) {
-            return $allowedMethods;
+            return null;
         }
 
         $selectedOnly = array_values(array_filter(
@@ -195,20 +219,7 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
             fn (MollieGatewayConfigInterface $config): bool => $config->getMethodId() === $selected,
         ));
 
-        return [] === $selectedOnly ? $allowedMethods : $selectedOnly;
-    }
-
-    private function chargedSurcharge(OrderInterface $order): int
-    {
-        $total = 0;
-
-        foreach ($this->surchargeAdjustmentsProvider->getTypes() as $type) {
-            foreach ($order->getAdjustments($type) as $adjustment) {
-                $total += $adjustment->getAmount();
-            }
-        }
-
-        return $total;
+        return [] === $selectedOnly ? null : $selectedOnly;
     }
 
     /**

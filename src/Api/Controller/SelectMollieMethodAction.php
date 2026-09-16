@@ -32,6 +32,7 @@ use Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryCheckerInterface;
 use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
 use Sylius\MolliePlugin\Repository\MollieSubscriptionRepositoryInterface;
 use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
+use Sylius\MolliePlugin\Resolver\MolliePaymentsMethodResolverInterface;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,6 +54,7 @@ final class SelectMollieMethodAction
         private readonly MollieSubscriptionRepositoryInterface $subscriptionRepository,
         private readonly PaymentDataCreatorInterface $paymentDataCreator,
         private readonly MollieLoggerActionInterface $logger,
+        private readonly MolliePaymentsMethodResolverInterface $molliePaymentsMethodResolver,
     ) {
     }
 
@@ -90,6 +92,15 @@ final class SelectMollieMethodAction
 
         if (!$this->mollieGatewayFactoryChecker->isMollieGateway($gatewayConfig)) {
             throw new BadRequestException('The payment method is not using Mollie');
+        }
+
+        $offeredMethodIds = array_keys($this->molliePaymentsMethodResolver->resolve()['data']);
+
+        if (!in_array($methodId, $offeredMethodIds, true)) {
+            throw new BadRequestHttpException(sprintf(
+                'The payment method is not available for order "%s"',
+                $tokenValue,
+            ));
         }
 
         $mollieApiClient = $this->apiClientKeyResolver->getClientWithKey($order);
