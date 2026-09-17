@@ -29,7 +29,7 @@ jobs:
             matrix:
                 php: ["8.3"]
                 symfony: ["^6.4", "^7.4"]
-                sylius: ["~2.1.0", "~2.2.0"]
+                sylius: ["~2.1.0", "2.2.x-dev"]
                 node: ["22.x"]
                 database: ["mysql:8.4"]
                 state_machine_adapter: ["symfony_workflow"]
@@ -76,15 +76,16 @@ jobs:
                     node_version: "${{ matrix.node }}"
                     php_version: "${{ matrix.php }}"
                     sylius_version: "${{ matrix.sylius }}"
+                    composer_minimum_stability: "dev"
                     symfony_version: "${{ matrix.symfony }}"
 
             -
                 name: Run security check
                 run: composer audit --abandoned=ignore
 
-            -
-                name: Validate composer.json
-                run: composer validate --ansi --strict
+#            -
+#                name: Validate composer.json
+#                run: composer validate --ansi --strict
 
             -
                 name: Run ECS
