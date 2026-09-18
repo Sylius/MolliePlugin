@@ -15,9 +15,10 @@ namespace Sylius\MolliePlugin\Calculator\PaymentFee;
 
 use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfig;
+use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Model\PaymentSurchargeFeeType;
 
-final class NoFeeCalculator implements PaymentSurchargeCalculatorInterface
+final class NoFeeCalculator implements PaymentSurchargeCalculatorInterface, PaymentSurchargeAmountCalculatorInterface
 {
     public function supports(string $type): bool
     {
@@ -27,5 +28,10 @@ final class NoFeeCalculator implements PaymentSurchargeCalculatorInterface
     public function calculate(OrderInterface $order, MollieGatewayConfig $paymentMethod): void
     {
         // noop
+    }
+
+    public function calculateAmount(OrderInterface $order, MollieGatewayConfigInterface $paymentMethod): int
+    {
+        return 0;
     }
 }

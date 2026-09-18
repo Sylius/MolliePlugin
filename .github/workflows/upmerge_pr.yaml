@@ -21,10 +21,10 @@ jobs:
             matrix:
                 include:
                     -
-                        base_branch: "3.2"
-                        target_branch: "3.3"
-                    -
                         base_branch: "3.3"
+                        target_branch: "3.4"
+                    -
+                        base_branch: "3.4"
                         target_branch: "4.0"
 
         steps:

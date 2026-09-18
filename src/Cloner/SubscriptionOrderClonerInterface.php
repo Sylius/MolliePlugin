@@ -17,6 +17,11 @@ use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\MolliePlugin\Entity\MollieSubscriptionInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 
+/**
+ * @deprecated since Mollie 3.3 and will be removed in 4.0.
+ *
+ * @see https://github.com/Sylius/MolliePlugin/blob/3.3/UPGRADE-3.3.md for migration details
+ */
 interface SubscriptionOrderClonerInterface
 {
     public function clone(

@@ -39,8 +39,6 @@ final class CreateOnDemandPaymentAction extends BaseApiAwareAction implements Ga
 
         try {
             $paymentSettings = [
-                'method' => $details['metadata']['molliePaymentMethods'],
-                'cardToken' => $details['metadata']['cartToken'],
                 'amount' => $details['amount'],
                 'customerId' => $details['customerId'] ?? null,
                 'description' => $details['description'],
@@ -49,6 +47,17 @@ final class CreateOnDemandPaymentAction extends BaseApiAwareAction implements Ga
                 'mandateId' => $details['mandateId'],
                 'sequenceType' => 'recurring',
             ];
+
+            $method = $details['metadata']['molliePaymentMethods'] ?? null;
+            if (null !== $method && '' !== $method) {
+                $paymentSettings['method'] = $method;
+            }
+
+            $cardToken = $details['metadata']['cartToken'] ?? null;
+            if (null !== $cardToken && '' !== $cardToken) {
+                $paymentSettings['cardToken'] = $cardToken;
+            }
+
             /** @throws ApiException|\Exception */
             $payment = $this->mollieApiClient->payments->create($paymentSettings);
         } catch (ApiException $e) {

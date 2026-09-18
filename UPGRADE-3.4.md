@@ -1,0 +1,210 @@
+# UPGRADE FROM 3.3 TO 3.4
+
+1. A Mollie payment reported as `open` now leaves the Sylius payment in `new` instead of moving it
+   to `processing`. In the Payum status flow, `processing` is now reached only from Mollie's
+   `pending`.
+
+   Anything that treats `processing` as "the customer started paying" changes meaning: admin grid
+   filters, reporting, exports and custom state-machine callbacks.
+
+2. `ConvertMolliePaymentAction` now copies everything describing the Mollie session already tracked
+   on the payment into its result: `payment_mollie_id`, `order_mollie_id`, `webhookUrl`, `backurl`
+   and `metadata.refund_token`. Payum replaces the payment details with this result on every capture
+   while the payment sits in `new`, so a decorating action that drops these keys loses the payment
+   link, the abandoned payment link emails and Mollie side refunds for that payment.
+
+   `ConvertMollieSubscriptionPaymentAction` carries the same four top level keys over.
+
+3. `CaptureAction` takes a resolver deciding what to do with a Mollie session already tracked on the
+   payment: leave it to the status flow, hand it back to the customer, or replace it. It also takes
+   the logger, and records the two Mollie failures it used to swallow: a tracked session it cannot
+   read, and a superseded session it cannot cancel.
+
+   ```diff
+    public function __construct(
+        private OrderRepositoryInterface $orderRepository,
+        private MollieApiClientKeyResolverInterface $apiClientKeyResolver,
+        private PaymentRepositoryInterface $paymentRepository,
+   +    private ExistingMollieSessionResolverInterface $existingSessionResolver,
+   +    private MollieLoggerActionInterface $loggerAction,
+    ) {
+   ```
+
+4. `ChargedSurchargeMatcherInterface` answers which methods reproduce the surcharge already charged
+   on an order, and is the single place that comparison lives. Service:
+   `sylius_mollie.calculator.payment_fee.charged_surcharge_matcher`.
+
+   `MolliePaymentsMethodResolver` takes it instead of comparing surcharges itself. The argument is
+   optional, so a service definition written for 3.3 keeps building, and **not passing it is
+   deprecated and it will be required in 4.0**. A resolver built without it cannot compare surcharges
+   at all, so after checkout completion it offers only the method the order already carries, which is
+   the one that produced its surcharge. Nothing changes during checkout.
+
+   ```diff
+    public function __construct(
+        private readonly MollieGatewayConfigRepository $mollieGatewayRepository,
+        private readonly MollieCountriesRestrictionResolverInterface $countriesRestrictionResolver,
+        private readonly ProductVoucherTypeCheckerInterface $productVoucherTypeChecker,
+        private readonly PaymentCheckoutOrderResolverInterface $paymentCheckoutOrderResolver,
+        private readonly MollieBasedPaymentMethodQueryInterface $mollieBasedPaymentMethodQuery,
+        private readonly MollieAllowedMethodsResolverInterface $allowedMethodsResolver,
+        private readonly MollieLoggerActionInterface $loggerAction,
+        private readonly MollieFactoryNameResolverInterface $mollieFactoryNameResolver,
+        private readonly DivisorProviderInterface $divisorProvider,
+   +    private readonly ?ChargedSurchargeMatcherInterface $chargedSurchargeMatcher = null,
+    ) {
+   ```
+
+   `PaymentMethodResolver` takes the same matcher, the Mollie gateway factory checker and the logger.
+   All three are optional and **not passing them is deprecated, they will be required in 4.0**: the
+   matcher and the checker are deprecated together, since the comparison needs both and a resolver
+   missing either offers a placed order only the payment method it already carries; the logger on its
+   own, since only the log entries are lost with it missing.
+
+   The plugin's own service definitions pass every one of these arguments, so a shop that did not
+   redefine `sylius_mollie.resolver.payment_methods` or
+   `sylius_mollie.payment_methods_resolver.mollie_payment` sees no deprecation and gets the new
+   behaviour. Redefine them as below to stop the notices.
+
+   ```diff
+    public function __construct(
+        private readonly PaymentMethodsResolverInterface $decoratedResolver,
+        private readonly MollieBasedPaymentMethodQueryInterface $mollieBasedPaymentMethodQuery,
+        private readonly MollieFactoryNameResolverInterface $factoryNameResolver,
+        private readonly MollieMethodFilterInterface $mollieMethodFilter,
+        private readonly EntityManagerInterface $entityManager,
+   +    private readonly ?ChargedSurchargeMatcherInterface $chargedSurchargeMatcher = null,
+   +    private readonly ?MollieGatewayFactoryCheckerInterface $gatewayFactoryChecker = null,
+   +    private readonly ?MollieLoggerActionInterface $loggerAction = null,
+    ) {
+   ```
+
+5. Once an order has been placed, only methods that keep its total as it stands are offered when
+   changing the payment method. Order processors stop running at `cart`, so the surcharge charged on
+   a placed order is frozen and can no longer follow the customer's choice. Nothing changes during
+   checkout.
+
+   This applies to whole gateways, not just to the Mollie method list. A Mollie gateway is offered
+   only when one of its enabled methods reproduces the charged surcharge; every other gateway adds
+   no surcharge of its own, so it is offered only when the order carries none. Two consequences:
+
+   - a gateway other than Mollie is no longer offered for an order carrying a Mollie surcharge, so
+     it can no longer collect a Mollie fee it never earned;
+   - Mollie is no longer offered for an order carrying no surcharge when every one of its enabled
+     methods would charge a fee, which used to render an empty method list. A method that reproduces
+     the surcharge but is unavailable for other reasons, such as the order total falling outside its
+     amount limits, still keeps the gateway on the list, so an empty method list remains possible,
+     and the reason is logged.
+
+   When nothing keeps the total, the only method offered is the one the order already carries, since
+   that is the method whose surcharge the order is charged, and the reason is logged. The same rule
+   applies inside the Mollie method list: when no enabled Mollie method reproduces the charged
+   surcharge, the list holds only the method the order already carries. A customer can therefore
+   never pay a total that a different method produced, and an order whose configuration has changed
+   since it was placed can still be paid, as long as the method it carries is still available. When
+   it is not, nothing is offered.
+
+   A surcharge that cannot be compared, meaning a custom calculator that reports no amount or a
+   method whose surcharge is configured incompletely, leaves that method out of the comparison. Its
+   siblings are still compared, and the Mollie gateway is offered as long as one of them reproduces
+   the charged surcharge. The skipped method is recorded in the Mollie log at notice level.
+   See point 6.
+
+6. The payment fee calculators in `Sylius\MolliePlugin\Calculator\PaymentFee` also implement
+   `PaymentSurchargeAmountCalculatorInterface`, which reports a surcharge instead of applying it
+   to an order. `PaymentSurchargeCalculatorInterface` is unchanged and was deliberately left alone
+   rather than gaining the new method, because a class implementing it without `calculateAmount()`
+   would stop loading altogether.
+
+   So a custom calculator implementing only `PaymentSurchargeCalculatorInterface` keeps applying its
+   surcharge exactly as before and needs no change to keep working. What it cannot do is report an
+   amount, so the plugin cannot compare its surcharge against the one already on an order. After
+   checkout completion such an order is then offered only the method it already carries, which is
+   the one that produced its surcharge, and nothing when it carries none. The reason is logged.
+
+   To take part in the comparison, implement `PaymentSurchargeAmountCalculatorInterface` as well and
+   have `calculate()` delegate to `calculateAmount()`, which is what the bundled calculators do, so
+   the applied and the reported value cannot drift apart.
+
+   Calculated amounts are unchanged. `FixedAmountAndPercentageCalculator` no longer adds and then
+   removes intermediate adjustments to arrive at its total, so an order carrying unrelated
+   `fixed_fee` or `percentage` adjustments is no longer affected by it.
+
+   Its second and third constructor arguments are now typed
+   `PaymentSurchargeAmountCalculatorInterface` instead of `PaymentSurchargeCalculatorInterface`.
+   Passing a calculator that implements only the latter no longer type checks.
+
+   ```diff
+    public function __construct(
+        private readonly AdjustmentFactoryInterface $adjustmentFactory,
+   -    private readonly PaymentSurchargeCalculatorInterface $percentageCalculator,
+   -    private readonly PaymentSurchargeCalculatorInterface $fixedAmountCalculator,
+   +    private readonly PaymentSurchargeAmountCalculatorInterface $percentageCalculator,
+   +    private readonly PaymentSurchargeAmountCalculatorInterface $fixedAmountCalculator,
+        private readonly DivisorProviderInterface $divisorProvider,
+    ) {
+   ```
+
+7. The log entry written when a paid Mollie payment is not the one being tracked is now recorded at
+   error level rather than as a notice, and its wording changed.
+
+8. That same log entry is no longer written for Order API payment webhooks, where Mollie calls the
+   notify token with the `tr_` id of the payment inside the order.
+
+9. `PaymentSurchargeAdjustmentsProviderInterface` is the single source of truth for the adjustment
+   types a payment surcharge can produce. `PaymentFeeAdjustmentClearer` reads them from it rather
+   than naming three types itself.
+
+   A new parameter has been introduced, `sylius_mollie.payment_surcharge_adjustments`, holding the
+   three built in types. Redefine it to have your own surcharge adjustments cleared and compared
+   along with them.
+
+   ```diff
+   +public function __construct(
+   +    private readonly PaymentSurchargeAdjustmentsProviderInterface $surchargeAdjustmentsProvider,
+   +) {
+   +}
+   +
+    public function clear(OrderInterface $order): void
+   ```
+
+   `PaymentFeeCalculateAction::PAYMENTS_FEE_METHOD` still holds the same three types and still
+   works, but the provider is what the plugin now reads.
+
+10. `Sylius\MolliePlugin\Uploader\PaymentMethodLogoUploader` no longer depends on `Gaufrette\Filesystem`.
+    It is now constructed with `Sylius\Component\Core\Filesystem\Adapter\FilesystemAdapterInterface`
+    (backed by Flysystem, resolved to the same `sylius.adapter.filesystem.default` storage already
+    used by Sylius core for images), and the `sylius_mollie.uploader.payment_method_logo` service
+    definition has been updated accordingly. This removes the plugin's dependency on
+    `knplabs/knp-gaufrette-bundle`, which Sylius core is dropping.
+
+    If you have decorated or otherwise redefined the `sylius_mollie.uploader.payment_method_logo`
+    service and pass it a `Gaufrette\Filesystem` argument, update it to inject
+    `Sylius\Component\Core\Filesystem\Adapter\FilesystemAdapterInterface` instead. Stored logo files
+    are unaffected, as both filesystems resolve to the same directory.
+
+11. `POST /api/v2/shop/orders/{tokenValue}/mollie-methods` rejects a `methodId` that the matching
+    `GET` does not offer with a 400, instead of creating a Mollie payment for it. An API client
+    therefore reaches the same methods the shop offers, described in point 5.
+
+    `SelectMollieMethodAction` takes the resolver answering which methods are offered:
+
+    ```diff
+     public function __construct(
+         private readonly OrderRepositoryInterface $orderRepository,
+         private readonly EntityManagerInterface $entityManager,
+         private readonly MollieApiClientKeyResolverInterface $apiClientKeyResolver,
+         private readonly MollieGatewayFactoryCheckerInterface $mollieGatewayFactoryChecker,
+         private readonly RepositoryInterface $mollieCustomerRepository,
+         private readonly MollieSubscriptionFactoryInterface $subscriptionFactory,
+         private readonly MollieSubscriptionRepositoryInterface $subscriptionRepository,
+         private readonly PaymentDataCreatorInterface $paymentDataCreator,
+         private readonly MollieLoggerActionInterface $logger,
+    +    private readonly MolliePaymentsMethodResolverInterface $molliePaymentsMethodResolver,
+     ) {
+    ```
+
+12. A payment surcharge of type `fixed_fee_and_percentage` requires a surcharge limit, the way
+    `percentage` already did. `FixedAmountAndPercentageCalculator` needs the limit to cap its total,
+    so a method saved without one could not have its fee calculated, which broke the checkout fee
+    call for it.

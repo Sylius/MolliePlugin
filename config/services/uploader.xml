@@ -18,12 +18,7 @@
 >
     <services>
         <service id="sylius_mollie.uploader.payment_method_logo" class="Sylius\MolliePlugin\Uploader\PaymentMethodLogoUploader" public="true">
-            <argument type="service">
-                <service class="Gaufrette\Filesystem">
-                    <argument>%sylius.uploader.filesystem%</argument>
-                    <factory service="knp_gaufrette.filesystem_map" method="get" />
-                </service>
-            </argument>
+            <argument type="service" id="Sylius\Component\Core\Filesystem\Adapter\FilesystemAdapterInterface" />
         </service>
         <service id="Sylius\MolliePlugin\Uploader\PaymentMethodLogoUploaderInterface" alias="sylius_mollie.uploader.payment_method_logo" />
     </services>

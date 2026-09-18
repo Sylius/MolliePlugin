@@ -23,6 +23,11 @@ use Sylius\MolliePlugin\StateMachine\Applicator\SubscriptionAndPaymentIdApplicat
 use Sylius\MolliePlugin\StateMachine\Applicator\SubscriptionAndSyliusPaymentApplicatorInterface;
 use Sylius\MolliePlugin\StateMachine\MollieSubscriptionTransitions;
 
+/**
+ * @deprecated since Mollie 3.3 and will be removed in 4.0.
+ *
+ * @see https://github.com/Sylius/MolliePlugin/blob/3.3/UPGRADE-3.3.md for migration details
+ */
 final class StatusRecurringSubscriptionAction extends BaseApiAwareAction
 {
     public function __construct(

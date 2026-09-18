@@ -74,17 +74,20 @@ final class ConvertMolliePaymentAction extends BaseApiAwareAction implements Gat
 
         $paymentOptions = $payment->getDetails();
 
-        if (isset($paymentOptions['metadata'])) {
-            $paymentMethod = $paymentOptions['metadata']['molliePaymentMethods'] ?? null;
-            $cartToken = $paymentOptions['metadata']['cartToken'];
-            $saveCardInfo = $paymentOptions['metadata']['saveCardInfo'];
-            $useSavedCards = $paymentOptions['metadata']['useSavedCards'];
-        } else {
-            $paymentMethod = $paymentOptions['molliePaymentMethods'] ?? null;
-            $cartToken = $paymentOptions['cartToken'] ?? null;
-            $saveCardInfo = $paymentOptions['saveCardInfo'] ?? null;
-            $useSavedCards = $paymentOptions['useSavedCards'] ?? null;
-        }
+        // Top level keys come from the latest form submission, while metadata can still carry
+        // values from an earlier Convert run, so on a retry the top level wins.
+        $paymentMethod = $paymentOptions['molliePaymentMethods']
+            ?? $paymentOptions['metadata']['molliePaymentMethods']
+            ?? null;
+        $cartToken = $paymentOptions['cartToken']
+            ?? $paymentOptions['metadata']['cartToken']
+            ?? null;
+        $saveCardInfo = $paymentOptions['saveCardInfo']
+            ?? $paymentOptions['metadata']['saveCardInfo']
+            ?? null;
+        $useSavedCards = $paymentOptions['useSavedCards']
+            ?? $paymentOptions['metadata']['useSavedCards']
+            ?? null;
 
         /** @var MollieGatewayConfigInterface $method */
         $method = $this->mollieMethodsRepository->findOneBy(['methodId' => $paymentMethod]);
@@ -151,6 +154,18 @@ final class ConvertMolliePaymentAction extends BaseApiAwareAction implements Gat
                 $details['metadata']['methodType'] = ApiType::ORDER_API;
                 $details = $this->orderConverter->convert($order, $details, $divisor, $method);
             }
+        }
+
+        // Payum re-runs Convert on every capture while the status is `new` and replaces the
+        // details with this result, so everything describing the tracked session has to survive it.
+        foreach (['payment_mollie_id', 'order_mollie_id', 'webhookUrl', 'backurl'] as $key) {
+            if (isset($paymentOptions[$key])) {
+                $details[$key] = $paymentOptions[$key];
+            }
+        }
+
+        if (isset($paymentOptions['metadata']['refund_token'])) {
+            $details['metadata']['refund_token'] = $paymentOptions['metadata']['refund_token'];
         }
 
         $request->setResult($details);
