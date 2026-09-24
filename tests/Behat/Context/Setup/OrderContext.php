@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\MolliePlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Given;
 use Doctrine\ORM\EntityManager;
 use Payum\Core\Payum;
 use Payum\Core\Registry\RegistryInterface;
@@ -36,9 +37,7 @@ final class OrderContext implements Context
     ) {
     }
 
-    /**
-     * @Given /^(this order) with mollie payment is already paid$/
-     */
+    #[Given('/^(this order) with mollie payment is already paid$/')]
     public function thisOrderWithMolliePaymentIsAlreadyPaid(OrderInterface $order): void
     {
         $this->applyMolliePaymentTransitionOnOrder($order, PaymentTransitions::TRANSITION_COMPLETE);

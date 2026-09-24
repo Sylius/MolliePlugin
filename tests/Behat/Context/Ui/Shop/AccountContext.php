@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Tests\Sylius\MolliePlugin\Behat\Context\Ui\Shop;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Then;
+use Behat\Step\When;
 use Sylius\Behat\NotificationType;
 use Sylius\Behat\Service\NotificationCheckerInterface;
 use Tests\Sylius\MolliePlugin\Behat\Page\Shop\Account\Order\IndexPageInterface;
@@ -26,17 +28,13 @@ final class AccountContext implements Context
     ) {
     }
 
-    /**
-     * @When I cancel this subscription
-     */
+    #[When('I cancel this subscription')]
     public function iCancelThisSubscription(): void
     {
         $this->orderIndexPage->cancelSubscription();
     }
 
-    /**
-     * @Then I should be notified that it has been successfully canceled
-     */
+    #[Then('I should be notified that it has been successfully canceled')]
     public function iShouldBeNotifiedThatItHasBeenSuccessfullyCanceled(): void
     {
         $this->notificationChecker->checkNotification(

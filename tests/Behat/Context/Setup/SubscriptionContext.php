@@ -14,6 +14,9 @@ declare(strict_types=1);
 namespace Tests\Sylius\MolliePlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Given;
+use Behat\Step\Then;
+use Behat\Step\When;
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -50,9 +53,7 @@ final class SubscriptionContext implements Context
         $this->subscriptionScheduleProcessor = $subscriptionScheduleProcessor;
     }
 
-    /**
-     * @Given /^(this order) has an active mollie subscription$/
-     */
+    #[Given('/^(this order) has an active mollie subscription$/')]
     public function thisOrderHasAnActiveMollieSubscription(OrderInterface $order): void
     {
         /** @var PaymentInterface $firstPayment */
@@ -119,9 +120,7 @@ final class SubscriptionContext implements Context
         $this->sharedStorage->set('subscription', $subscription);
     }
 
-    /**
-     * @Given /^(this subscription) has an active schedule$/
-     */
+    #[Given('/^(this subscription) has an active schedule$/')]
     public function thisSubscriptionHasAnActiveSchedule(MollieSubscriptionInterface $subscription): void
     {
         $this->subscriptionScheduleProcessor
@@ -138,9 +137,7 @@ final class SubscriptionContext implements Context
         $this->entityManagerSubscription->flush();
     }
 
-    /**
-     * @When I run command :command
-     */
+    #[When('I run command :command')]
     public function iRunCommand(string $command): void
     {
         $output = shell_exec($command);
@@ -148,9 +145,7 @@ final class SubscriptionContext implements Context
         $this->output = $output;
     }
 
-    /**
-     * @Then I should see :output in the output
-     */
+    #[Then('I should see :output in the output')]
     public function iShouldSeeInTheOutput(string $output): void
     {
         if (!str_contains($this->output, $output)) {

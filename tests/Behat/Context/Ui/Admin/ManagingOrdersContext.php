@@ -14,6 +14,9 @@ declare(strict_types=1);
 namespace Tests\Sylius\MolliePlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Given;
+use Behat\Step\Then;
+use Behat\Step\When;
 use Sylius\Behat\Page\Admin\Order\IndexPageInterface;
 use Sylius\Behat\Page\Admin\Order\ShowPageInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
@@ -32,52 +35,40 @@ final class ManagingOrdersContext implements Context
         $this->showPage = $showPage;
     }
 
-    /**
-     * @Given I am browsing orders
-     * @When I browse orders
-     */
+    #[Given('I am browsing orders')]
+    #[When('I browse orders')]
     public function iBrowseOrders(): void
     {
         $this->indexPage->open();
     }
 
-    /**
-     * @Then /^it should have (\d+) items$/
-     * @Then I should see :amount orders in the list
-     */
+    #[Then('/^it should have (\d+) items$/')]
+    #[Then('I should see :amount orders in the list')]
     public function itShouldHaveAmountOfItems(int $amount = 1): void
     {
         Assert::same($this->indexPage->countItems(), $amount);
     }
 
-    /**
-     * @Then I should see a single order from customer :customer
-     */
+    #[Then('I should see a single order from customer :customer')]
     public function iShouldSeeASingleOrderFromCustomer(CustomerInterface $customer): void
     {
         Assert::true($this->indexPage->isSingleResourceOnPage(['customer' => $customer->getEmail()]));
     }
 
-    /**
-     * @Given /^I am viewing the summary of (this order)$/
-     * @When I view the summary of the order :order
-     */
+    #[Given('/^I am viewing the summary of (this order)$/')]
+    #[When('I view the summary of the order :order')]
     public function iSeeTheOrder(OrderInterface $order): void
     {
         $this->showPage->open(['id' => $order->getId()]);
     }
 
-    /**
-     * @Then /^the order's total should(?:| still) be "([^"]+)"$/
-     */
+    #[Then('/^the order\'s total should(?:| still) be "([^"]+)"$/')]
     public function theOrdersTotalShouldBe(string $total): void
     {
         Assert::eq($this->showPage->getTotal(), $total);
     }
 
-    /**
-     * @Then it should be paid with :paymentMethodName
-     */
+    #[Then('it should be paid with :paymentMethodName')]
     public function itShouldBePaidWith(string $paymentMethodName): void
     {
         Assert::true($this->showPage->hasPayment($paymentMethodName));

@@ -15,6 +15,8 @@ namespace Tests\Sylius\MolliePlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
 use Behat\MinkExtension\Context\RawMinkContext;
+use Behat\Step\Given;
+use Behat\Step\Then;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\Bundle\CoreBundle\Doctrine\ORM\ProductRepository;
 use Sylius\Bundle\CoreBundle\Doctrine\ORM\ProductVariantRepository;
@@ -51,9 +53,7 @@ final class ProductContext extends RawMinkContext implements Context
         $this->divisorProvider = $divisorProvider;
     }
 
-    /**
-     * @Given the :productName variant has recurring payment enabled
-     */
+    #[Given('the :productName variant has recurring payment enabled')]
     public function theVariantHasRecurringPaymentEnabled(string $productName): void
     {
         /** @var ProductInterface $product */
@@ -71,9 +71,7 @@ final class ProductContext extends RawMinkContext implements Context
         $this->saveProductVariant($productVariant);
     }
 
-    /**
-     * @Then I change :productVariantCode product variant price to :price
-     */
+    #[Then('I change :productVariantCode product variant price to :price')]
     public function iChangeProductVariantPriceTo(string $productVariantCode, string $price): void
     {
         /** @var ProductVariantInterface $productVariant */
