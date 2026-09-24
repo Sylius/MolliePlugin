@@ -1,10 +1,10 @@
 sylius_twig_hooks:
     hooks:
         'sylius_admin.order.show.content.sections.payments.item.actions':
-            complete_payment_link:
+            mollie_complete_payment_link:
                 template: '@SyliusMolliePlugin/admin/order/show/content/sections/payments/item/actions/complete_payment_link.html.twig'
                 priority: -100
-            send_payment_link:
+            mollie_send_payment_link:
                 template: '@SyliusMolliePlugin/admin/order/show/content/sections/payments/item/actions/send_payment_link.html.twig'
                 priority: -200
 
