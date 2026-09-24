@@ -35,10 +35,10 @@ class PageRedirectController
 
     public function thankYouAction(Request $request, SessionInterface $session): RedirectResponse
     {
-        $orderId = $request->get('orderId');
+        $orderId = $request->query->getString('orderId');
 
-        if (null === $orderId || '' === $orderId ||
-            (string) $session->get(self::QR_ORDER_ID_SESSION_KEY) !== (string) $orderId) {
+        if ('' === $orderId ||
+            (string) $session->get(self::QR_ORDER_ID_SESSION_KEY) !== $orderId) {
             throw new NotFoundHttpException('Order not found.');
         }
 

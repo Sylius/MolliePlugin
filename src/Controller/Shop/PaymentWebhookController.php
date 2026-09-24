@@ -82,7 +82,7 @@ class PaymentWebhookController
     {
         $this->mollieApiClient->setApiKey($this->apiClientKeyResolver->getClientWithKey()->getApiKey());
 
-        $molliePaymentId = $request->get('id');
+        $molliePaymentId = $request->getPayload()->get('id') ?? $request->query->get('id');
 
         try {
             $molliePayment = $this->mollieApiClient->payments->get($molliePaymentId);
@@ -97,7 +97,7 @@ class PaymentWebhookController
         }
 
         /** @var OrderInterface|null $order */
-        $order = $this->orderRepository->findOneBy(['id' => $request->get('orderId')]);
+        $order = $this->orderRepository->findOneBy(['id' => $request->query->get('orderId')]);
         if ($order === null) {
             return new JsonResponse(Response::HTTP_OK);
         }
@@ -112,7 +112,7 @@ class PaymentWebhookController
         if ($storedMollieId !== $molliePayment->id) {
             $this->logger?->addLog(sprintf(
                 'Mollie Webhook: payment ID mismatch for order %s. Expected %s, got %s.',
-                $request->get('orderId'),
+                $request->query->get('orderId'),
                 (string) $storedMollieId,
                 $molliePayment->id,
             ));
