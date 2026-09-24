@@ -30,31 +30,31 @@ final class PaymentSurchargeFeeType extends AbstractType
                 'label' => 'sylius_mollie.ui.fix_amount_surcharge',
                 'attr' => ['class' => 'mollie-payment_fee-fixedAmount'],
                 'constraints' => [
-                    new GreaterThan([
-                        'value' => 0,
-                        'message' => 'sylius_mollie.form.error.greater_than',
-                        'groups' => ['sylius'],
-                    ]),
+                    new GreaterThan(
+                        value: 0,
+                        message: 'sylius_mollie.form.error.greater_than',
+                        groups: ['sylius'],
+                    ),
                 ],
             ])
             ->add('percentage', NumberType::class, [
                 'label' => 'sylius_mollie.ui.percentage_surcharge',
                 'constraints' => [
-                    new GreaterThan([
-                        'value' => 0,
-                        'message' => 'sylius_mollie.form.error.greater_than',
-                        'groups' => ['sylius'],
-                    ]),
+                    new GreaterThan(
+                        value: 0,
+                        message: 'sylius_mollie.form.error.greater_than',
+                        groups: ['sylius'],
+                    ),
                 ],
             ])
             ->add('surchargeLimit', NumberType::class, [
                 'label' => 'sylius_mollie.ui.surcharge_limit',
                 'constraints' => [
-                    new GreaterThan([
-                        'value' => 0,
-                        'message' => 'sylius_mollie.form.error.greater_than',
-                        'groups' => ['sylius'],
-                    ]),
+                    new GreaterThan(
+                        value: 0,
+                        message: 'sylius_mollie.form.error.greater_than',
+                        groups: ['sylius'],
+                    ),
                 ],
             ]);
     }

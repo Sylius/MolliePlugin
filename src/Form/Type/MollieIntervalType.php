@@ -35,13 +35,13 @@ final class MollieIntervalType extends AbstractType
             'error_bubbling' => false,
             'required' => true,
             'constraints' => [
-                new NotBlank([
-                    'groups' => ['recurring_product_variant'],
-                ]),
-                new GreaterThan([
-                    'value' => 0,
-                    'groups' => ['recurring_product_variant'],
-                ]),
+                new NotBlank(
+                    groups: ['recurring_product_variant'],
+                ),
+                new GreaterThan(
+                    value: 0,
+                    groups: ['recurring_product_variant'],
+                ),
             ],
         ]);
         $builder->add('step', ChoiceType::class, [
