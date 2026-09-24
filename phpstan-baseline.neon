@@ -1,0 +1,235 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Method Sylius\\MolliePlugin\\ApplePay\\Provider\\OrderPaymentApplePayDirectProvider\:\:provideOrderPayment\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/ApplePay/Provider/OrderPaymentApplePayDirectProvider.php
+
+		-
+			message: '#^PHPDoc tag @var with type array\<mixed\> is not subtype of type array\<Sylius\\MolliePlugin\\Entity\\MollieGatewayConfigInterface\>\.$#'
+			identifier: varTag.type
+			count: 1
+			path: src/Calculator/PaymentFee/ChargedSurchargeMatcher.php
+
+		-
+			message: '#^PHPDoc tag @var with type Sylius\\MolliePlugin\\Entity\\MollieGatewayConfigInterface\|null is not subtype of type Sylius\\Resource\\Model\\ResourceInterface\|null\.$#'
+			identifier: varTag.type
+			count: 1
+			path: src/Controller/Admin/DeletePaymentMethodImageAction.php
+
+		-
+			message: '#^PHPDoc tag @var with type Sylius\\MolliePlugin\\Entity\\OnboardingStatusAwareInterface is not subtype of native type Sylius\\Component\\Core\\Model\\AdminUserInterface\|null\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: src/Controller/Admin/OnboardingWizard/CompletedAction.php
+
+		-
+			message: '#^PHPDoc tag @var with type Sylius\\Component\\Payment\\Model\\PaymentInterface is not subtype of type Sylius\\Component\\Core\\Model\\PaymentInterface\|null\.$#'
+			identifier: varTag.type
+			count: 1
+			path: src/Controller/Shop/OrderController.php
+
+		-
+			message: '#^PHPDoc tag @var with type Payum\\Core\\Model\\GatewayConfigInterface is not subtype of type Sylius\\Component\\Payment\\Model\\GatewayConfigInterface\|null\.$#'
+			identifier: varTag.type
+			count: 1
+			path: src/Controller/Shop/PayumController.php
+
+		-
+			message: '#^PHPDoc tag @var with type Sylius\\MolliePlugin\\Entity\\MollieGatewayConfigInterface is not subtype of type Sylius\\Resource\\Model\\ResourceInterface\|null\.$#'
+			identifier: varTag.type
+			count: 1
+			path: src/Controller/Shop/QrCodeAction.php
+
+		-
+			message: '#^PHPDoc tag @var with type Sylius\\MolliePlugin\\Entity\\OrderInterface\|null is not subtype of native type Sylius\\Component\\Order\\Model\\OrderInterface\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: src/Controller/Shop/QrCodeAction.php
+
+		-
+			message: '#^PHPDoc tag @var with type bool\|Sylius\\Component\\Core\\Model\\ShipmentInterface is not subtype of type Sylius\\Component\\Core\\Model\\ShipmentInterface\|false\.$#'
+			identifier: varTag.type
+			count: 1
+			path: src/Converter/OrderConverter.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 1
+			path: src/Converter/OrderConverter.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between null and Sylius\\Component\\Addressing\\Model\\ZoneInterface will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: src/Converter/OrderConverter.php
+
+		-
+			message: '#^Trait Sylius\\MolliePlugin\\Entity\\AbandonedEmailOrderTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Entity/AbandonedEmailOrderTrait.php
+
+		-
+			message: '#^Trait Sylius\\MolliePlugin\\Entity\\GatewayConfigTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Entity/GatewayConfigTrait.php
+
+		-
+			message: '#^Trait Sylius\\MolliePlugin\\Entity\\MolliePaymentIdOrderTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Entity/MolliePaymentIdOrderTrait.php
+
+		-
+			message: '#^Trait Sylius\\MolliePlugin\\Entity\\OnboardingStatusAwareTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Entity/OnboardingStatusAwareTrait.php
+
+		-
+			message: '#^Trait Sylius\\MolliePlugin\\Entity\\ProductTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Entity/ProductTrait.php
+
+		-
+			message: '#^Trait Sylius\\MolliePlugin\\Entity\\QRCodeOrderTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Entity/QRCodeOrderTrait.php
+
+		-
+			message: '#^Trait Sylius\\MolliePlugin\\Entity\\RecurringOrderTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Entity/RecurringOrderTrait.php
+
+		-
+			message: '#^Trait Sylius\\MolliePlugin\\Entity\\RecurringProductVariantTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Entity/RecurringProductVariantTrait.php
+
+		-
+			message: '#^PHPDoc tag @var with type Sylius\\MolliePlugin\\Entity\\TemplateMollieEmailTranslationInterface is not subtype of native type Sylius\\Component\\Resource\\Model\\TranslationInterface\.$#'
+			identifier: varTag.nativeType
+			count: 6
+			path: src/Entity/TemplateMollieEmail.php
+
+		-
+			message: '#^PHPDoc tag @var with type Sylius\\MolliePlugin\\Entity\\MollieGatewayConfigInterface\|null is not subtype of type Sylius\\Resource\\Model\\ResourceInterface\|null\.$#'
+			identifier: varTag.type
+			count: 1
+			path: src/Factory/MollieGatewayConfigFactory.php
+
+		-
+			message: '#^PHPDoc tag @var with type Doctrine\\Common\\Collections\\Collection&iterable\<Sylius\\Component\\Core\\Model\\ChannelInterface\> is not subtype of type list\<Sylius\\Component\\Channel\\Model\\ChannelInterface\>\.$#'
+			identifier: varTag.type
+			count: 1
+			path: src/Fixture/Listener/ProductsWithinAllChannelsListener.php
+
+		-
+			message: '#^PHPDoc tag @var with type Doctrine\\Common\\Collections\\Collection&iterable\<Sylius\\Component\\Core\\Model\\ProductInterface\> is not subtype of type list\<Sylius\\Component\\Core\\Model\\ProductInterface\>\.$#'
+			identifier: varTag.type
+			count: 1
+			path: src/Fixture/Listener/ProductsWithinAllChannelsListener.php
+
+		-
+			message: '#^PHPDoc tag @var with type Sylius\\MolliePlugin\\Entity\\MollieGatewayConfigInterface is not subtype of type Sylius\\Resource\\Model\\ResourceInterface\|null\.$#'
+			identifier: varTag.type
+			count: 1
+			path: src/Payum/Action/ConvertMolliePaymentAction.php
+
+		-
+			message: '#^PHPDoc tag @var with type Payum\\Core\\Model\\GatewayConfigInterface is not subtype of type Sylius\\Component\\Payment\\Model\\GatewayConfigInterface\|null\.$#'
+			identifier: varTag.type
+			count: 1
+			path: src/Payum/Provider/PaymentTokenProvider.php
+
+		-
+			message: '#^PHPDoc tag @var with type Sylius\\Component\\Payment\\Model\\PaymentInterface\|null is not subtype of native type Sylius\\Component\\Core\\Model\\PaymentInterface\|null\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: src/Processor/PaymentSurchargeProcessor.php
+
+		-
+			message: '#^PHPDoc tag @var with type Sylius\\Component\\Core\\Model\\PaymentInterface\|false\|null is not subtype of type Sylius\\Component\\Payment\\Model\\PaymentInterface\|false\.$#'
+			identifier: varTag.type
+			count: 1
+			path: src/Refund/Handler/OrderPaymentRefund.php
+
+		-
+			message: '#^PHPDoc tag @var with type mixed is not subtype of type object\.$#'
+			identifier: varTag.type
+			count: 1
+			path: src/Refund/Units/UnitsShipmentOrderRefund.php
+
+		-
+			message: '#^PHPDoc tag @var with type array\<mixed\>\|null is not subtype of type array\<object\>\.$#'
+			identifier: varTag.type
+			count: 1
+			path: src/Registry/PaymentMethodRegistry.php
+
+		-
+			message: '#^Method Sylius\\MolliePlugin\\Resolver\\MollieCountriesRestrictionResolver\:\:resolve\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: src/Resolver/MollieCountriesRestrictionResolver.php
+
+		-
+			message: '#^PHPDoc tag @var with type Sylius\\Component\\Core\\Model\\OrderInterface is not subtype of native type Sylius\\MolliePlugin\\Entity\\OrderInterface\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: src/Resolver/MolliePaymentsMethodResolver.php
+
+		-
+			message: '#^PHPDoc tag @var with type Sylius\\MolliePlugin\\Entity\\MollieGatewayConfigInterface\|null is not subtype of type Sylius\\Resource\\Model\\ResourceInterface\|null\.$#'
+			identifier: varTag.type
+			count: 1
+			path: src/Resolver/PaymentMethodConfigResolver.php
+
+		-
+			message: '#^PHPDoc tag @var with type array\<Sylius\\MolliePlugin\\Entity\\MollieGatewayConfigInterface\> is not subtype of type list\<Sylius\\Resource\\Model\\ResourceInterface\>\.$#'
+			identifier: varTag.type
+			count: 1
+			path: src/Updater/MollieMethodsUpdater.php
+
+		-
+			message: '#^Return type \(array\<string\>\) of method Sylius\\MolliePlugin\\Validator\\Constraints\\MollieGatewayConfigValidatorType\:\:getTargets\(\) should be covariant with return type \(''class''\|''property''\|array\<''class''\|''property''\>\) of method Symfony\\Component\\Validator\\Constraint\:\:getTargets\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: src/Validator/Constraints/MollieGatewayConfigValidatorType.php
+
+		-
+			message: '#^Return type \(array\<string\>\) of method Sylius\\MolliePlugin\\Validator\\Constraints\\PaymentMethodCheckout\:\:getTargets\(\) should be covariant with return type \(''class''\|''property''\|array\<''class''\|''property''\>\) of method Symfony\\Component\\Validator\\Constraint\:\:getTargets\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: src/Validator/Constraints/PaymentMethodCheckout.php
+
+		-
+			message: '#^PHPDoc tag @var with type Payum\\Core\\Model\\GatewayConfigInterface is not subtype of type Sylius\\Component\\Payment\\Model\\GatewayConfigInterface\|null\.$#'
+			identifier: varTag.type
+			count: 1
+			path: src/Validator/Constraints/PaymentMethodCheckoutValidator.php
+
+		-
+			message: '#^PHPDoc tag @var with type Sylius\\Component\\Core\\Model\\PaymentInterface\|false\|null is not subtype of type Sylius\\Component\\Payment\\Model\\PaymentInterface\|false\.$#'
+			identifier: varTag.type
+			count: 1
+			path: src/Validator/Constraints/PaymentMethodCheckoutValidator.php
+
+		-
+			message: '#^Return type \(array\<string\>\) of method Sylius\\MolliePlugin\\Validator\\Constraints\\PaymentMethodMollieChannelUnique\:\:getTargets\(\) should be covariant with return type \(''class''\|''property''\|array\<''class''\|''property''\>\) of method Symfony\\Component\\Validator\\Constraint\:\:getTargets\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: src/Validator/Constraints/PaymentMethodMollieChannelUnique.php
+
+		-
+			message: '#^Return type \(array\<string\>\) of method Sylius\\MolliePlugin\\Validator\\Constraints\\PaymentSurchargeType\:\:getTargets\(\) should be covariant with return type \(''class''\|''property''\|array\<''class''\|''property''\>\) of method Symfony\\Component\\Validator\\Constraint\:\:getTargets\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: src/Validator/Constraints/PaymentSurchargeType.php
