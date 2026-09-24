@@ -6,6 +6,7 @@
     "require": {
         "php": "^8.2",
         "mollie/mollie-api-php": "^2.73",
+        "payum/payum-bundle": "^2.7",
         "sylius/sylius": "^2.0.8",
         "sylius/telemetry": "^1.0",
         "willdurand/js-translation-bundle": "^7.0"
