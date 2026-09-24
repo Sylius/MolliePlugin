@@ -17,6 +17,7 @@ use Behat\Config\Filter\TagFilter;
 use Behat\Config\Formatter\PrettyFormatter;
 use Behat\Config\GherkinOptions;
 use Behat\Config\Profile;
+use Behat\Config\TesterOptions;
 use Behat\MinkExtension\ServiceContainer\MinkExtension;
 use DMore\ChromeExtension\Behat\ServiceContainer\ChromeExtension;
 use FriendsOfBehat\MinkDebugExtension\ServiceContainer\MinkDebugExtension;
@@ -36,6 +37,8 @@ return (new Config())
         ->withFormatter(new PrettyFormatter(paths: false, verbose: true, snippets: false))
         // CLI is excluded as it registers an error handler that mutes fatal errors
         ->withGherkinOptions((new GherkinOptions())->withFilter(new TagFilter('~@todo&&~@cli')))
+        ->withTesterOptions((new TesterOptions())
+            ->withErrorReporting(\E_ALL & ~(\E_DEPRECATED | \E_USER_DEPRECATED)))
         ->withExtension(new Extension(ChromeExtension::class))
         ->withExtension(new Extension(MinkDebugExtension::class, [
             'directory' => 'etc/build',
