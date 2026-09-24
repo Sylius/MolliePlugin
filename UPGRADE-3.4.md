@@ -238,3 +238,10 @@
     XML one it used to import was removed there, restored as a deprecated shim in 2.7.1, and cannot
     be loaded by Symfony 8 at all. Sylius 2.3 already requires `^2.7`; the constraint matters for
     Sylius 2.2, which still allows `^2.6`.
+
+15. DBAL 4, which Sylius 2.3 allows, removed the built-in `array` column type used by eight of the
+    plugin's fields. The plugin now ships `Sylius\MolliePlugin\Doctrine\DBAL\Type\ArrayType` and
+    registers it as the `array` type in `config/config.yaml`, the same way Sylius 2.3 restores the
+    `object` type it needs for its own mappings. Stored values keep their format, so there is no data
+    migration; an application that does not import `@SyliusMolliePlugin/config/config.yaml` has to
+    register the type itself.
