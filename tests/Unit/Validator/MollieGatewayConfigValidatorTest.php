@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\MolliePlugin\Unit\Validator;
 
 use Doctrine\ORM\PersistentCollection;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieMinMaxInterface;
 use Sylius\MolliePlugin\Validator\Constraints\MollieGatewayConfigValidator;
@@ -84,7 +85,7 @@ final class MollieGatewayConfigValidatorTest extends ConstraintValidatorTestCase
         ;
     }
 
-    /** @dataProvider providePaymentMethodConfigurations */
+    #[DataProvider('providePaymentMethodConfigurations')]
     public function testConfigMinimumLessThanApiMinimum(
         string $paymentMethod,
         ?float $apiMinimumAmount = null,
@@ -108,7 +109,7 @@ final class MollieGatewayConfigValidatorTest extends ConstraintValidatorTestCase
         ;
     }
 
-    /** @dataProvider providePaymentMethodConfigurations */
+    #[DataProvider('providePaymentMethodConfigurations')]
     public function testConfigMinimumEqualApiMinimum(
         string $paymentMethod,
         ?float $apiMinimumAmount = null,
@@ -122,7 +123,7 @@ final class MollieGatewayConfigValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /** @dataProvider providePaymentMethodConfigurations */
+    #[DataProvider('providePaymentMethodConfigurations')]
     public function testConfigMinimumGreaterThanApiMinimum(
         string $paymentMethod,
         ?float $apiMinimumAmount = null,
@@ -136,7 +137,7 @@ final class MollieGatewayConfigValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /** @dataProvider providePaymentMethodConfigurations */
+    #[DataProvider('providePaymentMethodConfigurations')]
     public function testConfigMaximumLessThanApiMaximum(
         string $paymentMethod,
         ?float $apiMinimumAmount = null,
@@ -150,7 +151,7 @@ final class MollieGatewayConfigValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /** @dataProvider providePaymentMethodConfigurations */
+    #[DataProvider('providePaymentMethodConfigurations')]
     public function testConfigMaximumEqualApiMaximum(
         string $paymentMethod,
         ?float $apiMinimumAmount = null,
@@ -164,7 +165,7 @@ final class MollieGatewayConfigValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /** @dataProvider providePaymentMethodConfigurations */
+    #[DataProvider('providePaymentMethodConfigurations')]
     public function testConfigMaximumGreaterThanApiMaximum(
         string $paymentMethod,
         ?float $apiMinimumAmount = null,
@@ -244,7 +245,7 @@ final class MollieGatewayConfigValidatorTest extends ConstraintValidatorTestCase
      *
      * @return array<int, array{string, float, float|null}>
      */
-    private static function providePaymentMethodConfigurations(): array
+    public static function providePaymentMethodConfigurations(): array
     {
         return [
             ['applepay', 0.02, 10000.00],

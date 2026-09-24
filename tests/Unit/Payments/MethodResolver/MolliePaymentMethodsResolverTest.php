@@ -147,13 +147,19 @@ final class MolliePaymentMethodsResolverTest extends TestCase
             ->willReturnSelf()
         ;
 
-        $queryBuilderMock->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $queryBuilderMock->expects($matcher)
             ->method('setParameter')
-            ->withConsecutive(
-                ['methodId', $parentMethodMock->getId()],
-                ['channelId', 1],
-            )
-            ->willReturnSelf()
+            ->willReturnCallback(function (...$arguments) use ($matcher, $parentMethodMock, $queryBuilderMock) {
+                $expectedArguments = match ($matcher->numberOfInvocations()) {
+                    1 => ['methodId', $parentMethodMock->getId()],
+                    2 => ['channelId', 1],
+                };
+
+                $this->assertSame($expectedArguments, array_slice($arguments, 0, count($expectedArguments)));
+
+                return $queryBuilderMock;
+            })
         ;
 
         $queryBuilderMock->expects($this->once())
@@ -260,13 +266,19 @@ final class MolliePaymentMethodsResolverTest extends TestCase
             ->willReturnSelf()
         ;
 
-        $queryBuilderMock->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $queryBuilderMock->expects($matcher)
             ->method('setParameter')
-            ->withConsecutive(
-                ['methodId', $parentMethodMock->getId()],
-                ['channelId', 1],
-            )
-            ->willReturnSelf()
+            ->willReturnCallback(function (...$arguments) use ($matcher, $parentMethodMock, $queryBuilderMock) {
+                $expectedArguments = match ($matcher->numberOfInvocations()) {
+                    1 => ['methodId', $parentMethodMock->getId()],
+                    2 => ['channelId', 1],
+                };
+
+                $this->assertSame($expectedArguments, array_slice($arguments, 0, count($expectedArguments)));
+
+                return $queryBuilderMock;
+            })
         ;
 
         $queryBuilderMock->expects($this->once())

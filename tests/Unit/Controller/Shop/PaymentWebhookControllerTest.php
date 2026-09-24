@@ -17,6 +17,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mollie\Api\Endpoints\PaymentEndpoint;
 use Mollie\Api\Resources\Payment;
 use Mollie\Api\Types\PaymentStatus;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Abstraction\StateMachine\StateMachineInterface;
@@ -170,9 +171,7 @@ final class PaymentWebhookControllerTest extends TestCase
         self::assertSame(Response::HTTP_OK, $response->getStatusCode());
     }
 
-    /**
-     * @group legacy
-     */
+    #[Group('legacy')]
     public function testItFallsBackToSetStateWhenStateMachineIsNotProvided(): void
     {
         $controller = new PaymentWebhookController(

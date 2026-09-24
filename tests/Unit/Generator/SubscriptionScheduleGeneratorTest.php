@@ -86,21 +86,30 @@ final class SubscriptionScheduleGeneratorTest extends TestCase
             )
             ->willReturn($datePeriods);
 
-        $this->scheduleFactoryMock->expects($this->exactly(5))
+        $matcher = $this->exactly(5);
+        $this->scheduleFactoryMock->expects($matcher)
             ->method('createConfiguredForSubscription')
-            ->withConsecutive(
-                [$subscriptionMock, $this->callback(fn ($d) => $d->format('Y-m-d H:i:s') === $datePeriods[0]->format('Y-m-d H:i:s')), 0, $this->callback(fn ($d) => $d?->format('Y-m-d H:i:s') === $startedAt->format('Y-m-d H:i:s'))],
-                [$subscriptionMock, $this->callback(fn ($d) => $d->format('Y-m-d H:i:s') === $datePeriods[1]->format('Y-m-d H:i:s')), 1, null],
-                [$subscriptionMock, $this->callback(fn ($d) => $d->format('Y-m-d H:i:s') === $datePeriods[2]->format('Y-m-d H:i:s')), 2, null],
-                [$subscriptionMock, $this->callback(fn ($d) => $d->format('Y-m-d H:i:s') === $datePeriods[3]->format('Y-m-d H:i:s')), 3, null],
-                [$subscriptionMock, $this->callback(fn ($d) => $d->format('Y-m-d H:i:s') === $datePeriods[4]->format('Y-m-d H:i:s')), 4, null],
-            )
-            ->willReturnOnConsecutiveCalls(
-                $scheduleMock,
-                $scheduleMock,
-                $scheduleMock,
-                $scheduleMock,
-                $scheduleMock,
+            ->willReturnCallback(
+                function (
+                    MollieSubscriptionInterface $subscription,
+                    \DateTimeInterface $scheduledAt,
+                    int $index,
+                    ?\DateTimeInterface $processedAt,
+                ) use ($matcher, $subscriptionMock, $datePeriods, $startedAt, $scheduleMock): MollieSubscriptionScheduleInterface {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    $this->assertSame($subscriptionMock, $subscription);
+                    $this->assertSame($datePeriods[$invocation - 1]->format('Y-m-d H:i:s'), $scheduledAt->format('Y-m-d H:i:s'));
+                    $this->assertSame($invocation - 1, $index);
+
+                    if (1 === $invocation) {
+                        $this->assertSame($startedAt->format('Y-m-d H:i:s'), $processedAt?->format('Y-m-d H:i:s'));
+                    } else {
+                        $this->assertNull($processedAt);
+                    }
+
+                    return $scheduleMock;
+                },
             );
 
         $subscriptionMock->expects($this->once())

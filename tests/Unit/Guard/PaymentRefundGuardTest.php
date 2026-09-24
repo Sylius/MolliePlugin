@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\MolliePlugin\Unit\Guard;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\PaymentInterface;
@@ -50,7 +51,7 @@ final class PaymentRefundGuardTest extends TestCase
         self::assertFalse($this->paymentRefundGuard->isRefundPossible($this->payment));
     }
 
-    /** @dataProvider getNonMollieGatewayFactories */
+    #[DataProvider('getNonMollieGatewayFactories')]
     public function testPaymentMethodGatewayFactoryIsNotMollieBased(?string $factoryName): void
     {
         $gatewayConfig = $this->createMock(GatewayConfigInterface::class);
@@ -64,7 +65,7 @@ final class PaymentRefundGuardTest extends TestCase
         self::assertTrue($this->paymentRefundGuard->isRefundPossible($this->payment));
     }
 
-    /** @dataProvider getMollieBasedRefundAvailability */
+    #[DataProvider('getMollieBasedRefundAvailability')]
     public function testMollieBasedPaymentRefund(string $factory, array $loadedBundles, bool $result): void
     {
         $gatewayConfig = $this->createMock(GatewayConfigInterface::class);
@@ -80,7 +81,7 @@ final class PaymentRefundGuardTest extends TestCase
         self::assertSame($result, $this->paymentRefundGuard->isRefundPossible($this->payment));
     }
 
-    public function getMollieBasedRefundAvailability(): iterable
+    public static function getMollieBasedRefundAvailability(): iterable
     {
         yield 'mollie no refund' => [
             'factory' => MollieGatewayFactory::FACTORY_NAME,
@@ -95,7 +96,7 @@ final class PaymentRefundGuardTest extends TestCase
     }
 
     /** @return iterable<string, array<array-key, string|null>> */
-    public function getNonMollieGatewayFactories(): iterable
+    public static function getNonMollieGatewayFactories(): iterable
     {
         yield 'none' => [null];
         yield 'offline' => ['offline'];
