@@ -29,7 +29,7 @@ jobs:
             matrix:
                 php: ["8.3"]
                 symfony: ["^6.4", "^7.4"]
-                sylius: ["2.2.x-dev", "2.3.x-dev"]
+                sylius: ["2.2.x-dev", "~2.3.0@RC"]
                 node: ["22.x"]
                 database: ["mysql:8.4"]
                 state_machine_adapter: ["symfony_workflow"]
@@ -40,7 +40,7 @@ jobs:
                     -
                         php: "8.4"
                         symfony: "^8.0"
-                        sylius: "2.3.x-dev"
+                        sylius: "~2.3.0@RC"
                         node: "22.x"
                         database: "mysql:8.4"
                         state_machine_adapter: "symfony_workflow"
@@ -48,7 +48,7 @@ jobs:
                     -
                         php: "8.4"
                         symfony: "^8.0"
-                        sylius: "2.3.x-dev"
+                        sylius: "~2.3.0@RC"
                         node: "22.x"
                         database: "mysql:8.4"
                         state_machine_adapter: "symfony_workflow"
@@ -81,7 +81,7 @@ jobs:
                 # https://github.com/Sylius/RefundPlugin/pull/504, which lives in the author's fork.
                 # TODO: drop the repository and the alias once that pull request is released.
                 name: Install Refund Plugin (Sylius 2.3 branch)
-                if: matrix.refund == 'true' && matrix.sylius == '2.3.x-dev'
+                if: matrix.refund == 'true' && matrix.sylius == '~2.3.0@RC'
                 run: |
                     composer config repositories.refund-plugin vcs https://github.com/rust-le/RefundPlugin
                     composer require "sylius/refund-plugin:dev-feature/sylius-2.3-symfony-8 as 2.1.x-dev" --no-update --no-scripts --no-interaction
@@ -104,8 +104,9 @@ jobs:
                     node_version: "${{ matrix.node }}"
                     php_version: "${{ matrix.php }}"
                     sylius_version: "${{ matrix.sylius }}"
-                    # TODO: drop the dev stability once Sylius 2.2.10 and 2.3.0-BETA ship
-                    # https://github.com/Sylius/Sylius/pull/19227
+                    # The 2.3 row pins its own stability, the dev one is here for the 2.2 branch, which
+                    # carries https://github.com/Sylius/Sylius/pull/19227 without having a release yet.
+                    # TODO: switch the 2.2 row to ~2.2.0 and drop this once Sylius 2.2.10 ships.
                     composer_minimum_stability: "dev"
                     composer_prefer_stable: "yes"
                     symfony_version: "${{ matrix.symfony }}"
