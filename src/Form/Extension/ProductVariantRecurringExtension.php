@@ -54,11 +54,11 @@ final class ProductVariantRecurringExtension extends AbstractTypeExtension
                 'help' => 'sylius_mollie.form.product_variant.times_help',
                 'required' => true,
                 'constraints' => [
-                    new Range([
-                        'min' => 2,
-                        'minMessage' => 'sylius_mollie.times.min_range',
-                        'groups' => ['recurring_product_variant'],
-                    ]),
+                    new Range(
+                        min: 2,
+                        minMessage: 'sylius_mollie.times.min_range',
+                        groups: ['recurring_product_variant'],
+                    ),
                     new NotBlank(
                         groups: ['recurring_product_variant'],
                     ),
