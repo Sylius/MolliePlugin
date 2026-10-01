@@ -72,19 +72,8 @@ jobs:
 
             -
                 name: Install Refund Plugin
-                if: matrix.refund == 'true' && matrix.sylius == '2.2.x-dev'
-                run: composer require "sylius/refund-plugin" --no-update --no-scripts --no-interaction
-
-            -
-                # The released RefundPlugin configures knp_gaufrette, which Sylius 2.3 no longer registers, and
-                # caps symfony/messenger below 8.0. Both are fixed on the branch of
-                # https://github.com/Sylius/RefundPlugin/pull/504, which lives in the author's fork.
-                # TODO: drop the repository and the alias once that pull request is released.
-                name: Install Refund Plugin (Sylius 2.3 branch)
-                if: matrix.refund == 'true' && matrix.sylius == '~2.3.0@RC'
-                run: |
-                    composer config repositories.refund-plugin vcs https://github.com/rust-le/RefundPlugin
-                    composer require "sylius/refund-plugin:dev-feature/sylius-2.3-symfony-8 as 2.1.x-dev" --no-update --no-scripts --no-interaction
+                if: matrix.refund == 'true'
+                run: composer require "sylius/refund-plugin:^2.2" --no-update --no-scripts --no-interaction
 
             -
                 name: Require Winzou State Machine
