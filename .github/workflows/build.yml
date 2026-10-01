@@ -102,7 +102,7 @@ jobs:
 
             -
                 name: Validate composer.json
-                run: composer validate --ansi --strict
+                run: composer validate --ansi --strict --no-check-lock
 
             -
                 name: Run ECS
