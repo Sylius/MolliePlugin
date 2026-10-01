@@ -12,12 +12,12 @@
         "willdurand/js-translation-bundle": "^8.0"
     },
     "require-dev": {
-        "behat/behat": "^3.22 || 4.0.0-alpha1",
+        "behat/behat": "^3.22 || ^4.0",
         "behat/mink": "^1.10 || ^1.13",
         "dmore/chrome-mink-driver": "^2.9",
         "friends-of-behat/mink-browserkit-driver": "^1.6.3",
         "friends-of-behat/mink-debug-extension": "^2.2",
-        "friends-of-behat/mink-extension": "^2.7 || 3.0.0-alpha1",
+        "friends-of-behat/mink-extension": "^2.7 || ^3.0@alpha",
         "friends-of-behat/page-object-extension": "^0.4",
         "friends-of-behat/symfony-extension": "^2.6.2",
         "friends-of-behat/variadic-extension": "^1.6",
