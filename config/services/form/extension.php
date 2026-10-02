@@ -10,6 +10,7 @@ use Sylius\MolliePlugin\Form\Extension\GatewayConfigTypeExtension;
 use Sylius\MolliePlugin\Form\Extension\PaymentTypeExtension;
 use Sylius\MolliePlugin\Form\Extension\ProductTypeExtension;
 use Sylius\MolliePlugin\Form\Extension\ProductVariantRecurringExtension;
+use Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryCheckerInterface;
 
 return static function (ContainerConfigurator $container) {
     $services = $container->services();
@@ -19,6 +20,7 @@ return static function (ContainerConfigurator $container) {
         ->tag('form.type_extension', ['extended_type' => ProductVariantType::class]);
 
     $services->set('sylius_mollie.form.extension.type.payment', PaymentTypeExtension::class)
+        ->args([service(MollieGatewayFactoryCheckerInterface::class)])
         ->tag('form.type_extension', ['extended_type' => PaymentType::class]);
 
     $services->set('sylius_mollie.form.extension.type.gateway_config', GatewayConfigTypeExtension::class)

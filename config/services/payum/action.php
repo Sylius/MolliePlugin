@@ -30,6 +30,8 @@ return static function (ContainerConfigurator $container) {
             service('sylius.repository.order'),
             service('sylius_mollie.resolver.mollie_api_client_key'),
             service('sylius.repository.payment'),
+            service('sylius_mollie.payum.resolver.existing_mollie_session'),
+            service('sylius_mollie.logger.mollie_logger_action'),
         ])
         ->tag('payum.action', ['factory' => 'mollie', 'alias' => 'payum.action.capture'])
         ->tag('payum.action', ['factory' => 'mollie_subscription', 'alias' => 'payum.action.capture_subscription']);

@@ -47,6 +47,7 @@ return static function (ContainerConfigurator $container) {
             service('sylius_mollie.logger.mollie_logger_action'),
             service('sylius_mollie.resolver.mollie_factory_name'),
             service('sylius_mollie.provider.divisor'),
+            service('sylius_mollie.calculator.payment_fee.charged_surcharge_matcher'),
         ]);
 
     $services->alias(MolliePaymentsMethodResolverInterface::class, 'sylius_mollie.resolver.payment_methods');
@@ -141,6 +142,9 @@ return static function (ContainerConfigurator $container) {
             service('sylius_mollie.resolver.mollie_factory_name'),
             service('sylius_mollie.filter.mollie_method'),
             service('doctrine.orm.entity_manager'),
+            service('sylius_mollie.calculator.payment_fee.charged_surcharge_matcher'),
+            service('sylius_mollie.payum.checker.mollie_gateway_factory'),
+            service('sylius_mollie.logger.mollie_logger_action'),
         ])
         ->tag('sylius.payment_method_resolver', ['type' => 'mollie', 'label' => 'Mollie', 'priority' => 2]);
 };

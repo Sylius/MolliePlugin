@@ -36,6 +36,7 @@ return static function (ContainerConfigurator $container) {
             service('sylius_mollie.repository.mollie_subscription'),
             service('sylius_mollie.creator.payment_data'),
             service('sylius_mollie.logger.mollie_logger_action'),
+            service('sylius_mollie.resolver.payment_methods'),
         ]);
 
     $services->set('sylius_mollie.api.controller.update_payment_status', UpdatePaymentStatusAction::class)

@@ -6,10 +6,13 @@ use Sylius\MolliePlugin\Calculator\CalculateTaxAmount;
 use Sylius\MolliePlugin\Calculator\CalculateTaxAmountInterface;
 use Sylius\MolliePlugin\Calculator\Clearer\PaymentFeeAdjustmentClearer;
 use Sylius\MolliePlugin\Calculator\Clearer\PaymentFeeAdjustmentClearerInterface;
+use Sylius\MolliePlugin\Calculator\PaymentFee\ChargedSurchargeMatcher;
+use Sylius\MolliePlugin\Calculator\PaymentFee\ChargedSurchargeMatcherInterface;
 use Sylius\MolliePlugin\Calculator\PaymentFee\CompositePaymentSurchargeCalculator;
 use Sylius\MolliePlugin\Calculator\PaymentFee\FixedAmountAndPercentageCalculator;
 use Sylius\MolliePlugin\Calculator\PaymentFee\FixedAmountCalculator;
 use Sylius\MolliePlugin\Calculator\PaymentFee\NoFeeCalculator;
+use Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeAmountCalculatorInterface;
 use Sylius\MolliePlugin\Calculator\PaymentFee\PaymentSurchargeCalculatorInterface;
 use Sylius\MolliePlugin\Calculator\PaymentFee\PercentageCalculator;
 
@@ -53,7 +56,19 @@ return static function (ContainerConfigurator $container) {
 
     $services->alias(PaymentSurchargeCalculatorInterface::class, 'sylius_mollie.calculator.payment_fee.composite');
 
-    $services->set('sylius_mollie.calculator.clearer.payment_fee_adjustment', PaymentFeeAdjustmentClearer::class);
+    $services->alias(PaymentSurchargeAmountCalculatorInterface::class, 'sylius_mollie.calculator.payment_fee.composite');
+
+    $services->set('sylius_mollie.calculator.payment_fee.charged_surcharge_matcher', ChargedSurchargeMatcher::class)
+        ->args([
+            service('sylius_mollie.provider.payment_surcharge_adjustments'),
+            service('sylius_mollie.calculator.payment_fee.composite'),
+            service('sylius_mollie.repository.mollie_gateway_config'),
+        ]);
+
+    $services->alias(ChargedSurchargeMatcherInterface::class, 'sylius_mollie.calculator.payment_fee.charged_surcharge_matcher');
+
+    $services->set('sylius_mollie.calculator.clearer.payment_fee_adjustment', PaymentFeeAdjustmentClearer::class)
+        ->args([service('sylius_mollie.provider.payment_surcharge_adjustments')]);
 
     $services->alias(PaymentFeeAdjustmentClearerInterface::class, 'sylius_mollie.calculator.clearer.payment_fee_adjustment');
 };

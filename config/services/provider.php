@@ -2,6 +2,7 @@
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
+use Sylius\MolliePlugin\Model\AdjustmentInterface;
 use Sylius\MolliePlugin\Provider\CustomerProvider;
 use Sylius\MolliePlugin\Provider\CustomerProviderInterface;
 use Sylius\MolliePlugin\Provider\DivisorProvider;
@@ -10,8 +11,16 @@ use Sylius\MolliePlugin\Provider\Methods\MollieMethodsProvider;
 use Sylius\MolliePlugin\Provider\Methods\MollieMethodsProviderInterface;
 use Sylius\MolliePlugin\Provider\PaymentDescriptionProvider;
 use Sylius\MolliePlugin\Provider\PaymentDescriptionProviderInterface;
+use Sylius\MolliePlugin\Provider\PaymentSurchargeAdjustmentsProvider;
+use Sylius\MolliePlugin\Provider\PaymentSurchargeAdjustmentsProviderInterface;
 
 return static function (ContainerConfigurator $container) {
+    $container->parameters()->set('sylius_mollie.payment_surcharge_adjustments', [
+        AdjustmentInterface::FIXED_AMOUNT_ADJUSTMENT,
+        AdjustmentInterface::PERCENTAGE_ADJUSTMENT,
+        AdjustmentInterface::PERCENTAGE_AND_AMOUNT_ADJUSTMENT,
+    ]);
+
     $services = $container->services();
 
     $services->defaults()
@@ -20,6 +29,11 @@ return static function (ContainerConfigurator $container) {
     $services->set('sylius_mollie.provider.divisor', DivisorProvider::class);
 
     $services->alias(DivisorProviderInterface::class, 'sylius_mollie.provider.divisor');
+
+    $services->set('sylius_mollie.provider.payment_surcharge_adjustments', PaymentSurchargeAdjustmentsProvider::class)
+        ->args(['%sylius_mollie.payment_surcharge_adjustments%']);
+
+    $services->alias(PaymentSurchargeAdjustmentsProviderInterface::class, 'sylius_mollie.provider.payment_surcharge_adjustments');
 
     $services->set('sylius_mollie.provider.customer', CustomerProvider::class)
         ->args([

@@ -9,6 +9,8 @@ use Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactory;
 use Sylius\MolliePlugin\Payum\Factory\CreateCustomerFactoryInterface;
 use Sylius\MolliePlugin\Payum\Factory\MollieGatewayFactory;
 use Sylius\MolliePlugin\Payum\Factory\MollieSubscriptionGatewayFactory;
+use Sylius\MolliePlugin\Payum\Resolver\ExistingMollieSessionResolver;
+use Sylius\MolliePlugin\Payum\Resolver\ExistingMollieSessionResolverInterface;
 
 return static function (ContainerConfigurator $container) {
     $services = $container->services();
@@ -36,4 +38,8 @@ return static function (ContainerConfigurator $container) {
         ->public();
 
     $services->alias(MollieGatewayFactoryCheckerInterface::class, 'sylius_mollie.payum.checker.mollie_gateway_factory');
+
+    $services->set('sylius_mollie.payum.resolver.existing_mollie_session', ExistingMollieSessionResolver::class);
+
+    $services->alias(ExistingMollieSessionResolverInterface::class, 'sylius_mollie.payum.resolver.existing_mollie_session');
 };
