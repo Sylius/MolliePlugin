@@ -245,3 +245,5 @@
     `object` type it needs for its own mappings. Stored values keep their format, so there is no data
     migration; an application that does not import `@SyliusMolliePlugin/config/config.yaml` has to
     register the type itself.
+
+16. The plugin now supports Sylius 2.3 and Symfony 8.
