@@ -16,6 +16,7 @@ namespace Tests\Sylius\MolliePlugin\Unit\Provider\Methods;
 use Mollie\Api\Endpoints\MethodEndpoint;
 use Mollie\Api\Resources\Method;
 use Mollie\Api\Resources\MethodCollection;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Sylius\MolliePlugin\Client\MollieApiClient;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
@@ -50,7 +51,7 @@ final class MollieMethodsProviderTest extends TestCase
         $this->assertInstanceOf(MollieMethodsProviderInterface::class, $this->mollieMethodsProvider);
     }
 
-    /** @dataProvider regularGatewayDataProvider */
+    #[DataProvider('regularGatewayDataProvider')]
     public function testGetMethodsForRegularGateway(
         bool $environment,
         array $config,
@@ -158,7 +159,7 @@ final class MollieMethodsProviderTest extends TestCase
         ];
     }
 
-    /** @dataProvider subscriptionGatewayDataProvider */
+    #[DataProvider('subscriptionGatewayDataProvider')]
     public function testGetMethodsForSubscriptionGateway(
         bool $environment,
         array $config,
@@ -279,7 +280,7 @@ final class MollieMethodsProviderTest extends TestCase
         ];
     }
 
-    /** @dataProvider unsupportedGatewayDataProvider */
+    #[DataProvider('unsupportedGatewayDataProvider')]
     public function testGetMethodsForUnsupportedGateway(string $factoryName): void
     {
         $gateway = $this->createMock(GatewayConfigInterface::class);
@@ -412,7 +413,7 @@ final class MollieMethodsProviderTest extends TestCase
         $this->assertEquals('directdebit', $result[1]->id);
     }
 
-    /** @dataProvider clientConfigurationDataProvider */
+    #[DataProvider('clientConfigurationDataProvider')]
     public function testGetClientConfiguration(
         bool $environment,
         array $config,

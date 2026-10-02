@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\MolliePlugin\Unit\Form\Extension;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Sylius\Bundle\CoreBundle\Form\Type\Checkout\PaymentType;
 use Sylius\Bundle\PaymentBundle\Form\Type\PaymentMethodChoiceType;
@@ -130,7 +131,7 @@ final class PaymentTypeExtensionTest extends TypeTestCase
         self::assertCount(1, $detailsView->children['molliePaymentMethods']->vars['choices']);
     }
 
-    /** @dataProvider submittedMethodProvider */
+    #[DataProvider('submittedMethodProvider')]
     public function testItResolvesTheMollieMethodsOnlyOncePerFormBuild(string $submittedMethod): void
     {
         $this->paymentMethods = [

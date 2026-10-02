@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\MolliePlugin\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Given;
 use Doctrine\ORM\EntityManager;
 use Sylius\Behat\Service\SharedStorageInterface;
 use Sylius\Bundle\CoreBundle\Fixture\Factory\ExampleFactoryInterface;
@@ -77,9 +78,7 @@ final class MollieContext implements Context
         $this->mollieConfigurationRepository = $mollieConfigurationRepository;
     }
 
-    /**
-     * @Given the store has a payment method :paymentMethodName with a code :paymentMethodCode and Mollie payment gateway
-     */
+    #[Given('the store has a payment method :paymentMethodName with a code :paymentMethodCode and Mollie payment gateway')]
     public function theStoreHasAPaymentMethodWithACodeAndMolliePaymentGateway(string $paymentMethodName, string $paymentMethodCode): void
     {
         $paymentMethod = $this->createPaymentMethodMollie(
@@ -103,9 +102,7 @@ final class MollieContext implements Context
         $this->paymentMethodManager->flush();
     }
 
-    /**
-     * @Given gateway :paymentMethodCode has all methods loaded and enabled
-     */
+    #[Given('gateway :paymentMethodCode has all methods loaded and enabled')]
     public function gatewayHasAllMethodsLoadedAndEnabled(string $paymentMethodCode): void
     {
         $gatewayConfig = $this->gatewayConfigRepository
@@ -120,9 +117,7 @@ final class MollieContext implements Context
         $this->enableAllMolliePaymentMethods();
     }
 
-    /**
-     * @Given the store has a payment method :paymentMethodName with a code :paymentMethodCode and Mollie Subscription payment gateway
-     */
+    #[Given('the store has a payment method :paymentMethodName with a code :paymentMethodCode and Mollie Subscription payment gateway')]
     public function theStoreHasAPaymentMethodWithACodeAndMollieSubscriptionPaymentGateway(string $paymentMethodName, string $paymentMethodCode): void
     {
         $paymentMethod = $this->createPaymentMethodMollie(

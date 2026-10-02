@@ -54,20 +54,20 @@ final class MollieGatewayConfigurationType extends AbstractType
                 'always_empty' => false,
                 'label' => 'sylius_mollie.ui.api_key_test',
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'sylius_mollie.api_key.not_blank',
-                        'groups' => ['sylius'],
-                    ]),
-                    new Regex([
-                        'message' => 'sylius_mollie.api_key.invalid_test',
-                        'groups' => ['sylius'],
-                        'pattern' => '/^(test)_\w{0,}$/',
-                    ]),
-                    new Length([
-                        'minMessage' => 'sylius_mollie.api_key.min_length',
-                        'groups' => ['sylius'],
-                        'min' => 35,
-                    ]),
+                    new NotBlank(
+                        message: 'sylius_mollie.api_key.not_blank',
+                        groups: ['sylius'],
+                    ),
+                    new Regex(
+                        message: 'sylius_mollie.api_key.invalid_test',
+                        groups: ['sylius'],
+                        pattern: '/^(test)_\w{0,}$/',
+                    ),
+                    new Length(
+                        minMessage: 'sylius_mollie.api_key.min_length',
+                        groups: ['sylius'],
+                        min: 35,
+                    ),
                 ],
             ])
             ->add(self::API_KEY_LIVE, PasswordType::class, [
@@ -75,16 +75,16 @@ final class MollieGatewayConfigurationType extends AbstractType
                 'required' => true,
                 'label' => 'sylius_mollie.ui.api_key_live',
                 'constraints' => [
-                    new Regex([
-                        'message' => 'sylius_mollie.api_key.invalid_live',
-                        'groups' => ['sylius'],
-                        'pattern' => '/^(live)_\w{0,}$/',
-                    ]),
-                    new Length([
-                        'minMessage' => 'sylius_mollie.api_key.min_length',
-                        'groups' => ['sylius'],
-                        'min' => 35,
-                    ]),
+                    new Regex(
+                        message: 'sylius_mollie.api_key.invalid_live',
+                        groups: ['sylius'],
+                        pattern: '/^(live)_\w{0,}$/',
+                    ),
+                    new Length(
+                        minMessage: 'sylius_mollie.api_key.min_length',
+                        groups: ['sylius'],
+                        min: 35,
+                    ),
                 ],
             ])
             ->add('abandoned_email_enabled', CheckboxType::class, [

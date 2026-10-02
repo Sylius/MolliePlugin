@@ -1,3 +1,6 @@
+includes:
+    - phpstan-baseline.neon
+
 parameters:
     reportUnmatchedIgnoredErrors: false
 
@@ -6,8 +9,6 @@ parameters:
         - src
 
     excludePaths:
-        # Makes PHPStan crash
-        - 'src/DependencyInjection/Configuration.php'
         - 'src/Refund/Validator/*.php'
         - 'src/EventListener/PaymentPartialEventListener.php'
 

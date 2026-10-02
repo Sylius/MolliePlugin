@@ -208,3 +208,42 @@
     `percentage` already did. `FixedAmountAndPercentageCalculator` needs the limit to cap its total,
     so a method saved without one could not have its fee calculated, which broke the checkout fee
     call for it.
+
+13. Every service definition shipped by the plugin moved from XML to PHP, since Symfony 8 removes
+    the XML configuration format: `config/services.xml` and `config/services/**/*.xml` became
+    `config/services.php` and `config/services/**/*.php`, and `tests/Behat/Resources/services.xml`
+    became `tests/Behat/Resources/services.php`. Directory layout, file names, service ids, aliases,
+    tags and parameters are unchanged, so nothing has to be adjusted unless your application imports
+    a plugin config file by path, in which case only the extension changes:
+
+    ```diff
+     imports:
+    -    - { resource: "@SyliusMolliePlugin/config/services/resolver.xml" }
+    +    - { resource: "@SyliusMolliePlugin/config/services/resolver.php" }
+    ```
+
+    Doctrine mappings (`config/doctrine/*.orm.xml`) and validator mappings (`config/validation/*.xml`)
+    deliberately stay XML - neither format was removed.
+
+    An application that imports the plugin's Behat services in its own test kernel has to follow the
+    same rename:
+
+    ```diff
+    -$container->import('@SyliusMolliePlugin/tests/Behat/Resources/services.xml');
+    +$container->import('@SyliusMolliePlugin/tests/Behat/Resources/services.php');
+    ```
+
+14. `payum/payum-bundle` is now required explicitly at `^2.7`. The plugin imports the bundle's refund
+    routing in `config/routes/admin.yaml`, and that file is only shipped as YAML from 2.7.0 on - the
+    XML one it used to import was removed there, restored as a deprecated shim in 2.7.1, and cannot
+    be loaded by Symfony 8 at all. Sylius 2.3 already requires `^2.7`; the constraint matters for
+    Sylius 2.2, which still allows `^2.6`.
+
+15. DBAL 4, which Sylius 2.3 allows, removed the built-in `array` column type used by eight of the
+    plugin's fields. The plugin now ships `Sylius\MolliePlugin\Doctrine\DBAL\Type\ArrayType` and
+    registers it as the `array` type in `config/config.yaml`, the same way Sylius 2.3 restores the
+    `object` type it needs for its own mappings. Stored values keep their format, so there is no data
+    migration; an application that does not import `@SyliusMolliePlugin/config/config.yaml` has to
+    register the type itself.
+
+16. The plugin now supports Sylius 2.3 and Symfony 8.

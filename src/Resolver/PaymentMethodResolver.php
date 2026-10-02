@@ -232,11 +232,7 @@ final class PaymentMethodResolver implements PaymentMethodsResolverInterface
                 ->setParameter('methodId', $methodId)
                 ->setParameter('channelId', $channelId);
 
-            if (method_exists($queryBuilder, 'executeQuery')) {
-                $isAssociated = $queryBuilder->executeQuery()->fetchOne();
-            } else {
-                $isAssociated = $queryBuilder->execute()->fetchOne();
-            }
+            $isAssociated = $queryBuilder->executeQuery()->fetchOne();
 
             if ($isAssociated !== false && $isAssociated !== null) {
                 $filteredMethods[] = $method;

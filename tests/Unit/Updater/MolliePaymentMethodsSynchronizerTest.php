@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\MolliePlugin\Unit\Updater;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
@@ -121,9 +122,7 @@ final class MolliePaymentMethodsSynchronizerTest extends TestCase
         $this->synchronizer->sync();
     }
 
-    /**
-     * @dataProvider invalidGatewayConfigProvider
-     */
+    #[DataProvider('invalidGatewayConfigProvider')]
     public function testSyncSkipsPaymentMethodsWithInvalidGatewayConfig(
         bool $hasGatewayConfig,
         ?string $factoryName = null,
@@ -188,9 +187,7 @@ final class MolliePaymentMethodsSynchronizerTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider validMollieGatewayFactoriesProvider
-     */
+    #[DataProvider('validMollieGatewayFactoriesProvider')]
     public function testSyncUpdatesValidMollieGatewayPaymentMethods(string $factoryName): void
     {
         $channel = $this->createMock(ChannelInterface::class);

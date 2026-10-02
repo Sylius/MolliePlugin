@@ -14,6 +14,9 @@ declare(strict_types=1);
 namespace Tests\Sylius\MolliePlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Given;
+use Behat\Step\Then;
+use Behat\Step\When;
 use Sylius\Behat\NotificationType;
 use Sylius\Behat\Service\NotificationCheckerInterface;
 use Tests\Sylius\MolliePlugin\Behat\Page\Admin\PaymentMethod\CreatePageInterface;
@@ -33,17 +36,13 @@ final class ManagingPaymentMethodContext implements Context
     ) {
     }
 
-    /**
-     * @Given I want to create a new Mollie payment method
-     */
+    #[Given('I want to create a new Mollie payment method')]
     public function iWantToCreateANewMolliePaymentMethod(): void
     {
         $this->createPage->open(['factory' => 'mollie']);
     }
 
-    /**
-     * @When I fill the API key with :apiKey
-     */
+    #[When('I fill the API key with :apiKey')]
     public function iConfigureItWithTestMollieCredentials(string $apiKey): void
     {
         if (self::MOLLIE_TEST_API_KEY === $apiKey) {
@@ -55,9 +54,7 @@ final class ManagingPaymentMethodContext implements Context
         $this->createPage->setApiKey($apiKey);
     }
 
-    /**
-     * @When I fill the Profile ID with :profileId
-     */
+    #[When('I fill the Profile ID with :profileId')]
     public function iConfigureProfileId(string $profileId): void
     {
         if (self::MOLLIE_PROFILE_KEY === $profileId) {
@@ -69,9 +66,7 @@ final class ManagingPaymentMethodContext implements Context
         $this->createPage->setProfileId($profileId);
     }
 
-    /**
-     * @Then I should be notified that :fields fields cannot be blank
-     */
+    #[Then('I should be notified that :fields fields cannot be blank')]
     public function iShouldBeNotifiedThatCannotBeBlank(string $fields): void
     {
         $fields = explode(',', $fields);
@@ -84,17 +79,13 @@ final class ManagingPaymentMethodContext implements Context
         }
     }
 
-    /**
-     * @Then I should be notified with error :message message
-     */
+    #[Then('I should be notified with error :message message')]
     public function iShouldBeNotifiedWithErrorMessage(string $message): void
     {
         Assert::true($this->createPage->containsErrorWithMessage($message));
     }
 
-    /**
-     * @Then I should be notified with success :message message
-     */
+    #[Then('I should be notified with success :message message')]
     public function iShouldBeNotifiedWithSuccessMessage(string $message): void
     {
         $this->notificationChecker->checkNotification(
@@ -103,25 +94,19 @@ final class ManagingPaymentMethodContext implements Context
         );
     }
 
-    /**
-     * @Given I want to create a new Mollie recurring subscription
-     */
+    #[Given('I want to create a new Mollie recurring subscription')]
     public function iWantToCreateANewMollieRecurringSubscription(): void
     {
         $this->createPage->open(['factory' => 'mollie_subscription']);
     }
 
-    /**
-     * @Given I can load payment methods
-     */
+    #[Given('I can load payment methods')]
     public function iCanLoadPaymentMethods(): void
     {
         $this->createPage->loadPaymentMethods();
     }
 
-    /**
-     * @Given I enable :paymentMethodName payment method
-     */
+    #[Given('I enable :paymentMethodName payment method')]
     public function iEnablePaymentMethod(string $paymentMethodName): void
     {
         $this->createPage->enablePaymentMethod($paymentMethodName);

@@ -25,8 +25,8 @@ final class ApiKeysTestResolver implements ApiKeysTestResolverInterface
 
     public function fromRequest(Request $request): array
     {
-        $testApiKey = $request->get(MollieGatewayConfigurationType::API_KEY_TEST);
-        $liveApiKey = $request->get(MollieGatewayConfigurationType::API_KEY_LIVE);
+        $testApiKey = $request->query->get(MollieGatewayConfigurationType::API_KEY_TEST);
+        $liveApiKey = $request->query->get(MollieGatewayConfigurationType::API_KEY_LIVE);
 
         return [
             $this->apiKeysTestCreator->create(MollieGatewayConfigurationType::API_KEY_TEST, $testApiKey),

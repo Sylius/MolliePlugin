@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Fixture\Listener;
 
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Bundle\FixturesBundle\Listener\AbstractListener;
 use Sylius\Bundle\FixturesBundle\Listener\AfterSuiteListenerInterface;
@@ -34,10 +33,10 @@ final class ProductsWithinAllChannelsListener extends AbstractListener implement
 
     public function afterSuite(SuiteEvent $suiteEvent, array $options): void
     {
-        /** @var Collection<ChannelInterface> $channels */
+        /** @var array<ChannelInterface> $channels */
         $channels = $this->channelRepository->findAll();
 
-        /** @var Collection<ProductInterface> $products */
+        /** @var array<ProductInterface> $products */
         $products = $this->productRepository->findAll();
         foreach ($products as $product) {
             foreach ($channels as $channel) {

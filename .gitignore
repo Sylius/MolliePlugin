@@ -17,8 +17,9 @@ composer.lock
 /yarn-error.log
 
 /public
+/.phpunit.cache/
 /.phpunit.result.cache
-/behat.yml
+/behat.php
 /phpunit.xml
 /phpstan.neon
 

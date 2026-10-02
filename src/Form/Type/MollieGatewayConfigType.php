@@ -79,7 +79,7 @@ final class MollieGatewayConfigType extends AbstractResourceType
             ])
             ->add('paymentSurchargeFee', PaymentSurchargeFeeType::class, [
                 'label' => false,
-                'constraints' => [new PaymentSurchargeType(['groups' => 'sylius'])],
+                'constraints' => [new PaymentSurchargeType(groups: ['sylius'])],
             ])
             ->add('amountLimits', MollieMinMaxType::class, [
                 'label' => false,

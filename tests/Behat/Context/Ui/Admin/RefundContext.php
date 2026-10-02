@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\MolliePlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\When;
 use Sylius\Behat\Context\Ui\Admin\ManagingOrdersContext;
 use Sylius\Component\Core\Model\OrderInterface;
 
@@ -27,9 +28,7 @@ final class RefundContext implements Context
         $this->managingOrdersContext = $managingOrdersContext;
     }
 
-    /**
-     * @When /^I mark (this order)'s mollie payment as refunded$/
-     */
+    #[When('/^I mark (this order)\'s mollie payment as refunded$/')]
     public function iMarkThisOrdersMolliePaymentAsRefunded(OrderInterface $order): void
     {
         $this->managingOrdersContext->iMarkThisOrderSPaymentAsRefunded($order);

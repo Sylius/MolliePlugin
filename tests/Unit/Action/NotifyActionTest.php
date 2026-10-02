@@ -102,16 +102,20 @@ final class NotifyActionTest extends TestCase
 
         $this->subscriptionRepository->method('findByOrderId')->willReturn([$subscription]);
 
-        $gateway->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $gateway->expects($matcher)
             ->method('execute')
-            ->withConsecutive(
-                [$this->getHttpRequest],
-                [$this->callback(function ($request) use ($subscription) {
-                    return $request instanceof StatusRecurringSubscription &&
-                        $request->getFirstModel() === $subscription &&
-                        $request->getPaymentId() === 'payment_id';
-                })],
-            )
+            ->willReturnCallback(function ($executedRequest) use ($matcher, $subscription): void {
+                if (1 === $matcher->numberOfInvocations()) {
+                    $this->assertSame($this->getHttpRequest, $executedRequest);
+
+                    return;
+                }
+
+                $this->assertInstanceOf(StatusRecurringSubscription::class, $executedRequest);
+                $this->assertSame($subscription, $executedRequest->getFirstModel());
+                $this->assertSame('payment_id', $executedRequest->getPaymentId());
+            })
         ;
 
         $this->loggerAction->expects($this->once())

@@ -33,7 +33,7 @@ final class GatewayConfigTypeExtension extends AbstractTypeExtension
                 'validation_groups' => ['sylius'],
                 'constraints' => [
                     new Valid(),
-                    new MollieGatewayConfigValidatorType(['groups' => 'sylius']),
+                    new MollieGatewayConfigValidatorType(groups: ['sylius']),
                 ],
             ],
         );

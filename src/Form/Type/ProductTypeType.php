@@ -37,7 +37,7 @@ final class ProductTypeType extends AbstractResourceType
         $resolver->setDefaults([
             'data_class' => ProductType::class,
             'constraints' => [
-                new UniqueEntity(['fields' => ['name']]),
+                new UniqueEntity(fields: ['name']),
             ],
         ]);
     }

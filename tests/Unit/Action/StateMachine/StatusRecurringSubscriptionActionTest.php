@@ -55,10 +55,15 @@ final class StatusRecurringSubscriptionActionTest extends TestCase
         $requestMock->expects($this->once())->method('getPayment')->willReturn(null);
 
         $this->stateMachine->method('can')->willReturn(true);
-        $this->stateMachine->expects($this->exactly(2))->method('apply')->withConsecutive(
-            [$subscriptionMock, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_COMPLETE],
-            [$subscriptionMock, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_ABORT],
-        );
+        $matcher = $this->exactly(2);
+        $this->stateMachine->expects($matcher)->method('apply')->willReturnCallback(function (...$arguments) use ($matcher, $subscriptionMock): void {
+            $expectedArguments = match ($matcher->numberOfInvocations()) {
+                1 => [$subscriptionMock, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_COMPLETE],
+                2 => [$subscriptionMock, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_ABORT],
+            };
+
+            $this->assertSame($expectedArguments, array_slice($arguments, 0, count($expectedArguments)));
+        });
 
         $this->subscriptionManagerMock->expects($this->once())->method('persist')->with($subscriptionMock);
         $this->subscriptionManagerMock->expects($this->once())->method('flush');
@@ -77,10 +82,15 @@ final class StatusRecurringSubscriptionActionTest extends TestCase
         $this->subscriptionAndPaymentIdApplicatorMock->expects($this->once())->method('execute')->with($subscriptionMock, 'payment_id');
 
         $this->stateMachine->method('can')->willReturn(true);
-        $this->stateMachine->expects($this->exactly(2))->method('apply')->withConsecutive(
-            [$subscriptionMock, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_COMPLETE],
-            [$subscriptionMock, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_ABORT],
-        );
+        $matcher = $this->exactly(2);
+        $this->stateMachine->expects($matcher)->method('apply')->willReturnCallback(function (...$arguments) use ($matcher, $subscriptionMock): void {
+            $expectedArguments = match ($matcher->numberOfInvocations()) {
+                1 => [$subscriptionMock, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_COMPLETE],
+                2 => [$subscriptionMock, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_ABORT],
+            };
+
+            $this->assertSame($expectedArguments, array_slice($arguments, 0, count($expectedArguments)));
+        });
 
         $this->subscriptionManagerMock->expects($this->once())->method('persist')->with($subscriptionMock);
         $this->subscriptionManagerMock->expects($this->once())->method('flush');
@@ -103,10 +113,15 @@ final class StatusRecurringSubscriptionActionTest extends TestCase
         ;
 
         $this->stateMachine->method('can')->willReturn(true);
-        $this->stateMachine->expects($this->exactly(2))->method('apply')->withConsecutive(
-            [$subscriptionMock, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_COMPLETE],
-            [$subscriptionMock, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_ABORT],
-        );
+        $matcher = $this->exactly(2);
+        $this->stateMachine->expects($matcher)->method('apply')->willReturnCallback(function (...$arguments) use ($matcher, $subscriptionMock): void {
+            $expectedArguments = match ($matcher->numberOfInvocations()) {
+                1 => [$subscriptionMock, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_COMPLETE],
+                2 => [$subscriptionMock, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_ABORT],
+            };
+
+            $this->assertSame($expectedArguments, array_slice($arguments, 0, count($expectedArguments)));
+        });
 
         $this->subscriptionManagerMock->expects($this->once())->method('persist')->with($subscriptionMock);
         $this->subscriptionManagerMock->expects($this->once())->method('flush');

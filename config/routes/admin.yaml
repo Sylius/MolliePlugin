@@ -26,4 +26,4 @@ sylius_mollie_plugin_mollie_subscription:
     resource: "admin/mollie_subscription.yaml"
 
 sylius_mollie_admin_payum_refund:
-    resource: "@PayumBundle/Resources/config/routing/refund.xml"
+    resource: "@PayumBundle/Resources/config/routing/refund.yaml"

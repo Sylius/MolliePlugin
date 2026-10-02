@@ -36,7 +36,7 @@ final class ApplePayValidationAction
             return new JsonResponse(null, Response::HTTP_FORBIDDEN);
         }
 
-        $validateUrl = $request->get('validationUrl');
+        $validateUrl = $request->getPayload()->get('validationUrl');
 
         if (null === $validateUrl) {
             return new JsonResponse(null, Response::HTTP_NOT_FOUND);

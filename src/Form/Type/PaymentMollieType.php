@@ -58,9 +58,7 @@ final class PaymentMollieType extends AbstractType
         $builder
             ->add(self::FIELD_PAYMENT_METHODS, ChoiceType::class, [
                 'constraints' => [
-                    new PaymentMethodCheckout([
-                        'groups' => ['sylius'],
-                    ]),
+                    new PaymentMethodCheckout(groups: ['sylius']),
                 ],
                 'label' => false,
                 'choices' => array_flip($data),
