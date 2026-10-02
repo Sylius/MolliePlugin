@@ -208,3 +208,27 @@
     `percentage` already did. `FixedAmountAndPercentageCalculator` needs the limit to cap its total,
     so a method saved without one could not have its fee calculated, which broke the checkout fee
     call for it.
+
+13. Every service definition shipped by the plugin moved from XML to PHP, since Symfony 8 removes
+    the XML configuration format: `config/services.xml` and `config/services/**/*.xml` became
+    `config/services.php` and `config/services/**/*.php`, and `tests/Behat/Resources/services.xml`
+    became `tests/Behat/Resources/services.php`. Directory layout, file names, service ids, aliases,
+    tags and parameters are unchanged, so nothing has to be adjusted unless your application imports
+    a plugin config file by path, in which case only the extension changes:
+
+    ```diff
+     imports:
+    -    - { resource: "@SyliusMolliePlugin/config/services/resolver.xml" }
+    +    - { resource: "@SyliusMolliePlugin/config/services/resolver.php" }
+    ```
+
+    Doctrine mappings (`config/doctrine/*.orm.xml`) and validator mappings (`config/validation/*.xml`)
+    deliberately stay XML - neither format was removed.
+
+    An application that imports the plugin's Behat services in its own test kernel has to follow the
+    same rename:
+
+    ```diff
+    -$container->import('@SyliusMolliePlugin/tests/Behat/Resources/services.xml');
+    +$container->import('@SyliusMolliePlugin/tests/Behat/Resources/services.php');
+    ```
