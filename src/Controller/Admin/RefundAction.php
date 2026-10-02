@@ -51,7 +51,7 @@ final class RefundAction
     public function __invoke(Request $request): Response
     {
         /** @var PaymentInterface|null $payment */
-        $payment = $this->paymentRepository->find($request->get('id'));
+        $payment = $this->paymentRepository->find($request->attributes->get('id'));
 
         if (null === $payment) {
             $this->loggerAction->addNegativeLog(sprintf('Not fount payment in refund'));

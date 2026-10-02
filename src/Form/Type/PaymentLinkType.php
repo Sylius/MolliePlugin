@@ -31,9 +31,9 @@ final class PaymentLinkType extends AbstractType
                 'required' => false,
                 'autocomplete' => true,
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'sylius_mollie.payment_link.method.not_blank',
-                    ]),
+                    new NotBlank(
+                        message: 'sylius_mollie.payment_link.method.not_blank',
+                    ),
                 ],
             ])
         ;

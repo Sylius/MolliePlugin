@@ -51,7 +51,7 @@ final class QrCodeAction
     public function createPayment(Request $request): Response
     {
         /** @var MollieGatewayConfigInterface $method */
-        $method = $this->methodRepository->findOneBy(['methodId' => $request->get('paymentMethod')]);
+        $method = $this->methodRepository->findOneBy(['methodId' => $request->query->get('paymentMethod')]);
         $qrCodeEnabled = $method->isQrCodeEnabled();
 
         if ($qrCodeEnabled) {
@@ -83,10 +83,10 @@ final class QrCodeAction
     {
         /** @var OrderInterface|null $order */
         $order = $this->cartContext->getCart();
-        $orderId = $request->get('orderId');
+        $orderId = $request->query->getString('orderId');
 
-        if (null !== $orderId &&
-            (string) $request->getSession()->get(self::QR_ORDER_ID_SESSION_KEY) !== (string) $orderId) {
+        if ('' !== $orderId &&
+            (string) $request->getSession()->get(self::QR_ORDER_ID_SESSION_KEY) !== $orderId) {
             return new JsonResponse([], Response::HTTP_NOT_FOUND);
         }
 
@@ -98,11 +98,11 @@ final class QrCodeAction
 
     public function removeQrCodeFromOrder(Request $request): JsonResponse
     {
-        $shouldDeletePaymentId = (bool) $request->get('shouldDeletePaymentId');
+        $shouldDeletePaymentId = (bool) $request->query->get('shouldDeletePaymentId');
 
         /** @var OrderInterface $order */
         $order = $this->cartContext->getCart();
-        $orderToken = $request->get('orderToken');
+        $orderToken = $request->query->get('orderToken');
         if (null !== $orderToken && '' !== $orderToken) {
             /** @var OrderInterface|null $order */
             $order = $this->orderRepository->findOneByTokenValue($orderToken);
@@ -145,9 +145,9 @@ final class QrCodeAction
     {
         $molliePayment = new MolliePayment();
         $molliePayment->setAmount(new Amount($this->intToStringConverter->convertIntToString($order->getTotal()), $order->getCurrencyCode()));
-        $molliePayment->setMethod($request->get('paymentMethod'));
+        $molliePayment->setMethod($request->query->get('paymentMethod'));
         $molliePayment->setDescription((string) $order->getId());
-        $molliePayment->setIssuer($request->get('issuer') ?? '');
+        $molliePayment->setIssuer($request->query->get('issuer') ?? '');
         $redirectUrl = $this->urlGenerator->generate('sylius_mollie_shop_payum', [], UrlGeneratorInterface::ABSOLUTE_URL);
         $webhookUrl = $this->urlGenerator->generate('sylius_mollie_shop_payment_webhook', [], UrlGeneratorInterface::ABSOLUTE_URL);
         $redirectUrl .= '?orderId=' . $order->getId();
@@ -158,11 +158,11 @@ final class QrCodeAction
         $metadata = new Metadata(
             $order->getId(),
             (string) $order->getCustomer()->getId(),
-            $request->get('paymentMethod'),
+            $request->query->get('paymentMethod'),
             null,
             null,
             null,
-            $request->get('issuer') ?? '',
+            $request->query->get('issuer') ?? '',
             ApiType::PAYMENT_API,
         );
         $molliePayment->setMetadata($metadata);

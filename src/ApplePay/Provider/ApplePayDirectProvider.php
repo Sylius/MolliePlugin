@@ -32,13 +32,13 @@ final class ApplePayDirectProvider implements ApplePayDirectProviderInterface
 
     public function provideOrder(OrderInterface $order, Request $request): void
     {
-        $applePayPaymentToken = $request->get('token');
-        $applePayBillingAddress = $request->get('billingContact');
-        $applePayShippingAddress = $request->get('shippingContact');
+        $applePayPaymentToken = $request->getPayload()->all('token');
+        $applePayBillingAddress = $request->getPayload()->all('billingContact');
+        $applePayShippingAddress = $request->getPayload()->all('shippingContact');
 
-        Assert::notNull($applePayPaymentToken);
-        Assert::notNull($applePayBillingAddress);
-        Assert::notNull($applePayShippingAddress);
+        Assert::notEmpty($applePayPaymentToken);
+        Assert::notEmpty($applePayBillingAddress);
+        Assert::notEmpty($applePayShippingAddress);
 
         if (isset($applePayShippingAddress['emailAddress'])) {
             $applePayBillingAddress['emailAddress'] = $applePayShippingAddress['emailAddress'];
