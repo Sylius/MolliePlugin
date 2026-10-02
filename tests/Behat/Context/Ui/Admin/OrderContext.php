@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Tests\Sylius\MolliePlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Then;
+use Behat\Step\When;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 use Sylius\Component\Payment\Model\PaymentInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
@@ -28,17 +30,13 @@ final class OrderContext implements Context
     ) {
     }
 
-    /**
-     * @Then all orders have same total set to :total
-     */
+    #[Then('all orders have same total set to :total')]
     public function bothOrdersShouldHaveSameTotal(string $total): void
     {
         Assert::true($this->indexPage->allOrdersHaveSameTotal($total));
     }
 
-    /**
-     * @When /^(this order) is incomplete$/
-     */
+    #[When('/^(this order) is incomplete$/')]
     public function thisOrderIsIncomplete(OrderInterface $order): void
     {
         /** @var PaymentInterface $firstPayment */

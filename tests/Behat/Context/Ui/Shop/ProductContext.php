@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\MolliePlugin\Behat\Context\Ui\Shop;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\When;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 use Sylius\Component\Payment\Model\PaymentInterface;
 
@@ -28,9 +29,7 @@ final class ProductContext implements Context
         $this->paymentRepository = $paymentRepository;
     }
 
-    /**
-     * @When I fix payment amount to pay successfully
-     */
+    #[When('I fix payment amount to pay successfully')]
     public function iFixPaymentAmountToPaySuccessfully(): void
     {
         /** @var PaymentInterface $payment */
