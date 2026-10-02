@@ -9,5 +9,11 @@ imports:
 
     - { resource: "integration/refund-plugin/config.php" }
 
+doctrine:
+    dbal:
+        types:
+            # DBAL 4 removed the built-in "array" type the plugin's mappings rely on
+            array: Sylius\MolliePlugin\Doctrine\DBAL\Type\ArrayType
+
 bazinga_js_translation:
     locale_fallback: '%kernel.default_locale%'

@@ -16,6 +16,11 @@ namespace Sylius\MolliePlugin\Grid\Filter;
 use Sylius\Component\Grid\Data\DataSourceInterface;
 use Sylius\Component\Grid\Filtering\FilterInterface;
 
+/**
+ * @deprecated since Mollie 3.3 and will be removed in 4.0.
+ *
+ * @see https://github.com/Sylius/MolliePlugin/blob/3.3/UPGRADE-3.3.md for migration details
+ */
 final class MollieSubscriptionState implements FilterInterface
 {
     /** @param array<array-key, mixed> $options */

@@ -15,6 +15,7 @@ namespace Tests\Sylius\MolliePlugin\Unit\Updater;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mollie\Api\Resources\Method;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
@@ -132,7 +133,7 @@ final class MollieMethodsUpdaterTest extends TestCase
         $this->updater->update($gateway, true);
     }
 
-    /** @dataProvider updateReturnsEarlyDataProvider */
+    #[DataProvider('updateReturnsEarlyDataProvider')]
     public function testUpdateReturnsEarlyWhenNoUpstreamMethods(bool $force): void
     {
         $gateway = $this->createMock(GatewayConfigInterface::class);
@@ -174,7 +175,7 @@ final class MollieMethodsUpdaterTest extends TestCase
         ];
     }
 
-    /** @dataProvider methodRemovalWithUpstreamDataProvider */
+    #[DataProvider('methodRemovalWithUpstreamDataProvider')]
     public function testRemovesExistingMethodsNotInUpstream(
         array $upstreamMethods,
         array $existingMethods,
@@ -259,7 +260,7 @@ final class MollieMethodsUpdaterTest extends TestCase
         ];
     }
 
-    /** @dataProvider methodUpdateDataProvider */
+    #[DataProvider('methodUpdateDataProvider')]
     public function testUpdatesExistingMethodsWithNewAmounts(
         array $upstreamMethodsData,
         array $existingMethods,
@@ -375,7 +376,7 @@ final class MollieMethodsUpdaterTest extends TestCase
         ];
     }
 
-    /** @dataProvider newMethodCreationDataProvider */
+    #[DataProvider('newMethodCreationDataProvider')]
     public function testCreatesNewMethodsFromUpstream(
         array $upstreamMethodsData,
         array $existingMethods,
@@ -498,7 +499,7 @@ final class MollieMethodsUpdaterTest extends TestCase
         ];
     }
 
-    /** @dataProvider positionCalculationDataProvider */
+    #[DataProvider('positionCalculationDataProvider')]
     public function testPositionCalculationWithNullPositions(
         array $existingMethods,
         int $expectedStartPosition,
@@ -588,7 +589,7 @@ final class MollieMethodsUpdaterTest extends TestCase
         ];
     }
 
-    /** @dataProvider cacheKeyDataProvider */
+    #[DataProvider('cacheKeyDataProvider')]
     public function testCacheKeyGeneration(int $gatewayId, string $expectedCacheKey): void
     {
         $gateway = $this->createMock(GatewayConfigInterface::class);
@@ -624,7 +625,7 @@ final class MollieMethodsUpdaterTest extends TestCase
         ];
     }
 
-    /** @dataProvider gatewayTypeFilteringDataProvider */
+    #[DataProvider('gatewayTypeFilteringDataProvider')]
     public function testMethodFilteringBasedOnGatewayType(
         string $factoryName,
         array $providedMethods,

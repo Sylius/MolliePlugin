@@ -1,0 +1,46 @@
+{% if not sylius_has_payment_method_with_gateway_factory('mollie') %}
+    <tr class="payment-method-list__item payment-method-list__item--suggested payment-method-list__item--mollie">
+        <td colspan="2" class="text-center align-middle">
+            <span class="badge bg-blue-lt">{{ 'sylius_mollie.ui.suggested'|trans }}</span>
+        </td>
+
+        <td colspan="1">
+            <div class="payment-method-list__item-inner d-flex align-items-center gap-3">
+                <div class="payment-method-list__logo d-flex align-items-center justify-content-center overflow-hidden p-2 flex-shrink-0">
+                    <img src="{{ asset('build/admin/images/mollie-logo.svg', 'admin') }}" alt="{{ 'sylius_mollie.ui.mollie_gateway_label'|trans }}">
+                </div>
+
+                <div class="payment-method-list__content d-flex flex-column gap-3">
+                    <div class="payment-method-list__heading">
+                        <h3 class="payment-method-list__name m-0 fw-semibold">{{ 'sylius_mollie.ui.mollie_gateway_label'|trans }}</h3>
+                        <p class="payment-method-list__description mt-1 mb-0">{{ 'sylius_mollie.ui.suggested_payment_method_description'|trans }}</p>
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for method in ['visa', 'master_card', 'maestro', 'ideal', 'bancontact', 'blik'] %}
+                            <span class="payment-method-list__method d-inline-flex align-items-center justify-content-center">
+                                <img src="{{ asset('build/admin/images/' ~ method ~ '.svg', 'admin') }}" alt="{{ method|replace({'_': ' '})|title }}">
+                            </span>
+                        {% endfor %}
+                        <span class="payment-method-list__method payment-method-list__method--more d-inline-flex align-items-center justify-content-center px-1 fw-semibold">{{ 'sylius.ui.and_more'|trans }}</span>
+                    </div>
+
+                    <div class="payment-method-list__meta d-flex flex-wrap align-items-center gap-4 fw-medium">
+                        <span class="d-inline-flex align-items-center gap-2">
+                            {{ 'sylius.ui.code'|trans }}: <code class="payment-method-list__code px-2 py-1">mollie</code>
+                        </span>
+                        <span class="d-inline-flex align-items-center gap-2">
+                            {{ 'sylius.ui.gateway'|trans }}: <span>{{ 'sylius_mollie.ui.mollie_gateway_label'|trans }}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </td>
+
+        <td class="payment-method-list__actions text-end" colspan="4">
+            <a href="{{ path('sylius_admin_payment_method_create', { factory: 'mollie' }) }}" class="btn">
+                {{ ux_icon('tabler:settings', { class: 'icon' }) }} {{ 'sylius_mollie.ui.configure'|trans }}
+            </a>
+        </td>
+    </tr>
+{% endif %}

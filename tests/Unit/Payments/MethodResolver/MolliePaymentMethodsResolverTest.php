@@ -22,8 +22,11 @@ use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
+use Sylius\MolliePlugin\Calculator\PaymentFee\ChargedSurchargeMatcherInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
 use Sylius\MolliePlugin\Filter\MollieMethodFilterInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
+use Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryCheckerInterface;
 use Sylius\MolliePlugin\Repository\Query\MollieBasedPaymentMethodQueryInterface;
 use Sylius\MolliePlugin\Resolver\MollieFactoryNameResolverInterface;
 use Sylius\MolliePlugin\Resolver\PaymentMethodResolver;
@@ -40,6 +43,12 @@ final class MolliePaymentMethodsResolverTest extends TestCase
 
     private EntityManagerInterface $entityManagerMock;
 
+    private ChargedSurchargeMatcherInterface $chargedSurchargeMatcherMock;
+
+    private MollieGatewayFactoryCheckerInterface $gatewayFactoryCheckerMock;
+
+    private MollieLoggerActionInterface $loggerActionMock;
+
     private PaymentMethodResolver $molliePaymentMethodResolver;
 
     protected function setUp(): void
@@ -49,6 +58,9 @@ final class MolliePaymentMethodsResolverTest extends TestCase
         $this->factoryNameResolverMock = $this->createMock(MollieFactoryNameResolverInterface::class);
         $this->mollieMethodFilterMock = $this->createMock(MollieMethodFilterInterface::class);
         $this->entityManagerMock = $this->createMock(EntityManagerInterface::class);
+        $this->chargedSurchargeMatcherMock = $this->createMock(ChargedSurchargeMatcherInterface::class);
+        $this->gatewayFactoryCheckerMock = $this->createMock(MollieGatewayFactoryCheckerInterface::class);
+        $this->loggerActionMock = $this->createMock(MollieLoggerActionInterface::class);
 
         $this->molliePaymentMethodResolver = new PaymentMethodResolver(
             $this->decoratedServiceMock,
@@ -56,6 +68,9 @@ final class MolliePaymentMethodsResolverTest extends TestCase
             $this->factoryNameResolverMock,
             $this->mollieMethodFilterMock,
             $this->entityManagerMock,
+            $this->chargedSurchargeMatcherMock,
+            $this->gatewayFactoryCheckerMock,
+            $this->loggerActionMock,
         );
     }
 
@@ -132,13 +147,19 @@ final class MolliePaymentMethodsResolverTest extends TestCase
             ->willReturnSelf()
         ;
 
-        $queryBuilderMock->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $queryBuilderMock->expects($matcher)
             ->method('setParameter')
-            ->withConsecutive(
-                ['methodId', $parentMethodMock->getId()],
-                ['channelId', 1],
-            )
-            ->willReturnSelf()
+            ->willReturnCallback(function (...$arguments) use ($matcher, $parentMethodMock, $queryBuilderMock) {
+                $expectedArguments = match ($matcher->numberOfInvocations()) {
+                    1 => ['methodId', $parentMethodMock->getId()],
+                    2 => ['channelId', 1],
+                };
+
+                $this->assertSame($expectedArguments, array_slice($arguments, 0, count($expectedArguments)));
+
+                return $queryBuilderMock;
+            })
         ;
 
         $queryBuilderMock->expects($this->once())
@@ -245,13 +266,19 @@ final class MolliePaymentMethodsResolverTest extends TestCase
             ->willReturnSelf()
         ;
 
-        $queryBuilderMock->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $queryBuilderMock->expects($matcher)
             ->method('setParameter')
-            ->withConsecutive(
-                ['methodId', $parentMethodMock->getId()],
-                ['channelId', 1],
-            )
-            ->willReturnSelf()
+            ->willReturnCallback(function (...$arguments) use ($matcher, $parentMethodMock, $queryBuilderMock) {
+                $expectedArguments = match ($matcher->numberOfInvocations()) {
+                    1 => ['methodId', $parentMethodMock->getId()],
+                    2 => ['channelId', 1],
+                };
+
+                $this->assertSame($expectedArguments, array_slice($arguments, 0, count($expectedArguments)));
+
+                return $queryBuilderMock;
+            })
         ;
 
         $queryBuilderMock->expects($this->once())

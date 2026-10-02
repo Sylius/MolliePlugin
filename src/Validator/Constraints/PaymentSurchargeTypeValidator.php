@@ -53,6 +53,9 @@ final class PaymentSurchargeTypeValidator extends ConstraintValidator
         if (PaymentSurchargeFeeType::FIXED_AND_PERCENTAGE === $paymentSurchargeFee->getType() && null === $paymentSurchargeFee->getFixedAmount()) {
             $this->createNegativeResponse($constraint, self::FIXED_AMOUNT_FIELD);
         }
+        if (PaymentSurchargeFeeType::FIXED_AND_PERCENTAGE === $paymentSurchargeFee->getType() && null === $paymentSurchargeFee->getSurchargeLimit()) {
+            $this->createNegativeResponse($constraint, self::SURCHARGE_LIMIT_FIELD);
+        }
     }
 
     private function createNegativeResponse(Constraint $constraint, string $filedName): void

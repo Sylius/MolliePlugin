@@ -16,6 +16,7 @@ namespace Tests\Sylius\MolliePlugin\Integration\Refund\Functional;
 use Doctrine\ORM\EntityManagerInterface;
 use Mollie\Api\MollieApiClient;
 use Mollie\Api\Resources\Payment as MolliePayment;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Sylius\Component\Core\Model\Adjustment;
 use Sylius\Component\Core\Model\AdjustmentInterface;
@@ -82,10 +83,9 @@ final class RefundDistributionTest extends FunctionalTestCase
     }
 
     /**
-     * @dataProvider fullRefundCasesProvider
-     *
      * @param int[] $expectedItemAmounts
      */
+    #[DataProvider('fullRefundCasesProvider')]
     public function test_full_refund_distribution(
         int $itemUnitPrice,
         int $itemQuantity,
@@ -115,10 +115,9 @@ final class RefundDistributionTest extends FunctionalTestCase
     }
 
     /**
-     * @dataProvider partialRefundCasesProvider
-     *
      * @param int[] $expectedItemAmounts
      */
+    #[DataProvider('partialRefundCasesProvider')]
     public function test_partial_refund_distribution(
         int $itemTaxPerUnit,
         bool $itemTaxIncludedInPrice,

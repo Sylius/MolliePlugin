@@ -13,6 +13,11 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\StateMachine;
 
+/**
+ * @deprecated since Mollie 3.3 and will be removed in 4.0.
+ *
+ * @see https://github.com/Sylius/MolliePlugin/blob/3.3/UPGRADE-3.3.md for migration details
+ */
 final class MollieRecurringTransitions
 {
     public const GRAPH_MANUAL = 'mollie_subscription_payment_graph_manual';

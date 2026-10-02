@@ -72,12 +72,17 @@ final class SubscriptionAndPaymentIdApplicatorTest extends TestCase
             ])
         ;
 
-        $this->stateMachineMock->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $this->stateMachineMock->expects($matcher)
             ->method('apply')
-            ->withConsecutive(
-                [$subscriptionMock, MollieSubscriptionPaymentProcessingTransitions::GRAPH, MollieSubscriptionPaymentProcessingTransitions::TRANSITION_BEGIN],
-                [$subscriptionMock, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_PROCESS],
-            )
+            ->willReturnCallback(function (...$arguments) use ($matcher, $subscriptionMock): void {
+                $expectedArguments = match ($matcher->numberOfInvocations()) {
+                    1 => [$subscriptionMock, MollieSubscriptionPaymentProcessingTransitions::GRAPH, MollieSubscriptionPaymentProcessingTransitions::TRANSITION_BEGIN],
+                    2 => [$subscriptionMock, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_PROCESS],
+                };
+
+                $this->assertSame($expectedArguments, array_slice($arguments, 0, count($expectedArguments)));
+            })
         ;
 
         $this->subscriptionAndPaymentIdApplicator->execute($subscriptionMock, 'id_1');
@@ -108,12 +113,17 @@ final class SubscriptionAndPaymentIdApplicatorTest extends TestCase
             ])
         ;
 
-        $this->stateMachineMock->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $this->stateMachineMock->expects($matcher)
             ->method('apply')
-            ->withConsecutive(
-                [$subscriptionMock, MollieSubscriptionPaymentProcessingTransitions::GRAPH, MollieSubscriptionPaymentProcessingTransitions::TRANSITION_BEGIN],
-                [$subscriptionMock, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_PROCESS],
-            )
+            ->willReturnCallback(function (...$arguments) use ($matcher, $subscriptionMock): void {
+                $expectedArguments = match ($matcher->numberOfInvocations()) {
+                    1 => [$subscriptionMock, MollieSubscriptionPaymentProcessingTransitions::GRAPH, MollieSubscriptionPaymentProcessingTransitions::TRANSITION_BEGIN],
+                    2 => [$subscriptionMock, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_PROCESS],
+                };
+
+                $this->assertSame($expectedArguments, array_slice($arguments, 0, count($expectedArguments)));
+            })
         ;
 
         $this->subscriptionAndPaymentIdApplicator->execute($subscriptionMock, 'id_1');
@@ -144,12 +154,17 @@ final class SubscriptionAndPaymentIdApplicatorTest extends TestCase
             ])
         ;
 
-        $this->stateMachineMock->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $this->stateMachineMock->expects($matcher)
             ->method('apply')
-            ->withConsecutive(
-                [$subscriptionMock, MollieSubscriptionPaymentProcessingTransitions::GRAPH, MollieSubscriptionPaymentProcessingTransitions::TRANSITION_BEGIN],
-                [$subscriptionMock, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_PROCESS],
-            )
+            ->willReturnCallback(function (...$arguments) use ($matcher, $subscriptionMock): void {
+                $expectedArguments = match ($matcher->numberOfInvocations()) {
+                    1 => [$subscriptionMock, MollieSubscriptionPaymentProcessingTransitions::GRAPH, MollieSubscriptionPaymentProcessingTransitions::TRANSITION_BEGIN],
+                    2 => [$subscriptionMock, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_PROCESS],
+                };
+
+                $this->assertSame($expectedArguments, array_slice($arguments, 0, count($expectedArguments)));
+            })
         ;
 
         $this->subscriptionAndPaymentIdApplicator->execute($subscriptionMock, 'id_1');
@@ -182,13 +197,18 @@ final class SubscriptionAndPaymentIdApplicatorTest extends TestCase
             ])
         ;
 
-        $this->stateMachineMock->expects($this->exactly(3))
+        $matcher = $this->exactly(3);
+        $this->stateMachineMock->expects($matcher)
             ->method('apply')
-            ->withConsecutive(
-                [$subscriptionMock, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_ACTIVATE],
-                [$subscriptionMock, MollieSubscriptionPaymentProcessingTransitions::GRAPH, MollieSubscriptionPaymentProcessingTransitions::TRANSITION_SUCCESS],
-                [$subscriptionMock, MollieSubscriptionProcessingTransitions::GRAPH, MollieSubscriptionProcessingTransitions::TRANSITION_SCHEDULE],
-            )
+            ->willReturnCallback(function (...$arguments) use ($matcher, $subscriptionMock): void {
+                $expectedArguments = match ($matcher->numberOfInvocations()) {
+                    1 => [$subscriptionMock, MollieSubscriptionTransitions::GRAPH, MollieSubscriptionTransitions::TRANSITION_ACTIVATE],
+                    2 => [$subscriptionMock, MollieSubscriptionPaymentProcessingTransitions::GRAPH, MollieSubscriptionPaymentProcessingTransitions::TRANSITION_SUCCESS],
+                    3 => [$subscriptionMock, MollieSubscriptionProcessingTransitions::GRAPH, MollieSubscriptionProcessingTransitions::TRANSITION_SCHEDULE],
+                };
+
+                $this->assertSame($expectedArguments, array_slice($arguments, 0, count($expectedArguments)));
+            })
         ;
 
         $this->subscriptionAndPaymentIdApplicator->execute($subscriptionMock, 'id_1');
@@ -219,11 +239,16 @@ final class SubscriptionAndPaymentIdApplicatorTest extends TestCase
             ])
         ;
 
-        $this->stateMachineMock->expects($this->once())
+        $matcher = $this->once();
+        $this->stateMachineMock->expects($matcher)
             ->method('apply')
-            ->withConsecutive(
-                [$subscriptionMock, MollieSubscriptionPaymentProcessingTransitions::GRAPH, MollieSubscriptionPaymentProcessingTransitions::TRANSITION_FAILURE],
-            )
+            ->willReturnCallback(function (...$arguments) use ($matcher, $subscriptionMock): void {
+                $expectedArguments = match ($matcher->numberOfInvocations()) {
+                    1 => [$subscriptionMock, MollieSubscriptionPaymentProcessingTransitions::GRAPH, MollieSubscriptionPaymentProcessingTransitions::TRANSITION_FAILURE],
+                };
+
+                $this->assertSame($expectedArguments, array_slice($arguments, 0, count($expectedArguments)));
+            })
         ;
 
         $this->subscriptionAndPaymentIdApplicator->execute($subscriptionMock, 'id_1');

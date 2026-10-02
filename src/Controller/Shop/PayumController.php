@@ -47,7 +47,7 @@ final class PayumController
 
     public function __invoke(Request $request): Response
     {
-        $orderId = $request->get('orderId');
+        $orderId = $request->query->get('orderId');
         /** @var OrderInterface|null $order */
         $order = $this->orderRepository->findOneBy(['id' => $orderId]);
 

@@ -16,6 +16,7 @@ namespace Tests\Sylius\MolliePlugin\Behat\Context\Ui\Shop;
 use Behat\Behat\Context\Context;
 use Behat\MinkExtension\Context\RawMinkContext;
 use Behat\Step\Then;
+use Behat\Step\When;
 use Sylius\Behat\NotificationType;
 use Sylius\Behat\Service\NotificationCheckerInterface;
 use Tests\Sylius\MolliePlugin\Behat\Page\Shop\Checkout\CompletePageInterface;
@@ -28,9 +29,7 @@ final class CheckoutContext extends RawMinkContext implements Context
     ) {
     }
 
-    /**
-     * @When I select :paymentOptionName as my payment option
-     */
+    #[When('I select :paymentOptionName as my payment option')]
     public function iSelectPaymentOption(string $paymentOptionName): void
     {
         $this->summaryPage->selectPaymentOption($paymentOptionName);

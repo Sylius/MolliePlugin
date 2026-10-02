@@ -15,9 +15,11 @@ namespace Sylius\MolliePlugin\Resolver;
 
 use Mollie\Api\Exceptions\ApiException;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\MolliePlugin\Calculator\PaymentFee\ChargedSurchargeMatcherInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\MollieGatewayConfigInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface as MollieOrderInterface;
+use Sylius\MolliePlugin\Exceptions\UnknownPaymentSurchargeType;
 use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Provider\DivisorProviderInterface;
 use Sylius\MolliePlugin\Repository\MollieGatewayConfigRepository;
@@ -44,7 +46,17 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         private readonly MollieLoggerActionInterface $loggerAction,
         private readonly MollieFactoryNameResolverInterface $mollieFactoryNameResolver,
         private readonly DivisorProviderInterface $divisorProvider,
+        private readonly ?ChargedSurchargeMatcherInterface $chargedSurchargeMatcher = null,
     ) {
+        if (null === $this->chargedSurchargeMatcher) {
+            trigger_deprecation(
+                'sylius/mollie-plugin',
+                '3.4',
+                'Not passing ChargedSurchargeMatcherInterface to %s is deprecated and will be required in 4.0. ' .
+                'Without it a placed order is offered only the method it already carries, since no other can be shown to keep its total.',
+                self::class,
+            );
+        }
     }
 
     public function resolve(): array
@@ -65,7 +77,10 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         if (false === $order instanceof MollieOrderInterface) {
             return $this->getDefaultOptions();
         }
-        Assert::notNull($address->getCountryCode());
+
+        if (null === $address->getCountryCode()) {
+            return $this->getDefaultOptions();
+        }
 
         return $this->getMolliePaymentOptions($order, $address->getCountryCode());
     }
@@ -115,6 +130,7 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         }
 
         $allowedMethods = $this->filterPaymentMethods($paymentConfigs, $allowedMethodsIds, (float) $order->getTotal() / $this->divisorProvider->getDivisor());
+        $allowedMethods = $this->filterMethodsWithSameSurcharge($order, $allowedMethods);
 
         if (0 === count($allowedMethods)) {
             return $this->getDefaultOptions();
@@ -129,6 +145,81 @@ final class MolliePaymentsMethodResolver implements MolliePaymentsMethodResolver
         }
 
         return $this->productVoucherTypeChecker->checkTheProductTypeOnCart($order, $methods);
+    }
+
+    /**
+     * Order processors stop running once an order leaves `cart` (`Order::canBeProcessed()`), so
+     * from then on the total can no longer follow the selected method.
+     *
+     * @param MollieGatewayConfigInterface[] $allowedMethods
+     *
+     * @return MollieGatewayConfigInterface[]
+     */
+    private function filterMethodsWithSameSurcharge(OrderInterface $order, array $allowedMethods): array
+    {
+        if (null === $order->getCheckoutCompletedAt()) {
+            return $allowedMethods;
+        }
+
+        if (null === $this->chargedSurchargeMatcher) {
+            return $this->onlyTheSelectedMethod($order, $allowedMethods) ?? $allowedMethods;
+        }
+
+        $matcher = $this->chargedSurchargeMatcher;
+        $keptMethods = [];
+
+        foreach ($allowedMethods as $config) {
+            try {
+                if ($matcher->matches($order, $config)) {
+                    $keptMethods[] = $config;
+                }
+            } catch (\InvalidArgumentException|UnknownPaymentSurchargeType $e) {
+                $this->loggerAction->addLog(sprintf(
+                    'Cannot compare the payment surcharge of method %s on order %s, so it was not offered: %s',
+                    (string) $config->getMethodId(),
+                    (string) $order->getNumber(),
+                    $e->getMessage(),
+                ));
+            }
+        }
+
+        if ([] === $keptMethods) {
+            $keptMethods = $this->onlyTheSelectedMethod($order, $allowedMethods) ?? [];
+
+            $this->loggerAction->addNegativeLog(sprintf(
+                'No Mollie method reproduces the %d surcharge charged on order %s, so %s was offered.',
+                $matcher->chargedSurcharge($order),
+                (string) $order->getNumber(),
+                [] === $keptMethods ? 'none' : 'only the method it already carries',
+            ));
+        }
+
+        return $keptMethods;
+    }
+
+    /**
+     * The surcharge on the order was produced by the method currently selected, so that one is the
+     * only method known to keep the total as it stands.
+     *
+     * @param MollieGatewayConfigInterface[] $allowedMethods
+     *
+     * @return MollieGatewayConfigInterface[]|null null when the order carries no method that is still offered
+     */
+    private function onlyTheSelectedMethod(OrderInterface $order, array $allowedMethods): ?array
+    {
+        $details = $order->getLastPayment()?->getDetails() ?? [];
+        $selected = $details['molliePaymentMethods'] ?? $details['metadata']['molliePaymentMethods'] ?? null;
+
+        if (null === $selected) {
+            return null;
+        }
+
+        $selectedOnly = array_values(array_filter(
+            $allowedMethods,
+            fn (MollieGatewayConfigInterface $config): bool => $config->getMethodId() === $selected,
+        ));
+
+        return [] === $selectedOnly ? null : $selectedOnly;
     }
 
     /**

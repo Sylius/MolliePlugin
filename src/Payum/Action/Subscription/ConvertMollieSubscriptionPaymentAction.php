@@ -32,6 +32,11 @@ use Sylius\MolliePlugin\Provider\PaymentDescriptionProviderInterface;
 use Sylius\MolliePlugin\Resolver\PaymentLocaleResolverInterface;
 use Webmozart\Assert\Assert;
 
+/**
+ * @deprecated since Mollie 3.3 and will be removed in 4.0.
+ *
+ * @see https://github.com/Sylius/MolliePlugin/blob/3.3/UPGRADE-3.3.md for migration details
+ */
 final class ConvertMollieSubscriptionPaymentAction extends BaseApiAwareAction implements GatewayAwareInterface
 {
     use GatewayAwareTrait;
@@ -73,7 +78,7 @@ final class ConvertMollieSubscriptionPaymentAction extends BaseApiAwareAction im
         $amount = $this->intToStringConverter->convertIntToString($payment->getAmount(), $divisor);
         $paymentOptions = $payment->getDetails();
 
-        $cartToken = $paymentOptions['cartToken'];
+        $cartToken = $paymentOptions['cartToken'] ?? null;
         $sequenceType = array_key_exists(
             'recurring',
             $paymentOptions,
@@ -112,6 +117,14 @@ final class ConvertMollieSubscriptionPaymentAction extends BaseApiAwareAction im
         $this->gateway->execute($mollieCustomer = new CreateCustomer($details));
         $model = $mollieCustomer->getModel();
         $details['customerId'] = $model['customer_mollie_id'];
+
+        // Payum re-runs Convert on every capture while the status is `new` and replaces the
+        // details with this result, so everything describing the tracked session has to survive it.
+        foreach (['payment_mollie_id', 'order_mollie_id', 'webhookUrl', 'backurl'] as $key) {
+            if (isset($paymentOptions[$key])) {
+                $details[$key] = $paymentOptions[$key];
+            }
+        }
 
         $request->setResult($details);
     }

@@ -14,22 +14,29 @@ declare(strict_types=1);
 namespace Sylius\MolliePlugin\Form\Extension;
 
 use Sylius\Bundle\CoreBundle\Form\Type\Checkout\PaymentType;
-use Sylius\MolliePlugin\Form\Type\PaymentMollieType;
+use Sylius\MolliePlugin\Form\EventSubscriber\ScopeMollieDetailsToMollieGatewaySubscriber;
+use Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryChecker;
+use Sylius\MolliePlugin\Payum\Checker\MollieGatewayFactoryCheckerInterface;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\Valid;
 
 final class PaymentTypeExtension extends AbstractTypeExtension
 {
+    private readonly MollieGatewayFactoryCheckerInterface $mollieGatewayFactoryChecker;
+
+    public function __construct(
+        ?MollieGatewayFactoryCheckerInterface $mollieGatewayFactoryChecker = null,
+    ) {
+        $this->mollieGatewayFactoryChecker = $mollieGatewayFactoryChecker ?? new MollieGatewayFactoryChecker();
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
-            ->add('details', PaymentMollieType::class, [
-                'validation_groups' => ['sylius'],
-                'constraints' => [
-                    new Valid(),
-                ],
-            ]);
+        $subscriber = new ScopeMollieDetailsToMollieGatewaySubscriber($this->mollieGatewayFactoryChecker);
+
+        $subscriber->addDetailsField($builder);
+
+        $builder->addEventSubscriber($subscriber);
     }
 
     public static function getExtendedTypes(): array

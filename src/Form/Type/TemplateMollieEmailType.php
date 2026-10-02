@@ -61,7 +61,7 @@ final class TemplateMollieEmailType extends AbstractType
         $resolver->setDefaults([
             'data_class' => TemplateMollieEmail::class,
             'constraints' => [
-                new UniqueEntity(['fields' => ['type']]),
+                new UniqueEntity(fields: ['type']),
             ],
         ]);
     }

@@ -12,6 +12,7 @@
         <field name="state" column="state" nullable="false" type="string"/>
         <field name="createdAt" column="created_at" nullable="false" type="datetime"/>
         <field name="startedAt" column="started_at" nullable="true" type="datetime"/>
+        <field name="migratedAt" column="migrated_at" nullable="true" type="datetime"/>
         <field name="recentFailedPaymentsCount" column="recent_failed_payments_count" nullable="false" type="integer">
             <options>
                 <option name="default">0</option>

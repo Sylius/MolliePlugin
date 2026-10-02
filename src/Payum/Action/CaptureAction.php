@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Sylius\MolliePlugin\Payum\Action;
 
+use Mollie\Api\Resources\Order as MollieOrder;
+use Mollie\Api\Resources\Payment as MolliePayment;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Exception\RuntimeException;
@@ -29,6 +31,7 @@ use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\PaymentRepositoryInterface;
 use Sylius\MolliePlugin\Entity\OrderInterface;
+use Sylius\MolliePlugin\Logger\MollieLoggerActionInterface;
 use Sylius\MolliePlugin\Model\ApiType;
 use Sylius\MolliePlugin\Model\ApiTypeRestrictedPaymentMethods;
 use Sylius\MolliePlugin\Payum\Request\CreateCustomer;
@@ -37,6 +40,8 @@ use Sylius\MolliePlugin\Payum\Request\CreatePayment;
 use Sylius\MolliePlugin\Payum\Request\Subscription\CreateInternalRecurring;
 use Sylius\MolliePlugin\Payum\Request\Subscription\CreateOnDemandSubscription;
 use Sylius\MolliePlugin\Payum\Request\Subscription\CreateOnDemandSubscriptionPayment;
+use Sylius\MolliePlugin\Payum\Resolver\ExistingMollieSessionDecision;
+use Sylius\MolliePlugin\Payum\Resolver\ExistingMollieSessionResolverInterface;
 use Sylius\MolliePlugin\Resolver\MollieApiClientKeyResolverInterface;
 
 final class CaptureAction extends BaseApiAwareAction implements GenericTokenFactoryAwareInterface, GatewayAwareInterface
@@ -55,6 +60,8 @@ final class CaptureAction extends BaseApiAwareAction implements GenericTokenFact
         private OrderRepositoryInterface $orderRepository,
         private MollieApiClientKeyResolverInterface $apiClientKeyResolver,
         private PaymentRepositoryInterface $paymentRepository,
+        private ExistingMollieSessionResolverInterface $existingSessionResolver,
+        private MollieLoggerActionInterface $loggerAction,
     ) {
     }
 
@@ -70,31 +77,23 @@ final class CaptureAction extends BaseApiAwareAction implements GenericTokenFact
 
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
-        if (true === isset($details['payment_mollie_id']) ||
-            true === isset($details['subscription_mollie_id']) ||
-            true === isset($details['order_mollie_id']) ||
-            $request->getFirstModel()->getOrder()->getQrCode() ||
+        if (true === isset($details['subscription_mollie_id'])) {
+            return;
+        }
+
+        if ($request->getFirstModel()->getOrder()->getQrCode() ||
             $request->getFirstModel()->getOrder()->getMolliePaymentId()) {
-            $qrCodeValue = $request->getFirstModel()->getOrder()->getQrCode();
-            $molliePaymentId = $request->getFirstModel()->getOrder()->getMolliePaymentId();
-            if ($qrCodeValue || $molliePaymentId) {
-                $this->setQrCodeOnOrder($request->getFirstModel()->getOrder());
-                $payment = $request->getFirstModel();
-
-                if ($payment->getState() === self::PAYMENT_FAILED_STATUS ||
-                    $payment->getState() === self::PAYMENT_CANCELLED_STATUS) {
-                    $this->paymentRepository->add($this->createNewPayment($payment));
-                }
-
-                $this->mollieApiClient->setApiKey($this->apiClientKeyResolver->getClientWithKey()->getApiKey());
-                $molliePayment = $this->mollieApiClient->payments->get($molliePaymentId);
-
-                if (null !== $checkoutUrl = $molliePayment->getCheckoutUrl()) {
-                    throw new HttpRedirect($checkoutUrl);
-                }
-            }
+            $this->handleQrCodeOrApplePay($request, $details);
 
             return;
+        }
+
+        if (isset($details['payment_mollie_id']) || isset($details['order_mollie_id'])) {
+            $handled = $this->handleExistingMolliePayment($request, $details);
+
+            if ($handled) {
+                return;
+            }
         }
 
         /** @var TokenInterface $token */
@@ -167,6 +166,110 @@ final class CaptureAction extends BaseApiAwareAction implements GenericTokenFact
         return
             $request instanceof Capture &&
             $request->getModel() instanceof \ArrayAccess;
+    }
+
+    /** @return bool true when the caller is done, false when it should create a new Mollie payment */
+    private function handleExistingMolliePayment(Capture $request, ArrayObject $details): bool
+    {
+        $paymentMollieId = $details['payment_mollie_id'] ?? null;
+        $orderMollieId = $details['order_mollie_id'] ?? null;
+
+        try {
+            $mollieResource = null !== $paymentMollieId
+                ? $this->mollieApiClient->payments->get($paymentMollieId)
+                : $this->mollieApiClient->orders->get($orderMollieId, ['embed' => 'payments']);
+        } catch (\Exception $e) {
+            $this->loggerAction->addNegativeLog(sprintf(
+                'Could not read the tracked Mollie session %s, leaving the payment to the status flow: %s',
+                $paymentMollieId ?? $orderMollieId,
+                $e->getMessage(),
+            ));
+
+            return true;
+        }
+
+        $decision = $this->existingSessionResolver->resolve($mollieResource, $details, $request->getToken());
+
+        if (ExistingMollieSessionDecision::LeaveToStatusFlow === $decision) {
+            return true;
+        }
+
+        if (ExistingMollieSessionDecision::Resume === $decision) {
+            $this->resumeMollieResource($request, $mollieResource);
+        }
+
+        if (true === ($mollieResource->isCancelable ?? false)) {
+            try {
+                $this->cancelMollieResource($mollieResource);
+            } catch (\Exception $e) {
+                $this->loggerAction->addNegativeLog(sprintf(
+                    'Could not cancel the superseded Mollie session %s, it stays payable until it expires: %s',
+                    $mollieResource->id,
+                    $e->getMessage(),
+                ));
+            }
+        }
+
+        return false;
+    }
+
+    private function resumeMollieResource(Capture $request, MollieOrder|MolliePayment $resource): void
+    {
+        $checkoutUrl = $resource->getCheckoutUrl();
+        $token = $request->getToken();
+
+        if (null === $checkoutUrl || null === $token) {
+            return;
+        }
+
+        try {
+            $payload = ['redirectUrl' => $token->getTargetUrl()];
+
+            if ($resource instanceof MollieOrder) {
+                $this->mollieApiClient->orders->update($resource->id, $payload);
+            } else {
+                $this->mollieApiClient->payments->update($resource->id, $payload);
+            }
+        } catch (\Exception) {
+        }
+
+        throw new HttpRedirect($checkoutUrl);
+    }
+
+    private function cancelMollieResource(MollieOrder|MolliePayment $resource): void
+    {
+        if ($resource instanceof MollieOrder) {
+            $resource->cancel();
+
+            return;
+        }
+
+        $this->mollieApiClient->payments->cancel($resource->id);
+    }
+
+    private function handleQrCodeOrApplePay(Capture $request, ArrayObject $details): void
+    {
+        $qrCodeValue = $request->getFirstModel()->getOrder()->getQrCode();
+        $molliePaymentId = $request->getFirstModel()->getOrder()->getMolliePaymentId();
+
+        if (!$qrCodeValue && !$molliePaymentId) {
+            return;
+        }
+
+        $this->setQrCodeOnOrder($request->getFirstModel()->getOrder());
+        $payment = $request->getFirstModel();
+
+        if ($payment->getState() === self::PAYMENT_FAILED_STATUS ||
+            $payment->getState() === self::PAYMENT_CANCELLED_STATUS) {
+            $this->paymentRepository->add($this->createNewPayment($payment));
+        }
+
+        $this->mollieApiClient->setApiKey($this->apiClientKeyResolver->getClientWithKey()->getApiKey());
+        $molliePayment = $this->mollieApiClient->payments->get($molliePaymentId);
+
+        if (null !== $checkoutUrl = $molliePayment->getCheckoutUrl()) {
+            throw new HttpRedirect($checkoutUrl);
+        }
     }
 
     private function createNewPayment(PaymentInterface $payment): PaymentInterface
