@@ -18,6 +18,7 @@ use Mollie\Api\Types\OrderStatus;
 use Mollie\Api\Types\PaymentStatus;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Security\TokenInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Sylius\MolliePlugin\Payum\Resolver\ExistingMollieSessionDecision;
 use Sylius\MolliePlugin\Payum\Resolver\ExistingMollieSessionResolver;
@@ -33,7 +34,7 @@ final class ExistingMollieSessionResolverTest extends TestCase
         $this->resolver = new ExistingMollieSessionResolver();
     }
 
-    /** @dataProvider nonOpenStatuses */
+    #[DataProvider('nonOpenStatuses')]
     public function testItLeavesAnythingThatIsNotOpenToTheStatusFlow(string $status): void
     {
         self::assertSame(

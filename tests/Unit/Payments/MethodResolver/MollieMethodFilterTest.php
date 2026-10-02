@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\MolliePlugin\Unit\Payments\MethodResolver;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\MolliePlugin\Entity\GatewayConfigInterface;
@@ -99,7 +100,7 @@ final class MollieMethodFilterTest extends TestCase
         $this->assertSame([$method2Mock], $filteredMethods);
     }
 
-    /** @dataProvider nonSubscriptionFactoryNameProvider */
+    #[DataProvider('nonSubscriptionFactoryNameProvider')]
     public function testRemovesNonSubscriptionMethodsFromRecurringMethods(string $factoryName): void
     {
         $methodMock = $this->createMock(PaymentMethodInterface::class);
