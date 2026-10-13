@@ -216,15 +216,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function isOrderSummaryPage() {
-        let currentURL = window.location.href;
-        let parts = currentURL.split('/');
+        let parts = window.location.pathname.split('/');
 
         return !!(parts[parts.length - 2] && parts[parts.length - 2] === 'order');
     }
 
     function extractOrderToken() {
-        let currentURL = window.location.href;
-        let parts = currentURL.split('/');
+        let parts = window.location.pathname.split('/');
         let orderToken = '';
 
         if (parts[parts.length - 2] && parts[parts.length - 2] === 'order') {

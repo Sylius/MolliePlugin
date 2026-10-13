@@ -107,6 +107,9 @@ final class QrCodeAction
             /** @var OrderInterface|null $order */
             $order = $this->orderRepository->findOneByTokenValue($orderToken);
         }
+        if (null === $order) {
+            return new JsonResponse([], Response::HTTP_NOT_FOUND);
+        }
         $this->setQrCodeOnOrder($order, null, $shouldDeletePaymentId);
 
         return new JsonResponse(['status' => Response::HTTP_OK]);
