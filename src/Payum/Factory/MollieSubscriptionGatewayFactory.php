@@ -32,7 +32,6 @@ final class MollieSubscriptionGatewayFactory extends GatewayFactory
         $config->defaults([
             'payum.factory_name' => self::FACTORY_NAME,
             'payum.factory_title' => 'Mollie subscription',
-            'payum.http_client' => '@sylius_mollie.client.mollie_api',
         ]);
 
         if (false === (bool) $config['payum.api']) {

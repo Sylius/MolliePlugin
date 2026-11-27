@@ -93,7 +93,6 @@ final class MollieContext implements Context
         Assert::notNull($gatewayConfig);
         $gatewayConfig->setConfig([
             'api_key' => 'test',
-            'payum.http_client' => '@sylius_mollie.client.mollie_api',
             'api_key_test' => $this->mollieApiKeyTest,
             'profile_id' => $this->mollieProfileId,
             'environment' => null,
@@ -136,7 +135,6 @@ final class MollieContext implements Context
         Assert::notNull($gatewayConfig);
         $gatewayConfig->setConfig([
             'api_key' => 'test',
-            'payum.http_client' => '@sylius_mollie.client.mollie_api',
             'api_key_test' => $this->mollieApiKeyTest,
             'profile_id' => $this->mollieProfileId,
             'environment' => null,

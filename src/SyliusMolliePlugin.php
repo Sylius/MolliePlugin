@@ -15,6 +15,7 @@ namespace Sylius\MolliePlugin;
 
 use Composer\InstalledVersions;
 use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
+use Sylius\MolliePlugin\DependencyInjection\InjectMollieApiClientPass;
 use Sylius\MolliePlugin\DependencyInjection\SyliusMessageBusPolyfillPass;
 use Sylius\Telemetry\TelemetryCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -41,6 +42,7 @@ final class SyliusMolliePlugin extends Bundle
         parent::build($container);
 
         $container->addCompilerPass(new SyliusMessageBusPolyfillPass());
+        $container->addCompilerPass(new InjectMollieApiClientPass());
         $container->addCompilerPass(new TelemetryCompilerPass());
     }
 
