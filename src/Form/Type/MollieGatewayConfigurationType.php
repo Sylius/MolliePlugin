@@ -119,7 +119,7 @@ final class MollieGatewayConfigurationType extends AbstractType
             ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
                 $data = $event->getData();
 
-                $data['payum.http_client'] = '@sylius_mollie.client.mollie_api';
+                unset($data['payum.http_client']);
 
                 $event->setData($data);
             })
